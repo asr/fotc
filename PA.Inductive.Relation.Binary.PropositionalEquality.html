@@ -1,0 +1,892 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Inductive.Relation.Binary.PropositionalEquality</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Propositional equality on inductive PA</a
+      ><a name="121"
+      >
+</a
+      ><a name="122" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="200"
+      >
+
+</a
+      ><a name="202" class="Symbol"
+      >{-#</a
+      ><a name="205"
+      > </a
+      ><a name="206" class="Keyword"
+      >OPTIONS</a
+      ><a name="213"
+      > --exact-split              </a
+      ><a name="241" class="Symbol"
+      >#-}</a
+      ><a name="244"
+      >
+</a
+      ><a name="245" class="Symbol"
+      >{-#</a
+      ><a name="248"
+      > </a
+      ><a name="249" class="Keyword"
+      >OPTIONS</a
+      ><a name="256"
+      > --no-sized-types           </a
+      ><a name="284" class="Symbol"
+      >#-}</a
+      ><a name="287"
+      >
+</a
+      ><a name="288" class="Symbol"
+      >{-#</a
+      ><a name="291"
+      > </a
+      ><a name="292" class="Keyword"
+      >OPTIONS</a
+      ><a name="299"
+      > --no-universe-polymorphism </a
+      ><a name="327" class="Symbol"
+      >#-}</a
+      ><a name="330"
+      >
+</a
+      ><a name="331" class="Symbol"
+      >{-#</a
+      ><a name="334"
+      > </a
+      ><a name="335" class="Keyword"
+      >OPTIONS</a
+      ><a name="342"
+      > --without-K                </a
+      ><a name="370" class="Symbol"
+      >#-}</a
+      ><a name="373"
+      >
+
+</a
+      ><a name="375" class="Comment"
+      >-- This file contains some definitions which are reexported by</a
+      ><a name="437"
+      >
+</a
+      ><a name="438" class="Comment"
+      >-- PA.Inductive.Base.</a
+      ><a name="459"
+      >
+
+</a
+      ><a name="461" class="Keyword"
+      >module</a
+      ><a name="467"
+      > </a
+      ><a name="468" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1" class="Module"
+      >PA.Inductive.Relation.Binary.PropositionalEquality</a
+      ><a name="518"
+      > </a
+      ><a name="519" class="Keyword"
+      >where</a
+      ><a name="524"
+      >
+
+</a
+      ><a name="526" class="Keyword"
+      >open</a
+      ><a name="530"
+      > </a
+      ><a name="531" class="Keyword"
+      >import</a
+      ><a name="537"
+      > </a
+      ><a name="538" href="Common.FOL.FOL.html#1" class="Module"
+      >Common.FOL.FOL</a
+      ><a name="552"
+      > </a
+      ><a name="553" class="Keyword"
+      >using</a
+      ><a name="558"
+      > </a
+      ><a name="559" class="Symbol"
+      >(</a
+      ><a name="560"
+      > &#172;_ </a
+      ><a name="564" class="Symbol"
+      >)</a
+      ><a name="565"
+      >
+</a
+      ><a name="566" class="Keyword"
+      >open</a
+      ><a name="570"
+      > </a
+      ><a name="571" class="Keyword"
+      >import</a
+      ><a name="577"
+      > </a
+      ><a name="578" href="PA.Inductive.Base.Core.html#1" class="Module"
+      >PA.Inductive.Base.Core</a
+      ><a name="600"
+      >
+
+</a
+      ><a name="602" class="Keyword"
+      >infix</a
+      ><a name="607"
+      > </a
+      ><a name="608" class="Number"
+      >4</a
+      ><a name="609"
+      > _&#8801;_ _&#8802;_
+
+</a
+      ><a name="619" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="697"
+      >
+</a
+      ><a name="698" class="Comment"
+      >-- The identity type on PA.</a
+      ><a name="725"
+      >
+</a
+      ><a name="726" class="Keyword"
+      >data</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >_&#8801;_</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Symbol"
+      >(</a
+      ><a name="736" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#736" class="Bound"
+      >x</a
+      ><a name="737"
+      > </a
+      ><a name="738" class="Symbol"
+      >:</a
+      ><a name="739"
+      > </a
+      ><a name="740" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="741" class="Symbol"
+      >)</a
+      ><a name="742"
+      > </a
+      ><a name="743" class="Symbol"
+      >:</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="746"
+      > </a
+      ><a name="747" class="Symbol"
+      >&#8594;</a
+      ><a name="748"
+      > </a
+      ><a name="749" class="PrimitiveType"
+      >Set</a
+      ><a name="752"
+      > </a
+      ><a name="753" class="Keyword"
+      >where</a
+      ><a name="758"
+      >
+  </a
+      ><a name="761" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="765"
+      > </a
+      ><a name="766" class="Symbol"
+      >:</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#736" class="Bound"
+      >x</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#736" class="Bound"
+      >x</a
+      ><a name="773"
+      >
+
+</a
+      ><a name="775" class="Comment"
+      >-- Inequality.</a
+      ><a name="789"
+      >
+</a
+      ><a name="790" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#790" class="Function Operator"
+      >_&#8802;_</a
+      ><a name="793"
+      > </a
+      ><a name="794" class="Symbol"
+      >:</a
+      ><a name="795"
+      > </a
+      ><a name="796" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="797"
+      > </a
+      ><a name="798" class="Symbol"
+      >&#8594;</a
+      ><a name="799"
+      > </a
+      ><a name="800" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="801"
+      > </a
+      ><a name="802" class="Symbol"
+      >&#8594;</a
+      ><a name="803"
+      > </a
+      ><a name="804" class="PrimitiveType"
+      >Set</a
+      ><a name="807"
+      >
+</a
+      ><a name="808" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#808" class="Bound"
+      >x</a
+      ><a name="809"
+      > </a
+      ><a name="810" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#790" class="Function Operator"
+      >&#8802;</a
+      ><a name="811"
+      > </a
+      ><a name="812" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#812" class="Bound"
+      >y</a
+      ><a name="813"
+      > </a
+      ><a name="814" class="Symbol"
+      >=</a
+      ><a name="815"
+      > </a
+      ><a name="816" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="817"
+      > </a
+      ><a name="818" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#808" class="Bound"
+      >x</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#812" class="Bound"
+      >y</a
+      ><a name="823"
+      >
+</a
+      ><a name="824" class="Symbol"
+      >{-#</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Keyword"
+      >ATP</a
+      ><a name="831"
+      > definitions </a
+      ><a name="844" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#790" class="Function Operator"
+      >_&#8802;_</a
+      ><a name="847"
+      > </a
+      ><a name="848" class="Symbol"
+      >#-}</a
+      ><a name="851"
+      >
+
+</a
+      ><a name="853" class="Comment"
+      >-- Identity properties</a
+      ><a name="875"
+      >
+
+</a
+      ><a name="877" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >sym</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Symbol"
+      >:</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Symbol"
+      >&#8704;</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="Symbol"
+      >{</a
+      ><a name="886" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#886" class="Bound"
+      >x</a
+      ><a name="887"
+      > </a
+      ><a name="888" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#888" class="Bound"
+      >y</a
+      ><a name="889" class="Symbol"
+      >}</a
+      ><a name="890"
+      > </a
+      ><a name="891" class="Symbol"
+      >&#8594;</a
+      ><a name="892"
+      > </a
+      ><a name="893" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#886" class="Bound"
+      >x</a
+      ><a name="894"
+      > </a
+      ><a name="895" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="896"
+      > </a
+      ><a name="897" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#888" class="Bound"
+      >y</a
+      ><a name="898"
+      > </a
+      ><a name="899" class="Symbol"
+      >&#8594;</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#888" class="Bound"
+      >y</a
+      ><a name="902"
+      > </a
+      ><a name="903" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#886" class="Bound"
+      >x</a
+      ><a name="906"
+      >
+</a
+      ><a name="907" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >sym</a
+      ><a name="910"
+      > </a
+      ><a name="911" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="915"
+      > </a
+      ><a name="916" class="Symbol"
+      >=</a
+      ><a name="917"
+      > </a
+      ><a name="918" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="922"
+      >
+
+</a
+      ><a name="924" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#924" class="Function"
+      >trans</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >:</a
+      ><a name="931"
+      > </a
+      ><a name="932" class="Symbol"
+      >&#8704;</a
+      ><a name="933"
+      > </a
+      ><a name="934" class="Symbol"
+      >{</a
+      ><a name="935" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#935" class="Bound"
+      >x</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#937" class="Bound"
+      >y</a
+      ><a name="938"
+      > </a
+      ><a name="939" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#939" class="Bound"
+      >z</a
+      ><a name="940" class="Symbol"
+      >}</a
+      ><a name="941"
+      > </a
+      ><a name="942" class="Symbol"
+      >&#8594;</a
+      ><a name="943"
+      > </a
+      ><a name="944" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#935" class="Bound"
+      >x</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#937" class="Bound"
+      >y</a
+      ><a name="949"
+      > </a
+      ><a name="950" class="Symbol"
+      >&#8594;</a
+      ><a name="951"
+      > </a
+      ><a name="952" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#937" class="Bound"
+      >y</a
+      ><a name="953"
+      > </a
+      ><a name="954" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#939" class="Bound"
+      >z</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Symbol"
+      >&#8594;</a
+      ><a name="959"
+      > </a
+      ><a name="960" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#935" class="Bound"
+      >x</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="963"
+      > </a
+      ><a name="964" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#939" class="Bound"
+      >z</a
+      ><a name="965"
+      >
+</a
+      ><a name="966" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#924" class="Function"
+      >trans</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#977" class="Bound"
+      >h</a
+      ><a name="978"
+      > </a
+      ><a name="979" class="Symbol"
+      >=</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#977" class="Bound"
+      >h</a
+      ><a name="982"
+      >
+
+</a
+      ><a name="984" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#984" class="Function"
+      >subst</a
+      ><a name="989"
+      > </a
+      ><a name="990" class="Symbol"
+      >:</a
+      ><a name="991"
+      > </a
+      ><a name="992" class="Symbol"
+      >(</a
+      ><a name="993" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#993" class="Bound"
+      >A</a
+      ><a name="994"
+      > </a
+      ><a name="995" class="Symbol"
+      >:</a
+      ><a name="996"
+      > </a
+      ><a name="997" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="998"
+      > </a
+      ><a name="999" class="Symbol"
+      >&#8594;</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" class="PrimitiveType"
+      >Set</a
+      ><a name="1004" class="Symbol"
+      >)</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" class="Symbol"
+      >&#8594;</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" class="Symbol"
+      >&#8704;</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" class="Symbol"
+      >{</a
+      ><a name="1011" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1011" class="Bound"
+      >x</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1013" class="Bound"
+      >y</a
+      ><a name="1014" class="Symbol"
+      >}</a
+      ><a name="1015"
+      > </a
+      ><a name="1016" class="Symbol"
+      >&#8594;</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1011" class="Bound"
+      >x</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1013" class="Bound"
+      >y</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" class="Symbol"
+      >&#8594;</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#993" class="Bound"
+      >A</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1011" class="Bound"
+      >x</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" class="Symbol"
+      >&#8594;</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#993" class="Bound"
+      >A</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1013" class="Bound"
+      >y</a
+      ><a name="1035"
+      >
+</a
+      ><a name="1036" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#984" class="Function"
+      >subst</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1042" class="Bound"
+      >A</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1049" class="Bound"
+      >Ax</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >=</a
+      ><a name="1053"
+      > </a
+      ><a name="1054" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1049" class="Bound"
+      >Ax</a
+      ><a name="1056"
+      >
+
+</a
+      ><a name="1058" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1058" class="Function"
+      >cong</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" class="Symbol"
+      >:</a
+      ><a name="1064"
+      > </a
+      ><a name="1065" class="Symbol"
+      >(</a
+      ><a name="1066" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1066" class="Bound"
+      >f</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" class="Symbol"
+      >:</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" class="Symbol"
+      >&#8594;</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1075" class="Symbol"
+      >)</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" class="Symbol"
+      >&#8594;</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" class="Symbol"
+      >&#8704;</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" class="Symbol"
+      >{</a
+      ><a name="1082" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1082" class="Bound"
+      >x</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1084" class="Bound"
+      >y</a
+      ><a name="1085" class="Symbol"
+      >}</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" class="Symbol"
+      >&#8594;</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1082" class="Bound"
+      >x</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1084" class="Bound"
+      >y</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" class="Symbol"
+      >&#8594;</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1066" class="Bound"
+      >f</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1082" class="Bound"
+      >x</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1066" class="Bound"
+      >f</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1084" class="Bound"
+      >y</a
+      ><a name="1106"
+      >
+</a
+      ><a name="1107" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1058" class="Function"
+      >cong</a
+      ><a name="1111"
+      > </a
+      ><a name="1112" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1112" class="Bound"
+      >f</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1118"
+      > </a
+      ><a name="1119" class="Symbol"
+      >=</a
+      ><a name="1120"
+      > </a
+      ><a name="1121" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1125"
+      >
+
+</a
+      ><a name="1127" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1127" class="Function"
+      >cong&#8322;</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >:</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" class="Symbol"
+      >(</a
+      ><a name="1136" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1136" class="Bound"
+      >f</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" class="Symbol"
+      >:</a
+      ><a name="1139"
+      > </a
+      ><a name="1140" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1141"
+      > </a
+      ><a name="1142" class="Symbol"
+      >&#8594;</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >&#8594;</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1149" class="Symbol"
+      >)</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="Symbol"
+      >&#8594;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" class="Symbol"
+      >&#8704;</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" class="Symbol"
+      >{</a
+      ><a name="1156" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1156" class="Bound"
+      >x</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1158" class="Bound"
+      >x'</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1161" class="Bound"
+      >y</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1163" class="Bound"
+      >y'</a
+      ><a name="1165" class="Symbol"
+      >}</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" class="Symbol"
+      >&#8594;</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1156" class="Bound"
+      >x</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1161" class="Bound"
+      >y</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" class="Symbol"
+      >&#8594;</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1158" class="Bound"
+      >x'</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1163" class="Bound"
+      >y'</a
+      ><a name="1184"
+      > </a
+      ><a name="1185" class="Symbol"
+      >&#8594;</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1136" class="Bound"
+      >f</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1156" class="Bound"
+      >x</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1158" class="Bound"
+      >x'</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1136" class="Bound"
+      >f</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1161" class="Bound"
+      >y</a
+      ><a name="1199"
+      > </a
+      ><a name="1200" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1163" class="Bound"
+      >y'</a
+      ><a name="1202"
+      >
+</a
+      ><a name="1203" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1127" class="Function"
+      >cong&#8322;</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1209" class="Bound"
+      >f</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" class="Symbol"
+      >=</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1227"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

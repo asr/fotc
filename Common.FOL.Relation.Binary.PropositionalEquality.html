@@ -1,0 +1,1273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Common.FOL.Relation.Binary.PropositionalEquality</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Propositional equality</a
+      ><a name="105"
+      >
+</a
+      ><a name="106" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="184"
+      >
+
+</a
+      ><a name="186" class="Symbol"
+      >{-#</a
+      ><a name="189"
+      > </a
+      ><a name="190" class="Keyword"
+      >OPTIONS</a
+      ><a name="197"
+      > --exact-split              </a
+      ><a name="225" class="Symbol"
+      >#-}</a
+      ><a name="228"
+      >
+</a
+      ><a name="229" class="Symbol"
+      >{-#</a
+      ><a name="232"
+      > </a
+      ><a name="233" class="Keyword"
+      >OPTIONS</a
+      ><a name="240"
+      > --no-sized-types           </a
+      ><a name="268" class="Symbol"
+      >#-}</a
+      ><a name="271"
+      >
+</a
+      ><a name="272" class="Symbol"
+      >{-#</a
+      ><a name="275"
+      > </a
+      ><a name="276" class="Keyword"
+      >OPTIONS</a
+      ><a name="283"
+      > --no-universe-polymorphism </a
+      ><a name="311" class="Symbol"
+      >#-}</a
+      ><a name="314"
+      >
+</a
+      ><a name="315" class="Symbol"
+      >{-#</a
+      ><a name="318"
+      > </a
+      ><a name="319" class="Keyword"
+      >OPTIONS</a
+      ><a name="326"
+      > --without-K                </a
+      ><a name="354" class="Symbol"
+      >#-}</a
+      ><a name="357"
+      >
+
+</a
+      ><a name="359" class="Comment"
+      >-- This module is re-exported by (some) &quot;base&quot; modules.</a
+      ><a name="414"
+      >
+
+</a
+      ><a name="416" class="Keyword"
+      >module</a
+      ><a name="422"
+      > </a
+      ><a name="423" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1" class="Module"
+      >Common.FOL.Relation.Binary.PropositionalEquality</a
+      ><a name="471"
+      > </a
+      ><a name="472" class="Keyword"
+      >where</a
+      ><a name="477"
+      >
+
+</a
+      ><a name="479" class="Keyword"
+      >open</a
+      ><a name="483"
+      > </a
+      ><a name="484" class="Keyword"
+      >import</a
+      ><a name="490"
+      > </a
+      ><a name="491" href="Common.FOL.FOL.html#1" class="Module"
+      >Common.FOL.FOL</a
+      ><a name="505"
+      > </a
+      ><a name="506" class="Keyword"
+      >using</a
+      ><a name="511"
+      > </a
+      ><a name="512" class="Symbol"
+      >(</a
+      ><a name="513"
+      > D </a
+      ><a name="516" class="Symbol"
+      >)</a
+      ><a name="517"
+      >
+
+</a
+      ><a name="519" class="Keyword"
+      >infix</a
+      ><a name="524"
+      > </a
+      ><a name="525" class="Number"
+      >4</a
+      ><a name="526"
+      > _&#8801;_
+
+</a
+      ><a name="532" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="610"
+      >
+</a
+      ><a name="611" class="Comment"
+      >-- The identity type on the universe of discourse.</a
+      ><a name="661"
+      >
+</a
+      ><a name="662" class="Keyword"
+      >data</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >_&#8801;_</a
+      ><a name="670"
+      > </a
+      ><a name="671" class="Symbol"
+      >(</a
+      ><a name="672" href="Common.FOL.Relation.Binary.PropositionalEquality.html#672" class="Bound"
+      >x</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="Symbol"
+      >:</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="677" class="Symbol"
+      >)</a
+      ><a name="678"
+      > </a
+      ><a name="679" class="Symbol"
+      >:</a
+      ><a name="680"
+      > </a
+      ><a name="681" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="682"
+      > </a
+      ><a name="683" class="Symbol"
+      >&#8594;</a
+      ><a name="684"
+      > </a
+      ><a name="685" class="PrimitiveType"
+      >Set</a
+      ><a name="688"
+      > </a
+      ><a name="689" class="Keyword"
+      >where</a
+      ><a name="694"
+      >
+  </a
+      ><a name="697" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="701"
+      > </a
+      ><a name="702" class="Symbol"
+      >:</a
+      ><a name="703"
+      > </a
+      ><a name="704" href="Common.FOL.Relation.Binary.PropositionalEquality.html#672" class="Bound"
+      >x</a
+      ><a name="705"
+      > </a
+      ><a name="706" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="707"
+      > </a
+      ><a name="708" href="Common.FOL.Relation.Binary.PropositionalEquality.html#672" class="Bound"
+      >x</a
+      ><a name="709"
+      >
+
+</a
+      ><a name="711" class="Comment"
+      >-- Elimination rule.</a
+      ><a name="731"
+      >
+</a
+      ><a name="732" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="737"
+      > </a
+      ><a name="738" class="Symbol"
+      >:</a
+      ><a name="739"
+      > </a
+      ><a name="740" class="Symbol"
+      >(</a
+      ><a name="741" href="Common.FOL.Relation.Binary.PropositionalEquality.html#741" class="Bound"
+      >A</a
+      ><a name="742"
+      > </a
+      ><a name="743" class="Symbol"
+      >:</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="746"
+      > </a
+      ><a name="747" class="Symbol"
+      >&#8594;</a
+      ><a name="748"
+      > </a
+      ><a name="749" class="PrimitiveType"
+      >Set</a
+      ><a name="752" class="Symbol"
+      >)</a
+      ><a name="753"
+      > </a
+      ><a name="754" class="Symbol"
+      >&#8594;</a
+      ><a name="755"
+      > </a
+      ><a name="756" class="Symbol"
+      >&#8704;</a
+      ><a name="757"
+      > </a
+      ><a name="758" class="Symbol"
+      >{</a
+      ><a name="759" href="Common.FOL.Relation.Binary.PropositionalEquality.html#759" class="Bound"
+      >x</a
+      ><a name="760"
+      > </a
+      ><a name="761" href="Common.FOL.Relation.Binary.PropositionalEquality.html#761" class="Bound"
+      >y</a
+      ><a name="762" class="Symbol"
+      >}</a
+      ><a name="763"
+      > </a
+      ><a name="764" class="Symbol"
+      >&#8594;</a
+      ><a name="765"
+      > </a
+      ><a name="766" href="Common.FOL.Relation.Binary.PropositionalEquality.html#759" class="Bound"
+      >x</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="Common.FOL.Relation.Binary.PropositionalEquality.html#761" class="Bound"
+      >y</a
+      ><a name="771"
+      > </a
+      ><a name="772" class="Symbol"
+      >&#8594;</a
+      ><a name="773"
+      > </a
+      ><a name="774" href="Common.FOL.Relation.Binary.PropositionalEquality.html#741" class="Bound"
+      >A</a
+      ><a name="775"
+      > </a
+      ><a name="776" href="Common.FOL.Relation.Binary.PropositionalEquality.html#759" class="Bound"
+      >x</a
+      ><a name="777"
+      > </a
+      ><a name="778" class="Symbol"
+      >&#8594;</a
+      ><a name="779"
+      > </a
+      ><a name="780" href="Common.FOL.Relation.Binary.PropositionalEquality.html#741" class="Bound"
+      >A</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="Common.FOL.Relation.Binary.PropositionalEquality.html#761" class="Bound"
+      >y</a
+      ><a name="783"
+      >
+</a
+      ><a name="784" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="Common.FOL.Relation.Binary.PropositionalEquality.html#790" class="Bound"
+      >A</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="Common.FOL.Relation.Binary.PropositionalEquality.html#797" class="Bound"
+      >Ax</a
+      ><a name="799"
+      > </a
+      ><a name="800" class="Symbol"
+      >=</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="Common.FOL.Relation.Binary.PropositionalEquality.html#797" class="Bound"
+      >Ax</a
+      ><a name="804"
+      >
+
+</a
+      ><a name="806" class="Comment"
+      >-- Identity properties</a
+      ><a name="828"
+      >
+
+</a
+      ><a name="830" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="833"
+      > </a
+      ><a name="834" class="Symbol"
+      >:</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Symbol"
+      >&#8704;</a
+      ><a name="837"
+      > </a
+      ><a name="838" class="Symbol"
+      >{</a
+      ><a name="839" href="Common.FOL.Relation.Binary.PropositionalEquality.html#839" class="Bound"
+      >x</a
+      ><a name="840"
+      > </a
+      ><a name="841" href="Common.FOL.Relation.Binary.PropositionalEquality.html#841" class="Bound"
+      >y</a
+      ><a name="842" class="Symbol"
+      >}</a
+      ><a name="843"
+      > </a
+      ><a name="844" class="Symbol"
+      >&#8594;</a
+      ><a name="845"
+      > </a
+      ><a name="846" href="Common.FOL.Relation.Binary.PropositionalEquality.html#839" class="Bound"
+      >x</a
+      ><a name="847"
+      > </a
+      ><a name="848" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="Common.FOL.Relation.Binary.PropositionalEquality.html#841" class="Bound"
+      >y</a
+      ><a name="851"
+      > </a
+      ><a name="852" class="Symbol"
+      >&#8594;</a
+      ><a name="853"
+      > </a
+      ><a name="854" href="Common.FOL.Relation.Binary.PropositionalEquality.html#841" class="Bound"
+      >y</a
+      ><a name="855"
+      > </a
+      ><a name="856" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="857"
+      > </a
+      ><a name="858" href="Common.FOL.Relation.Binary.PropositionalEquality.html#839" class="Bound"
+      >x</a
+      ><a name="859"
+      >
+</a
+      ><a name="860" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="863"
+      > </a
+      ><a name="864" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="868"
+      > </a
+      ><a name="869" class="Symbol"
+      >=</a
+      ><a name="870"
+      > </a
+      ><a name="871" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="875"
+      >
+
+</a
+      ><a name="877" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Symbol"
+      >:</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="Symbol"
+      >&#8704;</a
+      ><a name="886"
+      > </a
+      ><a name="887" class="Symbol"
+      >{</a
+      ><a name="888" href="Common.FOL.Relation.Binary.PropositionalEquality.html#888" class="Bound"
+      >x</a
+      ><a name="889"
+      > </a
+      ><a name="890" href="Common.FOL.Relation.Binary.PropositionalEquality.html#890" class="Bound"
+      >y</a
+      ><a name="891"
+      > </a
+      ><a name="892" href="Common.FOL.Relation.Binary.PropositionalEquality.html#892" class="Bound"
+      >z</a
+      ><a name="893" class="Symbol"
+      >}</a
+      ><a name="894"
+      > </a
+      ><a name="895" class="Symbol"
+      >&#8594;</a
+      ><a name="896"
+      > </a
+      ><a name="897" href="Common.FOL.Relation.Binary.PropositionalEquality.html#888" class="Bound"
+      >x</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="Common.FOL.Relation.Binary.PropositionalEquality.html#890" class="Bound"
+      >y</a
+      ><a name="902"
+      > </a
+      ><a name="903" class="Symbol"
+      >&#8594;</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="Common.FOL.Relation.Binary.PropositionalEquality.html#890" class="Bound"
+      >y</a
+      ><a name="906"
+      > </a
+      ><a name="907" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="908"
+      > </a
+      ><a name="909" href="Common.FOL.Relation.Binary.PropositionalEquality.html#892" class="Bound"
+      >z</a
+      ><a name="910"
+      > </a
+      ><a name="911" class="Symbol"
+      >&#8594;</a
+      ><a name="912"
+      > </a
+      ><a name="913" href="Common.FOL.Relation.Binary.PropositionalEquality.html#888" class="Bound"
+      >x</a
+      ><a name="914"
+      > </a
+      ><a name="915" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="916"
+      > </a
+      ><a name="917" href="Common.FOL.Relation.Binary.PropositionalEquality.html#892" class="Bound"
+      >z</a
+      ><a name="918"
+      >
+</a
+      ><a name="919" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="924"
+      > </a
+      ><a name="925" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="929"
+      > </a
+      ><a name="930" href="Common.FOL.Relation.Binary.PropositionalEquality.html#930" class="Bound"
+      >h</a
+      ><a name="931"
+      > </a
+      ><a name="932" class="Symbol"
+      >=</a
+      ><a name="933"
+      > </a
+      ><a name="934" href="Common.FOL.Relation.Binary.PropositionalEquality.html#930" class="Bound"
+      >h</a
+      ><a name="935"
+      >
+
+</a
+      ><a name="937" href="Common.FOL.Relation.Binary.PropositionalEquality.html#937" class="Function"
+      >trans&#8322;</a
+      ><a name="943"
+      > </a
+      ><a name="944" class="Symbol"
+      >:</a
+      ><a name="945"
+      > </a
+      ><a name="946" class="Symbol"
+      >&#8704;</a
+      ><a name="947"
+      > </a
+      ><a name="948" class="Symbol"
+      >{</a
+      ><a name="949" href="Common.FOL.Relation.Binary.PropositionalEquality.html#949" class="Bound"
+      >w</a
+      ><a name="950"
+      > </a
+      ><a name="951" href="Common.FOL.Relation.Binary.PropositionalEquality.html#951" class="Bound"
+      >x</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="Common.FOL.Relation.Binary.PropositionalEquality.html#953" class="Bound"
+      >y</a
+      ><a name="954"
+      > </a
+      ><a name="955" href="Common.FOL.Relation.Binary.PropositionalEquality.html#955" class="Bound"
+      >z</a
+      ><a name="956" class="Symbol"
+      >}</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Symbol"
+      >&#8594;</a
+      ><a name="959"
+      > </a
+      ><a name="960" href="Common.FOL.Relation.Binary.PropositionalEquality.html#949" class="Bound"
+      >w</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="963"
+      > </a
+      ><a name="964" href="Common.FOL.Relation.Binary.PropositionalEquality.html#951" class="Bound"
+      >x</a
+      ><a name="965"
+      > </a
+      ><a name="966" class="Symbol"
+      >&#8594;</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="Common.FOL.Relation.Binary.PropositionalEquality.html#951" class="Bound"
+      >x</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="Common.FOL.Relation.Binary.PropositionalEquality.html#953" class="Bound"
+      >y</a
+      ><a name="973"
+      > </a
+      ><a name="974" class="Symbol"
+      >&#8594;</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="Common.FOL.Relation.Binary.PropositionalEquality.html#953" class="Bound"
+      >y</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="Common.FOL.Relation.Binary.PropositionalEquality.html#955" class="Bound"
+      >z</a
+      ><a name="981"
+      > </a
+      ><a name="982" class="Symbol"
+      >&#8594;</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="Common.FOL.Relation.Binary.PropositionalEquality.html#949" class="Bound"
+      >w</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="Common.FOL.Relation.Binary.PropositionalEquality.html#955" class="Bound"
+      >z</a
+      ><a name="989"
+      >
+</a
+      ><a name="990" href="Common.FOL.Relation.Binary.PropositionalEquality.html#937" class="Function"
+      >trans&#8322;</a
+      ><a name="996"
+      > </a
+      ><a name="997" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1007" class="Bound"
+      >h</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" class="Symbol"
+      >=</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1007" class="Bound"
+      >h</a
+      ><a name="1012"
+      >
+
+</a
+      ><a name="1014" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1014" class="Function"
+      >subst&#8322;</a
+      ><a name="1020"
+      > </a
+      ><a name="1021" class="Symbol"
+      >:</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" class="Symbol"
+      >(</a
+      ><a name="1024" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1024" class="Bound"
+      >A</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" class="Symbol"
+      >:</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" class="Symbol"
+      >&#8594;</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" class="Symbol"
+      >&#8594;</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" class="PrimitiveType"
+      >Set</a
+      ><a name="1039" class="Symbol"
+      >)</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" class="Symbol"
+      >&#8594;</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" class="Symbol"
+      >&#8704;</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" class="Symbol"
+      >{</a
+      ><a name="1046" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1046" class="Bound"
+      >x</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1048" class="Bound"
+      >x'</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1051" class="Bound"
+      >y</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1053" class="Bound"
+      >y'</a
+      ><a name="1055" class="Symbol"
+      >}</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" class="Symbol"
+      >&#8594;</a
+      ><a name="1058"
+      >
+         </a
+      ><a name="1068" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1046" class="Bound"
+      >x</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1051" class="Bound"
+      >y</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" class="Symbol"
+      >&#8594;</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1048" class="Bound"
+      >x'</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1053" class="Bound"
+      >y'</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" class="Symbol"
+      >&#8594;</a
+      ><a name="1085"
+      >
+         </a
+      ><a name="1095" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1024" class="Bound"
+      >A</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1046" class="Bound"
+      >x</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1048" class="Bound"
+      >x'</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" class="Symbol"
+      >&#8594;</a
+      ><a name="1103"
+      >
+         </a
+      ><a name="1113" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1024" class="Bound"
+      >A</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1051" class="Bound"
+      >y</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1053" class="Bound"
+      >y'</a
+      ><a name="1119"
+      >
+</a
+      ><a name="1120" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1014" class="Function"
+      >subst&#8322;</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1127" class="Bound"
+      >A</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1133"
+      > </a
+      ><a name="1134" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1139" class="Bound"
+      >Axs</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" class="Symbol"
+      >=</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1139" class="Bound"
+      >Axs</a
+      ><a name="1148"
+      >
+
+</a
+      ><a name="1150" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1150" class="Function"
+      >subst&#8323;</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" class="Symbol"
+      >:</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" class="Symbol"
+      >(</a
+      ><a name="1160" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1160" class="Bound"
+      >A</a
+      ><a name="1161"
+      > </a
+      ><a name="1162" class="Symbol"
+      >:</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" class="Symbol"
+      >&#8594;</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" class="Symbol"
+      >&#8594;</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" class="Symbol"
+      >&#8594;</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" class="PrimitiveType"
+      >Set</a
+      ><a name="1179" class="Symbol"
+      >)</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" class="Symbol"
+      >&#8594;</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" class="Symbol"
+      >&#8704;</a
+      ><a name="1184"
+      > </a
+      ><a name="1185" class="Symbol"
+      >{</a
+      ><a name="1186" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1186" class="Bound"
+      >x&#8321;</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1189" class="Bound"
+      >x&#8322;</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1192" class="Bound"
+      >x&#8323;</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1195" class="Bound"
+      >y&#8321;</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1198" class="Bound"
+      >y&#8322;</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1201" class="Bound"
+      >y&#8323;</a
+      ><a name="1203" class="Symbol"
+      >}</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" class="Symbol"
+      >&#8594;</a
+      ><a name="1206"
+      >
+         </a
+      ><a name="1216" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1186" class="Bound"
+      >x&#8321;</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1195" class="Bound"
+      >y&#8321;</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" class="Symbol"
+      >&#8594;</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1189" class="Bound"
+      >x&#8322;</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1198" class="Bound"
+      >y&#8322;</a
+      ><a name="1233"
+      > </a
+      ><a name="1234" class="Symbol"
+      >&#8594;</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1192" class="Bound"
+      >x&#8323;</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1201" class="Bound"
+      >y&#8323;</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" class="Symbol"
+      >&#8594;</a
+      ><a name="1245"
+      >
+         </a
+      ><a name="1255" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1160" class="Bound"
+      >A</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1186" class="Bound"
+      >x&#8321;</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1189" class="Bound"
+      >x&#8322;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1192" class="Bound"
+      >x&#8323;</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" class="Symbol"
+      >&#8594;</a
+      ><a name="1267"
+      >
+         </a
+      ><a name="1277" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1160" class="Bound"
+      >A</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1195" class="Bound"
+      >y&#8321;</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1198" class="Bound"
+      >y&#8322;</a
+      ><a name="1284"
+      > </a
+      ><a name="1285" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1201" class="Bound"
+      >y&#8323;</a
+      ><a name="1287"
+      >
+</a
+      ><a name="1288" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1150" class="Function"
+      >subst&#8323;</a
+      ><a name="1294"
+      > </a
+      ><a name="1295" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1295" class="Bound"
+      >A</a
+      ><a name="1296"
+      > </a
+      ><a name="1297" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1306"
+      > </a
+      ><a name="1307" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1312" class="Bound"
+      >Axs</a
+      ><a name="1315"
+      > </a
+      ><a name="1316" class="Symbol"
+      >=</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1312" class="Bound"
+      >Axs</a
+      ><a name="1321"
+      >
+
+</a
+      ><a name="1323" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1323" class="Function"
+      >subst&#8324;</a
+      ><a name="1329"
+      > </a
+      ><a name="1330" class="Symbol"
+      >:</a
+      ><a name="1331"
+      > </a
+      ><a name="1332" class="Symbol"
+      >(</a
+      ><a name="1333" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1333" class="Bound"
+      >A</a
+      ><a name="1334"
+      > </a
+      ><a name="1335" class="Symbol"
+      >:</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1338"
+      > </a
+      ><a name="1339" class="Symbol"
+      >&#8594;</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1342"
+      > </a
+      ><a name="1343" class="Symbol"
+      >&#8594;</a
+      ><a name="1344"
+      > </a
+      ><a name="1345" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" class="Symbol"
+      >&#8594;</a
+      ><a name="1348"
+      > </a
+      ><a name="1349" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1350"
+      > </a
+      ><a name="1351" class="Symbol"
+      >&#8594;</a
+      ><a name="1352"
+      > </a
+      ><a name="1353" class="PrimitiveType"
+      >Set</a
+      ><a name="1356" class="Symbol"
+      >)</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" class="Symbol"
+      >&#8594;</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" class="Symbol"
+      >&#8704;</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" class="Symbol"
+      >{</a
+      ><a name="1363" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1363" class="Bound"
+      >x&#8321;</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1366" class="Bound"
+      >x&#8322;</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1369" class="Bound"
+      >x&#8323;</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1372" class="Bound"
+      >x&#8324;</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1375" class="Bound"
+      >y&#8321;</a
+      ><a name="1377"
+      > </a
+      ><a name="1378" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1378" class="Bound"
+      >y&#8322;</a
+      ><a name="1380"
+      > </a
+      ><a name="1381" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1381" class="Bound"
+      >y&#8323;</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1384" class="Bound"
+      >y&#8324;</a
+      ><a name="1386" class="Symbol"
+      >}</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" class="Symbol"
+      >&#8594;</a
+      ><a name="1389"
+      >
+         </a
+      ><a name="1399" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1363" class="Bound"
+      >x&#8321;</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1375" class="Bound"
+      >y&#8321;</a
+      ><a name="1406"
+      > </a
+      ><a name="1407" class="Symbol"
+      >&#8594;</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1366" class="Bound"
+      >x&#8322;</a
+      ><a name="1411"
+      > </a
+      ><a name="1412" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1378" class="Bound"
+      >y&#8322;</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" class="Symbol"
+      >&#8594;</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1369" class="Bound"
+      >x&#8323;</a
+      ><a name="1421"
+      > </a
+      ><a name="1422" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1381" class="Bound"
+      >y&#8323;</a
+      ><a name="1426"
+      > </a
+      ><a name="1427" class="Symbol"
+      >&#8594;</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1372" class="Bound"
+      >x&#8324;</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1433"
+      > </a
+      ><a name="1434" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1384" class="Bound"
+      >y&#8324;</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" class="Symbol"
+      >&#8594;</a
+      ><a name="1438"
+      >
+         </a
+      ><a name="1448" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1333" class="Bound"
+      >A</a
+      ><a name="1449"
+      > </a
+      ><a name="1450" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1363" class="Bound"
+      >x&#8321;</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1366" class="Bound"
+      >x&#8322;</a
+      ><a name="1455"
+      > </a
+      ><a name="1456" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1369" class="Bound"
+      >x&#8323;</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1372" class="Bound"
+      >x&#8324;</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" class="Symbol"
+      >&#8594;</a
+      ><a name="1463"
+      >
+         </a
+      ><a name="1473" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1333" class="Bound"
+      >A</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1375" class="Bound"
+      >y&#8321;</a
+      ><a name="1477"
+      > </a
+      ><a name="1478" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1378" class="Bound"
+      >y&#8322;</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1381" class="Bound"
+      >y&#8323;</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1384" class="Bound"
+      >y&#8324;</a
+      ><a name="1486"
+      >
+</a
+      ><a name="1487" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1323" class="Function"
+      >subst&#8324;</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1494" class="Bound"
+      >A</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1516" class="Bound"
+      >Axs</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" class="Symbol"
+      >=</a
+      ><a name="1521"
+      > </a
+      ><a name="1522" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1516" class="Bound"
+      >Axs</a
+      ><a name="1525"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

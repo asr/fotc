@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Division.Division</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Division program</a
+      ><a name="99"
+      >
+</a
+      ><a name="100" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="178"
+      >
+
+</a
+      ><a name="180" class="Symbol"
+      >{-#</a
+      ><a name="183"
+      > </a
+      ><a name="184" class="Keyword"
+      >OPTIONS</a
+      ><a name="191"
+      > --exact-split              </a
+      ><a name="219" class="Symbol"
+      >#-}</a
+      ><a name="222"
+      >
+</a
+      ><a name="223" class="Symbol"
+      >{-#</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Keyword"
+      >OPTIONS</a
+      ><a name="234"
+      > --no-sized-types           </a
+      ><a name="262" class="Symbol"
+      >#-}</a
+      ><a name="265"
+      >
+</a
+      ><a name="266" class="Symbol"
+      >{-#</a
+      ><a name="269"
+      > </a
+      ><a name="270" class="Keyword"
+      >OPTIONS</a
+      ><a name="277"
+      > --no-universe-polymorphism </a
+      ><a name="305" class="Symbol"
+      >#-}</a
+      ><a name="308"
+      >
+</a
+      ><a name="309" class="Symbol"
+      >{-#</a
+      ><a name="312"
+      > </a
+      ><a name="313" class="Keyword"
+      >OPTIONS</a
+      ><a name="320"
+      > --without-K                </a
+      ><a name="348" class="Symbol"
+      >#-}</a
+      ><a name="351"
+      >
+
+</a
+      ><a name="353" class="Comment"
+      >-- This module define a division program using repeated subtraction</a
+      ><a name="420"
+      >
+</a
+      ><a name="421" class="Comment"
+      >-- (Dybjer 1985).</a
+      ><a name="438"
+      >
+
+</a
+      ><a name="440" class="Comment"
+      >-- Peter Dybjer. Program verification in a logical theory of</a
+      ><a name="500"
+      >
+</a
+      ><a name="501" class="Comment"
+      >-- constructions. In Jean-Pierre Jouannaud, editor. Functional</a
+      ><a name="563"
+      >
+</a
+      ><a name="564" class="Comment"
+      >-- Programming Languages and Computer Architecture, volume 201 of</a
+      ><a name="629"
+      >
+</a
+      ><a name="630" class="Comment"
+      >-- LNCS, 1985, pages 334-349. Appears in revised form as Programming</a
+      ><a name="698"
+      >
+</a
+      ><a name="699" class="Comment"
+      >-- Methodology Group Report 26, June 1986.</a
+      ><a name="741"
+      >
+
+</a
+      ><a name="743" class="Keyword"
+      >module</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="FOTC.Program.Division.Division.html#1" class="Module"
+      >FOTC.Program.Division.Division</a
+      ><a name="780"
+      > </a
+      ><a name="781" class="Keyword"
+      >where</a
+      ><a name="786"
+      >
+
+</a
+      ><a name="788" class="Keyword"
+      >open</a
+      ><a name="792"
+      > </a
+      ><a name="793" class="Keyword"
+      >import</a
+      ><a name="799"
+      > </a
+      ><a name="800" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="809"
+      >
+</a
+      ><a name="810" class="Keyword"
+      >open</a
+      ><a name="814"
+      > </a
+      ><a name="815" class="Keyword"
+      >import</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="835"
+      >
+</a
+      ><a name="836" class="Keyword"
+      >open</a
+      ><a name="840"
+      > </a
+      ><a name="841" class="Keyword"
+      >import</a
+      ><a name="847"
+      > </a
+      ><a name="848" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="874"
+      >
+
+</a
+      ><a name="876" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="954"
+      >
+
+</a
+      ><a name="956" class="Keyword"
+      >postulate</a
+      ><a name="965"
+      >
+  </a
+      ><a name="968" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="971"
+      >    </a
+      ><a name="975" class="Symbol"
+      >:</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="978"
+      > </a
+      ><a name="979" class="Symbol"
+      >&#8594;</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="982"
+      > </a
+      ><a name="983" class="Symbol"
+      >&#8594;</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="986"
+      >
+  </a
+      ><a name="989" href="FOTC.Program.Division.Division.html#989" class="Postulate"
+      >div-eq</a
+      ><a name="995"
+      > </a
+      ><a name="996" class="Symbol"
+      >:</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Symbol"
+      >&#8704;</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="FOTC.Program.Division.Division.html#1000" class="Bound"
+      >i</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="FOTC.Program.Division.Division.html#1002" class="Bound"
+      >j</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" class="Symbol"
+      >&#8594;</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" href="FOTC.Program.Division.Division.html#1000" class="Bound"
+      >i</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" href="FOTC.Program.Division.Division.html#1002" class="Bound"
+      >j</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1015"
+      > </a
+      ><a name="1016" class="Symbol"
+      >(</a
+      ><a name="1017" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" class="Symbol"
+      >(</a
+      ><a name="1021" href="FOTC.Data.Nat.Inequalities.html#596" class="Postulate"
+      >lt</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" href="FOTC.Program.Division.Division.html#1000" class="Bound"
+      >i</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" href="FOTC.Program.Division.Division.html#1002" class="Bound"
+      >j</a
+      ><a name="1027" class="Symbol"
+      >)</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" class="Symbol"
+      >(</a
+      ><a name="1051" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" class="Symbol"
+      >(</a
+      ><a name="1056" href="FOTC.Program.Division.Division.html#1000" class="Bound"
+      >i</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOTC.Program.Division.Division.html#1002" class="Bound"
+      >j</a
+      ><a name="1061" class="Symbol"
+      >)</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" href="FOTC.Program.Division.Division.html#1002" class="Bound"
+      >j</a
+      ><a name="1064" class="Symbol"
+      >))</a
+      ><a name="1066"
+      >
+</a
+      ><a name="1067" class="Symbol"
+      >{-#</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" class="Keyword"
+      >ATP</a
+      ><a name="1074"
+      > axiom </a
+      ><a name="1081" href="FOTC.Program.Division.Division.html#989" class="Postulate"
+      >div-eq</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" class="Symbol"
+      >#-}</a
+      ><a name="1091"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

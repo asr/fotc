@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >GroupTheory.AbelianGroup.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Abelian group theory properties</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Keyword"
+      >module</a
+      ><a name="374"
+      > </a
+      ><a name="375" href="GroupTheory.AbelianGroup.PropertiesATP.html#1" class="Module"
+      >GroupTheory.AbelianGroup.PropertiesATP</a
+      ><a name="413"
+      > </a
+      ><a name="414" class="Keyword"
+      >where</a
+      ><a name="419"
+      >
+
+</a
+      ><a name="421" class="Keyword"
+      >open</a
+      ><a name="425"
+      > </a
+      ><a name="426" class="Keyword"
+      >import</a
+      ><a name="432"
+      > </a
+      ><a name="433" href="GroupTheory.AbelianGroup.Base.html#1" class="Module"
+      >GroupTheory.AbelianGroup.Base</a
+      ><a name="462"
+      >
+
+</a
+      ><a name="464" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="542"
+      >
+
+</a
+      ><a name="544" class="Keyword"
+      >postulate</a
+      ><a name="553"
+      > </a
+      ><a name="554" href="GroupTheory.AbelianGroup.PropertiesATP.html#554" class="Postulate"
+      >xyx&#8315;&#185;&#8801;y</a
+      ><a name="561"
+      > </a
+      ><a name="562" class="Symbol"
+      >:</a
+      ><a name="563"
+      > </a
+      ><a name="564" class="Symbol"
+      >&#8704;</a
+      ><a name="565"
+      > </a
+      ><a name="566" href="GroupTheory.AbelianGroup.PropertiesATP.html#566" class="Bound"
+      >a</a
+      ><a name="567"
+      > </a
+      ><a name="568" href="GroupTheory.AbelianGroup.PropertiesATP.html#568" class="Bound"
+      >b</a
+      ><a name="569"
+      > </a
+      ><a name="570" class="Symbol"
+      >&#8594;</a
+      ><a name="571"
+      > </a
+      ><a name="572" href="GroupTheory.AbelianGroup.PropertiesATP.html#566" class="Bound"
+      >a</a
+      ><a name="573"
+      > </a
+      ><a name="574" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="575"
+      > </a
+      ><a name="576" href="GroupTheory.AbelianGroup.PropertiesATP.html#568" class="Bound"
+      >b</a
+      ><a name="577"
+      > </a
+      ><a name="578" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="GroupTheory.AbelianGroup.PropertiesATP.html#566" class="Bound"
+      >a</a
+      ><a name="581"
+      > </a
+      ><a name="582" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="584"
+      > </a
+      ><a name="585" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="586"
+      > </a
+      ><a name="587" href="GroupTheory.AbelianGroup.PropertiesATP.html#568" class="Bound"
+      >b</a
+      ><a name="588"
+      >
+</a
+      ><a name="589" class="Symbol"
+      >{-#</a
+      ><a name="592"
+      > </a
+      ><a name="593" class="Keyword"
+      >ATP</a
+      ><a name="596"
+      > prove </a
+      ><a name="603" href="GroupTheory.AbelianGroup.PropertiesATP.html#554" class="Postulate"
+      >xyx&#8315;&#185;&#8801;y</a
+      ><a name="610"
+      > </a
+      ><a name="611" class="Symbol"
+      >#-}</a
+      ><a name="614"
+      >
+
+</a
+      ><a name="616" class="Keyword"
+      >postulate</a
+      ><a name="625"
+      > </a
+      ><a name="626" href="GroupTheory.AbelianGroup.PropertiesATP.html#626" class="Postulate"
+      >x&#8315;&#185;y&#8315;&#185;&#8801;[xy]&#8315;&#185;</a
+      ><a name="639"
+      > </a
+      ><a name="640" class="Symbol"
+      >:</a
+      ><a name="641"
+      > </a
+      ><a name="642" class="Symbol"
+      >&#8704;</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="GroupTheory.AbelianGroup.PropertiesATP.html#644" class="Bound"
+      >a</a
+      ><a name="645"
+      > </a
+      ><a name="646" href="GroupTheory.AbelianGroup.PropertiesATP.html#646" class="Bound"
+      >b</a
+      ><a name="647"
+      > </a
+      ><a name="648" class="Symbol"
+      >&#8594;</a
+      ><a name="649"
+      > </a
+      ><a name="650" href="GroupTheory.AbelianGroup.PropertiesATP.html#644" class="Bound"
+      >a</a
+      ><a name="651"
+      > </a
+      ><a name="652" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="GroupTheory.AbelianGroup.PropertiesATP.html#646" class="Bound"
+      >b</a
+      ><a name="658"
+      > </a
+      ><a name="659" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="661"
+      > </a
+      ><a name="662" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Symbol"
+      >(</a
+      ><a name="665" href="GroupTheory.AbelianGroup.PropertiesATP.html#644" class="Bound"
+      >a</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="668"
+      > </a
+      ><a name="669" href="GroupTheory.AbelianGroup.PropertiesATP.html#646" class="Bound"
+      >b</a
+      ><a name="670" class="Symbol"
+      >)</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="674"
+      >
+</a
+      ><a name="675" class="Symbol"
+      >{-#</a
+      ><a name="678"
+      > </a
+      ><a name="679" class="Keyword"
+      >ATP</a
+      ><a name="682"
+      > prove </a
+      ><a name="689" href="GroupTheory.AbelianGroup.PropertiesATP.html#626" class="Postulate"
+      >x&#8315;&#185;y&#8315;&#185;&#8801;[xy]&#8315;&#185;</a
+      ><a name="702"
+      > </a
+      ><a name="703" class="Symbol"
+      >#-}</a
+      ><a name="706"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

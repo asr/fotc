@@ -1,0 +1,738 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.ABP.Fair.Type</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Fairness of the ABP channels</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Keyword"
+      >module</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="FOTC.Program.ABP.Fair.Type.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.Type</a
+      ><a name="398"
+      > </a
+      ><a name="399" class="Keyword"
+      >where</a
+      ><a name="404"
+      >
+
+</a
+      ><a name="406" class="Keyword"
+      >open</a
+      ><a name="410"
+      > </a
+      ><a name="411" class="Keyword"
+      >import</a
+      ><a name="417"
+      > </a
+      ><a name="418" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="427"
+      >
+</a
+      ><a name="428" class="Keyword"
+      >open</a
+      ><a name="432"
+      > </a
+      ><a name="433" class="Keyword"
+      >import</a
+      ><a name="439"
+      > </a
+      ><a name="440" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="454"
+      >
+</a
+      ><a name="455" class="Keyword"
+      >open</a
+      ><a name="459"
+      > </a
+      ><a name="460" class="Keyword"
+      >import</a
+      ><a name="466"
+      > </a
+      ><a name="467" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="481"
+      >
+</a
+      ><a name="482" class="Keyword"
+      >open</a
+      ><a name="486"
+      > </a
+      ><a name="487" class="Keyword"
+      >import</a
+      ><a name="493"
+      > </a
+      ><a name="494" href="FOTC.Program.ABP.Terms.html#1" class="Module"
+      >FOTC.Program.ABP.Terms</a
+      ><a name="516"
+      >
+
+</a
+      ><a name="518" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="596"
+      >
+</a
+      ><a name="597" class="Comment"
+      >-- The Fair co-inductive predicate</a
+      ><a name="631"
+      >
+
+</a
+      ><a name="633" class="Comment"
+      >-- From (Dybjer and Sander 1989): al : F*T if al is a list of zero or</a
+      ><a name="702"
+      >
+</a
+      ><a name="703" class="Comment"
+      >-- more 0's followed by a final 1.</a
+      ><a name="737"
+      >
+</a
+      ><a name="738" class="Keyword"
+      >data</a
+      ><a name="742"
+      > </a
+      ><a name="743" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="746"
+      > </a
+      ><a name="747" class="Symbol"
+      >:</a
+      ><a name="748"
+      > </a
+      ><a name="749" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="750"
+      > </a
+      ><a name="751" class="Symbol"
+      >&#8594;</a
+      ><a name="752"
+      > </a
+      ><a name="753" class="PrimitiveType"
+      >Set</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Keyword"
+      >where</a
+      ><a name="762"
+      >
+  </a
+      ><a name="765" href="FOTC.Program.ABP.Fair.Type.html#765" class="InductiveConstructor"
+      >f*tnil</a
+      ><a name="771"
+      >  </a
+      ><a name="773" class="Symbol"
+      >:</a
+      ><a name="774"
+      > </a
+      ><a name="775" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="778"
+      > </a
+      ><a name="779" class="Symbol"
+      >(</a
+      ><a name="780" href="FOTC.Program.ABP.Terms.html#659" class="Function"
+      >T</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="783"
+      > </a
+      ><a name="784" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="786" class="Symbol"
+      >)</a
+      ><a name="787"
+      >
+  </a
+      ><a name="790" href="FOTC.Program.ABP.Fair.Type.html#790" class="InductiveConstructor"
+      >f*tcons</a
+      ><a name="797"
+      > </a
+      ><a name="798" class="Symbol"
+      >:</a
+      ><a name="799"
+      > </a
+      ><a name="800" class="Symbol"
+      >&#8704;</a
+      ><a name="801"
+      > </a
+      ><a name="802" class="Symbol"
+      >{</a
+      ><a name="803" href="FOTC.Program.ABP.Fair.Type.html#803" class="Bound"
+      >ft</a
+      ><a name="805" class="Symbol"
+      >}</a
+      ><a name="806"
+      > </a
+      ><a name="807" class="Symbol"
+      >&#8594;</a
+      ><a name="808"
+      > </a
+      ><a name="809" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="812"
+      > </a
+      ><a name="813" href="FOTC.Program.ABP.Fair.Type.html#803" class="Bound"
+      >ft</a
+      ><a name="815"
+      > </a
+      ><a name="816" class="Symbol"
+      >&#8594;</a
+      ><a name="817"
+      > </a
+      ><a name="818" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="821"
+      > </a
+      ><a name="822" class="Symbol"
+      >(</a
+      ><a name="823" href="FOTC.Program.ABP.Terms.html#657" class="Function"
+      >F</a
+      ><a name="824"
+      > </a
+      ><a name="825" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="826"
+      > </a
+      ><a name="827" href="FOTC.Program.ABP.Fair.Type.html#803" class="Bound"
+      >ft</a
+      ><a name="829" class="Symbol"
+      >)</a
+      ><a name="830"
+      >
+
+</a
+      ><a name="832" class="Comment"
+      >-- Functor for the Fair type.</a
+      ><a name="861"
+      >
+</a
+      ><a name="862" class="Comment"
+      >-- FairF : (D &#8594; Set) &#8594; D &#8594; Set</a
+      ><a name="892"
+      >
+</a
+      ><a name="893" class="Comment"
+      >-- FairF A os = &#8707;[ ft ] &#8707;[ os' ] F*T ft &#8743; os &#8801; ft ++ os' &#8743; A os'</a
+      ><a name="957"
+      >
+
+</a
+      ><a name="959" class="Comment"
+      >-- Fair is the greatest fixed of FairF (by Fair-out and Fair-coind).</a
+      ><a name="1027"
+      >
+
+</a
+      ><a name="1029" class="Keyword"
+      >postulate</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" class="Symbol"
+      >:</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" class="Symbol"
+      >&#8594;</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" class="PrimitiveType"
+      >Set</a
+      ><a name="1053"
+      >
+
+</a
+      ><a name="1055" class="Comment"
+      >-- Fair a is post-fixed point of FairF, i.e.</a
+      ><a name="1099"
+      >
+</a
+      ><a name="1100" class="Comment"
+      >--</a
+      ><a name="1102"
+      >
+</a
+      ><a name="1103" class="Comment"
+      >-- Fair &#8804; FairF Fair.</a
+      ><a name="1124"
+      >
+</a
+      ><a name="1125" class="Keyword"
+      >postulate</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="FOTC.Program.ABP.Fair.Type.html#1135" class="Postulate"
+      >Fair-out</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" class="Symbol"
+      >:</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >&#8704;</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" class="Symbol"
+      >{</a
+      ><a name="1149" href="FOTC.Program.ABP.Fair.Type.html#1149" class="Bound"
+      >os</a
+      ><a name="1151" class="Symbol"
+      >}</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" class="Symbol"
+      >&#8594;</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1159"
+      > </a
+      ><a name="1160" href="FOTC.Program.ABP.Fair.Type.html#1149" class="Bound"
+      >os</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" class="Symbol"
+      >&#8594;</a
+      ><a name="1164"
+      >
+                     </a
+      ><a name="1186" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="FOTC.Program.ABP.Fair.Type.html#1189" class="Bound"
+      >ft</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="FOTC.Program.ABP.Fair.Type.html#1197" class="Bound"
+      >os'</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="FOTC.Program.ABP.Fair.Type.html#1189" class="Bound"
+      >ft</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="FOTC.Program.ABP.Fair.Type.html#1149" class="Bound"
+      >os</a
+      ><a name="1214"
+      > </a
+      ><a name="1215" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1216"
+      > </a
+      ><a name="1217" href="FOTC.Program.ABP.Fair.Type.html#1189" class="Bound"
+      >ft</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" href="FOTC.Program.ABP.Fair.Type.html#1197" class="Bound"
+      >os'</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1233"
+      > </a
+      ><a name="1234" href="FOTC.Program.ABP.Fair.Type.html#1197" class="Bound"
+      >os'</a
+      ><a name="1237"
+      >
+</a
+      ><a name="1238" class="Symbol"
+      >{-#</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" class="Keyword"
+      >ATP</a
+      ><a name="1245"
+      > axiom </a
+      ><a name="1252" href="FOTC.Program.ABP.Fair.Type.html#1135" class="Postulate"
+      >Fair-out</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" class="Symbol"
+      >#-}</a
+      ><a name="1264"
+      >
+
+</a
+      ><a name="1266" class="Comment"
+      >-- Fair is the greatest post-fixed point of FairF, i.e.</a
+      ><a name="1321"
+      >
+</a
+      ><a name="1322" class="Comment"
+      >--</a
+      ><a name="1324"
+      >
+</a
+      ><a name="1325" class="Comment"
+      >-- &#8704; A. A &#8804; FairF A &#8658; A &#8804; Fair.</a
+      ><a name="1356"
+      >
+</a
+      ><a name="1357" class="Comment"
+      >--</a
+      ><a name="1359"
+      >
+</a
+      ><a name="1360" class="Comment"
+      >-- N.B. This is an axiom schema. Because in the automatic proofs we</a
+      ><a name="1427"
+      >
+</a
+      ><a name="1428" class="Comment"
+      >-- *must* use an instance, we do not add this postulate as an ATP</a
+      ><a name="1493"
+      >
+</a
+      ><a name="1494" class="Comment"
+      >-- axiom.</a
+      ><a name="1503"
+      >
+</a
+      ><a name="1504" class="Keyword"
+      >postulate</a
+      ><a name="1513"
+      >
+  </a
+      ><a name="1516" href="FOTC.Program.ABP.Fair.Type.html#1516" class="Postulate"
+      >Fair-coind</a
+      ><a name="1526"
+      > </a
+      ><a name="1527" class="Symbol"
+      >:</a
+      ><a name="1528"
+      >
+    </a
+      ><a name="1533" class="Symbol"
+      >(</a
+      ><a name="1534" href="FOTC.Program.ABP.Fair.Type.html#1534" class="Bound"
+      >A</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" class="Symbol"
+      >:</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" class="Symbol"
+      >&#8594;</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" class="PrimitiveType"
+      >Set</a
+      ><a name="1545" class="Symbol"
+      >)</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" class="Symbol"
+      >&#8594;</a
+      ><a name="1548"
+      >
+    </a
+      ><a name="1553" class="Comment"
+      >-- A is post-fixed point of FairF.</a
+      ><a name="1587"
+      >
+    </a
+      ><a name="1592" class="Symbol"
+      >(&#8704;</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" class="Symbol"
+      >{</a
+      ><a name="1596" href="FOTC.Program.ABP.Fair.Type.html#1596" class="Bound"
+      >os</a
+      ><a name="1598" class="Symbol"
+      >}</a
+      ><a name="1599"
+      > </a
+      ><a name="1600" class="Symbol"
+      >&#8594;</a
+      ><a name="1601"
+      > </a
+      ><a name="1602" href="FOTC.Program.ABP.Fair.Type.html#1534" class="Bound"
+      >A</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" href="FOTC.Program.ABP.Fair.Type.html#1596" class="Bound"
+      >os</a
+      ><a name="1606"
+      > </a
+      ><a name="1607" class="Symbol"
+      >&#8594;</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1611"
+      > </a
+      ><a name="1612" href="FOTC.Program.ABP.Fair.Type.html#1612" class="Bound"
+      >ft</a
+      ><a name="1614"
+      > </a
+      ><a name="1615" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1616"
+      > </a
+      ><a name="1617" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1619"
+      > </a
+      ><a name="1620" href="FOTC.Program.ABP.Fair.Type.html#1620" class="Bound"
+      >os'</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1625"
+      > </a
+      ><a name="1626" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="1629"
+      > </a
+      ><a name="1630" href="FOTC.Program.ABP.Fair.Type.html#1612" class="Bound"
+      >ft</a
+      ><a name="1632"
+      > </a
+      ><a name="1633" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1634"
+      > </a
+      ><a name="1635" href="FOTC.Program.ABP.Fair.Type.html#1596" class="Bound"
+      >os</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" href="FOTC.Program.ABP.Fair.Type.html#1612" class="Bound"
+      >ft</a
+      ><a name="1642"
+      > </a
+      ><a name="1643" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" href="FOTC.Program.ABP.Fair.Type.html#1620" class="Bound"
+      >os'</a
+      ><a name="1649"
+      > </a
+      ><a name="1650" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" href="FOTC.Program.ABP.Fair.Type.html#1534" class="Bound"
+      >A</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="FOTC.Program.ABP.Fair.Type.html#1620" class="Bound"
+      >os'</a
+      ><a name="1657" class="Symbol"
+      >)</a
+      ><a name="1658"
+      > </a
+      ><a name="1659" class="Symbol"
+      >&#8594;</a
+      ><a name="1660"
+      >
+    </a
+      ><a name="1665" class="Comment"
+      >-- Fair is greater than A.</a
+      ><a name="1691"
+      >
+    </a
+      ><a name="1696" class="Symbol"
+      >&#8704;</a
+      ><a name="1697"
+      > </a
+      ><a name="1698" class="Symbol"
+      >{</a
+      ><a name="1699" href="FOTC.Program.ABP.Fair.Type.html#1699" class="Bound"
+      >os</a
+      ><a name="1701" class="Symbol"
+      >}</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" class="Symbol"
+      >&#8594;</a
+      ><a name="1704"
+      > </a
+      ><a name="1705" href="FOTC.Program.ABP.Fair.Type.html#1534" class="Bound"
+      >A</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" href="FOTC.Program.ABP.Fair.Type.html#1699" class="Bound"
+      >os</a
+      ><a name="1709"
+      > </a
+      ><a name="1710" class="Symbol"
+      >&#8594;</a
+      ><a name="1711"
+      > </a
+      ><a name="1712" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1716"
+      > </a
+      ><a name="1717" href="FOTC.Program.ABP.Fair.Type.html#1699" class="Bound"
+      >os</a
+      ><a name="1719"
+      >
+
+</a
+      ><a name="1721" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1799"
+      >
+</a
+      ><a name="1800" class="Comment"
+      >-- References</a
+      ><a name="1813"
+      >
+</a
+      ><a name="1814" class="Comment"
+      >--</a
+      ><a name="1816"
+      >
+</a
+      ><a name="1817" class="Comment"
+      >-- Dybjer, Peter and Sander, Herbert P. (1989). A Functional</a
+      ><a name="1877"
+      >
+</a
+      ><a name="1878" class="Comment"
+      >-- Programming Approach to the Specification and Verification of</a
+      ><a name="1942"
+      >
+</a
+      ><a name="1943" class="Comment"
+      >-- Concurrent Systems. Formal Aspects of Computing 1, pp. 303&#8211;319.</a
+      ><a name="2009"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,6420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.GCD.Partial.CommonDivisorATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The gcd is a common divisor</a
+      ><a name="110"
+      >
+</a
+      ><a name="111" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="189"
+      >
+
+</a
+      ><a name="191" class="Symbol"
+      >{-#</a
+      ><a name="194"
+      > </a
+      ><a name="195" class="Keyword"
+      >OPTIONS</a
+      ><a name="202"
+      > --exact-split              </a
+      ><a name="230" class="Symbol"
+      >#-}</a
+      ><a name="233"
+      >
+</a
+      ><a name="234" class="Symbol"
+      >{-#</a
+      ><a name="237"
+      > </a
+      ><a name="238" class="Keyword"
+      >OPTIONS</a
+      ><a name="245"
+      > --no-sized-types           </a
+      ><a name="273" class="Symbol"
+      >#-}</a
+      ><a name="276"
+      >
+</a
+      ><a name="277" class="Symbol"
+      >{-#</a
+      ><a name="280"
+      > </a
+      ><a name="281" class="Keyword"
+      >OPTIONS</a
+      ><a name="288"
+      > --no-universe-polymorphism </a
+      ><a name="316" class="Symbol"
+      >#-}</a
+      ><a name="319"
+      >
+</a
+      ><a name="320" class="Symbol"
+      >{-#</a
+      ><a name="323"
+      > </a
+      ><a name="324" class="Keyword"
+      >OPTIONS</a
+      ><a name="331"
+      > --without-K                </a
+      ><a name="359" class="Symbol"
+      >#-}</a
+      ><a name="362"
+      >
+
+</a
+      ><a name="364" class="Keyword"
+      >module</a
+      ><a name="370"
+      > </a
+      ><a name="371" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.CommonDivisorATP</a
+      ><a name="412"
+      > </a
+      ><a name="413" class="Keyword"
+      >where</a
+      ><a name="418"
+      >
+
+</a
+      ><a name="420" class="Keyword"
+      >open</a
+      ><a name="424"
+      > </a
+      ><a name="425" class="Keyword"
+      >import</a
+      ><a name="431"
+      > </a
+      ><a name="432" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="441"
+      >
+</a
+      ><a name="442" class="Keyword"
+      >open</a
+      ><a name="446"
+      > </a
+      ><a name="447" class="Keyword"
+      >import</a
+      ><a name="453"
+      > </a
+      ><a name="454" href="FOTC.Base.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.PropertiesATP</a
+      ><a name="477"
+      >
+</a
+      ><a name="478" class="Keyword"
+      >open</a
+      ><a name="482"
+      > </a
+      ><a name="483" class="Keyword"
+      >import</a
+      ><a name="489"
+      > </a
+      ><a name="490" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="503"
+      >
+</a
+      ><a name="504" class="Keyword"
+      >open</a
+      ><a name="508"
+      > </a
+      ><a name="509" class="Keyword"
+      >import</a
+      ><a name="515"
+      > </a
+      ><a name="516" href="FOTC.Data.Nat.Divisibility.NotBy0.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0</a
+      ><a name="549"
+      >
+</a
+      ><a name="550" class="Keyword"
+      >open</a
+      ><a name="554"
+      > </a
+      ><a name="555" class="Keyword"
+      >import</a
+      ><a name="561"
+      > </a
+      ><a name="562" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP</a
+      ><a name="609"
+      >
+</a
+      ><a name="610" class="Keyword"
+      >open</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Keyword"
+      >import</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicATP.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.NonAcc.LexicographicATP</a
+      ><a name="669"
+      >
+</a
+      ><a name="670" class="Keyword"
+      >open</a
+      ><a name="674"
+      > </a
+      ><a name="675" class="Keyword"
+      >import</a
+      ><a name="681"
+      > </a
+      ><a name="682" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="708"
+      >
+</a
+      ><a name="709" class="Keyword"
+      >open</a
+      ><a name="713"
+      > </a
+      ><a name="714" class="Keyword"
+      >import</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="772"
+      >
+</a
+      ><a name="773" class="Keyword"
+      >open</a
+      ><a name="777"
+      > </a
+      ><a name="778" class="Keyword"
+      >import</a
+      ><a name="784"
+      > </a
+      ><a name="785" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="825"
+      >
+</a
+      ><a name="826" class="Keyword"
+      >open</a
+      ><a name="830"
+      > </a
+      ><a name="831" class="Keyword"
+      >import</a
+      ><a name="837"
+      > </a
+      ><a name="838" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="865"
+      >
+</a
+      ><a name="866" class="Keyword"
+      >open</a
+      ><a name="870"
+      > </a
+      ><a name="871" class="Keyword"
+      >import</a
+      ><a name="877"
+      > </a
+      ><a name="878" href="FOTC.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.Definitions</a
+      ><a name="914"
+      >
+</a
+      ><a name="915" class="Keyword"
+      >open</a
+      ><a name="919"
+      > </a
+      ><a name="920" class="Keyword"
+      >import</a
+      ><a name="926"
+      > </a
+      ><a name="927" href="FOTC.Program.GCD.Partial.GCD.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.GCD</a
+      ><a name="955"
+      >
+</a
+      ><a name="956" class="Keyword"
+      >open</a
+      ><a name="960"
+      > </a
+      ><a name="961" class="Keyword"
+      >import</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="FOTC.Program.GCD.Partial.TotalityATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.TotalityATP</a
+      ><a name="1004"
+      >
+
+</a
+      ><a name="1006" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1084"
+      >
+</a
+      ><a name="1085" class="Comment"
+      >-- Some cases of the gcd-&#8739;&#8321;.</a
+      ><a name="1113"
+      >
+
+</a
+      ><a name="1115" class="Comment"
+      >-- We don't prove that</a
+      ><a name="1137"
+      >
+</a
+      ><a name="1138" class="Comment"
+      >--</a
+      ><a name="1140"
+      >
+</a
+      ><a name="1141" class="Comment"
+      >-- gcd-&#8739;&#8321; : ... &#8594; (gcd m n) &#8739; m</a
+      ><a name="1172"
+      >
+
+</a
+      ><a name="1174" class="Comment"
+      >-- because this proof should be defined mutually recursive with the</a
+      ><a name="1241"
+      >
+</a
+      ><a name="1242" class="Comment"
+      >-- proof</a
+      ><a name="1250"
+      >
+</a
+      ><a name="1251" class="Comment"
+      >--</a
+      ><a name="1253"
+      >
+</a
+      ><a name="1254" class="Comment"
+      >-- gcd-&#8739;&#8322; : ... &#8594; (gcd m n) &#8739; n.</a
+      ><a name="1286"
+      >
+</a
+      ><a name="1287" class="Comment"
+      >--</a
+      ><a name="1289"
+      >
+</a
+      ><a name="1290" class="Comment"
+      >-- Therefore, instead of proving</a
+      ><a name="1322"
+      >
+</a
+      ><a name="1323" class="Comment"
+      >--</a
+      ><a name="1325"
+      >
+</a
+      ><a name="1326" class="Comment"
+      >-- gcdCD : ... &#8594; CD m n (gcd m n)</a
+      ><a name="1359"
+      >
+</a
+      ><a name="1360" class="Comment"
+      >--</a
+      ><a name="1362"
+      >
+</a
+      ><a name="1363" class="Comment"
+      >-- using these proofs (i.e. the conjunction of them), we proved it</a
+      ><a name="1429"
+      >
+</a
+      ><a name="1430" class="Comment"
+      >-- using well-founded induction.</a
+      ><a name="1462"
+      >
+
+</a
+      ><a name="1464" class="Comment"
+      >-- gcd 0 (succ n) &#8739; 0.</a
+      ><a name="1486"
+      >
+</a
+      ><a name="1487" class="Keyword"
+      >postulate</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1497" class="Postulate"
+      >gcd-0S-&#8739;&#8321;</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" class="Symbol"
+      >:</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" class="Symbol"
+      >&#8704;</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" class="Symbol"
+      >{</a
+      ><a name="1512" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1512" class="Bound"
+      >n</a
+      ><a name="1513" class="Symbol"
+      >}</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" class="Symbol"
+      >&#8594;</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1518"
+      > </a
+      ><a name="1519" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1512" class="Bound"
+      >n</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" class="Symbol"
+      >&#8594;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1526"
+      > </a
+      ><a name="1527" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" class="Symbol"
+      >(</a
+      ><a name="1533" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1538"
+      > </a
+      ><a name="1539" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1512" class="Bound"
+      >n</a
+      ><a name="1540" class="Symbol"
+      >)</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1548"
+      >
+</a
+      ><a name="1549" class="Symbol"
+      >{-#</a
+      ><a name="1552"
+      > </a
+      ><a name="1553" class="Keyword"
+      >ATP</a
+      ><a name="1556"
+      > prove </a
+      ><a name="1563" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1497" class="Postulate"
+      >gcd-0S-&#8739;&#8321;</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" class="Symbol"
+      >#-}</a
+      ><a name="1576"
+      >
+
+</a
+      ><a name="1578" class="Comment"
+      >-- gcd (succ&#8321; m) 0 &#8739; succ&#8321; m.</a
+      ><a name="1607"
+      >
+</a
+      ><a name="1608" class="Keyword"
+      >postulate</a
+      ><a name="1617"
+      > </a
+      ><a name="1618" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1618" class="Postulate"
+      >gcd-S0-&#8739;&#8321;</a
+      ><a name="1627"
+      > </a
+      ><a name="1628" class="Symbol"
+      >:</a
+      ><a name="1629"
+      > </a
+      ><a name="1630" class="Symbol"
+      >&#8704;</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" class="Symbol"
+      >{</a
+      ><a name="1633" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1633" class="Bound"
+      >n</a
+      ><a name="1634" class="Symbol"
+      >}</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" class="Symbol"
+      >&#8594;</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1633" class="Bound"
+      >n</a
+      ><a name="1641"
+      > </a
+      ><a name="1642" class="Symbol"
+      >&#8594;</a
+      ><a name="1643"
+      > </a
+      ><a name="1644" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1647"
+      > </a
+      ><a name="1648" class="Symbol"
+      >(</a
+      ><a name="1649" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1654"
+      > </a
+      ><a name="1655" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1633" class="Bound"
+      >n</a
+      ><a name="1656" class="Symbol"
+      >)</a
+      ><a name="1657"
+      > </a
+      ><a name="1658" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1662"
+      > </a
+      ><a name="1663" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1664"
+      > </a
+      ><a name="1665" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1633" class="Bound"
+      >n</a
+      ><a name="1672"
+      >
+</a
+      ><a name="1673" class="Symbol"
+      >{-#</a
+      ><a name="1676"
+      > </a
+      ><a name="1677" class="Keyword"
+      >ATP</a
+      ><a name="1680"
+      > prove </a
+      ><a name="1687" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1618" class="Postulate"
+      >gcd-S0-&#8739;&#8321;</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1236" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" class="Symbol"
+      >#-}</a
+      ><a name="1709"
+      >
+
+</a
+      ><a name="1711" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; m, when succ&#8321; m &#8815; succ&#8321; n.</a
+      ><a name="1772"
+      >
+</a
+      ><a name="1773" class="Keyword"
+      >postulate</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1783" class="Postulate"
+      >gcd-S&#8815;S-&#8739;&#8321;</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" class="Symbol"
+      >:</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" class="Symbol"
+      >&#8704;</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" class="Symbol"
+      >{</a
+      ><a name="1799" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1800"
+      > </a
+      ><a name="1801" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1801" class="Bound"
+      >n</a
+      ><a name="1802" class="Symbol"
+      >}</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" class="Symbol"
+      >&#8594;</a
+      ><a name="1805"
+      > </a
+      ><a name="1806" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" class="Symbol"
+      >&#8594;</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1801" class="Bound"
+      >n</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" class="Symbol"
+      >&#8594;</a
+      ><a name="1817"
+      >
+                       </a
+      ><a name="1841" class="Symbol"
+      >(</a
+      ><a name="1842" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1845"
+      > </a
+      ><a name="1846" class="Symbol"
+      >(</a
+      ><a name="1847" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1854" class="Symbol"
+      >)</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" class="Symbol"
+      >(</a
+      ><a name="1857" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1862"
+      > </a
+      ><a name="1863" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1801" class="Bound"
+      >n</a
+      ><a name="1864"
+      > </a
+      ><a name="1865" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1872"
+      > </a
+      ><a name="1873" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1874" class="Symbol"
+      >)</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1883"
+      > </a
+      ><a name="1884" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1885" class="Symbol"
+      >)</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" class="Symbol"
+      >&#8594;</a
+      ><a name="1888"
+      >
+                       </a
+      ><a name="1912" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1917"
+      > </a
+      ><a name="1918" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1801" class="Bound"
+      >n</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" class="Symbol"
+      >&#8594;</a
+      ><a name="1931"
+      >
+                       </a
+      ><a name="1955" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" class="Symbol"
+      >(</a
+      ><a name="1960" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1967" class="Symbol"
+      >)</a
+      ><a name="1968"
+      > </a
+      ><a name="1969" class="Symbol"
+      >(</a
+      ><a name="1970" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1975"
+      > </a
+      ><a name="1976" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1801" class="Bound"
+      >n</a
+      ><a name="1977" class="Symbol"
+      >)</a
+      ><a name="1978"
+      > </a
+      ><a name="1979" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1980"
+      > </a
+      ><a name="1981" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1799" class="Bound"
+      >m</a
+      ><a name="1988"
+      >
+</a
+      ><a name="1989" class="Symbol"
+      >{-#</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" class="Keyword"
+      >ATP</a
+      ><a name="1996"
+      > prove </a
+      ><a name="2003" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1783" class="Postulate"
+      >gcd-S&#8815;S-&#8739;&#8321;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" class="Symbol"
+      >#-}</a
+      ><a name="2017"
+      >
+
+</a
+      ><a name="2019" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; m when succ&#8321; m &gt; succ&#8321; n.</a
+      ><a name="2079"
+      >
+</a
+      ><a name="2080" class="Comment"
+      >{- Proof:
+1. gcd (Sm &#8760; Sn) Sn | (Sm &#8760; Sn)        IH
+2. gcd (Sm &#8760; Sn) Sn | Sn               gcd-&#8739;&#8322;
+3. gcd (Sm &#8760; Sn) Sn | (Sm &#8760; Sn) + Sn   m&#8739;n&#8594;m&#8739;o&#8594;m&#8739;n+o 1,2
+4. Sm &gt; Sn                             Hip
+5. gcd (Sm &#8760; Sn) Sn | Sm               arith-gcd-m&gt;n&#8322; 3,4
+6. gcd Sm Sn = gcd (Sm &#8760; Sn) Sn        gcd eq. 4
+7. gcd Sm Sn | Sm                      subst 5,6
+-}</a
+      ><a name="2436"
+      >
+
+</a
+      ><a name="2438" class="Comment"
+      >-- For the proof using the ATP we added the helper hypothesis:</a
+      ><a name="2500"
+      >
+</a
+      ><a name="2501" class="Comment"
+      >-- 1. gcd (succ&#8321; m &#8760; succ&#8321; n) (succ&#8321; n) &#8739; (succ&#8321; m &#8760; succ&#8321; n) + succ&#8321; n.</a
+      ><a name="2573"
+      >
+</a
+      ><a name="2574" class="Comment"
+      >-- 2. (succ&#8321; m &#8760; succ&#8321; n) + succ&#8321; n &#8801; succ&#8321; m.</a
+      ><a name="2620"
+      >
+</a
+      ><a name="2621" class="Keyword"
+      >postulate</a
+      ><a name="2630"
+      >
+  </a
+      ><a name="2633" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2633" class="Postulate"
+      >gcd-S&gt;S-&#8739;&#8321;-ah</a
+      ><a name="2646"
+      > </a
+      ><a name="2647" class="Symbol"
+      >:</a
+      ><a name="2648"
+      >
+    </a
+      ><a name="2653" class="Symbol"
+      >&#8704;</a
+      ><a name="2654"
+      > </a
+      ><a name="2655" class="Symbol"
+      >{</a
+      ><a name="2656" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2657"
+      > </a
+      ><a name="2658" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2659" class="Symbol"
+      >}</a
+      ><a name="2660"
+      > </a
+      ><a name="2661" class="Symbol"
+      >&#8594;</a
+      ><a name="2662"
+      > </a
+      ><a name="2663" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2664"
+      > </a
+      ><a name="2665" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2666"
+      > </a
+      ><a name="2667" class="Symbol"
+      >&#8594;</a
+      ><a name="2668"
+      > </a
+      ><a name="2669" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2670"
+      > </a
+      ><a name="2671" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2672"
+      > </a
+      ><a name="2673" class="Symbol"
+      >&#8594;</a
+      ><a name="2674"
+      >
+    </a
+      ><a name="2679" class="Symbol"
+      >(</a
+      ><a name="2680" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2683"
+      > </a
+      ><a name="2684" class="Symbol"
+      >(</a
+      ><a name="2685" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2690"
+      > </a
+      ><a name="2691" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2692"
+      > </a
+      ><a name="2693" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2694"
+      > </a
+      ><a name="2695" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2700"
+      > </a
+      ><a name="2701" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2702" class="Symbol"
+      >)</a
+      ><a name="2703"
+      > </a
+      ><a name="2704" class="Symbol"
+      >(</a
+      ><a name="2705" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2710"
+      > </a
+      ><a name="2711" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2712" class="Symbol"
+      >)</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2715"
+      > </a
+      ><a name="2716" class="Symbol"
+      >(</a
+      ><a name="2717" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2722"
+      > </a
+      ><a name="2723" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2724"
+      > </a
+      ><a name="2725" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2726"
+      > </a
+      ><a name="2727" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2732"
+      > </a
+      ><a name="2733" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2734" class="Symbol"
+      >))</a
+      ><a name="2736"
+      > </a
+      ><a name="2737" class="Symbol"
+      >&#8594;</a
+      ><a name="2738"
+      >
+    </a
+      ><a name="2743" class="Symbol"
+      >(</a
+      ><a name="2744" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2747"
+      > </a
+      ><a name="2748" class="Symbol"
+      >(</a
+      ><a name="2749" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2756"
+      > </a
+      ><a name="2757" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2758"
+      > </a
+      ><a name="2759" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2764"
+      > </a
+      ><a name="2765" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2766" class="Symbol"
+      >)</a
+      ><a name="2767"
+      > </a
+      ><a name="2768" class="Symbol"
+      >(</a
+      ><a name="2769" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2774"
+      > </a
+      ><a name="2775" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2776" class="Symbol"
+      >)</a
+      ><a name="2777"
+      > </a
+      ><a name="2778" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2779"
+      > </a
+      ><a name="2780" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2785"
+      > </a
+      ><a name="2786" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2787" class="Symbol"
+      >)</a
+      ><a name="2788"
+      > </a
+      ><a name="2789" class="Symbol"
+      >&#8594;</a
+      ><a name="2790"
+      >
+    </a
+      ><a name="2795" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2800"
+      > </a
+      ><a name="2801" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2802"
+      > </a
+      ><a name="2803" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2804"
+      > </a
+      ><a name="2805" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2810"
+      > </a
+      ><a name="2811" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2812"
+      > </a
+      ><a name="2813" class="Symbol"
+      >&#8594;</a
+      ><a name="2814"
+      >
+    </a
+      ><a name="2819" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2822"
+      > </a
+      ><a name="2823" class="Symbol"
+      >(</a
+      ><a name="2824" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2829"
+      > </a
+      ><a name="2830" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2831"
+      > </a
+      ><a name="2832" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2833"
+      > </a
+      ><a name="2834" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2841" class="Symbol"
+      >)</a
+      ><a name="2842"
+      > </a
+      ><a name="2843" class="Symbol"
+      >(</a
+      ><a name="2844" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2849"
+      > </a
+      ><a name="2850" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2851" class="Symbol"
+      >)</a
+      ><a name="2852"
+      > </a
+      ><a name="2853" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2854"
+      > </a
+      ><a name="2855" class="Symbol"
+      >(</a
+      ><a name="2856" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2861"
+      > </a
+      ><a name="2862" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2863"
+      > </a
+      ><a name="2864" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2865"
+      > </a
+      ><a name="2866" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2871"
+      > </a
+      ><a name="2872" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2873" class="Symbol"
+      >)</a
+      ><a name="2874"
+      > </a
+      ><a name="2875" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2876"
+      > </a
+      ><a name="2877" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2882"
+      > </a
+      ><a name="2883" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2884"
+      > </a
+      ><a name="2885" class="Symbol"
+      >&#8594;</a
+      ><a name="2886"
+      >
+    </a
+      ><a name="2891" class="Symbol"
+      >((</a
+      ><a name="2893" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2898"
+      > </a
+      ><a name="2899" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2900"
+      > </a
+      ><a name="2901" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2902"
+      > </a
+      ><a name="2903" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2908"
+      > </a
+      ><a name="2909" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2910" class="Symbol"
+      >)</a
+      ><a name="2911"
+      > </a
+      ><a name="2912" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2913"
+      > </a
+      ><a name="2914" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2919"
+      > </a
+      ><a name="2920" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2921"
+      > </a
+      ><a name="2922" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2923"
+      > </a
+      ><a name="2924" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2929"
+      > </a
+      ><a name="2930" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2931" class="Symbol"
+      >)</a
+      ><a name="2932"
+      > </a
+      ><a name="2933" class="Symbol"
+      >&#8594;</a
+      ><a name="2934"
+      >
+    </a
+      ><a name="2939" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2942"
+      > </a
+      ><a name="2943" class="Symbol"
+      >(</a
+      ><a name="2944" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2949"
+      > </a
+      ><a name="2950" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2951" class="Symbol"
+      >)</a
+      ><a name="2952"
+      > </a
+      ><a name="2953" class="Symbol"
+      >(</a
+      ><a name="2954" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2959"
+      > </a
+      ><a name="2960" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2658" class="Bound"
+      >n</a
+      ><a name="2961" class="Symbol"
+      >)</a
+      ><a name="2962"
+      > </a
+      ><a name="2963" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2964"
+      > </a
+      ><a name="2965" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2970"
+      > </a
+      ><a name="2971" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2656" class="Bound"
+      >m</a
+      ><a name="2972"
+      >
+</a
+      ><a name="2973" class="Symbol"
+      >{-#</a
+      ><a name="2976"
+      > </a
+      ><a name="2977" class="Keyword"
+      >ATP</a
+      ><a name="2980"
+      > prove </a
+      ><a name="2987" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2633" class="Postulate"
+      >gcd-S&gt;S-&#8739;&#8321;-ah</a
+      ><a name="3000"
+      > </a
+      ><a name="3001" class="Symbol"
+      >#-}</a
+      ><a name="3004"
+      >
+
+</a
+      ><a name="3006" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3006" class="Function"
+      >gcd-S&gt;S-&#8739;&#8321;</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" class="Symbol"
+      >:</a
+      ><a name="3018"
+      >
+  </a
+      ><a name="3021" class="Symbol"
+      >&#8704;</a
+      ><a name="3022"
+      > </a
+      ><a name="3023" class="Symbol"
+      >{</a
+      ><a name="3024" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3025"
+      > </a
+      ><a name="3026" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3027" class="Symbol"
+      >}</a
+      ><a name="3028"
+      > </a
+      ><a name="3029" class="Symbol"
+      >&#8594;</a
+      ><a name="3030"
+      > </a
+      ><a name="3031" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3032"
+      > </a
+      ><a name="3033" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3034"
+      > </a
+      ><a name="3035" class="Symbol"
+      >&#8594;</a
+      ><a name="3036"
+      > </a
+      ><a name="3037" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3038"
+      > </a
+      ><a name="3039" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3040"
+      > </a
+      ><a name="3041" class="Symbol"
+      >&#8594;</a
+      ><a name="3042"
+      >
+  </a
+      ><a name="3045" class="Symbol"
+      >(</a
+      ><a name="3046" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3049"
+      > </a
+      ><a name="3050" class="Symbol"
+      >(</a
+      ><a name="3051" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3056"
+      > </a
+      ><a name="3057" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3058"
+      > </a
+      ><a name="3059" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3060"
+      > </a
+      ><a name="3061" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3066"
+      > </a
+      ><a name="3067" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3068" class="Symbol"
+      >)</a
+      ><a name="3069"
+      > </a
+      ><a name="3070" class="Symbol"
+      >(</a
+      ><a name="3071" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3076"
+      > </a
+      ><a name="3077" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3078" class="Symbol"
+      >)</a
+      ><a name="3079"
+      > </a
+      ><a name="3080" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="3081"
+      > </a
+      ><a name="3082" class="Symbol"
+      >(</a
+      ><a name="3083" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3088"
+      > </a
+      ><a name="3089" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3090"
+      > </a
+      ><a name="3091" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3092"
+      > </a
+      ><a name="3093" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3098"
+      > </a
+      ><a name="3099" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3100" class="Symbol"
+      >))</a
+      ><a name="3102"
+      > </a
+      ><a name="3103" class="Symbol"
+      >&#8594;</a
+      ><a name="3104"
+      >
+  </a
+      ><a name="3107" class="Symbol"
+      >(</a
+      ><a name="3108" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3111"
+      > </a
+      ><a name="3112" class="Symbol"
+      >(</a
+      ><a name="3113" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3118"
+      > </a
+      ><a name="3119" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3120"
+      > </a
+      ><a name="3121" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3122"
+      > </a
+      ><a name="3123" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3128"
+      > </a
+      ><a name="3129" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3130" class="Symbol"
+      >)</a
+      ><a name="3131"
+      > </a
+      ><a name="3132" class="Symbol"
+      >(</a
+      ><a name="3133" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3138"
+      > </a
+      ><a name="3139" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3140" class="Symbol"
+      >)</a
+      ><a name="3141"
+      > </a
+      ><a name="3142" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="3143"
+      > </a
+      ><a name="3144" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3149"
+      > </a
+      ><a name="3150" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3151" class="Symbol"
+      >)</a
+      ><a name="3152"
+      > </a
+      ><a name="3153" class="Symbol"
+      >&#8594;</a
+      ><a name="3154"
+      >
+  </a
+      ><a name="3157" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3162"
+      > </a
+      ><a name="3163" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3164"
+      > </a
+      ><a name="3165" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="3166"
+      > </a
+      ><a name="3167" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3172"
+      > </a
+      ><a name="3173" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3174"
+      > </a
+      ><a name="3175" class="Symbol"
+      >&#8594;</a
+      ><a name="3176"
+      >
+  </a
+      ><a name="3179" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3182"
+      > </a
+      ><a name="3183" class="Symbol"
+      >(</a
+      ><a name="3184" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3189"
+      > </a
+      ><a name="3190" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3191" class="Symbol"
+      >)</a
+      ><a name="3192"
+      > </a
+      ><a name="3193" class="Symbol"
+      >(</a
+      ><a name="3194" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3199"
+      > </a
+      ><a name="3200" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3026" class="Bound"
+      >n</a
+      ><a name="3201" class="Symbol"
+      >)</a
+      ><a name="3202"
+      > </a
+      ><a name="3203" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="3204"
+      > </a
+      ><a name="3205" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3210"
+      > </a
+      ><a name="3211" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3024" class="Bound"
+      >m</a
+      ><a name="3212"
+      >
+</a
+      ><a name="3213" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3006" class="Function"
+      >gcd-S&gt;S-&#8739;&#8321;</a
+      ><a name="3223"
+      > </a
+      ><a name="3224" class="Symbol"
+      >{</a
+      ><a name="3225" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3225" class="Bound"
+      >m</a
+      ><a name="3226" class="Symbol"
+      >}</a
+      ><a name="3227"
+      > </a
+      ><a name="3228" class="Symbol"
+      >{</a
+      ><a name="3229" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3229" class="Bound"
+      >n</a
+      ><a name="3230" class="Symbol"
+      >}</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3232" class="Bound"
+      >Nm</a
+      ><a name="3234"
+      > </a
+      ><a name="3235" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3235" class="Bound"
+      >Nn</a
+      ><a name="3237"
+      > </a
+      ><a name="3238" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3238" class="Bound"
+      >ih</a
+      ><a name="3240"
+      > </a
+      ><a name="3241" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3241" class="Bound"
+      >gcd-&#8739;&#8322;</a
+      ><a name="3247"
+      > </a
+      ><a name="3248" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3248" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3253"
+      > </a
+      ><a name="3254" class="Symbol"
+      >=</a
+      ><a name="3255"
+      >
+  </a
+      ><a name="3258" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#2633" class="Postulate"
+      >gcd-S&gt;S-&#8739;&#8321;-ah</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3232" class="Bound"
+      >Nm</a
+      ><a name="3274"
+      > </a
+      ><a name="3275" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3235" class="Bound"
+      >Nn</a
+      ><a name="3277"
+      > </a
+      ><a name="3278" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3238" class="Bound"
+      >ih</a
+      ><a name="3280"
+      > </a
+      ><a name="3281" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3241" class="Bound"
+      >gcd-&#8739;&#8322;</a
+      ><a name="3287"
+      > </a
+      ><a name="3288" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3248" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3293"
+      >
+    </a
+      ><a name="3298" class="Symbol"
+      >(</a
+      ><a name="3299" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2277" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="3312"
+      > </a
+      ><a name="3313" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3488" class="Function"
+      >gcd-Sm-Sn,Sn-N</a
+      ><a name="3327"
+      > </a
+      ><a name="3328" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3415" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3335"
+      > </a
+      ><a name="3336" class="Symbol"
+      >(</a
+      ><a name="3337" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3342"
+      > </a
+      ><a name="3343" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3235" class="Bound"
+      >Nn</a
+      ><a name="3345" class="Symbol"
+      >)</a
+      ><a name="3346"
+      > </a
+      ><a name="3347" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3238" class="Bound"
+      >ih</a
+      ><a name="3349"
+      > </a
+      ><a name="3350" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3241" class="Bound"
+      >gcd-&#8739;&#8322;</a
+      ><a name="3356" class="Symbol"
+      >)</a
+      ><a name="3357"
+      >
+    </a
+      ><a name="3362" class="Symbol"
+      >(</a
+      ><a name="3363" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#16125" class="Function"
+      >x&gt;y&#8594;x&#8760;y+y&#8801;x</a
+      ><a name="3374"
+      > </a
+      ><a name="3375" class="Symbol"
+      >(</a
+      ><a name="3376" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3381"
+      > </a
+      ><a name="3382" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3232" class="Bound"
+      >Nm</a
+      ><a name="3384" class="Symbol"
+      >)</a
+      ><a name="3385"
+      > </a
+      ><a name="3386" class="Symbol"
+      >(</a
+      ><a name="3387" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3392"
+      > </a
+      ><a name="3393" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3235" class="Bound"
+      >Nn</a
+      ><a name="3395" class="Symbol"
+      >)</a
+      ><a name="3396"
+      > </a
+      ><a name="3397" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3248" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3402" class="Symbol"
+      >)</a
+      ><a name="3403"
+      >
+
+  </a
+      ><a name="3407" class="Keyword"
+      >where</a
+      ><a name="3412"
+      >
+  </a
+      ><a name="3415" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3415" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3422"
+      > </a
+      ><a name="3423" class="Symbol"
+      >:</a
+      ><a name="3424"
+      > </a
+      ><a name="3425" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3426"
+      > </a
+      ><a name="3427" class="Symbol"
+      >(</a
+      ><a name="3428" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3433"
+      > </a
+      ><a name="3434" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3225" class="Bound"
+      >m</a
+      ><a name="3435"
+      > </a
+      ><a name="3436" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3437"
+      > </a
+      ><a name="3438" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3443"
+      > </a
+      ><a name="3444" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3229" class="Bound"
+      >n</a
+      ><a name="3445" class="Symbol"
+      >)</a
+      ><a name="3446"
+      >
+  </a
+      ><a name="3449" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3415" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3456"
+      > </a
+      ><a name="3457" class="Symbol"
+      >=</a
+      ><a name="3458"
+      > </a
+      ><a name="3459" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="3462"
+      > </a
+      ><a name="3463" class="Symbol"
+      >(</a
+      ><a name="3464" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3469"
+      > </a
+      ><a name="3470" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3232" class="Bound"
+      >Nm</a
+      ><a name="3472" class="Symbol"
+      >)</a
+      ><a name="3473"
+      > </a
+      ><a name="3474" class="Symbol"
+      >(</a
+      ><a name="3475" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3480"
+      > </a
+      ><a name="3481" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3235" class="Bound"
+      >Nn</a
+      ><a name="3483" class="Symbol"
+      >)</a
+      ><a name="3484"
+      >
+
+  </a
+      ><a name="3488" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3488" class="Function"
+      >gcd-Sm-Sn,Sn-N</a
+      ><a name="3502"
+      > </a
+      ><a name="3503" class="Symbol"
+      >:</a
+      ><a name="3504"
+      > </a
+      ><a name="3505" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3506"
+      > </a
+      ><a name="3507" class="Symbol"
+      >(</a
+      ><a name="3508" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3511"
+      > </a
+      ><a name="3512" class="Symbol"
+      >(</a
+      ><a name="3513" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3518"
+      > </a
+      ><a name="3519" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3225" class="Bound"
+      >m</a
+      ><a name="3520"
+      > </a
+      ><a name="3521" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3522"
+      > </a
+      ><a name="3523" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3528"
+      > </a
+      ><a name="3529" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3229" class="Bound"
+      >n</a
+      ><a name="3530" class="Symbol"
+      >)</a
+      ><a name="3531"
+      > </a
+      ><a name="3532" class="Symbol"
+      >(</a
+      ><a name="3533" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3538"
+      > </a
+      ><a name="3539" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3229" class="Bound"
+      >n</a
+      ><a name="3540" class="Symbol"
+      >))</a
+      ><a name="3542"
+      >
+  </a
+      ><a name="3545" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3488" class="Function"
+      >gcd-Sm-Sn,Sn-N</a
+      ><a name="3559"
+      > </a
+      ><a name="3560" class="Symbol"
+      >=</a
+      ><a name="3561"
+      > </a
+      ><a name="3562" href="FOTC.Program.GCD.Partial.TotalityATP.html#3650" class="Function"
+      >gcd-N</a
+      ><a name="3567"
+      > </a
+      ><a name="3568" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3415" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3575"
+      > </a
+      ><a name="3576" class="Symbol"
+      >(</a
+      ><a name="3577" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3582"
+      > </a
+      ><a name="3583" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3235" class="Bound"
+      >Nn</a
+      ><a name="3585" class="Symbol"
+      >)</a
+      ><a name="3586"
+      > </a
+      ><a name="3587" class="Symbol"
+      >(&#955;</a
+      ><a name="3589"
+      > </a
+      ><a name="3590" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3590" class="Bound"
+      >p</a
+      ><a name="3591"
+      > </a
+      ><a name="3592" class="Symbol"
+      >&#8594;</a
+      ><a name="3593"
+      > </a
+      ><a name="3594" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3600"
+      > </a
+      ><a name="3601" class="Symbol"
+      >(</a
+      ><a name="3602" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="3605"
+      > </a
+      ><a name="3606" class="Symbol"
+      >(</a
+      ><a name="3607" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="3614"
+      > </a
+      ><a name="3615" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3590" class="Bound"
+      >p</a
+      ><a name="3616" class="Symbol"
+      >)))</a
+      ><a name="3619"
+      >
+
+</a
+      ><a name="3621" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3699"
+      >
+</a
+      ><a name="3700" class="Comment"
+      >-- Some case of the gcd-&#8739;&#8322;.</a
+      ><a name="3727"
+      >
+</a
+      ><a name="3728" class="Comment"
+      >-- We don't prove that gcd-&#8739;&#8322; : ... &#8594; gcd m n &#8739; n. The reason is</a
+      ><a name="3792"
+      >
+</a
+      ><a name="3793" class="Comment"
+      >-- the same to don't prove gcd-&#8739;&#8321; : ... &#8594; gcd m n &#8739; m.</a
+      ><a name="3847"
+      >
+
+</a
+      ><a name="3849" class="Comment"
+      >-- gcd 0 (succ&#8321; n) &#8739;&#8322; succ&#8321; n.</a
+      ><a name="3879"
+      >
+</a
+      ><a name="3880" class="Keyword"
+      >postulate</a
+      ><a name="3889"
+      > </a
+      ><a name="3890" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3890" class="Postulate"
+      >gcd-0S-&#8739;&#8322;</a
+      ><a name="3899"
+      > </a
+      ><a name="3900" class="Symbol"
+      >:</a
+      ><a name="3901"
+      > </a
+      ><a name="3902" class="Symbol"
+      >&#8704;</a
+      ><a name="3903"
+      > </a
+      ><a name="3904" class="Symbol"
+      >{</a
+      ><a name="3905" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3905" class="Bound"
+      >n</a
+      ><a name="3906" class="Symbol"
+      >}</a
+      ><a name="3907"
+      > </a
+      ><a name="3908" class="Symbol"
+      >&#8594;</a
+      ><a name="3909"
+      > </a
+      ><a name="3910" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3911"
+      > </a
+      ><a name="3912" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3905" class="Bound"
+      >n</a
+      ><a name="3913"
+      > </a
+      ><a name="3914" class="Symbol"
+      >&#8594;</a
+      ><a name="3915"
+      > </a
+      ><a name="3916" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3919"
+      > </a
+      ><a name="3920" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="3924"
+      > </a
+      ><a name="3925" class="Symbol"
+      >(</a
+      ><a name="3926" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3931"
+      > </a
+      ><a name="3932" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3905" class="Bound"
+      >n</a
+      ><a name="3933" class="Symbol"
+      >)</a
+      ><a name="3934"
+      > </a
+      ><a name="3935" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="3936"
+      > </a
+      ><a name="3937" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3942"
+      > </a
+      ><a name="3943" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3905" class="Bound"
+      >n</a
+      ><a name="3944"
+      >
+</a
+      ><a name="3945" class="Symbol"
+      >{-#</a
+      ><a name="3948"
+      > </a
+      ><a name="3949" class="Keyword"
+      >ATP</a
+      ><a name="3952"
+      > prove </a
+      ><a name="3959" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3890" class="Postulate"
+      >gcd-0S-&#8739;&#8322;</a
+      ><a name="3968"
+      > </a
+      ><a name="3969" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1236" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="3977"
+      > </a
+      ><a name="3978" class="Symbol"
+      >#-}</a
+      ><a name="3981"
+      >
+
+</a
+      ><a name="3983" class="Comment"
+      >-- gcd (succ&#8321; m) 0 &#8739; 0.</a
+      ><a name="4006"
+      >
+</a
+      ><a name="4007" class="Keyword"
+      >postulate</a
+      ><a name="4016"
+      > </a
+      ><a name="4017" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4017" class="Postulate"
+      >gcd-S0-&#8739;&#8322;</a
+      ><a name="4026"
+      > </a
+      ><a name="4027" class="Symbol"
+      >:</a
+      ><a name="4028"
+      > </a
+      ><a name="4029" class="Symbol"
+      >&#8704;</a
+      ><a name="4030"
+      > </a
+      ><a name="4031" class="Symbol"
+      >{</a
+      ><a name="4032" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4032" class="Bound"
+      >m</a
+      ><a name="4033" class="Symbol"
+      >}</a
+      ><a name="4034"
+      > </a
+      ><a name="4035" class="Symbol"
+      >&#8594;</a
+      ><a name="4036"
+      > </a
+      ><a name="4037" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4038"
+      > </a
+      ><a name="4039" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4032" class="Bound"
+      >m</a
+      ><a name="4040"
+      > </a
+      ><a name="4041" class="Symbol"
+      >&#8594;</a
+      ><a name="4042"
+      > </a
+      ><a name="4043" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="4046"
+      > </a
+      ><a name="4047" class="Symbol"
+      >(</a
+      ><a name="4048" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4053"
+      > </a
+      ><a name="4054" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4032" class="Bound"
+      >m</a
+      ><a name="4055" class="Symbol"
+      >)</a
+      ><a name="4056"
+      > </a
+      ><a name="4057" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="4061"
+      > </a
+      ><a name="4062" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="4063"
+      > </a
+      ><a name="4064" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="4068"
+      >
+</a
+      ><a name="4069" class="Symbol"
+      >{-#</a
+      ><a name="4072"
+      > </a
+      ><a name="4073" class="Keyword"
+      >ATP</a
+      ><a name="4076"
+      > prove </a
+      ><a name="4083" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4017" class="Postulate"
+      >gcd-S0-&#8739;&#8322;</a
+      ><a name="4092"
+      > </a
+      ><a name="4093" class="Symbol"
+      >#-}</a
+      ><a name="4096"
+      >
+
+</a
+      ><a name="4098" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; n when succ&#8321; m &#8815; succ&#8321; n.</a
+      ><a name="4158"
+      >
+</a
+      ><a name="4159" class="Comment"
+      >{- Proof:
+1. gcd Sm (Sn &#8760; Sm) | (Sn &#8760; Sm)        IH
+2  gcd Sm (Sn &#8760; Sm) | Sm               gcd-&#8739;&#8321;
+3. gcd Sm (Sn &#8760; Sm) | (Sn &#8760; Sm) + Sm   m&#8739;n&#8594;m&#8739;o&#8594;m&#8739;n+o 1,2
+4. Sm &#8815; Sn                             Hip
+5. gcd (Sm &#8760; Sn) Sn | Sm               arith-gcd-m&#8804;n&#8322; 3,4
+6. gcd Sm Sn = gcd Sm (Sn &#8760; Sm)        gcd eq. 4
+7. gcd Sm Sn | Sn                      subst 5,6
+-}</a
+      ><a name="4515"
+      >
+
+</a
+      ><a name="4517" class="Comment"
+      >-- For the proof using the ATP we added the helper hypothesis:</a
+      ><a name="4579"
+      >
+</a
+      ><a name="4580" class="Comment"
+      >-- 1. gcd (succ&#8321; m) (succ&#8321; n &#8760; succ&#8321; m) &#8739; (succ&#8321; n &#8760; succ&#8321; m) + succ&#8321; m.</a
+      ><a name="4652"
+      >
+</a
+      ><a name="4653" class="Comment"
+      >-- 2 (succ&#8321; n &#8760; succ&#8321; m) + succ&#8321; m &#8801; succ&#8321; n.</a
+      ><a name="4698"
+      >
+</a
+      ><a name="4699" class="Keyword"
+      >postulate</a
+      ><a name="4708"
+      >
+  </a
+      ><a name="4711" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4711" class="Postulate"
+      >gcd-S&#8815;S-&#8739;&#8322;-ah</a
+      ><a name="4724"
+      > </a
+      ><a name="4725" class="Symbol"
+      >:</a
+      ><a name="4726"
+      >
+    </a
+      ><a name="4731" class="Symbol"
+      >&#8704;</a
+      ><a name="4732"
+      > </a
+      ><a name="4733" class="Symbol"
+      >{</a
+      ><a name="4734" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4735"
+      > </a
+      ><a name="4736" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4737" class="Symbol"
+      >}</a
+      ><a name="4738"
+      > </a
+      ><a name="4739" class="Symbol"
+      >&#8594;</a
+      ><a name="4740"
+      > </a
+      ><a name="4741" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4742"
+      > </a
+      ><a name="4743" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4744"
+      > </a
+      ><a name="4745" class="Symbol"
+      >&#8594;</a
+      ><a name="4746"
+      > </a
+      ><a name="4747" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4748"
+      > </a
+      ><a name="4749" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4750"
+      > </a
+      ><a name="4751" class="Symbol"
+      >&#8594;</a
+      ><a name="4752"
+      >
+    </a
+      ><a name="4757" class="Symbol"
+      >(</a
+      ><a name="4758" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="4761"
+      > </a
+      ><a name="4762" class="Symbol"
+      >(</a
+      ><a name="4763" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4768"
+      > </a
+      ><a name="4769" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4770" class="Symbol"
+      >)</a
+      ><a name="4771"
+      > </a
+      ><a name="4772" class="Symbol"
+      >(</a
+      ><a name="4773" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4778"
+      > </a
+      ><a name="4779" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4780"
+      > </a
+      ><a name="4781" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4782"
+      > </a
+      ><a name="4783" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4788"
+      > </a
+      ><a name="4789" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4790" class="Symbol"
+      >)</a
+      ><a name="4791"
+      > </a
+      ><a name="4792" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="4793"
+      > </a
+      ><a name="4794" class="Symbol"
+      >(</a
+      ><a name="4795" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4800"
+      > </a
+      ><a name="4801" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4802"
+      > </a
+      ><a name="4803" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4804"
+      > </a
+      ><a name="4805" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4810"
+      > </a
+      ><a name="4811" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4812" class="Symbol"
+      >))</a
+      ><a name="4814"
+      > </a
+      ><a name="4815" class="Symbol"
+      >&#8594;</a
+      ><a name="4816"
+      >
+    </a
+      ><a name="4821" class="Symbol"
+      >(</a
+      ><a name="4822" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="4825"
+      > </a
+      ><a name="4826" class="Symbol"
+      >(</a
+      ><a name="4827" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4832"
+      > </a
+      ><a name="4833" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4834" class="Symbol"
+      >)</a
+      ><a name="4835"
+      > </a
+      ><a name="4836" class="Symbol"
+      >(</a
+      ><a name="4837" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4842"
+      > </a
+      ><a name="4843" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4844"
+      > </a
+      ><a name="4845" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4846"
+      > </a
+      ><a name="4847" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4852"
+      > </a
+      ><a name="4853" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4854" class="Symbol"
+      >)</a
+      ><a name="4855"
+      > </a
+      ><a name="4856" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="4857"
+      > </a
+      ><a name="4858" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4863"
+      > </a
+      ><a name="4864" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4865" class="Symbol"
+      >)</a
+      ><a name="4866"
+      > </a
+      ><a name="4867" class="Symbol"
+      >&#8594;</a
+      ><a name="4868"
+      >
+    </a
+      ><a name="4873" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4878"
+      > </a
+      ><a name="4879" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4880"
+      > </a
+      ><a name="4881" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="4882"
+      > </a
+      ><a name="4883" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4888"
+      > </a
+      ><a name="4889" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4890"
+      > </a
+      ><a name="4891" class="Symbol"
+      >&#8594;</a
+      ><a name="4892"
+      >
+    </a
+      ><a name="4897" class="Symbol"
+      >(</a
+      ><a name="4898" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="4901"
+      > </a
+      ><a name="4902" class="Symbol"
+      >(</a
+      ><a name="4903" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4908"
+      > </a
+      ><a name="4909" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4910" class="Symbol"
+      >)</a
+      ><a name="4911"
+      > </a
+      ><a name="4912" class="Symbol"
+      >(</a
+      ><a name="4913" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4918"
+      > </a
+      ><a name="4919" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4920"
+      > </a
+      ><a name="4921" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4922"
+      > </a
+      ><a name="4923" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4928"
+      > </a
+      ><a name="4929" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4930" class="Symbol"
+      >)</a
+      ><a name="4931"
+      > </a
+      ><a name="4932" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="4933"
+      > </a
+      ><a name="4934" class="Symbol"
+      >(</a
+      ><a name="4935" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4940"
+      > </a
+      ><a name="4941" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4942"
+      > </a
+      ><a name="4943" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4944"
+      > </a
+      ><a name="4945" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4950"
+      > </a
+      ><a name="4951" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4952" class="Symbol"
+      >)</a
+      ><a name="4953"
+      > </a
+      ><a name="4954" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="4955"
+      > </a
+      ><a name="4956" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4961"
+      > </a
+      ><a name="4962" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4963" class="Symbol"
+      >)</a
+      ><a name="4964"
+      > </a
+      ><a name="4965" class="Symbol"
+      >&#8594;</a
+      ><a name="4966"
+      >
+    </a
+      ><a name="4971" class="Symbol"
+      >((</a
+      ><a name="4973" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4978"
+      > </a
+      ><a name="4979" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="4980"
+      > </a
+      ><a name="4981" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4982"
+      > </a
+      ><a name="4983" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4988"
+      > </a
+      ><a name="4989" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="4990" class="Symbol"
+      >)</a
+      ><a name="4991"
+      > </a
+      ><a name="4992" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="4993"
+      > </a
+      ><a name="4994" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4999"
+      > </a
+      ><a name="5000" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="5001"
+      > </a
+      ><a name="5002" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5003"
+      > </a
+      ><a name="5004" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5009"
+      > </a
+      ><a name="5010" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="5011" class="Symbol"
+      >)</a
+      ><a name="5012"
+      > </a
+      ><a name="5013" class="Symbol"
+      >&#8594;</a
+      ><a name="5014"
+      >
+    </a
+      ><a name="5019" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5022"
+      > </a
+      ><a name="5023" class="Symbol"
+      >(</a
+      ><a name="5024" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5029"
+      > </a
+      ><a name="5030" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4734" class="Bound"
+      >m</a
+      ><a name="5031" class="Symbol"
+      >)</a
+      ><a name="5032"
+      > </a
+      ><a name="5033" class="Symbol"
+      >(</a
+      ><a name="5034" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5039"
+      > </a
+      ><a name="5040" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="5041" class="Symbol"
+      >)</a
+      ><a name="5042"
+      > </a
+      ><a name="5043" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="5044"
+      > </a
+      ><a name="5045" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5050"
+      > </a
+      ><a name="5051" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4736" class="Bound"
+      >n</a
+      ><a name="5052"
+      >
+</a
+      ><a name="5053" class="Symbol"
+      >{-#</a
+      ><a name="5056"
+      > </a
+      ><a name="5057" class="Keyword"
+      >ATP</a
+      ><a name="5060"
+      > prove </a
+      ><a name="5067" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4711" class="Postulate"
+      >gcd-S&#8815;S-&#8739;&#8322;-ah</a
+      ><a name="5080"
+      > </a
+      ><a name="5081" class="Symbol"
+      >#-}</a
+      ><a name="5084"
+      >
+
+</a
+      ><a name="5086" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5086" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8322;</a
+      ><a name="5096"
+      > </a
+      ><a name="5097" class="Symbol"
+      >:</a
+      ><a name="5098"
+      >
+  </a
+      ><a name="5101" class="Symbol"
+      >&#8704;</a
+      ><a name="5102"
+      > </a
+      ><a name="5103" class="Symbol"
+      >{</a
+      ><a name="5104" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5105"
+      > </a
+      ><a name="5106" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5107" class="Symbol"
+      >}</a
+      ><a name="5108"
+      > </a
+      ><a name="5109" class="Symbol"
+      >&#8594;</a
+      ><a name="5110"
+      > </a
+      ><a name="5111" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5112"
+      > </a
+      ><a name="5113" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5114"
+      > </a
+      ><a name="5115" class="Symbol"
+      >&#8594;</a
+      ><a name="5116"
+      > </a
+      ><a name="5117" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5118"
+      > </a
+      ><a name="5119" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5120"
+      > </a
+      ><a name="5121" class="Symbol"
+      >&#8594;</a
+      ><a name="5122"
+      >
+  </a
+      ><a name="5125" class="Symbol"
+      >(</a
+      ><a name="5126" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5129"
+      > </a
+      ><a name="5130" class="Symbol"
+      >(</a
+      ><a name="5131" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5136"
+      > </a
+      ><a name="5137" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5138" class="Symbol"
+      >)</a
+      ><a name="5139"
+      > </a
+      ><a name="5140" class="Symbol"
+      >(</a
+      ><a name="5141" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5146"
+      > </a
+      ><a name="5147" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5148"
+      > </a
+      ><a name="5149" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="5150"
+      > </a
+      ><a name="5151" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5156"
+      > </a
+      ><a name="5157" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5158" class="Symbol"
+      >)</a
+      ><a name="5159"
+      > </a
+      ><a name="5160" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="5161"
+      > </a
+      ><a name="5162" class="Symbol"
+      >(</a
+      ><a name="5163" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5168"
+      > </a
+      ><a name="5169" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5170"
+      > </a
+      ><a name="5171" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="5172"
+      > </a
+      ><a name="5173" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5178"
+      > </a
+      ><a name="5179" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5180" class="Symbol"
+      >))</a
+      ><a name="5182"
+      > </a
+      ><a name="5183" class="Symbol"
+      >&#8594;</a
+      ><a name="5184"
+      >
+  </a
+      ><a name="5187" class="Symbol"
+      >(</a
+      ><a name="5188" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5191"
+      > </a
+      ><a name="5192" class="Symbol"
+      >(</a
+      ><a name="5193" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5198"
+      > </a
+      ><a name="5199" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5200" class="Symbol"
+      >)</a
+      ><a name="5201"
+      > </a
+      ><a name="5202" class="Symbol"
+      >(</a
+      ><a name="5203" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5208"
+      > </a
+      ><a name="5209" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5210"
+      > </a
+      ><a name="5211" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="5212"
+      > </a
+      ><a name="5213" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5218"
+      > </a
+      ><a name="5219" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5220" class="Symbol"
+      >)</a
+      ><a name="5221"
+      > </a
+      ><a name="5222" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="5223"
+      > </a
+      ><a name="5224" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5229"
+      > </a
+      ><a name="5230" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5231" class="Symbol"
+      >)</a
+      ><a name="5232"
+      > </a
+      ><a name="5233" class="Symbol"
+      >&#8594;</a
+      ><a name="5234"
+      >
+  </a
+      ><a name="5237" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5242"
+      > </a
+      ><a name="5243" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5244"
+      > </a
+      ><a name="5245" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="5246"
+      > </a
+      ><a name="5247" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5252"
+      > </a
+      ><a name="5253" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5254"
+      > </a
+      ><a name="5255" class="Symbol"
+      >&#8594;</a
+      ><a name="5256"
+      >
+  </a
+      ><a name="5259" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5262"
+      > </a
+      ><a name="5263" class="Symbol"
+      >(</a
+      ><a name="5264" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5269"
+      > </a
+      ><a name="5270" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5104" class="Bound"
+      >m</a
+      ><a name="5271" class="Symbol"
+      >)</a
+      ><a name="5272"
+      > </a
+      ><a name="5273" class="Symbol"
+      >(</a
+      ><a name="5274" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5279"
+      > </a
+      ><a name="5280" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5281" class="Symbol"
+      >)</a
+      ><a name="5282"
+      > </a
+      ><a name="5283" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="5284"
+      > </a
+      ><a name="5285" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5290"
+      > </a
+      ><a name="5291" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5106" class="Bound"
+      >n</a
+      ><a name="5292"
+      >
+</a
+      ><a name="5293" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5086" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8322;</a
+      ><a name="5303"
+      > </a
+      ><a name="5304" class="Symbol"
+      >{</a
+      ><a name="5305" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5305" class="Bound"
+      >m</a
+      ><a name="5306" class="Symbol"
+      >}</a
+      ><a name="5307"
+      > </a
+      ><a name="5308" class="Symbol"
+      >{</a
+      ><a name="5309" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5309" class="Bound"
+      >n</a
+      ><a name="5310" class="Symbol"
+      >}</a
+      ><a name="5311"
+      > </a
+      ><a name="5312" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5314"
+      > </a
+      ><a name="5315" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5315" class="Bound"
+      >Nn</a
+      ><a name="5317"
+      > </a
+      ><a name="5318" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5318" class="Bound"
+      >ih</a
+      ><a name="5320"
+      > </a
+      ><a name="5321" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5321" class="Bound"
+      >gcd-&#8739;&#8321;</a
+      ><a name="5327"
+      > </a
+      ><a name="5328" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5328" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="5333"
+      > </a
+      ><a name="5334" class="Symbol"
+      >=</a
+      ><a name="5335"
+      >
+  </a
+      ><a name="5338" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4711" class="Postulate"
+      >gcd-S&#8815;S-&#8739;&#8322;-ah</a
+      ><a name="5351"
+      > </a
+      ><a name="5352" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5354"
+      > </a
+      ><a name="5355" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5315" class="Bound"
+      >Nn</a
+      ><a name="5357"
+      > </a
+      ><a name="5358" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5318" class="Bound"
+      >ih</a
+      ><a name="5360"
+      > </a
+      ><a name="5361" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5321" class="Bound"
+      >gcd-&#8739;&#8321;</a
+      ><a name="5367"
+      > </a
+      ><a name="5368" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5328" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="5373"
+      >
+    </a
+      ><a name="5378" class="Symbol"
+      >(</a
+      ><a name="5379" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2277" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="5392"
+      > </a
+      ><a name="5393" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5600" class="Function"
+      >gcd-Sm,Sn-Sm-N</a
+      ><a name="5407"
+      > </a
+      ><a name="5408" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5527" class="Function"
+      >Sn-Sm-N</a
+      ><a name="5415"
+      > </a
+      ><a name="5416" class="Symbol"
+      >(</a
+      ><a name="5417" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5422"
+      > </a
+      ><a name="5423" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5425" class="Symbol"
+      >)</a
+      ><a name="5426"
+      > </a
+      ><a name="5427" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5318" class="Bound"
+      >ih</a
+      ><a name="5429"
+      > </a
+      ><a name="5430" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5321" class="Bound"
+      >gcd-&#8739;&#8321;</a
+      ><a name="5436" class="Symbol"
+      >)</a
+      ><a name="5437"
+      >
+    </a
+      ><a name="5442" class="Symbol"
+      >(</a
+      ><a name="5443" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#16698" class="Function"
+      >x&#8804;y&#8594;y&#8760;x+x&#8801;y</a
+      ><a name="5454"
+      > </a
+      ><a name="5455" class="Symbol"
+      >(</a
+      ><a name="5456" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5461"
+      > </a
+      ><a name="5462" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5464" class="Symbol"
+      >)</a
+      ><a name="5465"
+      > </a
+      ><a name="5466" class="Symbol"
+      >(</a
+      ><a name="5467" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5472"
+      > </a
+      ><a name="5473" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5315" class="Bound"
+      >Nn</a
+      ><a name="5475" class="Symbol"
+      >)</a
+      ><a name="5476"
+      > </a
+      ><a name="5477" class="Symbol"
+      >(</a
+      ><a name="5478" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#8711" class="Function"
+      >x&#8815;y&#8594;x&#8804;y</a
+      ><a name="5485"
+      > </a
+      ><a name="5486" class="Symbol"
+      >(</a
+      ><a name="5487" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5492"
+      > </a
+      ><a name="5493" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5495" class="Symbol"
+      >)</a
+      ><a name="5496"
+      > </a
+      ><a name="5497" class="Symbol"
+      >(</a
+      ><a name="5498" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5503"
+      > </a
+      ><a name="5504" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5315" class="Bound"
+      >Nn</a
+      ><a name="5506" class="Symbol"
+      >)</a
+      ><a name="5507"
+      > </a
+      ><a name="5508" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5328" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="5513" class="Symbol"
+      >))</a
+      ><a name="5515"
+      >
+
+  </a
+      ><a name="5519" class="Keyword"
+      >where</a
+      ><a name="5524"
+      >
+  </a
+      ><a name="5527" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5527" class="Function"
+      >Sn-Sm-N</a
+      ><a name="5534"
+      > </a
+      ><a name="5535" class="Symbol"
+      >:</a
+      ><a name="5536"
+      > </a
+      ><a name="5537" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5538"
+      > </a
+      ><a name="5539" class="Symbol"
+      >(</a
+      ><a name="5540" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5545"
+      > </a
+      ><a name="5546" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5309" class="Bound"
+      >n</a
+      ><a name="5547"
+      > </a
+      ><a name="5548" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="5549"
+      > </a
+      ><a name="5550" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5555"
+      > </a
+      ><a name="5556" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5305" class="Bound"
+      >m</a
+      ><a name="5557" class="Symbol"
+      >)</a
+      ><a name="5558"
+      >
+  </a
+      ><a name="5561" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5527" class="Function"
+      >Sn-Sm-N</a
+      ><a name="5568"
+      > </a
+      ><a name="5569" class="Symbol"
+      >=</a
+      ><a name="5570"
+      > </a
+      ><a name="5571" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="5574"
+      > </a
+      ><a name="5575" class="Symbol"
+      >(</a
+      ><a name="5576" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5581"
+      > </a
+      ><a name="5582" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5315" class="Bound"
+      >Nn</a
+      ><a name="5584" class="Symbol"
+      >)</a
+      ><a name="5585"
+      > </a
+      ><a name="5586" class="Symbol"
+      >(</a
+      ><a name="5587" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5592"
+      > </a
+      ><a name="5593" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5595" class="Symbol"
+      >)</a
+      ><a name="5596"
+      >
+
+  </a
+      ><a name="5600" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5600" class="Function"
+      >gcd-Sm,Sn-Sm-N</a
+      ><a name="5614"
+      > </a
+      ><a name="5615" class="Symbol"
+      >:</a
+      ><a name="5616"
+      > </a
+      ><a name="5617" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5618"
+      > </a
+      ><a name="5619" class="Symbol"
+      >(</a
+      ><a name="5620" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5623"
+      > </a
+      ><a name="5624" class="Symbol"
+      >(</a
+      ><a name="5625" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5630"
+      > </a
+      ><a name="5631" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5305" class="Bound"
+      >m</a
+      ><a name="5632" class="Symbol"
+      >)</a
+      ><a name="5633"
+      > </a
+      ><a name="5634" class="Symbol"
+      >(</a
+      ><a name="5635" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5640"
+      > </a
+      ><a name="5641" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5309" class="Bound"
+      >n</a
+      ><a name="5642"
+      > </a
+      ><a name="5643" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="5644"
+      > </a
+      ><a name="5645" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5650"
+      > </a
+      ><a name="5651" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5305" class="Bound"
+      >m</a
+      ><a name="5652" class="Symbol"
+      >))</a
+      ><a name="5654"
+      >
+  </a
+      ><a name="5657" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5600" class="Function"
+      >gcd-Sm,Sn-Sm-N</a
+      ><a name="5671"
+      > </a
+      ><a name="5672" class="Symbol"
+      >=</a
+      ><a name="5673"
+      > </a
+      ><a name="5674" href="FOTC.Program.GCD.Partial.TotalityATP.html#3650" class="Function"
+      >gcd-N</a
+      ><a name="5679"
+      > </a
+      ><a name="5680" class="Symbol"
+      >(</a
+      ><a name="5681" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5686"
+      > </a
+      ><a name="5687" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5312" class="Bound"
+      >Nm</a
+      ><a name="5689" class="Symbol"
+      >)</a
+      ><a name="5690"
+      > </a
+      ><a name="5691" class="Symbol"
+      >(</a
+      ><a name="5692" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5527" class="Function"
+      >Sn-Sm-N</a
+      ><a name="5699" class="Symbol"
+      >)</a
+      ><a name="5700"
+      > </a
+      ><a name="5701" class="Symbol"
+      >(&#955;</a
+      ><a name="5703"
+      > </a
+      ><a name="5704" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5704" class="Bound"
+      >p</a
+      ><a name="5705"
+      > </a
+      ><a name="5706" class="Symbol"
+      >&#8594;</a
+      ><a name="5707"
+      > </a
+      ><a name="5708" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="5714"
+      > </a
+      ><a name="5715" class="Symbol"
+      >(</a
+      ><a name="5716" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="5719"
+      > </a
+      ><a name="5720" class="Symbol"
+      >(</a
+      ><a name="5721" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="5728"
+      > </a
+      ><a name="5729" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5704" class="Bound"
+      >p</a
+      ><a name="5730" class="Symbol"
+      >)))</a
+      ><a name="5733"
+      >
+
+</a
+      ><a name="5735" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; n when succ&#8321; m &gt; succ&#8321; n.</a
+      ><a name="5795"
+      >
+</a
+      ><a name="5796" class="Keyword"
+      >postulate</a
+      ><a name="5805"
+      > </a
+      ><a name="5806" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5806" class="Postulate"
+      >gcd-S&gt;S-&#8739;&#8322;</a
+      ><a name="5816"
+      > </a
+      ><a name="5817" class="Symbol"
+      >:</a
+      ><a name="5818"
+      > </a
+      ><a name="5819" class="Symbol"
+      >&#8704;</a
+      ><a name="5820"
+      > </a
+      ><a name="5821" class="Symbol"
+      >{</a
+      ><a name="5822" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5822" class="Bound"
+      >m</a
+      ><a name="5823"
+      > </a
+      ><a name="5824" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="5825" class="Symbol"
+      >}</a
+      ><a name="5826"
+      > </a
+      ><a name="5827" class="Symbol"
+      >&#8594;</a
+      ><a name="5828"
+      > </a
+      ><a name="5829" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5830"
+      > </a
+      ><a name="5831" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5822" class="Bound"
+      >m</a
+      ><a name="5832"
+      > </a
+      ><a name="5833" class="Symbol"
+      >&#8594;</a
+      ><a name="5834"
+      > </a
+      ><a name="5835" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5836"
+      > </a
+      ><a name="5837" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="5838"
+      > </a
+      ><a name="5839" class="Symbol"
+      >&#8594;</a
+      ><a name="5840"
+      >
+                       </a
+      ><a name="5864" class="Symbol"
+      >(</a
+      ><a name="5865" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5868"
+      > </a
+      ><a name="5869" class="Symbol"
+      >(</a
+      ><a name="5870" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5875"
+      > </a
+      ><a name="5876" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5822" class="Bound"
+      >m</a
+      ><a name="5877"
+      > </a
+      ><a name="5878" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="5879"
+      > </a
+      ><a name="5880" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5885"
+      > </a
+      ><a name="5886" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="5887" class="Symbol"
+      >)</a
+      ><a name="5888"
+      > </a
+      ><a name="5889" class="Symbol"
+      >(</a
+      ><a name="5890" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5895"
+      > </a
+      ><a name="5896" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="5897" class="Symbol"
+      >)</a
+      ><a name="5898"
+      > </a
+      ><a name="5899" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="5900"
+      > </a
+      ><a name="5901" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5906"
+      > </a
+      ><a name="5907" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="5908" class="Symbol"
+      >)</a
+      ><a name="5909"
+      > </a
+      ><a name="5910" class="Symbol"
+      >&#8594;</a
+      ><a name="5911"
+      >
+                       </a
+      ><a name="5935" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5940"
+      > </a
+      ><a name="5941" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5822" class="Bound"
+      >m</a
+      ><a name="5942"
+      > </a
+      ><a name="5943" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="5944"
+      > </a
+      ><a name="5945" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5950"
+      > </a
+      ><a name="5951" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="5952"
+      > </a
+      ><a name="5953" class="Symbol"
+      >&#8594;</a
+      ><a name="5954"
+      >
+                       </a
+      ><a name="5978" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="5981"
+      > </a
+      ><a name="5982" class="Symbol"
+      >(</a
+      ><a name="5983" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5988"
+      > </a
+      ><a name="5989" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5822" class="Bound"
+      >m</a
+      ><a name="5990" class="Symbol"
+      >)</a
+      ><a name="5991"
+      > </a
+      ><a name="5992" class="Symbol"
+      >(</a
+      ><a name="5993" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="5998"
+      > </a
+      ><a name="5999" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="6000" class="Symbol"
+      >)</a
+      ><a name="6001"
+      > </a
+      ><a name="6002" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="6003"
+      > </a
+      ><a name="6004" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6009"
+      > </a
+      ><a name="6010" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5824" class="Bound"
+      >n</a
+      ><a name="6011"
+      >
+</a
+      ><a name="6012" class="Symbol"
+      >{-#</a
+      ><a name="6015"
+      > </a
+      ><a name="6016" class="Keyword"
+      >ATP</a
+      ><a name="6019"
+      > prove </a
+      ><a name="6026" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5806" class="Postulate"
+      >gcd-S&gt;S-&#8739;&#8322;</a
+      ><a name="6036"
+      > </a
+      ><a name="6037" class="Symbol"
+      >#-}</a
+      ><a name="6040"
+      >
+
+</a
+      ><a name="6042" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="6120"
+      >
+</a
+      ><a name="6121" class="Comment"
+      >-- The gcd is CD.</a
+      ><a name="6138"
+      >
+</a
+      ><a name="6139" class="Comment"
+      >-- We will prove that gcdCD : ... &#8594; CD m n (gcd m n).</a
+      ><a name="6192"
+      >
+
+</a
+      ><a name="6194" class="Comment"
+      >-- The gcd 0 (succ&#8321; n) is CD.</a
+      ><a name="6223"
+      >
+</a
+      ><a name="6224" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6224" class="Function"
+      >gcd-0S-CD</a
+      ><a name="6233"
+      > </a
+      ><a name="6234" class="Symbol"
+      >:</a
+      ><a name="6235"
+      > </a
+      ><a name="6236" class="Symbol"
+      >&#8704;</a
+      ><a name="6237"
+      > </a
+      ><a name="6238" class="Symbol"
+      >{</a
+      ><a name="6239" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6239" class="Bound"
+      >n</a
+      ><a name="6240" class="Symbol"
+      >}</a
+      ><a name="6241"
+      > </a
+      ><a name="6242" class="Symbol"
+      >&#8594;</a
+      ><a name="6243"
+      > </a
+      ><a name="6244" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="6245"
+      > </a
+      ><a name="6246" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6239" class="Bound"
+      >n</a
+      ><a name="6247"
+      > </a
+      ><a name="6248" class="Symbol"
+      >&#8594;</a
+      ><a name="6249"
+      > </a
+      ><a name="6250" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="6252"
+      > </a
+      ><a name="6253" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="6257"
+      > </a
+      ><a name="6258" class="Symbol"
+      >(</a
+      ><a name="6259" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6264"
+      > </a
+      ><a name="6265" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6239" class="Bound"
+      >n</a
+      ><a name="6266" class="Symbol"
+      >)</a
+      ><a name="6267"
+      > </a
+      ><a name="6268" class="Symbol"
+      >(</a
+      ><a name="6269" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="6272"
+      > </a
+      ><a name="6273" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="6277"
+      > </a
+      ><a name="6278" class="Symbol"
+      >(</a
+      ><a name="6279" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6284"
+      > </a
+      ><a name="6285" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6239" class="Bound"
+      >n</a
+      ><a name="6286" class="Symbol"
+      >))</a
+      ><a name="6288"
+      >
+</a
+      ><a name="6289" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6224" class="Function"
+      >gcd-0S-CD</a
+      ><a name="6298"
+      > </a
+      ><a name="6299" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6299" class="Bound"
+      >Nn</a
+      ><a name="6301"
+      > </a
+      ><a name="6302" class="Symbol"
+      >=</a
+      ><a name="6303"
+      > </a
+      ><a name="6304" class="Symbol"
+      >(</a
+      ><a name="6305" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1497" class="Postulate"
+      >gcd-0S-&#8739;&#8321;</a
+      ><a name="6314"
+      > </a
+      ><a name="6315" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6299" class="Bound"
+      >Nn</a
+      ><a name="6317"
+      > </a
+      ><a name="6318" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6319"
+      > </a
+      ><a name="6320" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3890" class="Postulate"
+      >gcd-0S-&#8739;&#8322;</a
+      ><a name="6329"
+      > </a
+      ><a name="6330" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6299" class="Bound"
+      >Nn</a
+      ><a name="6332" class="Symbol"
+      >)</a
+      ><a name="6333"
+      >
+
+</a
+      ><a name="6335" class="Comment"
+      >-- The gcd (succ&#8321; m) 0 is CD.</a
+      ><a name="6364"
+      >
+</a
+      ><a name="6365" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6365" class="Function"
+      >gcd-S0-CD</a
+      ><a name="6374"
+      > </a
+      ><a name="6375" class="Symbol"
+      >:</a
+      ><a name="6376"
+      > </a
+      ><a name="6377" class="Symbol"
+      >&#8704;</a
+      ><a name="6378"
+      > </a
+      ><a name="6379" class="Symbol"
+      >{</a
+      ><a name="6380" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6380" class="Bound"
+      >m</a
+      ><a name="6381" class="Symbol"
+      >}</a
+      ><a name="6382"
+      > </a
+      ><a name="6383" class="Symbol"
+      >&#8594;</a
+      ><a name="6384"
+      > </a
+      ><a name="6385" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="6386"
+      > </a
+      ><a name="6387" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6380" class="Bound"
+      >m</a
+      ><a name="6388"
+      > </a
+      ><a name="6389" class="Symbol"
+      >&#8594;</a
+      ><a name="6390"
+      > </a
+      ><a name="6391" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="6393"
+      > </a
+      ><a name="6394" class="Symbol"
+      >(</a
+      ><a name="6395" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6400"
+      > </a
+      ><a name="6401" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6380" class="Bound"
+      >m</a
+      ><a name="6402" class="Symbol"
+      >)</a
+      ><a name="6403"
+      > </a
+      ><a name="6404" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="6408"
+      > </a
+      ><a name="6409" class="Symbol"
+      >(</a
+      ><a name="6410" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="6413"
+      > </a
+      ><a name="6414" class="Symbol"
+      >(</a
+      ><a name="6415" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6420"
+      > </a
+      ><a name="6421" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6380" class="Bound"
+      >m</a
+      ><a name="6422" class="Symbol"
+      >)</a
+      ><a name="6423"
+      > </a
+      ><a name="6424" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="6428" class="Symbol"
+      >)</a
+      ><a name="6429"
+      >
+</a
+      ><a name="6430" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6365" class="Function"
+      >gcd-S0-CD</a
+      ><a name="6439"
+      > </a
+      ><a name="6440" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6440" class="Bound"
+      >Nm</a
+      ><a name="6442"
+      > </a
+      ><a name="6443" class="Symbol"
+      >=</a
+      ><a name="6444"
+      > </a
+      ><a name="6445" class="Symbol"
+      >(</a
+      ><a name="6446" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1618" class="Postulate"
+      >gcd-S0-&#8739;&#8321;</a
+      ><a name="6455"
+      > </a
+      ><a name="6456" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6440" class="Bound"
+      >Nm</a
+      ><a name="6458"
+      > </a
+      ><a name="6459" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6460"
+      > </a
+      ><a name="6461" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#4017" class="Postulate"
+      >gcd-S0-&#8739;&#8322;</a
+      ><a name="6470"
+      > </a
+      ><a name="6471" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6440" class="Bound"
+      >Nm</a
+      ><a name="6473" class="Symbol"
+      >)</a
+      ><a name="6474"
+      >
+
+</a
+      ><a name="6476" class="Comment"
+      >-- The gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &gt; succ&#8321; n is CD.</a
+      ><a name="6536"
+      >
+</a
+      ><a name="6537" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6537" class="Function"
+      >gcd-S&gt;S-CD</a
+      ><a name="6547"
+      > </a
+      ><a name="6548" class="Symbol"
+      >:</a
+      ><a name="6549"
+      >
+  </a
+      ><a name="6552" class="Symbol"
+      >&#8704;</a
+      ><a name="6553"
+      > </a
+      ><a name="6554" class="Symbol"
+      >{</a
+      ><a name="6555" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6556"
+      > </a
+      ><a name="6557" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6558" class="Symbol"
+      >}</a
+      ><a name="6559"
+      > </a
+      ><a name="6560" class="Symbol"
+      >&#8594;</a
+      ><a name="6561"
+      > </a
+      ><a name="6562" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="6563"
+      > </a
+      ><a name="6564" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6565"
+      > </a
+      ><a name="6566" class="Symbol"
+      >&#8594;</a
+      ><a name="6567"
+      > </a
+      ><a name="6568" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="6569"
+      > </a
+      ><a name="6570" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6571"
+      > </a
+      ><a name="6572" class="Symbol"
+      >&#8594;</a
+      ><a name="6573"
+      >
+  </a
+      ><a name="6576" class="Symbol"
+      >(</a
+      ><a name="6577" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="6579"
+      > </a
+      ><a name="6580" class="Symbol"
+      >(</a
+      ><a name="6581" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6586"
+      > </a
+      ><a name="6587" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6588"
+      > </a
+      ><a name="6589" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="6590"
+      > </a
+      ><a name="6591" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6596"
+      > </a
+      ><a name="6597" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6598" class="Symbol"
+      >)</a
+      ><a name="6599"
+      > </a
+      ><a name="6600" class="Symbol"
+      >(</a
+      ><a name="6601" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6606"
+      > </a
+      ><a name="6607" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6608" class="Symbol"
+      >)</a
+      ><a name="6609"
+      > </a
+      ><a name="6610" class="Symbol"
+      >(</a
+      ><a name="6611" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="6614"
+      > </a
+      ><a name="6615" class="Symbol"
+      >(</a
+      ><a name="6616" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6621"
+      > </a
+      ><a name="6622" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6623"
+      > </a
+      ><a name="6624" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="6625"
+      > </a
+      ><a name="6626" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6631"
+      > </a
+      ><a name="6632" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6633" class="Symbol"
+      >)</a
+      ><a name="6634"
+      > </a
+      ><a name="6635" class="Symbol"
+      >(</a
+      ><a name="6636" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6641"
+      > </a
+      ><a name="6642" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6643" class="Symbol"
+      >)))</a
+      ><a name="6646"
+      > </a
+      ><a name="6647" class="Symbol"
+      >&#8594;</a
+      ><a name="6648"
+      >
+  </a
+      ><a name="6651" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6656"
+      > </a
+      ><a name="6657" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6658"
+      > </a
+      ><a name="6659" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="6660"
+      > </a
+      ><a name="6661" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6666"
+      > </a
+      ><a name="6667" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6668"
+      > </a
+      ><a name="6669" class="Symbol"
+      >&#8594;</a
+      ><a name="6670"
+      >
+  </a
+      ><a name="6673" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="6675"
+      > </a
+      ><a name="6676" class="Symbol"
+      >(</a
+      ><a name="6677" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6682"
+      > </a
+      ><a name="6683" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6684" class="Symbol"
+      >)</a
+      ><a name="6685"
+      > </a
+      ><a name="6686" class="Symbol"
+      >(</a
+      ><a name="6687" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6692"
+      > </a
+      ><a name="6693" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6694" class="Symbol"
+      >)</a
+      ><a name="6695"
+      > </a
+      ><a name="6696" class="Symbol"
+      >(</a
+      ><a name="6697" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="6700"
+      > </a
+      ><a name="6701" class="Symbol"
+      >(</a
+      ><a name="6702" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6707"
+      > </a
+      ><a name="6708" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6555" class="Bound"
+      >m</a
+      ><a name="6709" class="Symbol"
+      >)</a
+      ><a name="6710"
+      > </a
+      ><a name="6711" class="Symbol"
+      >(</a
+      ><a name="6712" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6717"
+      > </a
+      ><a name="6718" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6557" class="Bound"
+      >n</a
+      ><a name="6719" class="Symbol"
+      >))</a
+      ><a name="6721"
+      >
+</a
+      ><a name="6722" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6537" class="Function"
+      >gcd-S&gt;S-CD</a
+      ><a name="6732"
+      > </a
+      ><a name="6733" class="Symbol"
+      >{</a
+      ><a name="6734" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6734" class="Bound"
+      >m</a
+      ><a name="6735" class="Symbol"
+      >}</a
+      ><a name="6736"
+      > </a
+      ><a name="6737" class="Symbol"
+      >{</a
+      ><a name="6738" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6739" class="Symbol"
+      >}</a
+      ><a name="6740"
+      > </a
+      ><a name="6741" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6741" class="Bound"
+      >Nm</a
+      ><a name="6743"
+      > </a
+      ><a name="6744" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6744" class="Bound"
+      >Nn</a
+      ><a name="6746"
+      > </a
+      ><a name="6747" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6747" class="Bound"
+      >acc</a
+      ><a name="6750"
+      > </a
+      ><a name="6751" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6751" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="6756"
+      > </a
+      ><a name="6757" class="Symbol"
+      >=</a
+      ><a name="6758"
+      >
+   </a
+      ><a name="6762" class="Symbol"
+      >(</a
+      ><a name="6763" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#3006" class="Function"
+      >gcd-S&gt;S-&#8739;&#8321;</a
+      ><a name="6773"
+      > </a
+      ><a name="6774" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6741" class="Bound"
+      >Nm</a
+      ><a name="6776"
+      > </a
+      ><a name="6777" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6744" class="Bound"
+      >Nn</a
+      ><a name="6779"
+      > </a
+      ><a name="6780" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6843" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="6786"
+      > </a
+      ><a name="6787" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6934" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="6793"
+      > </a
+      ><a name="6794" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6751" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="6799"
+      > </a
+      ><a name="6800" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6801"
+      > </a
+      ><a name="6802" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5806" class="Postulate"
+      >gcd-S&gt;S-&#8739;&#8322;</a
+      ><a name="6812"
+      > </a
+      ><a name="6813" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6741" class="Bound"
+      >Nm</a
+      ><a name="6815"
+      > </a
+      ><a name="6816" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6744" class="Bound"
+      >Nn</a
+      ><a name="6818"
+      > </a
+      ><a name="6819" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6934" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="6825"
+      > </a
+      ><a name="6826" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6751" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="6831" class="Symbol"
+      >)</a
+      ><a name="6832"
+      >
+  </a
+      ><a name="6835" class="Keyword"
+      >where</a
+      ><a name="6840"
+      >
+  </a
+      ><a name="6843" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6843" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="6849"
+      > </a
+      ><a name="6850" class="Symbol"
+      >:</a
+      ><a name="6851"
+      > </a
+      ><a name="6852" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="6855"
+      > </a
+      ><a name="6856" class="Symbol"
+      >(</a
+      ><a name="6857" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6862"
+      > </a
+      ><a name="6863" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6734" class="Bound"
+      >m</a
+      ><a name="6864"
+      > </a
+      ><a name="6865" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="6866"
+      > </a
+      ><a name="6867" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6872"
+      > </a
+      ><a name="6873" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6874" class="Symbol"
+      >)</a
+      ><a name="6875"
+      > </a
+      ><a name="6876" class="Symbol"
+      >(</a
+      ><a name="6877" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6882"
+      > </a
+      ><a name="6883" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6884" class="Symbol"
+      >)</a
+      ><a name="6885"
+      > </a
+      ><a name="6886" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="6887"
+      > </a
+      ><a name="6888" class="Symbol"
+      >(</a
+      ><a name="6889" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6894"
+      > </a
+      ><a name="6895" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6734" class="Bound"
+      >m</a
+      ><a name="6896"
+      > </a
+      ><a name="6897" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="6898"
+      > </a
+      ><a name="6899" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6904"
+      > </a
+      ><a name="6905" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6906" class="Symbol"
+      >)</a
+      ><a name="6907"
+      >
+  </a
+      ><a name="6910" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6843" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="6916"
+      > </a
+      ><a name="6917" class="Symbol"
+      >=</a
+      ><a name="6918"
+      > </a
+      ><a name="6919" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="6926"
+      > </a
+      ><a name="6927" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6747" class="Bound"
+      >acc</a
+      ><a name="6930"
+      >
+
+  </a
+      ><a name="6934" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6934" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="6940"
+      > </a
+      ><a name="6941" class="Symbol"
+      >:</a
+      ><a name="6942"
+      > </a
+      ><a name="6943" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="6946"
+      > </a
+      ><a name="6947" class="Symbol"
+      >(</a
+      ><a name="6948" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6953"
+      > </a
+      ><a name="6954" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6734" class="Bound"
+      >m</a
+      ><a name="6955"
+      > </a
+      ><a name="6956" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="6957"
+      > </a
+      ><a name="6958" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6963"
+      > </a
+      ><a name="6964" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6965" class="Symbol"
+      >)</a
+      ><a name="6966"
+      > </a
+      ><a name="6967" class="Symbol"
+      >(</a
+      ><a name="6968" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6973"
+      > </a
+      ><a name="6974" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6975" class="Symbol"
+      >)</a
+      ><a name="6976"
+      > </a
+      ><a name="6977" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="6978"
+      > </a
+      ><a name="6979" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="6984"
+      > </a
+      ><a name="6985" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6738" class="Bound"
+      >n</a
+      ><a name="6986"
+      >
+  </a
+      ><a name="6989" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6934" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="6995"
+      > </a
+      ><a name="6996" class="Symbol"
+      >=</a
+      ><a name="6997"
+      > </a
+      ><a name="6998" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="7005"
+      > </a
+      ><a name="7006" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6747" class="Bound"
+      >acc</a
+      ><a name="7009"
+      >
+
+</a
+      ><a name="7011" class="Comment"
+      >-- The gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &#8815; succ&#8321; n is CD.</a
+      ><a name="7071"
+      >
+</a
+      ><a name="7072" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7072" class="Function"
+      >gcd-S&#8815;S-CD</a
+      ><a name="7082"
+      > </a
+      ><a name="7083" class="Symbol"
+      >:</a
+      ><a name="7084"
+      >
+  </a
+      ><a name="7087" class="Symbol"
+      >&#8704;</a
+      ><a name="7088"
+      > </a
+      ><a name="7089" class="Symbol"
+      >{</a
+      ><a name="7090" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7091"
+      > </a
+      ><a name="7092" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7093" class="Symbol"
+      >}</a
+      ><a name="7094"
+      > </a
+      ><a name="7095" class="Symbol"
+      >&#8594;</a
+      ><a name="7096"
+      > </a
+      ><a name="7097" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="7098"
+      > </a
+      ><a name="7099" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7100"
+      > </a
+      ><a name="7101" class="Symbol"
+      >&#8594;</a
+      ><a name="7102"
+      > </a
+      ><a name="7103" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="7104"
+      > </a
+      ><a name="7105" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7106"
+      > </a
+      ><a name="7107" class="Symbol"
+      >&#8594;</a
+      ><a name="7108"
+      >
+  </a
+      ><a name="7111" class="Symbol"
+      >(</a
+      ><a name="7112" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="7114"
+      > </a
+      ><a name="7115" class="Symbol"
+      >(</a
+      ><a name="7116" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7121"
+      > </a
+      ><a name="7122" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7123" class="Symbol"
+      >)</a
+      ><a name="7124"
+      > </a
+      ><a name="7125" class="Symbol"
+      >(</a
+      ><a name="7126" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7131"
+      > </a
+      ><a name="7132" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7133"
+      > </a
+      ><a name="7134" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="7135"
+      > </a
+      ><a name="7136" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7141"
+      > </a
+      ><a name="7142" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7143" class="Symbol"
+      >)</a
+      ><a name="7144"
+      > </a
+      ><a name="7145" class="Symbol"
+      >(</a
+      ><a name="7146" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="7149"
+      > </a
+      ><a name="7150" class="Symbol"
+      >(</a
+      ><a name="7151" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7156"
+      > </a
+      ><a name="7157" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7158" class="Symbol"
+      >)</a
+      ><a name="7159"
+      > </a
+      ><a name="7160" class="Symbol"
+      >(</a
+      ><a name="7161" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7166"
+      > </a
+      ><a name="7167" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7168"
+      > </a
+      ><a name="7169" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="7170"
+      > </a
+      ><a name="7171" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7176"
+      > </a
+      ><a name="7177" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7178" class="Symbol"
+      >)))</a
+      ><a name="7181"
+      > </a
+      ><a name="7182" class="Symbol"
+      >&#8594;</a
+      ><a name="7183"
+      >
+  </a
+      ><a name="7186" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7191"
+      > </a
+      ><a name="7192" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7193"
+      > </a
+      ><a name="7194" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="7195"
+      > </a
+      ><a name="7196" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7201"
+      > </a
+      ><a name="7202" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7203"
+      > </a
+      ><a name="7204" class="Symbol"
+      >&#8594;</a
+      ><a name="7205"
+      >
+  </a
+      ><a name="7208" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="7210"
+      > </a
+      ><a name="7211" class="Symbol"
+      >(</a
+      ><a name="7212" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7217"
+      > </a
+      ><a name="7218" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7219" class="Symbol"
+      >)</a
+      ><a name="7220"
+      > </a
+      ><a name="7221" class="Symbol"
+      >(</a
+      ><a name="7222" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7227"
+      > </a
+      ><a name="7228" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7229" class="Symbol"
+      >)</a
+      ><a name="7230"
+      > </a
+      ><a name="7231" class="Symbol"
+      >(</a
+      ><a name="7232" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="7235"
+      > </a
+      ><a name="7236" class="Symbol"
+      >(</a
+      ><a name="7237" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7242"
+      > </a
+      ><a name="7243" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7090" class="Bound"
+      >m</a
+      ><a name="7244" class="Symbol"
+      >)</a
+      ><a name="7245"
+      > </a
+      ><a name="7246" class="Symbol"
+      >(</a
+      ><a name="7247" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7252"
+      > </a
+      ><a name="7253" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7092" class="Bound"
+      >n</a
+      ><a name="7254" class="Symbol"
+      >))</a
+      ><a name="7256"
+      >
+</a
+      ><a name="7257" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7072" class="Function"
+      >gcd-S&#8815;S-CD</a
+      ><a name="7267"
+      > </a
+      ><a name="7268" class="Symbol"
+      >{</a
+      ><a name="7269" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7270" class="Symbol"
+      >}</a
+      ><a name="7271"
+      > </a
+      ><a name="7272" class="Symbol"
+      >{</a
+      ><a name="7273" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7273" class="Bound"
+      >n</a
+      ><a name="7274" class="Symbol"
+      >}</a
+      ><a name="7275"
+      > </a
+      ><a name="7276" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7276" class="Bound"
+      >Nm</a
+      ><a name="7278"
+      > </a
+      ><a name="7279" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7279" class="Bound"
+      >Nn</a
+      ><a name="7281"
+      > </a
+      ><a name="7282" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7282" class="Bound"
+      >acc</a
+      ><a name="7285"
+      > </a
+      ><a name="7286" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7286" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="7291"
+      > </a
+      ><a name="7292" class="Symbol"
+      >=</a
+      ><a name="7293"
+      >
+  </a
+      ><a name="7296" class="Symbol"
+      >(</a
+      ><a name="7297" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1783" class="Postulate"
+      >gcd-S&#8815;S-&#8739;&#8321;</a
+      ><a name="7307"
+      > </a
+      ><a name="7308" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7276" class="Bound"
+      >Nm</a
+      ><a name="7310"
+      > </a
+      ><a name="7311" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7279" class="Bound"
+      >Nn</a
+      ><a name="7313"
+      > </a
+      ><a name="7314" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7377" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7320"
+      > </a
+      ><a name="7321" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7286" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="7326"
+      > </a
+      ><a name="7327" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7328"
+      > </a
+      ><a name="7329" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#5086" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8322;</a
+      ><a name="7339"
+      > </a
+      ><a name="7340" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7276" class="Bound"
+      >Nm</a
+      ><a name="7342"
+      > </a
+      ><a name="7343" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7279" class="Bound"
+      >Nn</a
+      ><a name="7345"
+      > </a
+      ><a name="7346" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7456" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7352"
+      > </a
+      ><a name="7353" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7377" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7359"
+      > </a
+      ><a name="7360" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7286" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="7365" class="Symbol"
+      >)</a
+      ><a name="7366"
+      >
+  </a
+      ><a name="7369" class="Keyword"
+      >where</a
+      ><a name="7374"
+      >
+  </a
+      ><a name="7377" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7377" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7383"
+      > </a
+      ><a name="7384" class="Symbol"
+      >:</a
+      ><a name="7385"
+      > </a
+      ><a name="7386" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="7389"
+      > </a
+      ><a name="7390" class="Symbol"
+      >(</a
+      ><a name="7391" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7396"
+      > </a
+      ><a name="7397" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7398" class="Symbol"
+      >)</a
+      ><a name="7399"
+      > </a
+      ><a name="7400" class="Symbol"
+      >(</a
+      ><a name="7401" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7406"
+      > </a
+      ><a name="7407" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7273" class="Bound"
+      >n</a
+      ><a name="7408"
+      > </a
+      ><a name="7409" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="7410"
+      > </a
+      ><a name="7411" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7416"
+      > </a
+      ><a name="7417" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7418" class="Symbol"
+      >)</a
+      ><a name="7419"
+      > </a
+      ><a name="7420" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="7421"
+      > </a
+      ><a name="7422" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7427"
+      > </a
+      ><a name="7428" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7429"
+      >
+  </a
+      ><a name="7432" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7377" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7438"
+      > </a
+      ><a name="7439" class="Symbol"
+      >=</a
+      ><a name="7440"
+      > </a
+      ><a name="7441" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="7448"
+      > </a
+      ><a name="7449" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7282" class="Bound"
+      >acc</a
+      ><a name="7452"
+      >
+
+  </a
+      ><a name="7456" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7456" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7462"
+      > </a
+      ><a name="7463" class="Symbol"
+      >:</a
+      ><a name="7464"
+      > </a
+      ><a name="7465" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="7468"
+      > </a
+      ><a name="7469" class="Symbol"
+      >(</a
+      ><a name="7470" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7475"
+      > </a
+      ><a name="7476" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7477" class="Symbol"
+      >)</a
+      ><a name="7478"
+      > </a
+      ><a name="7479" class="Symbol"
+      >(</a
+      ><a name="7480" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7485"
+      > </a
+      ><a name="7486" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7273" class="Bound"
+      >n</a
+      ><a name="7487"
+      > </a
+      ><a name="7488" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="7489"
+      > </a
+      ><a name="7490" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7495"
+      > </a
+      ><a name="7496" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7497" class="Symbol"
+      >)</a
+      ><a name="7498"
+      > </a
+      ><a name="7499" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="7500"
+      > </a
+      ><a name="7501" class="Symbol"
+      >(</a
+      ><a name="7502" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7507"
+      > </a
+      ><a name="7508" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7273" class="Bound"
+      >n</a
+      ><a name="7509"
+      > </a
+      ><a name="7510" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="7511"
+      > </a
+      ><a name="7512" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="7517"
+      > </a
+      ><a name="7518" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7269" class="Bound"
+      >m</a
+      ><a name="7519" class="Symbol"
+      >)</a
+      ><a name="7520"
+      >
+  </a
+      ><a name="7523" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7456" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7529"
+      > </a
+      ><a name="7530" class="Symbol"
+      >=</a
+      ><a name="7531"
+      > </a
+      ><a name="7532" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="7539"
+      > </a
+      ><a name="7540" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7282" class="Bound"
+      >acc</a
+      ><a name="7543"
+      >
+
+</a
+      ><a name="7545" class="Comment"
+      >-- The gcd m n when m &gt; n is CD.</a
+      ><a name="7577"
+      >
+</a
+      ><a name="7578" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7578" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="7588"
+      > </a
+      ><a name="7589" class="Symbol"
+      >:</a
+      ><a name="7590"
+      >
+  </a
+      ><a name="7593" class="Symbol"
+      >&#8704;</a
+      ><a name="7594"
+      > </a
+      ><a name="7595" class="Symbol"
+      >{</a
+      ><a name="7596" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7597"
+      > </a
+      ><a name="7598" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7599" class="Symbol"
+      >}</a
+      ><a name="7600"
+      > </a
+      ><a name="7601" class="Symbol"
+      >&#8594;</a
+      ><a name="7602"
+      > </a
+      ><a name="7603" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="7604"
+      > </a
+      ><a name="7605" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7606"
+      > </a
+      ><a name="7607" class="Symbol"
+      >&#8594;</a
+      ><a name="7608"
+      > </a
+      ><a name="7609" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="7610"
+      > </a
+      ><a name="7611" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7612"
+      > </a
+      ><a name="7613" class="Symbol"
+      >&#8594;</a
+      ><a name="7614"
+      >
+  </a
+      ><a name="7617" class="Symbol"
+      >(&#8704;</a
+      ><a name="7619"
+      > </a
+      ><a name="7620" class="Symbol"
+      >{</a
+      ><a name="7621" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7621" class="Bound"
+      >o</a
+      ><a name="7622"
+      > </a
+      ><a name="7623" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7623" class="Bound"
+      >p</a
+      ><a name="7624" class="Symbol"
+      >}</a
+      ><a name="7625"
+      > </a
+      ><a name="7626" class="Symbol"
+      >&#8594;</a
+      ><a name="7627"
+      > </a
+      ><a name="7628" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="7629"
+      > </a
+      ><a name="7630" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7621" class="Bound"
+      >o</a
+      ><a name="7631"
+      > </a
+      ><a name="7632" class="Symbol"
+      >&#8594;</a
+      ><a name="7633"
+      > </a
+      ><a name="7634" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="7635"
+      > </a
+      ><a name="7636" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7623" class="Bound"
+      >p</a
+      ><a name="7637"
+      > </a
+      ><a name="7638" class="Symbol"
+      >&#8594;</a
+      ><a name="7639"
+      > </a
+      ><a name="7640" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="7644"
+      > </a
+      ><a name="7645" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7621" class="Bound"
+      >o</a
+      ><a name="7646"
+      > </a
+      ><a name="7647" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7623" class="Bound"
+      >p</a
+      ><a name="7648"
+      > </a
+      ><a name="7649" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7650"
+      > </a
+      ><a name="7651" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7652"
+      > </a
+      ><a name="7653" class="Symbol"
+      >&#8594;</a
+      ><a name="7654"
+      > </a
+      ><a name="7655" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="7660"
+      > </a
+      ><a name="7661" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7621" class="Bound"
+      >o</a
+      ><a name="7662"
+      > </a
+      ><a name="7663" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7623" class="Bound"
+      >p</a
+      ><a name="7664"
+      > </a
+      ><a name="7665" class="Symbol"
+      >&#8594;</a
+      ><a name="7666"
+      > </a
+      ><a name="7667" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="7669"
+      > </a
+      ><a name="7670" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7621" class="Bound"
+      >o</a
+      ><a name="7671"
+      > </a
+      ><a name="7672" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7623" class="Bound"
+      >p</a
+      ><a name="7673"
+      > </a
+      ><a name="7674" class="Symbol"
+      >(</a
+      ><a name="7675" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="7678"
+      > </a
+      ><a name="7679" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7621" class="Bound"
+      >o</a
+      ><a name="7680"
+      > </a
+      ><a name="7681" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7623" class="Bound"
+      >p</a
+      ><a name="7682" class="Symbol"
+      >))</a
+      ><a name="7684"
+      > </a
+      ><a name="7685" class="Symbol"
+      >&#8594;</a
+      ><a name="7686"
+      >
+  </a
+      ><a name="7689" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7690"
+      > </a
+      ><a name="7691" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="7692"
+      > </a
+      ><a name="7693" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7694"
+      > </a
+      ><a name="7695" class="Symbol"
+      >&#8594;</a
+      ><a name="7696"
+      >
+  </a
+      ><a name="7699" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="7704"
+      > </a
+      ><a name="7705" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7706"
+      > </a
+      ><a name="7707" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7708"
+      > </a
+      ><a name="7709" class="Symbol"
+      >&#8594;</a
+      ><a name="7710"
+      >
+  </a
+      ><a name="7713" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="7715"
+      > </a
+      ><a name="7716" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7717"
+      > </a
+      ><a name="7718" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7719"
+      > </a
+      ><a name="7720" class="Symbol"
+      >(</a
+      ><a name="7721" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="7724"
+      > </a
+      ><a name="7725" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7596" class="Bound"
+      >m</a
+      ><a name="7726"
+      > </a
+      ><a name="7727" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7598" class="Bound"
+      >n</a
+      ><a name="7728" class="Symbol"
+      >)</a
+      ><a name="7729"
+      >
+</a
+      ><a name="7730" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7578" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="7740"
+      > </a
+      ><a name="7741" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="7746"
+      >          </a
+      ><a name="7756" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7756" class="Bound"
+      >Nn</a
+      ><a name="7758"
+      >             </a
+      ><a name="7771" class="Symbol"
+      >_</a
+      ><a name="7772"
+      >  </a
+      ><a name="7774" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7774" class="Bound"
+      >0&gt;n</a
+      ><a name="7777"
+      >   </a
+      ><a name="7780" class="Symbol"
+      >_</a
+      ><a name="7781"
+      > </a
+      ><a name="7782" class="Symbol"
+      >=</a
+      ><a name="7783"
+      > </a
+      ><a name="7784" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="7790"
+      > </a
+      ><a name="7791" class="Symbol"
+      >(</a
+      ><a name="7792" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="7797"
+      > </a
+      ><a name="7798" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7756" class="Bound"
+      >Nn</a
+      ><a name="7800"
+      > </a
+      ><a name="7801" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7774" class="Bound"
+      >0&gt;n</a
+      ><a name="7804" class="Symbol"
+      >)</a
+      ><a name="7805"
+      >
+</a
+      ><a name="7806" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7578" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="7816"
+      > </a
+      ><a name="7817" class="Symbol"
+      >(</a
+      ><a name="7818" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="7823"
+      > </a
+      ><a name="7824" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7824" class="Bound"
+      >Nm</a
+      ><a name="7826" class="Symbol"
+      >)</a
+      ><a name="7827"
+      >     </a
+      ><a name="7832" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="7837"
+      >          </a
+      ><a name="7847" class="Symbol"
+      >_</a
+      ><a name="7848"
+      >  </a
+      ><a name="7850" class="Symbol"
+      >_</a
+      ><a name="7851"
+      >     </a
+      ><a name="7856" class="Symbol"
+      >_</a
+      ><a name="7857"
+      > </a
+      ><a name="7858" class="Symbol"
+      >=</a
+      ><a name="7859"
+      > </a
+      ><a name="7860" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6365" class="Function"
+      >gcd-S0-CD</a
+      ><a name="7869"
+      > </a
+      ><a name="7870" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7824" class="Bound"
+      >Nm</a
+      ><a name="7872"
+      >
+</a
+      ><a name="7873" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7578" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="7883"
+      > </a
+      ><a name="7884" class="Symbol"
+      >(</a
+      ><a name="7885" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="7890"
+      > </a
+      ><a name="7891" class="Symbol"
+      >{</a
+      ><a name="7892" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7892" class="Bound"
+      >m</a
+      ><a name="7893" class="Symbol"
+      >}</a
+      ><a name="7894"
+      > </a
+      ><a name="7895" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7895" class="Bound"
+      >Nm</a
+      ><a name="7897" class="Symbol"
+      >)</a
+      ><a name="7898"
+      > </a
+      ><a name="7899" class="Symbol"
+      >(</a
+      ><a name="7900" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="7905"
+      > </a
+      ><a name="7906" class="Symbol"
+      >{</a
+      ><a name="7907" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="7908" class="Symbol"
+      >}</a
+      ><a name="7909"
+      > </a
+      ><a name="7910" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7910" class="Bound"
+      >Nn</a
+      ><a name="7912" class="Symbol"
+      >)</a
+      ><a name="7913"
+      > </a
+      ><a name="7914" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7914" class="Bound"
+      >ah</a
+      ><a name="7916"
+      > </a
+      ><a name="7917" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7917" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="7922"
+      > </a
+      ><a name="7923" class="Symbol"
+      >_</a
+      ><a name="7924"
+      > </a
+      ><a name="7925" class="Symbol"
+      >=</a
+      ><a name="7926"
+      >
+  </a
+      ><a name="7929" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6537" class="Function"
+      >gcd-S&gt;S-CD</a
+      ><a name="7939"
+      > </a
+      ><a name="7940" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7895" class="Bound"
+      >Nm</a
+      ><a name="7942"
+      > </a
+      ><a name="7943" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7910" class="Bound"
+      >Nn</a
+      ><a name="7945"
+      > </a
+      ><a name="7946" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7992" class="Function"
+      >ih</a
+      ><a name="7948"
+      > </a
+      ><a name="7949" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7917" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="7954"
+      >
+  </a
+      ><a name="7957" class="Keyword"
+      >where</a
+      ><a name="7962"
+      >
+  </a
+      ><a name="7965" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="7989"
+      >
+  </a
+      ><a name="7992" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7992" class="Function"
+      >ih</a
+      ><a name="7994"
+      > </a
+      ><a name="7995" class="Symbol"
+      >:</a
+      ><a name="7996"
+      > </a
+      ><a name="7997" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="7999"
+      > </a
+      ><a name="8000" class="Symbol"
+      >(</a
+      ><a name="8001" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8006"
+      > </a
+      ><a name="8007" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7892" class="Bound"
+      >m</a
+      ><a name="8008"
+      > </a
+      ><a name="8009" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="8010"
+      > </a
+      ><a name="8011" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8016"
+      > </a
+      ><a name="8017" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="8018" class="Symbol"
+      >)</a
+      ><a name="8019"
+      > </a
+      ><a name="8020" class="Symbol"
+      >(</a
+      ><a name="8021" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8026"
+      > </a
+      ><a name="8027" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="8028" class="Symbol"
+      >)</a
+      ><a name="8029"
+      > </a
+      ><a name="8030" class="Symbol"
+      >(</a
+      ><a name="8031" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="8034"
+      > </a
+      ><a name="8035" class="Symbol"
+      >(</a
+      ><a name="8036" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8041"
+      > </a
+      ><a name="8042" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7892" class="Bound"
+      >m</a
+      ><a name="8043"
+      > </a
+      ><a name="8044" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="8045"
+      > </a
+      ><a name="8046" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8051"
+      > </a
+      ><a name="8052" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="8053" class="Symbol"
+      >)</a
+      ><a name="8054"
+      > </a
+      ><a name="8055" class="Symbol"
+      >(</a
+      ><a name="8056" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8061"
+      > </a
+      ><a name="8062" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="8063" class="Symbol"
+      >))</a
+      ><a name="8065"
+      >
+  </a
+      ><a name="8068" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7992" class="Function"
+      >ih</a
+      ><a name="8070"
+      >  </a
+      ><a name="8072" class="Symbol"
+      >=</a
+      ><a name="8073"
+      > </a
+      ><a name="8074" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7914" class="Bound"
+      >ah</a
+      ><a name="8076"
+      > </a
+      ><a name="8077" class="Symbol"
+      >{</a
+      ><a name="8078" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8083"
+      > </a
+      ><a name="8084" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7892" class="Bound"
+      >m</a
+      ><a name="8085"
+      > </a
+      ><a name="8086" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="8087"
+      > </a
+      ><a name="8088" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8093"
+      > </a
+      ><a name="8094" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="8095" class="Symbol"
+      >}</a
+      ><a name="8096"
+      >
+           </a
+      ><a name="8108" class="Symbol"
+      >{</a
+      ><a name="8109" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8114"
+      > </a
+      ><a name="8115" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7907" class="Bound"
+      >n</a
+      ><a name="8116" class="Symbol"
+      >}</a
+      ><a name="8117"
+      >
+           </a
+      ><a name="8129" class="Symbol"
+      >(</a
+      ><a name="8130" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="8133"
+      > </a
+      ><a name="8134" class="Symbol"
+      >(</a
+      ><a name="8135" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8140"
+      > </a
+      ><a name="8141" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7895" class="Bound"
+      >Nm</a
+      ><a name="8143" class="Symbol"
+      >)</a
+      ><a name="8144"
+      > </a
+      ><a name="8145" class="Symbol"
+      >(</a
+      ><a name="8146" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8151"
+      > </a
+      ><a name="8152" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7910" class="Bound"
+      >Nn</a
+      ><a name="8154" class="Symbol"
+      >))</a
+      ><a name="8156"
+      >
+           </a
+      ><a name="8168" class="Symbol"
+      >(</a
+      ><a name="8169" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8174"
+      > </a
+      ><a name="8175" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7910" class="Bound"
+      >Nn</a
+      ><a name="8177" class="Symbol"
+      >)</a
+      ><a name="8178"
+      >
+           </a
+      ><a name="8190" class="Symbol"
+      >(</a
+      ><a name="8191" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#22349" class="Function"
+      >[Sx&#8760;Sy,Sy]&lt;[Sx,Sy]</a
+      ><a name="8209"
+      > </a
+      ><a name="8210" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7895" class="Bound"
+      >Nm</a
+      ><a name="8212"
+      > </a
+      ><a name="8213" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7910" class="Bound"
+      >Nn</a
+      ><a name="8215" class="Symbol"
+      >)</a
+      ><a name="8216"
+      >
+           </a
+      ><a name="8228" class="Symbol"
+      >(&#955;</a
+      ><a name="8230"
+      > </a
+      ><a name="8231" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8231" class="Bound"
+      >p</a
+      ><a name="8232"
+      > </a
+      ><a name="8233" class="Symbol"
+      >&#8594;</a
+      ><a name="8234"
+      > </a
+      ><a name="8235" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8241"
+      > </a
+      ><a name="8242" class="Symbol"
+      >(</a
+      ><a name="8243" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="8246"
+      > </a
+      ><a name="8247" class="Symbol"
+      >(</a
+      ><a name="8248" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="8255"
+      > </a
+      ><a name="8256" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8231" class="Bound"
+      >p</a
+      ><a name="8257" class="Symbol"
+      >)))</a
+      ><a name="8260"
+      >
+
+</a
+      ><a name="8262" class="Comment"
+      >-- The gcd m n when m &#8815; n is CD.</a
+      ><a name="8294"
+      >
+</a
+      ><a name="8295" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8295" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8305"
+      > </a
+      ><a name="8306" class="Symbol"
+      >:</a
+      ><a name="8307"
+      >
+  </a
+      ><a name="8310" class="Symbol"
+      >&#8704;</a
+      ><a name="8311"
+      > </a
+      ><a name="8312" class="Symbol"
+      >{</a
+      ><a name="8313" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8314"
+      > </a
+      ><a name="8315" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8316" class="Symbol"
+      >}</a
+      ><a name="8317"
+      > </a
+      ><a name="8318" class="Symbol"
+      >&#8594;</a
+      ><a name="8319"
+      > </a
+      ><a name="8320" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="8321"
+      > </a
+      ><a name="8322" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8323"
+      > </a
+      ><a name="8324" class="Symbol"
+      >&#8594;</a
+      ><a name="8325"
+      > </a
+      ><a name="8326" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="8327"
+      > </a
+      ><a name="8328" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8329"
+      > </a
+      ><a name="8330" class="Symbol"
+      >&#8594;</a
+      ><a name="8331"
+      >
+  </a
+      ><a name="8334" class="Symbol"
+      >(&#8704;</a
+      ><a name="8336"
+      > </a
+      ><a name="8337" class="Symbol"
+      >{</a
+      ><a name="8338" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8338" class="Bound"
+      >o</a
+      ><a name="8339"
+      > </a
+      ><a name="8340" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8340" class="Bound"
+      >p</a
+      ><a name="8341" class="Symbol"
+      >}</a
+      ><a name="8342"
+      > </a
+      ><a name="8343" class="Symbol"
+      >&#8594;</a
+      ><a name="8344"
+      > </a
+      ><a name="8345" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="8346"
+      > </a
+      ><a name="8347" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8338" class="Bound"
+      >o</a
+      ><a name="8348"
+      > </a
+      ><a name="8349" class="Symbol"
+      >&#8594;</a
+      ><a name="8350"
+      > </a
+      ><a name="8351" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="8352"
+      > </a
+      ><a name="8353" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8340" class="Bound"
+      >p</a
+      ><a name="8354"
+      > </a
+      ><a name="8355" class="Symbol"
+      >&#8594;</a
+      ><a name="8356"
+      > </a
+      ><a name="8357" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="8361"
+      > </a
+      ><a name="8362" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8338" class="Bound"
+      >o</a
+      ><a name="8363"
+      > </a
+      ><a name="8364" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8340" class="Bound"
+      >p</a
+      ><a name="8365"
+      > </a
+      ><a name="8366" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8367"
+      > </a
+      ><a name="8368" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8369"
+      > </a
+      ><a name="8370" class="Symbol"
+      >&#8594;</a
+      ><a name="8371"
+      > </a
+      ><a name="8372" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="8377"
+      > </a
+      ><a name="8378" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8338" class="Bound"
+      >o</a
+      ><a name="8379"
+      > </a
+      ><a name="8380" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8340" class="Bound"
+      >p</a
+      ><a name="8381"
+      > </a
+      ><a name="8382" class="Symbol"
+      >&#8594;</a
+      ><a name="8383"
+      > </a
+      ><a name="8384" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="8386"
+      > </a
+      ><a name="8387" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8338" class="Bound"
+      >o</a
+      ><a name="8388"
+      > </a
+      ><a name="8389" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8340" class="Bound"
+      >p</a
+      ><a name="8390"
+      > </a
+      ><a name="8391" class="Symbol"
+      >(</a
+      ><a name="8392" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="8395"
+      > </a
+      ><a name="8396" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8338" class="Bound"
+      >o</a
+      ><a name="8397"
+      > </a
+      ><a name="8398" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8340" class="Bound"
+      >p</a
+      ><a name="8399" class="Symbol"
+      >))</a
+      ><a name="8401"
+      > </a
+      ><a name="8402" class="Symbol"
+      >&#8594;</a
+      ><a name="8403"
+      >
+  </a
+      ><a name="8406" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8407"
+      > </a
+      ><a name="8408" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="8409"
+      > </a
+      ><a name="8410" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8411"
+      > </a
+      ><a name="8412" class="Symbol"
+      >&#8594;</a
+      ><a name="8413"
+      >
+  </a
+      ><a name="8416" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="8421"
+      > </a
+      ><a name="8422" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8423"
+      > </a
+      ><a name="8424" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8425"
+      > </a
+      ><a name="8426" class="Symbol"
+      >&#8594;</a
+      ><a name="8427"
+      >
+  </a
+      ><a name="8430" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="8432"
+      > </a
+      ><a name="8433" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8434"
+      > </a
+      ><a name="8435" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8436"
+      > </a
+      ><a name="8437" class="Symbol"
+      >(</a
+      ><a name="8438" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="8441"
+      > </a
+      ><a name="8442" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8313" class="Bound"
+      >m</a
+      ><a name="8443"
+      > </a
+      ><a name="8444" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8315" class="Bound"
+      >n</a
+      ><a name="8445" class="Symbol"
+      >)</a
+      ><a name="8446"
+      >
+</a
+      ><a name="8447" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8295" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8457"
+      > </a
+      ><a name="8458" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8463"
+      >          </a
+      ><a name="8473" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8478"
+      >         </a
+      ><a name="8487" class="Symbol"
+      >_</a
+      ><a name="8488"
+      >   </a
+      ><a name="8491" class="Symbol"
+      >_</a
+      ><a name="8492"
+      >     </a
+      ><a name="8497" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8497" class="Bound"
+      >h</a
+      ><a name="8498"
+      > </a
+      ><a name="8499" class="Symbol"
+      >=</a
+      ><a name="8500"
+      > </a
+      ><a name="8501" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8507"
+      > </a
+      ><a name="8508" class="Symbol"
+      >(</a
+      ><a name="8509" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8497" class="Bound"
+      >h</a
+      ><a name="8510"
+      > </a
+      ><a name="8511" class="Symbol"
+      >(</a
+      ><a name="8512" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="8516"
+      > </a
+      ><a name="8517" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="8518"
+      > </a
+      ><a name="8519" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="8523" class="Symbol"
+      >))</a
+      ><a name="8525"
+      >
+</a
+      ><a name="8526" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8295" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8536"
+      > </a
+      ><a name="8537" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8542"
+      >          </a
+      ><a name="8552" class="Symbol"
+      >(</a
+      ><a name="8553" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8558"
+      > </a
+      ><a name="8559" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8559" class="Bound"
+      >Nn</a
+      ><a name="8561" class="Symbol"
+      >)</a
+      ><a name="8562"
+      >     </a
+      ><a name="8567" class="Symbol"
+      >_</a
+      ><a name="8568"
+      >  </a
+      ><a name="8570" class="Symbol"
+      >_</a
+      ><a name="8571"
+      >     </a
+      ><a name="8576" class="Symbol"
+      >_</a
+      ><a name="8577"
+      > </a
+      ><a name="8578" class="Symbol"
+      >=</a
+      ><a name="8579"
+      > </a
+      ><a name="8580" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#6224" class="Function"
+      >gcd-0S-CD</a
+      ><a name="8589"
+      > </a
+      ><a name="8590" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8559" class="Bound"
+      >Nn</a
+      ><a name="8592"
+      >
+</a
+      ><a name="8593" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8295" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8603"
+      > </a
+      ><a name="8604" class="Symbol"
+      >(</a
+      ><a name="8605" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8610"
+      > </a
+      ><a name="8611" class="Symbol"
+      >_)</a
+      ><a name="8613"
+      >      </a
+      ><a name="8619" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8624"
+      >          </a
+      ><a name="8634" class="Symbol"
+      >_</a
+      ><a name="8635"
+      >  </a
+      ><a name="8637" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8637" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="8641"
+      >  </a
+      ><a name="8643" class="Symbol"
+      >_</a
+      ><a name="8644"
+      > </a
+      ><a name="8645" class="Symbol"
+      >=</a
+      ><a name="8646"
+      > </a
+      ><a name="8647" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8653"
+      > </a
+      ><a name="8654" class="Symbol"
+      >(</a
+      ><a name="8655" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1646" class="Postulate"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="8660"
+      > </a
+      ><a name="8661" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8637" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="8665" class="Symbol"
+      >)</a
+      ><a name="8666"
+      >
+</a
+      ><a name="8667" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8295" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8677"
+      > </a
+      ><a name="8678" class="Symbol"
+      >(</a
+      ><a name="8679" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8684"
+      > </a
+      ><a name="8685" class="Symbol"
+      >{</a
+      ><a name="8686" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8687" class="Symbol"
+      >}</a
+      ><a name="8688"
+      > </a
+      ><a name="8689" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8689" class="Bound"
+      >Nm</a
+      ><a name="8691" class="Symbol"
+      >)</a
+      ><a name="8692"
+      > </a
+      ><a name="8693" class="Symbol"
+      >(</a
+      ><a name="8694" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8699"
+      > </a
+      ><a name="8700" class="Symbol"
+      >{</a
+      ><a name="8701" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8701" class="Bound"
+      >n</a
+      ><a name="8702" class="Symbol"
+      >}</a
+      ><a name="8703"
+      > </a
+      ><a name="8704" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8704" class="Bound"
+      >Nn</a
+      ><a name="8706" class="Symbol"
+      >)</a
+      ><a name="8707"
+      > </a
+      ><a name="8708" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8708" class="Bound"
+      >ah</a
+      ><a name="8710"
+      > </a
+      ><a name="8711" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8711" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="8716"
+      > </a
+      ><a name="8717" class="Symbol"
+      >_</a
+      ><a name="8718"
+      > </a
+      ><a name="8719" class="Symbol"
+      >=</a
+      ><a name="8720"
+      > </a
+      ><a name="8721" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7072" class="Function"
+      >gcd-S&#8815;S-CD</a
+      ><a name="8731"
+      > </a
+      ><a name="8732" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8689" class="Bound"
+      >Nm</a
+      ><a name="8734"
+      > </a
+      ><a name="8735" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8704" class="Bound"
+      >Nn</a
+      ><a name="8737"
+      > </a
+      ><a name="8738" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8784" class="Function"
+      >ih</a
+      ><a name="8740"
+      > </a
+      ><a name="8741" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8711" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="8746"
+      >
+  </a
+      ><a name="8749" class="Keyword"
+      >where</a
+      ><a name="8754"
+      >
+  </a
+      ><a name="8757" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="8781"
+      >
+  </a
+      ><a name="8784" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8784" class="Function"
+      >ih</a
+      ><a name="8786"
+      > </a
+      ><a name="8787" class="Symbol"
+      >:</a
+      ><a name="8788"
+      > </a
+      ><a name="8789" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="8791"
+      > </a
+      ><a name="8792" class="Symbol"
+      >(</a
+      ><a name="8793" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8798"
+      > </a
+      ><a name="8799" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8800" class="Symbol"
+      >)</a
+      ><a name="8801"
+      > </a
+      ><a name="8802" class="Symbol"
+      >(</a
+      ><a name="8803" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8808"
+      > </a
+      ><a name="8809" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8701" class="Bound"
+      >n</a
+      ><a name="8810"
+      > </a
+      ><a name="8811" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="8812"
+      > </a
+      ><a name="8813" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8818"
+      > </a
+      ><a name="8819" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8820" class="Symbol"
+      >)</a
+      ><a name="8821"
+      >  </a
+      ><a name="8823" class="Symbol"
+      >(</a
+      ><a name="8824" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="8827"
+      > </a
+      ><a name="8828" class="Symbol"
+      >(</a
+      ><a name="8829" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8834"
+      > </a
+      ><a name="8835" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8836" class="Symbol"
+      >)</a
+      ><a name="8837"
+      > </a
+      ><a name="8838" class="Symbol"
+      >(</a
+      ><a name="8839" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8844"
+      > </a
+      ><a name="8845" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8701" class="Bound"
+      >n</a
+      ><a name="8846"
+      > </a
+      ><a name="8847" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="8848"
+      > </a
+      ><a name="8849" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8854"
+      > </a
+      ><a name="8855" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8856" class="Symbol"
+      >))</a
+      ><a name="8858"
+      >
+  </a
+      ><a name="8861" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8784" class="Function"
+      >ih</a
+      ><a name="8863"
+      > </a
+      ><a name="8864" class="Symbol"
+      >=</a
+      ><a name="8865"
+      > </a
+      ><a name="8866" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8708" class="Bound"
+      >ah</a
+      ><a name="8868"
+      > </a
+      ><a name="8869" class="Symbol"
+      >{</a
+      ><a name="8870" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8875"
+      > </a
+      ><a name="8876" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8877" class="Symbol"
+      >}</a
+      ><a name="8878"
+      >
+          </a
+      ><a name="8889" class="Symbol"
+      >{</a
+      ><a name="8890" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8895"
+      > </a
+      ><a name="8896" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8701" class="Bound"
+      >n</a
+      ><a name="8897"
+      > </a
+      ><a name="8898" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="8899"
+      > </a
+      ><a name="8900" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="8905"
+      > </a
+      ><a name="8906" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8686" class="Bound"
+      >m</a
+      ><a name="8907" class="Symbol"
+      >}</a
+      ><a name="8908"
+      >
+          </a
+      ><a name="8919" class="Symbol"
+      >(</a
+      ><a name="8920" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8925"
+      > </a
+      ><a name="8926" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8689" class="Bound"
+      >Nm</a
+      ><a name="8928" class="Symbol"
+      >)</a
+      ><a name="8929"
+      >
+          </a
+      ><a name="8940" class="Symbol"
+      >(</a
+      ><a name="8941" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="8944"
+      > </a
+      ><a name="8945" class="Symbol"
+      >(</a
+      ><a name="8946" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8951"
+      > </a
+      ><a name="8952" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8704" class="Bound"
+      >Nn</a
+      ><a name="8954" class="Symbol"
+      >)</a
+      ><a name="8955"
+      > </a
+      ><a name="8956" class="Symbol"
+      >(</a
+      ><a name="8957" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8962"
+      > </a
+      ><a name="8963" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8689" class="Bound"
+      >Nm</a
+      ><a name="8965" class="Symbol"
+      >))</a
+      ><a name="8967"
+      >
+          </a
+      ><a name="8978" class="Symbol"
+      >(</a
+      ><a name="8979" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#22628" class="Function"
+      >[Sx,Sy&#8760;Sx]&lt;[Sx,Sy]</a
+      ><a name="8997"
+      > </a
+      ><a name="8998" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8689" class="Bound"
+      >Nm</a
+      ><a name="9000"
+      > </a
+      ><a name="9001" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8704" class="Bound"
+      >Nn</a
+      ><a name="9003" class="Symbol"
+      >)</a
+      ><a name="9004"
+      >
+          </a
+      ><a name="9015" class="Symbol"
+      >(&#955;</a
+      ><a name="9017"
+      > </a
+      ><a name="9018" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9018" class="Bound"
+      >p</a
+      ><a name="9019"
+      > </a
+      ><a name="9020" class="Symbol"
+      >&#8594;</a
+      ><a name="9021"
+      > </a
+      ><a name="9022" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="9028"
+      > </a
+      ><a name="9029" class="Symbol"
+      >(</a
+      ><a name="9030" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="9033"
+      > </a
+      ><a name="9034" class="Symbol"
+      >(</a
+      ><a name="9035" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="9042"
+      > </a
+      ><a name="9043" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9018" class="Bound"
+      >p</a
+      ><a name="9044" class="Symbol"
+      >)))</a
+      ><a name="9047"
+      >
+
+</a
+      ><a name="9049" class="Comment"
+      >-- The gcd is CD.</a
+      ><a name="9066"
+      >
+</a
+      ><a name="9067" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9067" class="Function"
+      >gcdCD</a
+      ><a name="9072"
+      > </a
+      ><a name="9073" class="Symbol"
+      >:</a
+      ><a name="9074"
+      > </a
+      ><a name="9075" class="Symbol"
+      >&#8704;</a
+      ><a name="9076"
+      > </a
+      ><a name="9077" class="Symbol"
+      >{</a
+      ><a name="9078" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9078" class="Bound"
+      >m</a
+      ><a name="9079"
+      > </a
+      ><a name="9080" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9080" class="Bound"
+      >n</a
+      ><a name="9081" class="Symbol"
+      >}</a
+      ><a name="9082"
+      > </a
+      ><a name="9083" class="Symbol"
+      >&#8594;</a
+      ><a name="9084"
+      > </a
+      ><a name="9085" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="9086"
+      > </a
+      ><a name="9087" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9078" class="Bound"
+      >m</a
+      ><a name="9088"
+      > </a
+      ><a name="9089" class="Symbol"
+      >&#8594;</a
+      ><a name="9090"
+      > </a
+      ><a name="9091" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="9092"
+      > </a
+      ><a name="9093" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9080" class="Bound"
+      >n</a
+      ><a name="9094"
+      > </a
+      ><a name="9095" class="Symbol"
+      >&#8594;</a
+      ><a name="9096"
+      > </a
+      ><a name="9097" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="9102"
+      > </a
+      ><a name="9103" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9078" class="Bound"
+      >m</a
+      ><a name="9104"
+      > </a
+      ><a name="9105" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9080" class="Bound"
+      >n</a
+      ><a name="9106"
+      > </a
+      ><a name="9107" class="Symbol"
+      >&#8594;</a
+      ><a name="9108"
+      > </a
+      ><a name="9109" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="9111"
+      > </a
+      ><a name="9112" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9078" class="Bound"
+      >m</a
+      ><a name="9113"
+      > </a
+      ><a name="9114" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9080" class="Bound"
+      >n</a
+      ><a name="9115"
+      > </a
+      ><a name="9116" class="Symbol"
+      >(</a
+      ><a name="9117" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="9120"
+      > </a
+      ><a name="9121" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9078" class="Bound"
+      >m</a
+      ><a name="9122"
+      > </a
+      ><a name="9123" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9080" class="Bound"
+      >n</a
+      ><a name="9124" class="Symbol"
+      >)</a
+      ><a name="9125"
+      >
+</a
+      ><a name="9126" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9067" class="Function"
+      >gcdCD</a
+      ><a name="9131"
+      > </a
+      ><a name="9132" class="Symbol"
+      >=</a
+      ><a name="9133"
+      > </a
+      ><a name="9134" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicATP.html#868" class="Function"
+      >Lexi-wfind</a
+      ><a name="9144"
+      > </a
+      ><a name="9145" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9159" class="Function"
+      >A</a
+      ><a name="9146"
+      > </a
+      ><a name="9147" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9217" class="Function"
+      >h</a
+      ><a name="9148"
+      >
+  </a
+      ><a name="9151" class="Keyword"
+      >where</a
+      ><a name="9156"
+      >
+  </a
+      ><a name="9159" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9159" class="Function"
+      >A</a
+      ><a name="9160"
+      > </a
+      ><a name="9161" class="Symbol"
+      >:</a
+      ><a name="9162"
+      > </a
+      ><a name="9163" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="9164"
+      > </a
+      ><a name="9165" class="Symbol"
+      >&#8594;</a
+      ><a name="9166"
+      > </a
+      ><a name="9167" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="9168"
+      > </a
+      ><a name="9169" class="Symbol"
+      >&#8594;</a
+      ><a name="9170"
+      > </a
+      ><a name="9171" class="PrimitiveType"
+      >Set</a
+      ><a name="9174"
+      >
+  </a
+      ><a name="9177" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9159" class="Function"
+      >A</a
+      ><a name="9178"
+      > </a
+      ><a name="9179" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9179" class="Bound"
+      >i</a
+      ><a name="9180"
+      > </a
+      ><a name="9181" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9181" class="Bound"
+      >j</a
+      ><a name="9182"
+      > </a
+      ><a name="9183" class="Symbol"
+      >=</a
+      ><a name="9184"
+      > </a
+      ><a name="9185" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="9190"
+      > </a
+      ><a name="9191" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9179" class="Bound"
+      >i</a
+      ><a name="9192"
+      > </a
+      ><a name="9193" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9181" class="Bound"
+      >j</a
+      ><a name="9194"
+      > </a
+      ><a name="9195" class="Symbol"
+      >&#8594;</a
+      ><a name="9196"
+      > </a
+      ><a name="9197" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="9199"
+      > </a
+      ><a name="9200" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9179" class="Bound"
+      >i</a
+      ><a name="9201"
+      > </a
+      ><a name="9202" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9181" class="Bound"
+      >j</a
+      ><a name="9203"
+      > </a
+      ><a name="9204" class="Symbol"
+      >(</a
+      ><a name="9205" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="9208"
+      > </a
+      ><a name="9209" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9179" class="Bound"
+      >i</a
+      ><a name="9210"
+      > </a
+      ><a name="9211" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9181" class="Bound"
+      >j</a
+      ><a name="9212" class="Symbol"
+      >)</a
+      ><a name="9213"
+      >
+
+  </a
+      ><a name="9217" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9217" class="Function"
+      >h</a
+      ><a name="9218"
+      > </a
+      ><a name="9219" class="Symbol"
+      >:</a
+      ><a name="9220"
+      > </a
+      ><a name="9221" class="Symbol"
+      >&#8704;</a
+      ><a name="9222"
+      > </a
+      ><a name="9223" class="Symbol"
+      >{</a
+      ><a name="9224" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9224" class="Bound"
+      >i</a
+      ><a name="9225"
+      > </a
+      ><a name="9226" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9226" class="Bound"
+      >j</a
+      ><a name="9227" class="Symbol"
+      >}</a
+      ><a name="9228"
+      > </a
+      ><a name="9229" class="Symbol"
+      >&#8594;</a
+      ><a name="9230"
+      > </a
+      ><a name="9231" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="9232"
+      > </a
+      ><a name="9233" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9224" class="Bound"
+      >i</a
+      ><a name="9234"
+      > </a
+      ><a name="9235" class="Symbol"
+      >&#8594;</a
+      ><a name="9236"
+      > </a
+      ><a name="9237" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="9238"
+      > </a
+      ><a name="9239" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9226" class="Bound"
+      >j</a
+      ><a name="9240"
+      > </a
+      ><a name="9241" class="Symbol"
+      >&#8594;</a
+      ><a name="9242"
+      > </a
+      ><a name="9243" class="Symbol"
+      >(&#8704;</a
+      ><a name="9245"
+      > </a
+      ><a name="9246" class="Symbol"
+      >{</a
+      ><a name="9247" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9247" class="Bound"
+      >k</a
+      ><a name="9248"
+      > </a
+      ><a name="9249" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9249" class="Bound"
+      >l</a
+      ><a name="9250" class="Symbol"
+      >}</a
+      ><a name="9251"
+      > </a
+      ><a name="9252" class="Symbol"
+      >&#8594;</a
+      ><a name="9253"
+      > </a
+      ><a name="9254" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="9255"
+      > </a
+      ><a name="9256" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9247" class="Bound"
+      >k</a
+      ><a name="9257"
+      > </a
+      ><a name="9258" class="Symbol"
+      >&#8594;</a
+      ><a name="9259"
+      > </a
+      ><a name="9260" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="9261"
+      > </a
+      ><a name="9262" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9249" class="Bound"
+      >l</a
+      ><a name="9263"
+      > </a
+      ><a name="9264" class="Symbol"
+      >&#8594;</a
+      ><a name="9265"
+      > </a
+      ><a name="9266" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="9270"
+      > </a
+      ><a name="9271" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9247" class="Bound"
+      >k</a
+      ><a name="9272"
+      > </a
+      ><a name="9273" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9249" class="Bound"
+      >l</a
+      ><a name="9274"
+      > </a
+      ><a name="9275" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9224" class="Bound"
+      >i</a
+      ><a name="9276"
+      > </a
+      ><a name="9277" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9226" class="Bound"
+      >j</a
+      ><a name="9278"
+      > </a
+      ><a name="9279" class="Symbol"
+      >&#8594;</a
+      ><a name="9280"
+      > </a
+      ><a name="9281" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9159" class="Function"
+      >A</a
+      ><a name="9282"
+      > </a
+      ><a name="9283" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9247" class="Bound"
+      >k</a
+      ><a name="9284"
+      > </a
+      ><a name="9285" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9249" class="Bound"
+      >l</a
+      ><a name="9286" class="Symbol"
+      >)</a
+      ><a name="9287"
+      > </a
+      ><a name="9288" class="Symbol"
+      >&#8594;</a
+      ><a name="9289"
+      >
+      </a
+      ><a name="9296" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9159" class="Function"
+      >A</a
+      ><a name="9297"
+      > </a
+      ><a name="9298" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9224" class="Bound"
+      >i</a
+      ><a name="9299"
+      > </a
+      ><a name="9300" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9226" class="Bound"
+      >j</a
+      ><a name="9301"
+      >
+  </a
+      ><a name="9304" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9217" class="Function"
+      >h</a
+      ><a name="9305"
+      > </a
+      ><a name="9306" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9306" class="Bound"
+      >Ni</a
+      ><a name="9308"
+      > </a
+      ><a name="9309" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9309" class="Bound"
+      >Nj</a
+      ><a name="9311"
+      > </a
+      ><a name="9312" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9312" class="Bound"
+      >ah</a
+      ><a name="9314"
+      > </a
+      ><a name="9315" class="Symbol"
+      >=</a
+      ><a name="9316"
+      > </a
+      ><a name="9317" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="9321"
+      > </a
+      ><a name="9322" class="Symbol"
+      >(</a
+      ><a name="9323" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#7578" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="9333"
+      > </a
+      ><a name="9334" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9306" class="Bound"
+      >Ni</a
+      ><a name="9336"
+      > </a
+      ><a name="9337" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9309" class="Bound"
+      >Nj</a
+      ><a name="9339"
+      > </a
+      ><a name="9340" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9312" class="Bound"
+      >ah</a
+      ><a name="9342" class="Symbol"
+      >)</a
+      ><a name="9343"
+      > </a
+      ><a name="9344" class="Symbol"
+      >(</a
+      ><a name="9345" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#8295" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="9355"
+      > </a
+      ><a name="9356" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9306" class="Bound"
+      >Ni</a
+      ><a name="9358"
+      > </a
+      ><a name="9359" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9309" class="Bound"
+      >Nj</a
+      ><a name="9361"
+      > </a
+      ><a name="9362" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9312" class="Bound"
+      >ah</a
+      ><a name="9364" class="Symbol"
+      >)</a
+      ><a name="9365"
+      > </a
+      ><a name="9366" class="Symbol"
+      >(</a
+      ><a name="9367" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#9658" class="Function"
+      >x&gt;y&#8744;x&#8815;y</a
+      ><a name="9374"
+      > </a
+      ><a name="9375" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9306" class="Bound"
+      >Ni</a
+      ><a name="9377"
+      > </a
+      ><a name="9378" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9309" class="Bound"
+      >Nj</a
+      ><a name="9380" class="Symbol"
+      >)</a
+      ><a name="9381"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

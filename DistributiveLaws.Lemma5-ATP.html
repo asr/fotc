@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.Lemma5-ATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws on a binary operation: Lemma 5 (Task A)</a
+      ><a name="140"
+      >
+</a
+      ><a name="141" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="219"
+      >
+
+</a
+      ><a name="221" class="Symbol"
+      >{-#</a
+      ><a name="224"
+      > </a
+      ><a name="225" class="Keyword"
+      >OPTIONS</a
+      ><a name="232"
+      > --exact-split              </a
+      ><a name="260" class="Symbol"
+      >#-}</a
+      ><a name="263"
+      >
+</a
+      ><a name="264" class="Symbol"
+      >{-#</a
+      ><a name="267"
+      > </a
+      ><a name="268" class="Keyword"
+      >OPTIONS</a
+      ><a name="275"
+      > --no-sized-types           </a
+      ><a name="303" class="Symbol"
+      >#-}</a
+      ><a name="306"
+      >
+</a
+      ><a name="307" class="Symbol"
+      >{-#</a
+      ><a name="310"
+      > </a
+      ><a name="311" class="Keyword"
+      >OPTIONS</a
+      ><a name="318"
+      > --no-universe-polymorphism </a
+      ><a name="346" class="Symbol"
+      >#-}</a
+      ><a name="349"
+      >
+</a
+      ><a name="350" class="Symbol"
+      >{-#</a
+      ><a name="353"
+      > </a
+      ><a name="354" class="Keyword"
+      >OPTIONS</a
+      ><a name="361"
+      > --without-K                </a
+      ><a name="389" class="Symbol"
+      >#-}</a
+      ><a name="392"
+      >
+
+</a
+      ><a name="394" class="Keyword"
+      >module</a
+      ><a name="400"
+      > </a
+      ><a name="401" href="DistributiveLaws.Lemma5-ATP.html#1" class="Module"
+      >DistributiveLaws.Lemma5-ATP</a
+      ><a name="428"
+      > </a
+      ><a name="429" class="Keyword"
+      >where</a
+      ><a name="434"
+      >
+
+</a
+      ><a name="436" class="Keyword"
+      >open</a
+      ><a name="440"
+      > </a
+      ><a name="441" class="Keyword"
+      >import</a
+      ><a name="447"
+      > </a
+      ><a name="448" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="469"
+      >
+
+</a
+      ><a name="471" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="549"
+      >
+
+</a
+      ><a name="551" class="Keyword"
+      >postulate</a
+      ><a name="560"
+      > </a
+      ><a name="561" href="DistributiveLaws.Lemma5-ATP.html#561" class="Postulate"
+      >lemma&#8325;</a
+      ><a name="567"
+      > </a
+      ><a name="568" class="Symbol"
+      >:</a
+      ><a name="569"
+      > </a
+      ><a name="570" class="Symbol"
+      >&#8704;</a
+      ><a name="571"
+      > </a
+      ><a name="572" href="DistributiveLaws.Lemma5-ATP.html#572" class="Bound"
+      >x</a
+      ><a name="573"
+      > </a
+      ><a name="574" href="DistributiveLaws.Lemma5-ATP.html#574" class="Bound"
+      >y</a
+      ><a name="575"
+      > </a
+      ><a name="576" class="Symbol"
+      >&#8594;</a
+      ><a name="577"
+      > </a
+      ><a name="578" class="Symbol"
+      >(</a
+      ><a name="579" href="DistributiveLaws.Lemma5-ATP.html#572" class="Bound"
+      >x</a
+      ><a name="580"
+      > </a
+      ><a name="581" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="582"
+      > </a
+      ><a name="583" href="DistributiveLaws.Lemma5-ATP.html#574" class="Bound"
+      >y</a
+      ><a name="584" class="Symbol"
+      >)</a
+      ><a name="585"
+      > </a
+      ><a name="586" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="587"
+      > </a
+      ><a name="588" href="DistributiveLaws.Lemma5-ATP.html#572" class="Bound"
+      >x</a
+      ><a name="589"
+      > </a
+      ><a name="590" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="591"
+      > </a
+      ><a name="592" href="DistributiveLaws.Lemma5-ATP.html#572" class="Bound"
+      >x</a
+      ><a name="593"
+      > </a
+      ><a name="594" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="595"
+      > </a
+      ><a name="596" class="Symbol"
+      >(</a
+      ><a name="597" href="DistributiveLaws.Lemma5-ATP.html#574" class="Bound"
+      >y</a
+      ><a name="598"
+      > </a
+      ><a name="599" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="600"
+      > </a
+      ><a name="601" href="DistributiveLaws.Lemma5-ATP.html#572" class="Bound"
+      >x</a
+      ><a name="602" class="Symbol"
+      >)</a
+      ><a name="603"
+      >
+</a
+      ><a name="604" class="Symbol"
+      >{-#</a
+      ><a name="607"
+      > </a
+      ><a name="608" class="Keyword"
+      >ATP</a
+      ><a name="611"
+      > prove </a
+      ><a name="618" href="DistributiveLaws.Lemma5-ATP.html#561" class="Postulate"
+      >lemma&#8325;</a
+      ><a name="624"
+      > </a
+      ><a name="625" class="Symbol"
+      >#-}</a
+      ><a name="628"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

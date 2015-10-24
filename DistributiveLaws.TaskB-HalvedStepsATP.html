@@ -1,0 +1,4844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.TaskB-HalvedStepsATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws on a binary operation: Task B</a
+      ><a name="130"
+      >
+</a
+      ><a name="131" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="209"
+      >
+
+</a
+      ><a name="211" class="Symbol"
+      >{-#</a
+      ><a name="214"
+      > </a
+      ><a name="215" class="Keyword"
+      >OPTIONS</a
+      ><a name="222"
+      > --exact-split              </a
+      ><a name="250" class="Symbol"
+      >#-}</a
+      ><a name="253"
+      >
+</a
+      ><a name="254" class="Symbol"
+      >{-#</a
+      ><a name="257"
+      > </a
+      ><a name="258" class="Keyword"
+      >OPTIONS</a
+      ><a name="265"
+      > --no-sized-types           </a
+      ><a name="293" class="Symbol"
+      >#-}</a
+      ><a name="296"
+      >
+</a
+      ><a name="297" class="Symbol"
+      >{-#</a
+      ><a name="300"
+      > </a
+      ><a name="301" class="Keyword"
+      >OPTIONS</a
+      ><a name="308"
+      > --no-universe-polymorphism </a
+      ><a name="336" class="Symbol"
+      >#-}</a
+      ><a name="339"
+      >
+</a
+      ><a name="340" class="Symbol"
+      >{-#</a
+      ><a name="343"
+      > </a
+      ><a name="344" class="Keyword"
+      >OPTIONS</a
+      ><a name="351"
+      > --without-K                </a
+      ><a name="379" class="Symbol"
+      >#-}</a
+      ><a name="382"
+      >
+
+</a
+      ><a name="384" class="Keyword"
+      >module</a
+      ><a name="390"
+      > </a
+      ><a name="391" href="DistributiveLaws.TaskB-HalvedStepsATP.html#1" class="Module"
+      >DistributiveLaws.TaskB-HalvedStepsATP</a
+      ><a name="428"
+      > </a
+      ><a name="429" class="Keyword"
+      >where</a
+      ><a name="434"
+      >
+
+</a
+      ><a name="436" class="Keyword"
+      >open</a
+      ><a name="440"
+      > </a
+      ><a name="441" class="Keyword"
+      >import</a
+      ><a name="447"
+      > </a
+      ><a name="448" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="469"
+      >
+
+</a
+      ><a name="471" class="Keyword"
+      >open</a
+      ><a name="475"
+      > </a
+      ><a name="476" class="Keyword"
+      >import</a
+      ><a name="482"
+      > </a
+      ><a name="483" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="521"
+      >
+
+</a
+      ><a name="523" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="601"
+      >
+
+</a
+      ><a name="603" class="Comment"
+      >-- We prove the half of the proof steps (skipping the even ones) of</a
+      ><a name="670"
+      >
+</a
+      ><a name="671" class="Comment"
+      >-- DistributiveLaws.TaskB-I using the ATPs.</a
+      ><a name="714"
+      >
+
+</a
+      ><a name="716" href="DistributiveLaws.TaskB-HalvedStepsATP.html#716" class="Function"
+      >prop&#8322;</a
+      ><a name="721"
+      > </a
+      ><a name="722" class="Symbol"
+      >:</a
+      ><a name="723"
+      > </a
+      ><a name="724" class="Symbol"
+      >&#8704;</a
+      ><a name="725"
+      > </a
+      ><a name="726" href="DistributiveLaws.TaskB-HalvedStepsATP.html#726" class="Bound"
+      >u</a
+      ><a name="727"
+      > </a
+      ><a name="728" href="DistributiveLaws.TaskB-HalvedStepsATP.html#728" class="Bound"
+      >x</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="DistributiveLaws.TaskB-HalvedStepsATP.html#730" class="Bound"
+      >y</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="DistributiveLaws.TaskB-HalvedStepsATP.html#732" class="Bound"
+      >z</a
+      ><a name="733"
+      > </a
+      ><a name="734" class="Symbol"
+      >&#8594;</a
+      ><a name="735"
+      >
+        </a
+      ><a name="744" class="Symbol"
+      >(</a
+      ><a name="745" href="DistributiveLaws.TaskB-HalvedStepsATP.html#728" class="Bound"
+      >x</a
+      ><a name="746"
+      > </a
+      ><a name="747" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="748"
+      > </a
+      ><a name="749" href="DistributiveLaws.TaskB-HalvedStepsATP.html#730" class="Bound"
+      >y</a
+      ><a name="750"
+      > </a
+      ><a name="751" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="752"
+      > </a
+      ><a name="753" class="Symbol"
+      >(</a
+      ><a name="754" href="DistributiveLaws.TaskB-HalvedStepsATP.html#732" class="Bound"
+      >z</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="757"
+      > </a
+      ><a name="758" href="DistributiveLaws.TaskB-HalvedStepsATP.html#726" class="Bound"
+      >u</a
+      ><a name="759" class="Symbol"
+      >))</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="763"
+      > </a
+      ><a name="764" class="Symbol"
+      >((</a
+      ><a name="766" href="DistributiveLaws.TaskB-HalvedStepsATP.html#728" class="Bound"
+      >x</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="DistributiveLaws.TaskB-HalvedStepsATP.html#730" class="Bound"
+      >y</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="773"
+      > </a
+      ><a name="774" class="Symbol"
+      >(</a
+      ><a name="775" href="DistributiveLaws.TaskB-HalvedStepsATP.html#732" class="Bound"
+      >z</a
+      ><a name="776"
+      > </a
+      ><a name="777" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="778"
+      > </a
+      ><a name="779" href="DistributiveLaws.TaskB-HalvedStepsATP.html#726" class="Bound"
+      >u</a
+      ><a name="780" class="Symbol"
+      >))</a
+      ><a name="782"
+      > </a
+      ><a name="783" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="784"
+      > </a
+      ><a name="785" class="Symbol"
+      >(</a
+      ><a name="786" href="DistributiveLaws.TaskB-HalvedStepsATP.html#728" class="Bound"
+      >x</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="DistributiveLaws.TaskB-HalvedStepsATP.html#732" class="Bound"
+      >z</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="793"
+      > </a
+      ><a name="794" class="Symbol"
+      >(</a
+      ><a name="795" href="DistributiveLaws.TaskB-HalvedStepsATP.html#730" class="Bound"
+      >y</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="DistributiveLaws.TaskB-HalvedStepsATP.html#726" class="Bound"
+      >u</a
+      ><a name="800" class="Symbol"
+      >)))</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="805"
+      >
+          </a
+      ><a name="816" href="DistributiveLaws.TaskB-HalvedStepsATP.html#728" class="Bound"
+      >x</a
+      ><a name="817"
+      > </a
+      ><a name="818" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="DistributiveLaws.TaskB-HalvedStepsATP.html#732" class="Bound"
+      >z</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="823"
+      > </a
+      ><a name="824" class="Symbol"
+      >(</a
+      ><a name="825" href="DistributiveLaws.TaskB-HalvedStepsATP.html#730" class="Bound"
+      >y</a
+      ><a name="826"
+      > </a
+      ><a name="827" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="828"
+      > </a
+      ><a name="829" href="DistributiveLaws.TaskB-HalvedStepsATP.html#726" class="Bound"
+      >u</a
+      ><a name="830" class="Symbol"
+      >)</a
+      ><a name="831"
+      >
+</a
+      ><a name="832" href="DistributiveLaws.TaskB-HalvedStepsATP.html#716" class="Function"
+      >prop&#8322;</a
+      ><a name="837"
+      > </a
+      ><a name="838" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="839"
+      > </a
+      ><a name="840" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="843"
+      > </a
+      ><a name="844" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="845"
+      > </a
+      ><a name="846" class="Symbol"
+      >=</a
+      ><a name="847"
+      >
+
+</a
+      ><a name="849" class="Comment"
+      >-- The numbering of the proof step justifications are associated with</a
+      ><a name="918"
+      >
+</a
+      ><a name="919" class="Comment"
+      >-- the numbers used in DistributiveLaws.TaskB-I.</a
+      ><a name="967"
+      >
+
+  </a
+      ><a name="971" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="978"
+      > </a
+      ><a name="979" class="Symbol"
+      >(</a
+      ><a name="980" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="993" class="Symbol"
+      >)</a
+      ><a name="994"
+      >                                       </a
+      ><a name="1033" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3472" class="Postulate"
+      >j&#8321;&#8331;&#8323;</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1042"
+      >
+  </a
+      ><a name="1045" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" class="Symbol"
+      >(</a
+      ><a name="1054" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2690" class="Function"
+      >x&#183;zu</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1060"
+      > </a
+      ><a name="1061" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" class="Symbol"
+      >(</a
+      ><a name="1070" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="1082" class="Symbol"
+      >))</a
+      ><a name="1084"
+      >                       </a
+      ><a name="1107" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3602" class="Postulate"
+      >j&#8323;&#8331;&#8325;</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1116"
+      >
+  </a
+      ><a name="1119" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" class="Symbol"
+      >(</a
+      ><a name="1128" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" class="Symbol"
+      >(</a
+      ><a name="1142" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="1154" class="Symbol"
+      >))</a
+      ><a name="1156"
+      >                         </a
+      ><a name="1181" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3746" class="Postulate"
+      >j&#8325;&#8331;&#8327;</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1190"
+      >
+  </a
+      ><a name="1193" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" class="Symbol"
+      >(</a
+      ><a name="1202" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" class="Symbol"
+      >(</a
+      ><a name="1214" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="1227" class="Symbol"
+      >))</a
+      ><a name="1229"
+      >                          </a
+      ><a name="1255" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3887" class="Postulate"
+      >j&#8327;&#8331;&#8329;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1264"
+      >
+  </a
+      ><a name="1267" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1274"
+      > </a
+      ><a name="1275" class="Symbol"
+      >(</a
+      ><a name="1276" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1284"
+      > </a
+      ><a name="1285" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" class="Symbol"
+      >(</a
+      ><a name="1288" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2629" class="Function"
+      >yxz</a
+      ><a name="1291"
+      > </a
+      ><a name="1292" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2461" class="Function"
+      >yu</a
+      ><a name="1296" class="Symbol"
+      >))</a
+      ><a name="1298"
+      >                               </a
+      ><a name="1329" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1331"
+      > </a
+      ><a name="1332" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4022" class="Postulate"
+      >j&#8329;&#8331;&#8321;&#8321;</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1339"
+      >
+  </a
+      ><a name="1342" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" class="Symbol"
+      >(</a
+      ><a name="1351" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" class="Symbol"
+      >(</a
+      ><a name="1363" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1369"
+      > </a
+      ><a name="1370" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1374" class="Symbol"
+      >))</a
+      ><a name="1376"
+      >                            </a
+      ><a name="1404" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1406"
+      > </a
+      ><a name="1407" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4158" class="Postulate"
+      >j&#8321;&#8321;&#8331;&#8321;&#8323;</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1415"
+      >
+  </a
+      ><a name="1418" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3215" class="Function"
+      >xz&#183;yz</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" class="Symbol"
+      >(</a
+      ><a name="1433" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1435"
+      > </a
+      ><a name="1436" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1441"
+      > </a
+      ><a name="1442" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1443"
+      > </a
+      ><a name="1444" class="Symbol"
+      >(</a
+      ><a name="1445" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1449"
+      > </a
+      ><a name="1450" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1451"
+      > </a
+      ><a name="1452" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1456" class="Symbol"
+      >))</a
+      ><a name="1458"
+      >                      </a
+      ><a name="1480" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4306" class="Postulate"
+      >j&#8321;&#8323;&#8331;&#8321;&#8325;</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1491"
+      >
+  </a
+      ><a name="1494" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" class="Symbol"
+      >(</a
+      ><a name="1506" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2474" class="Function"
+      >yz</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" class="Symbol"
+      >(</a
+      ><a name="1518" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1529" class="Symbol"
+      >))</a
+      ><a name="1531"
+      >                         </a
+      ><a name="1556" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4457" class="Postulate"
+      >j&#8321;&#8325;&#8331;&#8321;&#8327;</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1567"
+      >
+  </a
+      ><a name="1570" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1574"
+      > </a
+      ><a name="1575" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" class="Symbol"
+      >(</a
+      ><a name="1582" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" class="Symbol"
+      >(</a
+      ><a name="1595" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="1604" class="Symbol"
+      >)</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" class="Symbol"
+      >(</a
+      ><a name="1609" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1613"
+      > </a
+      ><a name="1614" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1615"
+      > </a
+      ><a name="1616" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1620" class="Symbol"
+      >))</a
+      ><a name="1622"
+      >          </a
+      ><a name="1632" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1634"
+      > </a
+      ><a name="1635" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4620" class="Postulate"
+      >j&#8321;&#8327;&#8331;&#8321;&#8329;</a
+      ><a name="1641"
+      > </a
+      ><a name="1642" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1643"
+      >
+  </a
+      ><a name="1646" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1648"
+      > </a
+      ><a name="1649" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1650"
+      > </a
+      ><a name="1651" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1654"
+      > </a
+      ><a name="1655" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1656"
+      >
+  </a
+      ><a name="1659" class="Symbol"
+      >(</a
+      ><a name="1660" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1664"
+      > </a
+      ><a name="1665" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1666"
+      > </a
+      ><a name="1667" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2790" class="Function"
+      >y&#183;yu</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1673"
+      > </a
+      ><a name="1674" class="Symbol"
+      >(</a
+      ><a name="1675" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1679"
+      > </a
+      ><a name="1680" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1681"
+      > </a
+      ><a name="1682" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1686" class="Symbol"
+      >)</a
+      ><a name="1687"
+      > </a
+      ><a name="1688" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1689"
+      > </a
+      ><a name="1690" class="Symbol"
+      >(</a
+      ><a name="1691" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="1700"
+      > </a
+      ><a name="1701" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" class="Symbol"
+      >(</a
+      ><a name="1704" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1710"
+      > </a
+      ><a name="1711" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1715" class="Symbol"
+      >)))</a
+      ><a name="1718"
+      >   </a
+      ><a name="1721" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1723"
+      > </a
+      ><a name="1724" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4840" class="Postulate"
+      >j&#8321;&#8329;&#8331;&#8322;&#8321;</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1732"
+      >
+  </a
+      ><a name="1735" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1743"
+      > </a
+      ><a name="1744" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >(</a
+      ><a name="1747" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1751"
+      > </a
+      ><a name="1752" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1753"
+      > </a
+      ><a name="1754" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="1759"
+      > </a
+      ><a name="1760" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" class="Symbol"
+      >(</a
+      ><a name="1763" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="1772"
+      > </a
+      ><a name="1773" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" class="Symbol"
+      >(</a
+      ><a name="1776" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1780"
+      > </a
+      ><a name="1781" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1787" class="Symbol"
+      >)))</a
+      ><a name="1790"
+      >       </a
+      ><a name="1797" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5048" class="Postulate"
+      >j&#8322;&#8321;&#8331;&#8322;&#8323;</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1808"
+      >
+  </a
+      ><a name="1811" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" class="Symbol"
+      >(</a
+      ><a name="1823" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" class="Symbol"
+      >(</a
+      ><a name="1836" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="1837"
+      > </a
+      ><a name="1838" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1839"
+      > </a
+      ><a name="1840" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="1845"
+      > </a
+      ><a name="1846" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1847"
+      > </a
+      ><a name="1848" class="Symbol"
+      >(</a
+      ><a name="1849" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1853"
+      > </a
+      ><a name="1854" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1860" class="Symbol"
+      >)))</a
+      ><a name="1863"
+      >          </a
+      ><a name="1873" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5221" class="Postulate"
+      >j&#8322;&#8323;&#8331;&#8322;&#8325;</a
+      ><a name="1882"
+      > </a
+      ><a name="1883" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1884"
+      >
+  </a
+      ><a name="1887" class="Symbol"
+      >(</a
+      ><a name="1888" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1892"
+      > </a
+      ><a name="1893" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1896" class="Symbol"
+      >)</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" class="Symbol"
+      >(</a
+      ><a name="1901" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1904"
+      > </a
+      ><a name="1905" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" class="Symbol"
+      >(</a
+      ><a name="1914" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2900" class="Function"
+      >z&#183;xu</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1920"
+      > </a
+      ><a name="1921" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="1932" class="Symbol"
+      >))</a
+      ><a name="1934"
+      >               </a
+      ><a name="1949" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5394" class="Postulate"
+      >j&#8322;&#8325;&#8331;&#8322;&#8327;</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1960"
+      >
+  </a
+      ><a name="1963" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1967"
+      > </a
+      ><a name="1968" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="1971"
+      > </a
+      ><a name="1972" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1973"
+      > </a
+      ><a name="1974" class="Symbol"
+      >(</a
+      ><a name="1975" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="1976"
+      > </a
+      ><a name="1977" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1978"
+      > </a
+      ><a name="1979" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="1984"
+      > </a
+      ><a name="1985" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" class="Symbol"
+      >(</a
+      ><a name="1988" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3344" class="Function"
+      >zy&#183;xu</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1995"
+      > </a
+      ><a name="1996" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3370" class="Function"
+      >zy&#183;zu</a
+      ><a name="2001" class="Symbol"
+      >))</a
+      ><a name="2003"
+      >                      </a
+      ><a name="2025" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2027"
+      > </a
+      ><a name="2028" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5555" class="Postulate"
+      >j&#8322;&#8327;&#8331;&#8322;&#8329;</a
+      ><a name="2034"
+      > </a
+      ><a name="2035" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2036"
+      >
+  </a
+      ><a name="2039" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="2041"
+      > </a
+      ><a name="2042" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2043"
+      > </a
+      ><a name="2044" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="2047"
+      > </a
+      ><a name="2048" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2049"
+      > </a
+      ><a name="2050" class="Symbol"
+      >(</a
+      ><a name="2051" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="2055"
+      > </a
+      ><a name="2056" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2057"
+      > </a
+      ><a name="2058" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="2063" class="Symbol"
+      >)</a
+      ><a name="2064"
+      >                                     </a
+      ><a name="2101" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2103"
+      > </a
+      ><a name="2104" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5694" class="Postulate"
+      >j&#8322;&#8329;&#8331;&#8323;&#8321;</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2112"
+      >
+  </a
+      ><a name="2115" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3163" class="Function"
+      >xz&#183;xy</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2122"
+      > </a
+      ><a name="2123" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2128"
+      > </a
+      ><a name="2129" class="Symbol"
+      >(</a
+      ><a name="2130" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2136"
+      > </a
+      ><a name="2137" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="2140" class="Symbol"
+      >)</a
+      ><a name="2141"
+      >                                    </a
+      ><a name="2177" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5819" class="Postulate"
+      >j&#8323;&#8321;&#8331;&#8323;&#8323;</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2188"
+      >
+  </a
+      ><a name="2191" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2711" class="Function"
+      >x&#183;zy</a
+      ><a name="2195"
+      > </a
+      ><a name="2196" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="2202"
+      > </a
+      ><a name="2203" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2204"
+      > </a
+      ><a name="2205" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="2208"
+      >                                             </a
+      ><a name="2253" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2255"
+      > </a
+      ><a name="2256" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5936" class="Postulate"
+      >j&#8323;&#8323;&#8331;&#8323;&#8325;</a
+      ><a name="2262"
+      > </a
+      ><a name="2263" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2264"
+      >
+  </a
+      ><a name="2267" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2611" class="Function"
+      >xzy</a
+      ><a name="2270"
+      > </a
+      ><a name="2271" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2272"
+      > </a
+      ><a name="2273" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="2276"
+      >                                                     </a
+      ><a name="2329" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2331"
+      > </a
+      ><a name="2332" href="DistributiveLaws.TaskB-HalvedStepsATP.html#6015" class="Postulate"
+      >j&#8323;&#8325;</a
+      ><a name="2335"
+      > </a
+      ><a name="2336" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2337"
+      >
+  </a
+      ><a name="2340" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="2345"
+      >                                                         </a
+      ><a name="2402" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="2403"
+      >
+  </a
+      ><a name="2406" class="Keyword"
+      >where</a
+      ><a name="2411"
+      >
+  </a
+      ><a name="2414" class="Comment"
+      >-- Two variables abbreviations</a
+      ><a name="2444"
+      >
+
+  </a
+      ><a name="2448" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="2450"
+      > </a
+      ><a name="2451" class="Symbol"
+      >=</a
+      ><a name="2452"
+      > </a
+      ><a name="2453" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2454"
+      > </a
+      ><a name="2455" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2456"
+      > </a
+      ><a name="2457" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2458"
+      >
+  </a
+      ><a name="2461" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2461" class="Function"
+      >yu</a
+      ><a name="2463"
+      > </a
+      ><a name="2464" class="Symbol"
+      >=</a
+      ><a name="2465"
+      > </a
+      ><a name="2466" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2467"
+      > </a
+      ><a name="2468" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2471"
+      >
+  </a
+      ><a name="2474" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2474" class="Function"
+      >yz</a
+      ><a name="2476"
+      > </a
+      ><a name="2477" class="Symbol"
+      >=</a
+      ><a name="2478"
+      > </a
+      ><a name="2479" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2484"
+      >
+  </a
+      ><a name="2487" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2487" class="Function"
+      >zy</a
+      ><a name="2489"
+      > </a
+      ><a name="2490" class="Symbol"
+      >=</a
+      ><a name="2491"
+      > </a
+      ><a name="2492" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2495"
+      > </a
+      ><a name="2496" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2497"
+      >
+  </a
+      ><a name="2500" class="Symbol"
+      >{-#</a
+      ><a name="2503"
+      > </a
+      ><a name="2504" class="Keyword"
+      >ATP</a
+      ><a name="2507"
+      > definitions </a
+      ><a name="2520" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="2522"
+      > </a
+      ><a name="2523" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2461" class="Function"
+      >yu</a
+      ><a name="2525"
+      > </a
+      ><a name="2526" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2474" class="Function"
+      >yz</a
+      ><a name="2528"
+      > </a
+      ><a name="2529" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2487" class="Function"
+      >zy</a
+      ><a name="2531"
+      > </a
+      ><a name="2532" class="Symbol"
+      >#-}</a
+      ><a name="2535"
+      >
+
+  </a
+      ><a name="2539" class="Comment"
+      >-- Three variables abbreviations</a
+      ><a name="2571"
+      >
+
+  </a
+      ><a name="2575" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="2578"
+      > </a
+      ><a name="2579" class="Symbol"
+      >=</a
+      ><a name="2580"
+      > </a
+      ><a name="2581" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2582"
+      > </a
+      ><a name="2583" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2584"
+      > </a
+      ><a name="2585" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2586"
+      > </a
+      ><a name="2587" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2588"
+      > </a
+      ><a name="2589" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2590"
+      >
+  </a
+      ><a name="2593" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="2596"
+      > </a
+      ><a name="2597" class="Symbol"
+      >=</a
+      ><a name="2598"
+      > </a
+      ><a name="2599" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2600"
+      > </a
+      ><a name="2601" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2602"
+      > </a
+      ><a name="2603" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2604"
+      > </a
+      ><a name="2605" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2606"
+      > </a
+      ><a name="2607" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2608"
+      >
+  </a
+      ><a name="2611" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2611" class="Function"
+      >xzy</a
+      ><a name="2614"
+      > </a
+      ><a name="2615" class="Symbol"
+      >=</a
+      ><a name="2616"
+      > </a
+      ><a name="2617" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2618"
+      > </a
+      ><a name="2619" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2620"
+      > </a
+      ><a name="2621" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2622"
+      > </a
+      ><a name="2623" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2624"
+      > </a
+      ><a name="2625" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2626"
+      >
+  </a
+      ><a name="2629" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2629" class="Function"
+      >yxz</a
+      ><a name="2632"
+      > </a
+      ><a name="2633" class="Symbol"
+      >=</a
+      ><a name="2634"
+      > </a
+      ><a name="2635" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2636"
+      > </a
+      ><a name="2637" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2638"
+      > </a
+      ><a name="2639" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2640"
+      > </a
+      ><a name="2641" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2642"
+      > </a
+      ><a name="2643" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2644"
+      >
+  </a
+      ><a name="2647" class="Symbol"
+      >{-#</a
+      ><a name="2650"
+      > </a
+      ><a name="2651" class="Keyword"
+      >ATP</a
+      ><a name="2654"
+      > definitions </a
+      ><a name="2667" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="2670"
+      > </a
+      ><a name="2671" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="2674"
+      > </a
+      ><a name="2675" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2611" class="Function"
+      >xzy</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2629" class="Function"
+      >yxz</a
+      ><a name="2682"
+      > </a
+      ><a name="2683" class="Symbol"
+      >#-}</a
+      ><a name="2686"
+      >
+
+  </a
+      ><a name="2690" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2690" class="Function"
+      >x&#183;zu</a
+      ><a name="2694"
+      > </a
+      ><a name="2695" class="Symbol"
+      >=</a
+      ><a name="2696"
+      > </a
+      ><a name="2697" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2698"
+      > </a
+      ><a name="2699" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2700"
+      > </a
+      ><a name="2701" class="Symbol"
+      >(</a
+      ><a name="2702" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2703"
+      > </a
+      ><a name="2704" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2705"
+      > </a
+      ><a name="2706" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2707" class="Symbol"
+      >)</a
+      ><a name="2708"
+      >
+  </a
+      ><a name="2711" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2711" class="Function"
+      >x&#183;zy</a
+      ><a name="2715"
+      > </a
+      ><a name="2716" class="Symbol"
+      >=</a
+      ><a name="2717"
+      > </a
+      ><a name="2718" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" class="Symbol"
+      >(</a
+      ><a name="2723" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2724"
+      > </a
+      ><a name="2725" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2726"
+      > </a
+      ><a name="2727" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2728" class="Symbol"
+      >)</a
+      ><a name="2729"
+      >
+  </a
+      ><a name="2732" class="Symbol"
+      >{-#</a
+      ><a name="2735"
+      > </a
+      ><a name="2736" class="Keyword"
+      >ATP</a
+      ><a name="2739"
+      > definitions </a
+      ><a name="2752" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2690" class="Function"
+      >x&#183;zu</a
+      ><a name="2756"
+      > </a
+      ><a name="2757" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2711" class="Function"
+      >x&#183;zy</a
+      ><a name="2761"
+      > </a
+      ><a name="2762" class="Symbol"
+      >#-}</a
+      ><a name="2765"
+      >
+
+  </a
+      ><a name="2769" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="2773"
+      > </a
+      ><a name="2774" class="Symbol"
+      >=</a
+      ><a name="2775"
+      > </a
+      ><a name="2776" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2777"
+      > </a
+      ><a name="2778" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2779"
+      > </a
+      ><a name="2780" class="Symbol"
+      >(</a
+      ><a name="2781" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2782"
+      > </a
+      ><a name="2783" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2784"
+      > </a
+      ><a name="2785" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2786" class="Symbol"
+      >)</a
+      ><a name="2787"
+      >
+  </a
+      ><a name="2790" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2790" class="Function"
+      >y&#183;yu</a
+      ><a name="2794"
+      > </a
+      ><a name="2795" class="Symbol"
+      >=</a
+      ><a name="2796"
+      > </a
+      ><a name="2797" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2798"
+      > </a
+      ><a name="2799" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2800"
+      > </a
+      ><a name="2801" class="Symbol"
+      >(</a
+      ><a name="2802" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2803"
+      > </a
+      ><a name="2804" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2805"
+      > </a
+      ><a name="2806" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2807" class="Symbol"
+      >)</a
+      ><a name="2808"
+      >
+  </a
+      ><a name="2811" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="2815"
+      > </a
+      ><a name="2816" class="Symbol"
+      >=</a
+      ><a name="2817"
+      > </a
+      ><a name="2818" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2821"
+      > </a
+      ><a name="2822" class="Symbol"
+      >(</a
+      ><a name="2823" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2824"
+      > </a
+      ><a name="2825" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2826"
+      > </a
+      ><a name="2827" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2828" class="Symbol"
+      >)</a
+      ><a name="2829"
+      >
+  </a
+      ><a name="2832" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="2836"
+      > </a
+      ><a name="2837" class="Symbol"
+      >=</a
+      ><a name="2838"
+      > </a
+      ><a name="2839" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2840"
+      > </a
+      ><a name="2841" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2842"
+      > </a
+      ><a name="2843" class="Symbol"
+      >(</a
+      ><a name="2844" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2845"
+      > </a
+      ><a name="2846" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2849" class="Symbol"
+      >)</a
+      ><a name="2850"
+      >
+  </a
+      ><a name="2853" class="Symbol"
+      >{-#</a
+      ><a name="2856"
+      > </a
+      ><a name="2857" class="Keyword"
+      >ATP</a
+      ><a name="2860"
+      > definitions </a
+      ><a name="2873" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="2877"
+      > </a
+      ><a name="2878" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2790" class="Function"
+      >y&#183;yu</a
+      ><a name="2882"
+      > </a
+      ><a name="2883" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="2887"
+      > </a
+      ><a name="2888" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="2892"
+      > </a
+      ><a name="2893" class="Symbol"
+      >#-}</a
+      ><a name="2896"
+      >
+
+  </a
+      ><a name="2900" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2900" class="Function"
+      >z&#183;xu</a
+      ><a name="2904"
+      > </a
+      ><a name="2905" class="Symbol"
+      >=</a
+      ><a name="2906"
+      > </a
+      ><a name="2907" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2908"
+      > </a
+      ><a name="2909" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2910"
+      > </a
+      ><a name="2911" class="Symbol"
+      >(</a
+      ><a name="2912" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="2913"
+      > </a
+      ><a name="2914" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2915"
+      > </a
+      ><a name="2916" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2917" class="Symbol"
+      >)</a
+      ><a name="2918"
+      >
+  </a
+      ><a name="2921" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="2925"
+      > </a
+      ><a name="2926" class="Symbol"
+      >=</a
+      ><a name="2927"
+      > </a
+      ><a name="2928" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="2929"
+      > </a
+      ><a name="2930" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2931"
+      > </a
+      ><a name="2932" class="Symbol"
+      >(</a
+      ><a name="2933" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="2934"
+      > </a
+      ><a name="2935" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2936"
+      > </a
+      ><a name="2937" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="2938" class="Symbol"
+      >)</a
+      ><a name="2939"
+      >
+  </a
+      ><a name="2942" class="Symbol"
+      >{-#</a
+      ><a name="2945"
+      > </a
+      ><a name="2946" class="Keyword"
+      >ATP</a
+      ><a name="2949"
+      > definitions </a
+      ><a name="2962" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2900" class="Function"
+      >z&#183;xu</a
+      ><a name="2966"
+      > </a
+      ><a name="2967" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="2971"
+      > </a
+      ><a name="2972" class="Symbol"
+      >#-}</a
+      ><a name="2975"
+      >
+
+  </a
+      ><a name="2979" class="Comment"
+      >-- Four variables abbreviations</a
+      ><a name="3010"
+      >
+
+  </a
+      ><a name="3014" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="3019"
+      > </a
+      ><a name="3020" class="Symbol"
+      >=</a
+      ><a name="3021"
+      > </a
+      ><a name="3022" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3023"
+      > </a
+      ><a name="3024" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3025"
+      > </a
+      ><a name="3026" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3027"
+      > </a
+      ><a name="3028" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3029"
+      > </a
+      ><a name="3030" class="Symbol"
+      >(</a
+      ><a name="3031" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3032"
+      > </a
+      ><a name="3033" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3034"
+      > </a
+      ><a name="3035" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3036" class="Symbol"
+      >)</a
+      ><a name="3037"
+      >
+  </a
+      ><a name="3040" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="3045"
+      > </a
+      ><a name="3046" class="Symbol"
+      >=</a
+      ><a name="3047"
+      > </a
+      ><a name="3048" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3049"
+      > </a
+      ><a name="3050" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3051"
+      > </a
+      ><a name="3052" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3053"
+      > </a
+      ><a name="3054" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3055"
+      > </a
+      ><a name="3056" class="Symbol"
+      >(</a
+      ><a name="3057" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3058"
+      > </a
+      ><a name="3059" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3060"
+      > </a
+      ><a name="3061" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3062" class="Symbol"
+      >)</a
+      ><a name="3063"
+      >
+  </a
+      ><a name="3066" class="Symbol"
+      >{-#</a
+      ><a name="3069"
+      > </a
+      ><a name="3070" class="Keyword"
+      >ATP</a
+      ><a name="3073"
+      > definitions </a
+      ><a name="3086" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="3091"
+      > </a
+      ><a name="3092" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="3097"
+      > </a
+      ><a name="3098" class="Symbol"
+      >#-}</a
+      ><a name="3101"
+      >
+
+  </a
+      ><a name="3105" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3110"
+      > </a
+      ><a name="3111" class="Symbol"
+      >=</a
+      ><a name="3112"
+      > </a
+      ><a name="3113" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3114"
+      > </a
+      ><a name="3115" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3116"
+      > </a
+      ><a name="3117" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3118"
+      > </a
+      ><a name="3119" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3120"
+      > </a
+      ><a name="3121" class="Symbol"
+      >(</a
+      ><a name="3122" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3123"
+      > </a
+      ><a name="3124" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3125"
+      > </a
+      ><a name="3126" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3127" class="Symbol"
+      >)</a
+      ><a name="3128"
+      >
+  </a
+      ><a name="3131" class="Symbol"
+      >{-#</a
+      ><a name="3134"
+      > </a
+      ><a name="3135" class="Keyword"
+      >ATP</a
+      ><a name="3138"
+      > definition </a
+      ><a name="3150" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3155"
+      > </a
+      ><a name="3156" class="Symbol"
+      >#-}</a
+      ><a name="3159"
+      >
+
+  </a
+      ><a name="3163" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3163" class="Function"
+      >xz&#183;xy</a
+      ><a name="3168"
+      > </a
+      ><a name="3169" class="Symbol"
+      >=</a
+      ><a name="3170"
+      > </a
+      ><a name="3171" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3172"
+      > </a
+      ><a name="3173" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3174"
+      > </a
+      ><a name="3175" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3176"
+      > </a
+      ><a name="3177" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3178"
+      > </a
+      ><a name="3179" class="Symbol"
+      >(</a
+      ><a name="3180" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3181"
+      > </a
+      ><a name="3182" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3183"
+      > </a
+      ><a name="3184" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3185" class="Symbol"
+      >)</a
+      ><a name="3186"
+      >
+  </a
+      ><a name="3189" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3194"
+      > </a
+      ><a name="3195" class="Symbol"
+      >=</a
+      ><a name="3196"
+      > </a
+      ><a name="3197" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3198"
+      > </a
+      ><a name="3199" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3200"
+      > </a
+      ><a name="3201" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3202"
+      > </a
+      ><a name="3203" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3204"
+      > </a
+      ><a name="3205" class="Symbol"
+      >(</a
+      ><a name="3206" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3207"
+      > </a
+      ><a name="3208" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3209"
+      > </a
+      ><a name="3210" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3211" class="Symbol"
+      >)</a
+      ><a name="3212"
+      >
+  </a
+      ><a name="3215" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3215" class="Function"
+      >xz&#183;yz</a
+      ><a name="3220"
+      > </a
+      ><a name="3221" class="Symbol"
+      >=</a
+      ><a name="3222"
+      > </a
+      ><a name="3223" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3224"
+      > </a
+      ><a name="3225" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3226"
+      > </a
+      ><a name="3227" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3228"
+      > </a
+      ><a name="3229" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3230"
+      > </a
+      ><a name="3231" class="Symbol"
+      >(</a
+      ><a name="3232" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3233"
+      > </a
+      ><a name="3234" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3235"
+      > </a
+      ><a name="3236" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3237" class="Symbol"
+      >)</a
+      ><a name="3238"
+      >
+  </a
+      ><a name="3241" class="Symbol"
+      >{-#</a
+      ><a name="3244"
+      > </a
+      ><a name="3245" class="Keyword"
+      >ATP</a
+      ><a name="3248"
+      > definitions </a
+      ><a name="3261" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3163" class="Function"
+      >xz&#183;xy</a
+      ><a name="3266"
+      > </a
+      ><a name="3267" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3272"
+      > </a
+      ><a name="3273" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3215" class="Function"
+      >xz&#183;yz</a
+      ><a name="3278"
+      > </a
+      ><a name="3279" class="Symbol"
+      >#-}</a
+      ><a name="3282"
+      >
+
+  </a
+      ><a name="3286" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="3291"
+      > </a
+      ><a name="3292" class="Symbol"
+      >=</a
+      ><a name="3293"
+      > </a
+      ><a name="3294" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3295"
+      > </a
+      ><a name="3296" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3297"
+      > </a
+      ><a name="3298" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3301"
+      > </a
+      ><a name="3302" class="Symbol"
+      >(</a
+      ><a name="3303" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3304"
+      > </a
+      ><a name="3305" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3306"
+      > </a
+      ><a name="3307" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3308" class="Symbol"
+      >)</a
+      ><a name="3309"
+      >
+  </a
+      ><a name="3312" class="Symbol"
+      >{-#</a
+      ><a name="3315"
+      > </a
+      ><a name="3316" class="Keyword"
+      >ATP</a
+      ><a name="3319"
+      > definition </a
+      ><a name="3331" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="3336"
+      > </a
+      ><a name="3337" class="Symbol"
+      >#-}</a
+      ><a name="3340"
+      >
+
+  </a
+      ><a name="3344" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3344" class="Function"
+      >zy&#183;xu</a
+      ><a name="3349"
+      > </a
+      ><a name="3350" class="Symbol"
+      >=</a
+      ><a name="3351"
+      > </a
+      ><a name="3352" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3353"
+      > </a
+      ><a name="3354" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3355"
+      > </a
+      ><a name="3356" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3357"
+      > </a
+      ><a name="3358" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3359"
+      > </a
+      ><a name="3360" class="Symbol"
+      >(</a
+      ><a name="3361" href="DistributiveLaws.TaskB-HalvedStepsATP.html#840" class="Bound"
+      >x</a
+      ><a name="3362"
+      > </a
+      ><a name="3363" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3364"
+      > </a
+      ><a name="3365" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3366" class="Symbol"
+      >)</a
+      ><a name="3367"
+      >
+  </a
+      ><a name="3370" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3370" class="Function"
+      >zy&#183;zu</a
+      ><a name="3375"
+      > </a
+      ><a name="3376" class="Symbol"
+      >=</a
+      ><a name="3377"
+      > </a
+      ><a name="3378" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3379"
+      > </a
+      ><a name="3380" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3381"
+      > </a
+      ><a name="3382" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="3383"
+      > </a
+      ><a name="3384" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3385"
+      > </a
+      ><a name="3386" class="Symbol"
+      >(</a
+      ><a name="3387" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="3388"
+      > </a
+      ><a name="3389" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3390"
+      > </a
+      ><a name="3391" href="DistributiveLaws.TaskB-HalvedStepsATP.html#838" class="Bound"
+      >u</a
+      ><a name="3392" class="Symbol"
+      >)</a
+      ><a name="3393"
+      >
+  </a
+      ><a name="3396" class="Symbol"
+      >{-#</a
+      ><a name="3399"
+      > </a
+      ><a name="3400" class="Keyword"
+      >ATP</a
+      ><a name="3403"
+      > definitions </a
+      ><a name="3416" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3344" class="Function"
+      >zy&#183;xu</a
+      ><a name="3421"
+      > </a
+      ><a name="3422" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3370" class="Function"
+      >zy&#183;zu</a
+      ><a name="3427"
+      > </a
+      ><a name="3428" class="Symbol"
+      >#-}</a
+      ><a name="3431"
+      >
+
+  </a
+      ><a name="3435" class="Comment"
+      >-- Steps justifications</a
+      ><a name="3458"
+      >
+
+  </a
+      ><a name="3462" class="Keyword"
+      >postulate</a
+      ><a name="3471"
+      > </a
+      ><a name="3472" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3472" class="Postulate"
+      >j&#8321;&#8331;&#8323;</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" class="Symbol"
+      >:</a
+      ><a name="3478"
+      > </a
+      ><a name="3479" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3484"
+      > </a
+      ><a name="3485" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3486"
+      > </a
+      ><a name="3487" class="Symbol"
+      >(</a
+      ><a name="3488" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3493"
+      > </a
+      ><a name="3494" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3495"
+      > </a
+      ><a name="3496" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3501" class="Symbol"
+      >)</a
+      ><a name="3502"
+      > </a
+      ><a name="3503" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3504"
+      >
+                   </a
+      ><a name="3524" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3529"
+      > </a
+      ><a name="3530" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3531"
+      > </a
+      ><a name="3532" class="Symbol"
+      >(</a
+      ><a name="3533" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2690" class="Function"
+      >x&#183;zu</a
+      ><a name="3537"
+      > </a
+      ><a name="3538" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3539"
+      > </a
+      ><a name="3540" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3545"
+      > </a
+      ><a name="3546" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3547"
+      > </a
+      ><a name="3548" class="Symbol"
+      >(</a
+      ><a name="3549" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="3553"
+      > </a
+      ><a name="3554" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3555"
+      > </a
+      ><a name="3556" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3561" class="Symbol"
+      >))</a
+      ><a name="3563"
+      >
+  </a
+      ><a name="3566" class="Symbol"
+      >{-#</a
+      ><a name="3569"
+      > </a
+      ><a name="3570" class="Keyword"
+      >ATP</a
+      ><a name="3573"
+      > prove </a
+      ><a name="3580" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3472" class="Postulate"
+      >j&#8321;&#8331;&#8323;</a
+      ><a name="3584"
+      > </a
+      ><a name="3585" class="Symbol"
+      >#-}</a
+      ><a name="3588"
+      >
+
+  </a
+      ><a name="3592" class="Keyword"
+      >postulate</a
+      ><a name="3601"
+      > </a
+      ><a name="3602" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3602" class="Postulate"
+      >j&#8323;&#8331;&#8325;</a
+      ><a name="3606"
+      > </a
+      ><a name="3607" class="Symbol"
+      >:</a
+      ><a name="3608"
+      > </a
+      ><a name="3609" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3614"
+      > </a
+      ><a name="3615" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3616"
+      > </a
+      ><a name="3617" class="Symbol"
+      >(</a
+      ><a name="3618" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2690" class="Function"
+      >x&#183;zu</a
+      ><a name="3622"
+      > </a
+      ><a name="3623" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3624"
+      > </a
+      ><a name="3625" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3630"
+      > </a
+      ><a name="3631" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3632"
+      > </a
+      ><a name="3633" class="Symbol"
+      >(</a
+      ><a name="3634" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="3638"
+      > </a
+      ><a name="3639" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3640"
+      > </a
+      ><a name="3641" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3646" class="Symbol"
+      >))</a
+      ><a name="3648"
+      > </a
+      ><a name="3649" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3650"
+      >
+                   </a
+      ><a name="3670" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3675"
+      > </a
+      ><a name="3676" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3677"
+      > </a
+      ><a name="3678" class="Symbol"
+      >(</a
+      ><a name="3679" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="3681"
+      > </a
+      ><a name="3682" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3683"
+      > </a
+      ><a name="3684" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="3689"
+      > </a
+      ><a name="3690" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3691"
+      > </a
+      ><a name="3692" class="Symbol"
+      >(</a
+      ><a name="3693" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="3697"
+      > </a
+      ><a name="3698" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3699"
+      > </a
+      ><a name="3700" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3705" class="Symbol"
+      >))</a
+      ><a name="3707"
+      >
+  </a
+      ><a name="3710" class="Symbol"
+      >{-#</a
+      ><a name="3713"
+      > </a
+      ><a name="3714" class="Keyword"
+      >ATP</a
+      ><a name="3717"
+      > prove </a
+      ><a name="3724" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3602" class="Postulate"
+      >j&#8323;&#8331;&#8325;</a
+      ><a name="3728"
+      > </a
+      ><a name="3729" class="Symbol"
+      >#-}</a
+      ><a name="3732"
+      >
+
+  </a
+      ><a name="3736" class="Keyword"
+      >postulate</a
+      ><a name="3745"
+      > </a
+      ><a name="3746" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3746" class="Postulate"
+      >j&#8325;&#8331;&#8327;</a
+      ><a name="3750"
+      > </a
+      ><a name="3751" class="Symbol"
+      >:</a
+      ><a name="3752"
+      > </a
+      ><a name="3753" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3758"
+      > </a
+      ><a name="3759" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3760"
+      > </a
+      ><a name="3761" class="Symbol"
+      >(</a
+      ><a name="3762" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="3764"
+      > </a
+      ><a name="3765" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3766"
+      > </a
+      ><a name="3767" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="3772"
+      > </a
+      ><a name="3773" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3774"
+      > </a
+      ><a name="3775" class="Symbol"
+      >(</a
+      ><a name="3776" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2811" class="Function"
+      >y&#183;zu</a
+      ><a name="3780"
+      > </a
+      ><a name="3781" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3782"
+      > </a
+      ><a name="3783" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3788" class="Symbol"
+      >))</a
+      ><a name="3790"
+      > </a
+      ><a name="3791" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3792"
+      >
+                   </a
+      ><a name="3812" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3817"
+      > </a
+      ><a name="3818" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3819"
+      > </a
+      ><a name="3820" class="Symbol"
+      >(</a
+      ><a name="3821" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="3823"
+      > </a
+      ><a name="3824" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3825"
+      > </a
+      ><a name="3826" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="3829"
+      > </a
+      ><a name="3830" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3831"
+      > </a
+      ><a name="3832" class="Symbol"
+      >(</a
+      ><a name="3833" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="3838"
+      > </a
+      ><a name="3839" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3840"
+      > </a
+      ><a name="3841" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3846" class="Symbol"
+      >))</a
+      ><a name="3848"
+      >
+  </a
+      ><a name="3851" class="Symbol"
+      >{-#</a
+      ><a name="3854"
+      > </a
+      ><a name="3855" class="Keyword"
+      >ATP</a
+      ><a name="3858"
+      > prove </a
+      ><a name="3865" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3746" class="Postulate"
+      >j&#8325;&#8331;&#8327;</a
+      ><a name="3869"
+      > </a
+      ><a name="3870" class="Symbol"
+      >#-}</a
+      ><a name="3873"
+      >
+
+  </a
+      ><a name="3877" class="Keyword"
+      >postulate</a
+      ><a name="3886"
+      > </a
+      ><a name="3887" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3887" class="Postulate"
+      >j&#8327;&#8331;&#8329;</a
+      ><a name="3891"
+      > </a
+      ><a name="3892" class="Symbol"
+      >:</a
+      ><a name="3893"
+      > </a
+      ><a name="3894" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3899"
+      > </a
+      ><a name="3900" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3901"
+      > </a
+      ><a name="3902" class="Symbol"
+      >(</a
+      ><a name="3903" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="3905"
+      > </a
+      ><a name="3906" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3907"
+      > </a
+      ><a name="3908" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="3911"
+      > </a
+      ><a name="3912" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3913"
+      > </a
+      ><a name="3914" class="Symbol"
+      >(</a
+      ><a name="3915" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="3920"
+      > </a
+      ><a name="3921" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3922"
+      > </a
+      ><a name="3923" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="3928" class="Symbol"
+      >))</a
+      ><a name="3930"
+      > </a
+      ><a name="3931" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3932"
+      >
+                   </a
+      ><a name="3952" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="3957"
+      > </a
+      ><a name="3958" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3959"
+      > </a
+      ><a name="3960" class="Symbol"
+      >(</a
+      ><a name="3961" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="3963"
+      > </a
+      ><a name="3964" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3965"
+      > </a
+      ><a name="3966" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="3969"
+      > </a
+      ><a name="3970" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3971"
+      > </a
+      ><a name="3972" class="Symbol"
+      >(</a
+      ><a name="3973" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2629" class="Function"
+      >yxz</a
+      ><a name="3976"
+      > </a
+      ><a name="3977" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3978"
+      > </a
+      ><a name="3979" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2461" class="Function"
+      >yu</a
+      ><a name="3981" class="Symbol"
+      >))</a
+      ><a name="3983"
+      >
+  </a
+      ><a name="3986" class="Symbol"
+      >{-#</a
+      ><a name="3989"
+      > </a
+      ><a name="3990" class="Keyword"
+      >ATP</a
+      ><a name="3993"
+      > prove </a
+      ><a name="4000" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3887" class="Postulate"
+      >j&#8327;&#8331;&#8329;</a
+      ><a name="4004"
+      > </a
+      ><a name="4005" class="Symbol"
+      >#-}</a
+      ><a name="4008"
+      >
+
+  </a
+      ><a name="4012" class="Keyword"
+      >postulate</a
+      ><a name="4021"
+      > </a
+      ><a name="4022" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4022" class="Postulate"
+      >j&#8329;&#8331;&#8321;&#8321;</a
+      ><a name="4027"
+      > </a
+      ><a name="4028" class="Symbol"
+      >:</a
+      ><a name="4029"
+      > </a
+      ><a name="4030" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="4035"
+      > </a
+      ><a name="4036" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4037"
+      > </a
+      ><a name="4038" class="Symbol"
+      >(</a
+      ><a name="4039" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4041"
+      > </a
+      ><a name="4042" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4043"
+      > </a
+      ><a name="4044" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4047"
+      > </a
+      ><a name="4048" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4049"
+      > </a
+      ><a name="4050" class="Symbol"
+      >(</a
+      ><a name="4051" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2629" class="Function"
+      >yxz</a
+      ><a name="4054"
+      > </a
+      ><a name="4055" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4056"
+      > </a
+      ><a name="4057" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2461" class="Function"
+      >yu</a
+      ><a name="4059" class="Symbol"
+      >))</a
+      ><a name="4061"
+      > </a
+      ><a name="4062" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4063"
+      >
+                    </a
+      ><a name="4084" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="4089"
+      > </a
+      ><a name="4090" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4091"
+      > </a
+      ><a name="4092" class="Symbol"
+      >(</a
+      ><a name="4093" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4095"
+      > </a
+      ><a name="4096" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4097"
+      > </a
+      ><a name="4098" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4101"
+      > </a
+      ><a name="4102" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4103"
+      > </a
+      ><a name="4104" class="Symbol"
+      >(</a
+      ><a name="4105" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4109"
+      > </a
+      ><a name="4110" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4111"
+      > </a
+      ><a name="4112" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4116" class="Symbol"
+      >))</a
+      ><a name="4118"
+      >
+  </a
+      ><a name="4121" class="Symbol"
+      >{-#</a
+      ><a name="4124"
+      > </a
+      ><a name="4125" class="Keyword"
+      >ATP</a
+      ><a name="4128"
+      > prove </a
+      ><a name="4135" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4022" class="Postulate"
+      >j&#8329;&#8331;&#8321;&#8321;</a
+      ><a name="4140"
+      > </a
+      ><a name="4141" class="Symbol"
+      >#-}</a
+      ><a name="4144"
+      >
+
+  </a
+      ><a name="4148" class="Keyword"
+      >postulate</a
+      ><a name="4157"
+      > </a
+      ><a name="4158" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4158" class="Postulate"
+      >j&#8321;&#8321;&#8331;&#8321;&#8323;</a
+      ><a name="4164"
+      > </a
+      ><a name="4165" class="Symbol"
+      >:</a
+      ><a name="4166"
+      > </a
+      ><a name="4167" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3105" class="Function"
+      >xy&#183;zu</a
+      ><a name="4172"
+      > </a
+      ><a name="4173" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4174"
+      > </a
+      ><a name="4175" class="Symbol"
+      >(</a
+      ><a name="4176" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4178"
+      > </a
+      ><a name="4179" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4180"
+      > </a
+      ><a name="4181" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4184"
+      > </a
+      ><a name="4185" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4186"
+      > </a
+      ><a name="4187" class="Symbol"
+      >(</a
+      ><a name="4188" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4192"
+      > </a
+      ><a name="4193" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4194"
+      > </a
+      ><a name="4195" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4199" class="Symbol"
+      >))</a
+      ><a name="4201"
+      > </a
+      ><a name="4202" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4203"
+      >
+                     </a
+      ><a name="4225" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3215" class="Function"
+      >xz&#183;yz</a
+      ><a name="4230"
+      > </a
+      ><a name="4231" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4232"
+      > </a
+      ><a name="4233" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4236"
+      > </a
+      ><a name="4237" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4238"
+      > </a
+      ><a name="4239" class="Symbol"
+      >(</a
+      ><a name="4240" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4242"
+      > </a
+      ><a name="4243" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4244"
+      > </a
+      ><a name="4245" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4248"
+      > </a
+      ><a name="4249" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4250"
+      > </a
+      ><a name="4251" class="Symbol"
+      >(</a
+      ><a name="4252" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4256"
+      > </a
+      ><a name="4257" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4258"
+      > </a
+      ><a name="4259" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4263" class="Symbol"
+      >))</a
+      ><a name="4265"
+      >
+  </a
+      ><a name="4268" class="Symbol"
+      >{-#</a
+      ><a name="4271"
+      > </a
+      ><a name="4272" class="Keyword"
+      >ATP</a
+      ><a name="4275"
+      > prove </a
+      ><a name="4282" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4158" class="Postulate"
+      >j&#8321;&#8321;&#8331;&#8321;&#8323;</a
+      ><a name="4288"
+      > </a
+      ><a name="4289" class="Symbol"
+      >#-}</a
+      ><a name="4292"
+      >
+
+  </a
+      ><a name="4296" class="Keyword"
+      >postulate</a
+      ><a name="4305"
+      > </a
+      ><a name="4306" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4306" class="Postulate"
+      >j&#8321;&#8323;&#8331;&#8321;&#8325;</a
+      ><a name="4312"
+      > </a
+      ><a name="4313" class="Symbol"
+      >:</a
+      ><a name="4314"
+      > </a
+      ><a name="4315" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3215" class="Function"
+      >xz&#183;yz</a
+      ><a name="4320"
+      > </a
+      ><a name="4321" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4322"
+      > </a
+      ><a name="4323" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4326"
+      > </a
+      ><a name="4327" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4328"
+      > </a
+      ><a name="4329" class="Symbol"
+      >(</a
+      ><a name="4330" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4332"
+      > </a
+      ><a name="4333" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4334"
+      > </a
+      ><a name="4335" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4338"
+      > </a
+      ><a name="4339" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4340"
+      > </a
+      ><a name="4341" class="Symbol"
+      >(</a
+      ><a name="4342" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4346"
+      > </a
+      ><a name="4347" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4348"
+      > </a
+      ><a name="4349" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4353" class="Symbol"
+      >))</a
+      ><a name="4355"
+      > </a
+      ><a name="4356" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4357"
+      >
+                     </a
+      ><a name="4379" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4381"
+      > </a
+      ><a name="4382" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4383"
+      > </a
+      ><a name="4384" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4387"
+      > </a
+      ><a name="4388" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4389"
+      > </a
+      ><a name="4390" class="Symbol"
+      >(</a
+      ><a name="4391" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2474" class="Function"
+      >yz</a
+      ><a name="4393"
+      > </a
+      ><a name="4394" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4395"
+      > </a
+      ><a name="4396" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4399"
+      > </a
+      ><a name="4400" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4401"
+      > </a
+      ><a name="4402" class="Symbol"
+      >(</a
+      ><a name="4403" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4407"
+      > </a
+      ><a name="4408" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4409"
+      > </a
+      ><a name="4410" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4414" class="Symbol"
+      >))</a
+      ><a name="4416"
+      >
+  </a
+      ><a name="4419" class="Symbol"
+      >{-#</a
+      ><a name="4422"
+      > </a
+      ><a name="4423" class="Keyword"
+      >ATP</a
+      ><a name="4426"
+      > prove </a
+      ><a name="4433" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4306" class="Postulate"
+      >j&#8321;&#8323;&#8331;&#8321;&#8325;</a
+      ><a name="4439"
+      > </a
+      ><a name="4440" class="Symbol"
+      >#-}</a
+      ><a name="4443"
+      >
+
+  </a
+      ><a name="4447" class="Keyword"
+      >postulate</a
+      ><a name="4456"
+      > </a
+      ><a name="4457" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4457" class="Postulate"
+      >j&#8321;&#8325;&#8331;&#8321;&#8327;</a
+      ><a name="4463"
+      > </a
+      ><a name="4464" class="Symbol"
+      >:</a
+      ><a name="4465"
+      > </a
+      ><a name="4466" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4468"
+      > </a
+      ><a name="4469" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4470"
+      > </a
+      ><a name="4471" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4474"
+      > </a
+      ><a name="4475" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4476"
+      > </a
+      ><a name="4477" class="Symbol"
+      >(</a
+      ><a name="4478" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2474" class="Function"
+      >yz</a
+      ><a name="4480"
+      > </a
+      ><a name="4481" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4482"
+      > </a
+      ><a name="4483" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4486"
+      > </a
+      ><a name="4487" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4488"
+      > </a
+      ><a name="4489" class="Symbol"
+      >(</a
+      ><a name="4490" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4494"
+      > </a
+      ><a name="4495" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4496"
+      > </a
+      ><a name="4497" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4501" class="Symbol"
+      >))</a
+      ><a name="4503"
+      > </a
+      ><a name="4504" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4505"
+      >
+                     </a
+      ><a name="4527" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4529"
+      > </a
+      ><a name="4530" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4531"
+      > </a
+      ><a name="4532" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4535"
+      > </a
+      ><a name="4536" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4537"
+      > </a
+      ><a name="4538" class="Symbol"
+      >(</a
+      ><a name="4539" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="4540"
+      > </a
+      ><a name="4541" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4542"
+      > </a
+      ><a name="4543" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4548"
+      > </a
+      ><a name="4549" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4550"
+      > </a
+      ><a name="4551" class="Symbol"
+      >(</a
+      ><a name="4552" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="4553"
+      > </a
+      ><a name="4554" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4555"
+      > </a
+      ><a name="4556" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4561" class="Symbol"
+      >)</a
+      ><a name="4562"
+      > </a
+      ><a name="4563" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4564"
+      > </a
+      ><a name="4565" class="Symbol"
+      >(</a
+      ><a name="4566" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4570"
+      > </a
+      ><a name="4571" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4572"
+      > </a
+      ><a name="4573" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4577" class="Symbol"
+      >))</a
+      ><a name="4579"
+      >
+  </a
+      ><a name="4582" class="Symbol"
+      >{-#</a
+      ><a name="4585"
+      > </a
+      ><a name="4586" class="Keyword"
+      >ATP</a
+      ><a name="4589"
+      > prove </a
+      ><a name="4596" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4457" class="Postulate"
+      >j&#8321;&#8325;&#8331;&#8321;&#8327;</a
+      ><a name="4602"
+      > </a
+      ><a name="4603" class="Symbol"
+      >#-}</a
+      ><a name="4606"
+      >
+
+  </a
+      ><a name="4610" class="Keyword"
+      >postulate</a
+      ><a name="4619"
+      > </a
+      ><a name="4620" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4620" class="Postulate"
+      >j&#8321;&#8327;&#8331;&#8321;&#8329;</a
+      ><a name="4626"
+      > </a
+      ><a name="4627" class="Symbol"
+      >:</a
+      ><a name="4628"
+      > </a
+      ><a name="4629" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4631"
+      > </a
+      ><a name="4632" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4633"
+      > </a
+      ><a name="4634" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4637"
+      > </a
+      ><a name="4638" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4639"
+      > </a
+      ><a name="4640" class="Symbol"
+      >(</a
+      ><a name="4641" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="4642"
+      > </a
+      ><a name="4643" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4644"
+      > </a
+      ><a name="4645" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4650"
+      > </a
+      ><a name="4651" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4652"
+      > </a
+      ><a name="4653" class="Symbol"
+      >(</a
+      ><a name="4654" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="4655"
+      > </a
+      ><a name="4656" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4657"
+      > </a
+      ><a name="4658" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4663" class="Symbol"
+      >)</a
+      ><a name="4664"
+      > </a
+      ><a name="4665" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4666"
+      > </a
+      ><a name="4667" class="Symbol"
+      >(</a
+      ><a name="4668" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4672"
+      > </a
+      ><a name="4673" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4674"
+      > </a
+      ><a name="4675" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4679" class="Symbol"
+      >))</a
+      ><a name="4681"
+      > </a
+      ><a name="4682" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4683"
+      >
+                     </a
+      ><a name="4705" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4707"
+      > </a
+      ><a name="4708" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4709"
+      > </a
+      ><a name="4710" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4713"
+      > </a
+      ><a name="4714" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4715"
+      >
+                    </a
+      ><a name="4736" class="Symbol"
+      >(</a
+      ><a name="4737" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4741"
+      > </a
+      ><a name="4742" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4743"
+      > </a
+      ><a name="4744" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2790" class="Function"
+      >y&#183;yu</a
+      ><a name="4748"
+      > </a
+      ><a name="4749" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4750"
+      > </a
+      ><a name="4751" class="Symbol"
+      >(</a
+      ><a name="4752" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4756"
+      > </a
+      ><a name="4757" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4758"
+      > </a
+      ><a name="4759" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4763" class="Symbol"
+      >)</a
+      ><a name="4764"
+      > </a
+      ><a name="4765" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4766"
+      > </a
+      ><a name="4767" class="Symbol"
+      >(</a
+      ><a name="4768" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="4769"
+      > </a
+      ><a name="4770" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4771"
+      > </a
+      ><a name="4772" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4777"
+      > </a
+      ><a name="4778" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4779"
+      > </a
+      ><a name="4780" class="Symbol"
+      >(</a
+      ><a name="4781" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4785"
+      > </a
+      ><a name="4786" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4787"
+      > </a
+      ><a name="4788" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4792" class="Symbol"
+      >)))</a
+      ><a name="4795"
+      >
+  </a
+      ><a name="4798" class="Symbol"
+      >{-#</a
+      ><a name="4801"
+      > </a
+      ><a name="4802" class="Keyword"
+      >ATP</a
+      ><a name="4805"
+      > prove </a
+      ><a name="4812" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4620" class="Postulate"
+      >j&#8321;&#8327;&#8331;&#8321;&#8329;</a
+      ><a name="4818"
+      > </a
+      ><a name="4819" class="Symbol"
+      >#-}</a
+      ><a name="4822"
+      >
+
+  </a
+      ><a name="4826" class="Keyword"
+      >postulate</a
+      ><a name="4835"
+      >
+    </a
+      ><a name="4840" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4840" class="Postulate"
+      >j&#8321;&#8329;&#8331;&#8322;&#8321;</a
+      ><a name="4846"
+      > </a
+      ><a name="4847" class="Symbol"
+      >:</a
+      ><a name="4848"
+      > </a
+      ><a name="4849" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4851"
+      > </a
+      ><a name="4852" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4853"
+      > </a
+      ><a name="4854" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4857"
+      > </a
+      ><a name="4858" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4859"
+      >
+             </a
+      ><a name="4873" class="Symbol"
+      >(</a
+      ><a name="4874" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4878"
+      > </a
+      ><a name="4879" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4880"
+      > </a
+      ><a name="4881" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2790" class="Function"
+      >y&#183;yu</a
+      ><a name="4885"
+      > </a
+      ><a name="4886" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4887"
+      > </a
+      ><a name="4888" class="Symbol"
+      >(</a
+      ><a name="4889" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4893"
+      > </a
+      ><a name="4894" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4895"
+      > </a
+      ><a name="4896" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4900" class="Symbol"
+      >)</a
+      ><a name="4901"
+      > </a
+      ><a name="4902" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4903"
+      > </a
+      ><a name="4904" class="Symbol"
+      >(</a
+      ><a name="4905" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="4906"
+      > </a
+      ><a name="4907" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4908"
+      > </a
+      ><a name="4909" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4914"
+      > </a
+      ><a name="4915" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4916"
+      > </a
+      ><a name="4917" class="Symbol"
+      >(</a
+      ><a name="4918" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4922"
+      > </a
+      ><a name="4923" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4924"
+      > </a
+      ><a name="4925" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="4929" class="Symbol"
+      >)))</a
+      ><a name="4932"
+      > </a
+      ><a name="4933" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4934"
+      >
+             </a
+      ><a name="4948" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="4950"
+      > </a
+      ><a name="4951" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4952"
+      > </a
+      ><a name="4953" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="4956"
+      > </a
+      ><a name="4957" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4958"
+      > </a
+      ><a name="4959" class="Symbol"
+      >(</a
+      ><a name="4960" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4964"
+      > </a
+      ><a name="4965" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4966"
+      > </a
+      ><a name="4967" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="4972"
+      > </a
+      ><a name="4973" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4974"
+      > </a
+      ><a name="4975" class="Symbol"
+      >(</a
+      ><a name="4976" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="4977"
+      > </a
+      ><a name="4978" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4979"
+      > </a
+      ><a name="4980" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="4985"
+      > </a
+      ><a name="4986" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4987"
+      > </a
+      ><a name="4988" class="Symbol"
+      >(</a
+      ><a name="4989" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="4993"
+      > </a
+      ><a name="4994" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4995"
+      > </a
+      ><a name="4996" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="5000" class="Symbol"
+      >)))</a
+      ><a name="5003"
+      >
+  </a
+      ><a name="5006" class="Symbol"
+      >{-#</a
+      ><a name="5009"
+      > </a
+      ><a name="5010" class="Keyword"
+      >ATP</a
+      ><a name="5013"
+      > prove </a
+      ><a name="5020" href="DistributiveLaws.TaskB-HalvedStepsATP.html#4840" class="Postulate"
+      >j&#8321;&#8329;&#8331;&#8322;&#8321;</a
+      ><a name="5026"
+      > </a
+      ><a name="5027" class="Symbol"
+      >#-}</a
+      ><a name="5030"
+      >
+
+  </a
+      ><a name="5034" class="Keyword"
+      >postulate</a
+      ><a name="5043"
+      >
+    </a
+      ><a name="5048" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5048" class="Postulate"
+      >j&#8322;&#8321;&#8331;&#8322;&#8323;</a
+      ><a name="5054"
+      > </a
+      ><a name="5055" class="Symbol"
+      >:</a
+      ><a name="5056"
+      > </a
+      ><a name="5057" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5059"
+      > </a
+      ><a name="5060" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5061"
+      > </a
+      ><a name="5062" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5065"
+      > </a
+      ><a name="5066" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5067"
+      > </a
+      ><a name="5068" class="Symbol"
+      >(</a
+      ><a name="5069" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="5073"
+      > </a
+      ><a name="5074" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5075"
+      > </a
+      ><a name="5076" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3286" class="Function"
+      >yz&#183;yu</a
+      ><a name="5081"
+      > </a
+      ><a name="5082" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5083"
+      > </a
+      ><a name="5084" class="Symbol"
+      >(</a
+      ><a name="5085" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="5086"
+      > </a
+      ><a name="5087" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5088"
+      > </a
+      ><a name="5089" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="5094"
+      > </a
+      ><a name="5095" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5096"
+      > </a
+      ><a name="5097" class="Symbol"
+      >(</a
+      ><a name="5098" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="5102"
+      > </a
+      ><a name="5103" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5104"
+      > </a
+      ><a name="5105" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="5109" class="Symbol"
+      >)))</a
+      ><a name="5112"
+      > </a
+      ><a name="5113" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5114"
+      >
+             </a
+      ><a name="5128" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5130"
+      > </a
+      ><a name="5131" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5132"
+      > </a
+      ><a name="5133" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5136"
+      > </a
+      ><a name="5137" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5138"
+      > </a
+      ><a name="5139" class="Symbol"
+      >(</a
+      ><a name="5140" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="5141"
+      > </a
+      ><a name="5142" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5143"
+      > </a
+      ><a name="5144" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5149"
+      > </a
+      ><a name="5150" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5151"
+      > </a
+      ><a name="5152" class="Symbol"
+      >(</a
+      ><a name="5153" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="5154"
+      > </a
+      ><a name="5155" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5156"
+      > </a
+      ><a name="5157" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="5162"
+      > </a
+      ><a name="5163" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5164"
+      > </a
+      ><a name="5165" class="Symbol"
+      >(</a
+      ><a name="5166" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="5170"
+      > </a
+      ><a name="5171" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5172"
+      > </a
+      ><a name="5173" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="5177" class="Symbol"
+      >)))</a
+      ><a name="5180"
+      >
+  </a
+      ><a name="5183" class="Symbol"
+      >{-#</a
+      ><a name="5186"
+      > </a
+      ><a name="5187" class="Keyword"
+      >ATP</a
+      ><a name="5190"
+      > prove </a
+      ><a name="5197" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5048" class="Postulate"
+      >j&#8322;&#8321;&#8331;&#8322;&#8323;</a
+      ><a name="5203"
+      > </a
+      ><a name="5204" class="Symbol"
+      >#-}</a
+      ><a name="5207"
+      >
+
+  </a
+      ><a name="5211" class="Keyword"
+      >postulate</a
+      ><a name="5220"
+      > </a
+      ><a name="5221" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5221" class="Postulate"
+      >j&#8322;&#8323;&#8331;&#8322;&#8325;</a
+      ><a name="5227"
+      > </a
+      ><a name="5228" class="Symbol"
+      >:</a
+      ><a name="5229"
+      > </a
+      ><a name="5230" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5232"
+      > </a
+      ><a name="5233" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5234"
+      > </a
+      ><a name="5235" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5238"
+      > </a
+      ><a name="5239" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5240"
+      > </a
+      ><a name="5241" class="Symbol"
+      >(</a
+      ><a name="5242" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="5243"
+      > </a
+      ><a name="5244" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5245"
+      > </a
+      ><a name="5246" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5251"
+      > </a
+      ><a name="5252" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5253"
+      > </a
+      ><a name="5254" class="Symbol"
+      >(</a
+      ><a name="5255" href="DistributiveLaws.TaskB-HalvedStepsATP.html#844" class="Bound"
+      >z</a
+      ><a name="5256"
+      > </a
+      ><a name="5257" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5258"
+      > </a
+      ><a name="5259" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3014" class="Function"
+      >xu&#183;yu</a
+      ><a name="5264"
+      > </a
+      ><a name="5265" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5266"
+      > </a
+      ><a name="5267" class="Symbol"
+      >(</a
+      ><a name="5268" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="5272"
+      > </a
+      ><a name="5273" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5274"
+      > </a
+      ><a name="5275" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="5279" class="Symbol"
+      >)))</a
+      ><a name="5282"
+      > </a
+      ><a name="5283" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5284"
+      >
+                     </a
+      ><a name="5306" class="Symbol"
+      >(</a
+      ><a name="5307" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5309"
+      > </a
+      ><a name="5310" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5311"
+      > </a
+      ><a name="5312" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5315" class="Symbol"
+      >)</a
+      ><a name="5316"
+      > </a
+      ><a name="5317" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5318"
+      > </a
+      ><a name="5319" class="Symbol"
+      >(</a
+      ><a name="5320" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="5321"
+      > </a
+      ><a name="5322" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5323"
+      > </a
+      ><a name="5324" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5329"
+      > </a
+      ><a name="5330" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5331"
+      > </a
+      ><a name="5332" class="Symbol"
+      >(</a
+      ><a name="5333" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2900" class="Function"
+      >z&#183;xu</a
+      ><a name="5337"
+      > </a
+      ><a name="5338" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5339"
+      > </a
+      ><a name="5340" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="5344"
+      > </a
+      ><a name="5345" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5346"
+      > </a
+      ><a name="5347" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="5351" class="Symbol"
+      >))</a
+      ><a name="5353"
+      >
+  </a
+      ><a name="5356" class="Symbol"
+      >{-#</a
+      ><a name="5359"
+      > </a
+      ><a name="5360" class="Keyword"
+      >ATP</a
+      ><a name="5363"
+      > prove </a
+      ><a name="5370" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5221" class="Postulate"
+      >j&#8322;&#8323;&#8331;&#8322;&#8325;</a
+      ><a name="5376"
+      > </a
+      ><a name="5377" class="Symbol"
+      >#-}</a
+      ><a name="5380"
+      >
+
+  </a
+      ><a name="5384" class="Keyword"
+      >postulate</a
+      ><a name="5393"
+      > </a
+      ><a name="5394" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5394" class="Postulate"
+      >j&#8322;&#8325;&#8331;&#8322;&#8327;</a
+      ><a name="5400"
+      > </a
+      ><a name="5401" class="Symbol"
+      >:</a
+      ><a name="5402"
+      > </a
+      ><a name="5403" class="Symbol"
+      >(</a
+      ><a name="5404" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5406"
+      > </a
+      ><a name="5407" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5408"
+      > </a
+      ><a name="5409" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5412" class="Symbol"
+      >)</a
+      ><a name="5413"
+      > </a
+      ><a name="5414" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5415"
+      > </a
+      ><a name="5416" class="Symbol"
+      >(</a
+      ><a name="5417" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="5418"
+      > </a
+      ><a name="5419" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5420"
+      > </a
+      ><a name="5421" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5426"
+      > </a
+      ><a name="5427" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5428"
+      > </a
+      ><a name="5429" class="Symbol"
+      >(</a
+      ><a name="5430" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2900" class="Function"
+      >z&#183;xu</a
+      ><a name="5434"
+      > </a
+      ><a name="5435" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5436"
+      > </a
+      ><a name="5437" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2769" class="Function"
+      >y&#183;xu</a
+      ><a name="5441"
+      > </a
+      ><a name="5442" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5443"
+      > </a
+      ><a name="5444" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2921" class="Function"
+      >z&#183;yu</a
+      ><a name="5448" class="Symbol"
+      >))</a
+      ><a name="5450"
+      > </a
+      ><a name="5451" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5452"
+      >
+                     </a
+      ><a name="5474" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5476"
+      > </a
+      ><a name="5477" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5478"
+      > </a
+      ><a name="5479" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5482"
+      > </a
+      ><a name="5483" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5484"
+      > </a
+      ><a name="5485" class="Symbol"
+      >(</a
+      ><a name="5486" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="5487"
+      > </a
+      ><a name="5488" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5489"
+      > </a
+      ><a name="5490" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5495"
+      > </a
+      ><a name="5496" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5497"
+      > </a
+      ><a name="5498" class="Symbol"
+      >(</a
+      ><a name="5499" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3344" class="Function"
+      >zy&#183;xu</a
+      ><a name="5504"
+      > </a
+      ><a name="5505" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5506"
+      > </a
+      ><a name="5507" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3370" class="Function"
+      >zy&#183;zu</a
+      ><a name="5512" class="Symbol"
+      >))</a
+      ><a name="5514"
+      >
+  </a
+      ><a name="5517" class="Symbol"
+      >{-#</a
+      ><a name="5520"
+      > </a
+      ><a name="5521" class="Keyword"
+      >ATP</a
+      ><a name="5524"
+      > prove </a
+      ><a name="5531" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5394" class="Postulate"
+      >j&#8322;&#8325;&#8331;&#8322;&#8327;</a
+      ><a name="5537"
+      > </a
+      ><a name="5538" class="Symbol"
+      >#-}</a
+      ><a name="5541"
+      >
+
+  </a
+      ><a name="5545" class="Keyword"
+      >postulate</a
+      ><a name="5554"
+      > </a
+      ><a name="5555" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5555" class="Postulate"
+      >j&#8322;&#8327;&#8331;&#8322;&#8329;</a
+      ><a name="5561"
+      > </a
+      ><a name="5562" class="Symbol"
+      >:</a
+      ><a name="5563"
+      > </a
+      ><a name="5564" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5566"
+      > </a
+      ><a name="5567" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5568"
+      > </a
+      ><a name="5569" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5572"
+      > </a
+      ><a name="5573" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5574"
+      > </a
+      ><a name="5575" class="Symbol"
+      >(</a
+      ><a name="5576" href="DistributiveLaws.TaskB-HalvedStepsATP.html#842" class="Bound"
+      >y</a
+      ><a name="5577"
+      > </a
+      ><a name="5578" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5579"
+      > </a
+      ><a name="5580" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5585"
+      > </a
+      ><a name="5586" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5587"
+      > </a
+      ><a name="5588" class="Symbol"
+      >(</a
+      ><a name="5589" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3344" class="Function"
+      >zy&#183;xu</a
+      ><a name="5594"
+      > </a
+      ><a name="5595" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5596"
+      > </a
+      ><a name="5597" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3370" class="Function"
+      >zy&#183;zu</a
+      ><a name="5602" class="Symbol"
+      >))</a
+      ><a name="5604"
+      > </a
+      ><a name="5605" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5606"
+      >
+                     </a
+      ><a name="5628" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5630"
+      > </a
+      ><a name="5631" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5632"
+      > </a
+      ><a name="5633" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5636"
+      > </a
+      ><a name="5637" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5638"
+      > </a
+      ><a name="5639" class="Symbol"
+      >(</a
+      ><a name="5640" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="5644"
+      > </a
+      ><a name="5645" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5646"
+      > </a
+      ><a name="5647" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5652" class="Symbol"
+      >)</a
+      ><a name="5653"
+      >
+  </a
+      ><a name="5656" class="Symbol"
+      >{-#</a
+      ><a name="5659"
+      > </a
+      ><a name="5660" class="Keyword"
+      >ATP</a
+      ><a name="5663"
+      > prove </a
+      ><a name="5670" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5555" class="Postulate"
+      >j&#8322;&#8327;&#8331;&#8322;&#8329;</a
+      ><a name="5676"
+      > </a
+      ><a name="5677" class="Symbol"
+      >#-}</a
+      ><a name="5680"
+      >
+
+  </a
+      ><a name="5684" class="Keyword"
+      >postulate</a
+      ><a name="5693"
+      > </a
+      ><a name="5694" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5694" class="Postulate"
+      >j&#8322;&#8329;&#8331;&#8323;&#8321;</a
+      ><a name="5700"
+      > </a
+      ><a name="5701" class="Symbol"
+      >:</a
+      ><a name="5702"
+      > </a
+      ><a name="5703" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2448" class="Function"
+      >xz</a
+      ><a name="5705"
+      > </a
+      ><a name="5706" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5707"
+      > </a
+      ><a name="5708" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2575" class="Function"
+      >xyu</a
+      ><a name="5711"
+      > </a
+      ><a name="5712" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5713"
+      > </a
+      ><a name="5714" class="Symbol"
+      >(</a
+      ><a name="5715" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="5719"
+      > </a
+      ><a name="5720" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5721"
+      > </a
+      ><a name="5722" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3040" class="Function"
+      >xu&#183;zu</a
+      ><a name="5727" class="Symbol"
+      >)</a
+      ><a name="5728"
+      > </a
+      ><a name="5729" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5730"
+      >
+                     </a
+      ><a name="5752" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3163" class="Function"
+      >xz&#183;xy</a
+      ><a name="5757"
+      > </a
+      ><a name="5758" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5759"
+      > </a
+      ><a name="5760" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5763"
+      > </a
+      ><a name="5764" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5765"
+      > </a
+      ><a name="5766" class="Symbol"
+      >(</a
+      ><a name="5767" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="5771"
+      > </a
+      ><a name="5772" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5773"
+      > </a
+      ><a name="5774" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5777" class="Symbol"
+      >)</a
+      ><a name="5778"
+      >
+  </a
+      ><a name="5781" class="Symbol"
+      >{-#</a
+      ><a name="5784"
+      > </a
+      ><a name="5785" class="Keyword"
+      >ATP</a
+      ><a name="5788"
+      > prove </a
+      ><a name="5795" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5694" class="Postulate"
+      >j&#8322;&#8329;&#8331;&#8323;&#8321;</a
+      ><a name="5801"
+      > </a
+      ><a name="5802" class="Symbol"
+      >#-}</a
+      ><a name="5805"
+      >
+
+  </a
+      ><a name="5809" class="Keyword"
+      >postulate</a
+      ><a name="5818"
+      > </a
+      ><a name="5819" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5819" class="Postulate"
+      >j&#8323;&#8321;&#8331;&#8323;&#8323;</a
+      ><a name="5825"
+      > </a
+      ><a name="5826" class="Symbol"
+      >:</a
+      ><a name="5827"
+      > </a
+      ><a name="5828" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3163" class="Function"
+      >xz&#183;xy</a
+      ><a name="5833"
+      > </a
+      ><a name="5834" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5835"
+      > </a
+      ><a name="5836" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5839"
+      > </a
+      ><a name="5840" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5841"
+      > </a
+      ><a name="5842" class="Symbol"
+      >(</a
+      ><a name="5843" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="5847"
+      > </a
+      ><a name="5848" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5849"
+      > </a
+      ><a name="5850" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5853" class="Symbol"
+      >)</a
+      ><a name="5854"
+      > </a
+      ><a name="5855" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5856"
+      >
+                     </a
+      ><a name="5878" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2711" class="Function"
+      >x&#183;zy</a
+      ><a name="5882"
+      > </a
+      ><a name="5883" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5884"
+      > </a
+      ><a name="5885" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="5889"
+      > </a
+      ><a name="5890" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5891"
+      > </a
+      ><a name="5892" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5895"
+      >
+  </a
+      ><a name="5898" class="Symbol"
+      >{-#</a
+      ><a name="5901"
+      > </a
+      ><a name="5902" class="Keyword"
+      >ATP</a
+      ><a name="5905"
+      > prove </a
+      ><a name="5912" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5819" class="Postulate"
+      >j&#8323;&#8321;&#8331;&#8323;&#8323;</a
+      ><a name="5918"
+      > </a
+      ><a name="5919" class="Symbol"
+      >#-}</a
+      ><a name="5922"
+      >
+
+  </a
+      ><a name="5926" class="Keyword"
+      >postulate</a
+      ><a name="5935"
+      > </a
+      ><a name="5936" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5936" class="Postulate"
+      >j&#8323;&#8323;&#8331;&#8323;&#8325;</a
+      ><a name="5942"
+      > </a
+      ><a name="5943" class="Symbol"
+      >:</a
+      ><a name="5944"
+      > </a
+      ><a name="5945" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2711" class="Function"
+      >x&#183;zy</a
+      ><a name="5949"
+      > </a
+      ><a name="5950" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5951"
+      > </a
+      ><a name="5952" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2832" class="Function"
+      >y&#183;zy</a
+      ><a name="5956"
+      > </a
+      ><a name="5957" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5958"
+      > </a
+      ><a name="5959" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5962"
+      > </a
+      ><a name="5963" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5964"
+      > </a
+      ><a name="5965" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2611" class="Function"
+      >xzy</a
+      ><a name="5968"
+      > </a
+      ><a name="5969" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5970"
+      > </a
+      ><a name="5971" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="5974"
+      >
+  </a
+      ><a name="5977" class="Symbol"
+      >{-#</a
+      ><a name="5980"
+      > </a
+      ><a name="5981" class="Keyword"
+      >ATP</a
+      ><a name="5984"
+      > prove </a
+      ><a name="5991" href="DistributiveLaws.TaskB-HalvedStepsATP.html#5936" class="Postulate"
+      >j&#8323;&#8323;&#8331;&#8323;&#8325;</a
+      ><a name="5997"
+      > </a
+      ><a name="5998" class="Symbol"
+      >#-}</a
+      ><a name="6001"
+      >
+
+  </a
+      ><a name="6005" class="Keyword"
+      >postulate</a
+      ><a name="6014"
+      > </a
+      ><a name="6015" href="DistributiveLaws.TaskB-HalvedStepsATP.html#6015" class="Postulate"
+      >j&#8323;&#8325;</a
+      ><a name="6018"
+      > </a
+      ><a name="6019" class="Symbol"
+      >:</a
+      ><a name="6020"
+      > </a
+      ><a name="6021" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2611" class="Function"
+      >xzy</a
+      ><a name="6024"
+      > </a
+      ><a name="6025" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="6026"
+      > </a
+      ><a name="6027" href="DistributiveLaws.TaskB-HalvedStepsATP.html#2593" class="Function"
+      >xzu</a
+      ><a name="6030"
+      > </a
+      ><a name="6031" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="6032"
+      > </a
+      ><a name="6033" href="DistributiveLaws.TaskB-HalvedStepsATP.html#3189" class="Function"
+      >xz&#183;yu</a
+      ><a name="6038"
+      >
+  </a
+      ><a name="6041" class="Symbol"
+      >{-#</a
+      ><a name="6044"
+      > </a
+      ><a name="6045" class="Keyword"
+      >ATP</a
+      ><a name="6048"
+      > prove </a
+      ><a name="6055" href="DistributiveLaws.TaskB-HalvedStepsATP.html#6015" class="Postulate"
+      >j&#8323;&#8325;</a
+      ><a name="6058"
+      > </a
+      ><a name="6059" class="Symbol"
+      >#-}</a
+      ><a name="6062"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Inductive.README</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- First-order Peano arithmetic</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Keyword"
+      >module</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="PA.Inductive.README.html#1" class="Module"
+      >PA.Inductive.README</a
+      ><a name="391"
+      > </a
+      ><a name="392" class="Keyword"
+      >where</a
+      ><a name="397"
+      >
+
+</a
+      ><a name="399" class="Comment"
+      >-- Formalization of first-order Peano arithmetic using Agda data types</a
+      ><a name="469"
+      >
+</a
+      ><a name="470" class="Comment"
+      >-- and primitive recursive functions for addition and multiplication.</a
+      ><a name="539"
+      >
+
+</a
+      ><a name="541" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="619"
+      >
+</a
+      ><a name="620" class="Comment"
+      >-- Inductive definitions</a
+      ><a name="644"
+      >
+</a
+      ><a name="645" class="Keyword"
+      >open</a
+      ><a name="649"
+      > </a
+      ><a name="650" class="Keyword"
+      >import</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="PA.Inductive.Base.html#1" class="Module"
+      >PA.Inductive.Base</a
+      ><a name="674"
+      >
+
+</a
+      ><a name="676" class="Comment"
+      >-- Some properties</a
+      ><a name="694"
+      >
+</a
+      ><a name="695" class="Keyword"
+      >open</a
+      ><a name="699"
+      > </a
+      ><a name="700" class="Keyword"
+      >import</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="PA.Inductive.PropertiesATP.html#1" class="Module"
+      >PA.Inductive.PropertiesATP</a
+      ><a name="733"
+      >
+</a
+      ><a name="734" class="Keyword"
+      >open</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Keyword"
+      >import</a
+      ><a name="745"
+      > </a
+      ><a name="746" href="PA.Inductive.PropertiesI.html#1" class="Module"
+      >PA.Inductive.PropertiesI</a
+      ><a name="770"
+      >
+
+</a
+      ><a name="772" class="Keyword"
+      >open</a
+      ><a name="776"
+      > </a
+      ><a name="777" class="Keyword"
+      >import</a
+      ><a name="783"
+      > </a
+      ><a name="784" href="PA.Inductive.PropertiesByInduction.html#1" class="Module"
+      >PA.Inductive.PropertiesByInduction</a
+      ><a name="818"
+      >
+</a
+      ><a name="819" class="Keyword"
+      >open</a
+      ><a name="823"
+      > </a
+      ><a name="824" class="Keyword"
+      >import</a
+      ><a name="830"
+      > </a
+      ><a name="831" href="PA.Inductive.PropertiesByInductionATP.html#1" class="Module"
+      >PA.Inductive.PropertiesByInductionATP</a
+      ><a name="868"
+      >
+</a
+      ><a name="869" class="Keyword"
+      >open</a
+      ><a name="873"
+      > </a
+      ><a name="874" class="Keyword"
+      >import</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="PA.Inductive.PropertiesByInductionI.html#1" class="Module"
+      >PA.Inductive.PropertiesByInductionI</a
+      ><a name="916"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

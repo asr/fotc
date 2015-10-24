@@ -1,0 +1,1723 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOL.Propositional.TheoremsI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Propositional logic theorems</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Keyword"
+      >module</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="FOL.Propositional.TheoremsI.html#1" class="Module"
+      >FOL.Propositional.TheoremsI</a
+      ><a name="399"
+      > </a
+      ><a name="400" class="Keyword"
+      >where</a
+      ><a name="405"
+      >
+
+</a
+      ><a name="407" class="Comment"
+      >-- The theorems below are valid on intuitionistic logic and with an</a
+      ><a name="474"
+      >
+</a
+      ><a name="475" class="Comment"
+      >-- empty domain.</a
+      ><a name="491"
+      >
+</a
+      ><a name="492" class="Keyword"
+      >open</a
+      ><a name="496"
+      > </a
+      ><a name="497" class="Keyword"
+      >import</a
+      ><a name="503"
+      > </a
+      ><a name="504" href="FOL.Base.html#1" class="Module"
+      >FOL.Base</a
+      ><a name="512"
+      > </a
+      ><a name="513" class="Keyword"
+      >hiding</a
+      ><a name="519"
+      > </a
+      ><a name="520" class="Symbol"
+      >(</a
+      ><a name="521"
+      > D&#8802;&#8709; </a
+      ><a name="526" class="Symbol"
+      >;</a
+      ><a name="527"
+      > pem </a
+      ><a name="532" class="Symbol"
+      >)</a
+      ><a name="533"
+      >
+
+</a
+      ><a name="535" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="613"
+      >
+</a
+      ><a name="614" class="Comment"
+      >-- Boolean laws</a
+      ><a name="629"
+      >
+
+</a
+      ><a name="631" href="FOL.Propositional.TheoremsI.html#631" class="Function"
+      >&#8594;-transposition</a
+      ><a name="646"
+      > </a
+      ><a name="647" class="Symbol"
+      >:</a
+      ><a name="648"
+      > </a
+      ><a name="649" class="Symbol"
+      >{</a
+      ><a name="650" href="FOL.Propositional.TheoremsI.html#650" class="Bound"
+      >P</a
+      ><a name="651"
+      > </a
+      ><a name="652" href="FOL.Propositional.TheoremsI.html#652" class="Bound"
+      >Q</a
+      ><a name="653"
+      > </a
+      ><a name="654" class="Symbol"
+      >:</a
+      ><a name="655"
+      > </a
+      ><a name="656" class="PrimitiveType"
+      >Set</a
+      ><a name="659" class="Symbol"
+      >}</a
+      ><a name="660"
+      > </a
+      ><a name="661" class="Symbol"
+      >&#8594;</a
+      ><a name="662"
+      > </a
+      ><a name="663" class="Symbol"
+      >(</a
+      ><a name="664" href="FOL.Propositional.TheoremsI.html#650" class="Bound"
+      >P</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Symbol"
+      >&#8594;</a
+      ><a name="667"
+      > </a
+      ><a name="668" href="FOL.Propositional.TheoremsI.html#652" class="Bound"
+      >Q</a
+      ><a name="669" class="Symbol"
+      >)</a
+      ><a name="670"
+      > </a
+      ><a name="671" class="Symbol"
+      >&#8594;</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="674"
+      > </a
+      ><a name="675" href="FOL.Propositional.TheoremsI.html#652" class="Bound"
+      >Q</a
+      ><a name="676"
+      > </a
+      ><a name="677" class="Symbol"
+      >&#8594;</a
+      ><a name="678"
+      > </a
+      ><a name="679" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="680"
+      > </a
+      ><a name="681" href="FOL.Propositional.TheoremsI.html#650" class="Bound"
+      >P</a
+      ><a name="682"
+      >
+</a
+      ><a name="683" href="FOL.Propositional.TheoremsI.html#631" class="Function"
+      >&#8594;-transposition</a
+      ><a name="698"
+      > </a
+      ><a name="699" href="FOL.Propositional.TheoremsI.html#699" class="Bound"
+      >p&#8594;q</a
+      ><a name="702"
+      > </a
+      ><a name="703" href="FOL.Propositional.TheoremsI.html#703" class="Bound"
+      >&#172;q</a
+      ><a name="705"
+      > </a
+      ><a name="706" href="FOL.Propositional.TheoremsI.html#706" class="Bound"
+      >p</a
+      ><a name="707"
+      > </a
+      ><a name="708" class="Symbol"
+      >=</a
+      ><a name="709"
+      > </a
+      ><a name="710" href="FOL.Propositional.TheoremsI.html#703" class="Bound"
+      >&#172;q</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Symbol"
+      >(</a
+      ><a name="714" href="FOL.Propositional.TheoremsI.html#699" class="Bound"
+      >p&#8594;q</a
+      ><a name="717"
+      > </a
+      ><a name="718" href="FOL.Propositional.TheoremsI.html#706" class="Bound"
+      >p</a
+      ><a name="719" class="Symbol"
+      >)</a
+      ><a name="720"
+      >
+
+</a
+      ><a name="722" href="FOL.Propositional.TheoremsI.html#722" class="Function"
+      >&#8743;&#8744;-dist</a
+      ><a name="729"
+      > </a
+      ><a name="730" class="Symbol"
+      >:</a
+      ><a name="731"
+      > </a
+      ><a name="732" class="Symbol"
+      >{</a
+      ><a name="733" href="FOL.Propositional.TheoremsI.html#733" class="Bound"
+      >P</a
+      ><a name="734"
+      > </a
+      ><a name="735" href="FOL.Propositional.TheoremsI.html#735" class="Bound"
+      >Q</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="FOL.Propositional.TheoremsI.html#737" class="Bound"
+      >R</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >:</a
+      ><a name="740"
+      > </a
+      ><a name="741" class="PrimitiveType"
+      >Set</a
+      ><a name="744" class="Symbol"
+      >}</a
+      ><a name="745"
+      > </a
+      ><a name="746" class="Symbol"
+      >&#8594;</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="FOL.Propositional.TheoremsI.html#733" class="Bound"
+      >P</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="751"
+      > </a
+      ><a name="752" class="Symbol"
+      >(</a
+      ><a name="753" href="FOL.Propositional.TheoremsI.html#735" class="Bound"
+      >Q</a
+      ><a name="754"
+      > </a
+      ><a name="755" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="756"
+      > </a
+      ><a name="757" href="FOL.Propositional.TheoremsI.html#737" class="Bound"
+      >R</a
+      ><a name="758" class="Symbol"
+      >)</a
+      ><a name="759"
+      > </a
+      ><a name="760" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="FOL.Propositional.TheoremsI.html#733" class="Bound"
+      >P</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="765"
+      > </a
+      ><a name="766" href="FOL.Propositional.TheoremsI.html#735" class="Bound"
+      >Q</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="FOL.Propositional.TheoremsI.html#733" class="Bound"
+      >P</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="773"
+      > </a
+      ><a name="774" href="FOL.Propositional.TheoremsI.html#737" class="Bound"
+      >R</a
+      ><a name="775"
+      >
+</a
+      ><a name="776" href="FOL.Propositional.TheoremsI.html#722" class="Function"
+      >&#8743;&#8744;-dist</a
+      ><a name="783"
+      > </a
+      ><a name="784" class="Symbol"
+      >{</a
+      ><a name="785" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="786" class="Symbol"
+      >}</a
+      ><a name="787"
+      > </a
+      ><a name="788" class="Symbol"
+      >{</a
+      ><a name="789" href="FOL.Propositional.TheoremsI.html#789" class="Bound"
+      >Q</a
+      ><a name="790" class="Symbol"
+      >}</a
+      ><a name="791"
+      > </a
+      ><a name="792" class="Symbol"
+      >{</a
+      ><a name="793" href="FOL.Propositional.TheoremsI.html#793" class="Bound"
+      >R</a
+      ><a name="794" class="Symbol"
+      >}</a
+      ><a name="795"
+      > </a
+      ><a name="796" class="Symbol"
+      >=</a
+      ><a name="797"
+      > </a
+      ><a name="798" href="FOL.Propositional.TheoremsI.html#818" class="Function"
+      >l&#8594;r</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="FOL.Propositional.TheoremsI.html#923" class="Function"
+      >r&#8594;l</a
+      ><a name="807"
+      >
+  </a
+      ><a name="810" class="Keyword"
+      >where</a
+      ><a name="815"
+      >
+  </a
+      ><a name="818" href="FOL.Propositional.TheoremsI.html#818" class="Function"
+      >l&#8594;r</a
+      ><a name="821"
+      > </a
+      ><a name="822" class="Symbol"
+      >:</a
+      ><a name="823"
+      > </a
+      ><a name="824" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="825"
+      > </a
+      ><a name="826" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Symbol"
+      >(</a
+      ><a name="829" href="FOL.Propositional.TheoremsI.html#789" class="Bound"
+      >Q</a
+      ><a name="830"
+      > </a
+      ><a name="831" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="832"
+      > </a
+      ><a name="833" href="FOL.Propositional.TheoremsI.html#793" class="Bound"
+      >R</a
+      ><a name="834" class="Symbol"
+      >)</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Symbol"
+      >&#8594;</a
+      ><a name="837"
+      > </a
+      ><a name="838" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="839"
+      > </a
+      ><a name="840" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="FOL.Propositional.TheoremsI.html#789" class="Bound"
+      >Q</a
+      ><a name="843"
+      > </a
+      ><a name="844" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="845"
+      > </a
+      ><a name="846" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="847"
+      > </a
+      ><a name="848" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="FOL.Propositional.TheoremsI.html#793" class="Bound"
+      >R</a
+      ><a name="851"
+      >
+  </a
+      ><a name="854" href="FOL.Propositional.TheoremsI.html#818" class="Function"
+      >l&#8594;r</a
+      ><a name="857"
+      > </a
+      ><a name="858" class="Symbol"
+      >(</a
+      ><a name="859" href="FOL.Propositional.TheoremsI.html#859" class="Bound"
+      >p</a
+      ><a name="860"
+      > </a
+      ><a name="861" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="862"
+      > </a
+      ><a name="863" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="FOL.Propositional.TheoremsI.html#868" class="Bound"
+      >q</a
+      ><a name="869" class="Symbol"
+      >)</a
+      ><a name="870"
+      > </a
+      ><a name="871" class="Symbol"
+      >=</a
+      ><a name="872"
+      > </a
+      ><a name="873" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="877"
+      > </a
+      ><a name="878" class="Symbol"
+      >(</a
+      ><a name="879" href="FOL.Propositional.TheoremsI.html#859" class="Bound"
+      >p</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="882"
+      > </a
+      ><a name="883" href="FOL.Propositional.TheoremsI.html#868" class="Bound"
+      >q</a
+      ><a name="884" class="Symbol"
+      >)</a
+      ><a name="885"
+      >
+  </a
+      ><a name="888" href="FOL.Propositional.TheoremsI.html#818" class="Function"
+      >l&#8594;r</a
+      ><a name="891"
+      > </a
+      ><a name="892" class="Symbol"
+      >(</a
+      ><a name="893" href="FOL.Propositional.TheoremsI.html#893" class="Bound"
+      >p</a
+      ><a name="894"
+      > </a
+      ><a name="895" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="896"
+      > </a
+      ><a name="897" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="901"
+      > </a
+      ><a name="902" href="FOL.Propositional.TheoremsI.html#902" class="Bound"
+      >r</a
+      ><a name="903" class="Symbol"
+      >)</a
+      ><a name="904"
+      > </a
+      ><a name="905" class="Symbol"
+      >=</a
+      ><a name="906"
+      > </a
+      ><a name="907" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="911"
+      > </a
+      ><a name="912" class="Symbol"
+      >(</a
+      ><a name="913" href="FOL.Propositional.TheoremsI.html#893" class="Bound"
+      >p</a
+      ><a name="914"
+      > </a
+      ><a name="915" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="916"
+      > </a
+      ><a name="917" href="FOL.Propositional.TheoremsI.html#902" class="Bound"
+      >r</a
+      ><a name="918" class="Symbol"
+      >)</a
+      ><a name="919"
+      >
+
+  </a
+      ><a name="923" href="FOL.Propositional.TheoremsI.html#923" class="Function"
+      >r&#8594;l</a
+      ><a name="926"
+      > </a
+      ><a name="927" class="Symbol"
+      >:</a
+      ><a name="928"
+      > </a
+      ><a name="929" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="930"
+      > </a
+      ><a name="931" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="932"
+      > </a
+      ><a name="933" href="FOL.Propositional.TheoremsI.html#789" class="Bound"
+      >Q</a
+      ><a name="934"
+      > </a
+      ><a name="935" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="938"
+      > </a
+      ><a name="939" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="940"
+      > </a
+      ><a name="941" href="FOL.Propositional.TheoremsI.html#793" class="Bound"
+      >R</a
+      ><a name="942"
+      > </a
+      ><a name="943" class="Symbol"
+      >&#8594;</a
+      ><a name="944"
+      > </a
+      ><a name="945" href="FOL.Propositional.TheoremsI.html#785" class="Bound"
+      >P</a
+      ><a name="946"
+      > </a
+      ><a name="947" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="948"
+      > </a
+      ><a name="949" class="Symbol"
+      >(</a
+      ><a name="950" href="FOL.Propositional.TheoremsI.html#789" class="Bound"
+      >Q</a
+      ><a name="951"
+      > </a
+      ><a name="952" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="953"
+      > </a
+      ><a name="954" href="FOL.Propositional.TheoremsI.html#793" class="Bound"
+      >R</a
+      ><a name="955" class="Symbol"
+      >)</a
+      ><a name="956"
+      >
+  </a
+      ><a name="959" href="FOL.Propositional.TheoremsI.html#923" class="Function"
+      >r&#8594;l</a
+      ><a name="962"
+      > </a
+      ><a name="963" class="Symbol"
+      >(</a
+      ><a name="964" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="968"
+      > </a
+      ><a name="969" class="Symbol"
+      >(</a
+      ><a name="970" href="FOL.Propositional.TheoremsI.html#970" class="Bound"
+      >p</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="FOL.Propositional.TheoremsI.html#974" class="Bound"
+      >q</a
+      ><a name="975" class="Symbol"
+      >))</a
+      ><a name="977"
+      > </a
+      ><a name="978" class="Symbol"
+      >=</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="FOL.Propositional.TheoremsI.html#970" class="Bound"
+      >p</a
+      ><a name="981"
+      > </a
+      ><a name="982" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="988"
+      > </a
+      ><a name="989" href="FOL.Propositional.TheoremsI.html#974" class="Bound"
+      >q</a
+      ><a name="990"
+      >
+  </a
+      ><a name="993" href="FOL.Propositional.TheoremsI.html#923" class="Function"
+      >r&#8594;l</a
+      ><a name="996"
+      > </a
+      ><a name="997" class="Symbol"
+      >(</a
+      ><a name="998" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" class="Symbol"
+      >(</a
+      ><a name="1004" href="FOL.Propositional.TheoremsI.html#1004" class="Bound"
+      >p</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="FOL.Propositional.TheoremsI.html#1008" class="Bound"
+      >r</a
+      ><a name="1009" class="Symbol"
+      >))</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" class="Symbol"
+      >=</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="FOL.Propositional.TheoremsI.html#1004" class="Bound"
+      >p</a
+      ><a name="1015"
+      > </a
+      ><a name="1016" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" href="FOL.Propositional.TheoremsI.html#1008" class="Bound"
+      >r</a
+      ><a name="1024"
+      >
+
+</a
+      ><a name="1026" href="FOL.Propositional.TheoremsI.html#1026" class="Function"
+      >&#8743;&#8744;-dist'</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" class="Symbol"
+      >:</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" class="Symbol"
+      >{</a
+      ><a name="1038" href="FOL.Propositional.TheoremsI.html#1038" class="Bound"
+      >P</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="FOL.Propositional.TheoremsI.html#1040" class="Bound"
+      >Q</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="FOL.Propositional.TheoremsI.html#1042" class="Bound"
+      >R</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" class="Symbol"
+      >:</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" class="PrimitiveType"
+      >Set</a
+      ><a name="1049" class="Symbol"
+      >}</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" class="Symbol"
+      >&#8594;</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" href="FOL.Propositional.TheoremsI.html#1038" class="Bound"
+      >P</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" class="Symbol"
+      >(</a
+      ><a name="1058" href="FOL.Propositional.TheoremsI.html#1040" class="Bound"
+      >Q</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="FOL.Propositional.TheoremsI.html#1042" class="Bound"
+      >R</a
+      ><a name="1063" class="Symbol"
+      >)</a
+      ><a name="1064"
+      > </a
+      ><a name="1065" href="FOL.Base.html#946" class="Function Operator"
+      >&#8660;</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="FOL.Propositional.TheoremsI.html#1038" class="Bound"
+      >P</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" href="FOL.Propositional.TheoremsI.html#1040" class="Bound"
+      >Q</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="FOL.Propositional.TheoremsI.html#1038" class="Bound"
+      >P</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" href="FOL.Propositional.TheoremsI.html#1042" class="Bound"
+      >R</a
+      ><a name="1080"
+      >
+</a
+      ><a name="1081" href="FOL.Propositional.TheoremsI.html#1026" class="Function"
+      >&#8743;&#8744;-dist'</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" class="Symbol"
+      >{</a
+      ><a name="1091" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1092" class="Symbol"
+      >}</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" class="Symbol"
+      >{</a
+      ><a name="1095" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1096" class="Symbol"
+      >}</a
+      ><a name="1097"
+      > </a
+      ><a name="1098" class="Symbol"
+      >{</a
+      ><a name="1099" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1100" class="Symbol"
+      >}</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" class="Symbol"
+      >=</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" href="FOL.Propositional.TheoremsI.html#1229" class="Function"
+      >l&#8658;r</a
+      ><a name="1107"
+      > </a
+      ><a name="1108" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" href="FOL.Propositional.TheoremsI.html#1576" class="Function"
+      >r&#8658;l</a
+      ><a name="1113"
+      >
+  </a
+      ><a name="1116" class="Keyword"
+      >where</a
+      ><a name="1121"
+      >
+  </a
+      ><a name="1124" href="FOL.Propositional.TheoremsI.html#1124" class="Function"
+      >l&#8594;r</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" class="Symbol"
+      >:</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1133"
+      > </a
+      ><a name="1134" class="Symbol"
+      >(</a
+      ><a name="1135" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1140" class="Symbol"
+      >)</a
+      ><a name="1141"
+      > </a
+      ><a name="1142" class="Symbol"
+      >&#8594;</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1149"
+      > </a
+      ><a name="1150" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1151"
+      > </a
+      ><a name="1152" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1155"
+      > </a
+      ><a name="1156" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1157"
+      >
+  </a
+      ><a name="1160" href="FOL.Propositional.TheoremsI.html#1124" class="Function"
+      >l&#8594;r</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" class="Symbol"
+      >(</a
+      ><a name="1165" href="FOL.Propositional.TheoremsI.html#1165" class="Bound"
+      >p</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" href="FOL.Propositional.TheoremsI.html#1174" class="Bound"
+      >q</a
+      ><a name="1175" class="Symbol"
+      >)</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" class="Symbol"
+      >=</a
+      ><a name="1178"
+      > </a
+      ><a name="1179" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >(</a
+      ><a name="1185" href="FOL.Propositional.TheoremsI.html#1165" class="Bound"
+      >p</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="FOL.Propositional.TheoremsI.html#1174" class="Bound"
+      >q</a
+      ><a name="1190" class="Symbol"
+      >)</a
+      ><a name="1191"
+      >
+  </a
+      ><a name="1194" href="FOL.Propositional.TheoremsI.html#1124" class="Function"
+      >l&#8594;r</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" class="Symbol"
+      >(</a
+      ><a name="1199" href="FOL.Propositional.TheoremsI.html#1199" class="Bound"
+      >p</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" href="FOL.Propositional.TheoremsI.html#1208" class="Bound"
+      >r</a
+      ><a name="1209" class="Symbol"
+      >)</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" class="Symbol"
+      >=</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >(</a
+      ><a name="1219" href="FOL.Propositional.TheoremsI.html#1199" class="Bound"
+      >p</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" href="FOL.Propositional.TheoremsI.html#1208" class="Bound"
+      >r</a
+      ><a name="1224" class="Symbol"
+      >)</a
+      ><a name="1225"
+      >
+
+  </a
+      ><a name="1229" href="FOL.Propositional.TheoremsI.html#1229" class="Function"
+      >l&#8658;r</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" class="Symbol"
+      >:</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" class="Symbol"
+      >(</a
+      ><a name="1240" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1245" class="Symbol"
+      >)</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1262"
+      >
+  </a
+      ><a name="1265" href="FOL.Propositional.TheoremsI.html#1229" class="Function"
+      >l&#8658;r</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" class="Symbol"
+      >=</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="FOL.Base.html#850" class="InductiveConstructor"
+      >fun</a
+      ><a name="1274"
+      > </a
+      ><a name="1275" href="FOL.Propositional.TheoremsI.html#1124" class="Function"
+      >l&#8594;r</a
+      ><a name="1278"
+      >
+
+  </a
+      ><a name="1282" href="FOL.Propositional.TheoremsI.html#1282" class="Function"
+      >r&#8594;l</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" class="Symbol"
+      >:</a
+      ><a name="1287"
+      > </a
+      ><a name="1288" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1291"
+      > </a
+      ><a name="1292" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1297"
+      > </a
+      ><a name="1298" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" class="Symbol"
+      >&#8594;</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" class="Symbol"
+      >(</a
+      ><a name="1309" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1310"
+      > </a
+      ><a name="1311" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1312"
+      > </a
+      ><a name="1313" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1314" class="Symbol"
+      >)</a
+      ><a name="1315"
+      >
+  </a
+      ><a name="1318" href="FOL.Propositional.TheoremsI.html#1282" class="Function"
+      >r&#8594;l</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" class="Symbol"
+      >(</a
+      ><a name="1323" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="1327"
+      > </a
+      ><a name="1328" class="Symbol"
+      >(</a
+      ><a name="1329" href="FOL.Propositional.TheoremsI.html#1329" class="Bound"
+      >p</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" href="FOL.Propositional.TheoremsI.html#1333" class="Bound"
+      >q</a
+      ><a name="1334" class="Symbol"
+      >))</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" class="Symbol"
+      >=</a
+      ><a name="1338"
+      > </a
+      ><a name="1339" href="FOL.Propositional.TheoremsI.html#1329" class="Bound"
+      >p</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1342"
+      > </a
+      ><a name="1343" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="FOL.Propositional.TheoremsI.html#1333" class="Bound"
+      >q</a
+      ><a name="1349"
+      >
+  </a
+      ><a name="1352" href="FOL.Propositional.TheoremsI.html#1282" class="Function"
+      >r&#8594;l</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" class="Symbol"
+      >(</a
+      ><a name="1357" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" class="Symbol"
+      >(</a
+      ><a name="1363" href="FOL.Propositional.TheoremsI.html#1363" class="Bound"
+      >p</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" href="FOL.Propositional.TheoremsI.html#1367" class="Bound"
+      >r</a
+      ><a name="1368" class="Symbol"
+      >))</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" class="Symbol"
+      >=</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" href="FOL.Propositional.TheoremsI.html#1363" class="Bound"
+      >p</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" href="FOL.Propositional.TheoremsI.html#1367" class="Bound"
+      >r</a
+      ><a name="1383"
+      >
+
+  </a
+      ><a name="1387" class="Comment"
+      >-- TODO (21 February 2015). In r&#8658;l we needed parenthesis in the</a
+      ><a name="1450"
+      >
+  </a
+      ><a name="1453" class="Comment"
+      >-- antecedent, but they aren't needed in r&#8594;l. That is, the fixity of</a
+      ><a name="1521"
+      >
+  </a
+      ><a name="1524" class="Comment"
+      >-- _&#8658;_ should be the same than the fixity of _&#8594;_.</a
+      ><a name="1573"
+      >
+  </a
+      ><a name="1576" href="FOL.Propositional.TheoremsI.html#1576" class="Function"
+      >r&#8658;l</a
+      ><a name="1579"
+      > </a
+      ><a name="1580" class="Symbol"
+      >:</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" class="Symbol"
+      >(</a
+      ><a name="1583" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1588"
+      > </a
+      ><a name="1589" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1596" class="Symbol"
+      >)</a
+      ><a name="1597"
+      > </a
+      ><a name="1598" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1599"
+      > </a
+      ><a name="1600" href="FOL.Propositional.TheoremsI.html#1091" class="Bound"
+      >P</a
+      ><a name="1601"
+      > </a
+      ><a name="1602" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" class="Symbol"
+      >(</a
+      ><a name="1605" href="FOL.Propositional.TheoremsI.html#1095" class="Bound"
+      >Q</a
+      ><a name="1606"
+      > </a
+      ><a name="1607" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="FOL.Propositional.TheoremsI.html#1099" class="Bound"
+      >R</a
+      ><a name="1610" class="Symbol"
+      >)</a
+      ><a name="1611"
+      >
+  </a
+      ><a name="1614" href="FOL.Propositional.TheoremsI.html#1576" class="Function"
+      >r&#8658;l</a
+      ><a name="1617"
+      > </a
+      ><a name="1618" class="Symbol"
+      >=</a
+      ><a name="1619"
+      > </a
+      ><a name="1620" href="FOL.Base.html#850" class="InductiveConstructor"
+      >fun</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" href="FOL.Propositional.TheoremsI.html#1282" class="Function"
+      >r&#8594;l</a
+      ><a name="1627"
+      >
+
+</a
+      ><a name="1629" href="FOL.Propositional.TheoremsI.html#1629" class="Function"
+      >DM</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" class="Symbol"
+      >:</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" class="Symbol"
+      >{</a
+      ><a name="1635" href="FOL.Propositional.TheoremsI.html#1635" class="Bound"
+      >P</a
+      ><a name="1636"
+      > </a
+      ><a name="1637" href="FOL.Propositional.TheoremsI.html#1637" class="Bound"
+      >Q</a
+      ><a name="1638"
+      > </a
+      ><a name="1639" class="Symbol"
+      >:</a
+      ><a name="1640"
+      > </a
+      ><a name="1641" class="PrimitiveType"
+      >Set</a
+      ><a name="1644" class="Symbol"
+      >}</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" class="Symbol"
+      >&#8594;</a
+      ><a name="1647"
+      > </a
+      ><a name="1648" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1649"
+      > </a
+      ><a name="1650" class="Symbol"
+      >(</a
+      ><a name="1651" href="FOL.Propositional.TheoremsI.html#1635" class="Bound"
+      >P</a
+      ><a name="1652"
+      > </a
+      ><a name="1653" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1654"
+      > </a
+      ><a name="1655" href="FOL.Propositional.TheoremsI.html#1637" class="Bound"
+      >Q</a
+      ><a name="1656" class="Symbol"
+      >)</a
+      ><a name="1657"
+      > </a
+      ><a name="1658" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="FOL.Propositional.TheoremsI.html#1635" class="Bound"
+      >P</a
+      ><a name="1663"
+      > </a
+      ><a name="1664" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1665"
+      > </a
+      ><a name="1666" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1667"
+      > </a
+      ><a name="1668" href="FOL.Propositional.TheoremsI.html#1637" class="Bound"
+      >Q</a
+      ><a name="1669"
+      >
+</a
+      ><a name="1670" href="FOL.Propositional.TheoremsI.html#1629" class="Function"
+      >DM</a
+      ><a name="1672"
+      > </a
+      ><a name="1673" class="Symbol"
+      >{</a
+      ><a name="1674" href="FOL.Propositional.TheoremsI.html#1674" class="Bound"
+      >P</a
+      ><a name="1675" class="Symbol"
+      >}</a
+      ><a name="1676"
+      > </a
+      ><a name="1677" class="Symbol"
+      >{</a
+      ><a name="1678" href="FOL.Propositional.TheoremsI.html#1678" class="Bound"
+      >Q</a
+      ><a name="1679" class="Symbol"
+      >}</a
+      ><a name="1680"
+      > </a
+      ><a name="1681" class="Symbol"
+      >=</a
+      ><a name="1682"
+      > </a
+      ><a name="1683" href="FOL.Propositional.TheoremsI.html#1703" class="Function"
+      >l&#8594;r</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="FOL.Propositional.TheoremsI.html#1784" class="Function"
+      >r&#8594;l</a
+      ><a name="1692"
+      >
+  </a
+      ><a name="1695" class="Keyword"
+      >where</a
+      ><a name="1700"
+      >
+  </a
+      ><a name="1703" href="FOL.Propositional.TheoremsI.html#1703" class="Function"
+      >l&#8594;r</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" class="Symbol"
+      >:</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1710"
+      > </a
+      ><a name="1711" class="Symbol"
+      >(</a
+      ><a name="1712" href="FOL.Propositional.TheoremsI.html#1674" class="Bound"
+      >P</a
+      ><a name="1713"
+      > </a
+      ><a name="1714" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" href="FOL.Propositional.TheoremsI.html#1678" class="Bound"
+      >Q</a
+      ><a name="1717" class="Symbol"
+      >)</a
+      ><a name="1718"
+      > </a
+      ><a name="1719" class="Symbol"
+      >&#8594;</a
+      ><a name="1720"
+      > </a
+      ><a name="1721" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" href="FOL.Propositional.TheoremsI.html#1674" class="Bound"
+      >P</a
+      ><a name="1724"
+      > </a
+      ><a name="1725" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1726"
+      > </a
+      ><a name="1727" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1728"
+      > </a
+      ><a name="1729" href="FOL.Propositional.TheoremsI.html#1678" class="Bound"
+      >Q</a
+      ><a name="1730"
+      >
+  </a
+      ><a name="1733" href="FOL.Propositional.TheoremsI.html#1703" class="Function"
+      >l&#8594;r</a
+      ><a name="1736"
+      > </a
+      ><a name="1737" href="FOL.Propositional.TheoremsI.html#1737" class="Bound"
+      >h</a
+      ><a name="1738"
+      > </a
+      ><a name="1739" class="Symbol"
+      >=</a
+      ><a name="1740"
+      > </a
+      ><a name="1741" class="Symbol"
+      >(&#955;</a
+      ><a name="1743"
+      > </a
+      ><a name="1744" href="FOL.Propositional.TheoremsI.html#1744" class="Bound"
+      >p</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >&#8594;</a
+      ><a name="1747"
+      > </a
+      ><a name="1748" href="FOL.Propositional.TheoremsI.html#1737" class="Bound"
+      >h</a
+      ><a name="1749"
+      > </a
+      ><a name="1750" class="Symbol"
+      >(</a
+      ><a name="1751" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="1755"
+      > </a
+      ><a name="1756" href="FOL.Propositional.TheoremsI.html#1744" class="Bound"
+      >p</a
+      ><a name="1757" class="Symbol"
+      >))</a
+      ><a name="1759"
+      > </a
+      ><a name="1760" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" class="Symbol"
+      >(&#955;</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" href="FOL.Propositional.TheoremsI.html#1765" class="Bound"
+      >q</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" class="Symbol"
+      >&#8594;</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" href="FOL.Propositional.TheoremsI.html#1737" class="Bound"
+      >h</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" class="Symbol"
+      >(</a
+      ><a name="1772" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" href="FOL.Propositional.TheoremsI.html#1765" class="Bound"
+      >q</a
+      ><a name="1778" class="Symbol"
+      >))</a
+      ><a name="1780"
+      >
+
+  </a
+      ><a name="1784" href="FOL.Propositional.TheoremsI.html#1784" class="Function"
+      >r&#8594;l</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" class="Symbol"
+      >:</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" href="FOL.Propositional.TheoremsI.html#1674" class="Bound"
+      >P</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" href="FOL.Propositional.TheoremsI.html#1678" class="Bound"
+      >Q</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" class="Symbol"
+      >&#8594;</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" class="Symbol"
+      >(</a
+      ><a name="1805" href="FOL.Propositional.TheoremsI.html#1674" class="Bound"
+      >P</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" href="FOL.Propositional.TheoremsI.html#1678" class="Bound"
+      >Q</a
+      ><a name="1810" class="Symbol"
+      >)</a
+      ><a name="1811"
+      >
+  </a
+      ><a name="1814" href="FOL.Propositional.TheoremsI.html#1784" class="Function"
+      >r&#8594;l</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" class="Symbol"
+      >(</a
+      ><a name="1819" href="FOL.Propositional.TheoremsI.html#1819" class="Bound"
+      >&#172;p</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" href="FOL.Propositional.TheoremsI.html#1824" class="Bound"
+      >&#172;q</a
+      ><a name="1826" class="Symbol"
+      >)</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" href="FOL.Propositional.TheoremsI.html#1828" class="Bound"
+      >p&#8744;q</a
+      ><a name="1831"
+      > </a
+      ><a name="1832" class="Symbol"
+      >=</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" href="FOL.Propositional.TheoremsI.html#1819" class="Bound"
+      >&#172;p</a
+      ><a name="1841"
+      > </a
+      ><a name="1842" href="FOL.Propositional.TheoremsI.html#1824" class="Bound"
+      >&#172;q</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" href="FOL.Propositional.TheoremsI.html#1828" class="Bound"
+      >p&#8744;q</a
+      ><a name="1848"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

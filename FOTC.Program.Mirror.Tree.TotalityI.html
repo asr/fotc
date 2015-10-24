@@ -1,0 +1,799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Mirror.Tree.TotalityI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Totality properties for Tree</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Keyword"
+      >module</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="FOTC.Program.Mirror.Tree.TotalityI.html#1" class="Module"
+      >FOTC.Program.Mirror.Tree.TotalityI</a
+      ><a name="406"
+      > </a
+      ><a name="407" class="Keyword"
+      >where</a
+      ><a name="412"
+      >
+
+</a
+      ><a name="414" class="Keyword"
+      >open</a
+      ><a name="418"
+      > </a
+      ><a name="419" class="Keyword"
+      >import</a
+      ><a name="425"
+      > </a
+      ><a name="426" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="435"
+      >
+</a
+      ><a name="436" class="Keyword"
+      >open</a
+      ><a name="440"
+      > </a
+      ><a name="441" class="Keyword"
+      >import</a
+      ><a name="447"
+      > </a
+      ><a name="448" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="462"
+      >
+</a
+      ><a name="463" class="Keyword"
+      >open</a
+      ><a name="467"
+      > </a
+      ><a name="468" class="Keyword"
+      >import</a
+      ><a name="474"
+      > </a
+      ><a name="475" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="489"
+      >
+</a
+      ><a name="490" class="Keyword"
+      >open</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Keyword"
+      >import</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="FOTC.Program.Mirror.Forest.TotalityI.html#1" class="Module"
+      >FOTC.Program.Mirror.Forest.TotalityI</a
+      ><a name="538"
+      >
+</a
+      ><a name="539" class="Keyword"
+      >open</a
+      ><a name="543"
+      > </a
+      ><a name="544" class="Keyword"
+      >import</a
+      ><a name="550"
+      > </a
+      ><a name="551" href="FOTC.Program.Mirror.Mirror.html#1" class="Module"
+      >FOTC.Program.Mirror.Mirror</a
+      ><a name="577"
+      >
+</a
+      ><a name="578" class="Keyword"
+      >open</a
+      ><a name="582"
+      > </a
+      ><a name="583" class="Keyword"
+      >import</a
+      ><a name="589"
+      > </a
+      ><a name="590" href="FOTC.Program.Mirror.Type.html#1" class="Module"
+      >FOTC.Program.Mirror.Type</a
+      ><a name="614"
+      >
+
+</a
+      ><a name="616" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="694"
+      >
+
+</a
+      ><a name="696" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="707"
+      > </a
+      ><a name="708" class="Symbol"
+      >:</a
+      ><a name="709"
+      > </a
+      ><a name="710" class="Symbol"
+      >&#8704;</a
+      ><a name="711"
+      > </a
+      ><a name="712" class="Symbol"
+      >{</a
+      ><a name="713" href="FOTC.Program.Mirror.Tree.TotalityI.html#713" class="Bound"
+      >t</a
+      ><a name="714" class="Symbol"
+      >}</a
+      ><a name="715"
+      > </a
+      ><a name="716" class="Symbol"
+      >&#8594;</a
+      ><a name="717"
+      > </a
+      ><a name="718" href="FOTC.Program.Mirror.Type.html#720" class="Datatype"
+      >Tree</a
+      ><a name="722"
+      > </a
+      ><a name="723" href="FOTC.Program.Mirror.Tree.TotalityI.html#713" class="Bound"
+      >t</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Symbol"
+      >&#8594;</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOTC.Program.Mirror.Type.html#720" class="Datatype"
+      >Tree</a
+      ><a name="731"
+      > </a
+      ><a name="732" class="Symbol"
+      >(</a
+      ><a name="733" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="739"
+      > </a
+      ><a name="740" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="741"
+      > </a
+      ><a name="742" href="FOTC.Program.Mirror.Tree.TotalityI.html#713" class="Bound"
+      >t</a
+      ><a name="743" class="Symbol"
+      >)</a
+      ><a name="744"
+      >
+</a
+      ><a name="745" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Symbol"
+      >=</a
+      ><a name="758"
+      > </a
+      ><a name="759" href="FOTC.Program.Mirror.Type.html#1349" class="Function"
+      >Tree-mutual-ind</a
+      ><a name="774"
+      > </a
+      ><a name="775" class="Symbol"
+      >{</a
+      ><a name="776" href="FOTC.Program.Mirror.Tree.TotalityI.html#803" class="Function"
+      >A</a
+      ><a name="777" class="Symbol"
+      >}</a
+      ><a name="778"
+      > </a
+      ><a name="779" class="Symbol"
+      >{</a
+      ><a name="780" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="781" class="Symbol"
+      >}</a
+      ><a name="782"
+      > </a
+      ><a name="783" href="FOTC.Program.Mirror.Tree.TotalityI.html#891" class="Function"
+      >hA</a
+      ><a name="785"
+      > </a
+      ><a name="786" href="FOTC.Program.Mirror.Tree.TotalityI.html#1085" class="Function"
+      >B[]</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="FOTC.Program.Mirror.Tree.TotalityI.html#1147" class="Function"
+      >hB</a
+      ><a name="792"
+      >
+  </a
+      ><a name="795" class="Keyword"
+      >where</a
+      ><a name="800"
+      >
+  </a
+      ><a name="803" href="FOTC.Program.Mirror.Tree.TotalityI.html#803" class="Function"
+      >A</a
+      ><a name="804"
+      > </a
+      ><a name="805" class="Symbol"
+      >:</a
+      ><a name="806"
+      > </a
+      ><a name="807" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="808"
+      > </a
+      ><a name="809" class="Symbol"
+      >&#8594;</a
+      ><a name="810"
+      > </a
+      ><a name="811" class="PrimitiveType"
+      >Set</a
+      ><a name="814"
+      >
+  </a
+      ><a name="817" href="FOTC.Program.Mirror.Tree.TotalityI.html#803" class="Function"
+      >A</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="FOTC.Program.Mirror.Tree.TotalityI.html#819" class="Bound"
+      >t</a
+      ><a name="820"
+      > </a
+      ><a name="821" class="Symbol"
+      >=</a
+      ><a name="822"
+      > </a
+      ><a name="823" href="FOTC.Program.Mirror.Type.html#720" class="Datatype"
+      >Tree</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Symbol"
+      >(</a
+      ><a name="829" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="835"
+      > </a
+      ><a name="836" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="837"
+      > </a
+      ><a name="838" href="FOTC.Program.Mirror.Tree.TotalityI.html#819" class="Bound"
+      >t</a
+      ><a name="839" class="Symbol"
+      >)</a
+      ><a name="840"
+      >
+
+  </a
+      ><a name="844" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="845"
+      > </a
+      ><a name="846" class="Symbol"
+      >:</a
+      ><a name="847"
+      > </a
+      ><a name="848" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="849"
+      > </a
+      ><a name="850" class="Symbol"
+      >&#8594;</a
+      ><a name="851"
+      > </a
+      ><a name="852" class="PrimitiveType"
+      >Set</a
+      ><a name="855"
+      >
+  </a
+      ><a name="858" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="859"
+      > </a
+      ><a name="860" href="FOTC.Program.Mirror.Tree.TotalityI.html#860" class="Bound"
+      >ts</a
+      ><a name="862"
+      > </a
+      ><a name="863" class="Symbol"
+      >=</a
+      ><a name="864"
+      > </a
+      ><a name="865" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="871"
+      > </a
+      ><a name="872" class="Symbol"
+      >(</a
+      ><a name="873" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="883"
+      > </a
+      ><a name="884" href="FOTC.Program.Mirror.Tree.TotalityI.html#860" class="Bound"
+      >ts</a
+      ><a name="886" class="Symbol"
+      >)</a
+      ><a name="887"
+      >
+
+  </a
+      ><a name="891" href="FOTC.Program.Mirror.Tree.TotalityI.html#891" class="Function"
+      >hA</a
+      ><a name="893"
+      > </a
+      ><a name="894" class="Symbol"
+      >:</a
+      ><a name="895"
+      > </a
+      ><a name="896" class="Symbol"
+      >&#8704;</a
+      ><a name="897"
+      > </a
+      ><a name="898" href="FOTC.Program.Mirror.Tree.TotalityI.html#898" class="Bound"
+      >d</a
+      ><a name="899"
+      > </a
+      ><a name="900" class="Symbol"
+      >{</a
+      ><a name="901" href="FOTC.Program.Mirror.Tree.TotalityI.html#901" class="Bound"
+      >ts</a
+      ><a name="903" class="Symbol"
+      >}</a
+      ><a name="904"
+      > </a
+      ><a name="905" class="Symbol"
+      >&#8594;</a
+      ><a name="906"
+      > </a
+      ><a name="907" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="FOTC.Program.Mirror.Tree.TotalityI.html#901" class="Bound"
+      >ts</a
+      ><a name="916"
+      > </a
+      ><a name="917" class="Symbol"
+      >&#8594;</a
+      ><a name="918"
+      > </a
+      ><a name="919" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="920"
+      > </a
+      ><a name="921" href="FOTC.Program.Mirror.Tree.TotalityI.html#901" class="Bound"
+      >ts</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Symbol"
+      >&#8594;</a
+      ><a name="925"
+      > </a
+      ><a name="926" href="FOTC.Program.Mirror.Tree.TotalityI.html#803" class="Function"
+      >A</a
+      ><a name="927"
+      > </a
+      ><a name="928" class="Symbol"
+      >(</a
+      ><a name="929" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="933"
+      > </a
+      ><a name="934" href="FOTC.Program.Mirror.Tree.TotalityI.html#898" class="Bound"
+      >d</a
+      ><a name="935"
+      > </a
+      ><a name="936" href="FOTC.Program.Mirror.Tree.TotalityI.html#901" class="Bound"
+      >ts</a
+      ><a name="938" class="Symbol"
+      >)</a
+      ><a name="939"
+      >
+  </a
+      ><a name="942" href="FOTC.Program.Mirror.Tree.TotalityI.html#891" class="Function"
+      >hA</a
+      ><a name="944"
+      > </a
+      ><a name="945" href="FOTC.Program.Mirror.Tree.TotalityI.html#945" class="Bound"
+      >d</a
+      ><a name="946"
+      > </a
+      ><a name="947" class="Symbol"
+      >{</a
+      ><a name="948" href="FOTC.Program.Mirror.Tree.TotalityI.html#948" class="Bound"
+      >ts</a
+      ><a name="950" class="Symbol"
+      >}</a
+      ><a name="951"
+      > </a
+      ><a name="952" href="FOTC.Program.Mirror.Tree.TotalityI.html#952" class="Bound"
+      >Fts</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="FOTC.Program.Mirror.Tree.TotalityI.html#956" class="Bound"
+      >Bts</a
+      ><a name="959"
+      > </a
+      ><a name="960" class="Symbol"
+      >=</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="FOTC.Program.Mirror.Type.html#720" class="Datatype"
+      >Tree</a
+      ><a name="972"
+      >
+                            </a
+      ><a name="1001" class="Symbol"
+      >(</a
+      ><a name="1002" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" class="Symbol"
+      >(</a
+      ><a name="1007" href="FOTC.Program.Mirror.Mirror.html#655" class="Postulate"
+      >mirror-eq</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="FOTC.Program.Mirror.Tree.TotalityI.html#945" class="Bound"
+      >d</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="FOTC.Program.Mirror.Tree.TotalityI.html#948" class="Bound"
+      >ts</a
+      ><a name="1021" class="Symbol"
+      >))</a
+      ><a name="1023"
+      >
+                            </a
+      ><a name="1052" class="Symbol"
+      >(</a
+      ><a name="1053" href="FOTC.Program.Mirror.Type.html#907" class="InductiveConstructor"
+      >tree</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="FOTC.Program.Mirror.Tree.TotalityI.html#945" class="Bound"
+      >d</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" class="Symbol"
+      >(</a
+      ><a name="1061" href="FOTC.Program.Mirror.Forest.TotalityI.html#1394" class="Function"
+      >reverse-Forest</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" href="FOTC.Program.Mirror.Tree.TotalityI.html#956" class="Bound"
+      >Bts</a
+      ><a name="1079" class="Symbol"
+      >))</a
+      ><a name="1081"
+      >
+
+  </a
+      ><a name="1085" href="FOTC.Program.Mirror.Tree.TotalityI.html#1085" class="Function"
+      >B[]</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" class="Symbol"
+      >:</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1095"
+      >
+  </a
+      ><a name="1098" href="FOTC.Program.Mirror.Tree.TotalityI.html#1085" class="Function"
+      >B[]</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" class="Symbol"
+      >=</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" class="Symbol"
+      >(</a
+      ><a name="1118" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" class="Symbol"
+      >(</a
+      ><a name="1123" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1136" class="Symbol"
+      >))</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="FOTC.Program.Mirror.Type.html#782" class="InductiveConstructor"
+      >fnil</a
+      ><a name="1143"
+      >
+
+  </a
+      ><a name="1147" href="FOTC.Program.Mirror.Tree.TotalityI.html#1147" class="Function"
+      >hB</a
+      ><a name="1149"
+      > </a
+      ><a name="1150" class="Symbol"
+      >:</a
+      ><a name="1151"
+      > </a
+      ><a name="1152" class="Symbol"
+      >&#8704;</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" class="Symbol"
+      >{</a
+      ><a name="1155" href="FOTC.Program.Mirror.Tree.TotalityI.html#1155" class="Bound"
+      >t</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" href="FOTC.Program.Mirror.Tree.TotalityI.html#1157" class="Bound"
+      >ts</a
+      ><a name="1159" class="Symbol"
+      >}</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" class="Symbol"
+      >&#8594;</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" href="FOTC.Program.Mirror.Type.html#720" class="Datatype"
+      >Tree</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" href="FOTC.Program.Mirror.Tree.TotalityI.html#1155" class="Bound"
+      >t</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" class="Symbol"
+      >&#8594;</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="FOTC.Program.Mirror.Tree.TotalityI.html#803" class="Function"
+      >A</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" href="FOTC.Program.Mirror.Tree.TotalityI.html#1155" class="Bound"
+      >t</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" class="Symbol"
+      >&#8594;</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="1184"
+      > </a
+      ><a name="1185" href="FOTC.Program.Mirror.Tree.TotalityI.html#1157" class="Bound"
+      >ts</a
+      ><a name="1187"
+      > </a
+      ><a name="1188" class="Symbol"
+      >&#8594;</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="FOTC.Program.Mirror.Tree.TotalityI.html#1157" class="Bound"
+      >ts</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" class="Symbol"
+      >&#8594;</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="FOTC.Program.Mirror.Tree.TotalityI.html#844" class="Function"
+      >B</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" class="Symbol"
+      >(</a
+      ><a name="1200" href="FOTC.Program.Mirror.Tree.TotalityI.html#1155" class="Bound"
+      >t</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="FOTC.Program.Mirror.Tree.TotalityI.html#1157" class="Bound"
+      >ts</a
+      ><a name="1206" class="Symbol"
+      >)</a
+      ><a name="1207"
+      >
+  </a
+      ><a name="1210" href="FOTC.Program.Mirror.Tree.TotalityI.html#1147" class="Function"
+      >hB</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" class="Symbol"
+      >{</a
+      ><a name="1214" href="FOTC.Program.Mirror.Tree.TotalityI.html#1214" class="Bound"
+      >t</a
+      ><a name="1215" class="Symbol"
+      >}</a
+      ><a name="1216"
+      > </a
+      ><a name="1217" class="Symbol"
+      >{</a
+      ><a name="1218" href="FOTC.Program.Mirror.Tree.TotalityI.html#1218" class="Bound"
+      >ts</a
+      ><a name="1220" class="Symbol"
+      >}</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" href="FOTC.Program.Mirror.Tree.TotalityI.html#1222" class="Bound"
+      >Tt</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" href="FOTC.Program.Mirror.Tree.TotalityI.html#1225" class="Bound"
+      >At</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="FOTC.Program.Mirror.Tree.TotalityI.html#1228" class="Bound"
+      >Fts</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" href="FOTC.Program.Mirror.Tree.TotalityI.html#1232" class="Bound"
+      >Bts</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" class="Symbol"
+      >=</a
+      ><a name="1237"
+      >
+    </a
+      ><a name="1242" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" class="Symbol"
+      >(</a
+      ><a name="1256" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" class="Symbol"
+      >(</a
+      ><a name="1261" href="FOTC.Data.List.html#1005" class="Postulate"
+      >map-&#8759;</a
+      ><a name="1266"
+      > </a
+      ><a name="1267" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="FOTC.Program.Mirror.Tree.TotalityI.html#1214" class="Bound"
+      >t</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" href="FOTC.Program.Mirror.Tree.TotalityI.html#1218" class="Bound"
+      >ts</a
+      ><a name="1278" class="Symbol"
+      >))</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" class="Symbol"
+      >(</a
+      ><a name="1282" href="FOTC.Program.Mirror.Type.html#802" class="InductiveConstructor"
+      >fcons</a
+      ><a name="1287"
+      > </a
+      ><a name="1288" href="FOTC.Program.Mirror.Tree.TotalityI.html#1225" class="Bound"
+      >At</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" href="FOTC.Program.Mirror.Tree.TotalityI.html#1232" class="Bound"
+      >Bts</a
+      ><a name="1294" class="Symbol"
+      >)</a
+      ><a name="1295"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

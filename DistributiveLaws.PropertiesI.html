@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.PropertiesI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws properties</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Keyword"
+      >module</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="DistributiveLaws.PropertiesI.html#1" class="Module"
+      >DistributiveLaws.PropertiesI</a
+      ><a name="400"
+      > </a
+      ><a name="401" class="Keyword"
+      >where</a
+      ><a name="406"
+      >
+
+</a
+      ><a name="408" class="Keyword"
+      >open</a
+      ><a name="412"
+      > </a
+      ><a name="413" class="Keyword"
+      >import</a
+      ><a name="419"
+      > </a
+      ><a name="420" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="441"
+      >
+
+</a
+      ><a name="443" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="521"
+      >
+</a
+      ><a name="522" class="Comment"
+      >-- Congruence properties</a
+      ><a name="546"
+      >
+
+</a
+      ><a name="548" class="Comment"
+      >-- The propositional equality is compatible with the binary operation.</a
+      ><a name="618"
+      >
+
+</a
+      ><a name="620" href="DistributiveLaws.PropertiesI.html#620" class="Function"
+      >&#183;-leftCong</a
+      ><a name="630"
+      > </a
+      ><a name="631" class="Symbol"
+      >:</a
+      ><a name="632"
+      > </a
+      ><a name="633" class="Symbol"
+      >&#8704;</a
+      ><a name="634"
+      > </a
+      ><a name="635" class="Symbol"
+      >{</a
+      ><a name="636" href="DistributiveLaws.PropertiesI.html#636" class="Bound"
+      >a</a
+      ><a name="637"
+      > </a
+      ><a name="638" href="DistributiveLaws.PropertiesI.html#638" class="Bound"
+      >b</a
+      ><a name="639"
+      > </a
+      ><a name="640" href="DistributiveLaws.PropertiesI.html#640" class="Bound"
+      >c</a
+      ><a name="641" class="Symbol"
+      >}</a
+      ><a name="642"
+      > </a
+      ><a name="643" class="Symbol"
+      >&#8594;</a
+      ><a name="644"
+      > </a
+      ><a name="645" href="DistributiveLaws.PropertiesI.html#636" class="Bound"
+      >a</a
+      ><a name="646"
+      > </a
+      ><a name="647" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="648"
+      > </a
+      ><a name="649" href="DistributiveLaws.PropertiesI.html#638" class="Bound"
+      >b</a
+      ><a name="650"
+      > </a
+      ><a name="651" class="Symbol"
+      >&#8594;</a
+      ><a name="652"
+      > </a
+      ><a name="653" href="DistributiveLaws.PropertiesI.html#636" class="Bound"
+      >a</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="DistributiveLaws.PropertiesI.html#640" class="Bound"
+      >c</a
+      ><a name="658"
+      > </a
+      ><a name="659" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="DistributiveLaws.PropertiesI.html#638" class="Bound"
+      >b</a
+      ><a name="662"
+      > </a
+      ><a name="663" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="664"
+      > </a
+      ><a name="665" href="DistributiveLaws.PropertiesI.html#640" class="Bound"
+      >c</a
+      ><a name="666"
+      >
+</a
+      ><a name="667" href="DistributiveLaws.PropertiesI.html#620" class="Function"
+      >&#183;-leftCong</a
+      ><a name="677"
+      > </a
+      ><a name="678" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="682"
+      > </a
+      ><a name="683" class="Symbol"
+      >=</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="689"
+      >
+
+</a
+      ><a name="691" href="DistributiveLaws.PropertiesI.html#691" class="Function"
+      >&#183;-rightCong</a
+      ><a name="702"
+      > </a
+      ><a name="703" class="Symbol"
+      >:</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Symbol"
+      >&#8704;</a
+      ><a name="706"
+      > </a
+      ><a name="707" class="Symbol"
+      >{</a
+      ><a name="708" href="DistributiveLaws.PropertiesI.html#708" class="Bound"
+      >a</a
+      ><a name="709"
+      > </a
+      ><a name="710" href="DistributiveLaws.PropertiesI.html#710" class="Bound"
+      >b</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="DistributiveLaws.PropertiesI.html#712" class="Bound"
+      >c</a
+      ><a name="713" class="Symbol"
+      >}</a
+      ><a name="714"
+      > </a
+      ><a name="715" class="Symbol"
+      >&#8594;</a
+      ><a name="716"
+      > </a
+      ><a name="717" href="DistributiveLaws.PropertiesI.html#710" class="Bound"
+      >b</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="DistributiveLaws.PropertiesI.html#712" class="Bound"
+      >c</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="Symbol"
+      >&#8594;</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="DistributiveLaws.PropertiesI.html#708" class="Bound"
+      >a</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="728"
+      > </a
+      ><a name="729" href="DistributiveLaws.PropertiesI.html#710" class="Bound"
+      >b</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="732"
+      > </a
+      ><a name="733" href="DistributiveLaws.PropertiesI.html#708" class="Bound"
+      >a</a
+      ><a name="734"
+      > </a
+      ><a name="735" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="DistributiveLaws.PropertiesI.html#712" class="Bound"
+      >c</a
+      ><a name="738"
+      >
+</a
+      ><a name="739" href="DistributiveLaws.PropertiesI.html#691" class="Function"
+      >&#183;-rightCong</a
+      ><a name="750"
+      > </a
+      ><a name="751" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="755"
+      > </a
+      ><a name="756" class="Symbol"
+      >=</a
+      ><a name="757"
+      > </a
+      ><a name="758" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="762"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

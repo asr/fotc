@@ -1,0 +1,1652 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Axiomatic.Standard.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- PA properties</a
+      ><a name="96"
+      >
+</a
+      ><a name="97" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="175"
+      >
+
+</a
+      ><a name="177" class="Symbol"
+      >{-#</a
+      ><a name="180"
+      > </a
+      ><a name="181" class="Keyword"
+      >OPTIONS</a
+      ><a name="188"
+      > --exact-split              </a
+      ><a name="216" class="Symbol"
+      >#-}</a
+      ><a name="219"
+      >
+</a
+      ><a name="220" class="Symbol"
+      >{-#</a
+      ><a name="223"
+      > </a
+      ><a name="224" class="Keyword"
+      >OPTIONS</a
+      ><a name="231"
+      > --no-sized-types           </a
+      ><a name="259" class="Symbol"
+      >#-}</a
+      ><a name="262"
+      >
+</a
+      ><a name="263" class="Symbol"
+      >{-#</a
+      ><a name="266"
+      > </a
+      ><a name="267" class="Keyword"
+      >OPTIONS</a
+      ><a name="274"
+      > --no-universe-polymorphism </a
+      ><a name="302" class="Symbol"
+      >#-}</a
+      ><a name="305"
+      >
+</a
+      ><a name="306" class="Symbol"
+      >{-#</a
+      ><a name="309"
+      > </a
+      ><a name="310" class="Keyword"
+      >OPTIONS</a
+      ><a name="317"
+      > --without-K                </a
+      ><a name="345" class="Symbol"
+      >#-}</a
+      ><a name="348"
+      >
+
+</a
+      ><a name="350" class="Keyword"
+      >module</a
+      ><a name="356"
+      > </a
+      ><a name="357" href="PA.Axiomatic.Standard.PropertiesATP.html#1" class="Module"
+      >PA.Axiomatic.Standard.PropertiesATP</a
+      ><a name="392"
+      > </a
+      ><a name="393" class="Keyword"
+      >where</a
+      ><a name="398"
+      >
+
+</a
+      ><a name="400" class="Keyword"
+      >open</a
+      ><a name="404"
+      > </a
+      ><a name="405" class="Keyword"
+      >import</a
+      ><a name="411"
+      > </a
+      ><a name="412" href="PA.Axiomatic.Standard.Base.html#1" class="Module"
+      >PA.Axiomatic.Standard.Base</a
+      ><a name="438"
+      >
+
+</a
+      ><a name="440" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="518"
+      >
+</a
+      ><a name="519" class="Comment"
+      >-- Congruence properties</a
+      ><a name="543"
+      >
+
+</a
+      ><a name="545" class="Keyword"
+      >postulate</a
+      ><a name="554"
+      > </a
+      ><a name="555" href="PA.Axiomatic.Standard.PropertiesATP.html#555" class="Postulate"
+      >succCong</a
+      ><a name="563"
+      > </a
+      ><a name="564" class="Symbol"
+      >:</a
+      ><a name="565"
+      > </a
+      ><a name="566" class="Symbol"
+      >&#8704;</a
+      ><a name="567"
+      > </a
+      ><a name="568" class="Symbol"
+      >{</a
+      ><a name="569" href="PA.Axiomatic.Standard.PropertiesATP.html#569" class="Bound"
+      >m</a
+      ><a name="570"
+      > </a
+      ><a name="571" href="PA.Axiomatic.Standard.PropertiesATP.html#571" class="Bound"
+      >n</a
+      ><a name="572" class="Symbol"
+      >}</a
+      ><a name="573"
+      > </a
+      ><a name="574" class="Symbol"
+      >&#8594;</a
+      ><a name="575"
+      > </a
+      ><a name="576" href="PA.Axiomatic.Standard.PropertiesATP.html#569" class="Bound"
+      >m</a
+      ><a name="577"
+      > </a
+      ><a name="578" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="PA.Axiomatic.Standard.PropertiesATP.html#571" class="Bound"
+      >n</a
+      ><a name="581"
+      > </a
+      ><a name="582" class="Symbol"
+      >&#8594;</a
+      ><a name="583"
+      > </a
+      ><a name="584" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="588"
+      > </a
+      ><a name="589" href="PA.Axiomatic.Standard.PropertiesATP.html#569" class="Bound"
+      >m</a
+      ><a name="590"
+      > </a
+      ><a name="591" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="592"
+      > </a
+      ><a name="593" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="597"
+      > </a
+      ><a name="598" href="PA.Axiomatic.Standard.PropertiesATP.html#571" class="Bound"
+      >n</a
+      ><a name="599"
+      >
+</a
+      ><a name="600" class="Symbol"
+      >{-#</a
+      ><a name="603"
+      > </a
+      ><a name="604" class="Keyword"
+      >ATP</a
+      ><a name="607"
+      > prove </a
+      ><a name="614" href="PA.Axiomatic.Standard.PropertiesATP.html#555" class="Postulate"
+      >succCong</a
+      ><a name="622"
+      > </a
+      ><a name="623" class="Symbol"
+      >#-}</a
+      ><a name="626"
+      >
+
+</a
+      ><a name="628" class="Keyword"
+      >postulate</a
+      ><a name="637"
+      > </a
+      ><a name="638" href="PA.Axiomatic.Standard.PropertiesATP.html#638" class="Postulate"
+      >+-leftCong</a
+      ><a name="648"
+      > </a
+      ><a name="649" class="Symbol"
+      >:</a
+      ><a name="650"
+      > </a
+      ><a name="651" class="Symbol"
+      >&#8704;</a
+      ><a name="652"
+      > </a
+      ><a name="653" class="Symbol"
+      >{</a
+      ><a name="654" href="PA.Axiomatic.Standard.PropertiesATP.html#654" class="Bound"
+      >m</a
+      ><a name="655"
+      > </a
+      ><a name="656" href="PA.Axiomatic.Standard.PropertiesATP.html#656" class="Bound"
+      >n</a
+      ><a name="657"
+      > </a
+      ><a name="658" href="PA.Axiomatic.Standard.PropertiesATP.html#658" class="Bound"
+      >o</a
+      ><a name="659" class="Symbol"
+      >}</a
+      ><a name="660"
+      > </a
+      ><a name="661" class="Symbol"
+      >&#8594;</a
+      ><a name="662"
+      > </a
+      ><a name="663" href="PA.Axiomatic.Standard.PropertiesATP.html#654" class="Bound"
+      >m</a
+      ><a name="664"
+      > </a
+      ><a name="665" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="PA.Axiomatic.Standard.PropertiesATP.html#656" class="Bound"
+      >n</a
+      ><a name="668"
+      > </a
+      ><a name="669" class="Symbol"
+      >&#8594;</a
+      ><a name="670"
+      > </a
+      ><a name="671" href="PA.Axiomatic.Standard.PropertiesATP.html#654" class="Bound"
+      >m</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="674"
+      > </a
+      ><a name="675" href="PA.Axiomatic.Standard.PropertiesATP.html#658" class="Bound"
+      >o</a
+      ><a name="676"
+      > </a
+      ><a name="677" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="678"
+      > </a
+      ><a name="679" href="PA.Axiomatic.Standard.PropertiesATP.html#656" class="Bound"
+      >n</a
+      ><a name="680"
+      > </a
+      ><a name="681" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="682"
+      > </a
+      ><a name="683" href="PA.Axiomatic.Standard.PropertiesATP.html#658" class="Bound"
+      >o</a
+      ><a name="684"
+      >
+</a
+      ><a name="685" class="Symbol"
+      >{-#</a
+      ><a name="688"
+      > </a
+      ><a name="689" class="Keyword"
+      >ATP</a
+      ><a name="692"
+      > prove </a
+      ><a name="699" href="PA.Axiomatic.Standard.PropertiesATP.html#638" class="Postulate"
+      >+-leftCong</a
+      ><a name="709"
+      > </a
+      ><a name="710" class="Symbol"
+      >#-}</a
+      ><a name="713"
+      >
+
+</a
+      ><a name="715" class="Keyword"
+      >postulate</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="PA.Axiomatic.Standard.PropertiesATP.html#725" class="Postulate"
+      >+-rightCong</a
+      ><a name="736"
+      > </a
+      ><a name="737" class="Symbol"
+      >:</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >&#8704;</a
+      ><a name="740"
+      > </a
+      ><a name="741" class="Symbol"
+      >{</a
+      ><a name="742" href="PA.Axiomatic.Standard.PropertiesATP.html#742" class="Bound"
+      >m</a
+      ><a name="743"
+      > </a
+      ><a name="744" href="PA.Axiomatic.Standard.PropertiesATP.html#744" class="Bound"
+      >n</a
+      ><a name="745"
+      > </a
+      ><a name="746" href="PA.Axiomatic.Standard.PropertiesATP.html#746" class="Bound"
+      >o</a
+      ><a name="747" class="Symbol"
+      >}</a
+      ><a name="748"
+      > </a
+      ><a name="749" class="Symbol"
+      >&#8594;</a
+      ><a name="750"
+      > </a
+      ><a name="751" href="PA.Axiomatic.Standard.PropertiesATP.html#744" class="Bound"
+      >n</a
+      ><a name="752"
+      > </a
+      ><a name="753" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="754"
+      > </a
+      ><a name="755" href="PA.Axiomatic.Standard.PropertiesATP.html#746" class="Bound"
+      >o</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Symbol"
+      >&#8594;</a
+      ><a name="758"
+      > </a
+      ><a name="759" href="PA.Axiomatic.Standard.PropertiesATP.html#742" class="Bound"
+      >m</a
+      ><a name="760"
+      > </a
+      ><a name="761" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="762"
+      > </a
+      ><a name="763" href="PA.Axiomatic.Standard.PropertiesATP.html#744" class="Bound"
+      >n</a
+      ><a name="764"
+      > </a
+      ><a name="765" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="766"
+      > </a
+      ><a name="767" href="PA.Axiomatic.Standard.PropertiesATP.html#742" class="Bound"
+      >m</a
+      ><a name="768"
+      > </a
+      ><a name="769" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="770"
+      > </a
+      ><a name="771" href="PA.Axiomatic.Standard.PropertiesATP.html#746" class="Bound"
+      >o</a
+      ><a name="772"
+      >
+</a
+      ><a name="773" class="Symbol"
+      >{-#</a
+      ><a name="776"
+      > </a
+      ><a name="777" class="Keyword"
+      >ATP</a
+      ><a name="780"
+      > prove </a
+      ><a name="787" href="PA.Axiomatic.Standard.PropertiesATP.html#725" class="Postulate"
+      >+-rightCong</a
+      ><a name="798"
+      > </a
+      ><a name="799" class="Symbol"
+      >#-}</a
+      ><a name="802"
+      >
+
+</a
+      ><a name="804" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="882"
+      >
+
+</a
+      ><a name="884" href="PA.Axiomatic.Standard.PropertiesATP.html#884" class="Function"
+      >+-leftIdentity</a
+      ><a name="898"
+      > </a
+      ><a name="899" class="Symbol"
+      >:</a
+      ><a name="900"
+      > </a
+      ><a name="901" class="Symbol"
+      >&#8704;</a
+      ><a name="902"
+      > </a
+      ><a name="903" href="PA.Axiomatic.Standard.PropertiesATP.html#903" class="Bound"
+      >n</a
+      ><a name="904"
+      > </a
+      ><a name="905" class="Symbol"
+      >&#8594;</a
+      ><a name="906"
+      > </a
+      ><a name="907" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="911"
+      > </a
+      ><a name="912" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="PA.Axiomatic.Standard.PropertiesATP.html#903" class="Bound"
+      >n</a
+      ><a name="915"
+      > </a
+      ><a name="916" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="917"
+      > </a
+      ><a name="918" href="PA.Axiomatic.Standard.PropertiesATP.html#903" class="Bound"
+      >n</a
+      ><a name="919"
+      >
+</a
+      ><a name="920" href="PA.Axiomatic.Standard.PropertiesATP.html#884" class="Function"
+      >+-leftIdentity</a
+      ><a name="934"
+      > </a
+      ><a name="935" class="Symbol"
+      >=</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="PA.Axiomatic.Standard.Base.html#1145" class="Postulate"
+      >PA&#8323;</a
+      ><a name="940"
+      >
+
+</a
+      ><a name="942" href="PA.Axiomatic.Standard.PropertiesATP.html#942" class="Function"
+      >+-rightIdentity</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Symbol"
+      >:</a
+      ><a name="959"
+      > </a
+      ><a name="960" class="Symbol"
+      >&#8704;</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="PA.Axiomatic.Standard.PropertiesATP.html#962" class="Bound"
+      >n</a
+      ><a name="963"
+      > </a
+      ><a name="964" class="Symbol"
+      >&#8594;</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="PA.Axiomatic.Standard.PropertiesATP.html#962" class="Bound"
+      >n</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="PA.Axiomatic.Standard.PropertiesATP.html#962" class="Bound"
+      >n</a
+      ><a name="978"
+      >
+</a
+      ><a name="979" href="PA.Axiomatic.Standard.PropertiesATP.html#942" class="Function"
+      >+-rightIdentity</a
+      ><a name="994"
+      > </a
+      ><a name="995" class="Symbol"
+      >=</a
+      ><a name="996"
+      > </a
+      ><a name="997" href="PA.Axiomatic.Standard.Base.html#1428" class="Postulate"
+      >&#8469;-ind</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="PA.Axiomatic.Standard.PropertiesATP.html#1084" class="Function"
+      >A0</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="PA.Axiomatic.Standard.PropertiesATP.html#1136" class="Postulate"
+      >is</a
+      ><a name="1010"
+      >
+  </a
+      ><a name="1013" class="Keyword"
+      >where</a
+      ><a name="1018"
+      >
+  </a
+      ><a name="1021" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" class="Symbol"
+      >:</a
+      ><a name="1024"
+      > </a
+      ><a name="1025" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="1026"
+      > </a
+      ><a name="1027" class="Symbol"
+      >&#8594;</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" class="PrimitiveType"
+      >Set</a
+      ><a name="1032"
+      >
+  </a
+      ><a name="1035" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="PA.Axiomatic.Standard.PropertiesATP.html#1037" class="Bound"
+      >i</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" class="Symbol"
+      >=</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" href="PA.Axiomatic.Standard.PropertiesATP.html#1037" class="Bound"
+      >i</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" href="PA.Axiomatic.Standard.PropertiesATP.html#1037" class="Bound"
+      >i</a
+      ><a name="1053"
+      >
+  </a
+      ><a name="1056" class="Symbol"
+      >{-#</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" class="Keyword"
+      >ATP</a
+      ><a name="1063"
+      > definition </a
+      ><a name="1075" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" class="Symbol"
+      >#-}</a
+      ><a name="1080"
+      >
+
+  </a
+      ><a name="1084" href="PA.Axiomatic.Standard.PropertiesATP.html#1084" class="Function"
+      >A0</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" class="Symbol"
+      >:</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1095"
+      >
+  </a
+      ><a name="1098" href="PA.Axiomatic.Standard.PropertiesATP.html#1084" class="Function"
+      >A0</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" class="Symbol"
+      >=</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="PA.Axiomatic.Standard.PropertiesATP.html#884" class="Function"
+      >+-leftIdentity</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1122"
+      >
+
+  </a
+      ><a name="1126" class="Keyword"
+      >postulate</a
+      ><a name="1135"
+      > </a
+      ><a name="1136" href="PA.Axiomatic.Standard.PropertiesATP.html#1136" class="Postulate"
+      >is</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" class="Symbol"
+      >:</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" class="Symbol"
+      >&#8704;</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" href="PA.Axiomatic.Standard.PropertiesATP.html#1143" class="Bound"
+      >i</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" class="Symbol"
+      >&#8594;</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="PA.Axiomatic.Standard.PropertiesATP.html#1143" class="Bound"
+      >i</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="Symbol"
+      >&#8594;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" href="PA.Axiomatic.Standard.PropertiesATP.html#1021" class="Function"
+      >A</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" class="Symbol"
+      >(</a
+      ><a name="1156" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" href="PA.Axiomatic.Standard.PropertiesATP.html#1143" class="Bound"
+      >i</a
+      ><a name="1162" class="Symbol"
+      >)</a
+      ><a name="1163"
+      >
+  </a
+      ><a name="1166" class="Symbol"
+      >{-#</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" class="Keyword"
+      >ATP</a
+      ><a name="1173"
+      > prove </a
+      ><a name="1180" href="PA.Axiomatic.Standard.PropertiesATP.html#1136" class="Postulate"
+      >is</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" class="Symbol"
+      >#-}</a
+      ><a name="1186"
+      >
+
+</a
+      ><a name="1188" href="PA.Axiomatic.Standard.PropertiesATP.html#1188" class="Function"
+      >+-asocc</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" class="Symbol"
+      >:</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" class="Symbol"
+      >&#8704;</a
+      ><a name="1199"
+      > </a
+      ><a name="1200" href="PA.Axiomatic.Standard.PropertiesATP.html#1200" class="Bound"
+      >m</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" href="PA.Axiomatic.Standard.PropertiesATP.html#1202" class="Bound"
+      >n</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="PA.Axiomatic.Standard.PropertiesATP.html#1204" class="Bound"
+      >o</a
+      ><a name="1205"
+      > </a
+      ><a name="1206" class="Symbol"
+      >&#8594;</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" href="PA.Axiomatic.Standard.PropertiesATP.html#1200" class="Bound"
+      >m</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="PA.Axiomatic.Standard.PropertiesATP.html#1202" class="Bound"
+      >n</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="PA.Axiomatic.Standard.PropertiesATP.html#1204" class="Bound"
+      >o</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="PA.Axiomatic.Standard.PropertiesATP.html#1200" class="Bound"
+      >m</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" class="Symbol"
+      >(</a
+      ><a name="1225" href="PA.Axiomatic.Standard.PropertiesATP.html#1202" class="Bound"
+      >n</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="PA.Axiomatic.Standard.PropertiesATP.html#1204" class="Bound"
+      >o</a
+      ><a name="1230" class="Symbol"
+      >)</a
+      ><a name="1231"
+      >
+</a
+      ><a name="1232" href="PA.Axiomatic.Standard.PropertiesATP.html#1188" class="Function"
+      >+-asocc</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="PA.Axiomatic.Standard.PropertiesATP.html#1240" class="Bound"
+      >m</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" href="PA.Axiomatic.Standard.PropertiesATP.html#1242" class="Bound"
+      >n</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" href="PA.Axiomatic.Standard.PropertiesATP.html#1244" class="Bound"
+      >o</a
+      ><a name="1245"
+      > </a
+      ><a name="1246" class="Symbol"
+      >=</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" href="PA.Axiomatic.Standard.Base.html#1428" class="Postulate"
+      >&#8469;-ind</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" href="PA.Axiomatic.Standard.PropertiesATP.html#1358" class="Postulate"
+      >A0</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" href="PA.Axiomatic.Standard.PropertiesATP.html#1406" class="Postulate"
+      >is</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" href="PA.Axiomatic.Standard.PropertiesATP.html#1240" class="Bound"
+      >m</a
+      ><a name="1263"
+      >
+  </a
+      ><a name="1266" class="Keyword"
+      >where</a
+      ><a name="1271"
+      >
+  </a
+      ><a name="1274" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" class="Symbol"
+      >:</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="1279"
+      > </a
+      ><a name="1280" class="Symbol"
+      >&#8594;</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" class="PrimitiveType"
+      >Set</a
+      ><a name="1285"
+      >
+  </a
+      ><a name="1288" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" href="PA.Axiomatic.Standard.PropertiesATP.html#1290" class="Bound"
+      >i</a
+      ><a name="1291"
+      > </a
+      ><a name="1292" class="Symbol"
+      >=</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="PA.Axiomatic.Standard.PropertiesATP.html#1290" class="Bound"
+      >i</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1297"
+      > </a
+      ><a name="1298" href="PA.Axiomatic.Standard.PropertiesATP.html#1242" class="Bound"
+      >n</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" href="PA.Axiomatic.Standard.PropertiesATP.html#1244" class="Bound"
+      >o</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" href="PA.Axiomatic.Standard.PropertiesATP.html#1290" class="Bound"
+      >i</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" class="Symbol"
+      >(</a
+      ><a name="1311" href="PA.Axiomatic.Standard.PropertiesATP.html#1242" class="Bound"
+      >n</a
+      ><a name="1312"
+      > </a
+      ><a name="1313" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" href="PA.Axiomatic.Standard.PropertiesATP.html#1244" class="Bound"
+      >o</a
+      ><a name="1316" class="Symbol"
+      >)</a
+      ><a name="1317"
+      >
+  </a
+      ><a name="1320" class="Symbol"
+      >{-#</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" class="Keyword"
+      >ATP</a
+      ><a name="1327"
+      > definition </a
+      ><a name="1339" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" class="Symbol"
+      >#-}</a
+      ><a name="1344"
+      >
+
+  </a
+      ><a name="1348" class="Keyword"
+      >postulate</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" href="PA.Axiomatic.Standard.PropertiesATP.html#1358" class="Postulate"
+      >A0</a
+      ><a name="1360"
+      > </a
+      ><a name="1361" class="Symbol"
+      >:</a
+      ><a name="1362"
+      > </a
+      ><a name="1363" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1369"
+      >
+  </a
+      ><a name="1372" class="Symbol"
+      >{-#</a
+      ><a name="1375"
+      > </a
+      ><a name="1376" class="Keyword"
+      >ATP</a
+      ><a name="1379"
+      > prove </a
+      ><a name="1386" href="PA.Axiomatic.Standard.PropertiesATP.html#1358" class="Postulate"
+      >A0</a
+      ><a name="1388"
+      > </a
+      ><a name="1389" class="Symbol"
+      >#-}</a
+      ><a name="1392"
+      >
+
+  </a
+      ><a name="1396" class="Keyword"
+      >postulate</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" href="PA.Axiomatic.Standard.PropertiesATP.html#1406" class="Postulate"
+      >is</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" class="Symbol"
+      >:</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" class="Symbol"
+      >&#8704;</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="PA.Axiomatic.Standard.PropertiesATP.html#1413" class="Bound"
+      >i</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" class="Symbol"
+      >&#8594;</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" href="PA.Axiomatic.Standard.PropertiesATP.html#1413" class="Bound"
+      >i</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" class="Symbol"
+      >&#8594;</a
+      ><a name="1422"
+      > </a
+      ><a name="1423" href="PA.Axiomatic.Standard.PropertiesATP.html#1274" class="Function"
+      >A</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" class="Symbol"
+      >(</a
+      ><a name="1426" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" href="PA.Axiomatic.Standard.PropertiesATP.html#1413" class="Bound"
+      >i</a
+      ><a name="1432" class="Symbol"
+      >)</a
+      ><a name="1433"
+      >
+  </a
+      ><a name="1436" class="Symbol"
+      >{-#</a
+      ><a name="1439"
+      > </a
+      ><a name="1440" class="Keyword"
+      >ATP</a
+      ><a name="1443"
+      > prove </a
+      ><a name="1450" href="PA.Axiomatic.Standard.PropertiesATP.html#1406" class="Postulate"
+      >is</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" class="Symbol"
+      >#-}</a
+      ><a name="1456"
+      >
+
+</a
+      ><a name="1458" href="PA.Axiomatic.Standard.PropertiesATP.html#1458" class="Function"
+      >x+Sy&#8801;S[x+y]</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" class="Symbol"
+      >:</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" class="Symbol"
+      >&#8704;</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="PA.Axiomatic.Standard.PropertiesATP.html#1474" class="Bound"
+      >m</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" href="PA.Axiomatic.Standard.PropertiesATP.html#1476" class="Bound"
+      >n</a
+      ><a name="1477"
+      > </a
+      ><a name="1478" class="Symbol"
+      >&#8594;</a
+      ><a name="1479"
+      > </a
+      ><a name="1480" href="PA.Axiomatic.Standard.PropertiesATP.html#1474" class="Bound"
+      >m</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1488"
+      > </a
+      ><a name="1489" href="PA.Axiomatic.Standard.PropertiesATP.html#1476" class="Bound"
+      >n</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1492"
+      > </a
+      ><a name="1493" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" class="Symbol"
+      >(</a
+      ><a name="1499" href="PA.Axiomatic.Standard.PropertiesATP.html#1474" class="Bound"
+      >m</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" href="PA.Axiomatic.Standard.PropertiesATP.html#1476" class="Bound"
+      >n</a
+      ><a name="1504" class="Symbol"
+      >)</a
+      ><a name="1505"
+      >
+</a
+      ><a name="1506" href="PA.Axiomatic.Standard.PropertiesATP.html#1458" class="Function"
+      >x+Sy&#8801;S[x+y]</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="PA.Axiomatic.Standard.PropertiesATP.html#1518" class="Bound"
+      >m</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" href="PA.Axiomatic.Standard.PropertiesATP.html#1520" class="Bound"
+      >n</a
+      ><a name="1521"
+      > </a
+      ><a name="1522" class="Symbol"
+      >=</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" href="PA.Axiomatic.Standard.Base.html#1428" class="Postulate"
+      >&#8469;-ind</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="PA.Axiomatic.Standard.PropertiesATP.html#1636" class="Postulate"
+      >A0</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" href="PA.Axiomatic.Standard.PropertiesATP.html#1684" class="Postulate"
+      >is</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="PA.Axiomatic.Standard.PropertiesATP.html#1518" class="Bound"
+      >m</a
+      ><a name="1539"
+      >
+  </a
+      ><a name="1542" class="Keyword"
+      >where</a
+      ><a name="1547"
+      >
+  </a
+      ><a name="1550" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1551"
+      > </a
+      ><a name="1552" class="Symbol"
+      >:</a
+      ><a name="1553"
+      > </a
+      ><a name="1554" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="1555"
+      > </a
+      ><a name="1556" class="Symbol"
+      >&#8594;</a
+      ><a name="1557"
+      > </a
+      ><a name="1558" class="PrimitiveType"
+      >Set</a
+      ><a name="1561"
+      >
+  </a
+      ><a name="1564" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" href="PA.Axiomatic.Standard.PropertiesATP.html#1566" class="Bound"
+      >i</a
+      ><a name="1567"
+      > </a
+      ><a name="1568" class="Symbol"
+      >=</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" href="PA.Axiomatic.Standard.PropertiesATP.html#1566" class="Bound"
+      >i</a
+      ><a name="1571"
+      > </a
+      ><a name="1572" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1573"
+      > </a
+      ><a name="1574" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" href="PA.Axiomatic.Standard.PropertiesATP.html#1520" class="Bound"
+      >n</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1582"
+      > </a
+      ><a name="1583" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1587"
+      > </a
+      ><a name="1588" class="Symbol"
+      >(</a
+      ><a name="1589" href="PA.Axiomatic.Standard.PropertiesATP.html#1566" class="Bound"
+      >i</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="PA.Axiomatic.Standard.PropertiesATP.html#1520" class="Bound"
+      >n</a
+      ><a name="1594" class="Symbol"
+      >)</a
+      ><a name="1595"
+      >
+  </a
+      ><a name="1598" class="Symbol"
+      >{-#</a
+      ><a name="1601"
+      > </a
+      ><a name="1602" class="Keyword"
+      >ATP</a
+      ><a name="1605"
+      > definition </a
+      ><a name="1617" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1618"
+      > </a
+      ><a name="1619" class="Symbol"
+      >#-}</a
+      ><a name="1622"
+      >
+
+  </a
+      ><a name="1626" class="Keyword"
+      >postulate</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="PA.Axiomatic.Standard.PropertiesATP.html#1636" class="Postulate"
+      >A0</a
+      ><a name="1638"
+      > </a
+      ><a name="1639" class="Symbol"
+      >:</a
+      ><a name="1640"
+      > </a
+      ><a name="1641" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1642"
+      > </a
+      ><a name="1643" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1647"
+      >
+  </a
+      ><a name="1650" class="Symbol"
+      >{-#</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" class="Keyword"
+      >ATP</a
+      ><a name="1657"
+      > prove </a
+      ><a name="1664" href="PA.Axiomatic.Standard.PropertiesATP.html#1636" class="Postulate"
+      >A0</a
+      ><a name="1666"
+      > </a
+      ><a name="1667" class="Symbol"
+      >#-}</a
+      ><a name="1670"
+      >
+
+  </a
+      ><a name="1674" class="Keyword"
+      >postulate</a
+      ><a name="1683"
+      > </a
+      ><a name="1684" href="PA.Axiomatic.Standard.PropertiesATP.html#1684" class="Postulate"
+      >is</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" class="Symbol"
+      >:</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" class="Symbol"
+      >&#8704;</a
+      ><a name="1690"
+      > </a
+      ><a name="1691" href="PA.Axiomatic.Standard.PropertiesATP.html#1691" class="Bound"
+      >i</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" class="Symbol"
+      >&#8594;</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" href="PA.Axiomatic.Standard.PropertiesATP.html#1691" class="Bound"
+      >i</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" class="Symbol"
+      >&#8594;</a
+      ><a name="1700"
+      > </a
+      ><a name="1701" href="PA.Axiomatic.Standard.PropertiesATP.html#1550" class="Function"
+      >A</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" class="Symbol"
+      >(</a
+      ><a name="1704" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" href="PA.Axiomatic.Standard.PropertiesATP.html#1691" class="Bound"
+      >i</a
+      ><a name="1710" class="Symbol"
+      >)</a
+      ><a name="1711"
+      >
+  </a
+      ><a name="1714" class="Symbol"
+      >{-#</a
+      ><a name="1717"
+      > </a
+      ><a name="1718" class="Keyword"
+      >ATP</a
+      ><a name="1721"
+      > prove </a
+      ><a name="1728" href="PA.Axiomatic.Standard.PropertiesATP.html#1684" class="Postulate"
+      >is</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" class="Symbol"
+      >#-}</a
+      ><a name="1734"
+      >
+
+</a
+      ><a name="1736" href="PA.Axiomatic.Standard.PropertiesATP.html#1736" class="Function"
+      >+-comm</a
+      ><a name="1742"
+      > </a
+      ><a name="1743" class="Symbol"
+      >:</a
+      ><a name="1744"
+      > </a
+      ><a name="1745" class="Symbol"
+      >&#8704;</a
+      ><a name="1746"
+      > </a
+      ><a name="1747" href="PA.Axiomatic.Standard.PropertiesATP.html#1747" class="Bound"
+      >m</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" href="PA.Axiomatic.Standard.PropertiesATP.html#1749" class="Bound"
+      >n</a
+      ><a name="1750"
+      > </a
+      ><a name="1751" class="Symbol"
+      >&#8594;</a
+      ><a name="1752"
+      > </a
+      ><a name="1753" href="PA.Axiomatic.Standard.PropertiesATP.html#1747" class="Bound"
+      >m</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1756"
+      > </a
+      ><a name="1757" href="PA.Axiomatic.Standard.PropertiesATP.html#1749" class="Bound"
+      >n</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" href="PA.Axiomatic.Standard.PropertiesATP.html#1749" class="Bound"
+      >n</a
+      ><a name="1762"
+      > </a
+      ><a name="1763" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" href="PA.Axiomatic.Standard.PropertiesATP.html#1747" class="Bound"
+      >m</a
+      ><a name="1766"
+      >
+</a
+      ><a name="1767" href="PA.Axiomatic.Standard.PropertiesATP.html#1736" class="Function"
+      >+-comm</a
+      ><a name="1773"
+      > </a
+      ><a name="1774" href="PA.Axiomatic.Standard.PropertiesATP.html#1774" class="Bound"
+      >m</a
+      ><a name="1775"
+      > </a
+      ><a name="1776" href="PA.Axiomatic.Standard.PropertiesATP.html#1776" class="Bound"
+      >n</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" class="Symbol"
+      >=</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="PA.Axiomatic.Standard.Base.html#1428" class="Postulate"
+      >&#8469;-ind</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" href="PA.Axiomatic.Standard.PropertiesATP.html#1880" class="Postulate"
+      >A0</a
+      ><a name="1790"
+      > </a
+      ><a name="1791" href="PA.Axiomatic.Standard.PropertiesATP.html#1944" class="Postulate"
+      >is</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="PA.Axiomatic.Standard.PropertiesATP.html#1774" class="Bound"
+      >m</a
+      ><a name="1795"
+      >
+  </a
+      ><a name="1798" class="Keyword"
+      >where</a
+      ><a name="1803"
+      >
+  </a
+      ><a name="1806" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" class="Symbol"
+      >:</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" class="Symbol"
+      >&#8594;</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" class="PrimitiveType"
+      >Set</a
+      ><a name="1817"
+      >
+  </a
+      ><a name="1820" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="PA.Axiomatic.Standard.PropertiesATP.html#1822" class="Bound"
+      >i</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" class="Symbol"
+      >=</a
+      ><a name="1825"
+      > </a
+      ><a name="1826" href="PA.Axiomatic.Standard.PropertiesATP.html#1822" class="Bound"
+      >i</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" href="PA.Axiomatic.Standard.PropertiesATP.html#1776" class="Bound"
+      >n</a
+      ><a name="1831"
+      > </a
+      ><a name="1832" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" href="PA.Axiomatic.Standard.PropertiesATP.html#1776" class="Bound"
+      >n</a
+      ><a name="1835"
+      > </a
+      ><a name="1836" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1837"
+      > </a
+      ><a name="1838" href="PA.Axiomatic.Standard.PropertiesATP.html#1822" class="Bound"
+      >i</a
+      ><a name="1839"
+      >
+  </a
+      ><a name="1842" class="Symbol"
+      >{-#</a
+      ><a name="1845"
+      > </a
+      ><a name="1846" class="Keyword"
+      >ATP</a
+      ><a name="1849"
+      > definition </a
+      ><a name="1861" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1862"
+      > </a
+      ><a name="1863" class="Symbol"
+      >#-}</a
+      ><a name="1866"
+      >
+
+  </a
+      ><a name="1870" class="Keyword"
+      >postulate</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" href="PA.Axiomatic.Standard.PropertiesATP.html#1880" class="Postulate"
+      >A0</a
+      ><a name="1882"
+      > </a
+      ><a name="1883" class="Symbol"
+      >:</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1891"
+      >
+  </a
+      ><a name="1894" class="Symbol"
+      >{-#</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" class="Keyword"
+      >ATP</a
+      ><a name="1901"
+      > prove </a
+      ><a name="1908" href="PA.Axiomatic.Standard.PropertiesATP.html#1880" class="Postulate"
+      >A0</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" href="PA.Axiomatic.Standard.PropertiesATP.html#942" class="Function"
+      >+-rightIdentity</a
+      ><a name="1926"
+      > </a
+      ><a name="1927" class="Symbol"
+      >#-}</a
+      ><a name="1930"
+      >
+
+  </a
+      ><a name="1934" class="Keyword"
+      >postulate</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" href="PA.Axiomatic.Standard.PropertiesATP.html#1944" class="Postulate"
+      >is</a
+      ><a name="1946"
+      > </a
+      ><a name="1947" class="Symbol"
+      >:</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" class="Symbol"
+      >&#8704;</a
+      ><a name="1950"
+      > </a
+      ><a name="1951" href="PA.Axiomatic.Standard.PropertiesATP.html#1951" class="Bound"
+      >i</a
+      ><a name="1952"
+      > </a
+      ><a name="1953" class="Symbol"
+      >&#8594;</a
+      ><a name="1954"
+      > </a
+      ><a name="1955" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1956"
+      > </a
+      ><a name="1957" href="PA.Axiomatic.Standard.PropertiesATP.html#1951" class="Bound"
+      >i</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" class="Symbol"
+      >&#8594;</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" href="PA.Axiomatic.Standard.PropertiesATP.html#1806" class="Function"
+      >A</a
+      ><a name="1962"
+      > </a
+      ><a name="1963" class="Symbol"
+      >(</a
+      ><a name="1964" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1968"
+      > </a
+      ><a name="1969" href="PA.Axiomatic.Standard.PropertiesATP.html#1951" class="Bound"
+      >i</a
+      ><a name="1970" class="Symbol"
+      >)</a
+      ><a name="1971"
+      >
+  </a
+      ><a name="1974" class="Symbol"
+      >{-#</a
+      ><a name="1977"
+      > </a
+      ><a name="1978" class="Keyword"
+      >ATP</a
+      ><a name="1981"
+      > prove </a
+      ><a name="1988" href="PA.Axiomatic.Standard.PropertiesATP.html#1944" class="Postulate"
+      >is</a
+      ><a name="1990"
+      > </a
+      ><a name="1991" href="PA.Axiomatic.Standard.PropertiesATP.html#1458" class="Function"
+      >x+Sy&#8801;S[x+y]</a
+      ><a name="2002"
+      > </a
+      ><a name="2003" class="Symbol"
+      >#-}</a
+      ><a name="2006"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

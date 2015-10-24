@@ -1,0 +1,1582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Stream.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Streams properties</a
+      ><a name="101"
+      >
+</a
+      ><a name="102" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="180"
+      >
+
+</a
+      ><a name="182" class="Symbol"
+      >{-#</a
+      ><a name="185"
+      > </a
+      ><a name="186" class="Keyword"
+      >OPTIONS</a
+      ><a name="193"
+      > --exact-split              </a
+      ><a name="221" class="Symbol"
+      >#-}</a
+      ><a name="224"
+      >
+</a
+      ><a name="225" class="Symbol"
+      >{-#</a
+      ><a name="228"
+      > </a
+      ><a name="229" class="Keyword"
+      >OPTIONS</a
+      ><a name="236"
+      > --no-sized-types           </a
+      ><a name="264" class="Symbol"
+      >#-}</a
+      ><a name="267"
+      >
+</a
+      ><a name="268" class="Symbol"
+      >{-#</a
+      ><a name="271"
+      > </a
+      ><a name="272" class="Keyword"
+      >OPTIONS</a
+      ><a name="279"
+      > --no-universe-polymorphism </a
+      ><a name="307" class="Symbol"
+      >#-}</a
+      ><a name="310"
+      >
+</a
+      ><a name="311" class="Symbol"
+      >{-#</a
+      ><a name="314"
+      > </a
+      ><a name="315" class="Keyword"
+      >OPTIONS</a
+      ><a name="322"
+      > --without-K                </a
+      ><a name="350" class="Symbol"
+      >#-}</a
+      ><a name="353"
+      >
+
+</a
+      ><a name="355" class="Keyword"
+      >module</a
+      ><a name="361"
+      > </a
+      ><a name="362" href="FOTC.Data.Stream.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Stream.PropertiesATP</a
+      ><a name="392"
+      > </a
+      ><a name="393" class="Keyword"
+      >where</a
+      ><a name="398"
+      >
+
+</a
+      ><a name="400" class="Keyword"
+      >open</a
+      ><a name="404"
+      > </a
+      ><a name="405" class="Keyword"
+      >import</a
+      ><a name="411"
+      > </a
+      ><a name="412" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="421"
+      >
+</a
+      ><a name="422" class="Keyword"
+      >open</a
+      ><a name="426"
+      > </a
+      ><a name="427" class="Keyword"
+      >import</a
+      ><a name="433"
+      > </a
+      ><a name="434" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="448"
+      >
+</a
+      ><a name="449" class="Keyword"
+      >open</a
+      ><a name="453"
+      > </a
+      ><a name="454" class="Keyword"
+      >import</a
+      ><a name="460"
+      > </a
+      ><a name="461" href="FOTC.Data.Conat.html#1" class="Module"
+      >FOTC.Data.Conat</a
+      ><a name="476"
+      >
+</a
+      ><a name="477" class="Keyword"
+      >open</a
+      ><a name="481"
+      > </a
+      ><a name="482" class="Keyword"
+      >import</a
+      ><a name="488"
+      > </a
+      ><a name="489" href="FOTC.Data.Conat.Equality.Type.html#1" class="Module"
+      >FOTC.Data.Conat.Equality.Type</a
+      ><a name="518"
+      >
+</a
+      ><a name="519" class="Keyword"
+      >open</a
+      ><a name="523"
+      > </a
+      ><a name="524" class="Keyword"
+      >import</a
+      ><a name="530"
+      > </a
+      ><a name="531" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="545"
+      >
+</a
+      ><a name="546" class="Keyword"
+      >open</a
+      ><a name="550"
+      > </a
+      ><a name="551" class="Keyword"
+      >import</a
+      ><a name="557"
+      > </a
+      ><a name="558" href="FOTC.Data.Stream.html#1" class="Module"
+      >FOTC.Data.Stream</a
+      ><a name="574"
+      >
+
+</a
+      ><a name="576" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="654"
+      >
+</a
+      ><a name="655" class="Comment"
+      >-- Because a greatest post-fixed point is a fixed-point, then the</a
+      ><a name="720"
+      >
+</a
+      ><a name="721" class="Comment"
+      >-- Stream predicate is also a pre-fixed point of the functional</a
+      ><a name="784"
+      >
+</a
+      ><a name="785" class="Comment"
+      >-- StreamF, i.e.</a
+      ><a name="801"
+      >
+</a
+      ><a name="802" class="Comment"
+      >--</a
+      ><a name="804"
+      >
+</a
+      ><a name="805" class="Comment"
+      >-- StreamF Stream &#8804; Stream (see FOTC.Data.Stream.Type).</a
+      ><a name="860"
+      >
+</a
+      ><a name="861" href="FOTC.Data.Stream.PropertiesATP.html#861" class="Function"
+      >Stream-in</a
+      ><a name="870"
+      > </a
+      ><a name="871" class="Symbol"
+      >:</a
+      ><a name="872"
+      > </a
+      ><a name="873" class="Symbol"
+      >&#8704;</a
+      ><a name="874"
+      > </a
+      ><a name="875" class="Symbol"
+      >{</a
+      ><a name="876" href="FOTC.Data.Stream.PropertiesATP.html#876" class="Bound"
+      >xs</a
+      ><a name="878" class="Symbol"
+      >}</a
+      ><a name="879"
+      > </a
+      ><a name="880" class="Symbol"
+      >&#8594;</a
+      ><a name="881"
+      >
+            </a
+      ><a name="894" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="896"
+      > </a
+      ><a name="897" href="FOTC.Data.Stream.PropertiesATP.html#897" class="Bound"
+      >x'</a
+      ><a name="899"
+      > </a
+      ><a name="900" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="901"
+      > </a
+      ><a name="902" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="FOTC.Data.Stream.PropertiesATP.html#905" class="Bound"
+      >xs'</a
+      ><a name="908"
+      > </a
+      ><a name="909" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="910"
+      > </a
+      ><a name="911" href="FOTC.Data.Stream.PropertiesATP.html#876" class="Bound"
+      >xs</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="915"
+      > </a
+      ><a name="916" href="FOTC.Data.Stream.PropertiesATP.html#897" class="Bound"
+      >x'</a
+      ><a name="918"
+      > </a
+      ><a name="919" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="920"
+      > </a
+      ><a name="921" href="FOTC.Data.Stream.PropertiesATP.html#905" class="Bound"
+      >xs'</a
+      ><a name="924"
+      > </a
+      ><a name="925" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="926"
+      > </a
+      ><a name="927" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="933"
+      > </a
+      ><a name="934" href="FOTC.Data.Stream.PropertiesATP.html#905" class="Bound"
+      >xs'</a
+      ><a name="937"
+      > </a
+      ><a name="938" class="Symbol"
+      >&#8594;</a
+      ><a name="939"
+      >
+            </a
+      ><a name="952" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="958"
+      > </a
+      ><a name="959" href="FOTC.Data.Stream.PropertiesATP.html#876" class="Bound"
+      >xs</a
+      ><a name="961"
+      >
+</a
+      ><a name="962" href="FOTC.Data.Stream.PropertiesATP.html#861" class="Function"
+      >Stream-in</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="FOTC.Data.Stream.PropertiesATP.html#972" class="Bound"
+      >h</a
+      ><a name="973"
+      > </a
+      ><a name="974" class="Symbol"
+      >=</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="FOTC.Data.Stream.Type.html#1297" class="Postulate"
+      >Stream-coind</a
+      ><a name="988"
+      > </a
+      ><a name="989" href="FOTC.Data.Stream.PropertiesATP.html#1006" class="Function"
+      >A</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="FOTC.Data.Stream.PropertiesATP.html#1111" class="Postulate"
+      >h'</a
+      ><a name="993"
+      > </a
+      ><a name="994" href="FOTC.Data.Stream.PropertiesATP.html#972" class="Bound"
+      >h</a
+      ><a name="995"
+      >
+  </a
+      ><a name="998" class="Keyword"
+      >where</a
+      ><a name="1003"
+      >
+  </a
+      ><a name="1006" href="FOTC.Data.Stream.PropertiesATP.html#1006" class="Function"
+      >A</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" class="Symbol"
+      >:</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" class="Symbol"
+      >&#8594;</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" class="PrimitiveType"
+      >Set</a
+      ><a name="1017"
+      >
+  </a
+      ><a name="1020" href="FOTC.Data.Stream.PropertiesATP.html#1006" class="Function"
+      >A</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="FOTC.Data.Stream.PropertiesATP.html#1022" class="Bound"
+      >xs</a
+      ><a name="1024"
+      > </a
+      ><a name="1025" class="Symbol"
+      >=</a
+      ><a name="1026"
+      > </a
+      ><a name="1027" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" href="FOTC.Data.Stream.PropertiesATP.html#1030" class="Bound"
+      >x'</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOTC.Data.Stream.PropertiesATP.html#1038" class="Bound"
+      >xs'</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="FOTC.Data.Stream.PropertiesATP.html#1022" class="Bound"
+      >xs</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" href="FOTC.Data.Stream.PropertiesATP.html#1030" class="Bound"
+      >x'</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1053"
+      > </a
+      ><a name="1054" href="FOTC.Data.Stream.PropertiesATP.html#1038" class="Bound"
+      >xs'</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="FOTC.Data.Stream.PropertiesATP.html#1038" class="Bound"
+      >xs'</a
+      ><a name="1070"
+      >
+  </a
+      ><a name="1073" class="Symbol"
+      >{-#</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" class="Keyword"
+      >ATP</a
+      ><a name="1080"
+      > definition </a
+      ><a name="1092" href="FOTC.Data.Stream.PropertiesATP.html#1006" class="Function"
+      >A</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" class="Symbol"
+      >#-}</a
+      ><a name="1097"
+      >
+
+  </a
+      ><a name="1101" class="Keyword"
+      >postulate</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="FOTC.Data.Stream.PropertiesATP.html#1111" class="Postulate"
+      >h'</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" class="Symbol"
+      >:</a
+      ><a name="1115"
+      > </a
+      ><a name="1116" class="Symbol"
+      >&#8704;</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >{</a
+      ><a name="1119" href="FOTC.Data.Stream.PropertiesATP.html#1119" class="Bound"
+      >xs</a
+      ><a name="1121" class="Symbol"
+      >}</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" class="Symbol"
+      >&#8594;</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="FOTC.Data.Stream.PropertiesATP.html#1006" class="Function"
+      >A</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="FOTC.Data.Stream.PropertiesATP.html#1119" class="Bound"
+      >xs</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" class="Symbol"
+      >&#8594;</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="FOTC.Data.Stream.PropertiesATP.html#1135" class="Bound"
+      >x'</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1139"
+      > </a
+      ><a name="1140" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" href="FOTC.Data.Stream.PropertiesATP.html#1143" class="Bound"
+      >xs'</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="FOTC.Data.Stream.PropertiesATP.html#1119" class="Bound"
+      >xs</a
+      ><a name="1151"
+      > </a
+      ><a name="1152" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" href="FOTC.Data.Stream.PropertiesATP.html#1135" class="Bound"
+      >x'</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" href="FOTC.Data.Stream.PropertiesATP.html#1143" class="Bound"
+      >xs'</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" href="FOTC.Data.Stream.PropertiesATP.html#1006" class="Function"
+      >A</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="FOTC.Data.Stream.PropertiesATP.html#1143" class="Bound"
+      >xs'</a
+      ><a name="1170"
+      >
+  </a
+      ><a name="1173" class="Symbol"
+      >{-#</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" class="Keyword"
+      >ATP</a
+      ><a name="1180"
+      > prove </a
+      ><a name="1187" href="FOTC.Data.Stream.PropertiesATP.html#1111" class="Postulate"
+      >h'</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" class="Symbol"
+      >#-}</a
+      ><a name="1193"
+      >
+
+</a
+      ><a name="1195" href="FOTC.Data.Stream.PropertiesATP.html#1195" class="Function"
+      >zeros-Stream</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" class="Symbol"
+      >:</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1216"
+      > </a
+      ><a name="1217" href="FOTC.Data.Stream.html#576" class="Postulate"
+      >zeros</a
+      ><a name="1222"
+      >
+</a
+      ><a name="1223" href="FOTC.Data.Stream.PropertiesATP.html#1195" class="Function"
+      >zeros-Stream</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" class="Symbol"
+      >=</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOTC.Data.Stream.Type.html#1297" class="Postulate"
+      >Stream-coind</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" href="FOTC.Data.Stream.PropertiesATP.html#1270" class="Function"
+      >A</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="FOTC.Data.Stream.PropertiesATP.html#1342" class="Postulate"
+      >h</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1259"
+      >
+  </a
+      ><a name="1262" class="Keyword"
+      >where</a
+      ><a name="1267"
+      >
+  </a
+      ><a name="1270" href="FOTC.Data.Stream.PropertiesATP.html#1270" class="Function"
+      >A</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" class="Symbol"
+      >:</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" class="Symbol"
+      >&#8594;</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" class="PrimitiveType"
+      >Set</a
+      ><a name="1281"
+      >
+  </a
+      ><a name="1284" href="FOTC.Data.Stream.PropertiesATP.html#1270" class="Function"
+      >A</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" href="FOTC.Data.Stream.PropertiesATP.html#1286" class="Bound"
+      >xs</a
+      ><a name="1288"
+      > </a
+      ><a name="1289" class="Symbol"
+      >=</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" href="FOTC.Data.Stream.PropertiesATP.html#1286" class="Bound"
+      >xs</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="FOTC.Data.Stream.html#576" class="Postulate"
+      >zeros</a
+      ><a name="1301"
+      >
+  </a
+      ><a name="1304" class="Symbol"
+      >{-#</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" class="Keyword"
+      >ATP</a
+      ><a name="1311"
+      > definition </a
+      ><a name="1323" href="FOTC.Data.Stream.PropertiesATP.html#1270" class="Function"
+      >A</a
+      ><a name="1324"
+      > </a
+      ><a name="1325" class="Symbol"
+      >#-}</a
+      ><a name="1328"
+      >
+
+  </a
+      ><a name="1332" class="Keyword"
+      >postulate</a
+      ><a name="1341"
+      > </a
+      ><a name="1342" href="FOTC.Data.Stream.PropertiesATP.html#1342" class="Postulate"
+      >h</a
+      ><a name="1343"
+      > </a
+      ><a name="1344" class="Symbol"
+      >:</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" class="Symbol"
+      >&#8704;</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" class="Symbol"
+      >{</a
+      ><a name="1349" href="FOTC.Data.Stream.PropertiesATP.html#1349" class="Bound"
+      >xs</a
+      ><a name="1351" class="Symbol"
+      >}</a
+      ><a name="1352"
+      > </a
+      ><a name="1353" class="Symbol"
+      >&#8594;</a
+      ><a name="1354"
+      > </a
+      ><a name="1355" href="FOTC.Data.Stream.PropertiesATP.html#1270" class="Function"
+      >A</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" href="FOTC.Data.Stream.PropertiesATP.html#1349" class="Bound"
+      >xs</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" class="Symbol"
+      >&#8594;</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="FOTC.Data.Stream.PropertiesATP.html#1365" class="Bound"
+      >x'</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1369"
+      > </a
+      ><a name="1370" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" href="FOTC.Data.Stream.PropertiesATP.html#1373" class="Bound"
+      >xs'</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" href="FOTC.Data.Stream.PropertiesATP.html#1349" class="Bound"
+      >xs</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" href="FOTC.Data.Stream.PropertiesATP.html#1365" class="Bound"
+      >x'</a
+      ><a name="1386"
+      > </a
+      ><a name="1387" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1388"
+      > </a
+      ><a name="1389" href="FOTC.Data.Stream.PropertiesATP.html#1373" class="Bound"
+      >xs'</a
+      ><a name="1392"
+      > </a
+      ><a name="1393" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" href="FOTC.Data.Stream.PropertiesATP.html#1270" class="Function"
+      >A</a
+      ><a name="1396"
+      > </a
+      ><a name="1397" href="FOTC.Data.Stream.PropertiesATP.html#1373" class="Bound"
+      >xs'</a
+      ><a name="1400"
+      >
+  </a
+      ><a name="1403" class="Symbol"
+      >{-#</a
+      ><a name="1406"
+      > </a
+      ><a name="1407" class="Keyword"
+      >ATP</a
+      ><a name="1410"
+      > prove </a
+      ><a name="1417" href="FOTC.Data.Stream.PropertiesATP.html#1342" class="Postulate"
+      >h</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" class="Symbol"
+      >#-}</a
+      ><a name="1422"
+      >
+
+</a
+      ><a name="1424" href="FOTC.Data.Stream.PropertiesATP.html#1424" class="Function"
+      >ones-Stream</a
+      ><a name="1435"
+      > </a
+      ><a name="1436" class="Symbol"
+      >:</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" href="FOTC.Data.Stream.html#663" class="Postulate"
+      >ones</a
+      ><a name="1449"
+      >
+</a
+      ><a name="1450" href="FOTC.Data.Stream.PropertiesATP.html#1424" class="Function"
+      >ones-Stream</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" class="Symbol"
+      >=</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="FOTC.Data.Stream.Type.html#1297" class="Postulate"
+      >Stream-coind</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="FOTC.Data.Stream.PropertiesATP.html#1496" class="Function"
+      >A</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="FOTC.Data.Stream.PropertiesATP.html#1567" class="Postulate"
+      >h</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1485"
+      >
+  </a
+      ><a name="1488" class="Keyword"
+      >where</a
+      ><a name="1493"
+      >
+  </a
+      ><a name="1496" href="FOTC.Data.Stream.PropertiesATP.html#1496" class="Function"
+      >A</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" class="Symbol"
+      >:</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" class="Symbol"
+      >&#8594;</a
+      ><a name="1503"
+      > </a
+      ><a name="1504" class="PrimitiveType"
+      >Set</a
+      ><a name="1507"
+      >
+  </a
+      ><a name="1510" href="FOTC.Data.Stream.PropertiesATP.html#1496" class="Function"
+      >A</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="FOTC.Data.Stream.PropertiesATP.html#1512" class="Bound"
+      >xs</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" class="Symbol"
+      >=</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" href="FOTC.Data.Stream.PropertiesATP.html#1512" class="Bound"
+      >xs</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1521"
+      > </a
+      ><a name="1522" href="FOTC.Data.Stream.html#663" class="Postulate"
+      >ones</a
+      ><a name="1526"
+      >
+  </a
+      ><a name="1529" class="Symbol"
+      >{-#</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" class="Keyword"
+      >ATP</a
+      ><a name="1536"
+      > definition </a
+      ><a name="1548" href="FOTC.Data.Stream.PropertiesATP.html#1496" class="Function"
+      >A</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" class="Symbol"
+      >#-}</a
+      ><a name="1553"
+      >
+
+  </a
+      ><a name="1557" class="Keyword"
+      >postulate</a
+      ><a name="1566"
+      > </a
+      ><a name="1567" href="FOTC.Data.Stream.PropertiesATP.html#1567" class="Postulate"
+      >h</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" class="Symbol"
+      >:</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" class="Symbol"
+      >&#8704;</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" class="Symbol"
+      >{</a
+      ><a name="1574" href="FOTC.Data.Stream.PropertiesATP.html#1574" class="Bound"
+      >xs</a
+      ><a name="1576" class="Symbol"
+      >}</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" class="Symbol"
+      >&#8594;</a
+      ><a name="1579"
+      > </a
+      ><a name="1580" href="FOTC.Data.Stream.PropertiesATP.html#1496" class="Function"
+      >A</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" href="FOTC.Data.Stream.PropertiesATP.html#1574" class="Bound"
+      >xs</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" class="Symbol"
+      >&#8594;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" href="FOTC.Data.Stream.PropertiesATP.html#1590" class="Bound"
+      >x'</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1597"
+      > </a
+      ><a name="1598" href="FOTC.Data.Stream.PropertiesATP.html#1598" class="Bound"
+      >xs'</a
+      ><a name="1601"
+      > </a
+      ><a name="1602" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" href="FOTC.Data.Stream.PropertiesATP.html#1574" class="Bound"
+      >xs</a
+      ><a name="1606"
+      > </a
+      ><a name="1607" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="FOTC.Data.Stream.PropertiesATP.html#1590" class="Bound"
+      >x'</a
+      ><a name="1611"
+      > </a
+      ><a name="1612" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1613"
+      > </a
+      ><a name="1614" href="FOTC.Data.Stream.PropertiesATP.html#1598" class="Bound"
+      >xs'</a
+      ><a name="1617"
+      > </a
+      ><a name="1618" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1619"
+      > </a
+      ><a name="1620" href="FOTC.Data.Stream.PropertiesATP.html#1496" class="Function"
+      >A</a
+      ><a name="1621"
+      > </a
+      ><a name="1622" href="FOTC.Data.Stream.PropertiesATP.html#1598" class="Bound"
+      >xs'</a
+      ><a name="1625"
+      >
+  </a
+      ><a name="1628" class="Symbol"
+      >{-#</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" class="Keyword"
+      >ATP</a
+      ><a name="1635"
+      > prove </a
+      ><a name="1642" href="FOTC.Data.Stream.PropertiesATP.html#1567" class="Postulate"
+      >h</a
+      ><a name="1643"
+      > </a
+      ><a name="1644" class="Symbol"
+      >#-}</a
+      ><a name="1647"
+      >
+
+</a
+      ><a name="1649" class="Keyword"
+      >postulate</a
+      ><a name="1658"
+      > </a
+      ><a name="1659" href="FOTC.Data.Stream.PropertiesATP.html#1659" class="Postulate"
+      >&#8759;-Stream</a
+      ><a name="1667"
+      > </a
+      ><a name="1668" class="Symbol"
+      >:</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" class="Symbol"
+      >&#8704;</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" class="Symbol"
+      >{</a
+      ><a name="1673" href="FOTC.Data.Stream.PropertiesATP.html#1673" class="Bound"
+      >x</a
+      ><a name="1674"
+      > </a
+      ><a name="1675" href="FOTC.Data.Stream.PropertiesATP.html#1675" class="Bound"
+      >xs</a
+      ><a name="1677" class="Symbol"
+      >}</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" class="Symbol"
+      >&#8594;</a
+      ><a name="1680"
+      > </a
+      ><a name="1681" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1687"
+      > </a
+      ><a name="1688" class="Symbol"
+      >(</a
+      ><a name="1689" href="FOTC.Data.Stream.PropertiesATP.html#1673" class="Bound"
+      >x</a
+      ><a name="1690"
+      > </a
+      ><a name="1691" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="FOTC.Data.Stream.PropertiesATP.html#1675" class="Bound"
+      >xs</a
+      ><a name="1695" class="Symbol"
+      >)</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" class="Symbol"
+      >&#8594;</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" href="FOTC.Data.Stream.PropertiesATP.html#1675" class="Bound"
+      >xs</a
+      ><a name="1708"
+      >
+</a
+      ><a name="1709" class="Symbol"
+      >{-#</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" class="Keyword"
+      >ATP</a
+      ><a name="1716"
+      > prove </a
+      ><a name="1723" href="FOTC.Data.Stream.PropertiesATP.html#1659" class="Postulate"
+      >&#8759;-Stream</a
+      ><a name="1731"
+      > </a
+      ><a name="1732" class="Symbol"
+      >#-}</a
+      ><a name="1735"
+      >
+
+</a
+      ><a name="1737" class="Comment"
+      >-- Adapted from (Sander 1992, p. 59).</a
+      ><a name="1774"
+      >
+</a
+      ><a name="1775" href="FOTC.Data.Stream.PropertiesATP.html#1775" class="Function"
+      >streamLength</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" class="Symbol"
+      >:</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" class="Symbol"
+      >&#8704;</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" class="Symbol"
+      >{</a
+      ><a name="1793" href="FOTC.Data.Stream.PropertiesATP.html#1793" class="Bound"
+      >xs</a
+      ><a name="1795" class="Symbol"
+      >}</a
+      ><a name="1796"
+      > </a
+      ><a name="1797" class="Symbol"
+      >&#8594;</a
+      ><a name="1798"
+      > </a
+      ><a name="1799" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1805"
+      > </a
+      ><a name="1806" href="FOTC.Data.Stream.PropertiesATP.html#1793" class="Bound"
+      >xs</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Symbol"
+      >&#8594;</a
+      ><a name="1810"
+      > </a
+      ><a name="1811" href="FOTC.Data.List.html#586" class="Postulate"
+      >length</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="FOTC.Data.Stream.PropertiesATP.html#1793" class="Bound"
+      >xs</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" href="FOTC.Data.Conat.Equality.Type.html#864" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="FOTC.Data.Conat.html#550" class="Postulate"
+      >&#8734;</a
+      ><a name="1824"
+      >
+</a
+      ><a name="1825" href="FOTC.Data.Stream.PropertiesATP.html#1775" class="Function"
+      >streamLength</a
+      ><a name="1837"
+      > </a
+      ><a name="1838" class="Symbol"
+      >{</a
+      ><a name="1839" href="FOTC.Data.Stream.PropertiesATP.html#1839" class="Bound"
+      >xs</a
+      ><a name="1841" class="Symbol"
+      >}</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" href="FOTC.Data.Stream.PropertiesATP.html#1843" class="Bound"
+      >Sxs</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" class="Symbol"
+      >=</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="FOTC.Data.Conat.Equality.Type.html#1412" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="1856"
+      > </a
+      ><a name="1857" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" href="FOTC.Data.Stream.PropertiesATP.html#1987" class="Postulate"
+      >h&#8321;</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="FOTC.Data.Stream.PropertiesATP.html#2144" class="Postulate"
+      >h&#8322;</a
+      ><a name="1864"
+      >
+  </a
+      ><a name="1867" class="Keyword"
+      >where</a
+      ><a name="1872"
+      >
+  </a
+      ><a name="1875" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" class="Symbol"
+      >:</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1880"
+      > </a
+      ><a name="1881" class="Symbol"
+      >&#8594;</a
+      ><a name="1882"
+      > </a
+      ><a name="1883" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" class="Symbol"
+      >&#8594;</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" class="PrimitiveType"
+      >Set</a
+      ><a name="1890"
+      >
+  </a
+      ><a name="1893" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" href="FOTC.Data.Stream.PropertiesATP.html#1895" class="Bound"
+      >m</a
+      ><a name="1896"
+      > </a
+      ><a name="1897" href="FOTC.Data.Stream.PropertiesATP.html#1897" class="Bound"
+      >n</a
+      ><a name="1898"
+      > </a
+      ><a name="1899" class="Symbol"
+      >=</a
+      ><a name="1900"
+      > </a
+      ><a name="1901" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1903"
+      > </a
+      ><a name="1904" href="FOTC.Data.Stream.PropertiesATP.html#1904" class="Bound"
+      >xs</a
+      ><a name="1906"
+      > </a
+      ><a name="1907" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1908"
+      > </a
+      ><a name="1909" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1915"
+      > </a
+      ><a name="1916" href="FOTC.Data.Stream.PropertiesATP.html#1904" class="Bound"
+      >xs</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1920"
+      > </a
+      ><a name="1921" href="FOTC.Data.Stream.PropertiesATP.html#1895" class="Bound"
+      >m</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1924"
+      > </a
+      ><a name="1925" href="FOTC.Data.List.html#586" class="Postulate"
+      >length</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" href="FOTC.Data.Stream.PropertiesATP.html#1904" class="Bound"
+      >xs</a
+      ><a name="1934"
+      > </a
+      ><a name="1935" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1936"
+      > </a
+      ><a name="1937" href="FOTC.Data.Stream.PropertiesATP.html#1897" class="Bound"
+      >n</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1940"
+      > </a
+      ><a name="1941" href="FOTC.Data.Conat.html#550" class="Postulate"
+      >&#8734;</a
+      ><a name="1942"
+      >
+  </a
+      ><a name="1945" class="Symbol"
+      >{-#</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" class="Keyword"
+      >ATP</a
+      ><a name="1952"
+      > definition </a
+      ><a name="1964" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" class="Symbol"
+      >#-}</a
+      ><a name="1969"
+      >
+
+  </a
+      ><a name="1973" class="Keyword"
+      >postulate</a
+      ><a name="1982"
+      >
+    </a
+      ><a name="1987" href="FOTC.Data.Stream.PropertiesATP.html#1987" class="Postulate"
+      >h&#8321;</a
+      ><a name="1989"
+      > </a
+      ><a name="1990" class="Symbol"
+      >:</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" class="Symbol"
+      >&#8704;</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" class="Symbol"
+      >{</a
+      ><a name="1995" href="FOTC.Data.Stream.PropertiesATP.html#1995" class="Bound"
+      >m</a
+      ><a name="1996"
+      > </a
+      ><a name="1997" href="FOTC.Data.Stream.PropertiesATP.html#1997" class="Bound"
+      >n</a
+      ><a name="1998" class="Symbol"
+      >}</a
+      ><a name="1999"
+      > </a
+      ><a name="2000" class="Symbol"
+      >&#8594;</a
+      ><a name="2001"
+      > </a
+      ><a name="2002" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="2003"
+      > </a
+      ><a name="2004" href="FOTC.Data.Stream.PropertiesATP.html#1995" class="Bound"
+      >m</a
+      ><a name="2005"
+      > </a
+      ><a name="2006" href="FOTC.Data.Stream.PropertiesATP.html#1997" class="Bound"
+      >n</a
+      ><a name="2007"
+      > </a
+      ><a name="2008" class="Symbol"
+      >&#8594;</a
+      ><a name="2009"
+      >
+         </a
+      ><a name="2019" href="FOTC.Data.Stream.PropertiesATP.html#1995" class="Bound"
+      >m</a
+      ><a name="2020"
+      > </a
+      ><a name="2021" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2022"
+      > </a
+      ><a name="2023" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2027"
+      > </a
+      ><a name="2028" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2029"
+      > </a
+      ><a name="2030" href="FOTC.Data.Stream.PropertiesATP.html#1997" class="Bound"
+      >n</a
+      ><a name="2031"
+      > </a
+      ><a name="2032" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2033"
+      > </a
+      ><a name="2034" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2038"
+      >
+           </a
+      ><a name="2050" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2051"
+      > </a
+      ><a name="2052" class="Symbol"
+      >(</a
+      ><a name="2053" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2055"
+      > </a
+      ><a name="2056" href="FOTC.Data.Stream.PropertiesATP.html#2056" class="Bound"
+      >m'</a
+      ><a name="2058"
+      > </a
+      ><a name="2059" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2060"
+      > </a
+      ><a name="2061" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" href="FOTC.Data.Stream.PropertiesATP.html#2064" class="Bound"
+      >n'</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" href="FOTC.Data.Stream.PropertiesATP.html#1995" class="Bound"
+      >m</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2072"
+      > </a
+      ><a name="2073" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2078"
+      > </a
+      ><a name="2079" href="FOTC.Data.Stream.PropertiesATP.html#2056" class="Bound"
+      >m'</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" href="FOTC.Data.Stream.PropertiesATP.html#1997" class="Bound"
+      >n</a
+      ><a name="2085"
+      > </a
+      ><a name="2086" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="FOTC.Data.Stream.PropertiesATP.html#2064" class="Bound"
+      >n'</a
+      ><a name="2096"
+      > </a
+      ><a name="2097" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2098"
+      > </a
+      ><a name="2099" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="2100"
+      > </a
+      ><a name="2101" href="FOTC.Data.Stream.PropertiesATP.html#2056" class="Bound"
+      >m'</a
+      ><a name="2103"
+      > </a
+      ><a name="2104" href="FOTC.Data.Stream.PropertiesATP.html#2064" class="Bound"
+      >n'</a
+      ><a name="2106" class="Symbol"
+      >)</a
+      ><a name="2107"
+      >
+  </a
+      ><a name="2110" class="Symbol"
+      >{-#</a
+      ><a name="2113"
+      > </a
+      ><a name="2114" class="Keyword"
+      >ATP</a
+      ><a name="2117"
+      > prove </a
+      ><a name="2124" href="FOTC.Data.Stream.PropertiesATP.html#1987" class="Postulate"
+      >h&#8321;</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" class="Symbol"
+      >#-}</a
+      ><a name="2130"
+      >
+
+  </a
+      ><a name="2134" class="Keyword"
+      >postulate</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" href="FOTC.Data.Stream.PropertiesATP.html#2144" class="Postulate"
+      >h&#8322;</a
+      ><a name="2146"
+      > </a
+      ><a name="2147" class="Symbol"
+      >:</a
+      ><a name="2148"
+      > </a
+      ><a name="2149" href="FOTC.Data.Stream.PropertiesATP.html#1875" class="Function"
+      >R</a
+      ><a name="2150"
+      > </a
+      ><a name="2151" class="Symbol"
+      >(</a
+      ><a name="2152" href="FOTC.Data.List.html#586" class="Postulate"
+      >length</a
+      ><a name="2158"
+      > </a
+      ><a name="2159" href="FOTC.Data.Stream.PropertiesATP.html#1839" class="Bound"
+      >xs</a
+      ><a name="2161" class="Symbol"
+      >)</a
+      ><a name="2162"
+      > </a
+      ><a name="2163" href="FOTC.Data.Conat.html#550" class="Postulate"
+      >&#8734;</a
+      ><a name="2164"
+      >
+  </a
+      ><a name="2167" class="Symbol"
+      >{-#</a
+      ><a name="2170"
+      > </a
+      ><a name="2171" class="Keyword"
+      >ATP</a
+      ><a name="2174"
+      > prove </a
+      ><a name="2181" href="FOTC.Data.Stream.PropertiesATP.html#2144" class="Postulate"
+      >h&#8322;</a
+      ><a name="2183"
+      > </a
+      ><a name="2184" class="Symbol"
+      >#-}</a
+      ><a name="2187"
+      >
+
+</a
+      ><a name="2189" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2267"
+      >
+</a
+      ><a name="2268" class="Comment"
+      >-- References</a
+      ><a name="2281"
+      >
+</a
+      ><a name="2282" class="Comment"
+      >--</a
+      ><a name="2284"
+      >
+</a
+      ><a name="2285" class="Comment"
+      >-- Sander, Herbert P. (1992). A Logic of Functional Programs with an</a
+      ><a name="2353"
+      >
+</a
+      ><a name="2354" class="Comment"
+      >-- Application to Concurrency. PhD thesis. Department of Computer</a
+      ><a name="2419"
+      >
+</a
+      ><a name="2420" class="Comment"
+      >-- Sciences: Chalmers University of Technology and University of</a
+      ><a name="2484"
+      >
+</a
+      ><a name="2485" class="Comment"
+      >-- Gothenburg.</a
+      ><a name="2499"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

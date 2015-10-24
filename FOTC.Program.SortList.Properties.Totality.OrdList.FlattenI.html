@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Totality properties respect to OrdList (flatten-OrdList-helper)</a
+      ><a name="146"
+      >
+</a
+      ><a name="147" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="225"
+      >
+
+</a
+      ><a name="227" class="Symbol"
+      >{-#</a
+      ><a name="230"
+      > </a
+      ><a name="231" class="Keyword"
+      >OPTIONS</a
+      ><a name="238"
+      > --exact-split              </a
+      ><a name="266" class="Symbol"
+      >#-}</a
+      ><a name="269"
+      >
+</a
+      ><a name="270" class="Symbol"
+      >{-#</a
+      ><a name="273"
+      > </a
+      ><a name="274" class="Keyword"
+      >OPTIONS</a
+      ><a name="281"
+      > --no-sized-types           </a
+      ><a name="309" class="Symbol"
+      >#-}</a
+      ><a name="312"
+      >
+</a
+      ><a name="313" class="Symbol"
+      >{-#</a
+      ><a name="316"
+      > </a
+      ><a name="317" class="Keyword"
+      >OPTIONS</a
+      ><a name="324"
+      > --no-universe-polymorphism </a
+      ><a name="352" class="Symbol"
+      >#-}</a
+      ><a name="355"
+      >
+</a
+      ><a name="356" class="Symbol"
+      >{-#</a
+      ><a name="359"
+      > </a
+      ><a name="360" class="Keyword"
+      >OPTIONS</a
+      ><a name="367"
+      > --without-K                </a
+      ><a name="395" class="Symbol"
+      >#-}</a
+      ><a name="398"
+      >
+
+</a
+      ><a name="400" class="Keyword"
+      >module</a
+      ><a name="406"
+      > </a
+      ><a name="407" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI</a
+      ><a name="465"
+      > </a
+      ><a name="466" class="Keyword"
+      >where</a
+      ><a name="471"
+      >
+
+</a
+      ><a name="473" class="Keyword"
+      >open</a
+      ><a name="477"
+      > </a
+      ><a name="478" class="Keyword"
+      >import</a
+      ><a name="484"
+      > </a
+      ><a name="485" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="494"
+      >
+</a
+      ><a name="495" class="Keyword"
+      >open</a
+      ><a name="499"
+      > </a
+      ><a name="500" class="Keyword"
+      >import</a
+      ><a name="506"
+      > </a
+      ><a name="507" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="525"
+      >
+</a
+      ><a name="526" class="Keyword"
+      >open</a
+      ><a name="530"
+      > </a
+      ><a name="531" class="Keyword"
+      >import</a
+      ><a name="537"
+      > </a
+      ><a name="538" href="FOTC.Program.SortList.SortList.html#1" class="Module"
+      >FOTC.Program.SortList.SortList</a
+      ><a name="568"
+      >
+
+</a
+      ><a name="570" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="648"
+      >
+</a
+      ><a name="649" class="Comment"
+      >-- See the combined proof.</a
+      ><a name="675"
+      >
+</a
+      ><a name="676" class="Keyword"
+      >postulate</a
+      ><a name="685"
+      >
+  </a
+      ><a name="688" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#688" class="Postulate"
+      >flatten-OrdList-helper</a
+      ><a name="710"
+      > </a
+      ><a name="711" class="Symbol"
+      >:</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Symbol"
+      >&#8704;</a
+      ><a name="714"
+      > </a
+      ><a name="715" class="Symbol"
+      >{</a
+      ><a name="716" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#716" class="Bound"
+      >t&#8321;</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#719" class="Bound"
+      >i</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#721" class="Bound"
+      >t&#8322;</a
+      ><a name="723" class="Symbol"
+      >}</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Symbol"
+      >&#8594;</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#716" class="Bound"
+      >t&#8321;</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Symbol"
+      >&#8594;</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="738"
+      > </a
+      ><a name="739" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#719" class="Bound"
+      >i</a
+      ><a name="740"
+      > </a
+      ><a name="741" class="Symbol"
+      >&#8594;</a
+      ><a name="742"
+      > </a
+      ><a name="743" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#721" class="Bound"
+      >t&#8322;</a
+      ><a name="750"
+      > </a
+      ><a name="751" class="Symbol"
+      >&#8594;</a
+      ><a name="752"
+      >
+                           </a
+      ><a name="780" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="787"
+      > </a
+      ><a name="788" class="Symbol"
+      >(</a
+      ><a name="789" href="FOTC.Program.SortList.SortList.html#849" class="Postulate"
+      >node</a
+      ><a name="793"
+      > </a
+      ><a name="794" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#716" class="Bound"
+      >t&#8321;</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#719" class="Bound"
+      >i</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#721" class="Bound"
+      >t&#8322;</a
+      ><a name="801" class="Symbol"
+      >)</a
+      ><a name="802"
+      > </a
+      ><a name="803" class="Symbol"
+      >&#8594;</a
+      ><a name="804"
+      >
+                           </a
+      ><a name="832" href="FOTC.Program.SortList.SortList.html#1954" class="Function"
+      >&#8804;-Lists</a
+      ><a name="839"
+      > </a
+      ><a name="840" class="Symbol"
+      >(</a
+      ><a name="841" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="848"
+      > </a
+      ><a name="849" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#716" class="Bound"
+      >t&#8321;</a
+      ><a name="851" class="Symbol"
+      >)</a
+      ><a name="852"
+      > </a
+      ><a name="853" class="Symbol"
+      >(</a
+      ><a name="854" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="861"
+      > </a
+      ><a name="862" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI.html#721" class="Bound"
+      >t&#8322;</a
+      ><a name="864" class="Symbol"
+      >)</a
+      ><a name="865"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

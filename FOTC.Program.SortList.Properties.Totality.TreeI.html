@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.SortList.Properties.Totality.TreeI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Totality properties respect to Tree</a
+      ><a name="118"
+      >
+</a
+      ><a name="119" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="197"
+      >
+
+</a
+      ><a name="199" class="Symbol"
+      >{-#</a
+      ><a name="202"
+      > </a
+      ><a name="203" class="Keyword"
+      >OPTIONS</a
+      ><a name="210"
+      > --exact-split              </a
+      ><a name="238" class="Symbol"
+      >#-}</a
+      ><a name="241"
+      >
+</a
+      ><a name="242" class="Symbol"
+      >{-#</a
+      ><a name="245"
+      > </a
+      ><a name="246" class="Keyword"
+      >OPTIONS</a
+      ><a name="253"
+      > --no-sized-types           </a
+      ><a name="281" class="Symbol"
+      >#-}</a
+      ><a name="284"
+      >
+</a
+      ><a name="285" class="Symbol"
+      >{-#</a
+      ><a name="288"
+      > </a
+      ><a name="289" class="Keyword"
+      >OPTIONS</a
+      ><a name="296"
+      > --no-universe-polymorphism </a
+      ><a name="324" class="Symbol"
+      >#-}</a
+      ><a name="327"
+      >
+</a
+      ><a name="328" class="Symbol"
+      >{-#</a
+      ><a name="331"
+      > </a
+      ><a name="332" class="Keyword"
+      >OPTIONS</a
+      ><a name="339"
+      > --without-K                </a
+      ><a name="367" class="Symbol"
+      >#-}</a
+      ><a name="370"
+      >
+
+</a
+      ><a name="372" class="Keyword"
+      >module</a
+      ><a name="378"
+      > </a
+      ><a name="379" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.TreeI</a
+      ><a name="426"
+      > </a
+      ><a name="427" class="Keyword"
+      >where</a
+      ><a name="432"
+      >
+
+</a
+      ><a name="434" class="Keyword"
+      >open</a
+      ><a name="438"
+      > </a
+      ><a name="439" class="Keyword"
+      >import</a
+      ><a name="445"
+      > </a
+      ><a name="446" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="455"
+      >
+</a
+      ><a name="456" class="Keyword"
+      >open</a
+      ><a name="460"
+      > </a
+      ><a name="461" class="Keyword"
+      >import</a
+      ><a name="467"
+      > </a
+      ><a name="468" href="FOTC.Data.Nat.List.Type.html#1" class="Module"
+      >FOTC.Data.Nat.List.Type</a
+      ><a name="491"
+      >
+</a
+      ><a name="492" class="Keyword"
+      >open</a
+      ><a name="496"
+      > </a
+      ><a name="497" class="Keyword"
+      >import</a
+      ><a name="503"
+      > </a
+      ><a name="504" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="522"
+      >
+</a
+      ><a name="523" class="Keyword"
+      >open</a
+      ><a name="527"
+      > </a
+      ><a name="528" class="Keyword"
+      >import</a
+      ><a name="534"
+      > </a
+      ><a name="535" href="FOTC.Program.SortList.SortList.html#1" class="Module"
+      >FOTC.Program.SortList.SortList</a
+      ><a name="565"
+      >
+
+</a
+      ><a name="567" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="645"
+      >
+</a
+      ><a name="646" class="Comment"
+      >-- See the ATP version.</a
+      ><a name="669"
+      >
+</a
+      ><a name="670" class="Keyword"
+      >postulate</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#680" class="Postulate"
+      >toTree-Tree</a
+      ><a name="691"
+      > </a
+      ><a name="692" class="Symbol"
+      >:</a
+      ><a name="693"
+      > </a
+      ><a name="694" class="Symbol"
+      >&#8704;</a
+      ><a name="695"
+      > </a
+      ><a name="696" class="Symbol"
+      >{</a
+      ><a name="697" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#697" class="Bound"
+      >item</a
+      ><a name="701"
+      > </a
+      ><a name="702" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#702" class="Bound"
+      >t</a
+      ><a name="703" class="Symbol"
+      >}</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Symbol"
+      >&#8594;</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="708"
+      > </a
+      ><a name="709" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#697" class="Bound"
+      >item</a
+      ><a name="713"
+      > </a
+      ><a name="714" class="Symbol"
+      >&#8594;</a
+      ><a name="715"
+      > </a
+      ><a name="716" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#702" class="Bound"
+      >t</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="Symbol"
+      >&#8594;</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="729"
+      > </a
+      ><a name="730" class="Symbol"
+      >(</a
+      ><a name="731" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="739"
+      > </a
+      ><a name="740" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#697" class="Bound"
+      >item</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="746"
+      > </a
+      ><a name="747" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#702" class="Bound"
+      >t</a
+      ><a name="748" class="Symbol"
+      >)</a
+      ><a name="749"
+      >
+
+</a
+      ><a name="751" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#751" class="Function"
+      >makeTree-Tree</a
+      ><a name="764"
+      > </a
+      ><a name="765" class="Symbol"
+      >:</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Symbol"
+      >&#8704;</a
+      ><a name="768"
+      > </a
+      ><a name="769" class="Symbol"
+      >{</a
+      ><a name="770" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#770" class="Bound"
+      >is</a
+      ><a name="772" class="Symbol"
+      >}</a
+      ><a name="773"
+      > </a
+      ><a name="774" class="Symbol"
+      >&#8594;</a
+      ><a name="775"
+      > </a
+      ><a name="776" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#770" class="Bound"
+      >is</a
+      ><a name="784"
+      > </a
+      ><a name="785" class="Symbol"
+      >&#8594;</a
+      ><a name="786"
+      > </a
+      ><a name="787" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="791"
+      > </a
+      ><a name="792" class="Symbol"
+      >(</a
+      ><a name="793" href="FOTC.Program.SortList.SortList.html#5207" class="Function"
+      >makeTree</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#770" class="Bound"
+      >is</a
+      ><a name="804" class="Symbol"
+      >)</a
+      ><a name="805"
+      >
+</a
+      ><a name="806" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#751" class="Function"
+      >makeTree-Tree</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="FOTC.Data.Nat.List.Type.html#701" class="InductiveConstructor"
+      >lnnil</a
+      ><a name="825"
+      > </a
+      ><a name="826" class="Symbol"
+      >=</a
+      ><a name="827"
+      > </a
+      ><a name="828" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="833"
+      > </a
+      ><a name="834" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="838"
+      > </a
+      ><a name="839" class="Symbol"
+      >(</a
+      ><a name="840" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="843"
+      > </a
+      ><a name="844" class="Symbol"
+      >(</a
+      ><a name="845" href="FOTC.Program.SortList.SortList.html#3288" class="Postulate"
+      >lit-[]</a
+      ><a name="851"
+      > </a
+      ><a name="852" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="FOTC.Program.SortList.SortList.html#823" class="Postulate"
+      >nil</a
+      ><a name="862" class="Symbol"
+      >))</a
+      ><a name="864"
+      > </a
+      ><a name="865" href="FOTC.Program.SortList.SortList.html#917" class="InductiveConstructor"
+      >tnil</a
+      ><a name="869"
+      >
+</a
+      ><a name="870" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#751" class="Function"
+      >makeTree-Tree</a
+      ><a name="883"
+      > </a
+      ><a name="884" class="Symbol"
+      >(</a
+      ><a name="885" href="FOTC.Data.Nat.List.Type.html#721" class="InductiveConstructor"
+      >lncons</a
+      ><a name="891"
+      > </a
+      ><a name="892" class="Symbol"
+      >{</a
+      ><a name="893" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#893" class="Bound"
+      >i</a
+      ><a name="894" class="Symbol"
+      >}</a
+      ><a name="895"
+      > </a
+      ><a name="896" class="Symbol"
+      >{</a
+      ><a name="897" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#897" class="Bound"
+      >is</a
+      ><a name="899" class="Symbol"
+      >}</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#901" class="Bound"
+      >Ni</a
+      ><a name="903"
+      > </a
+      ><a name="904" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#904" class="Bound"
+      >LNis</a
+      ><a name="908" class="Symbol"
+      >)</a
+      ><a name="909"
+      > </a
+      ><a name="910" class="Symbol"
+      >=</a
+      ><a name="911"
+      >
+  </a
+      ><a name="914" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="919"
+      > </a
+      ><a name="920" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="924"
+      >
+        </a
+      ><a name="933" class="Symbol"
+      >(</a
+      ><a name="934" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="937"
+      > </a
+      ><a name="938" class="Symbol"
+      >(</a
+      ><a name="939" href="FOTC.Program.SortList.SortList.html#3333" class="Postulate"
+      >lit-&#8759;</a
+      ><a name="944"
+      > </a
+      ><a name="945" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="951"
+      > </a
+      ><a name="952" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#893" class="Bound"
+      >i</a
+      ><a name="953"
+      > </a
+      ><a name="954" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#897" class="Bound"
+      >is</a
+      ><a name="956"
+      > </a
+      ><a name="957" href="FOTC.Program.SortList.SortList.html#823" class="Postulate"
+      >nil</a
+      ><a name="960" class="Symbol"
+      >))</a
+      ><a name="962"
+      >
+        </a
+      ><a name="971" class="Symbol"
+      >(</a
+      ><a name="972" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#680" class="Postulate"
+      >toTree-Tree</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#901" class="Bound"
+      >Ni</a
+      ><a name="986"
+      > </a
+      ><a name="987" class="Symbol"
+      >(</a
+      ><a name="988" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#751" class="Function"
+      >makeTree-Tree</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="FOTC.Program.SortList.Properties.Totality.TreeI.html#904" class="Bound"
+      >LNis</a
+      ><a name="1006" class="Symbol"
+      >))</a
+      ><a name="1008"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Nest.Nest</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Simple example of a nested recursive function</a
+      ><a name="128"
+      >
+</a
+      ><a name="129" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="207"
+      >
+
+</a
+      ><a name="209" class="Symbol"
+      >{-#</a
+      ><a name="212"
+      > </a
+      ><a name="213" class="Keyword"
+      >OPTIONS</a
+      ><a name="220"
+      > --exact-split              </a
+      ><a name="248" class="Symbol"
+      >#-}</a
+      ><a name="251"
+      >
+</a
+      ><a name="252" class="Symbol"
+      >{-#</a
+      ><a name="255"
+      > </a
+      ><a name="256" class="Keyword"
+      >OPTIONS</a
+      ><a name="263"
+      > --no-sized-types           </a
+      ><a name="291" class="Symbol"
+      >#-}</a
+      ><a name="294"
+      >
+</a
+      ><a name="295" class="Symbol"
+      >{-#</a
+      ><a name="298"
+      > </a
+      ><a name="299" class="Keyword"
+      >OPTIONS</a
+      ><a name="306"
+      > --no-universe-polymorphism </a
+      ><a name="334" class="Symbol"
+      >#-}</a
+      ><a name="337"
+      >
+</a
+      ><a name="338" class="Symbol"
+      >{-#</a
+      ><a name="341"
+      > </a
+      ><a name="342" class="Keyword"
+      >OPTIONS</a
+      ><a name="349"
+      > --without-K                </a
+      ><a name="377" class="Symbol"
+      >#-}</a
+      ><a name="380"
+      >
+
+</a
+      ><a name="382" class="Comment"
+      >-- From: Ana Bove and Venanzio Capretta. Nested general recursion and</a
+      ><a name="451"
+      >
+</a
+      ><a name="452" class="Comment"
+      >-- partiality in type theory. Vol. 2152 of LNCS. 2001.</a
+      ><a name="506"
+      >
+
+</a
+      ><a name="508" class="Keyword"
+      >module</a
+      ><a name="514"
+      > </a
+      ><a name="515" href="FOTC.Program.Nest.Nest.html#1" class="Module"
+      >FOTC.Program.Nest.Nest</a
+      ><a name="537"
+      > </a
+      ><a name="538" class="Keyword"
+      >where</a
+      ><a name="543"
+      >
+
+</a
+      ><a name="545" class="Keyword"
+      >open</a
+      ><a name="549"
+      > </a
+      ><a name="550" class="Keyword"
+      >import</a
+      ><a name="556"
+      > </a
+      ><a name="557" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="566"
+      >
+
+</a
+      ><a name="568" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="646"
+      >
+</a
+      ><a name="647" class="Comment"
+      >-- The nest function.</a
+      ><a name="668"
+      >
+</a
+      ><a name="669" class="Keyword"
+      >postulate</a
+      ><a name="678"
+      >
+  </a
+      ><a name="681" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="685"
+      >   </a
+      ><a name="688" class="Symbol"
+      >:</a
+      ><a name="689"
+      > </a
+      ><a name="690" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="691"
+      > </a
+      ><a name="692" class="Symbol"
+      >&#8594;</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="695"
+      >
+  </a
+      ><a name="698" href="FOTC.Program.Nest.Nest.html#698" class="Postulate"
+      >nest-0</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Symbol"
+      >:</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="716"
+      >            </a
+      ><a name="728" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="734"
+      >
+  </a
+      ><a name="737" href="FOTC.Program.Nest.Nest.html#737" class="Postulate"
+      >nest-S</a
+      ><a name="743"
+      > </a
+      ><a name="744" class="Symbol"
+      >:</a
+      ><a name="745"
+      > </a
+      ><a name="746" class="Symbol"
+      >&#8704;</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="FOTC.Program.Nest.Nest.html#748" class="Bound"
+      >n</a
+      ><a name="749"
+      > </a
+      ><a name="750" class="Symbol"
+      >&#8594;</a
+      ><a name="751"
+      > </a
+      ><a name="752" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Symbol"
+      >(</a
+      ><a name="758" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="FOTC.Program.Nest.Nest.html#748" class="Bound"
+      >n</a
+      ><a name="765" class="Symbol"
+      >)</a
+      ><a name="766"
+      > </a
+      ><a name="767" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="768"
+      > </a
+      ><a name="769" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="773"
+      > </a
+      ><a name="774" class="Symbol"
+      >(</a
+      ><a name="775" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="779"
+      > </a
+      ><a name="780" href="FOTC.Program.Nest.Nest.html#748" class="Bound"
+      >n</a
+      ><a name="781" class="Symbol"
+      >)</a
+      ><a name="782"
+      >
+</a
+      ><a name="783" class="Symbol"
+      >{-#</a
+      ><a name="786"
+      > </a
+      ><a name="787" class="Keyword"
+      >ATP</a
+      ><a name="790"
+      > axioms </a
+      ><a name="798" href="FOTC.Program.Nest.Nest.html#698" class="Postulate"
+      >nest-0</a
+      ><a name="804"
+      > </a
+      ><a name="805" href="FOTC.Program.Nest.Nest.html#737" class="Postulate"
+      >nest-S</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Symbol"
+      >#-}</a
+      ><a name="815"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

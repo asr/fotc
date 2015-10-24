@@ -1,0 +1,1362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Division.CorrectnessProofI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The division program is correct</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Comment"
+      >-- This module proves the correctness of the division program using</a
+      ><a name="435"
+      >
+</a
+      ><a name="436" class="Comment"
+      >-- repeated subtraction (Dybjer 1985).</a
+      ><a name="474"
+      >
+
+</a
+      ><a name="476" class="Keyword"
+      >module</a
+      ><a name="482"
+      > </a
+      ><a name="483" href="FOTC.Program.Division.CorrectnessProofI.html#1" class="Module"
+      >FOTC.Program.Division.CorrectnessProofI</a
+      ><a name="522"
+      > </a
+      ><a name="523" class="Keyword"
+      >where</a
+      ><a name="528"
+      >
+
+</a
+      ><a name="530" class="Keyword"
+      >open</a
+      ><a name="534"
+      > </a
+      ><a name="535" class="Keyword"
+      >import</a
+      ><a name="541"
+      > </a
+      ><a name="542" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="551"
+      >
+</a
+      ><a name="552" class="Keyword"
+      >open</a
+      ><a name="556"
+      > </a
+      ><a name="557" class="Keyword"
+      >import</a
+      ><a name="563"
+      > </a
+      ><a name="564" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="577"
+      >
+</a
+      ><a name="578" class="Keyword"
+      >open</a
+      ><a name="582"
+      > </a
+      ><a name="583" class="Keyword"
+      >import</a
+      ><a name="589"
+      > </a
+      ><a name="590" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="616"
+      >
+</a
+      ><a name="617" class="Keyword"
+      >open</a
+      ><a name="621"
+      > </a
+      ><a name="622" class="Keyword"
+      >import</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="FOTC.Data.Nat.Inequalities.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesI</a
+      ><a name="667"
+      >
+</a
+      ><a name="668" class="Keyword"
+      >open</a
+      ><a name="672"
+      > </a
+      ><a name="673" class="Keyword"
+      >import</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="FOTC.Data.Nat.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesI</a
+      ><a name="705"
+      >
+
+</a
+      ><a name="707" class="Keyword"
+      >import</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.NonAcc.WF-I</a
+      ><a name="749"
+      >
+</a
+      ><a name="750" class="Keyword"
+      >open</a
+      ><a name="754"
+      > </a
+      ><a name="755" class="Keyword"
+      >module</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="FOTC.Program.Division.CorrectnessProofI.html#762" class="Module"
+      >WFInd</a
+      ><a name="767"
+      > </a
+      ><a name="768" class="Symbol"
+      >=</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#385" class="Module"
+      >FOTC.</a
+      ><a name="775" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#390" class="Module"
+      >Data.</a
+      ><a name="780" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#395" class="Module"
+      >Nat.</a
+      ><a name="784" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#399" class="Module"
+      >Induction.</a
+      ><a name="794" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#409" class="Module"
+      >NonAcc.</a
+      ><a name="801" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#416" class="Module"
+      >WF-I.</a
+      ><a name="806" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#841" class="Module"
+      >WFInd</a
+      ><a name="811"
+      >
+
+</a
+      ><a name="813" class="Keyword"
+      >open</a
+      ><a name="817"
+      > </a
+      ><a name="818" class="Keyword"
+      >import</a
+      ><a name="824"
+      > </a
+      ><a name="825" href="FOTC.Program.Division.Division.html#1" class="Module"
+      >FOTC.Program.Division.Division</a
+      ><a name="855"
+      >
+</a
+      ><a name="856" class="Keyword"
+      >open</a
+      ><a name="860"
+      > </a
+      ><a name="861" class="Keyword"
+      >import</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="FOTC.Program.Division.ResultI.html#1" class="Module"
+      >FOTC.Program.Division.ResultI</a
+      ><a name="897"
+      >
+</a
+      ><a name="898" class="Keyword"
+      >open</a
+      ><a name="902"
+      > </a
+      ><a name="903" class="Keyword"
+      >import</a
+      ><a name="909"
+      > </a
+      ><a name="910" href="FOTC.Program.Division.Specification.html#1" class="Module"
+      >FOTC.Program.Division.Specification</a
+      ><a name="945"
+      >
+</a
+      ><a name="946" class="Keyword"
+      >open</a
+      ><a name="950"
+      > </a
+      ><a name="951" class="Keyword"
+      >import</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="FOTC.Program.Division.TotalityI.html#1" class="Module"
+      >FOTC.Program.Division.TotalityI</a
+      ><a name="989"
+      >
+
+</a
+      ><a name="991" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1069"
+      >
+</a
+      ><a name="1070" class="Comment"
+      >-- The division program is correct when the dividend is less than the</a
+      ><a name="1139"
+      >
+</a
+      ><a name="1140" class="Comment"
+      >-- divisor.</a
+      ><a name="1151"
+      >
+</a
+      ><a name="1152" href="FOTC.Program.Division.CorrectnessProofI.html#1152" class="Function"
+      >div-x&lt;y-correct</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >:</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" class="Symbol"
+      >&#8704;</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" class="Symbol"
+      >{</a
+      ><a name="1173" href="FOTC.Program.Division.CorrectnessProofI.html#1173" class="Bound"
+      >i</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" href="FOTC.Program.Division.CorrectnessProofI.html#1175" class="Bound"
+      >j</a
+      ><a name="1176" class="Symbol"
+      >}</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" class="Symbol"
+      >&#8594;</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="FOTC.Program.Division.CorrectnessProofI.html#1173" class="Bound"
+      >i</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >&#8594;</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1187"
+      > </a
+      ><a name="1188" href="FOTC.Program.Division.CorrectnessProofI.html#1175" class="Bound"
+      >j</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" class="Symbol"
+      >&#8594;</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="FOTC.Program.Division.CorrectnessProofI.html#1173" class="Bound"
+      >i</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" href="FOTC.Program.Division.CorrectnessProofI.html#1175" class="Bound"
+      >j</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" class="Symbol"
+      >&#8594;</a
+      ><a name="1199"
+      > </a
+      ><a name="1200" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" href="FOTC.Program.Division.CorrectnessProofI.html#1173" class="Bound"
+      >i</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="FOTC.Program.Division.CorrectnessProofI.html#1175" class="Bound"
+      >j</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" class="Symbol"
+      >(</a
+      ><a name="1213" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="1216"
+      > </a
+      ><a name="1217" href="FOTC.Program.Division.CorrectnessProofI.html#1173" class="Bound"
+      >i</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="FOTC.Program.Division.CorrectnessProofI.html#1175" class="Bound"
+      >j</a
+      ><a name="1220" class="Symbol"
+      >)</a
+      ><a name="1221"
+      >
+</a
+      ><a name="1222" href="FOTC.Program.Division.CorrectnessProofI.html#1152" class="Function"
+      >div-x&lt;y-correct</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOTC.Program.Division.CorrectnessProofI.html#1238" class="Bound"
+      >Ni</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="FOTC.Program.Division.CorrectnessProofI.html#1241" class="Bound"
+      >Nj</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" href="FOTC.Program.Division.CorrectnessProofI.html#1244" class="Bound"
+      >i&lt;j</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" class="Symbol"
+      >=</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" href="FOTC.Program.Division.TotalityI.html#796" class="Function"
+      >div-x&lt;y-N</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" href="FOTC.Program.Division.CorrectnessProofI.html#1244" class="Bound"
+      >i&lt;j</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" href="FOTC.Program.Division.ResultI.html#1236" class="Function"
+      >div-x&lt;y-resultCorrect</a
+      ><a name="1287"
+      > </a
+      ><a name="1288" href="FOTC.Program.Division.CorrectnessProofI.html#1238" class="Bound"
+      >Ni</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" href="FOTC.Program.Division.CorrectnessProofI.html#1241" class="Bound"
+      >Nj</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="FOTC.Program.Division.CorrectnessProofI.html#1244" class="Bound"
+      >i&lt;j</a
+      ><a name="1297"
+      >
+
+</a
+      ><a name="1299" class="Comment"
+      >-- The division program is correct when the dividend is greater or</a
+      ><a name="1365"
+      >
+</a
+      ><a name="1366" class="Comment"
+      >-- equal than the divisor.</a
+      ><a name="1392"
+      >
+</a
+      ><a name="1393" href="FOTC.Program.Division.CorrectnessProofI.html#1393" class="Function"
+      >div-x&#8814;y-correct</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" class="Symbol"
+      >:</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" class="Symbol"
+      >&#8704;</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" class="Symbol"
+      >{</a
+      ><a name="1414" href="FOTC.Program.Division.CorrectnessProofI.html#1414" class="Bound"
+      >i</a
+      ><a name="1415"
+      > </a
+      ><a name="1416" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1417" class="Symbol"
+      >}</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" class="Symbol"
+      >&#8594;</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1422"
+      > </a
+      ><a name="1423" href="FOTC.Program.Division.CorrectnessProofI.html#1414" class="Bound"
+      >i</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" class="Symbol"
+      >&#8594;</a
+      ><a name="1426"
+      > </a
+      ><a name="1427" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" class="Symbol"
+      >&#8594;</a
+      ><a name="1432"
+      >
+                  </a
+      ><a name="1451" class="Symbol"
+      >(&#8704;</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" class="Symbol"
+      >{</a
+      ><a name="1455" href="FOTC.Program.Division.CorrectnessProofI.html#1455" class="Bound"
+      >i'</a
+      ><a name="1457" class="Symbol"
+      >}</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" class="Symbol"
+      >&#8594;</a
+      ><a name="1460"
+      > </a
+      ><a name="1461" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" href="FOTC.Program.Division.CorrectnessProofI.html#1455" class="Bound"
+      >i'</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Symbol"
+      >&#8594;</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" href="FOTC.Program.Division.CorrectnessProofI.html#1455" class="Bound"
+      >i'</a
+      ><a name="1470"
+      > </a
+      ><a name="1471" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1472"
+      > </a
+      ><a name="1473" href="FOTC.Program.Division.CorrectnessProofI.html#1414" class="Bound"
+      >i</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" class="Symbol"
+      >&#8594;</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" href="FOTC.Program.Division.CorrectnessProofI.html#1455" class="Bound"
+      >i'</a
+      ><a name="1487"
+      > </a
+      ><a name="1488" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" class="Symbol"
+      >(</a
+      ><a name="1491" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="1494"
+      > </a
+      ><a name="1495" href="FOTC.Program.Division.CorrectnessProofI.html#1455" class="Bound"
+      >i'</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1499" class="Symbol"
+      >))</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" class="Symbol"
+      >&#8594;</a
+      ><a name="1503"
+      >
+                  </a
+      ><a name="1522" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1530"
+      > </a
+      ><a name="1531" class="Symbol"
+      >&#8594;</a
+      ><a name="1532"
+      >
+                  </a
+      ><a name="1551" href="FOTC.Program.Division.CorrectnessProofI.html#1414" class="Bound"
+      >i</a
+      ><a name="1552"
+      > </a
+      ><a name="1553" href="FOTC.Data.Nat.Inequalities.html#1196" class="Function Operator"
+      >&#8814;</a
+      ><a name="1554"
+      > </a
+      ><a name="1555" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1556"
+      > </a
+      ><a name="1557" class="Symbol"
+      >&#8594;</a
+      ><a name="1558"
+      >
+                  </a
+      ><a name="1577" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" href="FOTC.Program.Division.CorrectnessProofI.html#1414" class="Bound"
+      >i</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1588"
+      > </a
+      ><a name="1589" class="Symbol"
+      >(</a
+      ><a name="1590" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" href="FOTC.Program.Division.CorrectnessProofI.html#1414" class="Bound"
+      >i</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" href="FOTC.Program.Division.CorrectnessProofI.html#1416" class="Bound"
+      >j</a
+      ><a name="1597" class="Symbol"
+      >)</a
+      ><a name="1598"
+      >
+</a
+      ><a name="1599" href="FOTC.Program.Division.CorrectnessProofI.html#1393" class="Function"
+      >div-x&#8814;y-correct</a
+      ><a name="1614"
+      > </a
+      ><a name="1615" class="Symbol"
+      >{</a
+      ><a name="1616" href="FOTC.Program.Division.CorrectnessProofI.html#1616" class="Bound"
+      >i</a
+      ><a name="1617" class="Symbol"
+      >}</a
+      ><a name="1618"
+      > </a
+      ><a name="1619" class="Symbol"
+      >{</a
+      ><a name="1620" href="FOTC.Program.Division.CorrectnessProofI.html#1620" class="Bound"
+      >j</a
+      ><a name="1621" class="Symbol"
+      >}</a
+      ><a name="1622"
+      > </a
+      ><a name="1623" href="FOTC.Program.Division.CorrectnessProofI.html#1623" class="Bound"
+      >Ni</a
+      ><a name="1625"
+      > </a
+      ><a name="1626" href="FOTC.Program.Division.CorrectnessProofI.html#1626" class="Bound"
+      >Nj</a
+      ><a name="1628"
+      > </a
+      ><a name="1629" href="FOTC.Program.Division.CorrectnessProofI.html#1629" class="Bound"
+      >ah</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" href="FOTC.Program.Division.CorrectnessProofI.html#1632" class="Bound"
+      >j&gt;0</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="FOTC.Program.Division.CorrectnessProofI.html#1636" class="Bound"
+      >i&#8814;j</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" class="Symbol"
+      >=</a
+      ><a name="1641"
+      >
+  </a
+      ><a name="1644" href="FOTC.Program.Division.TotalityI.html#1142" class="Function"
+      >div-x&#8814;y-N</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="FOTC.Program.Division.CorrectnessProofI.html#1749" class="Function"
+      >ih</a
+      ><a name="1656"
+      > </a
+      ><a name="1657" href="FOTC.Program.Division.CorrectnessProofI.html#1636" class="Bound"
+      >i&#8814;j</a
+      ><a name="1660"
+      > </a
+      ><a name="1661" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1662"
+      > </a
+      ><a name="1663" href="FOTC.Program.Division.ResultI.html#2557" class="Function"
+      >div-x&#8814;y-resultCorrect</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" href="FOTC.Program.Division.CorrectnessProofI.html#1623" class="Bound"
+      >Ni</a
+      ><a name="1687"
+      > </a
+      ><a name="1688" href="FOTC.Program.Division.CorrectnessProofI.html#1626" class="Bound"
+      >Nj</a
+      ><a name="1690"
+      > </a
+      ><a name="1691" href="FOTC.Program.Division.CorrectnessProofI.html#1749" class="Function"
+      >ih</a
+      ><a name="1693"
+      > </a
+      ><a name="1694" href="FOTC.Program.Division.CorrectnessProofI.html#1636" class="Bound"
+      >i&#8814;j</a
+      ><a name="1697"
+      >
+
+  </a
+      ><a name="1701" class="Keyword"
+      >where</a
+      ><a name="1706"
+      >
+  </a
+      ><a name="1709" class="Comment"
+      >-- The inductive hypothesis on i &#8760; j.</a
+      ><a name="1746"
+      >
+  </a
+      ><a name="1749" href="FOTC.Program.Division.CorrectnessProofI.html#1749" class="Function"
+      >ih</a
+      ><a name="1751"
+      > </a
+      ><a name="1752" class="Symbol"
+      >:</a
+      ><a name="1753"
+      > </a
+      ><a name="1754" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" class="Symbol"
+      >(</a
+      ><a name="1763" href="FOTC.Program.Division.CorrectnessProofI.html#1616" class="Bound"
+      >i</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" href="FOTC.Program.Division.CorrectnessProofI.html#1620" class="Bound"
+      >j</a
+      ><a name="1768" class="Symbol"
+      >)</a
+      ><a name="1769"
+      > </a
+      ><a name="1770" href="FOTC.Program.Division.CorrectnessProofI.html#1620" class="Bound"
+      >j</a
+      ><a name="1771"
+      > </a
+      ><a name="1772" class="Symbol"
+      >(</a
+      ><a name="1773" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >(</a
+      ><a name="1778" href="FOTC.Program.Division.CorrectnessProofI.html#1616" class="Bound"
+      >i</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1781"
+      > </a
+      ><a name="1782" href="FOTC.Program.Division.CorrectnessProofI.html#1620" class="Bound"
+      >j</a
+      ><a name="1783" class="Symbol"
+      >)</a
+      ><a name="1784"
+      > </a
+      ><a name="1785" href="FOTC.Program.Division.CorrectnessProofI.html#1620" class="Bound"
+      >j</a
+      ><a name="1786" class="Symbol"
+      >)</a
+      ><a name="1787"
+      >
+  </a
+      ><a name="1790" href="FOTC.Program.Division.CorrectnessProofI.html#1749" class="Function"
+      >ih</a
+      ><a name="1792"
+      > </a
+      ><a name="1793" class="Symbol"
+      >=</a
+      ><a name="1794"
+      > </a
+      ><a name="1795" href="FOTC.Program.Division.CorrectnessProofI.html#1629" class="Bound"
+      >ah</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" class="Symbol"
+      >{</a
+      ><a name="1799" href="FOTC.Program.Division.CorrectnessProofI.html#1616" class="Bound"
+      >i</a
+      ><a name="1800"
+      > </a
+      ><a name="1801" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1802"
+      > </a
+      ><a name="1803" href="FOTC.Program.Division.CorrectnessProofI.html#1620" class="Bound"
+      >j</a
+      ><a name="1804" class="Symbol"
+      >}</a
+      ><a name="1805"
+      >
+          </a
+      ><a name="1816" class="Symbol"
+      >(</a
+      ><a name="1817" href="FOTC.Data.Nat.PropertiesI.html#1936" class="Function"
+      >&#8760;-N</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" href="FOTC.Program.Division.CorrectnessProofI.html#1623" class="Bound"
+      >Ni</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" href="FOTC.Program.Division.CorrectnessProofI.html#1626" class="Bound"
+      >Nj</a
+      ><a name="1826" class="Symbol"
+      >)</a
+      ><a name="1827"
+      >
+          </a
+      ><a name="1838" class="Symbol"
+      >(</a
+      ><a name="1839" href="FOTC.Data.Nat.Inequalities.PropertiesI.html#12003" class="Function"
+      >x&#8805;y&#8594;y&gt;0&#8594;x&#8760;y&lt;x</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" href="FOTC.Program.Division.CorrectnessProofI.html#1623" class="Bound"
+      >Ni</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="FOTC.Program.Division.CorrectnessProofI.html#1626" class="Bound"
+      >Nj</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" class="Symbol"
+      >(</a
+      ><a name="1860" href="FOTC.Data.Nat.Inequalities.PropertiesI.html#3531" class="Function"
+      >x&#8814;y&#8594;x&#8805;y</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="FOTC.Program.Division.CorrectnessProofI.html#1623" class="Bound"
+      >Ni</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" href="FOTC.Program.Division.CorrectnessProofI.html#1626" class="Bound"
+      >Nj</a
+      ><a name="1873"
+      > </a
+      ><a name="1874" href="FOTC.Program.Division.CorrectnessProofI.html#1636" class="Bound"
+      >i&#8814;j</a
+      ><a name="1877" class="Symbol"
+      >)</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="FOTC.Program.Division.CorrectnessProofI.html#1632" class="Bound"
+      >j&gt;0</a
+      ><a name="1882" class="Symbol"
+      >)</a
+      ><a name="1883"
+      >
+
+</a
+      ><a name="1885" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1963"
+      >
+</a
+      ><a name="1964" class="Comment"
+      >-- The division program is correct.</a
+      ><a name="1999"
+      >
+
+</a
+      ><a name="2001" class="Comment"
+      >-- We do the well-founded induction on i and we keep j fixed.</a
+      ><a name="2062"
+      >
+</a
+      ><a name="2063" href="FOTC.Program.Division.CorrectnessProofI.html#2063" class="Function"
+      >divCorrect</a
+      ><a name="2073"
+      > </a
+      ><a name="2074" class="Symbol"
+      >:</a
+      ><a name="2075"
+      > </a
+      ><a name="2076" class="Symbol"
+      >&#8704;</a
+      ><a name="2077"
+      > </a
+      ><a name="2078" class="Symbol"
+      >{</a
+      ><a name="2079" href="FOTC.Program.Division.CorrectnessProofI.html#2079" class="Bound"
+      >i</a
+      ><a name="2080"
+      > </a
+      ><a name="2081" href="FOTC.Program.Division.CorrectnessProofI.html#2081" class="Bound"
+      >j</a
+      ><a name="2082" class="Symbol"
+      >}</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" class="Symbol"
+      >&#8594;</a
+      ><a name="2085"
+      > </a
+      ><a name="2086" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" href="FOTC.Program.Division.CorrectnessProofI.html#2079" class="Bound"
+      >i</a
+      ><a name="2089"
+      > </a
+      ><a name="2090" class="Symbol"
+      >&#8594;</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="FOTC.Program.Division.CorrectnessProofI.html#2081" class="Bound"
+      >j</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" class="Symbol"
+      >&#8594;</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" href="FOTC.Program.Division.CorrectnessProofI.html#2081" class="Bound"
+      >j</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" class="Symbol"
+      >&#8594;</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="2116"
+      > </a
+      ><a name="2117" href="FOTC.Program.Division.CorrectnessProofI.html#2079" class="Bound"
+      >i</a
+      ><a name="2118"
+      > </a
+      ><a name="2119" href="FOTC.Program.Division.CorrectnessProofI.html#2081" class="Bound"
+      >j</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" class="Symbol"
+      >(</a
+      ><a name="2122" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="2125"
+      > </a
+      ><a name="2126" href="FOTC.Program.Division.CorrectnessProofI.html#2079" class="Bound"
+      >i</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" href="FOTC.Program.Division.CorrectnessProofI.html#2081" class="Bound"
+      >j</a
+      ><a name="2129" class="Symbol"
+      >)</a
+      ><a name="2130"
+      >
+</a
+      ><a name="2131" href="FOTC.Program.Division.CorrectnessProofI.html#2063" class="Function"
+      >divCorrect</a
+      ><a name="2141"
+      > </a
+      ><a name="2142" class="Symbol"
+      >{</a
+      ><a name="2143" class="Argument"
+      >j</a
+      ><a name="2144"
+      > </a
+      ><a name="2145" class="Symbol"
+      >=</a
+      ><a name="2146"
+      > </a
+      ><a name="2147" href="FOTC.Program.Division.CorrectnessProofI.html#2147" class="Bound"
+      >j</a
+      ><a name="2148" class="Symbol"
+      >}</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="FOTC.Program.Division.CorrectnessProofI.html#2150" class="Bound"
+      >Ni</a
+      ><a name="2152"
+      > </a
+      ><a name="2153" href="FOTC.Program.Division.CorrectnessProofI.html#2153" class="Bound"
+      >Nj</a
+      ><a name="2155"
+      > </a
+      ><a name="2156" href="FOTC.Program.Division.CorrectnessProofI.html#2156" class="Bound"
+      >j&gt;0</a
+      ><a name="2159"
+      > </a
+      ><a name="2160" class="Symbol"
+      >=</a
+      ><a name="2161"
+      > </a
+      ><a name="2162" href="FOTC.Data.Nat.Induction.NonAcc.WF-I.html#855" class="Function"
+      >&lt;-wfind</a
+      ><a name="2169"
+      > </a
+      ><a name="2170" href="FOTC.Program.Division.CorrectnessProofI.html#2188" class="Function"
+      >A</a
+      ><a name="2171"
+      > </a
+      ><a name="2172" href="FOTC.Program.Division.CorrectnessProofI.html#2385" class="Function"
+      >ih</a
+      ><a name="2174"
+      > </a
+      ><a name="2175" href="FOTC.Program.Division.CorrectnessProofI.html#2150" class="Bound"
+      >Ni</a
+      ><a name="2177"
+      >
+  </a
+      ><a name="2180" class="Keyword"
+      >where</a
+      ><a name="2185"
+      >
+  </a
+      ><a name="2188" href="FOTC.Program.Division.CorrectnessProofI.html#2188" class="Function"
+      >A</a
+      ><a name="2189"
+      > </a
+      ><a name="2190" class="Symbol"
+      >:</a
+      ><a name="2191"
+      > </a
+      ><a name="2192" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2193"
+      > </a
+      ><a name="2194" class="Symbol"
+      >&#8594;</a
+      ><a name="2195"
+      > </a
+      ><a name="2196" class="PrimitiveType"
+      >Set</a
+      ><a name="2199"
+      >
+  </a
+      ><a name="2202" href="FOTC.Program.Division.CorrectnessProofI.html#2188" class="Function"
+      >A</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" href="FOTC.Program.Division.CorrectnessProofI.html#2204" class="Bound"
+      >d</a
+      ><a name="2205"
+      > </a
+      ><a name="2206" class="Symbol"
+      >=</a
+      ><a name="2207"
+      > </a
+      ><a name="2208" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="2215"
+      > </a
+      ><a name="2216" href="FOTC.Program.Division.CorrectnessProofI.html#2204" class="Bound"
+      >d</a
+      ><a name="2217"
+      > </a
+      ><a name="2218" href="FOTC.Program.Division.CorrectnessProofI.html#2147" class="Bound"
+      >j</a
+      ><a name="2219"
+      > </a
+      ><a name="2220" class="Symbol"
+      >(</a
+      ><a name="2221" href="FOTC.Program.Division.Division.html#968" class="Postulate"
+      >div</a
+      ><a name="2224"
+      > </a
+      ><a name="2225" href="FOTC.Program.Division.CorrectnessProofI.html#2204" class="Bound"
+      >d</a
+      ><a name="2226"
+      > </a
+      ><a name="2227" href="FOTC.Program.Division.CorrectnessProofI.html#2147" class="Bound"
+      >j</a
+      ><a name="2228" class="Symbol"
+      >)</a
+      ><a name="2229"
+      >
+
+  </a
+      ><a name="2233" class="Comment"
+      >-- The inductive step doesn't use the variable i (nor Ni). To make</a
+      ><a name="2299"
+      >
+  </a
+      ><a name="2302" class="Comment"
+      >-- this clear we write down the inductive step using the variables m</a
+      ><a name="2370"
+      >
+  </a
+      ><a name="2373" class="Comment"
+      >-- and n.</a
+      ><a name="2382"
+      >
+  </a
+      ><a name="2385" href="FOTC.Program.Division.CorrectnessProofI.html#2385" class="Function"
+      >ih</a
+      ><a name="2387"
+      > </a
+      ><a name="2388" class="Symbol"
+      >:</a
+      ><a name="2389"
+      > </a
+      ><a name="2390" class="Symbol"
+      >&#8704;</a
+      ><a name="2391"
+      > </a
+      ><a name="2392" class="Symbol"
+      >{</a
+      ><a name="2393" href="FOTC.Program.Division.CorrectnessProofI.html#2393" class="Bound"
+      >n</a
+      ><a name="2394" class="Symbol"
+      >}</a
+      ><a name="2395"
+      > </a
+      ><a name="2396" class="Symbol"
+      >&#8594;</a
+      ><a name="2397"
+      > </a
+      ><a name="2398" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2399"
+      > </a
+      ><a name="2400" href="FOTC.Program.Division.CorrectnessProofI.html#2393" class="Bound"
+      >n</a
+      ><a name="2401"
+      > </a
+      ><a name="2402" class="Symbol"
+      >&#8594;</a
+      ><a name="2403"
+      > </a
+      ><a name="2404" class="Symbol"
+      >(&#8704;</a
+      ><a name="2406"
+      > </a
+      ><a name="2407" class="Symbol"
+      >{</a
+      ><a name="2408" href="FOTC.Program.Division.CorrectnessProofI.html#2408" class="Bound"
+      >m</a
+      ><a name="2409" class="Symbol"
+      >}</a
+      ><a name="2410"
+      > </a
+      ><a name="2411" class="Symbol"
+      >&#8594;</a
+      ><a name="2412"
+      > </a
+      ><a name="2413" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2414"
+      > </a
+      ><a name="2415" href="FOTC.Program.Division.CorrectnessProofI.html#2408" class="Bound"
+      >m</a
+      ><a name="2416"
+      > </a
+      ><a name="2417" class="Symbol"
+      >&#8594;</a
+      ><a name="2418"
+      > </a
+      ><a name="2419" href="FOTC.Program.Division.CorrectnessProofI.html#2408" class="Bound"
+      >m</a
+      ><a name="2420"
+      > </a
+      ><a name="2421" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="2422"
+      > </a
+      ><a name="2423" href="FOTC.Program.Division.CorrectnessProofI.html#2393" class="Bound"
+      >n</a
+      ><a name="2424"
+      > </a
+      ><a name="2425" class="Symbol"
+      >&#8594;</a
+      ><a name="2426"
+      > </a
+      ><a name="2427" href="FOTC.Program.Division.CorrectnessProofI.html#2188" class="Function"
+      >A</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" href="FOTC.Program.Division.CorrectnessProofI.html#2408" class="Bound"
+      >m</a
+      ><a name="2430" class="Symbol"
+      >)</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" class="Symbol"
+      >&#8594;</a
+      ><a name="2433"
+      > </a
+      ><a name="2434" href="FOTC.Program.Division.CorrectnessProofI.html#2188" class="Function"
+      >A</a
+      ><a name="2435"
+      > </a
+      ><a name="2436" href="FOTC.Program.Division.CorrectnessProofI.html#2393" class="Bound"
+      >n</a
+      ><a name="2437"
+      >
+  </a
+      ><a name="2440" href="FOTC.Program.Division.CorrectnessProofI.html#2385" class="Function"
+      >ih</a
+      ><a name="2442"
+      > </a
+      ><a name="2443" class="Symbol"
+      >{</a
+      ><a name="2444" href="FOTC.Program.Division.CorrectnessProofI.html#2444" class="Bound"
+      >n</a
+      ><a name="2445" class="Symbol"
+      >}</a
+      ><a name="2446"
+      > </a
+      ><a name="2447" href="FOTC.Program.Division.CorrectnessProofI.html#2447" class="Bound"
+      >Nn</a
+      ><a name="2449"
+      > </a
+      ><a name="2450" href="FOTC.Program.Division.CorrectnessProofI.html#2450" class="Bound"
+      >ah</a
+      ><a name="2452"
+      > </a
+      ><a name="2453" class="Symbol"
+      >=</a
+      ><a name="2454"
+      >
+    </a
+      ><a name="2459" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="2463"
+      > </a
+      ><a name="2464" class="Symbol"
+      >(</a
+      ><a name="2465" href="FOTC.Program.Division.CorrectnessProofI.html#1152" class="Function"
+      >div-x&lt;y-correct</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="FOTC.Program.Division.CorrectnessProofI.html#2447" class="Bound"
+      >Nn</a
+      ><a name="2483"
+      > </a
+      ><a name="2484" href="FOTC.Program.Division.CorrectnessProofI.html#2153" class="Bound"
+      >Nj</a
+      ><a name="2486" class="Symbol"
+      >)</a
+      ><a name="2487"
+      > </a
+      ><a name="2488" class="Symbol"
+      >(</a
+      ><a name="2489" href="FOTC.Program.Division.CorrectnessProofI.html#1393" class="Function"
+      >div-x&#8814;y-correct</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" href="FOTC.Program.Division.CorrectnessProofI.html#2447" class="Bound"
+      >Nn</a
+      ><a name="2507"
+      > </a
+      ><a name="2508" href="FOTC.Program.Division.CorrectnessProofI.html#2153" class="Bound"
+      >Nj</a
+      ><a name="2510"
+      > </a
+      ><a name="2511" href="FOTC.Program.Division.CorrectnessProofI.html#2450" class="Bound"
+      >ah</a
+      ><a name="2513"
+      > </a
+      ><a name="2514" href="FOTC.Program.Division.CorrectnessProofI.html#2156" class="Bound"
+      >j&gt;0</a
+      ><a name="2517" class="Symbol"
+      >)</a
+      ><a name="2518"
+      > </a
+      ><a name="2519" class="Symbol"
+      >(</a
+      ><a name="2520" href="FOTC.Data.Nat.Inequalities.PropertiesI.html#4504" class="Function"
+      >x&lt;y&#8744;x&#8814;y</a
+      ><a name="2527"
+      > </a
+      ><a name="2528" href="FOTC.Program.Division.CorrectnessProofI.html#2447" class="Bound"
+      >Nn</a
+      ><a name="2530"
+      > </a
+      ><a name="2531" href="FOTC.Program.Division.CorrectnessProofI.html#2153" class="Bound"
+      >Nj</a
+      ><a name="2533" class="Symbol"
+      >)</a
+      ><a name="2534"
+      >
+
+</a
+      ><a name="2536" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2614"
+      >
+</a
+      ><a name="2615" class="Comment"
+      >-- References</a
+      ><a name="2628"
+      >
+</a
+      ><a name="2629" class="Comment"
+      >--</a
+      ><a name="2631"
+      >
+</a
+      ><a name="2632" class="Comment"
+      >-- Dybjer, Peter (1985). Program Verification in a Logical Theory of</a
+      ><a name="2700"
+      >
+</a
+      ><a name="2701" class="Comment"
+      >-- Constructions. In: Functional Programming Languages and Computer</a
+      ><a name="2768"
+      >
+</a
+      ><a name="2769" class="Comment"
+      >-- Architecture. Ed. by Jouannaud,</a
+      ><a name="2803"
+      >
+</a
+      ><a name="2804" class="Comment"
+      >-- Jean-Pierre. Vol. 201. LNCS. Appears in revised form as Programming</a
+      ><a name="2874"
+      >
+</a
+      ><a name="2875" class="Comment"
+      >-- Methodology Group Report 26, University of Gothenburg and Chalmers</a
+      ><a name="2944"
+      >
+</a
+      ><a name="2945" class="Comment"
+      >-- University of Technology, June 1986. Springer, pp. 334&#8211;349.</a
+      ><a name="3007"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

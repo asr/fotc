@@ -1,0 +1,1219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Data.Nat.Inequalities</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Inequalities on partial natural numbers</a
+      ><a name="122"
+      >
+</a
+      ><a name="123" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="201"
+      >
+
+</a
+      ><a name="203" class="Symbol"
+      >{-#</a
+      ><a name="206"
+      > </a
+      ><a name="207" class="Keyword"
+      >OPTIONS</a
+      ><a name="214"
+      > --exact-split              </a
+      ><a name="242" class="Symbol"
+      >#-}</a
+      ><a name="245"
+      >
+</a
+      ><a name="246" class="Symbol"
+      >{-#</a
+      ><a name="249"
+      > </a
+      ><a name="250" class="Keyword"
+      >OPTIONS</a
+      ><a name="257"
+      > --no-sized-types           </a
+      ><a name="285" class="Symbol"
+      >#-}</a
+      ><a name="288"
+      >
+</a
+      ><a name="289" class="Symbol"
+      >{-#</a
+      ><a name="292"
+      > </a
+      ><a name="293" class="Keyword"
+      >OPTIONS</a
+      ><a name="300"
+      > --no-universe-polymorphism </a
+      ><a name="328" class="Symbol"
+      >#-}</a
+      ><a name="331"
+      >
+</a
+      ><a name="332" class="Symbol"
+      >{-#</a
+      ><a name="335"
+      > </a
+      ><a name="336" class="Keyword"
+      >OPTIONS</a
+      ><a name="343"
+      > --without-K                </a
+      ><a name="371" class="Symbol"
+      >#-}</a
+      ><a name="374"
+      >
+
+</a
+      ><a name="376" class="Keyword"
+      >module</a
+      ><a name="382"
+      > </a
+      ><a name="383" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="412"
+      > </a
+      ><a name="413" class="Keyword"
+      >where</a
+      ><a name="418"
+      >
+
+</a
+      ><a name="420" class="Keyword"
+      >open</a
+      ><a name="424"
+      > </a
+      ><a name="425" class="Keyword"
+      >import</a
+      ><a name="431"
+      > </a
+      ><a name="432" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="444"
+      >
+
+</a
+      ><a name="446" class="Keyword"
+      >infix</a
+      ><a name="451"
+      > </a
+      ><a name="452" class="Number"
+      >4</a
+      ><a name="453"
+      > _&lt;_ _&#8814;_ _&gt;_ _&#8815;_ _&#8804;_ _&#8816;_ _&#8805;_ _&#8817;_
+
+</a
+      ><a name="487" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="565"
+      >
+</a
+      ><a name="566" class="Comment"
+      >-- The function terms.</a
+      ><a name="588"
+      >
+
+</a
+      ><a name="590" href="LTC-PCF.Data.Nat.Inequalities.html#590" class="Function"
+      >lth</a
+      ><a name="593"
+      > </a
+      ><a name="594" class="Symbol"
+      >:</a
+      ><a name="595"
+      > </a
+      ><a name="596" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="597"
+      > </a
+      ><a name="598" class="Symbol"
+      >&#8594;</a
+      ><a name="599"
+      > </a
+      ><a name="600" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="601"
+      >
+</a
+      ><a name="602" href="LTC-PCF.Data.Nat.Inequalities.html#590" class="Function"
+      >lth</a
+      ><a name="605"
+      > </a
+      ><a name="606" href="LTC-PCF.Data.Nat.Inequalities.html#606" class="Bound"
+      >lt</a
+      ><a name="608"
+      > </a
+      ><a name="609" class="Symbol"
+      >=</a
+      ><a name="610"
+      > </a
+      ><a name="611" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Symbol"
+      >(&#955;</a
+      ><a name="617"
+      > </a
+      ><a name="618" href="LTC-PCF.Data.Nat.Inequalities.html#618" class="Bound"
+      >m</a
+      ><a name="619"
+      > </a
+      ><a name="620" class="Symbol"
+      >&#8594;</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="625"
+      > </a
+      ><a name="626" class="Symbol"
+      >(&#955;</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="LTC-PCF.Data.Nat.Inequalities.html#629" class="Bound"
+      >n</a
+      ><a name="630"
+      > </a
+      ><a name="631" class="Symbol"
+      >&#8594;</a
+      ><a name="632"
+      >
+           </a
+      ><a name="644" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="646"
+      > </a
+      ><a name="647" class="Symbol"
+      >(</a
+      ><a name="648" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="655"
+      > </a
+      ><a name="656" href="LTC-PCF.Data.Nat.Inequalities.html#629" class="Bound"
+      >n</a
+      ><a name="657" class="Symbol"
+      >)</a
+      ><a name="658"
+      >
+             </a
+      ><a name="672" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="676"
+      > </a
+      ><a name="677" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="682"
+      >
+             </a
+      ><a name="696" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="700"
+      > </a
+      ><a name="701" class="Symbol"
+      >(</a
+      ><a name="702" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Symbol"
+      >(</a
+      ><a name="706" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="LTC-PCF.Data.Nat.Inequalities.html#618" class="Bound"
+      >m</a
+      ><a name="715" class="Symbol"
+      >)</a
+      ><a name="716"
+      > </a
+      ><a name="717" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="721"
+      > </a
+      ><a name="722" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="731"
+      > </a
+      ><a name="732" class="Symbol"
+      >(</a
+      ><a name="733" href="LTC-PCF.Data.Nat.Inequalities.html#606" class="Bound"
+      >lt</a
+      ><a name="735"
+      > </a
+      ><a name="736" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="743"
+      > </a
+      ><a name="744" href="LTC-PCF.Data.Nat.Inequalities.html#618" class="Bound"
+      >m</a
+      ><a name="745"
+      > </a
+      ><a name="746" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="753"
+      > </a
+      ><a name="754" href="LTC-PCF.Data.Nat.Inequalities.html#629" class="Bound"
+      >n</a
+      ><a name="755" class="Symbol"
+      >))))</a
+      ><a name="759"
+      >
+</a
+      ><a name="760" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="762"
+      > </a
+      ><a name="763" class="Symbol"
+      >:</a
+      ><a name="764"
+      > </a
+      ><a name="765" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Symbol"
+      >&#8594;</a
+      ><a name="768"
+      > </a
+      ><a name="769" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="770"
+      > </a
+      ><a name="771" class="Symbol"
+      >&#8594;</a
+      ><a name="772"
+      > </a
+      ><a name="773" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="774"
+      >
+</a
+      ><a name="775" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="777"
+      > </a
+      ><a name="778" href="LTC-PCF.Data.Nat.Inequalities.html#778" class="Bound"
+      >m</a
+      ><a name="779"
+      > </a
+      ><a name="780" href="LTC-PCF.Data.Nat.Inequalities.html#780" class="Bound"
+      >n</a
+      ><a name="781"
+      > </a
+      ><a name="782" class="Symbol"
+      >=</a
+      ><a name="783"
+      > </a
+      ><a name="784" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="LTC-PCF.Data.Nat.Inequalities.html#590" class="Function"
+      >lth</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="793"
+      > </a
+      ><a name="794" href="LTC-PCF.Data.Nat.Inequalities.html#778" class="Bound"
+      >m</a
+      ><a name="795"
+      > </a
+      ><a name="796" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="797"
+      > </a
+      ><a name="798" href="LTC-PCF.Data.Nat.Inequalities.html#780" class="Bound"
+      >n</a
+      ><a name="799"
+      >
+
+</a
+      ><a name="801" href="LTC-PCF.Data.Nat.Inequalities.html#801" class="Function"
+      >le</a
+      ><a name="803"
+      > </a
+      ><a name="804" class="Symbol"
+      >:</a
+      ><a name="805"
+      > </a
+      ><a name="806" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="807"
+      > </a
+      ><a name="808" class="Symbol"
+      >&#8594;</a
+      ><a name="809"
+      > </a
+      ><a name="810" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Symbol"
+      >&#8594;</a
+      ><a name="813"
+      > </a
+      ><a name="814" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="815"
+      >
+</a
+      ><a name="816" href="LTC-PCF.Data.Nat.Inequalities.html#801" class="Function"
+      >le</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="LTC-PCF.Data.Nat.Inequalities.html#819" class="Bound"
+      >m</a
+      ><a name="820"
+      > </a
+      ><a name="821" href="LTC-PCF.Data.Nat.Inequalities.html#821" class="Bound"
+      >n</a
+      ><a name="822"
+      > </a
+      ><a name="823" class="Symbol"
+      >=</a
+      ><a name="824"
+      > </a
+      ><a name="825" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="827"
+      > </a
+      ><a name="828" href="LTC-PCF.Data.Nat.Inequalities.html#819" class="Bound"
+      >m</a
+      ><a name="829"
+      > </a
+      ><a name="830" class="Symbol"
+      >(</a
+      ><a name="831" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="836"
+      > </a
+      ><a name="837" href="LTC-PCF.Data.Nat.Inequalities.html#821" class="Bound"
+      >n</a
+      ><a name="838" class="Symbol"
+      >)</a
+      ><a name="839"
+      >
+
+</a
+      ><a name="841" href="LTC-PCF.Data.Nat.Inequalities.html#841" class="Function"
+      >gt</a
+      ><a name="843"
+      > </a
+      ><a name="844" class="Symbol"
+      >:</a
+      ><a name="845"
+      > </a
+      ><a name="846" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="847"
+      > </a
+      ><a name="848" class="Symbol"
+      >&#8594;</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="851"
+      > </a
+      ><a name="852" class="Symbol"
+      >&#8594;</a
+      ><a name="853"
+      > </a
+      ><a name="854" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="855"
+      >
+</a
+      ><a name="856" href="LTC-PCF.Data.Nat.Inequalities.html#841" class="Function"
+      >gt</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="LTC-PCF.Data.Nat.Inequalities.html#859" class="Bound"
+      >m</a
+      ><a name="860"
+      > </a
+      ><a name="861" href="LTC-PCF.Data.Nat.Inequalities.html#861" class="Bound"
+      >n</a
+      ><a name="862"
+      > </a
+      ><a name="863" class="Symbol"
+      >=</a
+      ><a name="864"
+      > </a
+      ><a name="865" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="LTC-PCF.Data.Nat.Inequalities.html#861" class="Bound"
+      >n</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="LTC-PCF.Data.Nat.Inequalities.html#859" class="Bound"
+      >m</a
+      ><a name="871"
+      >
+
+</a
+      ><a name="873" href="LTC-PCF.Data.Nat.Inequalities.html#873" class="Function"
+      >ge</a
+      ><a name="875"
+      > </a
+      ><a name="876" class="Symbol"
+      >:</a
+      ><a name="877"
+      > </a
+      ><a name="878" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="879"
+      > </a
+      ><a name="880" class="Symbol"
+      >&#8594;</a
+      ><a name="881"
+      > </a
+      ><a name="882" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="883"
+      > </a
+      ><a name="884" class="Symbol"
+      >&#8594;</a
+      ><a name="885"
+      > </a
+      ><a name="886" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="887"
+      >
+</a
+      ><a name="888" href="LTC-PCF.Data.Nat.Inequalities.html#873" class="Function"
+      >ge</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="LTC-PCF.Data.Nat.Inequalities.html#891" class="Bound"
+      >m</a
+      ><a name="892"
+      > </a
+      ><a name="893" href="LTC-PCF.Data.Nat.Inequalities.html#893" class="Bound"
+      >n</a
+      ><a name="894"
+      > </a
+      ><a name="895" class="Symbol"
+      >=</a
+      ><a name="896"
+      > </a
+      ><a name="897" href="LTC-PCF.Data.Nat.Inequalities.html#801" class="Function"
+      >le</a
+      ><a name="899"
+      > </a
+      ><a name="900" href="LTC-PCF.Data.Nat.Inequalities.html#893" class="Bound"
+      >n</a
+      ><a name="901"
+      > </a
+      ><a name="902" href="LTC-PCF.Data.Nat.Inequalities.html#891" class="Bound"
+      >m</a
+      ><a name="903"
+      >
+
+</a
+      ><a name="905" class="Comment"
+      >------------------------------------------------------------------------</a
+      ><a name="977"
+      >
+</a
+      ><a name="978" class="Comment"
+      >-- The relations.</a
+      ><a name="995"
+      >
+
+</a
+      ><a name="997" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >_&lt;_</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" class="Symbol"
+      >:</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" class="Symbol"
+      >&#8594;</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" class="Symbol"
+      >&#8594;</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" class="PrimitiveType"
+      >Set</a
+      ><a name="1014"
+      >
+</a
+      ><a name="1015" href="LTC-PCF.Data.Nat.Inequalities.html#1015" class="Bound"
+      >m</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="LTC-PCF.Data.Nat.Inequalities.html#1019" class="Bound"
+      >n</a
+      ><a name="1020"
+      > </a
+      ><a name="1021" class="Symbol"
+      >=</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" href="LTC-PCF.Data.Nat.Inequalities.html#1015" class="Bound"
+      >m</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" href="LTC-PCF.Data.Nat.Inequalities.html#1019" class="Bound"
+      >n</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="1036"
+      >
+
+</a
+      ><a name="1038" href="LTC-PCF.Data.Nat.Inequalities.html#1038" class="Function Operator"
+      >_&#8814;_</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" class="Symbol"
+      >:</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" class="Symbol"
+      >&#8594;</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" class="Symbol"
+      >&#8594;</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="PrimitiveType"
+      >Set</a
+      ><a name="1055"
+      >
+</a
+      ><a name="1056" href="LTC-PCF.Data.Nat.Inequalities.html#1056" class="Bound"
+      >m</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="LTC-PCF.Data.Nat.Inequalities.html#1038" class="Function Operator"
+      >&#8814;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="LTC-PCF.Data.Nat.Inequalities.html#1060" class="Bound"
+      >n</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" class="Symbol"
+      >=</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="LTC-PCF.Data.Nat.Inequalities.html#1056" class="Bound"
+      >m</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="LTC-PCF.Data.Nat.Inequalities.html#1060" class="Bound"
+      >n</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="1078"
+      >
+
+</a
+      ><a name="1080" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >_&gt;_</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" class="Symbol"
+      >:</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" class="Symbol"
+      >&#8594;</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" class="Symbol"
+      >&#8594;</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" class="PrimitiveType"
+      >Set</a
+      ><a name="1097"
+      >
+</a
+      ><a name="1098" href="LTC-PCF.Data.Nat.Inequalities.html#1098" class="Bound"
+      >m</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" href="LTC-PCF.Data.Nat.Inequalities.html#1102" class="Bound"
+      >n</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" class="Symbol"
+      >=</a
+      ><a name="1105"
+      > </a
+      ><a name="1106" href="LTC-PCF.Data.Nat.Inequalities.html#841" class="Function"
+      >gt</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="LTC-PCF.Data.Nat.Inequalities.html#1098" class="Bound"
+      >m</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="LTC-PCF.Data.Nat.Inequalities.html#1102" class="Bound"
+      >n</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="1119"
+      >
+
+</a
+      ><a name="1121" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >_&#8815;_</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" class="Symbol"
+      >:</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" class="Symbol"
+      >&#8594;</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >&#8594;</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" class="PrimitiveType"
+      >Set</a
+      ><a name="1138"
+      >
+</a
+      ><a name="1139" href="LTC-PCF.Data.Nat.Inequalities.html#1139" class="Bound"
+      >m</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" href="LTC-PCF.Data.Nat.Inequalities.html#1143" class="Bound"
+      >n</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" class="Symbol"
+      >=</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="LTC-PCF.Data.Nat.Inequalities.html#841" class="Function"
+      >gt</a
+      ><a name="1149"
+      > </a
+      ><a name="1150" href="LTC-PCF.Data.Nat.Inequalities.html#1139" class="Bound"
+      >m</a
+      ><a name="1151"
+      > </a
+      ><a name="1152" href="LTC-PCF.Data.Nat.Inequalities.html#1143" class="Bound"
+      >n</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1155"
+      > </a
+      ><a name="1156" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="1161"
+      >
+
+</a
+      ><a name="1163" href="LTC-PCF.Data.Nat.Inequalities.html#1163" class="Function Operator"
+      >_&#8804;_</a
+      ><a name="1166"
+      >  </a
+      ><a name="1168" class="Symbol"
+      >:</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" class="Symbol"
+      >&#8594;</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" class="Symbol"
+      >&#8594;</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" class="PrimitiveType"
+      >Set</a
+      ><a name="1181"
+      >
+</a
+      ><a name="1182" href="LTC-PCF.Data.Nat.Inequalities.html#1182" class="Bound"
+      >m</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" href="LTC-PCF.Data.Nat.Inequalities.html#1163" class="Function Operator"
+      >&#8804;</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="LTC-PCF.Data.Nat.Inequalities.html#1186" class="Bound"
+      >n</a
+      ><a name="1187"
+      > </a
+      ><a name="1188" class="Symbol"
+      >=</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" href="LTC-PCF.Data.Nat.Inequalities.html#801" class="Function"
+      >le</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="LTC-PCF.Data.Nat.Inequalities.html#1182" class="Bound"
+      >m</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="LTC-PCF.Data.Nat.Inequalities.html#1186" class="Bound"
+      >n</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="1203"
+      >
+
+</a
+      ><a name="1205" href="LTC-PCF.Data.Nat.Inequalities.html#1205" class="Function Operator"
+      >_&#8816;_</a
+      ><a name="1208"
+      >  </a
+      ><a name="1210" class="Symbol"
+      >:</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" class="Symbol"
+      >&#8594;</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >&#8594;</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" class="PrimitiveType"
+      >Set</a
+      ><a name="1223"
+      >
+</a
+      ><a name="1224" href="LTC-PCF.Data.Nat.Inequalities.html#1224" class="Bound"
+      >m</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="LTC-PCF.Data.Nat.Inequalities.html#1205" class="Function Operator"
+      >&#8816;</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="LTC-PCF.Data.Nat.Inequalities.html#1228" class="Bound"
+      >n</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" class="Symbol"
+      >=</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" href="LTC-PCF.Data.Nat.Inequalities.html#801" class="Function"
+      >le</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="LTC-PCF.Data.Nat.Inequalities.html#1224" class="Bound"
+      >m</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" href="LTC-PCF.Data.Nat.Inequalities.html#1228" class="Bound"
+      >n</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="1246"
+      >
+
+</a
+      ><a name="1248" href="LTC-PCF.Data.Nat.Inequalities.html#1248" class="Function Operator"
+      >_&#8805;_</a
+      ><a name="1251"
+      > </a
+      ><a name="1252" class="Symbol"
+      >:</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" class="Symbol"
+      >&#8594;</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" class="Symbol"
+      >&#8594;</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" class="PrimitiveType"
+      >Set</a
+      ><a name="1265"
+      >
+</a
+      ><a name="1266" href="LTC-PCF.Data.Nat.Inequalities.html#1266" class="Bound"
+      >m</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" href="LTC-PCF.Data.Nat.Inequalities.html#1248" class="Function Operator"
+      >&#8805;</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" href="LTC-PCF.Data.Nat.Inequalities.html#1270" class="Bound"
+      >n</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" class="Symbol"
+      >=</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="LTC-PCF.Data.Nat.Inequalities.html#873" class="Function"
+      >ge</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" href="LTC-PCF.Data.Nat.Inequalities.html#1266" class="Bound"
+      >m</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="LTC-PCF.Data.Nat.Inequalities.html#1270" class="Bound"
+      >n</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1282"
+      > </a
+      ><a name="1283" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="1287"
+      >
+
+</a
+      ><a name="1289" href="LTC-PCF.Data.Nat.Inequalities.html#1289" class="Function Operator"
+      >_&#8817;_</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" class="Symbol"
+      >:</a
+      ><a name="1294"
+      > </a
+      ><a name="1295" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1296"
+      > </a
+      ><a name="1297" class="Symbol"
+      >&#8594;</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1300"
+      > </a
+      ><a name="1301" class="Symbol"
+      >&#8594;</a
+      ><a name="1302"
+      > </a
+      ><a name="1303" class="PrimitiveType"
+      >Set</a
+      ><a name="1306"
+      >
+</a
+      ><a name="1307" href="LTC-PCF.Data.Nat.Inequalities.html#1307" class="Bound"
+      >m</a
+      ><a name="1308"
+      > </a
+      ><a name="1309" href="LTC-PCF.Data.Nat.Inequalities.html#1289" class="Function Operator"
+      >&#8817;</a
+      ><a name="1310"
+      > </a
+      ><a name="1311" href="LTC-PCF.Data.Nat.Inequalities.html#1311" class="Bound"
+      >n</a
+      ><a name="1312"
+      > </a
+      ><a name="1313" class="Symbol"
+      >=</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" href="LTC-PCF.Data.Nat.Inequalities.html#873" class="Function"
+      >ge</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" href="LTC-PCF.Data.Nat.Inequalities.html#1307" class="Bound"
+      >m</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" href="LTC-PCF.Data.Nat.Inequalities.html#1311" class="Bound"
+      >n</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="1329"
+      >
+
+</a
+      ><a name="1331" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1409"
+      >
+</a
+      ><a name="1410" class="Comment"
+      >-- The lexicographical order.</a
+      ><a name="1439"
+      >
+</a
+      ><a name="1440" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" class="Symbol"
+      >:</a
+      ><a name="1446"
+      > </a
+      ><a name="1447" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1448"
+      > </a
+      ><a name="1449" class="Symbol"
+      >&#8594;</a
+      ><a name="1450"
+      > </a
+      ><a name="1451" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" class="Symbol"
+      >&#8594;</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1456"
+      > </a
+      ><a name="1457" class="Symbol"
+      >&#8594;</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1460"
+      > </a
+      ><a name="1461" class="Symbol"
+      >&#8594;</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" class="PrimitiveType"
+      >Set</a
+      ><a name="1466"
+      >
+</a
+      ><a name="1467" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" href="LTC-PCF.Data.Nat.Inequalities.html#1472" class="Bound"
+      >m</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="LTC-PCF.Data.Nat.Inequalities.html#1474" class="Bound"
+      >n</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" href="LTC-PCF.Data.Nat.Inequalities.html#1476" class="Bound"
+      >m'</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="LTC-PCF.Data.Nat.Inequalities.html#1479" class="Bound"
+      >n'</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" class="Symbol"
+      >=</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" href="LTC-PCF.Data.Nat.Inequalities.html#1472" class="Bound"
+      >m</a
+      ><a name="1485"
+      > </a
+      ><a name="1486" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1487"
+      > </a
+      ><a name="1488" href="LTC-PCF.Data.Nat.Inequalities.html#1476" class="Bound"
+      >m'</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1492"
+      > </a
+      ><a name="1493" href="LTC-PCF.Data.Nat.Inequalities.html#1472" class="Bound"
+      >m</a
+      ><a name="1494"
+      > </a
+      ><a name="1495" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="LTC-PCF.Data.Nat.Inequalities.html#1476" class="Bound"
+      >m'</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="LTC-PCF.Data.Nat.Inequalities.html#1474" class="Bound"
+      >n</a
+      ><a name="1503"
+      > </a
+      ><a name="1504" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" href="LTC-PCF.Data.Nat.Inequalities.html#1479" class="Bound"
+      >n'</a
+      ><a name="1508"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

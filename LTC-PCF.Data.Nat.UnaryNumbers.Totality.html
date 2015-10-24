@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Data.Nat.UnaryNumbers.Totality</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The unary numbers are LTC-PCF total natural numbers</a
+      ><a name="134"
+      >
+</a
+      ><a name="135" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="213"
+      >
+
+</a
+      ><a name="215" class="Symbol"
+      >{-#</a
+      ><a name="218"
+      > </a
+      ><a name="219" class="Keyword"
+      >OPTIONS</a
+      ><a name="226"
+      > --exact-split              </a
+      ><a name="254" class="Symbol"
+      >#-}</a
+      ><a name="257"
+      >
+</a
+      ><a name="258" class="Symbol"
+      >{-#</a
+      ><a name="261"
+      > </a
+      ><a name="262" class="Keyword"
+      >OPTIONS</a
+      ><a name="269"
+      > --no-sized-types           </a
+      ><a name="297" class="Symbol"
+      >#-}</a
+      ><a name="300"
+      >
+</a
+      ><a name="301" class="Symbol"
+      >{-#</a
+      ><a name="304"
+      > </a
+      ><a name="305" class="Keyword"
+      >OPTIONS</a
+      ><a name="312"
+      > --no-universe-polymorphism </a
+      ><a name="340" class="Symbol"
+      >#-}</a
+      ><a name="343"
+      >
+</a
+      ><a name="344" class="Symbol"
+      >{-#</a
+      ><a name="347"
+      > </a
+      ><a name="348" class="Keyword"
+      >OPTIONS</a
+      ><a name="355"
+      > --without-K                </a
+      ><a name="383" class="Symbol"
+      >#-}</a
+      ><a name="386"
+      >
+
+</a
+      ><a name="388" class="Keyword"
+      >module</a
+      ><a name="394"
+      > </a
+      ><a name="395" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#1" class="Module"
+      >LTC-PCF.Data.Nat.UnaryNumbers.Totality</a
+      ><a name="433"
+      > </a
+      ><a name="434" class="Keyword"
+      >where</a
+      ><a name="439"
+      >
+
+</a
+      ><a name="441" class="Keyword"
+      >open</a
+      ><a name="445"
+      > </a
+      ><a name="446" class="Keyword"
+      >import</a
+      ><a name="452"
+      > </a
+      ><a name="453" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="465"
+      >
+</a
+      ><a name="466" class="Keyword"
+      >open</a
+      ><a name="470"
+      > </a
+      ><a name="471" class="Keyword"
+      >import</a
+      ><a name="477"
+      > </a
+      ><a name="478" href="LTC-PCF.Data.Nat.Type.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Type</a
+      ><a name="499"
+      >
+</a
+      ><a name="500" class="Keyword"
+      >open</a
+      ><a name="504"
+      > </a
+      ><a name="505" class="Keyword"
+      >import</a
+      ><a name="511"
+      > </a
+      ><a name="512" href="LTC-PCF.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >LTC-PCF.Data.Nat.UnaryNumbers</a
+      ><a name="541"
+      >
+
+</a
+      ><a name="543" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="621"
+      >
+
+</a
+      ><a name="623" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#623" class="Function"
+      >0-N</a
+      ><a name="626"
+      > </a
+      ><a name="627" class="Symbol"
+      >:</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="LTC-PCF.Data.Nat.UnaryNumbers.html#510" class="Function"
+      >[0]</a
+      ><a name="634"
+      >
+</a
+      ><a name="635" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#623" class="Function"
+      >0-N</a
+      ><a name="638"
+      > </a
+      ><a name="639" class="Symbol"
+      >=</a
+      ><a name="640"
+      > </a
+      ><a name="641" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="646"
+      >
+
+</a
+      ><a name="648" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#648" class="Function"
+      >1-N</a
+      ><a name="651"
+      > </a
+      ><a name="652" class="Symbol"
+      >:</a
+      ><a name="653"
+      > </a
+      ><a name="654" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="655"
+      > </a
+      ><a name="656" href="LTC-PCF.Data.Nat.UnaryNumbers.html#522" class="Function"
+      >[1]</a
+      ><a name="659"
+      >
+</a
+      ><a name="660" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#648" class="Function"
+      >1-N</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Symbol"
+      >=</a
+      ><a name="665"
+      > </a
+      ><a name="666" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#623" class="Function"
+      >0-N</a
+      ><a name="675"
+      >
+
+</a
+      ><a name="677" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#677" class="Function"
+      >2-N</a
+      ><a name="680"
+      > </a
+      ><a name="681" class="Symbol"
+      >:</a
+      ><a name="682"
+      > </a
+      ><a name="683" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="LTC-PCF.Data.Nat.UnaryNumbers.html#539" class="Function"
+      >[2]</a
+      ><a name="688"
+      >
+</a
+      ><a name="689" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#677" class="Function"
+      >2-N</a
+      ><a name="692"
+      > </a
+      ><a name="693" class="Symbol"
+      >=</a
+      ><a name="694"
+      > </a
+      ><a name="695" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="LTC-PCF.Data.Nat.UnaryNumbers.Totality.html#648" class="Function"
+      >1-N</a
+      ><a name="704"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties of the inequalities of unary numbers</a
+      ><a name="130"
+      >
+</a
+      ><a name="131" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="209"
+      >
+
+</a
+      ><a name="211" class="Symbol"
+      >{-#</a
+      ><a name="214"
+      > </a
+      ><a name="215" class="Keyword"
+      >OPTIONS</a
+      ><a name="222"
+      > --exact-split              </a
+      ><a name="250" class="Symbol"
+      >#-}</a
+      ><a name="253"
+      >
+</a
+      ><a name="254" class="Symbol"
+      >{-#</a
+      ><a name="257"
+      > </a
+      ><a name="258" class="Keyword"
+      >OPTIONS</a
+      ><a name="265"
+      > --no-sized-types           </a
+      ><a name="293" class="Symbol"
+      >#-}</a
+      ><a name="296"
+      >
+</a
+      ><a name="297" class="Symbol"
+      >{-#</a
+      ><a name="300"
+      > </a
+      ><a name="301" class="Keyword"
+      >OPTIONS</a
+      ><a name="308"
+      > --no-universe-polymorphism </a
+      ><a name="336" class="Symbol"
+      >#-}</a
+      ><a name="339"
+      >
+</a
+      ><a name="340" class="Symbol"
+      >{-#</a
+      ><a name="343"
+      > </a
+      ><a name="344" class="Keyword"
+      >OPTIONS</a
+      ><a name="351"
+      > --without-K                </a
+      ><a name="379" class="Symbol"
+      >#-}</a
+      ><a name="382"
+      >
+
+</a
+      ><a name="384" class="Keyword"
+      >module</a
+      ><a name="390"
+      > </a
+      ><a name="391" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP</a
+      ><a name="444"
+      > </a
+      ><a name="445" class="Keyword"
+      >where</a
+      ><a name="450"
+      >
+
+</a
+      ><a name="452" class="Keyword"
+      >open</a
+      ><a name="456"
+      > </a
+      ><a name="457" class="Keyword"
+      >import</a
+      ><a name="463"
+      > </a
+      ><a name="464" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="473"
+      >
+</a
+      ><a name="474" class="Keyword"
+      >open</a
+      ><a name="478"
+      > </a
+      ><a name="479" class="Keyword"
+      >import</a
+      ><a name="485"
+      > </a
+      ><a name="486" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="499"
+      >
+</a
+      ><a name="500" class="Keyword"
+      >open</a
+      ><a name="504"
+      > </a
+      ><a name="505" class="Keyword"
+      >import</a
+      ><a name="511"
+      > </a
+      ><a name="512" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="538"
+      >
+</a
+      ><a name="539" class="Keyword"
+      >open</a
+      ><a name="543"
+      > </a
+      ><a name="544" class="Keyword"
+      >import</a
+      ><a name="550"
+      > </a
+      ><a name="551" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="591"
+      >
+</a
+      ><a name="592" class="Keyword"
+      >open</a
+      ><a name="596"
+      > </a
+      ><a name="597" class="Keyword"
+      >import</a
+      ><a name="603"
+      > </a
+      ><a name="604" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="631"
+      >
+</a
+      ><a name="632" class="Keyword"
+      >open</a
+      ><a name="636"
+      > </a
+      ><a name="637" class="Keyword"
+      >import</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="FOTC.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers</a
+      ><a name="670"
+      >
+
+</a
+      ><a name="672" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="750"
+      >
+
+</a
+      ><a name="752" class="Keyword"
+      >postulate</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#762" class="Postulate"
+      >x&lt;x+1</a
+      ><a name="767"
+      > </a
+      ><a name="768" class="Symbol"
+      >:</a
+      ><a name="769"
+      > </a
+      ><a name="770" class="Symbol"
+      >&#8704;</a
+      ><a name="771"
+      > </a
+      ><a name="772" class="Symbol"
+      >{</a
+      ><a name="773" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#773" class="Bound"
+      >n</a
+      ><a name="774" class="Symbol"
+      >}</a
+      ><a name="775"
+      > </a
+      ><a name="776" class="Symbol"
+      >&#8594;</a
+      ><a name="777"
+      > </a
+      ><a name="778" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="779"
+      > </a
+      ><a name="780" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#773" class="Bound"
+      >n</a
+      ><a name="781"
+      > </a
+      ><a name="782" class="Symbol"
+      >&#8594;</a
+      ><a name="783"
+      > </a
+      ><a name="784" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#773" class="Bound"
+      >n</a
+      ><a name="785"
+      > </a
+      ><a name="786" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#773" class="Bound"
+      >n</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="FOTC.Data.Nat.UnaryNumbers.html#515" class="Function"
+      >1'</a
+      ><a name="794"
+      >
+</a
+      ><a name="795" class="Symbol"
+      >{-#</a
+      ><a name="798"
+      > </a
+      ><a name="799" class="Keyword"
+      >ATP</a
+      ><a name="802"
+      > prove </a
+      ><a name="809" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#762" class="Postulate"
+      >x&lt;x+1</a
+      ><a name="814"
+      > </a
+      ><a name="815" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1626" class="Function"
+      >x&lt;Sx</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="FOTC.Data.Nat.PropertiesATP.html#2957" class="Function"
+      >+-comm</a
+      ><a name="826"
+      > </a
+      ><a name="827" class="Symbol"
+      >#-}</a
+      ><a name="830"
+      >
+
+</a
+      ><a name="832" class="Keyword"
+      >postulate</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#842" class="Postulate"
+      >x&lt;x+11</a
+      ><a name="848"
+      > </a
+      ><a name="849" class="Symbol"
+      >:</a
+      ><a name="850"
+      > </a
+      ><a name="851" class="Symbol"
+      >&#8704;</a
+      ><a name="852"
+      > </a
+      ><a name="853" class="Symbol"
+      >{</a
+      ><a name="854" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#854" class="Bound"
+      >n</a
+      ><a name="855" class="Symbol"
+      >}</a
+      ><a name="856"
+      > </a
+      ><a name="857" class="Symbol"
+      >&#8594;</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="860"
+      > </a
+      ><a name="861" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#854" class="Bound"
+      >n</a
+      ><a name="862"
+      > </a
+      ><a name="863" class="Symbol"
+      >&#8594;</a
+      ><a name="864"
+      > </a
+      ><a name="865" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#854" class="Bound"
+      >n</a
+      ><a name="866"
+      > </a
+      ><a name="867" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="868"
+      > </a
+      ><a name="869" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#854" class="Bound"
+      >n</a
+      ><a name="870"
+      > </a
+      ><a name="871" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="872"
+      > </a
+      ><a name="873" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="876"
+      >
+</a
+      ><a name="877" class="Symbol"
+      >{-#</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Keyword"
+      >ATP</a
+      ><a name="884"
+      > prove </a
+      ><a name="891" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#842" class="Postulate"
+      >x&lt;x+11</a
+      ><a name="897"
+      > </a
+      ><a name="898" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#12078" class="Function"
+      >x&lt;x+Sy</a
+      ><a name="904"
+      > </a
+      ><a name="905" class="Symbol"
+      >#-}</a
+      ><a name="908"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

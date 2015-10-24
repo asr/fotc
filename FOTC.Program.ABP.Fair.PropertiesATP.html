@@ -1,0 +1,1351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.ABP.Fair.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Fair properties</a
+      ><a name="98"
+      >
+</a
+      ><a name="99" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="177"
+      >
+
+</a
+      ><a name="179" class="Symbol"
+      >{-#</a
+      ><a name="182"
+      > </a
+      ><a name="183" class="Keyword"
+      >OPTIONS</a
+      ><a name="190"
+      > --exact-split              </a
+      ><a name="218" class="Symbol"
+      >#-}</a
+      ><a name="221"
+      >
+</a
+      ><a name="222" class="Symbol"
+      >{-#</a
+      ><a name="225"
+      > </a
+      ><a name="226" class="Keyword"
+      >OPTIONS</a
+      ><a name="233"
+      > --no-sized-types           </a
+      ><a name="261" class="Symbol"
+      >#-}</a
+      ><a name="264"
+      >
+</a
+      ><a name="265" class="Symbol"
+      >{-#</a
+      ><a name="268"
+      > </a
+      ><a name="269" class="Keyword"
+      >OPTIONS</a
+      ><a name="276"
+      > --no-universe-polymorphism </a
+      ><a name="304" class="Symbol"
+      >#-}</a
+      ><a name="307"
+      >
+</a
+      ><a name="308" class="Symbol"
+      >{-#</a
+      ><a name="311"
+      > </a
+      ><a name="312" class="Keyword"
+      >OPTIONS</a
+      ><a name="319"
+      > --without-K                </a
+      ><a name="347" class="Symbol"
+      >#-}</a
+      ><a name="350"
+      >
+
+</a
+      ><a name="352" class="Keyword"
+      >module</a
+      ><a name="358"
+      > </a
+      ><a name="359" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.PropertiesATP</a
+      ><a name="394"
+      > </a
+      ><a name="395" class="Keyword"
+      >where</a
+      ><a name="400"
+      >
+
+</a
+      ><a name="402" class="Keyword"
+      >open</a
+      ><a name="406"
+      > </a
+      ><a name="407" class="Keyword"
+      >import</a
+      ><a name="413"
+      > </a
+      ><a name="414" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="423"
+      >
+</a
+      ><a name="424" class="Keyword"
+      >open</a
+      ><a name="428"
+      > </a
+      ><a name="429" class="Keyword"
+      >import</a
+      ><a name="435"
+      > </a
+      ><a name="436" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="450"
+      >
+</a
+      ><a name="451" class="Keyword"
+      >open</a
+      ><a name="455"
+      > </a
+      ><a name="456" class="Keyword"
+      >import</a
+      ><a name="462"
+      > </a
+      ><a name="463" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="477"
+      >
+</a
+      ><a name="478" class="Keyword"
+      >open</a
+      ><a name="482"
+      > </a
+      ><a name="483" class="Keyword"
+      >import</a
+      ><a name="489"
+      > </a
+      ><a name="490" href="FOTC.Program.ABP.Fair.Type.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.Type</a
+      ><a name="516"
+      >
+</a
+      ><a name="517" class="Keyword"
+      >open</a
+      ><a name="521"
+      > </a
+      ><a name="522" class="Keyword"
+      >import</a
+      ><a name="528"
+      > </a
+      ><a name="529" href="FOTC.Program.ABP.Terms.html#1" class="Module"
+      >FOTC.Program.ABP.Terms</a
+      ><a name="551"
+      >
+
+</a
+      ><a name="553" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="631"
+      >
+</a
+      ><a name="632" class="Comment"
+      >-- Because a greatest post-fixed point is a fixed-point, then the Fair</a
+      ><a name="702"
+      >
+</a
+      ><a name="703" class="Comment"
+      >-- predicate is also a pre-fixed point of the functional FairF, i.e.</a
+      ><a name="771"
+      >
+</a
+      ><a name="772" class="Comment"
+      >--</a
+      ><a name="774"
+      >
+</a
+      ><a name="775" class="Comment"
+      >-- FairF Fair &#8804; Fair (see FOTC.Program.ABP.Fair).</a
+      ><a name="824"
+      >
+</a
+      ><a name="825" href="FOTC.Program.ABP.Fair.PropertiesATP.html#825" class="Function"
+      >Fair-in</a
+      ><a name="832"
+      > </a
+      ><a name="833" class="Symbol"
+      >:</a
+      ><a name="834"
+      > </a
+      ><a name="835" class="Symbol"
+      >&#8704;</a
+      ><a name="836"
+      > </a
+      ><a name="837" class="Symbol"
+      >{</a
+      ><a name="838" href="FOTC.Program.ABP.Fair.PropertiesATP.html#838" class="Bound"
+      >os</a
+      ><a name="840" class="Symbol"
+      >}</a
+      ><a name="841"
+      > </a
+      ><a name="842" class="Symbol"
+      >&#8594;</a
+      ><a name="843"
+      > </a
+      ><a name="844" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="846"
+      > </a
+      ><a name="847" href="FOTC.Program.ABP.Fair.PropertiesATP.html#847" class="Bound"
+      >ft</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="851"
+      > </a
+      ><a name="852" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="854"
+      > </a
+      ><a name="855" href="FOTC.Program.ABP.Fair.PropertiesATP.html#855" class="Bound"
+      >os'</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="860"
+      > </a
+      ><a name="861" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="864"
+      > </a
+      ><a name="865" href="FOTC.Program.ABP.Fair.PropertiesATP.html#847" class="Bound"
+      >ft</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="FOTC.Program.ABP.Fair.PropertiesATP.html#838" class="Bound"
+      >os</a
+      ><a name="872"
+      > </a
+      ><a name="873" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="874"
+      > </a
+      ><a name="875" href="FOTC.Program.ABP.Fair.PropertiesATP.html#847" class="Bound"
+      >ft</a
+      ><a name="877"
+      > </a
+      ><a name="878" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="FOTC.Program.ABP.Fair.PropertiesATP.html#855" class="Bound"
+      >os'</a
+      ><a name="884"
+      > </a
+      ><a name="885" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="886"
+      > </a
+      ><a name="887" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="891"
+      > </a
+      ><a name="892" href="FOTC.Program.ABP.Fair.PropertiesATP.html#855" class="Bound"
+      >os'</a
+      ><a name="895"
+      > </a
+      ><a name="896" class="Symbol"
+      >&#8594;</a
+      ><a name="897"
+      >
+          </a
+      ><a name="908" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="912"
+      > </a
+      ><a name="913" href="FOTC.Program.ABP.Fair.PropertiesATP.html#838" class="Bound"
+      >os</a
+      ><a name="915"
+      >
+</a
+      ><a name="916" href="FOTC.Program.ABP.Fair.PropertiesATP.html#825" class="Function"
+      >Fair-in</a
+      ><a name="923"
+      > </a
+      ><a name="924" href="FOTC.Program.ABP.Fair.PropertiesATP.html#924" class="Bound"
+      >h</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >=</a
+      ><a name="927"
+      > </a
+      ><a name="928" href="FOTC.Program.ABP.Fair.Type.html#1516" class="Postulate"
+      >Fair-coind</a
+      ><a name="938"
+      > </a
+      ><a name="939" href="FOTC.Program.ABP.Fair.PropertiesATP.html#956" class="Function"
+      >A</a
+      ><a name="940"
+      > </a
+      ><a name="941" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1073" class="Postulate"
+      >h'</a
+      ><a name="943"
+      > </a
+      ><a name="944" href="FOTC.Program.ABP.Fair.PropertiesATP.html#924" class="Bound"
+      >h</a
+      ><a name="945"
+      >
+  </a
+      ><a name="948" class="Keyword"
+      >where</a
+      ><a name="953"
+      >
+  </a
+      ><a name="956" href="FOTC.Program.ABP.Fair.PropertiesATP.html#956" class="Function"
+      >A</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Symbol"
+      >:</a
+      ><a name="959"
+      > </a
+      ><a name="960" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="961"
+      > </a
+      ><a name="962" class="Symbol"
+      >&#8594;</a
+      ><a name="963"
+      > </a
+      ><a name="964" class="PrimitiveType"
+      >Set</a
+      ><a name="967"
+      >
+  </a
+      ><a name="970" href="FOTC.Program.ABP.Fair.PropertiesATP.html#956" class="Function"
+      >A</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="FOTC.Program.ABP.Fair.PropertiesATP.html#972" class="Bound"
+      >os</a
+      ><a name="974"
+      > </a
+      ><a name="975" class="Symbol"
+      >=</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="FOTC.Program.ABP.Fair.PropertiesATP.html#980" class="Bound"
+      >ft</a
+      ><a name="982"
+      > </a
+      ><a name="983" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="FOTC.Program.ABP.Fair.PropertiesATP.html#988" class="Bound"
+      >os'</a
+      ><a name="991"
+      > </a
+      ><a name="992" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="993"
+      > </a
+      ><a name="994" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="FOTC.Program.ABP.Fair.PropertiesATP.html#980" class="Bound"
+      >ft</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="FOTC.Program.ABP.Fair.PropertiesATP.html#972" class="Bound"
+      >os</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="FOTC.Program.ABP.Fair.PropertiesATP.html#980" class="Bound"
+      >ft</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="FOTC.Program.ABP.Fair.PropertiesATP.html#988" class="Bound"
+      >os'</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1024"
+      > </a
+      ><a name="1025" href="FOTC.Program.ABP.Fair.PropertiesATP.html#988" class="Bound"
+      >os'</a
+      ><a name="1028"
+      >
+  </a
+      ><a name="1031" class="Symbol"
+      >{-#</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" class="Keyword"
+      >ATP</a
+      ><a name="1038"
+      > definition </a
+      ><a name="1050" href="FOTC.Program.ABP.Fair.PropertiesATP.html#956" class="Function"
+      >A</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >#-}</a
+      ><a name="1055"
+      >
+
+  </a
+      ><a name="1059" class="Keyword"
+      >postulate</a
+      ><a name="1068"
+      >
+    </a
+      ><a name="1073" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1073" class="Postulate"
+      >h'</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" class="Symbol"
+      >:</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" class="Symbol"
+      >&#8704;</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" class="Symbol"
+      >{</a
+      ><a name="1081" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1081" class="Bound"
+      >os</a
+      ><a name="1083" class="Symbol"
+      >}</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" class="Symbol"
+      >&#8594;</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="FOTC.Program.ABP.Fair.PropertiesATP.html#956" class="Function"
+      >A</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1081" class="Bound"
+      >os</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" class="Symbol"
+      >&#8594;</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1097" class="Bound"
+      >ft</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1105" class="Bound"
+      >os'</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1097" class="Bound"
+      >ft</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1081" class="Bound"
+      >os</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1097" class="Bound"
+      >ft</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1105" class="Bound"
+      >os'</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="FOTC.Program.ABP.Fair.PropertiesATP.html#956" class="Function"
+      >A</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1105" class="Bound"
+      >os'</a
+      ><a name="1142"
+      >
+  </a
+      ><a name="1145" class="Symbol"
+      >{-#</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" class="Keyword"
+      >ATP</a
+      ><a name="1152"
+      > prove </a
+      ><a name="1159" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1073" class="Postulate"
+      >h'</a
+      ><a name="1161"
+      > </a
+      ><a name="1162" class="Symbol"
+      >#-}</a
+      ><a name="1165"
+      >
+
+</a
+      ><a name="1167" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1167" class="Function"
+      >head-tail-Fair</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" class="Symbol"
+      >:</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >&#8704;</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" class="Symbol"
+      >{</a
+      ><a name="1187" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1187" class="Bound"
+      >os</a
+      ><a name="1189" class="Symbol"
+      >}</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" class="Symbol"
+      >&#8594;</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1187" class="Bound"
+      >os</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" class="Symbol"
+      >&#8594;</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1187" class="Bound"
+      >os</a
+      ><a name="1205"
+      > </a
+      ><a name="1206" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" href="FOTC.Program.ABP.Terms.html#659" class="Function"
+      >T</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1187" class="Bound"
+      >os</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1187" class="Bound"
+      >os</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="FOTC.Program.ABP.Terms.html#657" class="Function"
+      >F</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1187" class="Bound"
+      >os</a
+      ><a name="1240"
+      >
+</a
+      ><a name="1241" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1167" class="Function"
+      >head-tail-Fair</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" class="Symbol"
+      >{</a
+      ><a name="1257" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1259" class="Symbol"
+      >}</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1261" class="Bound"
+      >Fos</a
+      ><a name="1264"
+      > </a
+      ><a name="1265" class="Keyword"
+      >with</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" href="FOTC.Program.ABP.Fair.Type.html#1135" class="Postulate"
+      >Fair-out</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1261" class="Bound"
+      >Fos</a
+      ><a name="1282"
+      >
+</a
+      ><a name="1283" class="Symbol"
+      >...</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" class="Symbol"
+      >|</a
+      ><a name="1288"
+      > </a
+      ><a name="1289" class="Symbol"
+      >(</a
+      ><a name="1290" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1292" href="FOTC.Program.ABP.Terms.html#659" class="DottedPattern Function"
+      >T</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="FOTC.Base.List.html#639" class="DottedPattern Function Operator"
+      >&#8759;</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="FOTC.Base.List.html#561" class="DottedPattern Postulate"
+      >[]</a
+      ><a name="1298" class="DottedPattern Symbol"
+      >)</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1302" class="Bound"
+      >os'</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" href="FOTC.Program.ABP.Fair.Type.html#765" class="InductiveConstructor"
+      >f*tnil</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1316"
+      > </a
+      ><a name="1317" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1317" class="Bound"
+      >h</a
+      ><a name="1318"
+      > </a
+      ><a name="1319" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1320"
+      > </a
+      ><a name="1321" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1321" class="Bound"
+      >Fos'</a
+      ><a name="1325" class="Symbol"
+      >)</a
+      ><a name="1326"
+      > </a
+      ><a name="1327" class="Symbol"
+      >=</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1353" class="Postulate"
+      >prf</a
+      ><a name="1332"
+      >
+  </a
+      ><a name="1335" class="Keyword"
+      >where</a
+      ><a name="1340"
+      >
+  </a
+      ><a name="1343" class="Keyword"
+      >postulate</a
+      ><a name="1352"
+      > </a
+      ><a name="1353" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1353" class="Postulate"
+      >prf</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" class="Symbol"
+      >:</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" href="FOTC.Program.ABP.Terms.html#659" class="Function"
+      >T</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" href="FOTC.Program.ABP.Terms.html#657" class="Function"
+      >F</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1393"
+      > </a
+      ><a name="1394" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1396"
+      >
+  </a
+      ><a name="1399" class="Symbol"
+      >{-#</a
+      ><a name="1402"
+      > </a
+      ><a name="1403" class="Keyword"
+      >ATP</a
+      ><a name="1406"
+      > prove </a
+      ><a name="1413" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1353" class="Postulate"
+      >prf</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" class="Symbol"
+      >#-}</a
+      ><a name="1420"
+      >
+
+</a
+      ><a name="1422" class="Symbol"
+      >...</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" class="Symbol"
+      >|</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" class="Symbol"
+      >(</a
+      ><a name="1429" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1431" href="FOTC.Program.ABP.Terms.html#657" class="DottedPattern Function"
+      >F</a
+      ><a name="1432"
+      > </a
+      ><a name="1433" href="FOTC.Base.List.html#639" class="DottedPattern Function Operator"
+      >&#8759;</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1456" class="DottedPattern Bound"
+      >ft</a
+      ><a name="1437" class="DottedPattern Symbol"
+      >)</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1440"
+      > </a
+      ><a name="1441" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1441" class="Bound"
+      >os'</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1446"
+      > </a
+      ><a name="1447" href="FOTC.Program.ABP.Fair.Type.html#790" class="InductiveConstructor"
+      >f*tcons</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" class="Symbol"
+      >{</a
+      ><a name="1456" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1456" class="Bound"
+      >ft</a
+      ><a name="1458" class="Symbol"
+      >}</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1460" class="Bound"
+      >FTft</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1466"
+      > </a
+      ><a name="1467" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1467" class="Bound"
+      >h</a
+      ><a name="1468"
+      > </a
+      ><a name="1469" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1470"
+      > </a
+      ><a name="1471" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1471" class="Bound"
+      >Fos'</a
+      ><a name="1475" class="Symbol"
+      >)</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" class="Symbol"
+      >=</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1503" class="Postulate"
+      >prf</a
+      ><a name="1482"
+      >
+  </a
+      ><a name="1485" class="Keyword"
+      >where</a
+      ><a name="1490"
+      >
+  </a
+      ><a name="1493" class="Keyword"
+      >postulate</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1503" class="Postulate"
+      >prf</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" class="Symbol"
+      >:</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" href="FOTC.Program.ABP.Terms.html#659" class="Function"
+      >T</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1526"
+      > </a
+      ><a name="1527" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1528"
+      > </a
+      ><a name="1529" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1533"
+      > </a
+      ><a name="1534" href="FOTC.Program.ABP.Terms.html#657" class="Function"
+      >F</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1257" class="Bound"
+      >os</a
+      ><a name="1546"
+      >
+  </a
+      ><a name="1549" class="Symbol"
+      >{-#</a
+      ><a name="1552"
+      > </a
+      ><a name="1553" class="Keyword"
+      >ATP</a
+      ><a name="1556"
+      > prove </a
+      ><a name="1563" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1503" class="Postulate"
+      >prf</a
+      ><a name="1566"
+      > </a
+      ><a name="1567" class="Symbol"
+      >#-}</a
+      ><a name="1570"
+      >
+
+</a
+      ><a name="1572" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1572" class="Function"
+      >tail-Fair</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" class="Symbol"
+      >:</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" class="Symbol"
+      >&#8704;</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" class="Symbol"
+      >{</a
+      ><a name="1587" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1587" class="Bound"
+      >os</a
+      ><a name="1589" class="Symbol"
+      >}</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" class="Symbol"
+      >&#8594;</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1597"
+      > </a
+      ><a name="1598" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1587" class="Bound"
+      >os</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" class="Symbol"
+      >&#8594;</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" class="Symbol"
+      >(</a
+      ><a name="1609" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1614"
+      > </a
+      ><a name="1615" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1587" class="Bound"
+      >os</a
+      ><a name="1617" class="Symbol"
+      >)</a
+      ><a name="1618"
+      >
+</a
+      ><a name="1619" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1572" class="Function"
+      >tail-Fair</a
+      ><a name="1628"
+      > </a
+      ><a name="1629" class="Symbol"
+      >{</a
+      ><a name="1630" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1630" class="Bound"
+      >os</a
+      ><a name="1632" class="Symbol"
+      >}</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1634" class="Bound"
+      >Fos</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" class="Keyword"
+      >with</a
+      ><a name="1642"
+      > </a
+      ><a name="1643" href="FOTC.Program.ABP.Fair.Type.html#1135" class="Postulate"
+      >Fair-out</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1634" class="Bound"
+      >Fos</a
+      ><a name="1655"
+      >
+</a
+      ><a name="1656" class="Symbol"
+      >...</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" class="Symbol"
+      >|</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1664" href="FOTC.Program.ABP.Terms.html#659" class="DottedPattern Function"
+      >T</a
+      ><a name="1665"
+      > </a
+      ><a name="1666" href="FOTC.Base.List.html#639" class="DottedPattern Function Operator"
+      >&#8759;</a
+      ><a name="1667"
+      > </a
+      ><a name="1668" href="FOTC.Base.List.html#561" class="DottedPattern Postulate"
+      >[]</a
+      ><a name="1670" class="DottedPattern Symbol"
+      >)</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1673"
+      > </a
+      ><a name="1674" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1674" class="Bound"
+      >os'</a
+      ><a name="1677"
+      > </a
+      ><a name="1678" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1679"
+      > </a
+      ><a name="1680" href="FOTC.Program.ABP.Fair.Type.html#765" class="InductiveConstructor"
+      >f*tnil</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1689" class="Bound"
+      >h</a
+      ><a name="1690"
+      > </a
+      ><a name="1691" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1693" class="Bound"
+      >Fos'</a
+      ><a name="1697"
+      > </a
+      ><a name="1698" class="Symbol"
+      >=</a
+      ><a name="1699"
+      > </a
+      ><a name="1700" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1724" class="Postulate"
+      >prf</a
+      ><a name="1703"
+      >
+  </a
+      ><a name="1706" class="Keyword"
+      >where</a
+      ><a name="1711"
+      >
+  </a
+      ><a name="1714" class="Keyword"
+      >postulate</a
+      ><a name="1723"
+      > </a
+      ><a name="1724" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1724" class="Postulate"
+      >prf</a
+      ><a name="1727"
+      > </a
+      ><a name="1728" class="Symbol"
+      >:</a
+      ><a name="1729"
+      > </a
+      ><a name="1730" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1734"
+      > </a
+      ><a name="1735" class="Symbol"
+      >(</a
+      ><a name="1736" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1741"
+      > </a
+      ><a name="1742" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1630" class="Bound"
+      >os</a
+      ><a name="1744" class="Symbol"
+      >)</a
+      ><a name="1745"
+      >
+  </a
+      ><a name="1748" class="Symbol"
+      >{-#</a
+      ><a name="1751"
+      > </a
+      ><a name="1752" class="Keyword"
+      >ATP</a
+      ><a name="1755"
+      > prove </a
+      ><a name="1762" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1724" class="Postulate"
+      >prf</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" class="Symbol"
+      >#-}</a
+      ><a name="1769"
+      >
+</a
+      ><a name="1770" class="Symbol"
+      >...</a
+      ><a name="1773"
+      > </a
+      ><a name="1774" class="Symbol"
+      >|</a
+      ><a name="1775"
+      > </a
+      ><a name="1776" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="1778" href="FOTC.Program.ABP.Terms.html#657" class="DottedPattern Function"
+      >F</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="FOTC.Base.List.html#639" class="DottedPattern Function Operator"
+      >&#8759;</a
+      ><a name="1781"
+      > </a
+      ><a name="1782" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1803" class="DottedPattern Bound"
+      >ft</a
+      ><a name="1784" class="DottedPattern Symbol"
+      >)</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1788" class="Bound"
+      >os'</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="FOTC.Program.ABP.Fair.Type.html#790" class="InductiveConstructor"
+      >f*tcons</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" class="Symbol"
+      >{</a
+      ><a name="1803" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1803" class="Bound"
+      >ft</a
+      ><a name="1805" class="Symbol"
+      >}</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1807" class="Bound"
+      >FTft</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1814" class="Bound"
+      >h</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1818" class="Bound"
+      >Fos'</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" class="Symbol"
+      >=</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1849" class="Postulate"
+      >prf</a
+      ><a name="1828"
+      >
+  </a
+      ><a name="1831" class="Keyword"
+      >where</a
+      ><a name="1836"
+      >
+  </a
+      ><a name="1839" class="Keyword"
+      >postulate</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1849" class="Postulate"
+      >prf</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" class="Symbol"
+      >:</a
+      ><a name="1854"
+      > </a
+      ><a name="1855" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" class="Symbol"
+      >(</a
+      ><a name="1861" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1630" class="Bound"
+      >os</a
+      ><a name="1869" class="Symbol"
+      >)</a
+      ><a name="1870"
+      >
+  </a
+      ><a name="1873" class="Symbol"
+      >{-#</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" class="Keyword"
+      >ATP</a
+      ><a name="1880"
+      > prove </a
+      ><a name="1887" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1849" class="Postulate"
+      >prf</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" href="FOTC.Program.ABP.Fair.PropertiesATP.html#825" class="Function"
+      >Fair-in</a
+      ><a name="1898"
+      > </a
+      ><a name="1899" class="Symbol"
+      >#-}</a
+      ><a name="1902"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

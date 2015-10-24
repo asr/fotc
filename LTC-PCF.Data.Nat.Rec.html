@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Data.Nat.Rec</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >---------------------------------------------------------------------------</a
+      ><a name="76"
+      >
+</a
+      ><a name="77" class="Comment"
+      >-- The rec definition using the fixed-point combinator</a
+      ><a name="131"
+      >
+</a
+      ><a name="132" class="Comment"
+      >---------------------------------------------------------------------------</a
+      ><a name="207"
+      >
+
+</a
+      ><a name="209" class="Symbol"
+      >{-#</a
+      ><a name="212"
+      > </a
+      ><a name="213" class="Keyword"
+      >OPTIONS</a
+      ><a name="220"
+      > --exact-split              </a
+      ><a name="248" class="Symbol"
+      >#-}</a
+      ><a name="251"
+      >
+</a
+      ><a name="252" class="Symbol"
+      >{-#</a
+      ><a name="255"
+      > </a
+      ><a name="256" class="Keyword"
+      >OPTIONS</a
+      ><a name="263"
+      > --no-sized-types           </a
+      ><a name="291" class="Symbol"
+      >#-}</a
+      ><a name="294"
+      >
+</a
+      ><a name="295" class="Symbol"
+      >{-#</a
+      ><a name="298"
+      > </a
+      ><a name="299" class="Keyword"
+      >OPTIONS</a
+      ><a name="306"
+      > --no-universe-polymorphism </a
+      ><a name="334" class="Symbol"
+      >#-}</a
+      ><a name="337"
+      >
+</a
+      ><a name="338" class="Symbol"
+      >{-#</a
+      ><a name="341"
+      > </a
+      ><a name="342" class="Keyword"
+      >OPTIONS</a
+      ><a name="349"
+      > --without-K                </a
+      ><a name="377" class="Symbol"
+      >#-}</a
+      ><a name="380"
+      >
+
+</a
+      ><a name="382" class="Keyword"
+      >module</a
+      ><a name="388"
+      > </a
+      ><a name="389" href="LTC-PCF.Data.Nat.Rec.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Rec</a
+      ><a name="409"
+      > </a
+      ><a name="410" class="Keyword"
+      >where</a
+      ><a name="415"
+      >
+
+</a
+      ><a name="417" class="Keyword"
+      >open</a
+      ><a name="421"
+      > </a
+      ><a name="422" class="Keyword"
+      >import</a
+      ><a name="428"
+      > </a
+      ><a name="429" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="441"
+      >
+
+</a
+      ><a name="443" class="Comment"
+      >---------------------------------------------------------------------------</a
+      ><a name="518"
+      >
+
+</a
+      ><a name="520" class="Comment"
+      >-- Let T = D &#8594; D &#8594; (D &#8594; D &#8594; D) &#8594; D be a type. Instead of defining</a
+      ><a name="585"
+      >
+</a
+      ><a name="586" class="Comment"
+      >-- rec&#160;:&#160;T&#160;&#8594;&#160;T, we use the LTC-PCF &#955;-abstraction and application to</a
+      ><a name="653"
+      >
+</a
+      ><a name="654" class="Comment"
+      >-- avoid use a polymorphic fixed-point operator.</a
+      ><a name="702"
+      >
+
+</a
+      ><a name="704" href="LTC-PCF.Data.Nat.Rec.html#704" class="Function"
+      >rech</a
+      ><a name="708"
+      > </a
+      ><a name="709" class="Symbol"
+      >:</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Symbol"
+      >&#8594;</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="716"
+      >
+</a
+      ><a name="717" href="LTC-PCF.Data.Nat.Rec.html#704" class="Function"
+      >rech</a
+      ><a name="721"
+      > </a
+      ><a name="722" href="LTC-PCF.Data.Nat.Rec.html#722" class="Bound"
+      >r</a
+      ><a name="723"
+      > </a
+      ><a name="724" class="Symbol"
+      >=</a
+      ><a name="725"
+      > </a
+      ><a name="726" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="729"
+      > </a
+      ><a name="730" class="Symbol"
+      >(&#955;</a
+      ><a name="732"
+      > </a
+      ><a name="733" href="LTC-PCF.Data.Nat.Rec.html#733" class="Bound"
+      >n</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Symbol"
+      >&#8594;</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="740"
+      > </a
+      ><a name="741" class="Symbol"
+      >(&#955;</a
+      ><a name="743"
+      > </a
+      ><a name="744" href="LTC-PCF.Data.Nat.Rec.html#744" class="Bound"
+      >a</a
+      ><a name="745"
+      > </a
+      ><a name="746" class="Symbol"
+      >&#8594;</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="751"
+      > </a
+      ><a name="752" class="Symbol"
+      >(&#955;</a
+      ><a name="754"
+      > </a
+      ><a name="755" href="LTC-PCF.Data.Nat.Rec.html#755" class="Bound"
+      >f</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Symbol"
+      >&#8594;</a
+      ><a name="758"
+      >
+           </a
+      ><a name="770" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="772"
+      > </a
+      ><a name="773" class="Symbol"
+      >(</a
+      ><a name="774" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="LTC-PCF.Data.Nat.Rec.html#733" class="Bound"
+      >n</a
+      ><a name="783" class="Symbol"
+      >)</a
+      ><a name="784"
+      >
+             </a
+      ><a name="798" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="802"
+      > </a
+      ><a name="803" href="LTC-PCF.Data.Nat.Rec.html#744" class="Bound"
+      >a</a
+      ><a name="804"
+      >
+             </a
+      ><a name="818" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="822"
+      > </a
+      ><a name="823" href="LTC-PCF.Data.Nat.Rec.html#755" class="Bound"
+      >f</a
+      ><a name="824"
+      > </a
+      ><a name="825" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="826"
+      > </a
+      ><a name="827" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="832"
+      > </a
+      ><a name="833" href="LTC-PCF.Data.Nat.Rec.html#733" class="Bound"
+      >n</a
+      ><a name="834"
+      > </a
+      ><a name="835" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="836"
+      > </a
+      ><a name="837" class="Symbol"
+      >(</a
+      ><a name="838" href="LTC-PCF.Data.Nat.Rec.html#722" class="Bound"
+      >r</a
+      ><a name="839"
+      > </a
+      ><a name="840" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="847"
+      > </a
+      ><a name="848" href="LTC-PCF.Data.Nat.Rec.html#733" class="Bound"
+      >n</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="851"
+      > </a
+      ><a name="852" href="LTC-PCF.Data.Nat.Rec.html#744" class="Bound"
+      >a</a
+      ><a name="853"
+      > </a
+      ><a name="854" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="855"
+      > </a
+      ><a name="856" href="LTC-PCF.Data.Nat.Rec.html#755" class="Bound"
+      >f</a
+      ><a name="857" class="Symbol"
+      >))))</a
+      ><a name="861"
+      >
+
+</a
+      ><a name="863" href="LTC-PCF.Data.Nat.Rec.html#863" class="Function"
+      >rec</a
+      ><a name="866"
+      > </a
+      ><a name="867" class="Symbol"
+      >:</a
+      ><a name="868"
+      > </a
+      ><a name="869" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="870"
+      > </a
+      ><a name="871" class="Symbol"
+      >&#8594;</a
+      ><a name="872"
+      > </a
+      ><a name="873" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="874"
+      > </a
+      ><a name="875" class="Symbol"
+      >&#8594;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="878"
+      > </a
+      ><a name="879" class="Symbol"
+      >&#8594;</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="882"
+      >
+</a
+      ><a name="883" href="LTC-PCF.Data.Nat.Rec.html#863" class="Function"
+      >rec</a
+      ><a name="886"
+      > </a
+      ><a name="887" href="LTC-PCF.Data.Nat.Rec.html#887" class="Bound"
+      >n</a
+      ><a name="888"
+      > </a
+      ><a name="889" href="LTC-PCF.Data.Nat.Rec.html#889" class="Bound"
+      >a</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="LTC-PCF.Data.Nat.Rec.html#891" class="Bound"
+      >f</a
+      ><a name="892"
+      > </a
+      ><a name="893" class="Symbol"
+      >=</a
+      ><a name="894"
+      > </a
+      ><a name="895" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="LTC-PCF.Data.Nat.Rec.html#704" class="Function"
+      >rech</a
+      ><a name="903"
+      > </a
+      ><a name="904" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="905"
+      > </a
+      ><a name="906" href="LTC-PCF.Data.Nat.Rec.html#887" class="Bound"
+      >n</a
+      ><a name="907"
+      > </a
+      ><a name="908" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="909"
+      > </a
+      ><a name="910" href="LTC-PCF.Data.Nat.Rec.html#889" class="Bound"
+      >a</a
+      ><a name="911"
+      > </a
+      ><a name="912" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="LTC-PCF.Data.Nat.Rec.html#891" class="Bound"
+      >f</a
+      ><a name="915"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

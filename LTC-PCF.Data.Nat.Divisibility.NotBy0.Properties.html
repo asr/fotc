@@ -1,0 +1,2735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties of the divisibility relation</a
+      ><a name="122"
+      >
+</a
+      ><a name="123" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="201"
+      >
+
+</a
+      ><a name="203" class="Symbol"
+      >{-#</a
+      ><a name="206"
+      > </a
+      ><a name="207" class="Keyword"
+      >OPTIONS</a
+      ><a name="214"
+      > --exact-split              </a
+      ><a name="242" class="Symbol"
+      >#-}</a
+      ><a name="245"
+      >
+</a
+      ><a name="246" class="Symbol"
+      >{-#</a
+      ><a name="249"
+      > </a
+      ><a name="250" class="Keyword"
+      >OPTIONS</a
+      ><a name="257"
+      > --no-sized-types           </a
+      ><a name="285" class="Symbol"
+      >#-}</a
+      ><a name="288"
+      >
+</a
+      ><a name="289" class="Symbol"
+      >{-#</a
+      ><a name="292"
+      > </a
+      ><a name="293" class="Keyword"
+      >OPTIONS</a
+      ><a name="300"
+      > --no-universe-polymorphism </a
+      ><a name="328" class="Symbol"
+      >#-}</a
+      ><a name="331"
+      >
+</a
+      ><a name="332" class="Symbol"
+      >{-#</a
+      ><a name="335"
+      > </a
+      ><a name="336" class="Keyword"
+      >OPTIONS</a
+      ><a name="343"
+      > --without-K                </a
+      ><a name="371" class="Symbol"
+      >#-}</a
+      ><a name="374"
+      >
+
+</a
+      ><a name="376" class="Keyword"
+      >module</a
+      ><a name="382"
+      > </a
+      ><a name="383" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties</a
+      ><a name="430"
+      > </a
+      ><a name="431" class="Keyword"
+      >where</a
+      ><a name="436"
+      >
+
+</a
+      ><a name="438" class="Keyword"
+      >open</a
+      ><a name="442"
+      > </a
+      ><a name="443" class="Keyword"
+      >import</a
+      ><a name="449"
+      > </a
+      ><a name="450" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="488"
+      >
+
+</a
+      ><a name="490" class="Keyword"
+      >open</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Keyword"
+      >import</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="514"
+      >
+</a
+      ><a name="515" class="Keyword"
+      >open</a
+      ><a name="519"
+      > </a
+      ><a name="520" class="Keyword"
+      >import</a
+      ><a name="526"
+      > </a
+      ><a name="527" href="LTC-PCF.Base.Properties.html#1" class="Module"
+      >LTC-PCF.Base.Properties</a
+      ><a name="550"
+      >
+</a
+      ><a name="551" class="Keyword"
+      >open</a
+      ><a name="555"
+      > </a
+      ><a name="556" class="Keyword"
+      >import</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="579"
+      >
+</a
+      ><a name="580" class="Keyword"
+      >open</a
+      ><a name="584"
+      > </a
+      ><a name="585" class="Keyword"
+      >import</a
+      ><a name="591"
+      > </a
+      ><a name="592" href="LTC-PCF.Data.Nat.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Properties</a
+      ><a name="619"
+      >
+</a
+      ><a name="620" class="Keyword"
+      >open</a
+      ><a name="624"
+      > </a
+      ><a name="625" class="Keyword"
+      >import</a
+      ><a name="631"
+      > </a
+      ><a name="632" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Divisibility.NotBy0</a
+      ><a name="668"
+      >
+</a
+      ><a name="669" class="Keyword"
+      >open</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="Keyword"
+      >import</a
+      ><a name="680"
+      > </a
+      ><a name="681" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="710"
+      >
+</a
+      ><a name="711" class="Keyword"
+      >open</a
+      ><a name="715"
+      > </a
+      ><a name="716" class="Keyword"
+      >import</a
+      ><a name="722"
+      > </a
+      ><a name="723" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities.Properties</a
+      ><a name="763"
+      >
+</a
+      ><a name="764" class="Keyword"
+      >open</a
+      ><a name="768"
+      > </a
+      ><a name="769" class="Keyword"
+      >import</a
+      ><a name="775"
+      > </a
+      ><a name="776" href="LTC-PCF.Data.Nat.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Properties</a
+      ><a name="803"
+      >
+
+</a
+      ><a name="805" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="883"
+      >
+</a
+      ><a name="884" class="Comment"
+      >-- Any positive number divides 0.</a
+      ><a name="917"
+      >
+</a
+      ><a name="918" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#918" class="Function"
+      >S&#8739;0</a
+      ><a name="921"
+      > </a
+      ><a name="922" class="Symbol"
+      >:</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Symbol"
+      >&#8704;</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >{</a
+      ><a name="927" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#927" class="Bound"
+      >n</a
+      ><a name="928" class="Symbol"
+      >}</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >&#8594;</a
+      ><a name="931"
+      > </a
+      ><a name="932" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="933"
+      > </a
+      ><a name="934" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#927" class="Bound"
+      >n</a
+      ><a name="935"
+      > </a
+      ><a name="936" class="Symbol"
+      >&#8594;</a
+      ><a name="937"
+      > </a
+      ><a name="938" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="943"
+      > </a
+      ><a name="944" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#927" class="Bound"
+      >n</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="952"
+      >
+</a
+      ><a name="953" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#918" class="Function"
+      >S&#8739;0</a
+      ><a name="956"
+      > </a
+      ><a name="957" class="Symbol"
+      >{</a
+      ><a name="958" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#958" class="Bound"
+      >n</a
+      ><a name="959" class="Symbol"
+      >}</a
+      ><a name="960"
+      > </a
+      ><a name="961" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#961" class="Bound"
+      >Nn</a
+      ><a name="963"
+      > </a
+      ><a name="964" class="Symbol"
+      >=</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="971"
+      > </a
+      ><a name="972" class="Symbol"
+      >_</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="981"
+      > </a
+      ><a name="982" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="987"
+      > </a
+      ><a name="988" class="Symbol"
+      >(</a
+      ><a name="989" href="LTC-PCF.Data.Nat.Properties.html#6220" class="Function"
+      >*-leftZero</a
+      ><a name="999"
+      > </a
+      ><a name="1000" class="Symbol"
+      >(</a
+      ><a name="1001" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#958" class="Bound"
+      >n</a
+      ><a name="1008" class="Symbol"
+      >))</a
+      ><a name="1010"
+      >
+
+</a
+      ><a name="1012" class="Comment"
+      >-- 0 doesn't divide any number.</a
+      ><a name="1043"
+      >
+</a
+      ><a name="1044" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1044" class="Function"
+      >0&#8740;x</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" class="Symbol"
+      >:</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" class="Symbol"
+      >&#8704;</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >{</a
+      ><a name="1053" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1053" class="Bound"
+      >n</a
+      ><a name="1054" class="Symbol"
+      >}</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" class="Symbol"
+      >&#8594;</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" class="Symbol"
+      >(</a
+      ><a name="1061" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1053" class="Bound"
+      >n</a
+      ><a name="1069" class="Symbol"
+      >)</a
+      ><a name="1070"
+      >
+</a
+      ><a name="1071" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1044" class="Function"
+      >0&#8740;x</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" class="Symbol"
+      >(</a
+      ><a name="1076" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1076" class="Bound"
+      >0&#8802;0</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" class="Symbol"
+      >_)</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" class="Symbol"
+      >=</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" class="Symbol"
+      >(</a
+      ><a name="1095" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1076" class="Bound"
+      >0&#8802;0</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1103" class="Symbol"
+      >)</a
+      ><a name="1104"
+      >
+
+</a
+      ><a name="1106" class="Comment"
+      >-- The divisibility relation is reflexive for positive numbers.</a
+      ><a name="1169"
+      >
+</a
+      ><a name="1170" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1170" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="1178"
+      > </a
+      ><a name="1179" class="Symbol"
+      >:</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" class="Symbol"
+      >&#8704;</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" class="Symbol"
+      >{</a
+      ><a name="1184" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1184" class="Bound"
+      >n</a
+      ><a name="1185" class="Symbol"
+      >}</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" class="Symbol"
+      >&#8594;</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1184" class="Bound"
+      >n</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" class="Symbol"
+      >&#8594;</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1184" class="Bound"
+      >n</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1184" class="Bound"
+      >n</a
+      ><a name="1212"
+      >
+</a
+      ><a name="1213" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1170" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" class="Symbol"
+      >{</a
+      ><a name="1223" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1223" class="Bound"
+      >n</a
+      ><a name="1224" class="Symbol"
+      >}</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1226" class="Bound"
+      >Nn</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" class="Symbol"
+      >=</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >_</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" class="Symbol"
+      >(</a
+      ><a name="1260" href="LTC-PCF.Data.Nat.Properties.html#6660" class="Function"
+      >*-leftIdentity</a
+      ><a name="1274"
+      > </a
+      ><a name="1275" class="Symbol"
+      >(</a
+      ><a name="1276" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1226" class="Bound"
+      >Nn</a
+      ><a name="1284" class="Symbol"
+      >))</a
+      ><a name="1286"
+      >
+
+</a
+      ><a name="1288" class="Comment"
+      >-- If x divides y and z then x divides y &#8760; z.</a
+      ><a name="1333"
+      >
+</a
+      ><a name="1334" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1334" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z-helper</a
+      ><a name="1354"
+      > </a
+      ><a name="1355" class="Symbol"
+      >:</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" class="Symbol"
+      >&#8704;</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" class="Symbol"
+      >{</a
+      ><a name="1360" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1360" class="Bound"
+      >m</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1362" class="Bound"
+      >n</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1364" class="Bound"
+      >o</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1366" class="Bound"
+      >k</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1368" class="Bound"
+      >k'</a
+      ><a name="1370" class="Symbol"
+      >}</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" class="Symbol"
+      >&#8594;</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1375"
+      > </a
+      ><a name="1376" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1360" class="Bound"
+      >m</a
+      ><a name="1377"
+      > </a
+      ><a name="1378" class="Symbol"
+      >&#8594;</a
+      ><a name="1379"
+      > </a
+      ><a name="1380" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1366" class="Bound"
+      >k</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" class="Symbol"
+      >&#8594;</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1368" class="Bound"
+      >k'</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" class="Symbol"
+      >&#8594;</a
+      ><a name="1392"
+      >
+                       </a
+      ><a name="1416" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1362" class="Bound"
+      >n</a
+      ><a name="1417"
+      > </a
+      ><a name="1418" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1419"
+      > </a
+      ><a name="1420" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1366" class="Bound"
+      >k</a
+      ><a name="1421"
+      > </a
+      ><a name="1422" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1360" class="Bound"
+      >m</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" class="Symbol"
+      >&#8594;</a
+      ><a name="1433"
+      >
+                       </a
+      ><a name="1457" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1364" class="Bound"
+      >o</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1460"
+      > </a
+      ><a name="1461" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1368" class="Bound"
+      >k'</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1360" class="Bound"
+      >m</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" class="Symbol"
+      >&#8594;</a
+      ><a name="1475"
+      >
+                       </a
+      ><a name="1499" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1362" class="Bound"
+      >n</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1364" class="Bound"
+      >o</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" class="Symbol"
+      >(</a
+      ><a name="1508" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1366" class="Bound"
+      >k</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1368" class="Bound"
+      >k'</a
+      ><a name="1514" class="Symbol"
+      >)</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1360" class="Bound"
+      >m</a
+      ><a name="1525"
+      >
+</a
+      ><a name="1526" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1334" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z-helper</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" class="Symbol"
+      >{</a
+      ><a name="1548" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1548" class="Bound"
+      >m</a
+      ><a name="1549" class="Symbol"
+      >}</a
+      ><a name="1550"
+      > </a
+      ><a name="1551" class="Symbol"
+      >{</a
+      ><a name="1552" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1552" class="Bound"
+      >n</a
+      ><a name="1553" class="Symbol"
+      >}</a
+      ><a name="1554"
+      > </a
+      ><a name="1555" class="Symbol"
+      >{</a
+      ><a name="1556" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1556" class="Bound"
+      >o</a
+      ><a name="1557" class="Symbol"
+      >}</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" class="Symbol"
+      >{</a
+      ><a name="1560" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1560" class="Bound"
+      >k</a
+      ><a name="1561" class="Symbol"
+      >}</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" class="Symbol"
+      >{</a
+      ><a name="1564" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1564" class="Bound"
+      >k'</a
+      ><a name="1566" class="Symbol"
+      >}</a
+      ><a name="1567"
+      > </a
+      ><a name="1568" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1568" class="Bound"
+      >Nm</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1571" class="Bound"
+      >Nk</a
+      ><a name="1573"
+      > </a
+      ><a name="1574" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1574" class="Bound"
+      >Nk'</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1578" class="Bound"
+      >h&#8321;</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1581" class="Bound"
+      >h&#8322;</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" class="Symbol"
+      >=</a
+      ><a name="1585"
+      >
+  </a
+      ><a name="1588" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1552" class="Bound"
+      >n</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1556" class="Bound"
+      >o</a
+      ><a name="1593"
+      >                          </a
+      ><a name="1619" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1621"
+      > </a
+      ><a name="1622" href="LTC-PCF.Data.Nat.Properties.html#916" class="Function"
+      >&#8760;-leftCong</a
+      ><a name="1632"
+      > </a
+      ><a name="1633" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1578" class="Bound"
+      >h&#8321;</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1637"
+      >
+  </a
+      ><a name="1640" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1560" class="Bound"
+      >k</a
+      ><a name="1641"
+      > </a
+      ><a name="1642" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1643"
+      > </a
+      ><a name="1644" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1649"
+      > </a
+      ><a name="1650" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1548" class="Bound"
+      >m</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1556" class="Bound"
+      >o</a
+      ><a name="1655"
+      >                </a
+      ><a name="1671" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1673"
+      > </a
+      ><a name="1674" href="LTC-PCF.Data.Nat.Properties.html#987" class="Function"
+      >&#8760;-rightCong</a
+      ><a name="1685"
+      > </a
+      ><a name="1686" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1581" class="Bound"
+      >h&#8322;</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1690"
+      >
+  </a
+      ><a name="1693" class="Symbol"
+      >(</a
+      ><a name="1694" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1560" class="Bound"
+      >k</a
+      ><a name="1695"
+      > </a
+      ><a name="1696" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1697"
+      > </a
+      ><a name="1698" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1548" class="Bound"
+      >m</a
+      ><a name="1705" class="Symbol"
+      >)</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" class="Symbol"
+      >(</a
+      ><a name="1710" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1564" class="Bound"
+      >k'</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1720"
+      > </a
+      ><a name="1721" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1548" class="Bound"
+      >m</a
+      ><a name="1722" class="Symbol"
+      >)</a
+      ><a name="1723"
+      > </a
+      ><a name="1724" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1726"
+      > </a
+      ><a name="1727" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" class="Symbol"
+      >(</a
+      ><a name="1732" href="LTC-PCF.Data.Nat.Properties.html#7985" class="Function"
+      >*&#8760;-leftDistributive</a
+      ><a name="1751"
+      > </a
+      ><a name="1752" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1571" class="Bound"
+      >Nk</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1574" class="Bound"
+      >Nk'</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" class="Symbol"
+      >(</a
+      ><a name="1760" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1568" class="Bound"
+      >Nm</a
+      ><a name="1768" class="Symbol"
+      >))</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1772"
+      >
+  </a
+      ><a name="1775" class="Symbol"
+      >(</a
+      ><a name="1776" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1560" class="Bound"
+      >k</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1564" class="Bound"
+      >k'</a
+      ><a name="1782" class="Symbol"
+      >)</a
+      ><a name="1783"
+      > </a
+      ><a name="1784" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1548" class="Bound"
+      >m</a
+      ><a name="1793"
+      >             </a
+      ><a name="1806" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="1807"
+      >
+
+</a
+      ><a name="1809" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1809" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" class="Symbol"
+      >:</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" class="Symbol"
+      >&#8704;</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" class="Symbol"
+      >{</a
+      ><a name="1828" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1828" class="Bound"
+      >m</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1830" class="Bound"
+      >n</a
+      ><a name="1831"
+      > </a
+      ><a name="1832" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1832" class="Bound"
+      >o</a
+      ><a name="1833" class="Symbol"
+      >}</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" class="Symbol"
+      >&#8594;</a
+      ><a name="1836"
+      > </a
+      ><a name="1837" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1828" class="Bound"
+      >m</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" class="Symbol"
+      >&#8594;</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1830" class="Bound"
+      >n</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" class="Symbol"
+      >&#8594;</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1832" class="Bound"
+      >o</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" class="Symbol"
+      >&#8594;</a
+      ><a name="1854"
+      > </a
+      ><a name="1855" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1828" class="Bound"
+      >m</a
+      ><a name="1856"
+      > </a
+      ><a name="1857" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1830" class="Bound"
+      >n</a
+      ><a name="1860"
+      > </a
+      ><a name="1861" class="Symbol"
+      >&#8594;</a
+      ><a name="1862"
+      > </a
+      ><a name="1863" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1828" class="Bound"
+      >m</a
+      ><a name="1864"
+      > </a
+      ><a name="1865" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1832" class="Bound"
+      >o</a
+      ><a name="1868"
+      > </a
+      ><a name="1869" class="Symbol"
+      >&#8594;</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1828" class="Bound"
+      >m</a
+      ><a name="1872"
+      > </a
+      ><a name="1873" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1830" class="Bound"
+      >n</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1832" class="Bound"
+      >o</a
+      ><a name="1880"
+      >
+</a
+      ><a name="1881" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1809" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1900"
+      > </a
+      ><a name="1901" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1901" class="Bound"
+      >Nn</a
+      ><a name="1903"
+      > </a
+      ><a name="1904" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1904" class="Bound"
+      >No</a
+      ><a name="1906"
+      > </a
+      ><a name="1907" class="Symbol"
+      >(</a
+      ><a name="1908" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1908" class="Bound"
+      >0&#8802;0</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1913"
+      > </a
+      ><a name="1914" class="Symbol"
+      >_)</a
+      ><a name="1916"
+      > </a
+      ><a name="1917" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1917" class="Bound"
+      >m&#8739;o</a
+      ><a name="1920"
+      > </a
+      ><a name="1921" class="Symbol"
+      >=</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" class="Symbol"
+      >(</a
+      ><a name="1931" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1908" class="Bound"
+      >0&#8802;0</a
+      ><a name="1934"
+      > </a
+      ><a name="1935" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1939" class="Symbol"
+      >)</a
+      ><a name="1940"
+      >
+</a
+      ><a name="1941" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1809" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="1954"
+      > </a
+      ><a name="1955" class="Symbol"
+      >{</a
+      ><a name="1956" class="Argument"
+      >n</a
+      ><a name="1957"
+      > </a
+      ><a name="1958" class="Symbol"
+      >=</a
+      ><a name="1959"
+      > </a
+      ><a name="1960" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1960" class="Bound"
+      >n</a
+      ><a name="1961" class="Symbol"
+      >}</a
+      ><a name="1962"
+      > </a
+      ><a name="1963" class="Symbol"
+      >{</a
+      ><a name="1964" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1964" class="Bound"
+      >o</a
+      ><a name="1965" class="Symbol"
+      >}</a
+      ><a name="1966"
+      > </a
+      ><a name="1967" class="Symbol"
+      >(</a
+      ><a name="1968" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1973"
+      > </a
+      ><a name="1974" class="Symbol"
+      >{</a
+      ><a name="1975" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1975" class="Bound"
+      >m</a
+      ><a name="1976" class="Symbol"
+      >}</a
+      ><a name="1977"
+      > </a
+      ><a name="1978" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1978" class="Bound"
+      >Nm</a
+      ><a name="1980" class="Symbol"
+      >)</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1982" class="Bound"
+      >Nn</a
+      ><a name="1984"
+      > </a
+      ><a name="1985" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1985" class="Bound"
+      >No</a
+      ><a name="1987"
+      >
+              </a
+      ><a name="2002" class="Symbol"
+      >(_</a
+      ><a name="2004"
+      > </a
+      ><a name="2005" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2007" class="Bound"
+      >k</a
+      ><a name="2008"
+      > </a
+      ><a name="2009" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2010"
+      > </a
+      ><a name="2011" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2011" class="Bound"
+      >Nk</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2016" class="Bound"
+      >h&#8321;</a
+      ><a name="2018" class="Symbol"
+      >)</a
+      ><a name="2019"
+      >
+              </a
+      ><a name="2034" class="Symbol"
+      >(_</a
+      ><a name="2036"
+      > </a
+      ><a name="2037" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2039" class="Bound"
+      >k'</a
+      ><a name="2041"
+      > </a
+      ><a name="2042" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2043"
+      > </a
+      ><a name="2044" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2044" class="Bound"
+      >Nk'</a
+      ><a name="2047"
+      > </a
+      ><a name="2048" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2049"
+      > </a
+      ><a name="2050" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2050" class="Bound"
+      >h&#8322;</a
+      ><a name="2052" class="Symbol"
+      >)</a
+      ><a name="2053"
+      > </a
+      ><a name="2054" class="Symbol"
+      >=</a
+      ><a name="2055"
+      >
+  </a
+      ><a name="2058" class="Symbol"
+      >(&#955;</a
+      ><a name="2060"
+      > </a
+      ><a name="2061" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2061" class="Bound"
+      >S&#8801;0</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" class="Symbol"
+      >&#8594;</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2073"
+      > </a
+      ><a name="2074" class="Symbol"
+      >(</a
+      ><a name="2075" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="2078"
+      > </a
+      ><a name="2079" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2061" class="Bound"
+      >S&#8801;0</a
+      ><a name="2082" class="Symbol"
+      >))</a
+      ><a name="2084"
+      >
+  </a
+      ><a name="2087" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2088"
+      > </a
+      ><a name="2089" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2007" class="Bound"
+      >k</a
+      ><a name="2090"
+      > </a
+      ><a name="2091" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2092"
+      > </a
+      ><a name="2093" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2039" class="Bound"
+      >k'</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2011" class="Bound"
+      >Nk</a
+      ><a name="2104"
+      > </a
+      ><a name="2105" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2044" class="Bound"
+      >Nk'</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1334" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z-helper</a
+      ><a name="2131"
+      > </a
+      ><a name="2132" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1978" class="Bound"
+      >Nm</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2011" class="Bound"
+      >Nk</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2044" class="Bound"
+      >Nk'</a
+      ><a name="2141"
+      > </a
+      ><a name="2142" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2016" class="Bound"
+      >h&#8321;</a
+      ><a name="2144"
+      > </a
+      ><a name="2145" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2050" class="Bound"
+      >h&#8322;</a
+      ><a name="2147"
+      >
+
+</a
+      ><a name="2149" class="Comment"
+      >-- If x divides y and z then x divides y + z.</a
+      ><a name="2194"
+      >
+</a
+      ><a name="2195" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2195" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z-helper</a
+      ><a name="2215"
+      > </a
+      ><a name="2216" class="Symbol"
+      >:</a
+      ><a name="2217"
+      > </a
+      ><a name="2218" class="Symbol"
+      >&#8704;</a
+      ><a name="2219"
+      > </a
+      ><a name="2220" class="Symbol"
+      >{</a
+      ><a name="2221" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2221" class="Bound"
+      >m</a
+      ><a name="2222"
+      > </a
+      ><a name="2223" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2223" class="Bound"
+      >n</a
+      ><a name="2224"
+      > </a
+      ><a name="2225" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2225" class="Bound"
+      >o</a
+      ><a name="2226"
+      > </a
+      ><a name="2227" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2227" class="Bound"
+      >k</a
+      ><a name="2228"
+      > </a
+      ><a name="2229" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2229" class="Bound"
+      >k'</a
+      ><a name="2231" class="Symbol"
+      >}</a
+      ><a name="2232"
+      > </a
+      ><a name="2233" class="Symbol"
+      >&#8594;</a
+      ><a name="2234"
+      > </a
+      ><a name="2235" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2236"
+      > </a
+      ><a name="2237" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2221" class="Bound"
+      >m</a
+      ><a name="2238"
+      > </a
+      ><a name="2239" class="Symbol"
+      >&#8594;</a
+      ><a name="2240"
+      > </a
+      ><a name="2241" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2242"
+      > </a
+      ><a name="2243" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2227" class="Bound"
+      >k</a
+      ><a name="2244"
+      > </a
+      ><a name="2245" class="Symbol"
+      >&#8594;</a
+      ><a name="2246"
+      > </a
+      ><a name="2247" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2229" class="Bound"
+      >k'</a
+      ><a name="2251"
+      > </a
+      ><a name="2252" class="Symbol"
+      >&#8594;</a
+      ><a name="2253"
+      >
+                       </a
+      ><a name="2277" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2223" class="Bound"
+      >n</a
+      ><a name="2278"
+      > </a
+      ><a name="2279" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2280"
+      > </a
+      ><a name="2281" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2227" class="Bound"
+      >k</a
+      ><a name="2282"
+      > </a
+      ><a name="2283" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2284"
+      > </a
+      ><a name="2285" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2290"
+      > </a
+      ><a name="2291" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2221" class="Bound"
+      >m</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" class="Symbol"
+      >&#8594;</a
+      ><a name="2294"
+      >
+                       </a
+      ><a name="2318" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2225" class="Bound"
+      >o</a
+      ><a name="2319"
+      > </a
+      ><a name="2320" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2321"
+      > </a
+      ><a name="2322" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2229" class="Bound"
+      >k'</a
+      ><a name="2324"
+      > </a
+      ><a name="2325" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2326"
+      > </a
+      ><a name="2327" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2332"
+      > </a
+      ><a name="2333" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2221" class="Bound"
+      >m</a
+      ><a name="2334"
+      > </a
+      ><a name="2335" class="Symbol"
+      >&#8594;</a
+      ><a name="2336"
+      >
+                       </a
+      ><a name="2360" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2223" class="Bound"
+      >n</a
+      ><a name="2361"
+      > </a
+      ><a name="2362" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2363"
+      > </a
+      ><a name="2364" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2225" class="Bound"
+      >o</a
+      ><a name="2365"
+      > </a
+      ><a name="2366" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2367"
+      > </a
+      ><a name="2368" class="Symbol"
+      >(</a
+      ><a name="2369" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2227" class="Bound"
+      >k</a
+      ><a name="2370"
+      > </a
+      ><a name="2371" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2372"
+      > </a
+      ><a name="2373" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2229" class="Bound"
+      >k'</a
+      ><a name="2375" class="Symbol"
+      >)</a
+      ><a name="2376"
+      > </a
+      ><a name="2377" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2221" class="Bound"
+      >m</a
+      ><a name="2386"
+      >
+</a
+      ><a name="2387" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2195" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z-helper</a
+      ><a name="2407"
+      > </a
+      ><a name="2408" class="Symbol"
+      >{</a
+      ><a name="2409" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2409" class="Bound"
+      >m</a
+      ><a name="2410" class="Symbol"
+      >}</a
+      ><a name="2411"
+      > </a
+      ><a name="2412" class="Symbol"
+      >{</a
+      ><a name="2413" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2413" class="Bound"
+      >n</a
+      ><a name="2414" class="Symbol"
+      >}</a
+      ><a name="2415"
+      > </a
+      ><a name="2416" class="Symbol"
+      >{</a
+      ><a name="2417" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2417" class="Bound"
+      >o</a
+      ><a name="2418" class="Symbol"
+      >}</a
+      ><a name="2419"
+      > </a
+      ><a name="2420" class="Symbol"
+      >{</a
+      ><a name="2421" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2421" class="Bound"
+      >k</a
+      ><a name="2422" class="Symbol"
+      >}</a
+      ><a name="2423"
+      > </a
+      ><a name="2424" class="Symbol"
+      >{</a
+      ><a name="2425" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2425" class="Bound"
+      >k'</a
+      ><a name="2427" class="Symbol"
+      >}</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2429" class="Bound"
+      >Nm</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2432" class="Bound"
+      >Nk</a
+      ><a name="2434"
+      > </a
+      ><a name="2435" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2435" class="Bound"
+      >Nk'</a
+      ><a name="2438"
+      > </a
+      ><a name="2439" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2439" class="Bound"
+      >h&#8321;</a
+      ><a name="2441"
+      > </a
+      ><a name="2442" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2442" class="Bound"
+      >h&#8322;</a
+      ><a name="2444"
+      > </a
+      ><a name="2445" class="Symbol"
+      >=</a
+      ><a name="2446"
+      >
+  </a
+      ><a name="2449" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2413" class="Bound"
+      >n</a
+      ><a name="2450"
+      > </a
+      ><a name="2451" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2452"
+      > </a
+      ><a name="2453" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2417" class="Bound"
+      >o</a
+      ><a name="2454"
+      >                          </a
+      ><a name="2480" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" href="LTC-PCF.Data.Nat.Properties.html#772" class="Function"
+      >+-leftCong</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2439" class="Bound"
+      >h&#8321;</a
+      ><a name="2496"
+      > </a
+      ><a name="2497" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2498"
+      >
+  </a
+      ><a name="2501" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2421" class="Bound"
+      >k</a
+      ><a name="2502"
+      > </a
+      ><a name="2503" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2510"
+      > </a
+      ><a name="2511" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2409" class="Bound"
+      >m</a
+      ><a name="2512"
+      > </a
+      ><a name="2513" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2514"
+      > </a
+      ><a name="2515" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2417" class="Bound"
+      >o</a
+      ><a name="2516"
+      >                </a
+      ><a name="2532" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2534"
+      > </a
+      ><a name="2535" href="LTC-PCF.Data.Nat.Properties.html#843" class="Function"
+      >+-rightCong</a
+      ><a name="2546"
+      > </a
+      ><a name="2547" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2442" class="Bound"
+      >h&#8322;</a
+      ><a name="2549"
+      > </a
+      ><a name="2550" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2551"
+      >
+  </a
+      ><a name="2554" class="Symbol"
+      >(</a
+      ><a name="2555" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2421" class="Bound"
+      >k</a
+      ><a name="2556"
+      > </a
+      ><a name="2557" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2558"
+      > </a
+      ><a name="2559" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2564"
+      > </a
+      ><a name="2565" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2409" class="Bound"
+      >m</a
+      ><a name="2566" class="Symbol"
+      >)</a
+      ><a name="2567"
+      > </a
+      ><a name="2568" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2569"
+      > </a
+      ><a name="2570" class="Symbol"
+      >(</a
+      ><a name="2571" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2425" class="Bound"
+      >k'</a
+      ><a name="2573"
+      > </a
+      ><a name="2574" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2575"
+      > </a
+      ><a name="2576" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2581"
+      > </a
+      ><a name="2582" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2409" class="Bound"
+      >m</a
+      ><a name="2583" class="Symbol"
+      >)</a
+      ><a name="2584"
+      > </a
+      ><a name="2585" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="2591"
+      > </a
+      ><a name="2592" class="Symbol"
+      >(</a
+      ><a name="2593" href="LTC-PCF.Data.Nat.Properties.html#9571" class="Function"
+      >*+-leftDistributive</a
+      ><a name="2612"
+      > </a
+      ><a name="2613" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2432" class="Bound"
+      >Nk</a
+      ><a name="2615"
+      > </a
+      ><a name="2616" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2435" class="Bound"
+      >Nk'</a
+      ><a name="2619"
+      > </a
+      ><a name="2620" class="Symbol"
+      >(</a
+      ><a name="2621" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2626"
+      > </a
+      ><a name="2627" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2429" class="Bound"
+      >Nm</a
+      ><a name="2629" class="Symbol"
+      >))</a
+      ><a name="2631"
+      > </a
+      ><a name="2632" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2633"
+      >
+  </a
+      ><a name="2636" class="Symbol"
+      >(</a
+      ><a name="2637" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2421" class="Bound"
+      >k</a
+      ><a name="2638"
+      > </a
+      ><a name="2639" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2640"
+      > </a
+      ><a name="2641" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2425" class="Bound"
+      >k'</a
+      ><a name="2643" class="Symbol"
+      >)</a
+      ><a name="2644"
+      > </a
+      ><a name="2645" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2646"
+      > </a
+      ><a name="2647" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2652"
+      > </a
+      ><a name="2653" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2409" class="Bound"
+      >m</a
+      ><a name="2654"
+      >             </a
+      ><a name="2667" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="2668"
+      >
+
+</a
+      ><a name="2670" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2670" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="2683"
+      > </a
+      ><a name="2684" class="Symbol"
+      >:</a
+      ><a name="2685"
+      > </a
+      ><a name="2686" class="Symbol"
+      >&#8704;</a
+      ><a name="2687"
+      > </a
+      ><a name="2688" class="Symbol"
+      >{</a
+      ><a name="2689" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2689" class="Bound"
+      >m</a
+      ><a name="2690"
+      > </a
+      ><a name="2691" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2691" class="Bound"
+      >n</a
+      ><a name="2692"
+      > </a
+      ><a name="2693" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2693" class="Bound"
+      >o</a
+      ><a name="2694" class="Symbol"
+      >}</a
+      ><a name="2695"
+      > </a
+      ><a name="2696" class="Symbol"
+      >&#8594;</a
+      ><a name="2697"
+      > </a
+      ><a name="2698" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2699"
+      > </a
+      ><a name="2700" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2689" class="Bound"
+      >m</a
+      ><a name="2701"
+      > </a
+      ><a name="2702" class="Symbol"
+      >&#8594;</a
+      ><a name="2703"
+      > </a
+      ><a name="2704" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2705"
+      > </a
+      ><a name="2706" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2691" class="Bound"
+      >n</a
+      ><a name="2707"
+      > </a
+      ><a name="2708" class="Symbol"
+      >&#8594;</a
+      ><a name="2709"
+      > </a
+      ><a name="2710" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2711"
+      > </a
+      ><a name="2712" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2693" class="Bound"
+      >o</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" class="Symbol"
+      >&#8594;</a
+      ><a name="2715"
+      > </a
+      ><a name="2716" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2689" class="Bound"
+      >m</a
+      ><a name="2717"
+      > </a
+      ><a name="2718" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2691" class="Bound"
+      >n</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" class="Symbol"
+      >&#8594;</a
+      ><a name="2723"
+      > </a
+      ><a name="2724" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2689" class="Bound"
+      >m</a
+      ><a name="2725"
+      > </a
+      ><a name="2726" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2727"
+      > </a
+      ><a name="2728" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2693" class="Bound"
+      >o</a
+      ><a name="2729"
+      > </a
+      ><a name="2730" class="Symbol"
+      >&#8594;</a
+      ><a name="2731"
+      > </a
+      ><a name="2732" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2689" class="Bound"
+      >m</a
+      ><a name="2733"
+      > </a
+      ><a name="2734" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2735"
+      > </a
+      ><a name="2736" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2691" class="Bound"
+      >n</a
+      ><a name="2737"
+      > </a
+      ><a name="2738" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2739"
+      > </a
+      ><a name="2740" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2693" class="Bound"
+      >o</a
+      ><a name="2741"
+      >
+</a
+      ><a name="2742" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2670" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="2755"
+      >             </a
+      ><a name="2768" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2773"
+      >          </a
+      ><a name="2783" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2783" class="Bound"
+      >Nn</a
+      ><a name="2785"
+      > </a
+      ><a name="2786" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2786" class="Bound"
+      >No</a
+      ><a name="2788"
+      > </a
+      ><a name="2789" class="Symbol"
+      >(</a
+      ><a name="2790" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2790" class="Bound"
+      >0&#8802;0</a
+      ><a name="2793"
+      > </a
+      ><a name="2794" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2795"
+      > </a
+      ><a name="2796" class="Symbol"
+      >_)</a
+      ><a name="2798"
+      > </a
+      ><a name="2799" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2799" class="Bound"
+      >m&#8739;o</a
+      ><a name="2802"
+      > </a
+      ><a name="2803" class="Symbol"
+      >=</a
+      ><a name="2804"
+      > </a
+      ><a name="2805" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2811"
+      > </a
+      ><a name="2812" class="Symbol"
+      >(</a
+      ><a name="2813" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2790" class="Bound"
+      >0&#8802;0</a
+      ><a name="2816"
+      > </a
+      ><a name="2817" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2821" class="Symbol"
+      >)</a
+      ><a name="2822"
+      >
+</a
+      ><a name="2823" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2670" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="2836"
+      > </a
+      ><a name="2837" class="Symbol"
+      >{</a
+      ><a name="2838" class="Argument"
+      >n</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" class="Symbol"
+      >=</a
+      ><a name="2841"
+      > </a
+      ><a name="2842" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2842" class="Bound"
+      >n</a
+      ><a name="2843" class="Symbol"
+      >}</a
+      ><a name="2844"
+      > </a
+      ><a name="2845" class="Symbol"
+      >{</a
+      ><a name="2846" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2846" class="Bound"
+      >o</a
+      ><a name="2847" class="Symbol"
+      >}</a
+      ><a name="2848"
+      > </a
+      ><a name="2849" class="Symbol"
+      >(</a
+      ><a name="2850" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2855"
+      > </a
+      ><a name="2856" class="Symbol"
+      >{</a
+      ><a name="2857" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2857" class="Bound"
+      >m</a
+      ><a name="2858" class="Symbol"
+      >}</a
+      ><a name="2859"
+      > </a
+      ><a name="2860" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2860" class="Bound"
+      >Nm</a
+      ><a name="2862" class="Symbol"
+      >)</a
+      ><a name="2863"
+      > </a
+      ><a name="2864" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2864" class="Bound"
+      >Nn</a
+      ><a name="2866"
+      > </a
+      ><a name="2867" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2867" class="Bound"
+      >No</a
+      ><a name="2869"
+      >
+              </a
+      ><a name="2884" class="Symbol"
+      >(_</a
+      ><a name="2886"
+      > </a
+      ><a name="2887" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2888"
+      > </a
+      ><a name="2889" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2889" class="Bound"
+      >k</a
+      ><a name="2890"
+      > </a
+      ><a name="2891" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2892"
+      > </a
+      ><a name="2893" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2893" class="Bound"
+      >Nk</a
+      ><a name="2895"
+      > </a
+      ><a name="2896" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2897"
+      > </a
+      ><a name="2898" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2898" class="Bound"
+      >h&#8321;</a
+      ><a name="2900" class="Symbol"
+      >)</a
+      ><a name="2901"
+      >
+              </a
+      ><a name="2916" class="Symbol"
+      >(_</a
+      ><a name="2918"
+      > </a
+      ><a name="2919" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2920"
+      > </a
+      ><a name="2921" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2921" class="Bound"
+      >k'</a
+      ><a name="2923"
+      > </a
+      ><a name="2924" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2925"
+      > </a
+      ><a name="2926" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2926" class="Bound"
+      >Nk'</a
+      ><a name="2929"
+      > </a
+      ><a name="2930" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2931"
+      > </a
+      ><a name="2932" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2932" class="Bound"
+      >h&#8322;</a
+      ><a name="2934" class="Symbol"
+      >)</a
+      ><a name="2935"
+      > </a
+      ><a name="2936" class="Symbol"
+      >=</a
+      ><a name="2937"
+      >
+  </a
+      ><a name="2940" class="Symbol"
+      >(&#955;</a
+      ><a name="2942"
+      > </a
+      ><a name="2943" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2943" class="Bound"
+      >S&#8801;0</a
+      ><a name="2946"
+      > </a
+      ><a name="2947" class="Symbol"
+      >&#8594;</a
+      ><a name="2948"
+      > </a
+      ><a name="2949" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2955"
+      > </a
+      ><a name="2956" class="Symbol"
+      >(</a
+      ><a name="2957" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="2960"
+      > </a
+      ><a name="2961" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2943" class="Bound"
+      >S&#8801;0</a
+      ><a name="2964" class="Symbol"
+      >))</a
+      ><a name="2966"
+      >
+  </a
+      ><a name="2969" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2970"
+      > </a
+      ><a name="2971" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2889" class="Bound"
+      >k</a
+      ><a name="2972"
+      > </a
+      ><a name="2973" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2974"
+      > </a
+      ><a name="2975" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2921" class="Bound"
+      >k'</a
+      ><a name="2977"
+      > </a
+      ><a name="2978" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2979"
+      > </a
+      ><a name="2980" href="LTC-PCF.Data.Nat.Properties.html#2987" class="Function"
+      >+-N</a
+      ><a name="2983"
+      > </a
+      ><a name="2984" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2893" class="Bound"
+      >Nk</a
+      ><a name="2986"
+      > </a
+      ><a name="2987" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2926" class="Bound"
+      >Nk'</a
+      ><a name="2990"
+      > </a
+      ><a name="2991" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2992"
+      > </a
+      ><a name="2993" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2195" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z-helper</a
+      ><a name="3013"
+      > </a
+      ><a name="3014" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2860" class="Bound"
+      >Nm</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2893" class="Bound"
+      >Nk</a
+      ><a name="3019"
+      > </a
+      ><a name="3020" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2926" class="Bound"
+      >Nk'</a
+      ><a name="3023"
+      > </a
+      ><a name="3024" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2898" class="Bound"
+      >h&#8321;</a
+      ><a name="3026"
+      > </a
+      ><a name="3027" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2932" class="Bound"
+      >h&#8322;</a
+      ><a name="3029"
+      >
+
+</a
+      ><a name="3031" class="Comment"
+      >-- If x divides y and y is positive, then x &#8804; y.</a
+      ><a name="3079"
+      >
+</a
+      ><a name="3080" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3080" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3087"
+      > </a
+      ><a name="3088" class="Symbol"
+      >:</a
+      ><a name="3089"
+      > </a
+      ><a name="3090" class="Symbol"
+      >&#8704;</a
+      ><a name="3091"
+      > </a
+      ><a name="3092" class="Symbol"
+      >{</a
+      ><a name="3093" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3093" class="Bound"
+      >m</a
+      ><a name="3094"
+      > </a
+      ><a name="3095" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3095" class="Bound"
+      >n</a
+      ><a name="3096" class="Symbol"
+      >}</a
+      ><a name="3097"
+      > </a
+      ><a name="3098" class="Symbol"
+      >&#8594;</a
+      ><a name="3099"
+      > </a
+      ><a name="3100" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3101"
+      > </a
+      ><a name="3102" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3093" class="Bound"
+      >m</a
+      ><a name="3103"
+      > </a
+      ><a name="3104" class="Symbol"
+      >&#8594;</a
+      ><a name="3105"
+      > </a
+      ><a name="3106" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3107"
+      > </a
+      ><a name="3108" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3095" class="Bound"
+      >n</a
+      ><a name="3109"
+      > </a
+      ><a name="3110" class="Symbol"
+      >&#8594;</a
+      ><a name="3111"
+      > </a
+      ><a name="3112" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3093" class="Bound"
+      >m</a
+      ><a name="3113"
+      > </a
+      ><a name="3114" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="3115"
+      > </a
+      ><a name="3116" class="Symbol"
+      >(</a
+      ><a name="3117" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3122"
+      > </a
+      ><a name="3123" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3095" class="Bound"
+      >n</a
+      ><a name="3124" class="Symbol"
+      >)</a
+      ><a name="3125"
+      > </a
+      ><a name="3126" class="Symbol"
+      >&#8594;</a
+      ><a name="3127"
+      > </a
+      ><a name="3128" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3093" class="Bound"
+      >m</a
+      ><a name="3129"
+      > </a
+      ><a name="3130" href="LTC-PCF.Data.Nat.Inequalities.html#1163" class="Function Operator"
+      >&#8804;</a
+      ><a name="3131"
+      > </a
+      ><a name="3132" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3137"
+      > </a
+      ><a name="3138" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3095" class="Bound"
+      >n</a
+      ><a name="3139"
+      >
+</a
+      ><a name="3140" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3080" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3147"
+      >  </a
+      ><a name="3149" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3154"
+      >         </a
+      ><a name="3163" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3163" class="Bound"
+      >Nn</a
+      ><a name="3165"
+      > </a
+      ><a name="3166" class="Symbol"
+      >(</a
+      ><a name="3167" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3167" class="Bound"
+      >0&#8802;0</a
+      ><a name="3170"
+      > </a
+      ><a name="3171" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3172"
+      > </a
+      ><a name="3173" class="Symbol"
+      >_)</a
+      ><a name="3175"
+      >                     </a
+      ><a name="3196" class="Symbol"
+      >=</a
+      ><a name="3197"
+      > </a
+      ><a name="3198" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3204"
+      > </a
+      ><a name="3205" class="Symbol"
+      >(</a
+      ><a name="3206" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3167" class="Bound"
+      >0&#8802;0</a
+      ><a name="3209"
+      > </a
+      ><a name="3210" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3214" class="Symbol"
+      >)</a
+      ><a name="3215"
+      >
+</a
+      ><a name="3216" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3080" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3223"
+      > </a
+      ><a name="3224" class="Symbol"
+      >(</a
+      ><a name="3225" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3230"
+      > </a
+      ><a name="3231" class="Symbol"
+      >{</a
+      ><a name="3232" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3232" class="Bound"
+      >m</a
+      ><a name="3233" class="Symbol"
+      >}</a
+      ><a name="3234"
+      > </a
+      ><a name="3235" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3235" class="Bound"
+      >Nm</a
+      ><a name="3237" class="Symbol"
+      >)</a
+      ><a name="3238"
+      > </a
+      ><a name="3239" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3239" class="Bound"
+      >Nn</a
+      ><a name="3241"
+      > </a
+      ><a name="3242" class="Symbol"
+      >(_</a
+      ><a name="3244"
+      > </a
+      ><a name="3245" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3246"
+      > </a
+      ><a name="3247" class="DottedPattern Symbol"
+      >.</a
+      ><a name="3248" href="LTC-PCF.Base.html#1564" class="DottedPattern Postulate"
+      >zero</a
+      ><a name="3252"
+      > </a
+      ><a name="3253" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3254"
+      > </a
+      ><a name="3255" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3260"
+      > </a
+      ><a name="3261" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3262"
+      > </a
+      ><a name="3263" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3263" class="Bound"
+      >Sn&#8801;0*Sm</a
+      ><a name="3270" class="Symbol"
+      >)</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" class="Symbol"
+      >=</a
+      ><a name="3273"
+      >
+  </a
+      ><a name="3276" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3282"
+      > </a
+      ><a name="3283" class="Symbol"
+      >(</a
+      ><a name="3284" href="LTC-PCF.Base.html#3556" class="Postulate"
+      >0&#8802;S</a
+      ><a name="3287"
+      > </a
+      ><a name="3288" class="Symbol"
+      >(</a
+      ><a name="3289" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="3294"
+      > </a
+      ><a name="3295" class="Symbol"
+      >(</a
+      ><a name="3296" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" class="Symbol"
+      >(</a
+      ><a name="3301" href="LTC-PCF.Data.Nat.Properties.html#6220" class="Function"
+      >*-leftZero</a
+      ><a name="3311"
+      > </a
+      ><a name="3312" class="Symbol"
+      >(</a
+      ><a name="3313" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3318"
+      > </a
+      ><a name="3319" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3232" class="Bound"
+      >m</a
+      ><a name="3320" class="Symbol"
+      >)))</a
+      ><a name="3323"
+      > </a
+      ><a name="3324" class="Symbol"
+      >(</a
+      ><a name="3325" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3328"
+      > </a
+      ><a name="3329" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3263" class="Bound"
+      >Sn&#8801;0*Sm</a
+      ><a name="3336" class="Symbol"
+      >)))</a
+      ><a name="3339"
+      >
+</a
+      ><a name="3340" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3080" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3347"
+      > </a
+      ><a name="3348" class="Symbol"
+      >(</a
+      ><a name="3349" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3354"
+      > </a
+      ><a name="3355" class="Symbol"
+      >{</a
+      ><a name="3356" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3356" class="Bound"
+      >m</a
+      ><a name="3357" class="Symbol"
+      >}</a
+      ><a name="3358"
+      > </a
+      ><a name="3359" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3359" class="Bound"
+      >Nm</a
+      ><a name="3361" class="Symbol"
+      >)</a
+      ><a name="3362"
+      > </a
+      ><a name="3363" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3363" class="Bound"
+      >Nn</a
+      ><a name="3365"
+      > </a
+      ><a name="3366" class="Symbol"
+      >(_</a
+      ><a name="3368"
+      > </a
+      ><a name="3369" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3370"
+      > </a
+      ><a name="3371" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="3373" href="LTC-PCF.Base.html#1880" class="DottedPattern Function"
+      >succ&#8321;</a
+      ><a name="3378"
+      > </a
+      ><a name="3379" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3391" class="DottedPattern Bound"
+      >k</a
+      ><a name="3380" class="DottedPattern Symbol"
+      >)</a
+      ><a name="3381"
+      > </a
+      ><a name="3382" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3383"
+      > </a
+      ><a name="3384" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3389"
+      > </a
+      ><a name="3390" class="Symbol"
+      >{</a
+      ><a name="3391" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3391" class="Bound"
+      >k</a
+      ><a name="3392" class="Symbol"
+      >}</a
+      ><a name="3393"
+      > </a
+      ><a name="3394" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3394" class="Bound"
+      >Nk</a
+      ><a name="3396"
+      > </a
+      ><a name="3397" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3398"
+      > </a
+      ><a name="3399" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3399" class="Bound"
+      >Sn&#8801;Sk*Sm</a
+      ><a name="3407" class="Symbol"
+      >)</a
+      ><a name="3408"
+      > </a
+      ><a name="3409" class="Symbol"
+      >=</a
+      ><a name="3410"
+      >
+  </a
+      ><a name="3413" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3418"
+      > </a
+      ><a name="3419" class="Symbol"
+      >(&#955;</a
+      ><a name="3421"
+      > </a
+      ><a name="3422" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3422" class="Bound"
+      >t&#8321;</a
+      ><a name="3424"
+      > </a
+      ><a name="3425" class="Symbol"
+      >&#8594;</a
+      ><a name="3426"
+      > </a
+      ><a name="3427" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3432"
+      > </a
+      ><a name="3433" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3356" class="Bound"
+      >m</a
+      ><a name="3434"
+      > </a
+      ><a name="3435" href="LTC-PCF.Data.Nat.Inequalities.html#1163" class="Function Operator"
+      >&#8804;</a
+      ><a name="3436"
+      > </a
+      ><a name="3437" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3422" class="Bound"
+      >t&#8321;</a
+      ><a name="3439" class="Symbol"
+      >)</a
+      ><a name="3440"
+      >
+        </a
+      ><a name="3449" class="Symbol"
+      >(</a
+      ><a name="3450" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3453"
+      > </a
+      ><a name="3454" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3399" class="Bound"
+      >Sn&#8801;Sk*Sm</a
+      ><a name="3462" class="Symbol"
+      >)</a
+      ><a name="3463"
+      >
+        </a
+      ><a name="3472" class="Symbol"
+      >(</a
+      ><a name="3473" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3478"
+      > </a
+      ><a name="3479" class="Symbol"
+      >(&#955;</a
+      ><a name="3481"
+      > </a
+      ><a name="3482" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3482" class="Bound"
+      >t&#8322;</a
+      ><a name="3484"
+      > </a
+      ><a name="3485" class="Symbol"
+      >&#8594;</a
+      ><a name="3486"
+      > </a
+      ><a name="3487" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3492"
+      > </a
+      ><a name="3493" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3356" class="Bound"
+      >m</a
+      ><a name="3494"
+      > </a
+      ><a name="3495" href="LTC-PCF.Data.Nat.Inequalities.html#1163" class="Function Operator"
+      >&#8804;</a
+      ><a name="3496"
+      > </a
+      ><a name="3497" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3482" class="Bound"
+      >t&#8322;</a
+      ><a name="3499" class="Symbol"
+      >)</a
+      ><a name="3500"
+      >
+               </a
+      ><a name="3516" class="Symbol"
+      >(</a
+      ><a name="3517" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3520"
+      > </a
+      ><a name="3521" class="Symbol"
+      >(</a
+      ><a name="3522" href="LTC-PCF.Data.Nat.Properties.html#2216" class="Function"
+      >*-Sx</a
+      ><a name="3526"
+      > </a
+      ><a name="3527" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3391" class="Bound"
+      >k</a
+      ><a name="3528"
+      > </a
+      ><a name="3529" class="Symbol"
+      >(</a
+      ><a name="3530" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3535"
+      > </a
+      ><a name="3536" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3356" class="Bound"
+      >m</a
+      ><a name="3537" class="Symbol"
+      >)))</a
+      ><a name="3540"
+      >
+               </a
+      ><a name="3556" class="Symbol"
+      >(</a
+      ><a name="3557" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#6536" class="Function"
+      >x&#8804;x+y</a
+      ><a name="3562"
+      > </a
+      ><a name="3563" class="Symbol"
+      >(</a
+      ><a name="3564" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3569"
+      > </a
+      ><a name="3570" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3359" class="Bound"
+      >Nm</a
+      ><a name="3572" class="Symbol"
+      >)</a
+      ><a name="3573"
+      > </a
+      ><a name="3574" class="Symbol"
+      >(</a
+      ><a name="3575" href="LTC-PCF.Data.Nat.Properties.html#6476" class="Function"
+      >*-N</a
+      ><a name="3578"
+      > </a
+      ><a name="3579" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3394" class="Bound"
+      >Nk</a
+      ><a name="3581"
+      > </a
+      ><a name="3582" class="Symbol"
+      >(</a
+      ><a name="3583" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3588"
+      > </a
+      ><a name="3589" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3359" class="Bound"
+      >Nm</a
+      ><a name="3591" class="Symbol"
+      >))))</a
+      ><a name="3595"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

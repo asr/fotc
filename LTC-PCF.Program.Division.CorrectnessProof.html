@@ -1,0 +1,1342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.Division.CorrectnessProof</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The division program is correct</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Comment"
+      >-- This module proves the correctness of the division program using</a
+      ><a name="435"
+      >
+</a
+      ><a name="436" class="Comment"
+      >-- repeated subtraction (Dybjer 1985).</a
+      ><a name="474"
+      >
+
+</a
+      ><a name="476" class="Comment"
+      >-- Peter Dybjer. Program verification in a logical theory of</a
+      ><a name="536"
+      >
+</a
+      ><a name="537" class="Comment"
+      >-- constructions. In Jean-Pierre Jouannaud, editor. Functional</a
+      ><a name="599"
+      >
+</a
+      ><a name="600" class="Comment"
+      >-- Programming Languages and Computer Architecture, volume 201 of</a
+      ><a name="665"
+      >
+</a
+      ><a name="666" class="Comment"
+      >-- LNCS, 1985, pages 334-349. Appears in revised form as Programming</a
+      ><a name="734"
+      >
+</a
+      ><a name="735" class="Comment"
+      >-- Methodology Group Report 26, June 1986.</a
+      ><a name="777"
+      >
+
+</a
+      ><a name="779" class="Keyword"
+      >module</a
+      ><a name="785"
+      > </a
+      ><a name="786" href="LTC-PCF.Program.Division.CorrectnessProof.html#1" class="Module"
+      >LTC-PCF.Program.Division.CorrectnessProof</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Keyword"
+      >where</a
+      ><a name="833"
+      >
+
+</a
+      ><a name="835" class="Keyword"
+      >open</a
+      ><a name="839"
+      > </a
+      ><a name="840" class="Keyword"
+      >import</a
+      ><a name="846"
+      > </a
+      ><a name="847" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="859"
+      >
+</a
+      ><a name="860" class="Keyword"
+      >open</a
+      ><a name="864"
+      > </a
+      ><a name="865" class="Keyword"
+      >import</a
+      ><a name="871"
+      > </a
+      ><a name="872" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="888"
+      >
+</a
+      ><a name="889" class="Keyword"
+      >open</a
+      ><a name="893"
+      > </a
+      ><a name="894" class="Keyword"
+      >import</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="930"
+      >
+</a
+      ><a name="931" class="Keyword"
+      >open</a
+      ><a name="935"
+      > </a
+      ><a name="936" class="Keyword"
+      >import</a
+      ><a name="942"
+      > </a
+      ><a name="943" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities.Properties</a
+      ><a name="983"
+      >
+</a
+      ><a name="984" class="Keyword"
+      >open</a
+      ><a name="988"
+      > </a
+      ><a name="989" class="Keyword"
+      >import</a
+      ><a name="995"
+      > </a
+      ><a name="996" href="LTC-PCF.Data.Nat.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Properties</a
+      ><a name="1023"
+      >
+
+</a
+      ><a name="1025" class="Keyword"
+      >import</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Induction.NonAcc.WF</a
+      ><a name="1068"
+      >
+</a
+      ><a name="1069" class="Keyword"
+      >open</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" class="Keyword"
+      >module</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" href="LTC-PCF.Program.Division.CorrectnessProof.html#1081" class="Module"
+      >WFInd</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" class="Symbol"
+      >=</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#385" class="Module"
+      >LTC-PCF.</a
+      ><a name="1097" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#393" class="Module"
+      >Data.</a
+      ><a name="1102" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#398" class="Module"
+      >Nat.</a
+      ><a name="1106" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#402" class="Module"
+      >Induction.</a
+      ><a name="1116" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#412" class="Module"
+      >NonAcc.</a
+      ><a name="1123" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#419" class="Module"
+      >WF.</a
+      ><a name="1126" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#855" class="Module"
+      >WFInd</a
+      ><a name="1131"
+      >
+
+</a
+      ><a name="1133" class="Keyword"
+      >open</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" class="Keyword"
+      >import</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" href="LTC-PCF.Program.Division.Division.html#1" class="Module"
+      >LTC-PCF.Program.Division.Division</a
+      ><a name="1178"
+      >
+</a
+      ><a name="1179" class="Keyword"
+      >open</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Keyword"
+      >import</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="LTC-PCF.Program.Division.Specification.html#1" class="Module"
+      >LTC-PCF.Program.Division.Specification</a
+      ><a name="1229"
+      >
+</a
+      ><a name="1230" class="Keyword"
+      >open</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" class="Keyword"
+      >import</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" href="LTC-PCF.Program.Division.Result.html#1" class="Module"
+      >LTC-PCF.Program.Division.Result</a
+      ><a name="1273"
+      >
+</a
+      ><a name="1274" class="Keyword"
+      >open</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" class="Keyword"
+      >import</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" href="LTC-PCF.Program.Division.Totality.html#1" class="Module"
+      >LTC-PCF.Program.Division.Totality</a
+      ><a name="1319"
+      >
+
+</a
+      ><a name="1321" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1399"
+      >
+</a
+      ><a name="1400" class="Comment"
+      >-- The division program is correct when the dividend is less than the</a
+      ><a name="1469"
+      >
+</a
+      ><a name="1470" class="Comment"
+      >-- divisor.</a
+      ><a name="1481"
+      >
+</a
+      ><a name="1482" href="LTC-PCF.Program.Division.CorrectnessProof.html#1482" class="Function"
+      >div-x&lt;y-correct</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" class="Symbol"
+      >:</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" class="Symbol"
+      >&#8704;</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" class="Symbol"
+      >{</a
+      ><a name="1503" href="LTC-PCF.Program.Division.CorrectnessProof.html#1503" class="Bound"
+      >i</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="LTC-PCF.Program.Division.CorrectnessProof.html#1505" class="Bound"
+      >j</a
+      ><a name="1506" class="Symbol"
+      >}</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" class="Symbol"
+      >&#8594;</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="LTC-PCF.Program.Division.CorrectnessProof.html#1503" class="Bound"
+      >i</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" class="Symbol"
+      >&#8594;</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="LTC-PCF.Program.Division.CorrectnessProof.html#1505" class="Bound"
+      >j</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" class="Symbol"
+      >&#8594;</a
+      ><a name="1521"
+      > </a
+      ><a name="1522" href="LTC-PCF.Program.Division.CorrectnessProof.html#1503" class="Bound"
+      >i</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" href="LTC-PCF.Program.Division.CorrectnessProof.html#1505" class="Bound"
+      >j</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" class="Symbol"
+      >&#8594;</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="LTC-PCF.Program.Division.CorrectnessProof.html#1503" class="Bound"
+      >i</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" href="LTC-PCF.Program.Division.CorrectnessProof.html#1505" class="Bound"
+      >j</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" class="Symbol"
+      >(</a
+      ><a name="1543" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" href="LTC-PCF.Program.Division.CorrectnessProof.html#1503" class="Bound"
+      >i</a
+      ><a name="1548"
+      > </a
+      ><a name="1549" href="LTC-PCF.Program.Division.CorrectnessProof.html#1505" class="Bound"
+      >j</a
+      ><a name="1550" class="Symbol"
+      >)</a
+      ><a name="1551"
+      >
+</a
+      ><a name="1552" href="LTC-PCF.Program.Division.CorrectnessProof.html#1482" class="Function"
+      >div-x&lt;y-correct</a
+      ><a name="1567"
+      > </a
+      ><a name="1568" href="LTC-PCF.Program.Division.CorrectnessProof.html#1568" class="Bound"
+      >Ni</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="LTC-PCF.Program.Division.CorrectnessProof.html#1571" class="Bound"
+      >Nj</a
+      ><a name="1573"
+      > </a
+      ><a name="1574" href="LTC-PCF.Program.Division.CorrectnessProof.html#1574" class="Bound"
+      >i&lt;j</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" class="Symbol"
+      >=</a
+      ><a name="1579"
+      > </a
+      ><a name="1580" href="LTC-PCF.Program.Division.Totality.html#815" class="Function"
+      >div-x&lt;y-N</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" href="LTC-PCF.Program.Division.CorrectnessProof.html#1574" class="Bound"
+      >i&lt;j</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" href="LTC-PCF.Program.Division.Result.html#1257" class="Function"
+      >div-x&lt;y-resultCorrect</a
+      ><a name="1617"
+      > </a
+      ><a name="1618" href="LTC-PCF.Program.Division.CorrectnessProof.html#1568" class="Bound"
+      >Ni</a
+      ><a name="1620"
+      > </a
+      ><a name="1621" href="LTC-PCF.Program.Division.CorrectnessProof.html#1571" class="Bound"
+      >Nj</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" href="LTC-PCF.Program.Division.CorrectnessProof.html#1574" class="Bound"
+      >i&lt;j</a
+      ><a name="1627"
+      >
+
+</a
+      ><a name="1629" class="Comment"
+      >-- The division program is correct when the dividend is greater or</a
+      ><a name="1695"
+      >
+</a
+      ><a name="1696" class="Comment"
+      >-- equal than the divisor.</a
+      ><a name="1722"
+      >
+</a
+      ><a name="1723" href="LTC-PCF.Program.Division.CorrectnessProof.html#1723" class="Function"
+      >div-x&#8814;y-correct</a
+      ><a name="1738"
+      > </a
+      ><a name="1739" class="Symbol"
+      >:</a
+      ><a name="1740"
+      > </a
+      ><a name="1741" class="Symbol"
+      >&#8704;</a
+      ><a name="1742"
+      > </a
+      ><a name="1743" class="Symbol"
+      >{</a
+      ><a name="1744" href="LTC-PCF.Program.Division.CorrectnessProof.html#1744" class="Bound"
+      >i</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1747" class="Symbol"
+      >}</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" class="Symbol"
+      >&#8594;</a
+      ><a name="1750"
+      > </a
+      ><a name="1751" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1752"
+      > </a
+      ><a name="1753" href="LTC-PCF.Program.Division.CorrectnessProof.html#1744" class="Bound"
+      >i</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" class="Symbol"
+      >&#8594;</a
+      ><a name="1756"
+      > </a
+      ><a name="1757" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" class="Symbol"
+      >&#8594;</a
+      ><a name="1762"
+      >
+                  </a
+      ><a name="1781" class="Symbol"
+      >(&#8704;</a
+      ><a name="1783"
+      > </a
+      ><a name="1784" class="Symbol"
+      >{</a
+      ><a name="1785" href="LTC-PCF.Program.Division.CorrectnessProof.html#1785" class="Bound"
+      >i'</a
+      ><a name="1787" class="Symbol"
+      >}</a
+      ><a name="1788"
+      > </a
+      ><a name="1789" class="Symbol"
+      >&#8594;</a
+      ><a name="1790"
+      > </a
+      ><a name="1791" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1792"
+      > </a
+      ><a name="1793" href="LTC-PCF.Program.Division.CorrectnessProof.html#1785" class="Bound"
+      >i'</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" class="Symbol"
+      >&#8594;</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" href="LTC-PCF.Program.Division.CorrectnessProof.html#1785" class="Bound"
+      >i'</a
+      ><a name="1800"
+      > </a
+      ><a name="1801" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1802"
+      > </a
+      ><a name="1803" href="LTC-PCF.Program.Division.CorrectnessProof.html#1744" class="Bound"
+      >i</a
+      ><a name="1804"
+      > </a
+      ><a name="1805" class="Symbol"
+      >&#8594;</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="1814"
+      > </a
+      ><a name="1815" href="LTC-PCF.Program.Division.CorrectnessProof.html#1785" class="Bound"
+      >i'</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" class="Symbol"
+      >(</a
+      ><a name="1821" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="LTC-PCF.Program.Division.CorrectnessProof.html#1785" class="Bound"
+      >i'</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1829" class="Symbol"
+      >))</a
+      ><a name="1831"
+      > </a
+      ><a name="1832" class="Symbol"
+      >&#8594;</a
+      ><a name="1833"
+      >
+                  </a
+      ><a name="1852" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1853"
+      > </a
+      ><a name="1854" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1860"
+      > </a
+      ><a name="1861" class="Symbol"
+      >&#8594;</a
+      ><a name="1862"
+      >
+                  </a
+      ><a name="1881" href="LTC-PCF.Program.Division.CorrectnessProof.html#1744" class="Bound"
+      >i</a
+      ><a name="1882"
+      > </a
+      ><a name="1883" href="LTC-PCF.Data.Nat.Inequalities.html#1038" class="Function Operator"
+      >&#8814;</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" class="Symbol"
+      >&#8594;</a
+      ><a name="1888"
+      >
+                  </a
+      ><a name="1907" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="1914"
+      > </a
+      ><a name="1915" href="LTC-PCF.Program.Division.CorrectnessProof.html#1744" class="Bound"
+      >i</a
+      ><a name="1916"
+      > </a
+      ><a name="1917" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" class="Symbol"
+      >(</a
+      ><a name="1920" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1923"
+      > </a
+      ><a name="1924" href="LTC-PCF.Program.Division.CorrectnessProof.html#1744" class="Bound"
+      >i</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" href="LTC-PCF.Program.Division.CorrectnessProof.html#1746" class="Bound"
+      >j</a
+      ><a name="1927" class="Symbol"
+      >)</a
+      ><a name="1928"
+      >
+</a
+      ><a name="1929" href="LTC-PCF.Program.Division.CorrectnessProof.html#1723" class="Function"
+      >div-x&#8814;y-correct</a
+      ><a name="1944"
+      > </a
+      ><a name="1945" class="Symbol"
+      >{</a
+      ><a name="1946" href="LTC-PCF.Program.Division.CorrectnessProof.html#1946" class="Bound"
+      >i</a
+      ><a name="1947" class="Symbol"
+      >}</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" class="Symbol"
+      >{</a
+      ><a name="1950" href="LTC-PCF.Program.Division.CorrectnessProof.html#1950" class="Bound"
+      >j</a
+      ><a name="1951" class="Symbol"
+      >}</a
+      ><a name="1952"
+      > </a
+      ><a name="1953" href="LTC-PCF.Program.Division.CorrectnessProof.html#1953" class="Bound"
+      >Ni</a
+      ><a name="1955"
+      > </a
+      ><a name="1956" href="LTC-PCF.Program.Division.CorrectnessProof.html#1956" class="Bound"
+      >Nj</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="LTC-PCF.Program.Division.CorrectnessProof.html#1959" class="Bound"
+      >ah</a
+      ><a name="1961"
+      > </a
+      ><a name="1962" href="LTC-PCF.Program.Division.CorrectnessProof.html#1962" class="Bound"
+      >j&gt;0</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" href="LTC-PCF.Program.Division.CorrectnessProof.html#1966" class="Bound"
+      >i&#8814;j</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" class="Symbol"
+      >=</a
+      ><a name="1971"
+      >
+  </a
+      ><a name="1974" href="LTC-PCF.Program.Division.Totality.html#1161" class="Function"
+      >div-x&#8814;y-N</a
+      ><a name="1983"
+      > </a
+      ><a name="1984" href="LTC-PCF.Program.Division.CorrectnessProof.html#2079" class="Function"
+      >ih</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" href="LTC-PCF.Program.Division.CorrectnessProof.html#1966" class="Bound"
+      >i&#8814;j</a
+      ><a name="1990"
+      > </a
+      ><a name="1991" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" href="LTC-PCF.Program.Division.Result.html#2452" class="Function"
+      >div-x&#8814;y-resultCorrect</a
+      ><a name="2014"
+      > </a
+      ><a name="2015" href="LTC-PCF.Program.Division.CorrectnessProof.html#1953" class="Bound"
+      >Ni</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" href="LTC-PCF.Program.Division.CorrectnessProof.html#1956" class="Bound"
+      >Nj</a
+      ><a name="2020"
+      > </a
+      ><a name="2021" href="LTC-PCF.Program.Division.CorrectnessProof.html#2079" class="Function"
+      >ih</a
+      ><a name="2023"
+      > </a
+      ><a name="2024" href="LTC-PCF.Program.Division.CorrectnessProof.html#1966" class="Bound"
+      >i&#8814;j</a
+      ><a name="2027"
+      >
+
+  </a
+      ><a name="2031" class="Keyword"
+      >where</a
+      ><a name="2036"
+      >
+  </a
+      ><a name="2039" class="Comment"
+      >-- The inductive hypothesis on i &#8760; j.</a
+      ><a name="2076"
+      >
+  </a
+      ><a name="2079" href="LTC-PCF.Program.Division.CorrectnessProof.html#2079" class="Function"
+      >ih</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" class="Symbol"
+      >:</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" class="Symbol"
+      >(</a
+      ><a name="2093" href="LTC-PCF.Program.Division.CorrectnessProof.html#1946" class="Bound"
+      >i</a
+      ><a name="2094"
+      > </a
+      ><a name="2095" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2096"
+      > </a
+      ><a name="2097" href="LTC-PCF.Program.Division.CorrectnessProof.html#1950" class="Bound"
+      >j</a
+      ><a name="2098" class="Symbol"
+      >)</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" href="LTC-PCF.Program.Division.CorrectnessProof.html#1950" class="Bound"
+      >j</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" class="Symbol"
+      >(</a
+      ><a name="2103" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" class="Symbol"
+      >(</a
+      ><a name="2108" href="LTC-PCF.Program.Division.CorrectnessProof.html#1946" class="Bound"
+      >i</a
+      ><a name="2109"
+      > </a
+      ><a name="2110" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2111"
+      > </a
+      ><a name="2112" href="LTC-PCF.Program.Division.CorrectnessProof.html#1950" class="Bound"
+      >j</a
+      ><a name="2113" class="Symbol"
+      >)</a
+      ><a name="2114"
+      > </a
+      ><a name="2115" href="LTC-PCF.Program.Division.CorrectnessProof.html#1950" class="Bound"
+      >j</a
+      ><a name="2116" class="Symbol"
+      >)</a
+      ><a name="2117"
+      >
+  </a
+      ><a name="2120" href="LTC-PCF.Program.Division.CorrectnessProof.html#2079" class="Function"
+      >ih</a
+      ><a name="2122"
+      > </a
+      ><a name="2123" class="Symbol"
+      >=</a
+      ><a name="2124"
+      > </a
+      ><a name="2125" href="LTC-PCF.Program.Division.CorrectnessProof.html#1959" class="Bound"
+      >ah</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" class="Symbol"
+      >{</a
+      ><a name="2129" href="LTC-PCF.Program.Division.CorrectnessProof.html#1946" class="Bound"
+      >i</a
+      ><a name="2130"
+      > </a
+      ><a name="2131" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2132"
+      > </a
+      ><a name="2133" href="LTC-PCF.Program.Division.CorrectnessProof.html#1950" class="Bound"
+      >j</a
+      ><a name="2134" class="Symbol"
+      >}</a
+      ><a name="2135"
+      >
+          </a
+      ><a name="2146" class="Symbol"
+      >(</a
+      ><a name="2147" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="2150"
+      > </a
+      ><a name="2151" href="LTC-PCF.Program.Division.CorrectnessProof.html#1953" class="Bound"
+      >Ni</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" href="LTC-PCF.Program.Division.CorrectnessProof.html#1956" class="Bound"
+      >Nj</a
+      ><a name="2156" class="Symbol"
+      >)</a
+      ><a name="2157"
+      >
+          </a
+      ><a name="2168" class="Symbol"
+      >(</a
+      ><a name="2169" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#10018" class="Function"
+      >x&#8805;y&#8594;y&gt;0&#8594;x&#8760;y&lt;x</a
+      ><a name="2182"
+      > </a
+      ><a name="2183" href="LTC-PCF.Program.Division.CorrectnessProof.html#1953" class="Bound"
+      >Ni</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" href="LTC-PCF.Program.Division.CorrectnessProof.html#1956" class="Bound"
+      >Nj</a
+      ><a name="2188"
+      > </a
+      ><a name="2189" class="Symbol"
+      >(</a
+      ><a name="2190" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#2666" class="Function"
+      >x&#8814;y&#8594;x&#8805;y</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="LTC-PCF.Program.Division.CorrectnessProof.html#1953" class="Bound"
+      >Ni</a
+      ><a name="2200"
+      > </a
+      ><a name="2201" href="LTC-PCF.Program.Division.CorrectnessProof.html#1956" class="Bound"
+      >Nj</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" href="LTC-PCF.Program.Division.CorrectnessProof.html#1966" class="Bound"
+      >i&#8814;j</a
+      ><a name="2207" class="Symbol"
+      >)</a
+      ><a name="2208"
+      > </a
+      ><a name="2209" href="LTC-PCF.Program.Division.CorrectnessProof.html#1962" class="Bound"
+      >j&gt;0</a
+      ><a name="2212" class="Symbol"
+      >)</a
+      ><a name="2213"
+      >
+
+</a
+      ><a name="2215" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2293"
+      >
+</a
+      ><a name="2294" class="Comment"
+      >-- The division program is correct.</a
+      ><a name="2329"
+      >
+
+</a
+      ><a name="2331" class="Comment"
+      >-- We do the well-founded induction on i and we keep j fixed.</a
+      ><a name="2392"
+      >
+</a
+      ><a name="2393" href="LTC-PCF.Program.Division.CorrectnessProof.html#2393" class="Function"
+      >divCorrect</a
+      ><a name="2403"
+      > </a
+      ><a name="2404" class="Symbol"
+      >:</a
+      ><a name="2405"
+      > </a
+      ><a name="2406" class="Symbol"
+      >&#8704;</a
+      ><a name="2407"
+      > </a
+      ><a name="2408" class="Symbol"
+      >{</a
+      ><a name="2409" href="LTC-PCF.Program.Division.CorrectnessProof.html#2409" class="Bound"
+      >i</a
+      ><a name="2410"
+      > </a
+      ><a name="2411" href="LTC-PCF.Program.Division.CorrectnessProof.html#2411" class="Bound"
+      >j</a
+      ><a name="2412" class="Symbol"
+      >}</a
+      ><a name="2413"
+      > </a
+      ><a name="2414" class="Symbol"
+      >&#8594;</a
+      ><a name="2415"
+      > </a
+      ><a name="2416" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2417"
+      > </a
+      ><a name="2418" href="LTC-PCF.Program.Division.CorrectnessProof.html#2409" class="Bound"
+      >i</a
+      ><a name="2419"
+      > </a
+      ><a name="2420" class="Symbol"
+      >&#8594;</a
+      ><a name="2421"
+      > </a
+      ><a name="2422" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2423"
+      > </a
+      ><a name="2424" href="LTC-PCF.Program.Division.CorrectnessProof.html#2411" class="Bound"
+      >j</a
+      ><a name="2425"
+      > </a
+      ><a name="2426" class="Symbol"
+      >&#8594;</a
+      ><a name="2427"
+      > </a
+      ><a name="2428" href="LTC-PCF.Program.Division.CorrectnessProof.html#2411" class="Bound"
+      >j</a
+      ><a name="2429"
+      > </a
+      ><a name="2430" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="2436"
+      > </a
+      ><a name="2437" class="Symbol"
+      >&#8594;</a
+      ><a name="2438"
+      > </a
+      ><a name="2439" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="2446"
+      > </a
+      ><a name="2447" href="LTC-PCF.Program.Division.CorrectnessProof.html#2409" class="Bound"
+      >i</a
+      ><a name="2448"
+      > </a
+      ><a name="2449" href="LTC-PCF.Program.Division.CorrectnessProof.html#2411" class="Bound"
+      >j</a
+      ><a name="2450"
+      > </a
+      ><a name="2451" class="Symbol"
+      >(</a
+      ><a name="2452" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2455"
+      > </a
+      ><a name="2456" href="LTC-PCF.Program.Division.CorrectnessProof.html#2409" class="Bound"
+      >i</a
+      ><a name="2457"
+      > </a
+      ><a name="2458" href="LTC-PCF.Program.Division.CorrectnessProof.html#2411" class="Bound"
+      >j</a
+      ><a name="2459" class="Symbol"
+      >)</a
+      ><a name="2460"
+      >
+</a
+      ><a name="2461" href="LTC-PCF.Program.Division.CorrectnessProof.html#2393" class="Function"
+      >divCorrect</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" class="Symbol"
+      >{</a
+      ><a name="2473" class="Argument"
+      >j</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" class="Symbol"
+      >=</a
+      ><a name="2476"
+      > </a
+      ><a name="2477" href="LTC-PCF.Program.Division.CorrectnessProof.html#2477" class="Bound"
+      >j</a
+      ><a name="2478" class="Symbol"
+      >}</a
+      ><a name="2479"
+      > </a
+      ><a name="2480" href="LTC-PCF.Program.Division.CorrectnessProof.html#2480" class="Bound"
+      >Ni</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" href="LTC-PCF.Program.Division.CorrectnessProof.html#2483" class="Bound"
+      >Nj</a
+      ><a name="2485"
+      > </a
+      ><a name="2486" href="LTC-PCF.Program.Division.CorrectnessProof.html#2486" class="Bound"
+      >j&gt;0</a
+      ><a name="2489"
+      > </a
+      ><a name="2490" class="Symbol"
+      >=</a
+      ><a name="2491"
+      > </a
+      ><a name="2492" href="LTC-PCF.Data.Nat.Induction.NonAcc.WF.html#870" class="Function"
+      >&lt;-wfind</a
+      ><a name="2499"
+      > </a
+      ><a name="2500" href="LTC-PCF.Program.Division.CorrectnessProof.html#2518" class="Function"
+      >A</a
+      ><a name="2501"
+      > </a
+      ><a name="2502" href="LTC-PCF.Program.Division.CorrectnessProof.html#2715" class="Function"
+      >ih</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" href="LTC-PCF.Program.Division.CorrectnessProof.html#2480" class="Bound"
+      >Ni</a
+      ><a name="2507"
+      >
+  </a
+      ><a name="2510" class="Keyword"
+      >where</a
+      ><a name="2515"
+      >
+  </a
+      ><a name="2518" href="LTC-PCF.Program.Division.CorrectnessProof.html#2518" class="Function"
+      >A</a
+      ><a name="2519"
+      > </a
+      ><a name="2520" class="Symbol"
+      >:</a
+      ><a name="2521"
+      > </a
+      ><a name="2522" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2523"
+      > </a
+      ><a name="2524" class="Symbol"
+      >&#8594;</a
+      ><a name="2525"
+      > </a
+      ><a name="2526" class="PrimitiveType"
+      >Set</a
+      ><a name="2529"
+      >
+  </a
+      ><a name="2532" href="LTC-PCF.Program.Division.CorrectnessProof.html#2518" class="Function"
+      >A</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" href="LTC-PCF.Program.Division.CorrectnessProof.html#2534" class="Bound"
+      >d</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" class="Symbol"
+      >=</a
+      ><a name="2537"
+      > </a
+      ><a name="2538" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="2545"
+      > </a
+      ><a name="2546" href="LTC-PCF.Program.Division.CorrectnessProof.html#2534" class="Bound"
+      >d</a
+      ><a name="2547"
+      > </a
+      ><a name="2548" href="LTC-PCF.Program.Division.CorrectnessProof.html#2477" class="Bound"
+      >j</a
+      ><a name="2549"
+      > </a
+      ><a name="2550" class="Symbol"
+      >(</a
+      ><a name="2551" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2554"
+      > </a
+      ><a name="2555" href="LTC-PCF.Program.Division.CorrectnessProof.html#2534" class="Bound"
+      >d</a
+      ><a name="2556"
+      > </a
+      ><a name="2557" href="LTC-PCF.Program.Division.CorrectnessProof.html#2477" class="Bound"
+      >j</a
+      ><a name="2558" class="Symbol"
+      >)</a
+      ><a name="2559"
+      >
+
+  </a
+      ><a name="2563" class="Comment"
+      >-- The inductive step doesn't use the variable i (nor Ni). To make</a
+      ><a name="2629"
+      >
+  </a
+      ><a name="2632" class="Comment"
+      >-- this clear we write down the inductive step using the variables m</a
+      ><a name="2700"
+      >
+  </a
+      ><a name="2703" class="Comment"
+      >-- and n.</a
+      ><a name="2712"
+      >
+  </a
+      ><a name="2715" href="LTC-PCF.Program.Division.CorrectnessProof.html#2715" class="Function"
+      >ih</a
+      ><a name="2717"
+      > </a
+      ><a name="2718" class="Symbol"
+      >:</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" class="Symbol"
+      >&#8704;</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" class="Symbol"
+      >{</a
+      ><a name="2723" href="LTC-PCF.Program.Division.CorrectnessProof.html#2723" class="Bound"
+      >n</a
+      ><a name="2724" class="Symbol"
+      >}</a
+      ><a name="2725"
+      > </a
+      ><a name="2726" class="Symbol"
+      >&#8594;</a
+      ><a name="2727"
+      > </a
+      ><a name="2728" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2729"
+      > </a
+      ><a name="2730" href="LTC-PCF.Program.Division.CorrectnessProof.html#2723" class="Bound"
+      >n</a
+      ><a name="2731"
+      > </a
+      ><a name="2732" class="Symbol"
+      >&#8594;</a
+      ><a name="2733"
+      > </a
+      ><a name="2734" class="Symbol"
+      >(&#8704;</a
+      ><a name="2736"
+      > </a
+      ><a name="2737" class="Symbol"
+      >{</a
+      ><a name="2738" href="LTC-PCF.Program.Division.CorrectnessProof.html#2738" class="Bound"
+      >m</a
+      ><a name="2739" class="Symbol"
+      >}</a
+      ><a name="2740"
+      > </a
+      ><a name="2741" class="Symbol"
+      >&#8594;</a
+      ><a name="2742"
+      > </a
+      ><a name="2743" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2744"
+      > </a
+      ><a name="2745" href="LTC-PCF.Program.Division.CorrectnessProof.html#2738" class="Bound"
+      >m</a
+      ><a name="2746"
+      > </a
+      ><a name="2747" class="Symbol"
+      >&#8594;</a
+      ><a name="2748"
+      > </a
+      ><a name="2749" href="LTC-PCF.Program.Division.CorrectnessProof.html#2738" class="Bound"
+      >m</a
+      ><a name="2750"
+      > </a
+      ><a name="2751" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="2752"
+      > </a
+      ><a name="2753" href="LTC-PCF.Program.Division.CorrectnessProof.html#2723" class="Bound"
+      >n</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" class="Symbol"
+      >&#8594;</a
+      ><a name="2756"
+      > </a
+      ><a name="2757" href="LTC-PCF.Program.Division.CorrectnessProof.html#2518" class="Function"
+      >A</a
+      ><a name="2758"
+      > </a
+      ><a name="2759" href="LTC-PCF.Program.Division.CorrectnessProof.html#2738" class="Bound"
+      >m</a
+      ><a name="2760" class="Symbol"
+      >)</a
+      ><a name="2761"
+      > </a
+      ><a name="2762" class="Symbol"
+      >&#8594;</a
+      ><a name="2763"
+      > </a
+      ><a name="2764" href="LTC-PCF.Program.Division.CorrectnessProof.html#2518" class="Function"
+      >A</a
+      ><a name="2765"
+      > </a
+      ><a name="2766" href="LTC-PCF.Program.Division.CorrectnessProof.html#2723" class="Bound"
+      >n</a
+      ><a name="2767"
+      >
+  </a
+      ><a name="2770" href="LTC-PCF.Program.Division.CorrectnessProof.html#2715" class="Function"
+      >ih</a
+      ><a name="2772"
+      > </a
+      ><a name="2773" class="Symbol"
+      >{</a
+      ><a name="2774" href="LTC-PCF.Program.Division.CorrectnessProof.html#2774" class="Bound"
+      >n</a
+      ><a name="2775" class="Symbol"
+      >}</a
+      ><a name="2776"
+      > </a
+      ><a name="2777" href="LTC-PCF.Program.Division.CorrectnessProof.html#2777" class="Bound"
+      >Nn</a
+      ><a name="2779"
+      > </a
+      ><a name="2780" href="LTC-PCF.Program.Division.CorrectnessProof.html#2780" class="Bound"
+      >ah</a
+      ><a name="2782"
+      > </a
+      ><a name="2783" class="Symbol"
+      >=</a
+      ><a name="2784"
+      >
+     </a
+      ><a name="2790" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="2794"
+      > </a
+      ><a name="2795" class="Symbol"
+      >(</a
+      ><a name="2796" href="LTC-PCF.Program.Division.CorrectnessProof.html#1482" class="Function"
+      >div-x&lt;y-correct</a
+      ><a name="2811"
+      > </a
+      ><a name="2812" href="LTC-PCF.Program.Division.CorrectnessProof.html#2777" class="Bound"
+      >Nn</a
+      ><a name="2814"
+      > </a
+      ><a name="2815" href="LTC-PCF.Program.Division.CorrectnessProof.html#2483" class="Bound"
+      >Nj</a
+      ><a name="2817" class="Symbol"
+      >)</a
+      ><a name="2818"
+      > </a
+      ><a name="2819" class="Symbol"
+      >(</a
+      ><a name="2820" href="LTC-PCF.Program.Division.CorrectnessProof.html#1723" class="Function"
+      >div-x&#8814;y-correct</a
+      ><a name="2835"
+      > </a
+      ><a name="2836" href="LTC-PCF.Program.Division.CorrectnessProof.html#2777" class="Bound"
+      >Nn</a
+      ><a name="2838"
+      > </a
+      ><a name="2839" href="LTC-PCF.Program.Division.CorrectnessProof.html#2483" class="Bound"
+      >Nj</a
+      ><a name="2841"
+      > </a
+      ><a name="2842" href="LTC-PCF.Program.Division.CorrectnessProof.html#2780" class="Bound"
+      >ah</a
+      ><a name="2844"
+      > </a
+      ><a name="2845" href="LTC-PCF.Program.Division.CorrectnessProof.html#2486" class="Bound"
+      >j&gt;0</a
+      ><a name="2848" class="Symbol"
+      >)</a
+      ><a name="2849"
+      > </a
+      ><a name="2850" class="Symbol"
+      >(</a
+      ><a name="2851" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#4252" class="Function"
+      >x&lt;y&#8744;x&#8814;y</a
+      ><a name="2858"
+      > </a
+      ><a name="2859" href="LTC-PCF.Program.Division.CorrectnessProof.html#2777" class="Bound"
+      >Nn</a
+      ><a name="2861"
+      > </a
+      ><a name="2862" href="LTC-PCF.Program.Division.CorrectnessProof.html#2483" class="Bound"
+      >Nj</a
+      ><a name="2864" class="Symbol"
+      >)</a
+      ><a name="2865"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

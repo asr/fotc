@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.SortList.CorrectnessProofATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The program to sort a list is correct</a
+      ><a name="120"
+      >
+</a
+      ><a name="121" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="199"
+      >
+
+</a
+      ><a name="201" class="Symbol"
+      >{-#</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Keyword"
+      >OPTIONS</a
+      ><a name="212"
+      > --exact-split              </a
+      ><a name="240" class="Symbol"
+      >#-}</a
+      ><a name="243"
+      >
+</a
+      ><a name="244" class="Symbol"
+      >{-#</a
+      ><a name="247"
+      > </a
+      ><a name="248" class="Keyword"
+      >OPTIONS</a
+      ><a name="255"
+      > --no-sized-types           </a
+      ><a name="283" class="Symbol"
+      >#-}</a
+      ><a name="286"
+      >
+</a
+      ><a name="287" class="Symbol"
+      >{-#</a
+      ><a name="290"
+      > </a
+      ><a name="291" class="Keyword"
+      >OPTIONS</a
+      ><a name="298"
+      > --no-universe-polymorphism </a
+      ><a name="326" class="Symbol"
+      >#-}</a
+      ><a name="329"
+      >
+</a
+      ><a name="330" class="Symbol"
+      >{-#</a
+      ><a name="333"
+      > </a
+      ><a name="334" class="Keyword"
+      >OPTIONS</a
+      ><a name="341"
+      > --without-K                </a
+      ><a name="369" class="Symbol"
+      >#-}</a
+      ><a name="372"
+      >
+
+</a
+      ><a name="374" class="Comment"
+      >-- This module proves the correctness of a program which sorts a list</a
+      ><a name="443"
+      >
+</a
+      ><a name="444" class="Comment"
+      >-- by converting it into an ordered tree and then back to a list</a
+      ><a name="508"
+      >
+</a
+      ><a name="509" class="Comment"
+      >-- (Burstall, 1969, p. 45).</a
+      ><a name="536"
+      >
+
+</a
+      ><a name="538" class="Keyword"
+      >module</a
+      ><a name="544"
+      > </a
+      ><a name="545" href="FOTC.Program.SortList.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.SortList.CorrectnessProofATP</a
+      ><a name="586"
+      > </a
+      ><a name="587" class="Keyword"
+      >where</a
+      ><a name="592"
+      >
+
+</a
+      ><a name="594" class="Keyword"
+      >open</a
+      ><a name="598"
+      > </a
+      ><a name="599" class="Keyword"
+      >import</a
+      ><a name="605"
+      > </a
+      ><a name="606" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="615"
+      >
+</a
+      ><a name="616" class="Keyword"
+      >open</a
+      ><a name="620"
+      > </a
+      ><a name="621" class="Keyword"
+      >import</a
+      ><a name="627"
+      > </a
+      ><a name="628" href="FOTC.Data.Nat.List.Type.html#1" class="Module"
+      >FOTC.Data.Nat.List.Type</a
+      ><a name="651"
+      >
+</a
+      ><a name="652" class="Keyword"
+      >open</a
+      ><a name="656"
+      > </a
+      ><a name="657" class="Keyword"
+      >import</a
+      ><a name="663"
+      > </a
+      ><a name="664" href="FOTC.Program.SortList.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.SortList.PropertiesATP</a
+      ><a name="699"
+      >
+</a
+      ><a name="700" class="Keyword"
+      >open</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Keyword"
+      >import</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="FOTC.Program.SortList.Properties.Totality.TreeATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.TreeATP</a
+      ><a name="761"
+      >
+</a
+      ><a name="762" class="Keyword"
+      >open</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Keyword"
+      >import</a
+      ><a name="773"
+      > </a
+      ><a name="774" href="FOTC.Program.SortList.SortList.html#1" class="Module"
+      >FOTC.Program.SortList.SortList</a
+      ><a name="804"
+      >
+
+</a
+      ><a name="806" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="884"
+      >
+</a
+      ><a name="885" class="Comment"
+      >-- Main theorem: The sort program generates an ordered list.</a
+      ><a name="945"
+      >
+</a
+      ><a name="946" class="Keyword"
+      >postulate</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="FOTC.Program.SortList.CorrectnessProofATP.html#956" class="Postulate"
+      >sortCorrect</a
+      ><a name="967"
+      > </a
+      ><a name="968" class="Symbol"
+      >:</a
+      ><a name="969"
+      > </a
+      ><a name="970" class="Symbol"
+      >&#8704;</a
+      ><a name="971"
+      > </a
+      ><a name="972" class="Symbol"
+      >{</a
+      ><a name="973" href="FOTC.Program.SortList.CorrectnessProofATP.html#973" class="Bound"
+      >is</a
+      ><a name="975" class="Symbol"
+      >}</a
+      ><a name="976"
+      > </a
+      ><a name="977" class="Symbol"
+      >&#8594;</a
+      ><a name="978"
+      > </a
+      ><a name="979" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="FOTC.Program.SortList.CorrectnessProofATP.html#973" class="Bound"
+      >is</a
+      ><a name="987"
+      > </a
+      ><a name="988" class="Symbol"
+      >&#8594;</a
+      ><a name="989"
+      > </a
+      ><a name="990" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Symbol"
+      >(</a
+      ><a name="999" href="FOTC.Program.SortList.SortList.html#5628" class="Function"
+      >sort</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" href="FOTC.Program.SortList.CorrectnessProofATP.html#973" class="Bound"
+      >is</a
+      ><a name="1006" class="Symbol"
+      >)</a
+      ><a name="1007"
+      >
+</a
+      ><a name="1008" class="Symbol"
+      >{-#</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" class="Keyword"
+      >ATP</a
+      ><a name="1015"
+      > prove </a
+      ><a name="1022" href="FOTC.Program.SortList.CorrectnessProofATP.html#956" class="Postulate"
+      >sortCorrect</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" href="FOTC.Program.SortList.Properties.Totality.TreeATP.html#1493" class="Function"
+      >makeTree-Tree</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" href="FOTC.Program.SortList.PropertiesATP.html#3123" class="Function"
+      >makeTree-OrdTree</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" class="Symbol"
+      >#-}</a
+      ><a name="1084"
+      >
+
+</a
+      ><a name="1086" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1164"
+      >
+</a
+      ><a name="1165" class="Comment"
+      >-- References</a
+      ><a name="1178"
+      >
+</a
+      ><a name="1179" class="Comment"
+      >--</a
+      ><a name="1181"
+      >
+</a
+      ><a name="1182" class="Comment"
+      >-- Burstall, R. M. (1969). Proving properties of programs by</a
+      ><a name="1242"
+      >
+</a
+      ><a name="1243" class="Comment"
+      >-- structural induction. The Computer Journal 12.1, pp. 41&#8211;48.</a
+      ><a name="1305"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

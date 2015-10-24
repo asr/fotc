@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >GroupTheory.Commutator.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties related with the group commutator</a
+      ><a name="127"
+      >
+</a
+      ><a name="128" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="206"
+      >
+
+</a
+      ><a name="208" class="Symbol"
+      >{-#</a
+      ><a name="211"
+      > </a
+      ><a name="212" class="Keyword"
+      >OPTIONS</a
+      ><a name="219"
+      > --exact-split              </a
+      ><a name="247" class="Symbol"
+      >#-}</a
+      ><a name="250"
+      >
+</a
+      ><a name="251" class="Symbol"
+      >{-#</a
+      ><a name="254"
+      > </a
+      ><a name="255" class="Keyword"
+      >OPTIONS</a
+      ><a name="262"
+      > --no-sized-types           </a
+      ><a name="290" class="Symbol"
+      >#-}</a
+      ><a name="293"
+      >
+</a
+      ><a name="294" class="Symbol"
+      >{-#</a
+      ><a name="297"
+      > </a
+      ><a name="298" class="Keyword"
+      >OPTIONS</a
+      ><a name="305"
+      > --no-universe-polymorphism </a
+      ><a name="333" class="Symbol"
+      >#-}</a
+      ><a name="336"
+      >
+</a
+      ><a name="337" class="Symbol"
+      >{-#</a
+      ><a name="340"
+      > </a
+      ><a name="341" class="Keyword"
+      >OPTIONS</a
+      ><a name="348"
+      > --without-K                </a
+      ><a name="376" class="Symbol"
+      >#-}</a
+      ><a name="379"
+      >
+
+</a
+      ><a name="381" class="Keyword"
+      >module</a
+      ><a name="387"
+      > </a
+      ><a name="388" href="GroupTheory.Commutator.PropertiesATP.html#1" class="Module"
+      >GroupTheory.Commutator.PropertiesATP</a
+      ><a name="424"
+      > </a
+      ><a name="425" class="Keyword"
+      >where</a
+      ><a name="430"
+      >
+
+</a
+      ><a name="432" class="Keyword"
+      >open</a
+      ><a name="436"
+      > </a
+      ><a name="437" class="Keyword"
+      >import</a
+      ><a name="443"
+      > </a
+      ><a name="444" href="GroupTheory.Base.html#1" class="Module"
+      >GroupTheory.Base</a
+      ><a name="460"
+      >
+</a
+      ><a name="461" class="Keyword"
+      >open</a
+      ><a name="465"
+      > </a
+      ><a name="466" class="Keyword"
+      >import</a
+      ><a name="472"
+      > </a
+      ><a name="473" href="GroupTheory.Commutator.html#1" class="Module"
+      >GroupTheory.Commutator</a
+      ><a name="495"
+      >
+
+</a
+      ><a name="497" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="575"
+      >
+
+</a
+      ><a name="577" class="Comment"
+      >-- From: A. G. Kurosh. The Theory of Groups, vol. 1. Chelsea Publising</a
+      ><a name="647"
+      >
+</a
+      ><a name="648" class="Comment"
+      >-- Company, 2nd edition, 1960. p. 99.</a
+      ><a name="685"
+      >
+</a
+      ><a name="686" class="Keyword"
+      >postulate</a
+      ><a name="695"
+      > </a
+      ><a name="696" href="GroupTheory.Commutator.PropertiesATP.html#696" class="Postulate"
+      >commutatorInverse</a
+      ><a name="713"
+      > </a
+      ><a name="714" class="Symbol"
+      >:</a
+      ><a name="715"
+      > </a
+      ><a name="716" class="Symbol"
+      >&#8704;</a
+      ><a name="717"
+      > </a
+      ><a name="718" href="GroupTheory.Commutator.PropertiesATP.html#718" class="Bound"
+      >a</a
+      ><a name="719"
+      > </a
+      ><a name="720" href="GroupTheory.Commutator.PropertiesATP.html#720" class="Bound"
+      >b</a
+      ><a name="721"
+      > </a
+      ><a name="722" class="Symbol"
+      >&#8594;</a
+      ><a name="723"
+      > </a
+      ><a name="724" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >[</a
+      ><a name="725"
+      > </a
+      ><a name="726" href="GroupTheory.Commutator.PropertiesATP.html#718" class="Bound"
+      >a</a
+      ><a name="727"
+      > </a
+      ><a name="728" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >,</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="GroupTheory.Commutator.PropertiesATP.html#720" class="Bound"
+      >b</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >]</a
+      ><a name="733"
+      > </a
+      ><a name="734" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="735"
+      > </a
+      ><a name="736" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >[</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="GroupTheory.Commutator.PropertiesATP.html#720" class="Bound"
+      >b</a
+      ><a name="739"
+      > </a
+      ><a name="740" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >,</a
+      ><a name="741"
+      > </a
+      ><a name="742" href="GroupTheory.Commutator.PropertiesATP.html#718" class="Bound"
+      >a</a
+      ><a name="743"
+      > </a
+      ><a name="744" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >]</a
+      ><a name="745"
+      > </a
+      ><a name="746" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="749"
+      >
+</a
+      ><a name="750" class="Symbol"
+      >{-#</a
+      ><a name="753"
+      > </a
+      ><a name="754" class="Keyword"
+      >ATP</a
+      ><a name="757"
+      > prove </a
+      ><a name="764" href="GroupTheory.Commutator.PropertiesATP.html#696" class="Postulate"
+      >commutatorInverse</a
+      ><a name="781"
+      > </a
+      ><a name="782" class="Symbol"
+      >#-}</a
+      ><a name="785"
+      >
+
+</a
+      ><a name="787" class="Comment"
+      >-- If the commutator is associative, then commutator of any two</a
+      ><a name="850"
+      >
+</a
+      ><a name="851" class="Comment"
+      >-- elements lies in the center of the group, i.e. a [b,c] = [b,c] a.</a
+      ><a name="919"
+      >
+</a
+      ><a name="920" class="Comment"
+      >-- From: TPTP 6.2.0 problem GRP/GRP024-5.p.</a
+      ><a name="963"
+      >
+</a
+      ><a name="964" class="Keyword"
+      >postulate</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="GroupTheory.Commutator.PropertiesATP.html#974" class="Postulate"
+      >commutatorAssocCenter</a
+      ><a name="995"
+      > </a
+      ><a name="996" class="Symbol"
+      >:</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Symbol"
+      >(&#8704;</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" href="GroupTheory.Commutator.PropertiesATP.html#1001" class="Bound"
+      >a</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="GroupTheory.Commutator.PropertiesATP.html#1003" class="Bound"
+      >b</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="GroupTheory.Commutator.PropertiesATP.html#1005" class="Bound"
+      >c</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" class="Symbol"
+      >&#8594;</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="GroupTheory.Commutator.html#960" class="Function"
+      >commutatorAssoc</a
+      ><a name="1024"
+      > </a
+      ><a name="1025" href="GroupTheory.Commutator.PropertiesATP.html#1001" class="Bound"
+      >a</a
+      ><a name="1026"
+      > </a
+      ><a name="1027" href="GroupTheory.Commutator.PropertiesATP.html#1003" class="Bound"
+      >b</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" href="GroupTheory.Commutator.PropertiesATP.html#1005" class="Bound"
+      >c</a
+      ><a name="1030" class="Symbol"
+      >)</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" class="Symbol"
+      >&#8594;</a
+      ><a name="1033"
+      >
+                                  </a
+      ><a name="1068" class="Symbol"
+      >(&#8704;</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" href="GroupTheory.Commutator.PropertiesATP.html#1071" class="Bound"
+      >a</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" href="GroupTheory.Commutator.PropertiesATP.html#1073" class="Bound"
+      >b</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="GroupTheory.Commutator.PropertiesATP.html#1075" class="Bound"
+      >c</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" class="Symbol"
+      >&#8594;</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" href="GroupTheory.Commutator.PropertiesATP.html#1071" class="Bound"
+      >a</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1082"
+      > </a
+      ><a name="1083" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >[</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" href="GroupTheory.Commutator.PropertiesATP.html#1073" class="Bound"
+      >b</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >,</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" href="GroupTheory.Commutator.PropertiesATP.html#1075" class="Bound"
+      >c</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >]</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >[</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="GroupTheory.Commutator.PropertiesATP.html#1073" class="Bound"
+      >b</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >,</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="GroupTheory.Commutator.PropertiesATP.html#1075" class="Bound"
+      >c</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >]</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1106"
+      > </a
+      ><a name="1107" href="GroupTheory.Commutator.PropertiesATP.html#1071" class="Bound"
+      >a</a
+      ><a name="1108" class="Symbol"
+      >)</a
+      ><a name="1109"
+      >
+</a
+      ><a name="1110" class="Symbol"
+      >{-#</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" class="Keyword"
+      >ATP</a
+      ><a name="1117"
+      > prove </a
+      ><a name="1124" href="GroupTheory.Commutator.PropertiesATP.html#974" class="Postulate"
+      >commutatorAssocCenter</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >#-}</a
+      ><a name="1149"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

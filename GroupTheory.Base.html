@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >GroupTheory.Base</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Group theory base</a
+      ><a name="100"
+      >
+</a
+      ><a name="101" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="179"
+      >
+
+</a
+      ><a name="181" class="Symbol"
+      >{-#</a
+      ><a name="184"
+      > </a
+      ><a name="185" class="Keyword"
+      >OPTIONS</a
+      ><a name="192"
+      > --exact-split              </a
+      ><a name="220" class="Symbol"
+      >#-}</a
+      ><a name="223"
+      >
+</a
+      ><a name="224" class="Symbol"
+      >{-#</a
+      ><a name="227"
+      > </a
+      ><a name="228" class="Keyword"
+      >OPTIONS</a
+      ><a name="235"
+      > --no-sized-types           </a
+      ><a name="263" class="Symbol"
+      >#-}</a
+      ><a name="266"
+      >
+</a
+      ><a name="267" class="Symbol"
+      >{-#</a
+      ><a name="270"
+      > </a
+      ><a name="271" class="Keyword"
+      >OPTIONS</a
+      ><a name="278"
+      > --no-universe-polymorphism </a
+      ><a name="306" class="Symbol"
+      >#-}</a
+      ><a name="309"
+      >
+</a
+      ><a name="310" class="Symbol"
+      >{-#</a
+      ><a name="313"
+      > </a
+      ><a name="314" class="Keyword"
+      >OPTIONS</a
+      ><a name="321"
+      > --without-K                </a
+      ><a name="349" class="Symbol"
+      >#-}</a
+      ><a name="352"
+      >
+
+</a
+      ><a name="354" class="Keyword"
+      >module</a
+      ><a name="360"
+      > </a
+      ><a name="361" href="GroupTheory.Base.html#1" class="Module"
+      >GroupTheory.Base</a
+      ><a name="377"
+      > </a
+      ><a name="378" class="Keyword"
+      >where</a
+      ><a name="383"
+      >
+
+</a
+      ><a name="385" class="Keyword"
+      >infix</a
+      ><a name="390"
+      >  </a
+      ><a name="392" class="Number"
+      >8</a
+      ><a name="393"
+      > _&#8315;&#185;
+</a
+      ><a name="398" class="Keyword"
+      >infixl</a
+      ><a name="404"
+      > </a
+      ><a name="405" class="Number"
+      >7</a
+      ><a name="406"
+      > _&#183;_
+
+</a
+      ><a name="412" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="490"
+      >
+</a
+      ><a name="491" class="Comment"
+      >-- First-order logic with equality.</a
+      ><a name="526"
+      >
+</a
+      ><a name="527" class="Keyword"
+      >open</a
+      ><a name="531"
+      > </a
+      ><a name="532" class="Keyword"
+      >import</a
+      ><a name="538"
+      > </a
+      ><a name="539" href="Common.FOL.FOL-Eq.html#1" class="Module"
+      >Common.FOL.FOL-Eq</a
+      ><a name="556"
+      > </a
+      ><a name="557" class="Keyword"
+      >public</a
+      ><a name="563"
+      > </a
+      ><a name="564" class="Keyword"
+      >renaming</a
+      ><a name="572"
+      > </a
+      ><a name="573" class="Symbol"
+      >(</a
+      ><a name="574"
+      > D </a
+      ><a name="577" class="Symbol"
+      >to</a
+      ><a name="579"
+      > G </a
+      ><a name="582" class="Symbol"
+      >)</a
+      ><a name="583"
+      >
+
+</a
+      ><a name="585" class="Comment"
+      >-- Group theory axioms</a
+      ><a name="607"
+      >
+</a
+      ><a name="608" class="Keyword"
+      >postulate</a
+      ><a name="617"
+      >
+  </a
+      ><a name="620" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="621"
+      >   </a
+      ><a name="624" class="Symbol"
+      >:</a
+      ><a name="625"
+      > </a
+      ><a name="626" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >G</a
+      ><a name="627"
+      >          </a
+      ><a name="637" class="Comment"
+      >-- The identity element.</a
+      ><a name="661"
+      >
+  </a
+      ><a name="664" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >_&#183;_</a
+      ><a name="667"
+      > </a
+      ><a name="668" class="Symbol"
+      >:</a
+      ><a name="669"
+      > </a
+      ><a name="670" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >G</a
+      ><a name="671"
+      > </a
+      ><a name="672" class="Symbol"
+      >&#8594;</a
+      ><a name="673"
+      > </a
+      ><a name="674" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >G</a
+      ><a name="675"
+      > </a
+      ><a name="676" class="Symbol"
+      >&#8594;</a
+      ><a name="677"
+      > </a
+      ><a name="678" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >G</a
+      ><a name="679"
+      >  </a
+      ><a name="681" class="Comment"
+      >-- The binary operation.</a
+      ><a name="705"
+      >
+  </a
+      ><a name="708" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >_&#8315;&#185;</a
+      ><a name="711"
+      > </a
+      ><a name="712" class="Symbol"
+      >:</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >G</a
+      ><a name="715"
+      > </a
+      ><a name="716" class="Symbol"
+      >&#8594;</a
+      ><a name="717"
+      > </a
+      ><a name="718" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >G</a
+      ><a name="719"
+      >      </a
+      ><a name="725" class="Comment"
+      >-- The inverse function.</a
+      ><a name="749"
+      >
+
+  </a
+      ><a name="753" class="Comment"
+      >-- We choose a non-redundant set of axioms. See for example (Mac</a
+      ><a name="817"
+      >
+  </a
+      ><a name="820" class="Comment"
+      >-- Lane and Garret 1999, exercises 5-7, p. 50-51, or Hodges 1993,</a
+      ><a name="885"
+      >
+  </a
+      ><a name="888" class="Comment"
+      >-- p. 37).</a
+      ><a name="898"
+      >
+  </a
+      ><a name="901" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="906"
+      >         </a
+      ><a name="915" class="Symbol"
+      >:</a
+      ><a name="916"
+      > </a
+      ><a name="917" class="Symbol"
+      >&#8704;</a
+      ><a name="918"
+      > </a
+      ><a name="919" href="GroupTheory.Base.html#919" class="Bound"
+      >a</a
+      ><a name="920"
+      > </a
+      ><a name="921" href="GroupTheory.Base.html#921" class="Bound"
+      >b</a
+      ><a name="922"
+      > </a
+      ><a name="923" href="GroupTheory.Base.html#923" class="Bound"
+      >c</a
+      ><a name="924"
+      > </a
+      ><a name="925" class="Symbol"
+      >&#8594;</a
+      ><a name="926"
+      > </a
+      ><a name="927" href="GroupTheory.Base.html#919" class="Bound"
+      >a</a
+      ><a name="928"
+      > </a
+      ><a name="929" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="930"
+      > </a
+      ><a name="931" href="GroupTheory.Base.html#921" class="Bound"
+      >b</a
+      ><a name="932"
+      > </a
+      ><a name="933" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="934"
+      > </a
+      ><a name="935" href="GroupTheory.Base.html#923" class="Bound"
+      >c</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="938"
+      > </a
+      ><a name="939" href="GroupTheory.Base.html#919" class="Bound"
+      >a</a
+      ><a name="940"
+      > </a
+      ><a name="941" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="942"
+      > </a
+      ><a name="943" class="Symbol"
+      >(</a
+      ><a name="944" href="GroupTheory.Base.html#921" class="Bound"
+      >b</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="GroupTheory.Base.html#923" class="Bound"
+      >c</a
+      ><a name="949" class="Symbol"
+      >)</a
+      ><a name="950"
+      >
+  </a
+      ><a name="953" href="GroupTheory.Base.html#953" class="Postulate"
+      >leftIdentity</a
+      ><a name="965"
+      >  </a
+      ><a name="967" class="Symbol"
+      >:</a
+      ><a name="968"
+      > </a
+      ><a name="969" class="Symbol"
+      >&#8704;</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="GroupTheory.Base.html#971" class="Bound"
+      >a</a
+      ><a name="972"
+      > </a
+      ><a name="973" class="Symbol"
+      >&#8594;</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="978"
+      > </a
+      ><a name="979" href="GroupTheory.Base.html#971" class="Bound"
+      >a</a
+      ><a name="980"
+      >         </a
+      ><a name="989" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="GroupTheory.Base.html#971" class="Bound"
+      >a</a
+      ><a name="992"
+      >
+  </a
+      ><a name="995" href="GroupTheory.Base.html#995" class="Postulate"
+      >leftInverse</a
+      ><a name="1006"
+      >   </a
+      ><a name="1009" class="Symbol"
+      >:</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" class="Symbol"
+      >&#8704;</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" href="GroupTheory.Base.html#1013" class="Bound"
+      >a</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" class="Symbol"
+      >&#8594;</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="GroupTheory.Base.html#1013" class="Bound"
+      >a</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" href="GroupTheory.Base.html#1013" class="Bound"
+      >a</a
+      ><a name="1025"
+      >      </a
+      ><a name="1031" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="1034"
+      >
+</a
+      ><a name="1035" class="Symbol"
+      >{-#</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" class="Keyword"
+      >ATP</a
+      ><a name="1042"
+      > axioms </a
+      ><a name="1050" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" href="GroupTheory.Base.html#953" class="Postulate"
+      >leftIdentity</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="GroupTheory.Base.html#995" class="Postulate"
+      >leftInverse</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" class="Symbol"
+      >#-}</a
+      ><a name="1084"
+      >
+
+</a
+      ><a name="1086" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1164"
+      >
+</a
+      ><a name="1165" class="Comment"
+      >-- References</a
+      ><a name="1178"
+      >
+</a
+      ><a name="1179" class="Comment"
+      >--</a
+      ><a name="1181"
+      >
+</a
+      ><a name="1182" class="Comment"
+      >-- Hodges, W. (1993). Model Theory. Vol. 42. Encyclopedia of</a
+      ><a name="1242"
+      >
+</a
+      ><a name="1243" class="Comment"
+      >-- Mathematics and its Applications. Cambridge University Press.</a
+      ><a name="1307"
+      >
+</a
+      ><a name="1308" class="Comment"
+      >--</a
+      ><a name="1310"
+      >
+</a
+      ><a name="1311" class="Comment"
+      >-- Mac Lane, S. and Birkhof, G. (1999). Algebra. 3rd ed. AMS Chelsea</a
+      ><a name="1379"
+      >
+</a
+      ><a name="1380" class="Comment"
+      >-- Publishing.</a
+      ><a name="1394"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

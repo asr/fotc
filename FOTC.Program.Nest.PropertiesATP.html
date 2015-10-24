@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Nest.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties for the nest function</a
+      ><a name="115"
+      >
+</a
+      ><a name="116" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="194"
+      >
+
+</a
+      ><a name="196" class="Symbol"
+      >{-#</a
+      ><a name="199"
+      > </a
+      ><a name="200" class="Keyword"
+      >OPTIONS</a
+      ><a name="207"
+      > --exact-split              </a
+      ><a name="235" class="Symbol"
+      >#-}</a
+      ><a name="238"
+      >
+</a
+      ><a name="239" class="Symbol"
+      >{-#</a
+      ><a name="242"
+      > </a
+      ><a name="243" class="Keyword"
+      >OPTIONS</a
+      ><a name="250"
+      > --no-sized-types           </a
+      ><a name="278" class="Symbol"
+      >#-}</a
+      ><a name="281"
+      >
+</a
+      ><a name="282" class="Symbol"
+      >{-#</a
+      ><a name="285"
+      > </a
+      ><a name="286" class="Keyword"
+      >OPTIONS</a
+      ><a name="293"
+      > --no-universe-polymorphism </a
+      ><a name="321" class="Symbol"
+      >#-}</a
+      ><a name="324"
+      >
+</a
+      ><a name="325" class="Symbol"
+      >{-#</a
+      ><a name="328"
+      > </a
+      ><a name="329" class="Keyword"
+      >OPTIONS</a
+      ><a name="336"
+      > --without-K                </a
+      ><a name="364" class="Symbol"
+      >#-}</a
+      ><a name="367"
+      >
+
+</a
+      ><a name="369" class="Keyword"
+      >module</a
+      ><a name="375"
+      > </a
+      ><a name="376" href="FOTC.Program.Nest.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.Nest.PropertiesATP</a
+      ><a name="407"
+      > </a
+      ><a name="408" class="Keyword"
+      >where</a
+      ><a name="413"
+      >
+
+</a
+      ><a name="415" class="Keyword"
+      >open</a
+      ><a name="419"
+      > </a
+      ><a name="420" class="Keyword"
+      >import</a
+      ><a name="426"
+      > </a
+      ><a name="427" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="436"
+      >
+</a
+      ><a name="437" class="Keyword"
+      >open</a
+      ><a name="441"
+      > </a
+      ><a name="442" class="Keyword"
+      >import</a
+      ><a name="448"
+      > </a
+      ><a name="449" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="467"
+      >
+</a
+      ><a name="468" class="Keyword"
+      >open</a
+      ><a name="472"
+      > </a
+      ><a name="473" class="Keyword"
+      >import</a
+      ><a name="479"
+      > </a
+      ><a name="480" href="FOTC.Program.Nest.Nest.html#1" class="Module"
+      >FOTC.Program.Nest.Nest</a
+      ><a name="502"
+      >
+
+</a
+      ><a name="504" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="582"
+      >
+
+</a
+      ><a name="584" href="FOTC.Program.Nest.PropertiesATP.html#584" class="Function"
+      >nest-x&#8801;0</a
+      ><a name="592"
+      > </a
+      ><a name="593" class="Symbol"
+      >:</a
+      ><a name="594"
+      > </a
+      ><a name="595" class="Symbol"
+      >&#8704;</a
+      ><a name="596"
+      > </a
+      ><a name="597" class="Symbol"
+      >{</a
+      ><a name="598" href="FOTC.Program.Nest.PropertiesATP.html#598" class="Bound"
+      >n</a
+      ><a name="599" class="Symbol"
+      >}</a
+      ><a name="600"
+      > </a
+      ><a name="601" class="Symbol"
+      >&#8594;</a
+      ><a name="602"
+      > </a
+      ><a name="603" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="604"
+      > </a
+      ><a name="605" href="FOTC.Program.Nest.PropertiesATP.html#598" class="Bound"
+      >n</a
+      ><a name="606"
+      > </a
+      ><a name="607" class="Symbol"
+      >&#8594;</a
+      ><a name="608"
+      > </a
+      ><a name="609" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="613"
+      > </a
+      ><a name="614" href="FOTC.Program.Nest.PropertiesATP.html#598" class="Bound"
+      >n</a
+      ><a name="615"
+      > </a
+      ><a name="616" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="617"
+      > </a
+      ><a name="618" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="622"
+      >
+</a
+      ><a name="623" href="FOTC.Program.Nest.PropertiesATP.html#584" class="Function"
+      >nest-x&#8801;0</a
+      ><a name="631"
+      > </a
+      ><a name="632" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="637"
+      > </a
+      ><a name="638" class="Symbol"
+      >=</a
+      ><a name="639"
+      > </a
+      ><a name="640" href="FOTC.Program.Nest.PropertiesATP.html#662" class="Postulate"
+      >prf</a
+      ><a name="643"
+      >
+  </a
+      ><a name="646" class="Keyword"
+      >where</a
+      ><a name="651"
+      > </a
+      ><a name="652" class="Keyword"
+      >postulate</a
+      ><a name="661"
+      > </a
+      ><a name="662" href="FOTC.Program.Nest.PropertiesATP.html#662" class="Postulate"
+      >prf</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Symbol"
+      >:</a
+      ><a name="667"
+      > </a
+      ><a name="668" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="677"
+      > </a
+      ><a name="678" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="684"
+      >
+        </a
+      ><a name="693" class="Symbol"
+      >{-#</a
+      ><a name="696"
+      > </a
+      ><a name="697" class="Keyword"
+      >ATP</a
+      ><a name="700"
+      > prove </a
+      ><a name="707" href="FOTC.Program.Nest.PropertiesATP.html#662" class="Postulate"
+      >prf</a
+      ><a name="710"
+      > </a
+      ><a name="711" class="Symbol"
+      >#-}</a
+      ><a name="714"
+      >
+</a
+      ><a name="715" href="FOTC.Program.Nest.PropertiesATP.html#584" class="Function"
+      >nest-x&#8801;0</a
+      ><a name="723"
+      > </a
+      ><a name="724" class="Symbol"
+      >(</a
+      ><a name="725" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="730"
+      > </a
+      ><a name="731" class="Symbol"
+      >{</a
+      ><a name="732" href="FOTC.Program.Nest.PropertiesATP.html#732" class="Bound"
+      >n</a
+      ><a name="733" class="Symbol"
+      >}</a
+      ><a name="734"
+      > </a
+      ><a name="735" href="FOTC.Program.Nest.PropertiesATP.html#735" class="Bound"
+      >Nn</a
+      ><a name="737" class="Symbol"
+      >)</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >=</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="FOTC.Program.Nest.PropertiesATP.html#777" class="Postulate"
+      >prf</a
+      ><a name="744"
+      > </a
+      ><a name="745" class="Symbol"
+      >(</a
+      ><a name="746" href="FOTC.Program.Nest.PropertiesATP.html#584" class="Function"
+      >nest-x&#8801;0</a
+      ><a name="754"
+      > </a
+      ><a name="755" href="FOTC.Program.Nest.PropertiesATP.html#735" class="Bound"
+      >Nn</a
+      ><a name="757" class="Symbol"
+      >)</a
+      ><a name="758"
+      >
+  </a
+      ><a name="761" class="Keyword"
+      >where</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Keyword"
+      >postulate</a
+      ><a name="776"
+      > </a
+      ><a name="777" href="FOTC.Program.Nest.PropertiesATP.html#777" class="Postulate"
+      >prf</a
+      ><a name="780"
+      > </a
+      ><a name="781" class="Symbol"
+      >:</a
+      ><a name="782"
+      > </a
+      ><a name="783" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="FOTC.Program.Nest.PropertiesATP.html#732" class="Bound"
+      >n</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="796"
+      > </a
+      ><a name="797" class="Symbol"
+      >&#8594;</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="803"
+      > </a
+      ><a name="804" class="Symbol"
+      >(</a
+      ><a name="805" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="810"
+      > </a
+      ><a name="811" href="FOTC.Program.Nest.PropertiesATP.html#732" class="Bound"
+      >n</a
+      ><a name="812" class="Symbol"
+      >)</a
+      ><a name="813"
+      > </a
+      ><a name="814" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="815"
+      > </a
+      ><a name="816" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="820"
+      >
+        </a
+      ><a name="829" class="Symbol"
+      >{-#</a
+      ><a name="832"
+      > </a
+      ><a name="833" class="Keyword"
+      >ATP</a
+      ><a name="836"
+      > prove </a
+      ><a name="843" href="FOTC.Program.Nest.PropertiesATP.html#777" class="Postulate"
+      >prf</a
+      ><a name="846"
+      > </a
+      ><a name="847" class="Symbol"
+      >#-}</a
+      ><a name="850"
+      >
+
+</a
+      ><a name="852" class="Keyword"
+      >postulate</a
+      ><a name="861"
+      > </a
+      ><a name="862" href="FOTC.Program.Nest.PropertiesATP.html#862" class="Postulate"
+      >nest-N</a
+      ><a name="868"
+      > </a
+      ><a name="869" class="Symbol"
+      >:</a
+      ><a name="870"
+      > </a
+      ><a name="871" class="Symbol"
+      >&#8704;</a
+      ><a name="872"
+      > </a
+      ><a name="873" class="Symbol"
+      >{</a
+      ><a name="874" href="FOTC.Program.Nest.PropertiesATP.html#874" class="Bound"
+      >n</a
+      ><a name="875" class="Symbol"
+      >}</a
+      ><a name="876"
+      > </a
+      ><a name="877" class="Symbol"
+      >&#8594;</a
+      ><a name="878"
+      > </a
+      ><a name="879" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="FOTC.Program.Nest.PropertiesATP.html#874" class="Bound"
+      >n</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Symbol"
+      >&#8594;</a
+      ><a name="884"
+      > </a
+      ><a name="885" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="886"
+      > </a
+      ><a name="887" class="Symbol"
+      >(</a
+      ><a name="888" href="FOTC.Program.Nest.Nest.html#681" class="Postulate"
+      >nest</a
+      ><a name="892"
+      > </a
+      ><a name="893" href="FOTC.Program.Nest.PropertiesATP.html#874" class="Bound"
+      >n</a
+      ><a name="894" class="Symbol"
+      >)</a
+      ><a name="895"
+      >
+</a
+      ><a name="896" class="Symbol"
+      >{-#</a
+      ><a name="899"
+      > </a
+      ><a name="900" class="Keyword"
+      >ATP</a
+      ><a name="903"
+      > prove </a
+      ><a name="910" href="FOTC.Program.Nest.PropertiesATP.html#862" class="Postulate"
+      >nest-N</a
+      ><a name="916"
+      > </a
+      ><a name="917" href="FOTC.Program.Nest.PropertiesATP.html#584" class="Function"
+      >nest-x&#8801;0</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >#-}</a
+      ><a name="929"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

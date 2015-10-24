@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Base.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- FOCT terms properties</a
+      ><a name="104"
+      >
+</a
+      ><a name="105" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="183"
+      >
+
+</a
+      ><a name="185" class="Symbol"
+      >{-#</a
+      ><a name="188"
+      > </a
+      ><a name="189" class="Keyword"
+      >OPTIONS</a
+      ><a name="196"
+      > --exact-split              </a
+      ><a name="224" class="Symbol"
+      >#-}</a
+      ><a name="227"
+      >
+</a
+      ><a name="228" class="Symbol"
+      >{-#</a
+      ><a name="231"
+      > </a
+      ><a name="232" class="Keyword"
+      >OPTIONS</a
+      ><a name="239"
+      > --no-sized-types           </a
+      ><a name="267" class="Symbol"
+      >#-}</a
+      ><a name="270"
+      >
+</a
+      ><a name="271" class="Symbol"
+      >{-#</a
+      ><a name="274"
+      > </a
+      ><a name="275" class="Keyword"
+      >OPTIONS</a
+      ><a name="282"
+      > --no-universe-polymorphism </a
+      ><a name="310" class="Symbol"
+      >#-}</a
+      ><a name="313"
+      >
+</a
+      ><a name="314" class="Symbol"
+      >{-#</a
+      ><a name="317"
+      > </a
+      ><a name="318" class="Keyword"
+      >OPTIONS</a
+      ><a name="325"
+      > --without-K                </a
+      ><a name="353" class="Symbol"
+      >#-}</a
+      ><a name="356"
+      >
+
+</a
+      ><a name="358" class="Keyword"
+      >module</a
+      ><a name="364"
+      > </a
+      ><a name="365" href="FOTC.Base.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.PropertiesATP</a
+      ><a name="388"
+      > </a
+      ><a name="389" class="Keyword"
+      >where</a
+      ><a name="394"
+      >
+
+</a
+      ><a name="396" class="Keyword"
+      >open</a
+      ><a name="400"
+      > </a
+      ><a name="401" class="Keyword"
+      >import</a
+      ><a name="407"
+      > </a
+      ><a name="408" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="417"
+      >
+
+</a
+      ><a name="419" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="497"
+      >
+</a
+      ><a name="498" class="Comment"
+      >-- Injective properties</a
+      ><a name="521"
+      >
+
+</a
+      ><a name="523" class="Keyword"
+      >postulate</a
+      ><a name="532"
+      > </a
+      ><a name="533" href="FOTC.Base.PropertiesATP.html#533" class="Postulate"
+      >succInjective</a
+      ><a name="546"
+      > </a
+      ><a name="547" class="Symbol"
+      >:</a
+      ><a name="548"
+      > </a
+      ><a name="549" class="Symbol"
+      >&#8704;</a
+      ><a name="550"
+      > </a
+      ><a name="551" class="Symbol"
+      >{</a
+      ><a name="552" href="FOTC.Base.PropertiesATP.html#552" class="Bound"
+      >m</a
+      ><a name="553"
+      > </a
+      ><a name="554" href="FOTC.Base.PropertiesATP.html#554" class="Bound"
+      >n</a
+      ><a name="555" class="Symbol"
+      >}</a
+      ><a name="556"
+      > </a
+      ><a name="557" class="Symbol"
+      >&#8594;</a
+      ><a name="558"
+      > </a
+      ><a name="559" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="564"
+      > </a
+      ><a name="565" href="FOTC.Base.PropertiesATP.html#552" class="Bound"
+      >m</a
+      ><a name="566"
+      > </a
+      ><a name="567" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="568"
+      > </a
+      ><a name="569" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="574"
+      > </a
+      ><a name="575" href="FOTC.Base.PropertiesATP.html#554" class="Bound"
+      >n</a
+      ><a name="576"
+      > </a
+      ><a name="577" class="Symbol"
+      >&#8594;</a
+      ><a name="578"
+      > </a
+      ><a name="579" href="FOTC.Base.PropertiesATP.html#552" class="Bound"
+      >m</a
+      ><a name="580"
+      > </a
+      ><a name="581" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="582"
+      > </a
+      ><a name="583" href="FOTC.Base.PropertiesATP.html#554" class="Bound"
+      >n</a
+      ><a name="584"
+      >
+</a
+      ><a name="585" class="Symbol"
+      >{-#</a
+      ><a name="588"
+      > </a
+      ><a name="589" class="Keyword"
+      >ATP</a
+      ><a name="592"
+      > prove </a
+      ><a name="599" href="FOTC.Base.PropertiesATP.html#533" class="Postulate"
+      >succInjective</a
+      ><a name="612"
+      > </a
+      ><a name="613" class="Symbol"
+      >#-}</a
+      ><a name="616"
+      >
+
+</a
+      ><a name="618" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="696"
+      >
+</a
+      ><a name="697" class="Comment"
+      >-- Discrimination rules</a
+      ><a name="720"
+      >
+
+</a
+      ><a name="722" class="Keyword"
+      >postulate</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="735"
+      > </a
+      ><a name="736" class="Symbol"
+      >:</a
+      ><a name="737"
+      > </a
+      ><a name="738" class="Symbol"
+      >&#8704;</a
+      ><a name="739"
+      > </a
+      ><a name="740" class="Symbol"
+      >{</a
+      ><a name="741" href="FOTC.Base.PropertiesATP.html#741" class="Bound"
+      >n</a
+      ><a name="742" class="Symbol"
+      >}</a
+      ><a name="743"
+      > </a
+      ><a name="744" class="Symbol"
+      >&#8594;</a
+      ><a name="745"
+      > </a
+      ><a name="746" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="751"
+      > </a
+      ><a name="752" href="FOTC.Base.PropertiesATP.html#741" class="Bound"
+      >n</a
+      ><a name="753"
+      > </a
+      ><a name="754" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="760"
+      >
+</a
+      ><a name="761" class="Symbol"
+      >{-#</a
+      ><a name="764"
+      > </a
+      ><a name="765" class="Keyword"
+      >ATP</a
+      ><a name="768"
+      > prove </a
+      ><a name="775" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="778"
+      > </a
+      ><a name="779" class="Symbol"
+      >#-}</a
+      ><a name="782"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

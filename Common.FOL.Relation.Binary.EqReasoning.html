@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Common.FOL.Relation.Binary.EqReasoning</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Equality reasoning on FOL</a
+      ><a name="108"
+      >
+</a
+      ><a name="109" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="187"
+      >
+
+</a
+      ><a name="189" class="Symbol"
+      >{-#</a
+      ><a name="192"
+      > </a
+      ><a name="193" class="Keyword"
+      >OPTIONS</a
+      ><a name="200"
+      > --exact-split              </a
+      ><a name="228" class="Symbol"
+      >#-}</a
+      ><a name="231"
+      >
+</a
+      ><a name="232" class="Symbol"
+      >{-#</a
+      ><a name="235"
+      > </a
+      ><a name="236" class="Keyword"
+      >OPTIONS</a
+      ><a name="243"
+      > --no-sized-types           </a
+      ><a name="271" class="Symbol"
+      >#-}</a
+      ><a name="274"
+      >
+</a
+      ><a name="275" class="Symbol"
+      >{-#</a
+      ><a name="278"
+      > </a
+      ><a name="279" class="Keyword"
+      >OPTIONS</a
+      ><a name="286"
+      > --no-universe-polymorphism </a
+      ><a name="314" class="Symbol"
+      >#-}</a
+      ><a name="317"
+      >
+</a
+      ><a name="318" class="Symbol"
+      >{-#</a
+      ><a name="321"
+      > </a
+      ><a name="322" class="Keyword"
+      >OPTIONS</a
+      ><a name="329"
+      > --without-K                </a
+      ><a name="357" class="Symbol"
+      >#-}</a
+      ><a name="360"
+      >
+
+</a
+      ><a name="362" class="Comment"
+      >-- This module only re-export the preorder reasoning instanced on the</a
+      ><a name="431"
+      >
+</a
+      ><a name="432" class="Comment"
+      >-- propositional equality.</a
+      ><a name="458"
+      >
+
+</a
+      ><a name="460" class="Keyword"
+      >module</a
+      ><a name="466"
+      > </a
+      ><a name="467" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="505"
+      > </a
+      ><a name="506" class="Keyword"
+      >where</a
+      ><a name="511"
+      >
+
+</a
+      ><a name="513" class="Keyword"
+      >open</a
+      ><a name="517"
+      > </a
+      ><a name="518" class="Keyword"
+      >import</a
+      ><a name="524"
+      > </a
+      ><a name="525" href="Common.FOL.FOL-Eq.html#1" class="Module"
+      >Common.FOL.FOL-Eq</a
+      ><a name="542"
+      > </a
+      ><a name="543" class="Keyword"
+      >using</a
+      ><a name="548"
+      > </a
+      ><a name="549" class="Symbol"
+      >(</a
+      ><a name="550"
+      > _&#8801;_ </a
+      ><a name="555" class="Symbol"
+      >;</a
+      ><a name="556"
+      > refl </a
+      ><a name="562" class="Symbol"
+      >;</a
+      ><a name="563"
+      > trans </a
+      ><a name="570" class="Symbol"
+      >)</a
+      ><a name="571"
+      >
+
+</a
+      ><a name="573" class="Keyword"
+      >import</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="Common.Relation.Binary.PreorderReasoning.html#1" class="Module"
+      >Common.Relation.Binary.PreorderReasoning</a
+      ><a name="620"
+      >
+</a
+      ><a name="621" class="Keyword"
+      >open</a
+      ><a name="625"
+      > </a
+      ><a name="626" class="Keyword"
+      >module</a
+      ><a name="632"
+      > </a
+      ><a name="633" href="Common.FOL.Relation.Binary.EqReasoning.html#633" class="Module"
+      >&#8801;-Reasoning</a
+      ><a name="644"
+      > </a
+      ><a name="645" class="Symbol"
+      >=</a
+      ><a name="646"
+      >
+  </a
+      ><a name="649" href="Common.Relation.Binary.PreorderReasoning.html#1" class="Module"
+      >Common.Relation.Binary.PreorderReasoning</a
+      ><a name="689"
+      > </a
+      ><a name="690" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >_&#8801;_</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="698"
+      > </a
+      ><a name="699" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Keyword"
+      >public</a
+      ><a name="711"
+      >
+    </a
+      ><a name="716" class="Keyword"
+      >renaming</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Symbol"
+      >(</a
+      ><a name="726"
+      > _&#8764;&#10216;_&#10217;_ </a
+      ><a name="734" class="Symbol"
+      >to</a
+      ><a name="736"
+      > _&#8801;&#10216;_&#10217;_ </a
+      ><a name="744" class="Symbol"
+      >)</a
+      ><a name="745"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

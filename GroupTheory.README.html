@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >GroupTheory.README</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Group theory</a
+      ><a name="95"
+      >
+</a
+      ><a name="96" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="174"
+      >
+
+</a
+      ><a name="176" class="Symbol"
+      >{-#</a
+      ><a name="179"
+      > </a
+      ><a name="180" class="Keyword"
+      >OPTIONS</a
+      ><a name="187"
+      > --exact-split              </a
+      ><a name="215" class="Symbol"
+      >#-}</a
+      ><a name="218"
+      >
+</a
+      ><a name="219" class="Symbol"
+      >{-#</a
+      ><a name="222"
+      > </a
+      ><a name="223" class="Keyword"
+      >OPTIONS</a
+      ><a name="230"
+      > --no-sized-types           </a
+      ><a name="258" class="Symbol"
+      >#-}</a
+      ><a name="261"
+      >
+</a
+      ><a name="262" class="Symbol"
+      >{-#</a
+      ><a name="265"
+      > </a
+      ><a name="266" class="Keyword"
+      >OPTIONS</a
+      ><a name="273"
+      > --no-universe-polymorphism </a
+      ><a name="301" class="Symbol"
+      >#-}</a
+      ><a name="304"
+      >
+</a
+      ><a name="305" class="Symbol"
+      >{-#</a
+      ><a name="308"
+      > </a
+      ><a name="309" class="Keyword"
+      >OPTIONS</a
+      ><a name="316"
+      > --without-K                </a
+      ><a name="344" class="Symbol"
+      >#-}</a
+      ><a name="347"
+      >
+
+</a
+      ><a name="349" class="Keyword"
+      >module</a
+      ><a name="355"
+      > </a
+      ><a name="356" href="GroupTheory.README.html#1" class="Module"
+      >GroupTheory.README</a
+      ><a name="374"
+      > </a
+      ><a name="375" class="Keyword"
+      >where</a
+      ><a name="380"
+      >
+
+</a
+      ><a name="382" class="Comment"
+      >-- Theory of groups using Agda postulates for the group axioms.</a
+      ><a name="445"
+      >
+
+</a
+      ><a name="447" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="525"
+      >
+</a
+      ><a name="526" class="Comment"
+      >-- The axioms</a
+      ><a name="539"
+      >
+</a
+      ><a name="540" class="Keyword"
+      >open</a
+      ><a name="544"
+      > </a
+      ><a name="545" class="Keyword"
+      >import</a
+      ><a name="551"
+      > </a
+      ><a name="552" href="GroupTheory.Base.html#1" class="Module"
+      >GroupTheory.Base</a
+      ><a name="568"
+      >
+
+</a
+      ><a name="570" class="Comment"
+      >-- Basic properties</a
+      ><a name="589"
+      >
+</a
+      ><a name="590" class="Keyword"
+      >open</a
+      ><a name="594"
+      > </a
+      ><a name="595" class="Keyword"
+      >import</a
+      ><a name="601"
+      > </a
+      ><a name="602" href="GroupTheory.PropertiesATP.html#1" class="Module"
+      >GroupTheory.PropertiesATP</a
+      ><a name="627"
+      >
+</a
+      ><a name="628" class="Keyword"
+      >open</a
+      ><a name="632"
+      > </a
+      ><a name="633" class="Keyword"
+      >import</a
+      ><a name="639"
+      > </a
+      ><a name="640" href="GroupTheory.PropertiesI.html#1" class="Module"
+      >GroupTheory.PropertiesI</a
+      ><a name="663"
+      >
+
+</a
+      ><a name="665" class="Comment"
+      >-- Commutator properties</a
+      ><a name="689"
+      >
+</a
+      ><a name="690" class="Keyword"
+      >open</a
+      ><a name="694"
+      > </a
+      ><a name="695" class="Keyword"
+      >import</a
+      ><a name="701"
+      > </a
+      ><a name="702" href="GroupTheory.Commutator.PropertiesATP.html#1" class="Module"
+      >GroupTheory.Commutator.PropertiesATP</a
+      ><a name="738"
+      >
+</a
+      ><a name="739" class="Keyword"
+      >open</a
+      ><a name="743"
+      > </a
+      ><a name="744" class="Keyword"
+      >import</a
+      ><a name="750"
+      > </a
+      ><a name="751" href="GroupTheory.Commutator.PropertiesI.html#1" class="Module"
+      >GroupTheory.Commutator.PropertiesI</a
+      ><a name="785"
+      >
+
+</a
+      ><a name="787" class="Comment"
+      >-- Abelian groups</a
+      ><a name="804"
+      >
+</a
+      ><a name="805" class="Keyword"
+      >open</a
+      ><a name="809"
+      > </a
+      ><a name="810" class="Keyword"
+      >import</a
+      ><a name="816"
+      > </a
+      ><a name="817" href="GroupTheory.AbelianGroup.PropertiesATP.html#1" class="Module"
+      >GroupTheory.AbelianGroup.PropertiesATP</a
+      ><a name="855"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,920 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.ABP.CorrectnessProofATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The alternating bit protocol (ABP) is correct</a
+      ><a name="128"
+      >
+</a
+      ><a name="129" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="207"
+      >
+
+</a
+      ><a name="209" class="Symbol"
+      >{-#</a
+      ><a name="212"
+      > </a
+      ><a name="213" class="Keyword"
+      >OPTIONS</a
+      ><a name="220"
+      > --exact-split              </a
+      ><a name="248" class="Symbol"
+      >#-}</a
+      ><a name="251"
+      >
+</a
+      ><a name="252" class="Symbol"
+      >{-#</a
+      ><a name="255"
+      > </a
+      ><a name="256" class="Keyword"
+      >OPTIONS</a
+      ><a name="263"
+      > --no-sized-types           </a
+      ><a name="291" class="Symbol"
+      >#-}</a
+      ><a name="294"
+      >
+</a
+      ><a name="295" class="Symbol"
+      >{-#</a
+      ><a name="298"
+      > </a
+      ><a name="299" class="Keyword"
+      >OPTIONS</a
+      ><a name="306"
+      > --no-universe-polymorphism </a
+      ><a name="334" class="Symbol"
+      >#-}</a
+      ><a name="337"
+      >
+</a
+      ><a name="338" class="Symbol"
+      >{-#</a
+      ><a name="341"
+      > </a
+      ><a name="342" class="Keyword"
+      >OPTIONS</a
+      ><a name="349"
+      > --without-K                </a
+      ><a name="377" class="Symbol"
+      >#-}</a
+      ><a name="380"
+      >
+
+</a
+      ><a name="382" class="Comment"
+      >-- This module proves the correctness of the ABP following the</a
+      ><a name="444"
+      >
+</a
+      ><a name="445" class="Comment"
+      >-- formalization in Dybjer and Sander (1989).</a
+      ><a name="490"
+      >
+
+</a
+      ><a name="492" class="Comment"
+      >-- N.B This module does not contain combined proofs, but it imports</a
+      ><a name="559"
+      >
+</a
+      ><a name="560" class="Comment"
+      >-- modules which contain combined proofs.</a
+      ><a name="601"
+      >
+
+</a
+      ><a name="603" class="Keyword"
+      >module</a
+      ><a name="609"
+      > </a
+      ><a name="610" href="FOTC.Program.ABP.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.ABP.CorrectnessProofATP</a
+      ><a name="646"
+      > </a
+      ><a name="647" class="Keyword"
+      >where</a
+      ><a name="652"
+      >
+
+</a
+      ><a name="654" class="Keyword"
+      >open</a
+      ><a name="658"
+      > </a
+      ><a name="659" class="Keyword"
+      >import</a
+      ><a name="665"
+      > </a
+      ><a name="666" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="675"
+      >
+</a
+      ><a name="676" class="Keyword"
+      >open</a
+      ><a name="680"
+      > </a
+      ><a name="681" class="Keyword"
+      >import</a
+      ><a name="687"
+      > </a
+      ><a name="688" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="702"
+      >
+</a
+      ><a name="703" class="Keyword"
+      >open</a
+      ><a name="707"
+      > </a
+      ><a name="708" class="Keyword"
+      >import</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="FOTC.Data.Bool.html#1" class="Module"
+      >FOTC.Data.Bool</a
+      ><a name="729"
+      >
+</a
+      ><a name="730" class="Keyword"
+      >open</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Keyword"
+      >import</a
+      ><a name="741"
+      > </a
+      ><a name="742" href="FOTC.Data.Bool.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Bool.PropertiesATP</a
+      ><a name="770"
+      > </a
+      ><a name="771" class="Keyword"
+      >using</a
+      ><a name="776"
+      > </a
+      ><a name="777" class="Symbol"
+      >(</a
+      ><a name="778"
+      > not-Bool </a
+      ><a name="788" class="Symbol"
+      >)</a
+      ><a name="789"
+      >
+</a
+      ><a name="790" class="Keyword"
+      >open</a
+      ><a name="794"
+      > </a
+      ><a name="795" class="Keyword"
+      >import</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="FOTC.Data.Stream.Type.html#1" class="Module"
+      >FOTC.Data.Stream.Type</a
+      ><a name="823"
+      >
+</a
+      ><a name="824" class="Keyword"
+      >open</a
+      ><a name="828"
+      > </a
+      ><a name="829" class="Keyword"
+      >import</a
+      ><a name="835"
+      > </a
+      ><a name="836" href="FOTC.Data.Stream.Equality.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Stream.Equality.PropertiesATP</a
+      ><a name="875"
+      >
+</a
+      ><a name="876" class="Keyword"
+      >open</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Keyword"
+      >import</a
+      ><a name="887"
+      > </a
+      ><a name="888" href="FOTC.Program.ABP.ABP.html#1" class="Module"
+      >FOTC.Program.ABP.ABP</a
+      ><a name="908"
+      >
+</a
+      ><a name="909" class="Keyword"
+      >open</a
+      ><a name="913"
+      > </a
+      ><a name="914" class="Keyword"
+      >import</a
+      ><a name="920"
+      > </a
+      ><a name="921" href="FOTC.Program.ABP.Lemma1ATP.html#1" class="Module"
+      >FOTC.Program.ABP.Lemma1ATP</a
+      ><a name="947"
+      >
+</a
+      ><a name="948" class="Keyword"
+      >open</a
+      ><a name="952"
+      > </a
+      ><a name="953" class="Keyword"
+      >import</a
+      ><a name="959"
+      > </a
+      ><a name="960" href="FOTC.Program.ABP.Lemma2ATP.html#1" class="Module"
+      >FOTC.Program.ABP.Lemma2ATP</a
+      ><a name="986"
+      >
+</a
+      ><a name="987" class="Keyword"
+      >open</a
+      ><a name="991"
+      > </a
+      ><a name="992" class="Keyword"
+      >import</a
+      ><a name="998"
+      > </a
+      ><a name="999" href="FOTC.Program.ABP.Fair.Type.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.Type</a
+      ><a name="1025"
+      >
+</a
+      ><a name="1026" class="Keyword"
+      >open</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" class="Keyword"
+      >import</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOTC.Program.ABP.Terms.html#1" class="Module"
+      >FOTC.Program.ABP.Terms</a
+      ><a name="1060"
+      >
+</a
+      ><a name="1061" class="Keyword"
+      >open</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" class="Keyword"
+      >import</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.Type</a
+      ><a name="1111"
+      >
+
+</a
+      ><a name="1113" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1191"
+      >
+</a
+      ><a name="1192" class="Comment"
+      >-- Main theorem.</a
+      ><a name="1208"
+      >
+</a
+      ><a name="1209" href="FOTC.Program.ABP.CorrectnessProofATP.html#1209" class="Function"
+      >abpCorrect</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" class="Symbol"
+      >:</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" class="Symbol"
+      >&#8704;</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" class="Symbol"
+      >{</a
+      ><a name="1225" href="FOTC.Program.ABP.CorrectnessProofATP.html#1225" class="Bound"
+      >b</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="FOTC.Program.ABP.CorrectnessProofATP.html#1227" class="Bound"
+      >os&#8321;</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOTC.Program.ABP.CorrectnessProofATP.html#1231" class="Bound"
+      >os&#8322;</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="FOTC.Program.ABP.CorrectnessProofATP.html#1235" class="Bound"
+      >is</a
+      ><a name="1237" class="Symbol"
+      >}</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" class="Symbol"
+      >&#8594;</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="FOTC.Program.ABP.Terms.html#600" class="Function"
+      >Bit</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOTC.Program.ABP.CorrectnessProofATP.html#1225" class="Bound"
+      >b</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" class="Symbol"
+      >&#8594;</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="FOTC.Program.ABP.CorrectnessProofATP.html#1227" class="Bound"
+      >os&#8321;</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" class="Symbol"
+      >&#8594;</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1264"
+      > </a
+      ><a name="1265" href="FOTC.Program.ABP.CorrectnessProofATP.html#1231" class="Bound"
+      >os&#8322;</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" class="Symbol"
+      >&#8594;</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" href="FOTC.Program.ABP.CorrectnessProofATP.html#1235" class="Bound"
+      >is</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" class="Symbol"
+      >&#8594;</a
+      ><a name="1282"
+      >
+             </a
+      ><a name="1296" href="FOTC.Program.ABP.CorrectnessProofATP.html#1235" class="Bound"
+      >is</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1300"
+      > </a
+      ><a name="1301" href="FOTC.Program.ABP.ABP.html#3169" class="Postulate"
+      >abpTransfer</a
+      ><a name="1312"
+      > </a
+      ><a name="1313" href="FOTC.Program.ABP.CorrectnessProofATP.html#1225" class="Bound"
+      >b</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" href="FOTC.Program.ABP.CorrectnessProofATP.html#1227" class="Bound"
+      >os&#8321;</a
+      ><a name="1318"
+      > </a
+      ><a name="1319" href="FOTC.Program.ABP.CorrectnessProofATP.html#1231" class="Bound"
+      >os&#8322;</a
+      ><a name="1322"
+      > </a
+      ><a name="1323" href="FOTC.Program.ABP.CorrectnessProofATP.html#1235" class="Bound"
+      >is</a
+      ><a name="1325"
+      >
+</a
+      ><a name="1326" href="FOTC.Program.ABP.CorrectnessProofATP.html#1209" class="Function"
+      >abpCorrect</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" class="Symbol"
+      >{</a
+      ><a name="1338" href="FOTC.Program.ABP.CorrectnessProofATP.html#1338" class="Bound"
+      >b</a
+      ><a name="1339" class="Symbol"
+      >}</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" class="Symbol"
+      >{</a
+      ><a name="1342" href="FOTC.Program.ABP.CorrectnessProofATP.html#1342" class="Bound"
+      >os&#8321;</a
+      ><a name="1345" class="Symbol"
+      >}</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" class="Symbol"
+      >{</a
+      ><a name="1348" href="FOTC.Program.ABP.CorrectnessProofATP.html#1348" class="Bound"
+      >os&#8322;</a
+      ><a name="1351" class="Symbol"
+      >}</a
+      ><a name="1352"
+      > </a
+      ><a name="1353" class="Symbol"
+      >{</a
+      ><a name="1354" href="FOTC.Program.ABP.CorrectnessProofATP.html#1354" class="Bound"
+      >is</a
+      ><a name="1356" class="Symbol"
+      >}</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" href="FOTC.Program.ABP.CorrectnessProofATP.html#1358" class="Bound"
+      >Bb</a
+      ><a name="1360"
+      > </a
+      ><a name="1361" href="FOTC.Program.ABP.CorrectnessProofATP.html#1361" class="Bound"
+      >Fos&#8321;</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" href="FOTC.Program.ABP.CorrectnessProofATP.html#1366" class="Bound"
+      >Fos&#8322;</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" href="FOTC.Program.ABP.CorrectnessProofATP.html#1371" class="Bound"
+      >Sis</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" class="Symbol"
+      >=</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1444" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="1386"
+      > </a
+      ><a name="1387" href="FOTC.Program.ABP.CorrectnessProofATP.html#1413" class="Postulate"
+      >h&#8321;</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" href="FOTC.Program.ABP.CorrectnessProofATP.html#1603" class="Postulate"
+      >h&#8322;</a
+      ><a name="1392"
+      >
+  </a
+      ><a name="1395" class="Keyword"
+      >where</a
+      ><a name="1400"
+      >
+  </a
+      ><a name="1403" class="Keyword"
+      >postulate</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="FOTC.Program.ABP.CorrectnessProofATP.html#1413" class="Postulate"
+      >h&#8321;</a
+      ><a name="1415"
+      > </a
+      ><a name="1416" class="Symbol"
+      >:</a
+      ><a name="1417"
+      > </a
+      ><a name="1418" class="Symbol"
+      >&#8704;</a
+      ><a name="1419"
+      > </a
+      ><a name="1420" class="Symbol"
+      >{</a
+      ><a name="1421" href="FOTC.Program.ABP.CorrectnessProofATP.html#1421" class="Bound"
+      >ks</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" href="FOTC.Program.ABP.CorrectnessProofATP.html#1424" class="Bound"
+      >ls</a
+      ><a name="1426" class="Symbol"
+      >}</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" class="Symbol"
+      >&#8594;</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" href="FOTC.Program.ABP.CorrectnessProofATP.html#1421" class="Bound"
+      >ks</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="FOTC.Program.ABP.CorrectnessProofATP.html#1424" class="Bound"
+      >ls</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" class="Symbol"
+      >&#8594;</a
+      ><a name="1439"
+      >
+                 </a
+      ><a name="1457" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="FOTC.Program.ABP.CorrectnessProofATP.html#1460" class="Bound"
+      >k'</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" href="FOTC.Program.ABP.CorrectnessProofATP.html#1468" class="Bound"
+      >ks'</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="FOTC.Program.ABP.CorrectnessProofATP.html#1477" class="Bound"
+      >ls'</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1482"
+      >
+                   </a
+      ><a name="1502" href="FOTC.Program.ABP.CorrectnessProofATP.html#1421" class="Bound"
+      >ks</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" href="FOTC.Program.ABP.CorrectnessProofATP.html#1460" class="Bound"
+      >k'</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="FOTC.Program.ABP.CorrectnessProofATP.html#1468" class="Bound"
+      >ks'</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="FOTC.Program.ABP.CorrectnessProofATP.html#1424" class="Bound"
+      >ls</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOTC.Program.ABP.CorrectnessProofATP.html#1460" class="Bound"
+      >k'</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" href="FOTC.Program.ABP.CorrectnessProofATP.html#1477" class="Bound"
+      >ls'</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1533"
+      > </a
+      ><a name="1534" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" href="FOTC.Program.ABP.CorrectnessProofATP.html#1468" class="Bound"
+      >ks'</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" href="FOTC.Program.ABP.CorrectnessProofATP.html#1477" class="Bound"
+      >ls'</a
+      ><a name="1543"
+      >
+  </a
+      ><a name="1546" class="Symbol"
+      >{-#</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" class="Keyword"
+      >ATP</a
+      ><a name="1553"
+      > prove </a
+      ><a name="1560" href="FOTC.Program.ABP.CorrectnessProofATP.html#1413" class="Postulate"
+      >h&#8321;</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Program.ABP.Lemma1ATP.html#4805" class="Function"
+      >lemma&#8321;</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" href="FOTC.Program.ABP.Lemma2ATP.html#5036" class="Function"
+      >lemma&#8322;</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" href="FOTC.Data.Bool.PropertiesATP.html#935" class="Function"
+      >not-Bool</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" class="Symbol"
+      >#-}</a
+      ><a name="1589"
+      >
+
+  </a
+      ><a name="1593" class="Keyword"
+      >postulate</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" href="FOTC.Program.ABP.CorrectnessProofATP.html#1603" class="Postulate"
+      >h&#8322;</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" class="Symbol"
+      >:</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="1609"
+      > </a
+      ><a name="1610" href="FOTC.Program.ABP.CorrectnessProofATP.html#1354" class="Bound"
+      >is</a
+      ><a name="1612"
+      > </a
+      ><a name="1613" class="Symbol"
+      >(</a
+      ><a name="1614" href="FOTC.Program.ABP.ABP.html#3169" class="Postulate"
+      >abpTransfer</a
+      ><a name="1625"
+      > </a
+      ><a name="1626" href="FOTC.Program.ABP.CorrectnessProofATP.html#1338" class="Bound"
+      >b</a
+      ><a name="1627"
+      > </a
+      ><a name="1628" href="FOTC.Program.ABP.CorrectnessProofATP.html#1342" class="Bound"
+      >os&#8321;</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" href="FOTC.Program.ABP.CorrectnessProofATP.html#1348" class="Bound"
+      >os&#8322;</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="FOTC.Program.ABP.CorrectnessProofATP.html#1354" class="Bound"
+      >is</a
+      ><a name="1638" class="Symbol"
+      >)</a
+      ><a name="1639"
+      >
+  </a
+      ><a name="1642" class="Symbol"
+      >{-#</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" class="Keyword"
+      >ATP</a
+      ><a name="1649"
+      > prove </a
+      ><a name="1656" href="FOTC.Program.ABP.CorrectnessProofATP.html#1603" class="Postulate"
+      >h&#8322;</a
+      ><a name="1658"
+      > </a
+      ><a name="1659" class="Symbol"
+      >#-}</a
+      ><a name="1662"
+      >
+
+</a
+      ><a name="1664" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1742"
+      >
+</a
+      ><a name="1743" class="Comment"
+      >-- abpTransfer produces a Stream.</a
+      ><a name="1776"
+      >
+</a
+      ><a name="1777" class="Keyword"
+      >postulate</a
+      ><a name="1786"
+      >
+  </a
+      ><a name="1789" href="FOTC.Program.ABP.CorrectnessProofATP.html#1789" class="Postulate"
+      >abpTransfer-Stream</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" class="Symbol"
+      >:</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" class="Symbol"
+      >&#8704;</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" class="Symbol"
+      >{</a
+      ><a name="1813" href="FOTC.Program.ABP.CorrectnessProofATP.html#1813" class="Bound"
+      >b</a
+      ><a name="1814"
+      > </a
+      ><a name="1815" href="FOTC.Program.ABP.CorrectnessProofATP.html#1815" class="Bound"
+      >os&#8321;</a
+      ><a name="1818"
+      > </a
+      ><a name="1819" href="FOTC.Program.ABP.CorrectnessProofATP.html#1819" class="Bound"
+      >os&#8322;</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="FOTC.Program.ABP.CorrectnessProofATP.html#1823" class="Bound"
+      >is</a
+      ><a name="1825" class="Symbol"
+      >}</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" class="Symbol"
+      >&#8594;</a
+      ><a name="1828"
+      >
+                       </a
+      ><a name="1852" href="FOTC.Program.ABP.Terms.html#600" class="Function"
+      >Bit</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="FOTC.Program.ABP.CorrectnessProofATP.html#1813" class="Bound"
+      >b</a
+      ><a name="1857"
+      > </a
+      ><a name="1858" class="Symbol"
+      >&#8594;</a
+      ><a name="1859"
+      >
+                       </a
+      ><a name="1883" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1887"
+      > </a
+      ><a name="1888" href="FOTC.Program.ABP.CorrectnessProofATP.html#1815" class="Bound"
+      >os&#8321;</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" class="Symbol"
+      >&#8594;</a
+      ><a name="1893"
+      >
+                       </a
+      ><a name="1917" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="FOTC.Program.ABP.CorrectnessProofATP.html#1819" class="Bound"
+      >os&#8322;</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" class="Symbol"
+      >&#8594;</a
+      ><a name="1927"
+      >
+                       </a
+      ><a name="1951" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1957"
+      > </a
+      ><a name="1958" href="FOTC.Program.ABP.CorrectnessProofATP.html#1823" class="Bound"
+      >is</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" class="Symbol"
+      >&#8594;</a
+      ><a name="1962"
+      >
+                       </a
+      ><a name="1986" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" class="Symbol"
+      >(</a
+      ><a name="1994" href="FOTC.Program.ABP.ABP.html#3169" class="Postulate"
+      >abpTransfer</a
+      ><a name="2005"
+      > </a
+      ><a name="2006" href="FOTC.Program.ABP.CorrectnessProofATP.html#1813" class="Bound"
+      >b</a
+      ><a name="2007"
+      > </a
+      ><a name="2008" href="FOTC.Program.ABP.CorrectnessProofATP.html#1815" class="Bound"
+      >os&#8321;</a
+      ><a name="2011"
+      > </a
+      ><a name="2012" href="FOTC.Program.ABP.CorrectnessProofATP.html#1819" class="Bound"
+      >os&#8322;</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="FOTC.Program.ABP.CorrectnessProofATP.html#1823" class="Bound"
+      >is</a
+      ><a name="2018" class="Symbol"
+      >)</a
+      ><a name="2019"
+      >
+</a
+      ><a name="2020" class="Symbol"
+      >{-#</a
+      ><a name="2023"
+      > </a
+      ><a name="2024" class="Keyword"
+      >ATP</a
+      ><a name="2027"
+      > prove </a
+      ><a name="2034" href="FOTC.Program.ABP.CorrectnessProofATP.html#1789" class="Postulate"
+      >abpTransfer-Stream</a
+      ><a name="2052"
+      > </a
+      ><a name="2053" href="FOTC.Data.Stream.Equality.PropertiesATP.html#1084" class="Function"
+      >&#8776;&#8594;Stream&#8322;</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" href="FOTC.Program.ABP.CorrectnessProofATP.html#1209" class="Function"
+      >abpCorrect</a
+      ><a name="2073"
+      > </a
+      ><a name="2074" class="Symbol"
+      >#-}</a
+      ><a name="2077"
+      >
+
+</a
+      ><a name="2079" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2157"
+      >
+</a
+      ><a name="2158" class="Comment"
+      >-- References</a
+      ><a name="2171"
+      >
+</a
+      ><a name="2172" class="Comment"
+      >--</a
+      ><a name="2174"
+      >
+</a
+      ><a name="2175" class="Comment"
+      >-- Dybjer, Peter and Sander, Herbert P. (1989). A Functional</a
+      ><a name="2235"
+      >
+</a
+      ><a name="2236" class="Comment"
+      >-- Programming Approach to the Specification and Verification of</a
+      ><a name="2300"
+      >
+</a
+      ><a name="2301" class="Comment"
+      >-- Concurrent Systems. Formal Aspects of Computing 1, pp. 303&#8211;319.</a
+      ><a name="2367"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

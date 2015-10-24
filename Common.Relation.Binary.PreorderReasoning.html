@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Common.Relation.Binary.PreorderReasoning</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Parametrized preorder reasoning</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Keyword"
+      >module</a
+      ><a name="374"
+      > </a
+      ><a name="375" href="Common.Relation.Binary.PreorderReasoning.html#1" class="Module"
+      >Common.Relation.Binary.PreorderReasoning</a
+      ><a name="415"
+      >
+  </a
+      ><a name="418" class="Symbol"
+      >{</a
+      ><a name="419" href="Common.Relation.Binary.PreorderReasoning.html#419" class="Bound"
+      >D</a
+      ><a name="420"
+      >     </a
+      ><a name="425" class="Symbol"
+      >:</a
+      ><a name="426"
+      > </a
+      ><a name="427" class="PrimitiveType"
+      >Set</a
+      ><a name="430" class="Symbol"
+      >}</a
+      ><a name="431"
+      >
+  </a
+      ><a name="434" class="Symbol"
+      >(</a
+      ><a name="435" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >_&#8764;_</a
+      ><a name="438"
+      >   </a
+      ><a name="441" class="Symbol"
+      >:</a
+      ><a name="442"
+      > </a
+      ><a name="443" href="Common.Relation.Binary.PreorderReasoning.html#419" class="Bound"
+      >D</a
+      ><a name="444"
+      > </a
+      ><a name="445" class="Symbol"
+      >&#8594;</a
+      ><a name="446"
+      > </a
+      ><a name="447" href="Common.Relation.Binary.PreorderReasoning.html#419" class="Bound"
+      >D</a
+      ><a name="448"
+      > </a
+      ><a name="449" class="Symbol"
+      >&#8594;</a
+      ><a name="450"
+      > </a
+      ><a name="451" class="PrimitiveType"
+      >Set</a
+      ><a name="454" class="Symbol"
+      >)</a
+      ><a name="455"
+      >
+  </a
+      ><a name="458" class="Symbol"
+      >(</a
+      ><a name="459" href="Common.Relation.Binary.PreorderReasoning.html#459" class="Bound"
+      >refl</a
+      ><a name="463"
+      >  </a
+      ><a name="465" class="Symbol"
+      >:</a
+      ><a name="466"
+      > </a
+      ><a name="467" class="Symbol"
+      >&#8704;</a
+      ><a name="468"
+      > </a
+      ><a name="469" class="Symbol"
+      >{</a
+      ><a name="470" href="Common.Relation.Binary.PreorderReasoning.html#470" class="Bound"
+      >x</a
+      ><a name="471" class="Symbol"
+      >}</a
+      ><a name="472"
+      > </a
+      ><a name="473" class="Symbol"
+      >&#8594;</a
+      ><a name="474"
+      > </a
+      ><a name="475" href="Common.Relation.Binary.PreorderReasoning.html#470" class="Bound"
+      >x</a
+      ><a name="476"
+      > </a
+      ><a name="477" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="478"
+      > </a
+      ><a name="479" href="Common.Relation.Binary.PreorderReasoning.html#470" class="Bound"
+      >x</a
+      ><a name="480" class="Symbol"
+      >)</a
+      ><a name="481"
+      >
+  </a
+      ><a name="484" class="Symbol"
+      >(</a
+      ><a name="485" href="Common.Relation.Binary.PreorderReasoning.html#485" class="Bound"
+      >trans</a
+      ><a name="490"
+      > </a
+      ><a name="491" class="Symbol"
+      >:</a
+      ><a name="492"
+      > </a
+      ><a name="493" class="Symbol"
+      >&#8704;</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Symbol"
+      >{</a
+      ><a name="496" href="Common.Relation.Binary.PreorderReasoning.html#496" class="Bound"
+      >x</a
+      ><a name="497"
+      > </a
+      ><a name="498" href="Common.Relation.Binary.PreorderReasoning.html#498" class="Bound"
+      >y</a
+      ><a name="499"
+      > </a
+      ><a name="500" href="Common.Relation.Binary.PreorderReasoning.html#500" class="Bound"
+      >z</a
+      ><a name="501" class="Symbol"
+      >}</a
+      ><a name="502"
+      > </a
+      ><a name="503" class="Symbol"
+      >&#8594;</a
+      ><a name="504"
+      > </a
+      ><a name="505" href="Common.Relation.Binary.PreorderReasoning.html#496" class="Bound"
+      >x</a
+      ><a name="506"
+      > </a
+      ><a name="507" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="508"
+      > </a
+      ><a name="509" href="Common.Relation.Binary.PreorderReasoning.html#498" class="Bound"
+      >y</a
+      ><a name="510"
+      > </a
+      ><a name="511" class="Symbol"
+      >&#8594;</a
+      ><a name="512"
+      > </a
+      ><a name="513" href="Common.Relation.Binary.PreorderReasoning.html#498" class="Bound"
+      >y</a
+      ><a name="514"
+      > </a
+      ><a name="515" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="516"
+      > </a
+      ><a name="517" href="Common.Relation.Binary.PreorderReasoning.html#500" class="Bound"
+      >z</a
+      ><a name="518"
+      > </a
+      ><a name="519" class="Symbol"
+      >&#8594;</a
+      ><a name="520"
+      > </a
+      ><a name="521" href="Common.Relation.Binary.PreorderReasoning.html#496" class="Bound"
+      >x</a
+      ><a name="522"
+      > </a
+      ><a name="523" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="524"
+      > </a
+      ><a name="525" href="Common.Relation.Binary.PreorderReasoning.html#500" class="Bound"
+      >z</a
+      ><a name="526" class="Symbol"
+      >)</a
+      ><a name="527"
+      >
+  </a
+      ><a name="530" class="Keyword"
+      >where</a
+      ><a name="535"
+      >
+
+</a
+      ><a name="537" class="Keyword"
+      >infix</a
+      ><a name="542"
+      >  </a
+      ><a name="544" class="Number"
+      >3</a
+      ><a name="545"
+      > _&#8718;
+</a
+      ><a name="549" class="Keyword"
+      >infixr</a
+      ><a name="555"
+      > </a
+      ><a name="556" class="Number"
+      >2</a
+      ><a name="557"
+      > _&#8764;&#10216;_&#10217;_
+
+</a
+      ><a name="566" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="644"
+      >
+</a
+      ><a name="645" class="Comment"
+      >-- From (Mu, S.-C., Ko, H.-S. and Jansson, P. (2009)).</a
+      ><a name="699"
+      >
+</a
+      ><a name="700" class="Comment"
+      >--</a
+      ><a name="702"
+      >
+</a
+      ><a name="703" class="Comment"
+      >-- N.B. Unlike Ulf's thesis (and the Agda standard library&#160;0.8.1) this</a
+      ><a name="773"
+      >
+</a
+      ><a name="774" class="Comment"
+      >-- set of combinators do not use a wrapper data type.</a
+      ><a name="827"
+      >
+
+</a
+      ><a name="829" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >_&#8764;&#10216;_&#10217;_</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Symbol"
+      >:</a
+      ><a name="837"
+      > </a
+      ><a name="838" class="Symbol"
+      >&#8704;</a
+      ><a name="839"
+      > </a
+      ><a name="840" href="Common.Relation.Binary.PreorderReasoning.html#840" class="Bound"
+      >x</a
+      ><a name="841"
+      > </a
+      ><a name="842" class="Symbol"
+      >{</a
+      ><a name="843" href="Common.Relation.Binary.PreorderReasoning.html#843" class="Bound"
+      >y</a
+      ><a name="844"
+      > </a
+      ><a name="845" href="Common.Relation.Binary.PreorderReasoning.html#845" class="Bound"
+      >z</a
+      ><a name="846" class="Symbol"
+      >}</a
+      ><a name="847"
+      > </a
+      ><a name="848" class="Symbol"
+      >&#8594;</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="Common.Relation.Binary.PreorderReasoning.html#840" class="Bound"
+      >x</a
+      ><a name="851"
+      > </a
+      ><a name="852" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="853"
+      > </a
+      ><a name="854" href="Common.Relation.Binary.PreorderReasoning.html#843" class="Bound"
+      >y</a
+      ><a name="855"
+      > </a
+      ><a name="856" class="Symbol"
+      >&#8594;</a
+      ><a name="857"
+      > </a
+      ><a name="858" href="Common.Relation.Binary.PreorderReasoning.html#843" class="Bound"
+      >y</a
+      ><a name="859"
+      > </a
+      ><a name="860" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="861"
+      > </a
+      ><a name="862" href="Common.Relation.Binary.PreorderReasoning.html#845" class="Bound"
+      >z</a
+      ><a name="863"
+      > </a
+      ><a name="864" class="Symbol"
+      >&#8594;</a
+      ><a name="865"
+      > </a
+      ><a name="866" href="Common.Relation.Binary.PreorderReasoning.html#840" class="Bound"
+      >x</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="Common.Relation.Binary.PreorderReasoning.html#845" class="Bound"
+      >z</a
+      ><a name="871"
+      >
+</a
+      ><a name="872" class="Symbol"
+      >_</a
+      ><a name="873"
+      > </a
+      ><a name="874" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8764;&#10216;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="Common.Relation.Binary.PreorderReasoning.html#877" class="Bound"
+      >x&#8764;y</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="882"
+      > </a
+      ><a name="883" href="Common.Relation.Binary.PreorderReasoning.html#883" class="Bound"
+      >y&#8764;z</a
+      ><a name="886"
+      > </a
+      ><a name="887" class="Symbol"
+      >=</a
+      ><a name="888"
+      > </a
+      ><a name="889" href="Common.Relation.Binary.PreorderReasoning.html#485" class="Bound"
+      >trans</a
+      ><a name="894"
+      > </a
+      ><a name="895" href="Common.Relation.Binary.PreorderReasoning.html#877" class="Bound"
+      >x&#8764;y</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="Common.Relation.Binary.PreorderReasoning.html#883" class="Bound"
+      >y&#8764;z</a
+      ><a name="902"
+      >
+
+</a
+      ><a name="904" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >_&#8718;</a
+      ><a name="906"
+      > </a
+      ><a name="907" class="Symbol"
+      >:</a
+      ><a name="908"
+      > </a
+      ><a name="909" class="Symbol"
+      >&#8704;</a
+      ><a name="910"
+      > </a
+      ><a name="911" href="Common.Relation.Binary.PreorderReasoning.html#911" class="Bound"
+      >x</a
+      ><a name="912"
+      > </a
+      ><a name="913" class="Symbol"
+      >&#8594;</a
+      ><a name="914"
+      > </a
+      ><a name="915" href="Common.Relation.Binary.PreorderReasoning.html#911" class="Bound"
+      >x</a
+      ><a name="916"
+      > </a
+      ><a name="917" href="Common.Relation.Binary.PreorderReasoning.html#435" class="Bound Operator"
+      >&#8764;</a
+      ><a name="918"
+      > </a
+      ><a name="919" href="Common.Relation.Binary.PreorderReasoning.html#911" class="Bound"
+      >x</a
+      ><a name="920"
+      >
+</a
+      ><a name="921" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >_&#8718;</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Symbol"
+      >_</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >=</a
+      ><a name="927"
+      > </a
+      ><a name="928" href="Common.Relation.Binary.PreorderReasoning.html#459" class="Bound"
+      >refl</a
+      ><a name="932"
+      >
+
+</a
+      ><a name="934" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1012"
+      >
+</a
+      ><a name="1013" class="Comment"
+      >-- References</a
+      ><a name="1026"
+      >
+</a
+      ><a name="1027" class="Comment"
+      >--</a
+      ><a name="1029"
+      >
+</a
+      ><a name="1030" class="Comment"
+      >-- Mu, S.-C., Ko, H.-S. and Jansson, P. (2009). Algebra of programming</a
+      ><a name="1100"
+      >
+</a
+      ><a name="1101" class="Comment"
+      >-- in Agda: Dependent types for relational program derivation. Journal</a
+      ><a name="1171"
+      >
+</a
+      ><a name="1172" class="Comment"
+      >-- of Functional Programming 19.5, pp. 545&#8211;579.</a
+      ><a name="1219"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

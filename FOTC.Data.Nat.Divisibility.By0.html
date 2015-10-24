@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.Divisibility.By0</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The relation of divisibility on partial natural numbers</a
+      ><a name="138"
+      >
+</a
+      ><a name="139" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="217"
+      >
+
+</a
+      ><a name="219" class="Symbol"
+      >{-#</a
+      ><a name="222"
+      > </a
+      ><a name="223" class="Keyword"
+      >OPTIONS</a
+      ><a name="230"
+      > --exact-split              </a
+      ><a name="258" class="Symbol"
+      >#-}</a
+      ><a name="261"
+      >
+</a
+      ><a name="262" class="Symbol"
+      >{-#</a
+      ><a name="265"
+      > </a
+      ><a name="266" class="Keyword"
+      >OPTIONS</a
+      ><a name="273"
+      > --no-sized-types           </a
+      ><a name="301" class="Symbol"
+      >#-}</a
+      ><a name="304"
+      >
+</a
+      ><a name="305" class="Symbol"
+      >{-#</a
+      ><a name="308"
+      > </a
+      ><a name="309" class="Keyword"
+      >OPTIONS</a
+      ><a name="316"
+      > --no-universe-polymorphism </a
+      ><a name="344" class="Symbol"
+      >#-}</a
+      ><a name="347"
+      >
+</a
+      ><a name="348" class="Symbol"
+      >{-#</a
+      ><a name="351"
+      > </a
+      ><a name="352" class="Keyword"
+      >OPTIONS</a
+      ><a name="359"
+      > --without-K                </a
+      ><a name="387" class="Symbol"
+      >#-}</a
+      ><a name="390"
+      >
+
+</a
+      ><a name="392" class="Keyword"
+      >module</a
+      ><a name="398"
+      > </a
+      ><a name="399" href="FOTC.Data.Nat.Divisibility.By0.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.By0</a
+      ><a name="429"
+      > </a
+      ><a name="430" class="Keyword"
+      >where</a
+      ><a name="435"
+      >
+
+</a
+      ><a name="437" class="Keyword"
+      >open</a
+      ><a name="441"
+      > </a
+      ><a name="442" class="Keyword"
+      >import</a
+      ><a name="448"
+      > </a
+      ><a name="449" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="458"
+      >
+</a
+      ><a name="459" class="Keyword"
+      >open</a
+      ><a name="463"
+      > </a
+      ><a name="464" class="Keyword"
+      >import</a
+      ><a name="470"
+      > </a
+      ><a name="471" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="484"
+      >
+
+</a
+      ><a name="486" class="Keyword"
+      >infix</a
+      ><a name="491"
+      > </a
+      ><a name="492" class="Number"
+      >4</a
+      ><a name="493"
+      > _&#8739;_
+
+</a
+      ><a name="499" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="577"
+      >
+</a
+      ><a name="578" class="Comment"
+      >-- The relation of divisibility (the symbol is '\mid' not '|')</a
+      ><a name="640"
+      >
+</a
+      ><a name="641" class="Comment"
+      >--</a
+      ><a name="643"
+      >
+</a
+      ><a name="644" class="Comment"
+      >-- It seems there is not agreement about if 0&#8739;0:</a
+      ><a name="692"
+      >
+</a
+      ><a name="693" class="Comment"
+      >--</a
+      ><a name="695"
+      >
+</a
+      ><a name="696" class="Comment"
+      >-- Hardy and Wright 1975, p. 1: 0&#8740;0</a
+      ><a name="731"
+      >
+</a
+      ><a name="732" class="Comment"
+      >--</a
+      ><a name="734"
+      >
+</a
+      ><a name="735" class="Comment"
+      >-- Knuth 1977, p. 40: 0&#8740;0</a
+      ><a name="760"
+      >
+</a
+      ><a name="761" class="Comment"
+      >--</a
+      ><a name="763"
+      >
+</a
+      ><a name="764" class="Comment"
+      >-- Agda standard library&#160;0.8.1: 0|0</a
+      ><a name="799"
+      >
+</a
+      ><a name="800" class="Comment"
+      >--</a
+      ><a name="802"
+      >
+</a
+      ><a name="803" class="Comment"
+      >-- Coq 8.4pl4: 0&#8739;0</a
+      ><a name="821"
+      >
+</a
+      ><a name="822" class="Comment"
+      >--</a
+      ><a name="824"
+      >
+</a
+      ><a name="825" class="Comment"
+      >-- Isabelle2014: 0&#8739;0</a
+      ><a name="845"
+      >
+
+</a
+      ><a name="847" class="Comment"
+      >-- In our definition 0&#8739;0, which is used to prove properties of the gcd</a
+      ><a name="917"
+      >
+</a
+      ><a name="918" class="Comment"
+      >-- as it is in GHC &#8805; 7.2.1, where gcd 0 0 = 0 (see</a
+      ><a name="968"
+      >
+</a
+      ><a name="969" class="Comment"
+      >-- http://hackage.haskell.org/trac/ghc/ticket/3304).</a
+      ><a name="1021"
+      >
+
+</a
+      ><a name="1023" class="Comment"
+      >-- Note that @k@ should be a total natural number.</a
+      ><a name="1073"
+      >
+</a
+      ><a name="1074" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >_&#8739;_</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" class="Symbol"
+      >:</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" class="Symbol"
+      >&#8594;</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" class="Symbol"
+      >&#8594;</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" class="PrimitiveType"
+      >Set</a
+      ><a name="1091"
+      >
+</a
+      ><a name="1092" href="FOTC.Data.Nat.Divisibility.By0.html#1092" class="Bound"
+      >m</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >&#8739;</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" href="FOTC.Data.Nat.Divisibility.By0.html#1096" class="Bound"
+      >n</a
+      ><a name="1097"
+      > </a
+      ><a name="1098" class="Symbol"
+      >=</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="FOTC.Data.Nat.Divisibility.By0.html#1103" class="Bound"
+      >k</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1106"
+      > </a
+      ><a name="1107" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="FOTC.Data.Nat.Divisibility.By0.html#1103" class="Bound"
+      >k</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" href="FOTC.Data.Nat.Divisibility.By0.html#1096" class="Bound"
+      >n</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" href="FOTC.Data.Nat.Divisibility.By0.html#1103" class="Bound"
+      >k</a
+      ><a name="1118"
+      > </a
+      ><a name="1119" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="1120"
+      > </a
+      ><a name="1121" href="FOTC.Data.Nat.Divisibility.By0.html#1092" class="Bound"
+      >m</a
+      ><a name="1122"
+      >
+</a
+      ><a name="1123" class="Symbol"
+      >{-#</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" class="Keyword"
+      >ATP</a
+      ><a name="1130"
+      > definition </a
+      ><a name="1142" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >_&#8739;_</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >#-}</a
+      ><a name="1149"
+      >
+
+</a
+      ><a name="1151" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1229"
+      >
+</a
+      ><a name="1230" class="Comment"
+      >-- References:</a
+      ><a name="1244"
+      >
+</a
+      ><a name="1245" class="Comment"
+      >--</a
+      ><a name="1247"
+      >
+</a
+      ><a name="1248" class="Comment"
+      >-- Hardy, G. H. and Wright, E. M. (1975). An Introduction to the</a
+      ><a name="1312"
+      >
+</a
+      ><a name="1313" class="Comment"
+      >-- Theory of Numbers. 4th ed. Oxford University Press.</a
+      ><a name="1367"
+      >
+</a
+      ><a name="1368" class="Comment"
+      >--</a
+      ><a name="1370"
+      >
+</a
+      ><a name="1371" class="Comment"
+      >-- Knuth, Donald E. (1997). The Art of Computer Programming. 3rd</a
+      ><a name="1435"
+      >
+</a
+      ><a name="1436" class="Comment"
+      >-- ed. Vol. 1. Fundamental Algorithms. Addison-Wesley Professional.</a
+      ><a name="1503"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

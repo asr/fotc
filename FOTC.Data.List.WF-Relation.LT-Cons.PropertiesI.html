@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties for the relation LTC</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Keyword"
+      >module</a
+      ><a name="374"
+      > </a
+      ><a name="375" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI</a
+      ><a name="421"
+      > </a
+      ><a name="422" class="Keyword"
+      >where</a
+      ><a name="427"
+      >
+
+</a
+      ><a name="429" class="Keyword"
+      >open</a
+      ><a name="433"
+      > </a
+      ><a name="434" class="Keyword"
+      >import</a
+      ><a name="440"
+      > </a
+      ><a name="441" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="450"
+      >
+</a
+      ><a name="451" class="Keyword"
+      >open</a
+      ><a name="455"
+      > </a
+      ><a name="456" class="Keyword"
+      >import</a
+      ><a name="462"
+      > </a
+      ><a name="463" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="489"
+      >
+</a
+      ><a name="490" class="Keyword"
+      >open</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Keyword"
+      >import</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="516"
+      >
+</a
+      ><a name="517" class="Keyword"
+      >open</a
+      ><a name="521"
+      > </a
+      ><a name="522" class="Keyword"
+      >import</a
+      ><a name="528"
+      > </a
+      ><a name="529" href="FOTC.Data.List.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.PropertiesI</a
+      ><a name="555"
+      >
+</a
+      ><a name="556" class="Keyword"
+      >open</a
+      ><a name="560"
+      > </a
+      ><a name="561" class="Keyword"
+      >import</a
+      ><a name="567"
+      > </a
+      ><a name="568" href="FOTC.Data.List.WF-Relation.LT-Cons.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons</a
+      ><a name="602"
+      >
+</a
+      ><a name="603" class="Keyword"
+      >open</a
+      ><a name="607"
+      > </a
+      ><a name="608" class="Keyword"
+      >import</a
+      ><a name="614"
+      > </a
+      ><a name="615" href="FOTC.Data.List.WF-Relation.LT-Length.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Length</a
+      ><a name="651"
+      >
+
+</a
+      ><a name="653" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="731"
+      >
+</a
+      ><a name="732" class="Comment"
+      >-- LTC &#8838; LTL.</a
+      ><a name="745"
+      >
+</a
+      ><a name="746" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#746" class="Function"
+      >LTC&#8594;LTL</a
+      ><a name="753"
+      > </a
+      ><a name="754" class="Symbol"
+      >:</a
+      ><a name="755"
+      > </a
+      ><a name="756" class="Symbol"
+      >&#8704;</a
+      ><a name="757"
+      > </a
+      ><a name="758" class="Symbol"
+      >{</a
+      ><a name="759" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#759" class="Bound"
+      >xs</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#762" class="Bound"
+      >ys</a
+      ><a name="764" class="Symbol"
+      >}</a
+      ><a name="765"
+      > </a
+      ><a name="766" class="Symbol"
+      >&#8594;</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="FOTC.Data.List.Type.html#641" class="Datatype"
+      >List</a
+      ><a name="772"
+      > </a
+      ><a name="773" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#759" class="Bound"
+      >xs</a
+      ><a name="775"
+      > </a
+      ><a name="776" class="Symbol"
+      >&#8594;</a
+      ><a name="777"
+      > </a
+      ><a name="778" href="FOTC.Data.List.WF-Relation.LT-Cons.html#630" class="Function"
+      >LTC</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#759" class="Bound"
+      >xs</a
+      ><a name="784"
+      > </a
+      ><a name="785" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#762" class="Bound"
+      >ys</a
+      ><a name="787"
+      > </a
+      ><a name="788" class="Symbol"
+      >&#8594;</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="FOTC.Data.List.WF-Relation.LT-Length.html#665" class="Function"
+      >LTL</a
+      ><a name="793"
+      > </a
+      ><a name="794" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#759" class="Bound"
+      >xs</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#762" class="Bound"
+      >ys</a
+      ><a name="799"
+      >
+</a
+      ><a name="800" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#746" class="Function"
+      >LTC&#8594;LTL</a
+      ><a name="807"
+      > </a
+      ><a name="808" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#808" class="Bound"
+      >Lxs</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Symbol"
+      >(</a
+      ><a name="813" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#813" class="Bound"
+      >x</a
+      ><a name="814"
+      > </a
+      ><a name="815" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="816"
+      > </a
+      ><a name="817" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="821" class="Symbol"
+      >)</a
+      ><a name="822"
+      > </a
+      ><a name="823" class="Symbol"
+      >=</a
+      ><a name="824"
+      > </a
+      ><a name="825" href="FOTC.Data.List.PropertiesI.html#2971" class="Function"
+      >lg-x&lt;lg-x&#8759;xs</a
+      ><a name="837"
+      > </a
+      ><a name="838" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#813" class="Bound"
+      >x</a
+      ><a name="839"
+      > </a
+      ><a name="840" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#808" class="Bound"
+      >Lxs</a
+      ><a name="843"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

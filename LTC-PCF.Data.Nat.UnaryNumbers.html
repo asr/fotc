@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Data.Nat.UnaryNumbers</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Unary naturales numbers</a
+      ><a name="106"
+      >
+</a
+      ><a name="107" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="185"
+      >
+
+</a
+      ><a name="187" class="Symbol"
+      >{-#</a
+      ><a name="190"
+      > </a
+      ><a name="191" class="Keyword"
+      >OPTIONS</a
+      ><a name="198"
+      > --exact-split              </a
+      ><a name="226" class="Symbol"
+      >#-}</a
+      ><a name="229"
+      >
+</a
+      ><a name="230" class="Symbol"
+      >{-#</a
+      ><a name="233"
+      > </a
+      ><a name="234" class="Keyword"
+      >OPTIONS</a
+      ><a name="241"
+      > --no-sized-types           </a
+      ><a name="269" class="Symbol"
+      >#-}</a
+      ><a name="272"
+      >
+</a
+      ><a name="273" class="Symbol"
+      >{-#</a
+      ><a name="276"
+      > </a
+      ><a name="277" class="Keyword"
+      >OPTIONS</a
+      ><a name="284"
+      > --no-universe-polymorphism </a
+      ><a name="312" class="Symbol"
+      >#-}</a
+      ><a name="315"
+      >
+</a
+      ><a name="316" class="Symbol"
+      >{-#</a
+      ><a name="319"
+      > </a
+      ><a name="320" class="Keyword"
+      >OPTIONS</a
+      ><a name="327"
+      > --without-K                </a
+      ><a name="355" class="Symbol"
+      >#-}</a
+      ><a name="358"
+      >
+
+</a
+      ><a name="360" class="Keyword"
+      >module</a
+      ><a name="366"
+      > </a
+      ><a name="367" href="LTC-PCF.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >LTC-PCF.Data.Nat.UnaryNumbers</a
+      ><a name="396"
+      > </a
+      ><a name="397" class="Keyword"
+      >where</a
+      ><a name="402"
+      >
+
+</a
+      ><a name="404" class="Keyword"
+      >open</a
+      ><a name="408"
+      > </a
+      ><a name="409" class="Keyword"
+      >import</a
+      ><a name="415"
+      > </a
+      ><a name="416" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="428"
+      >
+
+</a
+      ><a name="430" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="508"
+      >
+
+</a
+      ><a name="510" href="LTC-PCF.Data.Nat.UnaryNumbers.html#510" class="Function"
+      >[0]</a
+      ><a name="513"
+      >  </a
+      ><a name="515" class="Symbol"
+      >=</a
+      ><a name="516"
+      > </a
+      ><a name="517" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="521"
+      >
+</a
+      ><a name="522" href="LTC-PCF.Data.Nat.UnaryNumbers.html#522" class="Function"
+      >[1]</a
+      ><a name="525"
+      >  </a
+      ><a name="527" class="Symbol"
+      >=</a
+      ><a name="528"
+      > </a
+      ><a name="529" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="534"
+      > </a
+      ><a name="535" href="LTC-PCF.Data.Nat.UnaryNumbers.html#510" class="Function"
+      >[0]</a
+      ><a name="538"
+      >
+</a
+      ><a name="539" href="LTC-PCF.Data.Nat.UnaryNumbers.html#539" class="Function"
+      >[2]</a
+      ><a name="542"
+      >  </a
+      ><a name="544" class="Symbol"
+      >=</a
+      ><a name="545"
+      > </a
+      ><a name="546" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="551"
+      > </a
+      ><a name="552" href="LTC-PCF.Data.Nat.UnaryNumbers.html#522" class="Function"
+      >[1]</a
+      ><a name="555"
+      >
+</a
+      ><a name="556" href="LTC-PCF.Data.Nat.UnaryNumbers.html#556" class="Function"
+      >[3]</a
+      ><a name="559"
+      >  </a
+      ><a name="561" class="Symbol"
+      >=</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="568"
+      > </a
+      ><a name="569" href="LTC-PCF.Data.Nat.UnaryNumbers.html#539" class="Function"
+      >[2]</a
+      ><a name="572"
+      >
+</a
+      ><a name="573" href="LTC-PCF.Data.Nat.UnaryNumbers.html#573" class="Function"
+      >[4]</a
+      ><a name="576"
+      >  </a
+      ><a name="578" class="Symbol"
+      >=</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="585"
+      > </a
+      ><a name="586" href="LTC-PCF.Data.Nat.UnaryNumbers.html#556" class="Function"
+      >[3]</a
+      ><a name="589"
+      >
+</a
+      ><a name="590" href="LTC-PCF.Data.Nat.UnaryNumbers.html#590" class="Function"
+      >[5]</a
+      ><a name="593"
+      >  </a
+      ><a name="595" class="Symbol"
+      >=</a
+      ><a name="596"
+      > </a
+      ><a name="597" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="602"
+      > </a
+      ><a name="603" href="LTC-PCF.Data.Nat.UnaryNumbers.html#573" class="Function"
+      >[4]</a
+      ><a name="606"
+      >
+</a
+      ><a name="607" href="LTC-PCF.Data.Nat.UnaryNumbers.html#607" class="Function"
+      >[6]</a
+      ><a name="610"
+      >  </a
+      ><a name="612" class="Symbol"
+      >=</a
+      ><a name="613"
+      > </a
+      ><a name="614" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="619"
+      > </a
+      ><a name="620" href="LTC-PCF.Data.Nat.UnaryNumbers.html#590" class="Function"
+      >[5]</a
+      ><a name="623"
+      >
+</a
+      ><a name="624" href="LTC-PCF.Data.Nat.UnaryNumbers.html#624" class="Function"
+      >[7]</a
+      ><a name="627"
+      >  </a
+      ><a name="629" class="Symbol"
+      >=</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="636"
+      > </a
+      ><a name="637" href="LTC-PCF.Data.Nat.UnaryNumbers.html#607" class="Function"
+      >[6]</a
+      ><a name="640"
+      >
+</a
+      ><a name="641" href="LTC-PCF.Data.Nat.UnaryNumbers.html#641" class="Function"
+      >[8]</a
+      ><a name="644"
+      >  </a
+      ><a name="646" class="Symbol"
+      >=</a
+      ><a name="647"
+      > </a
+      ><a name="648" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="653"
+      > </a
+      ><a name="654" href="LTC-PCF.Data.Nat.UnaryNumbers.html#624" class="Function"
+      >[7]</a
+      ><a name="657"
+      >
+</a
+      ><a name="658" href="LTC-PCF.Data.Nat.UnaryNumbers.html#658" class="Function"
+      >[9]</a
+      ><a name="661"
+      >  </a
+      ><a name="663" class="Symbol"
+      >=</a
+      ><a name="664"
+      > </a
+      ><a name="665" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="670"
+      > </a
+      ><a name="671" href="LTC-PCF.Data.Nat.UnaryNumbers.html#641" class="Function"
+      >[8]</a
+      ><a name="674"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

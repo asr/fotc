@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Iter0.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Some properties of the function iter&#8320;</a
+      ><a name="120"
+      >
+</a
+      ><a name="121" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="199"
+      >
+
+</a
+      ><a name="201" class="Symbol"
+      >{-#</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Keyword"
+      >OPTIONS</a
+      ><a name="212"
+      > --exact-split              </a
+      ><a name="240" class="Symbol"
+      >#-}</a
+      ><a name="243"
+      >
+</a
+      ><a name="244" class="Symbol"
+      >{-#</a
+      ><a name="247"
+      > </a
+      ><a name="248" class="Keyword"
+      >OPTIONS</a
+      ><a name="255"
+      > --no-sized-types           </a
+      ><a name="283" class="Symbol"
+      >#-}</a
+      ><a name="286"
+      >
+</a
+      ><a name="287" class="Symbol"
+      >{-#</a
+      ><a name="290"
+      > </a
+      ><a name="291" class="Keyword"
+      >OPTIONS</a
+      ><a name="298"
+      > --no-universe-polymorphism </a
+      ><a name="326" class="Symbol"
+      >#-}</a
+      ><a name="329"
+      >
+</a
+      ><a name="330" class="Symbol"
+      >{-#</a
+      ><a name="333"
+      > </a
+      ><a name="334" class="Keyword"
+      >OPTIONS</a
+      ><a name="341"
+      > --without-K                </a
+      ><a name="369" class="Symbol"
+      >#-}</a
+      ><a name="372"
+      >
+
+</a
+      ><a name="374" class="Keyword"
+      >module</a
+      ><a name="380"
+      > </a
+      ><a name="381" href="FOTC.Program.Iter0.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.Iter0.PropertiesATP</a
+      ><a name="413"
+      > </a
+      ><a name="414" class="Keyword"
+      >where</a
+      ><a name="419"
+      >
+
+</a
+      ><a name="421" class="Keyword"
+      >open</a
+      ><a name="425"
+      > </a
+      ><a name="426" class="Keyword"
+      >import</a
+      ><a name="432"
+      > </a
+      ><a name="433" href="FOTC.Program.Iter0.Iter0.html#1" class="Module"
+      >FOTC.Program.Iter0.Iter0</a
+      ><a name="457"
+      >
+
+</a
+      ><a name="459" class="Keyword"
+      >open</a
+      ><a name="463"
+      > </a
+      ><a name="464" class="Keyword"
+      >import</a
+      ><a name="470"
+      > </a
+      ><a name="471" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="480"
+      >
+</a
+      ><a name="481" class="Keyword"
+      >open</a
+      ><a name="485"
+      > </a
+      ><a name="486" class="Keyword"
+      >import</a
+      ><a name="492"
+      > </a
+      ><a name="493" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="507"
+      >
+
+</a
+      ><a name="509" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="587"
+      >
+
+</a
+      ><a name="589" class="Keyword"
+      >postulate</a
+      ><a name="598"
+      > </a
+      ><a name="599" href="FOTC.Program.Iter0.PropertiesATP.html#599" class="Postulate"
+      >iter&#8320;-0</a
+      ><a name="606"
+      > </a
+      ><a name="607" class="Symbol"
+      >:</a
+      ><a name="608"
+      > </a
+      ><a name="609" class="Symbol"
+      >&#8704;</a
+      ><a name="610"
+      > </a
+      ><a name="611" href="FOTC.Program.Iter0.PropertiesATP.html#611" class="Bound"
+      >f</a
+      ><a name="612"
+      > </a
+      ><a name="613" class="Symbol"
+      >&#8594;</a
+      ><a name="614"
+      > </a
+      ><a name="615" href="FOTC.Program.Iter0.Iter0.html#543" class="Postulate"
+      >iter&#8320;</a
+      ><a name="620"
+      > </a
+      ><a name="621" href="FOTC.Program.Iter0.PropertiesATP.html#611" class="Bound"
+      >f</a
+      ><a name="622"
+      > </a
+      ><a name="623" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="627"
+      > </a
+      ><a name="628" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="629"
+      > </a
+      ><a name="630" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="632"
+      >
+</a
+      ><a name="633" class="Symbol"
+      >{-#</a
+      ><a name="636"
+      > </a
+      ><a name="637" class="Keyword"
+      >ATP</a
+      ><a name="640"
+      > prove </a
+      ><a name="647" href="FOTC.Program.Iter0.PropertiesATP.html#599" class="Postulate"
+      >iter&#8320;-0</a
+      ><a name="654"
+      > </a
+      ><a name="655" class="Symbol"
+      >#-}</a
+      ><a name="658"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

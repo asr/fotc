@@ -1,0 +1,2672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.SortList.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties stated in the Burstall's paper</a
+      ><a name="124"
+      >
+</a
+      ><a name="125" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="203"
+      >
+
+</a
+      ><a name="205" class="Symbol"
+      >{-#</a
+      ><a name="208"
+      > </a
+      ><a name="209" class="Keyword"
+      >OPTIONS</a
+      ><a name="216"
+      > --exact-split              </a
+      ><a name="244" class="Symbol"
+      >#-}</a
+      ><a name="247"
+      >
+</a
+      ><a name="248" class="Symbol"
+      >{-#</a
+      ><a name="251"
+      > </a
+      ><a name="252" class="Keyword"
+      >OPTIONS</a
+      ><a name="259"
+      > --no-sized-types           </a
+      ><a name="287" class="Symbol"
+      >#-}</a
+      ><a name="290"
+      >
+</a
+      ><a name="291" class="Symbol"
+      >{-#</a
+      ><a name="294"
+      > </a
+      ><a name="295" class="Keyword"
+      >OPTIONS</a
+      ><a name="302"
+      > --no-universe-polymorphism </a
+      ><a name="330" class="Symbol"
+      >#-}</a
+      ><a name="333"
+      >
+</a
+      ><a name="334" class="Symbol"
+      >{-#</a
+      ><a name="337"
+      > </a
+      ><a name="338" class="Keyword"
+      >OPTIONS</a
+      ><a name="345"
+      > --without-K                </a
+      ><a name="373" class="Symbol"
+      >#-}</a
+      ><a name="376"
+      >
+
+</a
+      ><a name="378" class="Keyword"
+      >module</a
+      ><a name="384"
+      > </a
+      ><a name="385" href="FOTC.Program.SortList.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.SortList.PropertiesATP</a
+      ><a name="420"
+      > </a
+      ><a name="421" class="Keyword"
+      >where</a
+      ><a name="426"
+      >
+
+</a
+      ><a name="428" class="Keyword"
+      >open</a
+      ><a name="432"
+      > </a
+      ><a name="433" class="Keyword"
+      >import</a
+      ><a name="439"
+      > </a
+      ><a name="440" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="449"
+      >
+</a
+      ><a name="450" class="Keyword"
+      >open</a
+      ><a name="454"
+      > </a
+      ><a name="455" class="Keyword"
+      >import</a
+      ><a name="461"
+      > </a
+      ><a name="462" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="476"
+      >
+</a
+      ><a name="477" class="Keyword"
+      >open</a
+      ><a name="481"
+      > </a
+      ><a name="482" class="Keyword"
+      >import</a
+      ><a name="488"
+      > </a
+      ><a name="489" href="FOTC.Data.Bool.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Bool.PropertiesATP</a
+      ><a name="517"
+      >
+</a
+      ><a name="518" class="Keyword"
+      >open</a
+      ><a name="522"
+      > </a
+      ><a name="523" class="Keyword"
+      >import</a
+      ><a name="529"
+      > </a
+      ><a name="530" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="556"
+      >
+</a
+      ><a name="557" class="Keyword"
+      >open</a
+      ><a name="561"
+      > </a
+      ><a name="562" class="Keyword"
+      >import</a
+      ><a name="568"
+      > </a
+      ><a name="569" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="609"
+      >
+</a
+      ><a name="610" class="Keyword"
+      >open</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Keyword"
+      >import</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="FOTC.Data.Nat.List.Type.html#1" class="Module"
+      >FOTC.Data.Nat.List.Type</a
+      ><a name="645"
+      >
+</a
+      ><a name="646" class="Keyword"
+      >open</a
+      ><a name="650"
+      > </a
+      ><a name="651" class="Keyword"
+      >import</a
+      ><a name="657"
+      > </a
+      ><a name="658" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="676"
+      >
+</a
+      ><a name="677" class="Keyword"
+      >open</a
+      ><a name="681"
+      > </a
+      ><a name="682" class="Keyword"
+      >import</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="703"
+      >
+</a
+      ><a name="704" class="Keyword"
+      >open</a
+      ><a name="708"
+      > </a
+      ><a name="709" class="Keyword"
+      >import</a
+      ><a name="715"
+      > </a
+      ><a name="716" href="FOTC.Data.List.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.List.PropertiesATP</a
+      ><a name="744"
+      >
+</a
+      ><a name="745" class="Keyword"
+      >open</a
+      ><a name="749"
+      > </a
+      ><a name="750" class="Keyword"
+      >import</a
+      ><a name="756"
+      > </a
+      ><a name="757" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.BoolATP</a
+      ><a name="806"
+      >
+</a
+      ><a name="807" class="Keyword"
+      >open</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Keyword"
+      >import</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.ListN-ATP</a
+      ><a name="870"
+      >
+</a
+      ><a name="871" class="Keyword"
+      >open</a
+      ><a name="875"
+      > </a
+      ><a name="876" class="Keyword"
+      >import</a
+      ><a name="882"
+      > </a
+      ><a name="883" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP</a
+      ><a name="943"
+      >
+</a
+      ><a name="944" class="Keyword"
+      >open</a
+      ><a name="948"
+      > </a
+      ><a name="949" class="Keyword"
+      >import</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="FOTC.Program.SortList.Properties.Totality.OrdListATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.OrdListATP</a
+      ><a name="1008"
+      >
+</a
+      ><a name="1009" class="Keyword"
+      >open</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" class="Keyword"
+      >import</a
+      ><a name="1020"
+      > </a
+      ><a name="1021" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.OrdTreeATP</a
+      ><a name="1073"
+      >
+</a
+      ><a name="1074" class="Keyword"
+      >open</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" class="Keyword"
+      >import</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" href="FOTC.Program.SortList.Properties.Totality.TreeATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.TreeATP</a
+      ><a name="1135"
+      >
+</a
+      ><a name="1136" class="Keyword"
+      >open</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" class="Keyword"
+      >import</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" href="FOTC.Program.SortList.SortList.html#1" class="Module"
+      >FOTC.Program.SortList.SortList</a
+      ><a name="1178"
+      >
+
+</a
+      ><a name="1180" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1258"
+      >
+</a
+      ><a name="1259" class="Comment"
+      >-- Burstall's lemma: If t is ordered then totree(i, t) is ordered.</a
+      ><a name="1325"
+      >
+</a
+      ><a name="1326" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" class="Symbol"
+      >:</a
+      ><a name="1342"
+      > </a
+      ><a name="1343" class="Symbol"
+      >&#8704;</a
+      ><a name="1344"
+      > </a
+      ><a name="1345" class="Symbol"
+      >{</a
+      ><a name="1346" href="FOTC.Program.SortList.PropertiesATP.html#1346" class="Bound"
+      >item</a
+      ><a name="1350"
+      > </a
+      ><a name="1351" href="FOTC.Program.SortList.PropertiesATP.html#1351" class="Bound"
+      >t</a
+      ><a name="1352" class="Symbol"
+      >}</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" class="Symbol"
+      >&#8594;</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" href="FOTC.Program.SortList.PropertiesATP.html#1346" class="Bound"
+      >item</a
+      ><a name="1362"
+      > </a
+      ><a name="1363" class="Symbol"
+      >&#8594;</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="1369"
+      > </a
+      ><a name="1370" href="FOTC.Program.SortList.PropertiesATP.html#1351" class="Bound"
+      >t</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" class="Symbol"
+      >&#8594;</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" href="FOTC.Program.SortList.PropertiesATP.html#1351" class="Bound"
+      >t</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" class="Symbol"
+      >&#8594;</a
+      ><a name="1385"
+      >
+                 </a
+      ><a name="1403" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" class="Symbol"
+      >(</a
+      ><a name="1412" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" href="FOTC.Program.SortList.PropertiesATP.html#1346" class="Bound"
+      >item</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" href="FOTC.Program.SortList.PropertiesATP.html#1351" class="Bound"
+      >t</a
+      ><a name="1429" class="Symbol"
+      >)</a
+      ><a name="1430"
+      >
+</a
+      ><a name="1431" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" class="Symbol"
+      >{</a
+      ><a name="1447" href="FOTC.Program.SortList.PropertiesATP.html#1447" class="Bound"
+      >item</a
+      ><a name="1451" class="Symbol"
+      >}</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" href="FOTC.Program.SortList.PropertiesATP.html#1453" class="Bound"
+      >Nitem</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="FOTC.Program.SortList.SortList.html#917" class="InductiveConstructor"
+      >tnil</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="FOTC.Program.SortList.PropertiesATP.html#1464" class="Bound"
+      >OTt</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" class="Symbol"
+      >=</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" href="FOTC.Program.SortList.PropertiesATP.html#1492" class="Postulate"
+      >prf</a
+      ><a name="1473"
+      >
+  </a
+      ><a name="1476" class="Keyword"
+      >where</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" class="Keyword"
+      >postulate</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" href="FOTC.Program.SortList.PropertiesATP.html#1492" class="Postulate"
+      >prf</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" class="Symbol"
+      >:</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" class="Symbol"
+      >(</a
+      ><a name="1507" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="FOTC.Program.SortList.PropertiesATP.html#1447" class="Bound"
+      >item</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOTC.Program.SortList.SortList.html#823" class="Postulate"
+      >nil</a
+      ><a name="1526" class="Symbol"
+      >)</a
+      ><a name="1527"
+      >
+        </a
+      ><a name="1536" class="Symbol"
+      >{-#</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" class="Keyword"
+      >ATP</a
+      ><a name="1543"
+      > prove </a
+      ><a name="1550" href="FOTC.Program.SortList.PropertiesATP.html#1492" class="Postulate"
+      >prf</a
+      ><a name="1553"
+      > </a
+      ><a name="1554" class="Symbol"
+      >#-}</a
+      ><a name="1557"
+      >
+
+</a
+      ><a name="1559" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="1573"
+      > </a
+      ><a name="1574" class="Symbol"
+      >{</a
+      ><a name="1575" href="FOTC.Program.SortList.PropertiesATP.html#1575" class="Bound"
+      >item</a
+      ><a name="1579" class="Symbol"
+      >}</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="FOTC.Program.SortList.PropertiesATP.html#1581" class="Bound"
+      >Nitem</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" class="Symbol"
+      >(</a
+      ><a name="1588" href="FOTC.Program.SortList.SortList.html#936" class="InductiveConstructor"
+      >ttip</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" class="Symbol"
+      >{</a
+      ><a name="1594" href="FOTC.Program.SortList.PropertiesATP.html#1594" class="Bound"
+      >i</a
+      ><a name="1595" class="Symbol"
+      >}</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" href="FOTC.Program.SortList.PropertiesATP.html#1597" class="Bound"
+      >Ni</a
+      ><a name="1599" class="Symbol"
+      >)</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="FOTC.Program.SortList.PropertiesATP.html#1601" class="Bound"
+      >OTt</a
+      ><a name="1604"
+      > </a
+      ><a name="1605" class="Symbol"
+      >=</a
+      ><a name="1606"
+      >
+  </a
+      ><a name="1609" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="1613"
+      > </a
+      ><a name="1614" href="FOTC.Program.SortList.PropertiesATP.html#1663" class="Postulate"
+      >prf&#8321;</a
+      ><a name="1618"
+      > </a
+      ><a name="1619" href="FOTC.Program.SortList.PropertiesATP.html#1771" class="Postulate"
+      >prf&#8322;</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" class="Symbol"
+      >(</a
+      ><a name="1625" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#4869" class="Function"
+      >x&gt;y&#8744;x&#8804;y</a
+      ><a name="1632"
+      > </a
+      ><a name="1633" href="FOTC.Program.SortList.PropertiesATP.html#1597" class="Bound"
+      >Ni</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="FOTC.Program.SortList.PropertiesATP.html#1581" class="Bound"
+      >Nitem</a
+      ><a name="1641" class="Symbol"
+      >)</a
+      ><a name="1642"
+      >
+  </a
+      ><a name="1645" class="Keyword"
+      >where</a
+      ><a name="1650"
+      >
+  </a
+      ><a name="1653" class="Keyword"
+      >postulate</a
+      ><a name="1662"
+      > </a
+      ><a name="1663" href="FOTC.Program.SortList.PropertiesATP.html#1663" class="Postulate"
+      >prf&#8321;</a
+      ><a name="1667"
+      > </a
+      ><a name="1668" class="Symbol"
+      >:</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" href="FOTC.Program.SortList.PropertiesATP.html#1594" class="Bound"
+      >i</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="1673"
+      > </a
+      ><a name="1674" href="FOTC.Program.SortList.PropertiesATP.html#1575" class="Bound"
+      >item</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" class="Symbol"
+      >&#8594;</a
+      ><a name="1680"
+      > </a
+      ><a name="1681" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" class="Symbol"
+      >(</a
+      ><a name="1690" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" href="FOTC.Program.SortList.PropertiesATP.html#1575" class="Bound"
+      >item</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" href="FOTC.Program.SortList.SortList.html#834" class="Postulate"
+      >tip</a
+      ><a name="1709"
+      > </a
+      ><a name="1710" href="FOTC.Program.SortList.PropertiesATP.html#1594" class="Bound"
+      >i</a
+      ><a name="1711" class="Symbol"
+      >)</a
+      ><a name="1712"
+      >
+  </a
+      ><a name="1715" class="Symbol"
+      >{-#</a
+      ><a name="1718"
+      > </a
+      ><a name="1719" class="Keyword"
+      >ATP</a
+      ><a name="1722"
+      > prove </a
+      ><a name="1729" href="FOTC.Program.SortList.PropertiesATP.html#1663" class="Postulate"
+      >prf&#8321;</a
+      ><a name="1733"
+      > </a
+      ><a name="1734" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#2404" class="Function"
+      >x&#8804;x</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#6484" class="Function"
+      >x&lt;y&#8594;x&#8804;y</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#4418" class="Function"
+      >x&gt;y&#8594;x&#8816;y</a
+      ><a name="1753"
+      > </a
+      ><a name="1754" class="Symbol"
+      >#-}</a
+      ><a name="1757"
+      >
+
+  </a
+      ><a name="1761" class="Keyword"
+      >postulate</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" href="FOTC.Program.SortList.PropertiesATP.html#1771" class="Postulate"
+      >prf&#8322;</a
+      ><a name="1775"
+      > </a
+      ><a name="1776" class="Symbol"
+      >:</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" href="FOTC.Program.SortList.PropertiesATP.html#1594" class="Bound"
+      >i</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="1781"
+      > </a
+      ><a name="1782" href="FOTC.Program.SortList.PropertiesATP.html#1575" class="Bound"
+      >item</a
+      ><a name="1786"
+      > </a
+      ><a name="1787" class="Symbol"
+      >&#8594;</a
+      ><a name="1788"
+      > </a
+      ><a name="1789" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="1796"
+      > </a
+      ><a name="1797" class="Symbol"
+      >(</a
+      ><a name="1798" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="1804"
+      > </a
+      ><a name="1805" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="FOTC.Program.SortList.PropertiesATP.html#1575" class="Bound"
+      >item</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="FOTC.Program.SortList.SortList.html#834" class="Postulate"
+      >tip</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="FOTC.Program.SortList.PropertiesATP.html#1594" class="Bound"
+      >i</a
+      ><a name="1819" class="Symbol"
+      >)</a
+      ><a name="1820"
+      >
+  </a
+      ><a name="1823" class="Symbol"
+      >{-#</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" class="Keyword"
+      >ATP</a
+      ><a name="1830"
+      > prove </a
+      ><a name="1837" href="FOTC.Program.SortList.PropertiesATP.html#1771" class="Postulate"
+      >prf&#8322;</a
+      ><a name="1841"
+      > </a
+      ><a name="1842" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#2404" class="Function"
+      >x&#8804;x</a
+      ><a name="1845"
+      > </a
+      ><a name="1846" class="Symbol"
+      >#-}</a
+      ><a name="1849"
+      >
+
+</a
+      ><a name="1851" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" class="Symbol"
+      >{</a
+      ><a name="1867" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="1871" class="Symbol"
+      >}</a
+      ><a name="1872"
+      > </a
+      ><a name="1873" href="FOTC.Program.SortList.PropertiesATP.html#1873" class="Bound"
+      >Nitem</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" class="Symbol"
+      >(</a
+      ><a name="1880" href="FOTC.Program.SortList.SortList.html#973" class="InductiveConstructor"
+      >tnode</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" class="Symbol"
+      >{</a
+      ><a name="1887" href="FOTC.Program.SortList.PropertiesATP.html#1887" class="Bound"
+      >t&#8321;</a
+      ><a name="1889" class="Symbol"
+      >}</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" class="Symbol"
+      >{</a
+      ><a name="1892" href="FOTC.Program.SortList.PropertiesATP.html#1892" class="Bound"
+      >i</a
+      ><a name="1893" class="Symbol"
+      >}</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" class="Symbol"
+      >{</a
+      ><a name="1896" href="FOTC.Program.SortList.PropertiesATP.html#1896" class="Bound"
+      >t&#8322;</a
+      ><a name="1898" class="Symbol"
+      >}</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" href="FOTC.Program.SortList.PropertiesATP.html#1900" class="Bound"
+      >Tt&#8321;</a
+      ><a name="1903"
+      > </a
+      ><a name="1904" href="FOTC.Program.SortList.PropertiesATP.html#1904" class="Bound"
+      >Ni</a
+      ><a name="1906"
+      > </a
+      ><a name="1907" href="FOTC.Program.SortList.PropertiesATP.html#1907" class="Bound"
+      >Tt&#8322;</a
+      ><a name="1910" class="Symbol"
+      >)</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" href="FOTC.Program.SortList.PropertiesATP.html#1912" class="Bound"
+      >OTtnode</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" class="Symbol"
+      >=</a
+      ><a name="1921"
+      >
+  </a
+      ><a name="1924" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="1928"
+      > </a
+      ><a name="1929" class="Symbol"
+      >(</a
+      ><a name="1930" href="FOTC.Program.SortList.PropertiesATP.html#2242" class="Postulate"
+      >prf&#8321;</a
+      ><a name="1934"
+      > </a
+      ><a name="1935" class="Symbol"
+      >(</a
+      ><a name="1936" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="1950"
+      > </a
+      ><a name="1951" href="FOTC.Program.SortList.PropertiesATP.html#1873" class="Bound"
+      >Nitem</a
+      ><a name="1956"
+      > </a
+      ><a name="1957" href="FOTC.Program.SortList.PropertiesATP.html#1900" class="Bound"
+      >Tt&#8321;</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" class="Symbol"
+      >(</a
+      ><a name="1962" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#984" class="Postulate"
+      >leftSubTree-OrdTree</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" href="FOTC.Program.SortList.PropertiesATP.html#1900" class="Bound"
+      >Tt&#8321;</a
+      ><a name="1985"
+      > </a
+      ><a name="1986" href="FOTC.Program.SortList.PropertiesATP.html#1904" class="Bound"
+      >Ni</a
+      ><a name="1988"
+      > </a
+      ><a name="1989" href="FOTC.Program.SortList.PropertiesATP.html#1907" class="Bound"
+      >Tt&#8322;</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" href="FOTC.Program.SortList.PropertiesATP.html#1912" class="Bound"
+      >OTtnode</a
+      ><a name="2000" class="Symbol"
+      >))</a
+      ><a name="2002"
+      >
+             </a
+      ><a name="2016" class="Symbol"
+      >(</a
+      ><a name="2017" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#1281" class="Postulate"
+      >rightSubTree-OrdTree</a
+      ><a name="2037"
+      > </a
+      ><a name="2038" href="FOTC.Program.SortList.PropertiesATP.html#1900" class="Bound"
+      >Tt&#8321;</a
+      ><a name="2041"
+      > </a
+      ><a name="2042" href="FOTC.Program.SortList.PropertiesATP.html#1904" class="Bound"
+      >Ni</a
+      ><a name="2044"
+      > </a
+      ><a name="2045" href="FOTC.Program.SortList.PropertiesATP.html#1907" class="Bound"
+      >Tt&#8322;</a
+      ><a name="2048"
+      > </a
+      ><a name="2049" href="FOTC.Program.SortList.PropertiesATP.html#1912" class="Bound"
+      >OTtnode</a
+      ><a name="2056" class="Symbol"
+      >))</a
+      ><a name="2058"
+      >
+       </a
+      ><a name="2066" class="Symbol"
+      >(</a
+      ><a name="2067" href="FOTC.Program.SortList.PropertiesATP.html#2534" class="Postulate"
+      >prf&#8322;</a
+      ><a name="2071"
+      > </a
+      ><a name="2072" class="Symbol"
+      >(</a
+      ><a name="2073" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" href="FOTC.Program.SortList.PropertiesATP.html#1873" class="Bound"
+      >Nitem</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="FOTC.Program.SortList.PropertiesATP.html#1907" class="Bound"
+      >Tt&#8322;</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" class="Symbol"
+      >(</a
+      ><a name="2099" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#1281" class="Postulate"
+      >rightSubTree-OrdTree</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" href="FOTC.Program.SortList.PropertiesATP.html#1900" class="Bound"
+      >Tt&#8321;</a
+      ><a name="2123"
+      > </a
+      ><a name="2124" href="FOTC.Program.SortList.PropertiesATP.html#1904" class="Bound"
+      >Ni</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" href="FOTC.Program.SortList.PropertiesATP.html#1907" class="Bound"
+      >Tt&#8322;</a
+      ><a name="2130"
+      > </a
+      ><a name="2131" href="FOTC.Program.SortList.PropertiesATP.html#1912" class="Bound"
+      >OTtnode</a
+      ><a name="2138" class="Symbol"
+      >))</a
+      ><a name="2140"
+      >
+             </a
+      ><a name="2154" class="Symbol"
+      >(</a
+      ><a name="2155" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#984" class="Postulate"
+      >leftSubTree-OrdTree</a
+      ><a name="2174"
+      > </a
+      ><a name="2175" href="FOTC.Program.SortList.PropertiesATP.html#1900" class="Bound"
+      >Tt&#8321;</a
+      ><a name="2178"
+      > </a
+      ><a name="2179" href="FOTC.Program.SortList.PropertiesATP.html#1904" class="Bound"
+      >Ni</a
+      ><a name="2181"
+      > </a
+      ><a name="2182" href="FOTC.Program.SortList.PropertiesATP.html#1907" class="Bound"
+      >Tt&#8322;</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" href="FOTC.Program.SortList.PropertiesATP.html#1912" class="Bound"
+      >OTtnode</a
+      ><a name="2193" class="Symbol"
+      >))</a
+      ><a name="2195"
+      >
+       </a
+      ><a name="2203" class="Symbol"
+      >(</a
+      ><a name="2204" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#4869" class="Function"
+      >x&gt;y&#8744;x&#8804;y</a
+      ><a name="2211"
+      > </a
+      ><a name="2212" href="FOTC.Program.SortList.PropertiesATP.html#1904" class="Bound"
+      >Ni</a
+      ><a name="2214"
+      > </a
+      ><a name="2215" href="FOTC.Program.SortList.PropertiesATP.html#1873" class="Bound"
+      >Nitem</a
+      ><a name="2220" class="Symbol"
+      >)</a
+      ><a name="2221"
+      >
+  </a
+      ><a name="2224" class="Keyword"
+      >where</a
+      ><a name="2229"
+      >
+  </a
+      ><a name="2232" class="Keyword"
+      >postulate</a
+      ><a name="2241"
+      > </a
+      ><a name="2242" href="FOTC.Program.SortList.PropertiesATP.html#2242" class="Postulate"
+      >prf&#8321;</a
+      ><a name="2246"
+      > </a
+      ><a name="2247" class="Symbol"
+      >:</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" href="FOTC.Program.SortList.SortList.html#3851" class="Postulate"
+      >ordTree</a
+      ><a name="2256"
+      > </a
+      ><a name="2257" class="Symbol"
+      >(</a
+      ><a name="2258" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="2264"
+      > </a
+      ><a name="2265" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2266"
+      > </a
+      ><a name="2267" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="2271"
+      > </a
+      ><a name="2272" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2273"
+      > </a
+      ><a name="2274" href="FOTC.Program.SortList.PropertiesATP.html#1887" class="Bound"
+      >t&#8321;</a
+      ><a name="2276" class="Symbol"
+      >)</a
+      ><a name="2277"
+      > </a
+      ><a name="2278" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2279"
+      > </a
+      ><a name="2280" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="2284"
+      > </a
+      ><a name="2285" class="Symbol"
+      >&#8594;</a
+      ><a name="2286"
+      >
+                   </a
+      ><a name="2306" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="2313"
+      > </a
+      ><a name="2314" href="FOTC.Program.SortList.PropertiesATP.html#1896" class="Bound"
+      >t&#8322;</a
+      ><a name="2316"
+      > </a
+      ><a name="2317" class="Symbol"
+      >&#8594;</a
+      ><a name="2318"
+      >
+                   </a
+      ><a name="2338" href="FOTC.Program.SortList.PropertiesATP.html#1892" class="Bound"
+      >i</a
+      ><a name="2339"
+      > </a
+      ><a name="2340" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2341"
+      > </a
+      ><a name="2342" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="2346"
+      > </a
+      ><a name="2347" class="Symbol"
+      >&#8594;</a
+      ><a name="2348"
+      >
+                   </a
+      ><a name="2368" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="2375"
+      > </a
+      ><a name="2376" class="Symbol"
+      >(</a
+      ><a name="2377" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="2383"
+      > </a
+      ><a name="2384" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2385"
+      > </a
+      ><a name="2386" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" href="FOTC.Program.SortList.SortList.html#849" class="Postulate"
+      >node</a
+      ><a name="2397"
+      > </a
+      ><a name="2398" href="FOTC.Program.SortList.PropertiesATP.html#1887" class="Bound"
+      >t&#8321;</a
+      ><a name="2400"
+      > </a
+      ><a name="2401" href="FOTC.Program.SortList.PropertiesATP.html#1892" class="Bound"
+      >i</a
+      ><a name="2402"
+      > </a
+      ><a name="2403" href="FOTC.Program.SortList.PropertiesATP.html#1896" class="Bound"
+      >t&#8322;</a
+      ><a name="2405" class="Symbol"
+      >)</a
+      ><a name="2406"
+      >
+  </a
+      ><a name="2409" class="Symbol"
+      >{-#</a
+      ><a name="2412"
+      > </a
+      ><a name="2413" class="Keyword"
+      >ATP</a
+      ><a name="2416"
+      > prove </a
+      ><a name="2423" href="FOTC.Program.SortList.PropertiesATP.html#2242" class="Postulate"
+      >prf&#8321;</a
+      ><a name="2427"
+      > </a
+      ><a name="2428" href="FOTC.Data.Bool.PropertiesATP.html#2039" class="Function"
+      >&amp;&amp;-list&#8324;-t</a
+      ><a name="2438"
+      > </a
+      ><a name="2439" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#4418" class="Function"
+      >x&gt;y&#8594;x&#8816;y</a
+      ><a name="2446"
+      > </a
+      ><a name="2447" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#1952" class="Function"
+      >le-ItemTree-Bool</a
+      ><a name="2463"
+      > </a
+      ><a name="2464" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#2630" class="Function"
+      >le-TreeItem-Bool</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#3329" class="Function"
+      >ordTree-Bool</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#1619" class="Function"
+      >toTree-OrdTree-helper&#8321;</a
+      ><a name="2516"
+      > </a
+      ><a name="2517" class="Symbol"
+      >#-}</a
+      ><a name="2520"
+      >
+
+  </a
+      ><a name="2524" class="Keyword"
+      >postulate</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" href="FOTC.Program.SortList.PropertiesATP.html#2534" class="Postulate"
+      >prf&#8322;</a
+      ><a name="2538"
+      > </a
+      ><a name="2539" class="Symbol"
+      >:</a
+      ><a name="2540"
+      > </a
+      ><a name="2541" href="FOTC.Program.SortList.SortList.html#3851" class="Postulate"
+      >ordTree</a
+      ><a name="2548"
+      > </a
+      ><a name="2549" class="Symbol"
+      >(</a
+      ><a name="2550" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="2556"
+      > </a
+      ><a name="2557" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2558"
+      > </a
+      ><a name="2559" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="2563"
+      > </a
+      ><a name="2564" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2565"
+      > </a
+      ><a name="2566" href="FOTC.Program.SortList.PropertiesATP.html#1896" class="Bound"
+      >t&#8322;</a
+      ><a name="2568" class="Symbol"
+      >)</a
+      ><a name="2569"
+      > </a
+      ><a name="2570" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2571"
+      > </a
+      ><a name="2572" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="2576"
+      > </a
+      ><a name="2577" class="Symbol"
+      >&#8594;</a
+      ><a name="2578"
+      >
+                   </a
+      ><a name="2598" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="2605"
+      > </a
+      ><a name="2606" href="FOTC.Program.SortList.PropertiesATP.html#1887" class="Bound"
+      >t&#8321;</a
+      ><a name="2608"
+      > </a
+      ><a name="2609" class="Symbol"
+      >&#8594;</a
+      ><a name="2610"
+      >
+                   </a
+      ><a name="2630" href="FOTC.Program.SortList.PropertiesATP.html#1892" class="Bound"
+      >i</a
+      ><a name="2631"
+      > </a
+      ><a name="2632" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="2633"
+      > </a
+      ><a name="2634" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="2638"
+      > </a
+      ><a name="2639" class="Symbol"
+      >&#8594;</a
+      ><a name="2640"
+      >
+                   </a
+      ><a name="2660" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="2667"
+      > </a
+      ><a name="2668" class="Symbol"
+      >(</a
+      ><a name="2669" href="FOTC.Program.SortList.SortList.html#4607" class="Postulate"
+      >toTree</a
+      ><a name="2675"
+      > </a
+      ><a name="2676" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2677"
+      > </a
+      ><a name="2678" href="FOTC.Program.SortList.PropertiesATP.html#1867" class="Bound"
+      >item</a
+      ><a name="2682"
+      > </a
+      ><a name="2683" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2684"
+      > </a
+      ><a name="2685" href="FOTC.Program.SortList.SortList.html#849" class="Postulate"
+      >node</a
+      ><a name="2689"
+      > </a
+      ><a name="2690" href="FOTC.Program.SortList.PropertiesATP.html#1887" class="Bound"
+      >t&#8321;</a
+      ><a name="2692"
+      > </a
+      ><a name="2693" href="FOTC.Program.SortList.PropertiesATP.html#1892" class="Bound"
+      >i</a
+      ><a name="2694"
+      > </a
+      ><a name="2695" href="FOTC.Program.SortList.PropertiesATP.html#1896" class="Bound"
+      >t&#8322;</a
+      ><a name="2697" class="Symbol"
+      >)</a
+      ><a name="2698"
+      >
+  </a
+      ><a name="2701" class="Symbol"
+      >{-#</a
+      ><a name="2704"
+      > </a
+      ><a name="2705" class="Keyword"
+      >ATP</a
+      ><a name="2708"
+      > prove </a
+      ><a name="2715" href="FOTC.Program.SortList.PropertiesATP.html#2534" class="Postulate"
+      >prf&#8322;</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" href="FOTC.Data.Bool.PropertiesATP.html#2039" class="Function"
+      >&amp;&amp;-list&#8324;-t</a
+      ><a name="2730"
+      >  </a
+      ><a name="2732" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#1952" class="Function"
+      >le-ItemTree-Bool</a
+      ><a name="2748"
+      > </a
+      ><a name="2749" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#2630" class="Function"
+      >le-TreeItem-Bool</a
+      ><a name="2765"
+      > </a
+      ><a name="2766" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#3329" class="Function"
+      >ordTree-Bool</a
+      ><a name="2778"
+      > </a
+      ><a name="2779" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#3334" class="Function"
+      >toTree-OrdTree-helper&#8322;</a
+      ><a name="2801"
+      > </a
+      ><a name="2802" class="Symbol"
+      >#-}</a
+      ><a name="2805"
+      >
+
+</a
+      ><a name="2807" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2885"
+      >
+</a
+      ><a name="2886" class="Comment"
+      >-- Burstall's lemma: ord(maketree(is)).</a
+      ><a name="2925"
+      >
+
+</a
+      ><a name="2927" class="Comment"
+      >-- makeTree-TreeOrd : &#8704; {is} &#8594; ListN is &#8594; OrdTree (makeTree is)</a
+      ><a name="2990"
+      >
+</a
+      ><a name="2991" class="Comment"
+      >-- makeTree-TreeOrd LNis =</a
+      ><a name="3017"
+      >
+</a
+      ><a name="3018" class="Comment"
+      >--   ind-lit OrdTree toTree nil LNis ordTree-nil</a
+      ><a name="3066"
+      >
+</a
+      ><a name="3067" class="Comment"
+      >--           (&#955; Nx y TOy &#8594; toTree-OrdTree Nx {!!} TOy)</a
+      ><a name="3121"
+      >
+
+</a
+      ><a name="3123" href="FOTC.Program.SortList.PropertiesATP.html#3123" class="Function"
+      >makeTree-OrdTree</a
+      ><a name="3139"
+      > </a
+      ><a name="3140" class="Symbol"
+      >:</a
+      ><a name="3141"
+      > </a
+      ><a name="3142" class="Symbol"
+      >&#8704;</a
+      ><a name="3143"
+      > </a
+      ><a name="3144" class="Symbol"
+      >{</a
+      ><a name="3145" href="FOTC.Program.SortList.PropertiesATP.html#3145" class="Bound"
+      >is</a
+      ><a name="3147" class="Symbol"
+      >}</a
+      ><a name="3148"
+      > </a
+      ><a name="3149" class="Symbol"
+      >&#8594;</a
+      ><a name="3150"
+      > </a
+      ><a name="3151" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="3156"
+      > </a
+      ><a name="3157" href="FOTC.Program.SortList.PropertiesATP.html#3145" class="Bound"
+      >is</a
+      ><a name="3159"
+      > </a
+      ><a name="3160" class="Symbol"
+      >&#8594;</a
+      ><a name="3161"
+      > </a
+      ><a name="3162" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="3169"
+      > </a
+      ><a name="3170" class="Symbol"
+      >(</a
+      ><a name="3171" href="FOTC.Program.SortList.SortList.html#5207" class="Function"
+      >makeTree</a
+      ><a name="3179"
+      > </a
+      ><a name="3180" href="FOTC.Program.SortList.PropertiesATP.html#3145" class="Bound"
+      >is</a
+      ><a name="3182" class="Symbol"
+      >)</a
+      ><a name="3183"
+      >
+</a
+      ><a name="3184" href="FOTC.Program.SortList.PropertiesATP.html#3123" class="Function"
+      >makeTree-OrdTree</a
+      ><a name="3200"
+      > </a
+      ><a name="3201" href="FOTC.Data.Nat.List.Type.html#701" class="InductiveConstructor"
+      >lnnil</a
+      ><a name="3206"
+      > </a
+      ><a name="3207" class="Symbol"
+      >=</a
+      ><a name="3208"
+      > </a
+      ><a name="3209" href="FOTC.Program.SortList.PropertiesATP.html#3231" class="Postulate"
+      >prf</a
+      ><a name="3212"
+      >
+  </a
+      ><a name="3215" class="Keyword"
+      >where</a
+      ><a name="3220"
+      > </a
+      ><a name="3221" class="Keyword"
+      >postulate</a
+      ><a name="3230"
+      > </a
+      ><a name="3231" href="FOTC.Program.SortList.PropertiesATP.html#3231" class="Postulate"
+      >prf</a
+      ><a name="3234"
+      > </a
+      ><a name="3235" class="Symbol"
+      >:</a
+      ><a name="3236"
+      > </a
+      ><a name="3237" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="3244"
+      > </a
+      ><a name="3245" class="Symbol"
+      >(</a
+      ><a name="3246" href="FOTC.Program.SortList.SortList.html#5207" class="Function"
+      >makeTree</a
+      ><a name="3254"
+      > </a
+      ><a name="3255" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="3257" class="Symbol"
+      >)</a
+      ><a name="3258"
+      >
+        </a
+      ><a name="3267" class="Symbol"
+      >{-#</a
+      ><a name="3270"
+      > </a
+      ><a name="3271" class="Keyword"
+      >ATP</a
+      ><a name="3274"
+      > prove </a
+      ><a name="3281" href="FOTC.Program.SortList.PropertiesATP.html#3231" class="Postulate"
+      >prf</a
+      ><a name="3284"
+      > </a
+      ><a name="3285" class="Symbol"
+      >#-}</a
+      ><a name="3288"
+      >
+
+</a
+      ><a name="3290" href="FOTC.Program.SortList.PropertiesATP.html#3123" class="Function"
+      >makeTree-OrdTree</a
+      ><a name="3306"
+      > </a
+      ><a name="3307" class="Symbol"
+      >(</a
+      ><a name="3308" href="FOTC.Data.Nat.List.Type.html#721" class="InductiveConstructor"
+      >lncons</a
+      ><a name="3314"
+      > </a
+      ><a name="3315" class="Symbol"
+      >{</a
+      ><a name="3316" href="FOTC.Program.SortList.PropertiesATP.html#3316" class="Bound"
+      >i</a
+      ><a name="3317" class="Symbol"
+      >}</a
+      ><a name="3318"
+      > </a
+      ><a name="3319" class="Symbol"
+      >{</a
+      ><a name="3320" href="FOTC.Program.SortList.PropertiesATP.html#3320" class="Bound"
+      >is</a
+      ><a name="3322" class="Symbol"
+      >}</a
+      ><a name="3323"
+      > </a
+      ><a name="3324" href="FOTC.Program.SortList.PropertiesATP.html#3324" class="Bound"
+      >Ni</a
+      ><a name="3326"
+      > </a
+      ><a name="3327" href="FOTC.Program.SortList.PropertiesATP.html#3327" class="Bound"
+      >Lis</a
+      ><a name="3330" class="Symbol"
+      >)</a
+      ><a name="3331"
+      > </a
+      ><a name="3332" class="Symbol"
+      >=</a
+      ><a name="3333"
+      > </a
+      ><a name="3334" href="FOTC.Program.SortList.PropertiesATP.html#3379" class="Postulate"
+      >prf</a
+      ><a name="3337"
+      > </a
+      ><a name="3338" class="Symbol"
+      >(</a
+      ><a name="3339" href="FOTC.Program.SortList.PropertiesATP.html#3123" class="Function"
+      >makeTree-OrdTree</a
+      ><a name="3355"
+      > </a
+      ><a name="3356" href="FOTC.Program.SortList.PropertiesATP.html#3327" class="Bound"
+      >Lis</a
+      ><a name="3359" class="Symbol"
+      >)</a
+      ><a name="3360"
+      >
+  </a
+      ><a name="3363" class="Keyword"
+      >where</a
+      ><a name="3368"
+      > </a
+      ><a name="3369" class="Keyword"
+      >postulate</a
+      ><a name="3378"
+      > </a
+      ><a name="3379" href="FOTC.Program.SortList.PropertiesATP.html#3379" class="Postulate"
+      >prf</a
+      ><a name="3382"
+      > </a
+      ><a name="3383" class="Symbol"
+      >:</a
+      ><a name="3384"
+      > </a
+      ><a name="3385" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="3392"
+      > </a
+      ><a name="3393" class="Symbol"
+      >(</a
+      ><a name="3394" href="FOTC.Program.SortList.SortList.html#5207" class="Function"
+      >makeTree</a
+      ><a name="3402"
+      > </a
+      ><a name="3403" href="FOTC.Program.SortList.PropertiesATP.html#3320" class="Bound"
+      >is</a
+      ><a name="3405" class="Symbol"
+      >)</a
+      ><a name="3406"
+      > </a
+      ><a name="3407" class="Symbol"
+      >&#8594;</a
+      ><a name="3408"
+      > </a
+      ><a name="3409" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="3416"
+      > </a
+      ><a name="3417" class="Symbol"
+      >(</a
+      ><a name="3418" href="FOTC.Program.SortList.SortList.html#5207" class="Function"
+      >makeTree</a
+      ><a name="3426"
+      > </a
+      ><a name="3427" class="Symbol"
+      >(</a
+      ><a name="3428" href="FOTC.Program.SortList.PropertiesATP.html#3316" class="Bound"
+      >i</a
+      ><a name="3429"
+      > </a
+      ><a name="3430" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3431"
+      > </a
+      ><a name="3432" href="FOTC.Program.SortList.PropertiesATP.html#3320" class="Bound"
+      >is</a
+      ><a name="3434" class="Symbol"
+      >))</a
+      ><a name="3436"
+      >
+        </a
+      ><a name="3445" class="Symbol"
+      >{-#</a
+      ><a name="3448"
+      > </a
+      ><a name="3449" class="Keyword"
+      >ATP</a
+      ><a name="3452"
+      > prove </a
+      ><a name="3459" href="FOTC.Program.SortList.PropertiesATP.html#3379" class="Postulate"
+      >prf</a
+      ><a name="3462"
+      > </a
+      ><a name="3463" href="FOTC.Program.SortList.Properties.Totality.TreeATP.html#1493" class="Function"
+      >makeTree-Tree</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" href="FOTC.Program.SortList.PropertiesATP.html#1326" class="Function"
+      >toTree-OrdTree</a
+      ><a name="3491"
+      > </a
+      ><a name="3492" class="Symbol"
+      >#-}</a
+      ><a name="3495"
+      >
+
+</a
+      ><a name="3497" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3575"
+      >
+</a
+      ><a name="3576" class="Comment"
+      >-- Burstall's lemma: If ord(is1) and ord(is2) and is1 &#8804; is2 then</a
+      ><a name="3640"
+      >
+</a
+      ><a name="3641" class="Comment"
+      >-- ord(concat(is1, is2)).</a
+      ><a name="3666"
+      >
+</a
+      ><a name="3667" href="FOTC.Program.SortList.PropertiesATP.html#3667" class="Function"
+      >++-OrdList</a
+      ><a name="3677"
+      > </a
+      ><a name="3678" class="Symbol"
+      >:</a
+      ><a name="3679"
+      > </a
+      ><a name="3680" class="Symbol"
+      >&#8704;</a
+      ><a name="3681"
+      > </a
+      ><a name="3682" class="Symbol"
+      >{</a
+      ><a name="3683" href="FOTC.Program.SortList.PropertiesATP.html#3683" class="Bound"
+      >is</a
+      ><a name="3685"
+      > </a
+      ><a name="3686" href="FOTC.Program.SortList.PropertiesATP.html#3686" class="Bound"
+      >js</a
+      ><a name="3688" class="Symbol"
+      >}</a
+      ><a name="3689"
+      > </a
+      ><a name="3690" class="Symbol"
+      >&#8594;</a
+      ><a name="3691"
+      > </a
+      ><a name="3692" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="3697"
+      > </a
+      ><a name="3698" href="FOTC.Program.SortList.PropertiesATP.html#3683" class="Bound"
+      >is</a
+      ><a name="3700"
+      > </a
+      ><a name="3701" class="Symbol"
+      >&#8594;</a
+      ><a name="3702"
+      > </a
+      ><a name="3703" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="3708"
+      > </a
+      ><a name="3709" href="FOTC.Program.SortList.PropertiesATP.html#3686" class="Bound"
+      >js</a
+      ><a name="3711"
+      > </a
+      ><a name="3712" class="Symbol"
+      >&#8594;</a
+      ><a name="3713"
+      > </a
+      ><a name="3714" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="3721"
+      > </a
+      ><a name="3722" href="FOTC.Program.SortList.PropertiesATP.html#3683" class="Bound"
+      >is</a
+      ><a name="3724"
+      > </a
+      ><a name="3725" class="Symbol"
+      >&#8594;</a
+      ><a name="3726"
+      > </a
+      ><a name="3727" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="3734"
+      > </a
+      ><a name="3735" href="FOTC.Program.SortList.PropertiesATP.html#3686" class="Bound"
+      >js</a
+      ><a name="3737"
+      > </a
+      ><a name="3738" class="Symbol"
+      >&#8594;</a
+      ><a name="3739"
+      >
+             </a
+      ><a name="3753" href="FOTC.Program.SortList.SortList.html#1954" class="Function"
+      >&#8804;-Lists</a
+      ><a name="3760"
+      > </a
+      ><a name="3761" href="FOTC.Program.SortList.PropertiesATP.html#3683" class="Bound"
+      >is</a
+      ><a name="3763"
+      > </a
+      ><a name="3764" href="FOTC.Program.SortList.PropertiesATP.html#3686" class="Bound"
+      >js</a
+      ><a name="3766"
+      > </a
+      ><a name="3767" class="Symbol"
+      >&#8594;</a
+      ><a name="3768"
+      > </a
+      ><a name="3769" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="3776"
+      > </a
+      ><a name="3777" class="Symbol"
+      >(</a
+      ><a name="3778" href="FOTC.Program.SortList.PropertiesATP.html#3683" class="Bound"
+      >is</a
+      ><a name="3780"
+      > </a
+      ><a name="3781" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" href="FOTC.Program.SortList.PropertiesATP.html#3686" class="Bound"
+      >js</a
+      ><a name="3786" class="Symbol"
+      >)</a
+      ><a name="3787"
+      >
+
+</a
+      ><a name="3789" href="FOTC.Program.SortList.PropertiesATP.html#3667" class="Function"
+      >++-OrdList</a
+      ><a name="3799"
+      > </a
+      ><a name="3800" class="Symbol"
+      >{</a
+      ><a name="3801" class="Argument"
+      >js</a
+      ><a name="3803"
+      > </a
+      ><a name="3804" class="Symbol"
+      >=</a
+      ><a name="3805"
+      > </a
+      ><a name="3806" href="FOTC.Program.SortList.PropertiesATP.html#3806" class="Bound"
+      >js</a
+      ><a name="3808" class="Symbol"
+      >}</a
+      ><a name="3809"
+      > </a
+      ><a name="3810" href="FOTC.Data.Nat.List.Type.html#701" class="InductiveConstructor"
+      >lnnil</a
+      ><a name="3815"
+      > </a
+      ><a name="3816" href="FOTC.Program.SortList.PropertiesATP.html#3816" class="Bound"
+      >LNjs</a
+      ><a name="3820"
+      > </a
+      ><a name="3821" href="FOTC.Program.SortList.PropertiesATP.html#3821" class="Bound"
+      >LOis</a
+      ><a name="3825"
+      > </a
+      ><a name="3826" href="FOTC.Program.SortList.PropertiesATP.html#3826" class="Bound"
+      >LOjs</a
+      ><a name="3830"
+      > </a
+      ><a name="3831" href="FOTC.Program.SortList.PropertiesATP.html#3831" class="Bound"
+      >is&#8804;js</a
+      ><a name="3836"
+      > </a
+      ><a name="3837" class="Symbol"
+      >=</a
+      ><a name="3838"
+      >
+  </a
+      ><a name="3841" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3846"
+      > </a
+      ><a name="3847" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="3854"
+      > </a
+      ><a name="3855" class="Symbol"
+      >(</a
+      ><a name="3856" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3859"
+      > </a
+      ><a name="3860" class="Symbol"
+      >(</a
+      ><a name="3861" href="FOTC.Data.List.PropertiesATP.html#2553" class="Function"
+      >++-leftIdentity</a
+      ><a name="3876"
+      > </a
+      ><a name="3877" href="FOTC.Program.SortList.PropertiesATP.html#3806" class="Bound"
+      >js</a
+      ><a name="3879" class="Symbol"
+      >))</a
+      ><a name="3881"
+      > </a
+      ><a name="3882" href="FOTC.Program.SortList.PropertiesATP.html#3826" class="Bound"
+      >LOjs</a
+      ><a name="3886"
+      >
+
+</a
+      ><a name="3888" href="FOTC.Program.SortList.PropertiesATP.html#3667" class="Function"
+      >++-OrdList</a
+      ><a name="3898"
+      > </a
+      ><a name="3899" class="Symbol"
+      >{</a
+      ><a name="3900" class="Argument"
+      >js</a
+      ><a name="3902"
+      > </a
+      ><a name="3903" class="Symbol"
+      >=</a
+      ><a name="3904"
+      > </a
+      ><a name="3905" href="FOTC.Program.SortList.PropertiesATP.html#3905" class="Bound"
+      >js</a
+      ><a name="3907" class="Symbol"
+      >}</a
+      ><a name="3908"
+      > </a
+      ><a name="3909" class="Symbol"
+      >(</a
+      ><a name="3910" href="FOTC.Data.Nat.List.Type.html#721" class="InductiveConstructor"
+      >lncons</a
+      ><a name="3916"
+      > </a
+      ><a name="3917" class="Symbol"
+      >{</a
+      ><a name="3918" href="FOTC.Program.SortList.PropertiesATP.html#3918" class="Bound"
+      >i</a
+      ><a name="3919" class="Symbol"
+      >}</a
+      ><a name="3920"
+      > </a
+      ><a name="3921" class="Symbol"
+      >{</a
+      ><a name="3922" href="FOTC.Program.SortList.PropertiesATP.html#3922" class="Bound"
+      >is</a
+      ><a name="3924" class="Symbol"
+      >}</a
+      ><a name="3925"
+      > </a
+      ><a name="3926" href="FOTC.Program.SortList.PropertiesATP.html#3926" class="Bound"
+      >Ni</a
+      ><a name="3928"
+      > </a
+      ><a name="3929" href="FOTC.Program.SortList.PropertiesATP.html#3929" class="Bound"
+      >LNis</a
+      ><a name="3933" class="Symbol"
+      >)</a
+      ><a name="3934"
+      > </a
+      ><a name="3935" href="FOTC.Program.SortList.PropertiesATP.html#3935" class="Bound"
+      >LNjs</a
+      ><a name="3939"
+      > </a
+      ><a name="3940" href="FOTC.Program.SortList.PropertiesATP.html#3940" class="Bound"
+      >OLi&#8759;is</a
+      ><a name="3946"
+      > </a
+      ><a name="3947" href="FOTC.Program.SortList.PropertiesATP.html#3947" class="Bound"
+      >OLjs</a
+      ><a name="3951"
+      > </a
+      ><a name="3952" href="FOTC.Program.SortList.PropertiesATP.html#3952" class="Bound"
+      >i&#8759;is&#8804;js</a
+      ><a name="3959"
+      > </a
+      ><a name="3960" class="Symbol"
+      >=</a
+      ><a name="3961"
+      >
+  </a
+      ><a name="3964" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3969"
+      > </a
+      ><a name="3970" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="3977"
+      >
+        </a
+      ><a name="3986" class="Symbol"
+      >(</a
+      ><a name="3987" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3990"
+      > </a
+      ><a name="3991" class="Symbol"
+      >(</a
+      ><a name="3992" href="FOTC.Data.List.html#822" class="Postulate"
+      >++-&#8759;</a
+      ><a name="3996"
+      > </a
+      ><a name="3997" href="FOTC.Program.SortList.PropertiesATP.html#3918" class="Bound"
+      >i</a
+      ><a name="3998"
+      > </a
+      ><a name="3999" href="FOTC.Program.SortList.PropertiesATP.html#3922" class="Bound"
+      >is</a
+      ><a name="4001"
+      > </a
+      ><a name="4002" href="FOTC.Program.SortList.PropertiesATP.html#3905" class="Bound"
+      >js</a
+      ><a name="4004" class="Symbol"
+      >))</a
+      ><a name="4006"
+      >
+        </a
+      ><a name="4015" class="Symbol"
+      >(</a
+      ><a name="4016" href="FOTC.Program.SortList.PropertiesATP.html#4373" class="Postulate"
+      >lemma</a
+      ><a name="4021"
+      > </a
+      ><a name="4022" class="Symbol"
+      >(</a
+      ><a name="4023" href="FOTC.Program.SortList.PropertiesATP.html#3667" class="Function"
+      >++-OrdList</a
+      ><a name="4033"
+      > </a
+      ><a name="4034" href="FOTC.Program.SortList.PropertiesATP.html#3929" class="Bound"
+      >LNis</a
+      ><a name="4038"
+      > </a
+      ><a name="4039" href="FOTC.Program.SortList.PropertiesATP.html#3935" class="Bound"
+      >LNjs</a
+      ><a name="4043"
+      >
+                           </a
+      ><a name="4071" class="Symbol"
+      >(</a
+      ><a name="4072" href="FOTC.Program.SortList.Properties.Totality.OrdListATP.html#900" class="Function"
+      >subList-OrdList</a
+      ><a name="4087"
+      > </a
+      ><a name="4088" href="FOTC.Program.SortList.PropertiesATP.html#3926" class="Bound"
+      >Ni</a
+      ><a name="4090"
+      > </a
+      ><a name="4091" href="FOTC.Program.SortList.PropertiesATP.html#3929" class="Bound"
+      >LNis</a
+      ><a name="4095"
+      > </a
+      ><a name="4096" href="FOTC.Program.SortList.PropertiesATP.html#3940" class="Bound"
+      >OLi&#8759;is</a
+      ><a name="4102" class="Symbol"
+      >)</a
+      ><a name="4103"
+      >
+                           </a
+      ><a name="4131" href="FOTC.Program.SortList.PropertiesATP.html#3947" class="Bound"
+      >OLjs</a
+      ><a name="4135"
+      >
+                           </a
+      ><a name="4163" class="Symbol"
+      >(</a
+      ><a name="4164" href="FOTC.Data.Bool.PropertiesATP.html#1863" class="Function"
+      >&amp;&amp;-list&#8322;-t&#8322;</a
+      ><a name="4175"
+      > </a
+      ><a name="4176" class="Symbol"
+      >(</a
+      ><a name="4177" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#749" class="Function"
+      >le-ItemList-Bool</a
+      ><a name="4193"
+      > </a
+      ><a name="4194" href="FOTC.Program.SortList.PropertiesATP.html#3926" class="Bound"
+      >Ni</a
+      ><a name="4196"
+      > </a
+      ><a name="4197" href="FOTC.Program.SortList.PropertiesATP.html#3935" class="Bound"
+      >LNjs</a
+      ><a name="4201" class="Symbol"
+      >)</a
+      ><a name="4202"
+      >
+                                        </a
+      ><a name="4243" class="Symbol"
+      >(</a
+      ><a name="4244" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#1202" class="Function"
+      >le-Lists-Bool</a
+      ><a name="4257"
+      > </a
+      ><a name="4258" href="FOTC.Program.SortList.PropertiesATP.html#3929" class="Bound"
+      >LNis</a
+      ><a name="4262"
+      > </a
+      ><a name="4263" href="FOTC.Program.SortList.PropertiesATP.html#3935" class="Bound"
+      >LNjs</a
+      ><a name="4267" class="Symbol"
+      >)</a
+      ><a name="4268"
+      >
+                                        </a
+      ><a name="4309" class="Symbol"
+      >(</a
+      ><a name="4310" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="4315"
+      > </a
+      ><a name="4316" class="Symbol"
+      >(</a
+      ><a name="4317" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="4320"
+      > </a
+      ><a name="4321" class="Symbol"
+      >(</a
+      ><a name="4322" href="FOTC.Program.SortList.SortList.html#1811" class="Postulate"
+      >le-Lists-&#8759;</a
+      ><a name="4332"
+      > </a
+      ><a name="4333" href="FOTC.Program.SortList.PropertiesATP.html#3918" class="Bound"
+      >i</a
+      ><a name="4334"
+      > </a
+      ><a name="4335" href="FOTC.Program.SortList.PropertiesATP.html#3922" class="Bound"
+      >is</a
+      ><a name="4337"
+      > </a
+      ><a name="4338" href="FOTC.Program.SortList.PropertiesATP.html#3905" class="Bound"
+      >js</a
+      ><a name="4340" class="Symbol"
+      >))</a
+      ><a name="4342"
+      > </a
+      ><a name="4343" href="FOTC.Program.SortList.PropertiesATP.html#3952" class="Bound"
+      >i&#8759;is&#8804;js</a
+      ><a name="4350" class="Symbol"
+      >))))</a
+      ><a name="4354"
+      >
+  </a
+      ><a name="4357" class="Keyword"
+      >where</a
+      ><a name="4362"
+      > </a
+      ><a name="4363" class="Keyword"
+      >postulate</a
+      ><a name="4372"
+      > </a
+      ><a name="4373" href="FOTC.Program.SortList.PropertiesATP.html#4373" class="Postulate"
+      >lemma</a
+      ><a name="4378"
+      > </a
+      ><a name="4379" class="Symbol"
+      >:</a
+      ><a name="4380"
+      > </a
+      ><a name="4381" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="4388"
+      > </a
+      ><a name="4389" class="Symbol"
+      >(</a
+      ><a name="4390" href="FOTC.Program.SortList.PropertiesATP.html#3922" class="Bound"
+      >is</a
+      ><a name="4392"
+      > </a
+      ><a name="4393" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4395"
+      > </a
+      ><a name="4396" href="FOTC.Program.SortList.PropertiesATP.html#3905" class="Bound"
+      >js</a
+      ><a name="4398" class="Symbol"
+      >)</a
+      ><a name="4399"
+      > </a
+      ><a name="4400" class="Symbol"
+      >&#8594;</a
+      ><a name="4401"
+      > </a
+      ><a name="4402" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="4409"
+      > </a
+      ><a name="4410" class="Symbol"
+      >(</a
+      ><a name="4411" href="FOTC.Program.SortList.PropertiesATP.html#3918" class="Bound"
+      >i</a
+      ><a name="4412"
+      > </a
+      ><a name="4413" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4414"
+      > </a
+      ><a name="4415" href="FOTC.Program.SortList.PropertiesATP.html#3922" class="Bound"
+      >is</a
+      ><a name="4417"
+      > </a
+      ><a name="4418" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4420"
+      > </a
+      ><a name="4421" href="FOTC.Program.SortList.PropertiesATP.html#3905" class="Bound"
+      >js</a
+      ><a name="4423" class="Symbol"
+      >)</a
+      ><a name="4424"
+      >
+        </a
+      ><a name="4433" class="Symbol"
+      >{-#</a
+      ><a name="4436"
+      > </a
+      ><a name="4437" class="Keyword"
+      >ATP</a
+      ><a name="4440"
+      > prove </a
+      ><a name="4447" href="FOTC.Program.SortList.PropertiesATP.html#4373" class="Postulate"
+      >lemma</a
+      ><a name="4452"
+      > </a
+      ><a name="4453" href="FOTC.Data.Bool.PropertiesATP.html#1161" class="Function"
+      >&amp;&amp;-list&#8322;-t</a
+      ><a name="4463"
+      > </a
+      ><a name="4464" href="FOTC.Program.SortList.Properties.Totality.OrdListATP.html#1202" class="Function"
+      >++-OrdList-helper</a
+      ><a name="4481"
+      > </a
+      ><a name="4482" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#749" class="Function"
+      >le-ItemList-Bool</a
+      ><a name="4498"
+      > </a
+      ><a name="4499" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#1202" class="Function"
+      >le-Lists-Bool</a
+      ><a name="4512"
+      > </a
+      ><a name="4513" href="FOTC.Program.SortList.Properties.Totality.BoolATP.html#1612" class="Function"
+      >ordList-Bool</a
+      ><a name="4525"
+      > </a
+      ><a name="4526" class="Symbol"
+      >#-}</a
+      ><a name="4529"
+      >
+
+</a
+      ><a name="4531" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="4609"
+      >
+</a
+      ><a name="4610" class="Comment"
+      >-- Burstall's lemma: If t is ordered then (flatten t) is ordered.</a
+      ><a name="4675"
+      >
+</a
+      ><a name="4676" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="4691"
+      > </a
+      ><a name="4692" class="Symbol"
+      >:</a
+      ><a name="4693"
+      > </a
+      ><a name="4694" class="Symbol"
+      >&#8704;</a
+      ><a name="4695"
+      > </a
+      ><a name="4696" class="Symbol"
+      >{</a
+      ><a name="4697" href="FOTC.Program.SortList.PropertiesATP.html#4697" class="Bound"
+      >t</a
+      ><a name="4698" class="Symbol"
+      >}</a
+      ><a name="4699"
+      > </a
+      ><a name="4700" class="Symbol"
+      >&#8594;</a
+      ><a name="4701"
+      > </a
+      ><a name="4702" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="4706"
+      > </a
+      ><a name="4707" href="FOTC.Program.SortList.PropertiesATP.html#4697" class="Bound"
+      >t</a
+      ><a name="4708"
+      > </a
+      ><a name="4709" class="Symbol"
+      >&#8594;</a
+      ><a name="4710"
+      > </a
+      ><a name="4711" href="FOTC.Program.SortList.SortList.html#4164" class="Function"
+      >OrdTree</a
+      ><a name="4718"
+      > </a
+      ><a name="4719" href="FOTC.Program.SortList.PropertiesATP.html#4697" class="Bound"
+      >t</a
+      ><a name="4720"
+      > </a
+      ><a name="4721" class="Symbol"
+      >&#8594;</a
+      ><a name="4722"
+      > </a
+      ><a name="4723" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="4730"
+      > </a
+      ><a name="4731" class="Symbol"
+      >(</a
+      ><a name="4732" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="4739"
+      > </a
+      ><a name="4740" href="FOTC.Program.SortList.PropertiesATP.html#4697" class="Bound"
+      >t</a
+      ><a name="4741" class="Symbol"
+      >)</a
+      ><a name="4742"
+      >
+</a
+      ><a name="4743" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="4758"
+      > </a
+      ><a name="4759" href="FOTC.Program.SortList.SortList.html#917" class="InductiveConstructor"
+      >tnil</a
+      ><a name="4763"
+      > </a
+      ><a name="4764" href="FOTC.Program.SortList.PropertiesATP.html#4764" class="Bound"
+      >OTt</a
+      ><a name="4767"
+      > </a
+      ><a name="4768" class="Symbol"
+      >=</a
+      ><a name="4769"
+      >
+  </a
+      ><a name="4772" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4777"
+      > </a
+      ><a name="4778" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="4785"
+      > </a
+      ><a name="4786" class="Symbol"
+      >(</a
+      ><a name="4787" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="4790"
+      > </a
+      ><a name="4791" href="FOTC.Program.SortList.SortList.html#5375" class="Postulate"
+      >flatten-nil</a
+      ><a name="4802" class="Symbol"
+      >)</a
+      ><a name="4803"
+      > </a
+      ><a name="4804" href="FOTC.Program.SortList.SortList.html#3597" class="Postulate"
+      >ordList-[]</a
+      ><a name="4814"
+      >
+
+</a
+      ><a name="4816" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="4831"
+      > </a
+      ><a name="4832" class="Symbol"
+      >(</a
+      ><a name="4833" href="FOTC.Program.SortList.SortList.html#936" class="InductiveConstructor"
+      >ttip</a
+      ><a name="4837"
+      > </a
+      ><a name="4838" class="Symbol"
+      >{</a
+      ><a name="4839" href="FOTC.Program.SortList.PropertiesATP.html#4839" class="Bound"
+      >i</a
+      ><a name="4840" class="Symbol"
+      >}</a
+      ><a name="4841"
+      > </a
+      ><a name="4842" href="FOTC.Program.SortList.PropertiesATP.html#4842" class="Bound"
+      >Ni</a
+      ><a name="4844" class="Symbol"
+      >)</a
+      ><a name="4845"
+      > </a
+      ><a name="4846" href="FOTC.Program.SortList.PropertiesATP.html#4846" class="Bound"
+      >OTt</a
+      ><a name="4849"
+      > </a
+      ><a name="4850" class="Symbol"
+      >=</a
+      ><a name="4851"
+      > </a
+      ><a name="4852" href="FOTC.Program.SortList.PropertiesATP.html#4874" class="Postulate"
+      >prf</a
+      ><a name="4855"
+      >
+  </a
+      ><a name="4858" class="Keyword"
+      >where</a
+      ><a name="4863"
+      > </a
+      ><a name="4864" class="Keyword"
+      >postulate</a
+      ><a name="4873"
+      > </a
+      ><a name="4874" href="FOTC.Program.SortList.PropertiesATP.html#4874" class="Postulate"
+      >prf</a
+      ><a name="4877"
+      > </a
+      ><a name="4878" class="Symbol"
+      >:</a
+      ><a name="4879"
+      > </a
+      ><a name="4880" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="4887"
+      > </a
+      ><a name="4888" class="Symbol"
+      >(</a
+      ><a name="4889" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="4896"
+      > </a
+      ><a name="4897" class="Symbol"
+      >(</a
+      ><a name="4898" href="FOTC.Program.SortList.SortList.html#834" class="Postulate"
+      >tip</a
+      ><a name="4901"
+      > </a
+      ><a name="4902" href="FOTC.Program.SortList.PropertiesATP.html#4839" class="Bound"
+      >i</a
+      ><a name="4903" class="Symbol"
+      >))</a
+      ><a name="4905"
+      >
+        </a
+      ><a name="4914" class="Symbol"
+      >{-#</a
+      ><a name="4917"
+      > </a
+      ><a name="4918" class="Keyword"
+      >ATP</a
+      ><a name="4921"
+      > prove </a
+      ><a name="4928" href="FOTC.Program.SortList.PropertiesATP.html#4874" class="Postulate"
+      >prf</a
+      ><a name="4931"
+      > </a
+      ><a name="4932" class="Symbol"
+      >#-}</a
+      ><a name="4935"
+      >
+
+</a
+      ><a name="4937" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="4952"
+      > </a
+      ><a name="4953" class="Symbol"
+      >(</a
+      ><a name="4954" href="FOTC.Program.SortList.SortList.html#973" class="InductiveConstructor"
+      >tnode</a
+      ><a name="4959"
+      > </a
+      ><a name="4960" class="Symbol"
+      >{</a
+      ><a name="4961" href="FOTC.Program.SortList.PropertiesATP.html#4961" class="Bound"
+      >t&#8321;</a
+      ><a name="4963" class="Symbol"
+      >}</a
+      ><a name="4964"
+      > </a
+      ><a name="4965" class="Symbol"
+      >{</a
+      ><a name="4966" href="FOTC.Program.SortList.PropertiesATP.html#4966" class="Bound"
+      >i</a
+      ><a name="4967" class="Symbol"
+      >}</a
+      ><a name="4968"
+      > </a
+      ><a name="4969" class="Symbol"
+      >{</a
+      ><a name="4970" href="FOTC.Program.SortList.PropertiesATP.html#4970" class="Bound"
+      >t&#8322;</a
+      ><a name="4972" class="Symbol"
+      >}</a
+      ><a name="4973"
+      > </a
+      ><a name="4974" href="FOTC.Program.SortList.PropertiesATP.html#4974" class="Bound"
+      >Tt&#8321;</a
+      ><a name="4977"
+      > </a
+      ><a name="4978" href="FOTC.Program.SortList.PropertiesATP.html#4978" class="Bound"
+      >Ni</a
+      ><a name="4980"
+      > </a
+      ><a name="4981" href="FOTC.Program.SortList.PropertiesATP.html#4981" class="Bound"
+      >Tt&#8322;</a
+      ><a name="4984" class="Symbol"
+      >)</a
+      ><a name="4985"
+      > </a
+      ><a name="4986" href="FOTC.Program.SortList.PropertiesATP.html#4986" class="Bound"
+      >OTt</a
+      ><a name="4989"
+      >
+  </a
+      ><a name="4992" class="Symbol"
+      >=</a
+      ><a name="4993"
+      > </a
+      ><a name="4994" href="FOTC.Program.SortList.PropertiesATP.html#5308" class="Postulate"
+      >prf</a
+      ><a name="4997"
+      > </a
+      ><a name="4998" class="Symbol"
+      >(</a
+      ><a name="4999" href="FOTC.Program.SortList.PropertiesATP.html#3667" class="Function"
+      >++-OrdList</a
+      ><a name="5009"
+      > </a
+      ><a name="5010" class="Symbol"
+      >(</a
+      ><a name="5011" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="5024"
+      > </a
+      ><a name="5025" href="FOTC.Program.SortList.PropertiesATP.html#4974" class="Bound"
+      >Tt&#8321;</a
+      ><a name="5028" class="Symbol"
+      >)</a
+      ><a name="5029"
+      >
+                    </a
+      ><a name="5050" class="Symbol"
+      >(</a
+      ><a name="5051" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="5064"
+      > </a
+      ><a name="5065" href="FOTC.Program.SortList.PropertiesATP.html#4981" class="Bound"
+      >Tt&#8322;</a
+      ><a name="5068" class="Symbol"
+      >)</a
+      ><a name="5069"
+      >
+                    </a
+      ><a name="5090" class="Symbol"
+      >(</a
+      ><a name="5091" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="5106"
+      > </a
+      ><a name="5107" href="FOTC.Program.SortList.PropertiesATP.html#4974" class="Bound"
+      >Tt&#8321;</a
+      ><a name="5110"
+      > </a
+      ><a name="5111" class="Symbol"
+      >(</a
+      ><a name="5112" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#984" class="Postulate"
+      >leftSubTree-OrdTree</a
+      ><a name="5131"
+      > </a
+      ><a name="5132" href="FOTC.Program.SortList.PropertiesATP.html#4974" class="Bound"
+      >Tt&#8321;</a
+      ><a name="5135"
+      > </a
+      ><a name="5136" href="FOTC.Program.SortList.PropertiesATP.html#4978" class="Bound"
+      >Ni</a
+      ><a name="5138"
+      > </a
+      ><a name="5139" href="FOTC.Program.SortList.PropertiesATP.html#4981" class="Bound"
+      >Tt&#8322;</a
+      ><a name="5142"
+      > </a
+      ><a name="5143" href="FOTC.Program.SortList.PropertiesATP.html#4986" class="Bound"
+      >OTt</a
+      ><a name="5146" class="Symbol"
+      >))</a
+      ><a name="5148"
+      >
+                    </a
+      ><a name="5169" class="Symbol"
+      >(</a
+      ><a name="5170" href="FOTC.Program.SortList.PropertiesATP.html#4676" class="Function"
+      >flatten-OrdList</a
+      ><a name="5185"
+      > </a
+      ><a name="5186" href="FOTC.Program.SortList.PropertiesATP.html#4981" class="Bound"
+      >Tt&#8322;</a
+      ><a name="5189"
+      > </a
+      ><a name="5190" class="Symbol"
+      >(</a
+      ><a name="5191" href="FOTC.Program.SortList.Properties.Totality.OrdTreeATP.html#1281" class="Postulate"
+      >rightSubTree-OrdTree</a
+      ><a name="5211"
+      > </a
+      ><a name="5212" href="FOTC.Program.SortList.PropertiesATP.html#4974" class="Bound"
+      >Tt&#8321;</a
+      ><a name="5215"
+      > </a
+      ><a name="5216" href="FOTC.Program.SortList.PropertiesATP.html#4978" class="Bound"
+      >Ni</a
+      ><a name="5218"
+      > </a
+      ><a name="5219" href="FOTC.Program.SortList.PropertiesATP.html#4981" class="Bound"
+      >Tt&#8322;</a
+      ><a name="5222"
+      > </a
+      ><a name="5223" href="FOTC.Program.SortList.PropertiesATP.html#4986" class="Bound"
+      >OTt</a
+      ><a name="5226" class="Symbol"
+      >))</a
+      ><a name="5228"
+      >
+                    </a
+      ><a name="5249" class="Symbol"
+      >(</a
+      ><a name="5250" href="FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP.html#1038" class="Function"
+      >flatten-OrdList-helper</a
+      ><a name="5272"
+      > </a
+      ><a name="5273" href="FOTC.Program.SortList.PropertiesATP.html#4974" class="Bound"
+      >Tt&#8321;</a
+      ><a name="5276"
+      > </a
+      ><a name="5277" href="FOTC.Program.SortList.PropertiesATP.html#4978" class="Bound"
+      >Ni</a
+      ><a name="5279"
+      > </a
+      ><a name="5280" href="FOTC.Program.SortList.PropertiesATP.html#4981" class="Bound"
+      >Tt&#8322;</a
+      ><a name="5283"
+      > </a
+      ><a name="5284" href="FOTC.Program.SortList.PropertiesATP.html#4986" class="Bound"
+      >OTt</a
+      ><a name="5287" class="Symbol"
+      >))</a
+      ><a name="5289"
+      >
+  </a
+      ><a name="5292" class="Keyword"
+      >where</a
+      ><a name="5297"
+      > </a
+      ><a name="5298" class="Keyword"
+      >postulate</a
+      ><a name="5307"
+      > </a
+      ><a name="5308" href="FOTC.Program.SortList.PropertiesATP.html#5308" class="Postulate"
+      >prf</a
+      ><a name="5311"
+      > </a
+      ><a name="5312" class="Symbol"
+      >:</a
+      ><a name="5313"
+      > </a
+      ><a name="5314" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="5321"
+      > </a
+      ><a name="5322" class="Symbol"
+      >(</a
+      ><a name="5323" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="5330"
+      > </a
+      ><a name="5331" href="FOTC.Program.SortList.PropertiesATP.html#4961" class="Bound"
+      >t&#8321;</a
+      ><a name="5333"
+      > </a
+      ><a name="5334" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="5336"
+      > </a
+      ><a name="5337" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="5344"
+      > </a
+      ><a name="5345" href="FOTC.Program.SortList.PropertiesATP.html#4970" class="Bound"
+      >t&#8322;</a
+      ><a name="5347" class="Symbol"
+      >)</a
+      ><a name="5348"
+      > </a
+      ><a name="5349" class="Symbol"
+      >&#8594;</a
+      ><a name="5350"
+      > </a
+      ><a name="5351" class="Comment"
+      >-- Indirect IH.</a
+      ><a name="5366"
+      >
+                        </a
+      ><a name="5391" href="FOTC.Program.SortList.SortList.html#3758" class="Function"
+      >OrdList</a
+      ><a name="5398"
+      > </a
+      ><a name="5399" class="Symbol"
+      >(</a
+      ><a name="5400" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="5407"
+      > </a
+      ><a name="5408" class="Symbol"
+      >(</a
+      ><a name="5409" href="FOTC.Program.SortList.SortList.html#849" class="Postulate"
+      >node</a
+      ><a name="5413"
+      > </a
+      ><a name="5414" href="FOTC.Program.SortList.PropertiesATP.html#4961" class="Bound"
+      >t&#8321;</a
+      ><a name="5416"
+      > </a
+      ><a name="5417" href="FOTC.Program.SortList.PropertiesATP.html#4966" class="Bound"
+      >i</a
+      ><a name="5418"
+      > </a
+      ><a name="5419" href="FOTC.Program.SortList.PropertiesATP.html#4970" class="Bound"
+      >t&#8322;</a
+      ><a name="5421" class="Symbol"
+      >))</a
+      ><a name="5423"
+      >
+        </a
+      ><a name="5432" class="Symbol"
+      >{-#</a
+      ><a name="5435"
+      > </a
+      ><a name="5436" class="Keyword"
+      >ATP</a
+      ><a name="5439"
+      > prove </a
+      ><a name="5446" href="FOTC.Program.SortList.PropertiesATP.html#5308" class="Postulate"
+      >prf</a
+      ><a name="5449"
+      > </a
+      ><a name="5450" class="Symbol"
+      >#-}</a
+      ><a name="5453"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

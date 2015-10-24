@@ -1,0 +1,1424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.README</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- First-Order Theory of Combinators (FOTC)</a
+      ><a name="123"
+      >
+</a
+      ><a name="124" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="202"
+      >
+
+</a
+      ><a name="204" class="Symbol"
+      >{-#</a
+      ><a name="207"
+      > </a
+      ><a name="208" class="Keyword"
+      >OPTIONS</a
+      ><a name="215"
+      > --exact-split              </a
+      ><a name="243" class="Symbol"
+      >#-}</a
+      ><a name="246"
+      >
+</a
+      ><a name="247" class="Symbol"
+      >{-#</a
+      ><a name="250"
+      > </a
+      ><a name="251" class="Keyword"
+      >OPTIONS</a
+      ><a name="258"
+      > --no-sized-types           </a
+      ><a name="286" class="Symbol"
+      >#-}</a
+      ><a name="289"
+      >
+</a
+      ><a name="290" class="Symbol"
+      >{-#</a
+      ><a name="293"
+      > </a
+      ><a name="294" class="Keyword"
+      >OPTIONS</a
+      ><a name="301"
+      > --no-universe-polymorphism </a
+      ><a name="329" class="Symbol"
+      >#-}</a
+      ><a name="332"
+      >
+</a
+      ><a name="333" class="Symbol"
+      >{-#</a
+      ><a name="336"
+      > </a
+      ><a name="337" class="Keyword"
+      >OPTIONS</a
+      ><a name="344"
+      > --without-K                </a
+      ><a name="372" class="Symbol"
+      >#-}</a
+      ><a name="375"
+      >
+
+</a
+      ><a name="377" class="Keyword"
+      >module</a
+      ><a name="383"
+      > </a
+      ><a name="384" href="FOTC.README.html#1" class="Module"
+      >FOTC.README</a
+      ><a name="395"
+      > </a
+      ><a name="396" class="Keyword"
+      >where</a
+      ><a name="401"
+      >
+
+</a
+      ><a name="403" class="Comment"
+      >-- Formalization of (a version of) Azcel's First-Order Theory of</a
+      ><a name="467"
+      >
+</a
+      ><a name="468" class="Comment"
+      >-- Combinators.</a
+      ><a name="483"
+      >
+
+</a
+      ><a name="485" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="563"
+      >
+</a
+      ><a name="564" class="Comment"
+      >-- Base axioms</a
+      ><a name="578"
+      >
+</a
+      ><a name="579" class="Keyword"
+      >open</a
+      ><a name="583"
+      > </a
+      ><a name="584" class="Keyword"
+      >import</a
+      ><a name="590"
+      > </a
+      ><a name="591" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="600"
+      >
+
+</a
+      ><a name="602" class="Comment"
+      >-- Properties for the base axioms</a
+      ><a name="635"
+      >
+
+</a
+      ><a name="637" class="Keyword"
+      >open</a
+      ><a name="641"
+      > </a
+      ><a name="642" class="Keyword"
+      >import</a
+      ><a name="648"
+      > </a
+      ><a name="649" href="FOTC.Base.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.PropertiesATP</a
+      ><a name="672"
+      >
+</a
+      ><a name="673" class="Keyword"
+      >open</a
+      ><a name="677"
+      > </a
+      ><a name="678" class="Keyword"
+      >import</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="FOTC.Base.PropertiesI.html#1" class="Module"
+      >FOTC.Base.PropertiesI</a
+      ><a name="706"
+      >
+
+</a
+      ><a name="708" class="Comment"
+      >-- Axioms for lists, colists, streams, etc.</a
+      ><a name="751"
+      >
+</a
+      ><a name="752" class="Keyword"
+      >open</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Keyword"
+      >import</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="778"
+      >
+
+</a
+      ><a name="780" class="Comment"
+      >-- Properties for axioms for lists, colists, streams, etc</a
+      ><a name="837"
+      >
+</a
+      ><a name="838" class="Keyword"
+      >open</a
+      ><a name="842"
+      > </a
+      ><a name="843" class="Keyword"
+      >import</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="FOTC.Base.List.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.List.PropertiesATP</a
+      ><a name="878"
+      >
+</a
+      ><a name="879" class="Keyword"
+      >open</a
+      ><a name="883"
+      > </a
+      ><a name="884" class="Keyword"
+      >import</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="FOTC.Base.List.PropertiesI.html#1" class="Module"
+      >FOTC.Base.List.PropertiesI</a
+      ><a name="917"
+      >
+
+</a
+      ><a name="919" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="997"
+      >
+</a
+      ><a name="998" class="Comment"
+      >-- Booleans</a
+      ><a name="1009"
+      >
+
+</a
+      ><a name="1011" class="Comment"
+      >-- The axioms</a
+      ><a name="1024"
+      >
+</a
+      ><a name="1025" class="Keyword"
+      >open</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" class="Keyword"
+      >import</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="FOTC.Data.Bool.html#1" class="Module"
+      >FOTC.Data.Bool</a
+      ><a name="1051"
+      >
+
+</a
+      ><a name="1053" class="Comment"
+      >-- The inductive predicate</a
+      ><a name="1079"
+      >
+</a
+      ><a name="1080" class="Keyword"
+      >open</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" class="Keyword"
+      >import</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" href="FOTC.Data.Bool.Type.html#1" class="Module"
+      >FOTC.Data.Bool.Type</a
+      ><a name="1111"
+      >
+
+</a
+      ><a name="1113" class="Comment"
+      >-- Properties</a
+      ><a name="1126"
+      >
+</a
+      ><a name="1127" class="Keyword"
+      >open</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" class="Keyword"
+      >import</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="FOTC.Data.Bool.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Bool.PropertiesATP</a
+      ><a name="1167"
+      >
+</a
+      ><a name="1168" class="Keyword"
+      >open</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" class="Keyword"
+      >import</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOTC.Data.Bool.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Bool.PropertiesI</a
+      ><a name="1206"
+      >
+
+</a
+      ><a name="1208" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1286"
+      >
+</a
+      ><a name="1287" class="Comment"
+      >-- Natural numbers</a
+      ><a name="1305"
+      >
+
+</a
+      ><a name="1307" class="Comment"
+      >-- The axioms</a
+      ><a name="1320"
+      >
+</a
+      ><a name="1321" class="Keyword"
+      >open</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Keyword"
+      >import</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="1346"
+      >
+
+</a
+      ><a name="1348" class="Comment"
+      >-- The inductive predicate</a
+      ><a name="1374"
+      >
+</a
+      ><a name="1375" class="Keyword"
+      >open</a
+      ><a name="1379"
+      > </a
+      ><a name="1380" class="Keyword"
+      >import</a
+      ><a name="1386"
+      > </a
+      ><a name="1387" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="1405"
+      >
+
+</a
+      ><a name="1407" class="Comment"
+      >-- Properties</a
+      ><a name="1420"
+      >
+</a
+      ><a name="1421" class="Keyword"
+      >open</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" class="Keyword"
+      >import</a
+      ><a name="1432"
+      > </a
+      ><a name="1433" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="1460"
+      >
+</a
+      ><a name="1461" class="Keyword"
+      >open</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Keyword"
+      >import</a
+      ><a name="1472"
+      > </a
+      ><a name="1473" href="FOTC.Data.Nat.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesI</a
+      ><a name="1498"
+      >
+
+</a
+      ><a name="1500" class="Keyword"
+      >open</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" class="Keyword"
+      >import</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesByInductionATP</a
+      ><a name="1550"
+      >
+</a
+      ><a name="1551" class="Keyword"
+      >open</a
+      ><a name="1555"
+      > </a
+      ><a name="1556" class="Keyword"
+      >import</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Data.Nat.PropertiesByInductionI.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesByInductionI</a
+      ><a name="1599"
+      >
+
+</a
+      ><a name="1601" class="Comment"
+      >-- Divisibility relation</a
+      ><a name="1625"
+      >
+</a
+      ><a name="1626" class="Keyword"
+      >open</a
+      ><a name="1630"
+      > </a
+      ><a name="1631" class="Keyword"
+      >import</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="FOTC.Data.Nat.Divisibility.By0.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.By0.PropertiesATP</a
+      ><a name="1682"
+      >
+</a
+      ><a name="1683" class="Keyword"
+      >open</a
+      ><a name="1687"
+      > </a
+      ><a name="1688" class="Keyword"
+      >import</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="FOTC.Data.Nat.Divisibility.By0.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.By0.PropertiesI</a
+      ><a name="1737"
+      >
+</a
+      ><a name="1738" class="Keyword"
+      >open</a
+      ><a name="1742"
+      > </a
+      ><a name="1743" class="Keyword"
+      >import</a
+      ><a name="1749"
+      > </a
+      ><a name="1750" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP</a
+      ><a name="1797"
+      >
+</a
+      ><a name="1798" class="Keyword"
+      >open</a
+      ><a name="1802"
+      > </a
+      ><a name="1803" class="Keyword"
+      >import</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI</a
+      ><a name="1855"
+      >
+
+</a
+      ><a name="1857" class="Comment"
+      >-- Induction</a
+      ><a name="1869"
+      >
+</a
+      ><a name="1870" class="Keyword"
+      >open</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" class="Keyword"
+      >import</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="FOTC.Data.Nat.Induction.Acc.WF-I.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.Acc.WF-I</a
+      ><a name="1914"
+      >
+</a
+      ><a name="1915" class="Keyword"
+      >open</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" class="Keyword"
+      >import</a
+      ><a name="1926"
+      > </a
+      ><a name="1927" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicI.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.NonAcc.LexicographicI</a
+      ><a name="1972"
+      >
+
+</a
+      ><a name="1974" class="Comment"
+      >-- Inequalites</a
+      ><a name="1988"
+      >
+</a
+      ><a name="1989" class="Keyword"
+      >open</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" class="Keyword"
+      >import</a
+      ><a name="2000"
+      > </a
+      ><a name="2001" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="2052"
+      >
+</a
+      ><a name="2053" class="Keyword"
+      >open</a
+      ><a name="2057"
+      > </a
+      ><a name="2058" class="Keyword"
+      >import</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesI</a
+      ><a name="2114"
+      >
+</a
+      ><a name="2115" class="Keyword"
+      >open</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" class="Keyword"
+      >import</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="2167"
+      >
+</a
+      ><a name="2168" class="Keyword"
+      >open</a
+      ><a name="2172"
+      > </a
+      ><a name="2173" class="Keyword"
+      >import</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" href="FOTC.Data.Nat.Inequalities.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesI</a
+      ><a name="2218"
+      >
+
+</a
+      ><a name="2220" class="Comment"
+      >-- Unary numbers</a
+      ><a name="2236"
+      >
+</a
+      ><a name="2237" class="Keyword"
+      >open</a
+      ><a name="2241"
+      > </a
+      ><a name="2242" class="Keyword"
+      >import</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP</a
+      ><a name="2302"
+      >
+</a
+      ><a name="2303" class="Keyword"
+      >open</a
+      ><a name="2307"
+      > </a
+      ><a name="2308" class="Keyword"
+      >import</a
+      ><a name="2314"
+      > </a
+      ><a name="2315" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers.TotalityATP</a
+      ><a name="2353"
+      >
+
+</a
+      ><a name="2355" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2433"
+      >
+</a
+      ><a name="2434" class="Comment"
+      >-- Lists</a
+      ><a name="2442"
+      >
+
+</a
+      ><a name="2444" class="Comment"
+      >-- The axioms</a
+      ><a name="2457"
+      >
+</a
+      ><a name="2458" class="Keyword"
+      >open</a
+      ><a name="2462"
+      > </a
+      ><a name="2463" class="Keyword"
+      >import</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="2484"
+      >
+
+</a
+      ><a name="2486" class="Comment"
+      >-- The inductive predicate</a
+      ><a name="2512"
+      >
+</a
+      ><a name="2513" class="Keyword"
+      >open</a
+      ><a name="2517"
+      > </a
+      ><a name="2518" class="Keyword"
+      >import</a
+      ><a name="2524"
+      > </a
+      ><a name="2525" href="FOTC.Data.List.Type.html#1" class="Module"
+      >FOTC.Data.List.Type</a
+      ><a name="2544"
+      >
+
+</a
+      ><a name="2546" class="Comment"
+      >-- Properties</a
+      ><a name="2559"
+      >
+</a
+      ><a name="2560" class="Keyword"
+      >open</a
+      ><a name="2564"
+      > </a
+      ><a name="2565" class="Keyword"
+      >import</a
+      ><a name="2571"
+      > </a
+      ><a name="2572" href="FOTC.Data.List.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.List.PropertiesATP</a
+      ><a name="2600"
+      >
+</a
+      ><a name="2601" class="Keyword"
+      >open</a
+      ><a name="2605"
+      > </a
+      ><a name="2606" class="Keyword"
+      >import</a
+      ><a name="2612"
+      > </a
+      ><a name="2613" href="FOTC.Data.List.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.PropertiesI</a
+      ><a name="2639"
+      >
+
+</a
+      ><a name="2641" class="Comment"
+      >-- Well-founded induction</a
+      ><a name="2666"
+      >
+</a
+      ><a name="2667" class="Keyword"
+      >open</a
+      ><a name="2671"
+      > </a
+      ><a name="2672" class="Keyword"
+      >import</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I</a
+      ><a name="2732"
+      >
+</a
+      ><a name="2733" class="Keyword"
+      >open</a
+      ><a name="2737"
+      > </a
+      ><a name="2738" class="Keyword"
+      >import</a
+      ><a name="2744"
+      > </a
+      ><a name="2745" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI</a
+      ><a name="2791"
+      >
+</a
+      ><a name="2792" class="Keyword"
+      >open</a
+      ><a name="2796"
+      > </a
+      ><a name="2797" class="Keyword"
+      >import</a
+      ><a name="2803"
+      > </a
+      ><a name="2804" href="FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I</a
+      ><a name="2859"
+      >
+</a
+      ><a name="2860" class="Keyword"
+      >open</a
+      ><a name="2864"
+      > </a
+      ><a name="2865" class="Keyword"
+      >import</a
+      ><a name="2871"
+      > </a
+      ><a name="2872" href="FOTC.Data.List.WF-Relation.LT-Length.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Length.PropertiesI</a
+      ><a name="2920"
+      >
+
+</a
+      ><a name="2922" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3000"
+      >
+</a
+      ><a name="3001" class="Comment"
+      >-- Lists of natural numbers</a
+      ><a name="3028"
+      >
+
+</a
+      ><a name="3030" class="Comment"
+      >-- The inductive predicate</a
+      ><a name="3056"
+      >
+</a
+      ><a name="3057" class="Keyword"
+      >open</a
+      ><a name="3061"
+      > </a
+      ><a name="3062" class="Keyword"
+      >import</a
+      ><a name="3068"
+      > </a
+      ><a name="3069" href="FOTC.Data.Nat.List.html#1" class="Module"
+      >FOTC.Data.Nat.List</a
+      ><a name="3087"
+      >
+
+</a
+      ><a name="3089" class="Comment"
+      >-- Properties</a
+      ><a name="3102"
+      >
+</a
+      ><a name="3103" class="Keyword"
+      >open</a
+      ><a name="3107"
+      > </a
+      ><a name="3108" class="Keyword"
+      >import</a
+      ><a name="3114"
+      > </a
+      ><a name="3115" href="FOTC.Data.Nat.List.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.List.PropertiesATP</a
+      ><a name="3147"
+      >
+</a
+      ><a name="3148" class="Keyword"
+      >open</a
+      ><a name="3152"
+      > </a
+      ><a name="3153" class="Keyword"
+      >import</a
+      ><a name="3159"
+      > </a
+      ><a name="3160" href="FOTC.Data.Nat.List.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.List.PropertiesI</a
+      ><a name="3190"
+      >
+
+</a
+      ><a name="3192" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3270"
+      >
+</a
+      ><a name="3271" class="Comment"
+      >-- Co-inductive natural numbers</a
+      ><a name="3302"
+      >
+
+</a
+      ><a name="3304" class="Comment"
+      >-- Some axioms</a
+      ><a name="3318"
+      >
+</a
+      ><a name="3319" class="Keyword"
+      >open</a
+      ><a name="3323"
+      > </a
+      ><a name="3324" class="Keyword"
+      >import</a
+      ><a name="3330"
+      > </a
+      ><a name="3331" href="FOTC.Data.Conat.html#1" class="Module"
+      >FOTC.Data.Conat</a
+      ><a name="3346"
+      >
+
+</a
+      ><a name="3348" class="Comment"
+      >-- The co-inductive predicate</a
+      ><a name="3377"
+      >
+</a
+      ><a name="3378" class="Keyword"
+      >open</a
+      ><a name="3382"
+      > </a
+      ><a name="3383" class="Keyword"
+      >import</a
+      ><a name="3389"
+      > </a
+      ><a name="3390" href="FOTC.Data.Conat.Type.html#1" class="Module"
+      >FOTC.Data.Conat.Type</a
+      ><a name="3410"
+      >
+
+</a
+      ><a name="3412" class="Comment"
+      >-- Properties</a
+      ><a name="3425"
+      >
+</a
+      ><a name="3426" class="Keyword"
+      >open</a
+      ><a name="3430"
+      > </a
+      ><a name="3431" class="Keyword"
+      >import</a
+      ><a name="3437"
+      > </a
+      ><a name="3438" href="FOTC.Data.Conat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Conat.PropertiesATP</a
+      ><a name="3467"
+      >
+</a
+      ><a name="3468" class="Keyword"
+      >open</a
+      ><a name="3472"
+      > </a
+      ><a name="3473" class="Keyword"
+      >import</a
+      ><a name="3479"
+      > </a
+      ><a name="3480" href="FOTC.Data.Conat.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Conat.PropertiesI</a
+      ><a name="3507"
+      >
+
+</a
+      ><a name="3509" class="Comment"
+      >-- Equality</a
+      ><a name="3520"
+      >
+</a
+      ><a name="3521" class="Keyword"
+      >open</a
+      ><a name="3525"
+      > </a
+      ><a name="3526" class="Keyword"
+      >import</a
+      ><a name="3532"
+      > </a
+      ><a name="3533" href="FOTC.Data.Conat.Equality.Type.html#1" class="Module"
+      >FOTC.Data.Conat.Equality.Type</a
+      ><a name="3562"
+      >
+
+</a
+      ><a name="3564" class="Comment"
+      >-- Equality properties</a
+      ><a name="3586"
+      >
+</a
+      ><a name="3587" class="Keyword"
+      >open</a
+      ><a name="3591"
+      > </a
+      ><a name="3592" class="Keyword"
+      >import</a
+      ><a name="3598"
+      > </a
+      ><a name="3599" href="FOTC.Data.Conat.Equality.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Conat.Equality.PropertiesATP</a
+      ><a name="3637"
+      >
+</a
+      ><a name="3638" class="Keyword"
+      >open</a
+      ><a name="3642"
+      > </a
+      ><a name="3643" class="Keyword"
+      >import</a
+      ><a name="3649"
+      > </a
+      ><a name="3650" href="FOTC.Data.Conat.Equality.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Conat.Equality.PropertiesI</a
+      ><a name="3686"
+      >
+
+</a
+      ><a name="3688" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3766"
+      >
+</a
+      ><a name="3767" class="Comment"
+      >-- Streams</a
+      ><a name="3777"
+      >
+
+</a
+      ><a name="3779" class="Comment"
+      >-- Some axioms</a
+      ><a name="3793"
+      >
+</a
+      ><a name="3794" class="Keyword"
+      >open</a
+      ><a name="3798"
+      > </a
+      ><a name="3799" class="Keyword"
+      >import</a
+      ><a name="3805"
+      > </a
+      ><a name="3806" href="FOTC.Data.Stream.html#1" class="Module"
+      >FOTC.Data.Stream</a
+      ><a name="3822"
+      >
+
+</a
+      ><a name="3824" class="Comment"
+      >-- The co-inductive predicate</a
+      ><a name="3853"
+      >
+</a
+      ><a name="3854" class="Keyword"
+      >open</a
+      ><a name="3858"
+      > </a
+      ><a name="3859" class="Keyword"
+      >import</a
+      ><a name="3865"
+      > </a
+      ><a name="3866" href="FOTC.Data.Stream.Type.html#1" class="Module"
+      >FOTC.Data.Stream.Type</a
+      ><a name="3887"
+      >
+
+</a
+      ><a name="3889" class="Comment"
+      >-- Properties</a
+      ><a name="3902"
+      >
+</a
+      ><a name="3903" class="Keyword"
+      >open</a
+      ><a name="3907"
+      > </a
+      ><a name="3908" class="Keyword"
+      >import</a
+      ><a name="3914"
+      > </a
+      ><a name="3915" href="FOTC.Data.Stream.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Stream.PropertiesATP</a
+      ><a name="3945"
+      >
+</a
+      ><a name="3946" class="Keyword"
+      >open</a
+      ><a name="3950"
+      > </a
+      ><a name="3951" class="Keyword"
+      >import</a
+      ><a name="3957"
+      > </a
+      ><a name="3958" href="FOTC.Data.Stream.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Stream.PropertiesI</a
+      ><a name="3986"
+      >
+
+</a
+      ><a name="3988" class="Comment"
+      >-- Equality properties</a
+      ><a name="4010"
+      >
+</a
+      ><a name="4011" class="Keyword"
+      >open</a
+      ><a name="4015"
+      > </a
+      ><a name="4016" class="Keyword"
+      >import</a
+      ><a name="4022"
+      > </a
+      ><a name="4023" href="FOTC.Data.Stream.Equality.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Stream.Equality.PropertiesATP</a
+      ><a name="4062"
+      >
+</a
+      ><a name="4063" class="Keyword"
+      >open</a
+      ><a name="4067"
+      > </a
+      ><a name="4068" class="Keyword"
+      >import</a
+      ><a name="4074"
+      > </a
+      ><a name="4075" href="FOTC.Data.Stream.Equality.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Stream.Equality.PropertiesI</a
+      ><a name="4112"
+      >
+
+</a
+      ><a name="4114" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="4192"
+      >
+</a
+      ><a name="4193" class="Comment"
+      >-- Bisimilary relation</a
+      ><a name="4215"
+      >
+
+</a
+      ><a name="4217" class="Comment"
+      >-- The co-inductive predicate</a
+      ><a name="4246"
+      >
+</a
+      ><a name="4247" class="Keyword"
+      >open</a
+      ><a name="4251"
+      > </a
+      ><a name="4252" class="Keyword"
+      >import</a
+      ><a name="4258"
+      > </a
+      ><a name="4259" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.Type</a
+      ><a name="4297"
+      >
+
+</a
+      ><a name="4299" class="Comment"
+      >-- Properties</a
+      ><a name="4312"
+      >
+</a
+      ><a name="4313" class="Keyword"
+      >open</a
+      ><a name="4317"
+      > </a
+      ><a name="4318" class="Keyword"
+      >import</a
+      ><a name="4324"
+      > </a
+      ><a name="4325" href="FOTC.Relation.Binary.Bisimilarity.PropertiesATP.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.PropertiesATP</a
+      ><a name="4372"
+      >
+</a
+      ><a name="4373" class="Keyword"
+      >open</a
+      ><a name="4377"
+      > </a
+      ><a name="4378" class="Keyword"
+      >import</a
+      ><a name="4384"
+      > </a
+      ><a name="4385" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.PropertiesI</a
+      ><a name="4430"
+      >
+
+</a
+      ><a name="4432" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="4510"
+      >
+</a
+      ><a name="4511" class="Comment"
+      >-- Verification of programs</a
+      ><a name="4538"
+      >
+
+</a
+      ><a name="4540" class="Comment"
+      >-- Burstall's sort list algorithm: A structurally recursive algorithm</a
+      ><a name="4609"
+      >
+</a
+      ><a name="4610" class="Keyword"
+      >open</a
+      ><a name="4614"
+      > </a
+      ><a name="4615" class="Keyword"
+      >import</a
+      ><a name="4621"
+      > </a
+      ><a name="4622" href="FOTC.Program.SortList.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.SortList.CorrectnessProofATP</a
+      ><a name="4663"
+      >
+</a
+      ><a name="4664" class="Keyword"
+      >open</a
+      ><a name="4668"
+      > </a
+      ><a name="4669" class="Keyword"
+      >import</a
+      ><a name="4675"
+      > </a
+      ><a name="4676" href="FOTC.Program.SortList.CorrectnessProofI.html#1" class="Module"
+      >FOTC.Program.SortList.CorrectnessProofI</a
+      ><a name="4715"
+      >
+
+</a
+      ><a name="4717" class="Comment"
+      >-- The division algorithm: A non-structurally recursive algorithm</a
+      ><a name="4782"
+      >
+</a
+      ><a name="4783" class="Keyword"
+      >open</a
+      ><a name="4787"
+      > </a
+      ><a name="4788" class="Keyword"
+      >import</a
+      ><a name="4794"
+      > </a
+      ><a name="4795" href="FOTC.Program.Division.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.Division.CorrectnessProofATP</a
+      ><a name="4836"
+      >
+</a
+      ><a name="4837" class="Keyword"
+      >open</a
+      ><a name="4841"
+      > </a
+      ><a name="4842" class="Keyword"
+      >import</a
+      ><a name="4848"
+      > </a
+      ><a name="4849" href="FOTC.Program.Division.CorrectnessProofI.html#1" class="Module"
+      >FOTC.Program.Division.CorrectnessProofI</a
+      ><a name="4888"
+      >
+
+</a
+      ><a name="4890" class="Comment"
+      >-- The GCD algorithm: A non-structurally recursive algorithm</a
+      ><a name="4950"
+      >
+</a
+      ><a name="4951" class="Keyword"
+      >open</a
+      ><a name="4955"
+      > </a
+      ><a name="4956" class="Keyword"
+      >import</a
+      ><a name="4962"
+      > </a
+      ><a name="4963" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.CorrectnessProofATP</a
+      ><a name="5007"
+      >
+</a
+      ><a name="5008" class="Keyword"
+      >open</a
+      ><a name="5012"
+      > </a
+      ><a name="5013" class="Keyword"
+      >import</a
+      ><a name="5019"
+      > </a
+      ><a name="5020" href="FOTC.Program.GCD.Partial.CorrectnessProofI.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.CorrectnessProofI</a
+      ><a name="5062"
+      >
+</a
+      ><a name="5063" class="Keyword"
+      >open</a
+      ><a name="5067"
+      > </a
+      ><a name="5068" class="Keyword"
+      >import</a
+      ><a name="5074"
+      > </a
+      ><a name="5075" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.GCD.Total.CorrectnessProofATP</a
+      ><a name="5117"
+      >
+</a
+      ><a name="5118" class="Keyword"
+      >open</a
+      ><a name="5122"
+      > </a
+      ><a name="5123" class="Keyword"
+      >import</a
+      ><a name="5129"
+      > </a
+      ><a name="5130" href="FOTC.Program.GCD.Total.CorrectnessProofI.html#1" class="Module"
+      >FOTC.Program.GCD.Total.CorrectnessProofI</a
+      ><a name="5170"
+      >
+
+</a
+      ><a name="5172" class="Comment"
+      >-- The nest function: A very simple function with nested recursion</a
+      ><a name="5238"
+      >
+</a
+      ><a name="5239" class="Keyword"
+      >open</a
+      ><a name="5243"
+      > </a
+      ><a name="5244" class="Keyword"
+      >import</a
+      ><a name="5250"
+      > </a
+      ><a name="5251" href="FOTC.Program.Nest.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.Nest.PropertiesATP</a
+      ><a name="5282"
+      >
+
+</a
+      ><a name="5284" class="Comment"
+      >-- The McCarthy 91 function: A function with nested recursion</a
+      ><a name="5345"
+      >
+</a
+      ><a name="5346" class="Keyword"
+      >open</a
+      ><a name="5350"
+      > </a
+      ><a name="5351" class="Keyword"
+      >import</a
+      ><a name="5357"
+      > </a
+      ><a name="5358" href="FOTC.Program.McCarthy91.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.PropertiesATP</a
+      ><a name="5395"
+      >
+
+</a
+      ><a name="5397" class="Comment"
+      >-- The mirror function: A function with higher-order recursion</a
+      ><a name="5459"
+      >
+</a
+      ><a name="5460" class="Keyword"
+      >open</a
+      ><a name="5464"
+      > </a
+      ><a name="5465" class="Keyword"
+      >import</a
+      ><a name="5471"
+      > </a
+      ><a name="5472" href="FOTC.Program.Mirror.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.Mirror.PropertiesATP</a
+      ><a name="5505"
+      >
+</a
+      ><a name="5506" class="Keyword"
+      >open</a
+      ><a name="5510"
+      > </a
+      ><a name="5511" class="Keyword"
+      >import</a
+      ><a name="5517"
+      > </a
+      ><a name="5518" href="FOTC.Program.Mirror.PropertiesI.html#1" class="Module"
+      >FOTC.Program.Mirror.PropertiesI</a
+      ><a name="5549"
+      >
+
+</a
+      ><a name="5551" class="Comment"
+      >-- The map-iterate property: A property using co-induction</a
+      ><a name="5609"
+      >
+</a
+      ><a name="5610" class="Keyword"
+      >open</a
+      ><a name="5614"
+      > </a
+      ><a name="5615" class="Keyword"
+      >import</a
+      ><a name="5621"
+      > </a
+      ><a name="5622" href="FOTC.Program.MapIterate.MapIterateATP.html#1" class="Module"
+      >FOTC.Program.MapIterate.MapIterateATP</a
+      ><a name="5659"
+      >
+</a
+      ><a name="5660" class="Keyword"
+      >open</a
+      ><a name="5664"
+      > </a
+      ><a name="5665" class="Keyword"
+      >import</a
+      ><a name="5671"
+      > </a
+      ><a name="5672" href="FOTC.Program.MapIterate.MapIterateI.html#1" class="Module"
+      >FOTC.Program.MapIterate.MapIterateI</a
+      ><a name="5707"
+      >
+
+</a
+      ><a name="5709" class="Comment"
+      >-- The alternating bit protocol: A program using induction and co-induction</a
+      ><a name="5784"
+      >
+</a
+      ><a name="5785" class="Keyword"
+      >open</a
+      ><a name="5789"
+      > </a
+      ><a name="5790" class="Keyword"
+      >import</a
+      ><a name="5796"
+      > </a
+      ><a name="5797" href="FOTC.Program.ABP.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.ABP.CorrectnessProofATP</a
+      ><a name="5833"
+      >
+</a
+      ><a name="5834" class="Keyword"
+      >open</a
+      ><a name="5838"
+      > </a
+      ><a name="5839" class="Keyword"
+      >import</a
+      ><a name="5845"
+      > </a
+      ><a name="5846" href="FOTC.Program.ABP.CorrectnessProofI.html#1" class="Module"
+      >FOTC.Program.ABP.CorrectnessProofI</a
+      ><a name="5880"
+      >
+
+</a
+      ><a name="5882" class="Comment"
+      >-- The iter&#8320; function: A partial function</a
+      ><a name="5923"
+      >
+</a
+      ><a name="5924" class="Keyword"
+      >open</a
+      ><a name="5928"
+      > </a
+      ><a name="5929" class="Keyword"
+      >import</a
+      ><a name="5935"
+      > </a
+      ><a name="5936" href="FOTC.Program.Iter0.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.Iter0.PropertiesATP</a
+      ><a name="5968"
+      >
+</a
+      ><a name="5969" class="Keyword"
+      >open</a
+      ><a name="5973"
+      > </a
+      ><a name="5974" class="Keyword"
+      >import</a
+      ><a name="5980"
+      > </a
+      ><a name="5981" href="FOTC.Program.Iter0.PropertiesI.html#1" class="Module"
+      >FOTC.Program.Iter0.PropertiesI</a
+      ><a name="6011"
+      >
+
+</a
+      ><a name="6013" class="Comment"
+      >-- The Collatz function: A function without a termination proof</a
+      ><a name="6076"
+      >
+</a
+      ><a name="6077" class="Keyword"
+      >open</a
+      ><a name="6081"
+      > </a
+      ><a name="6082" class="Keyword"
+      >import</a
+      ><a name="6088"
+      > </a
+      ><a name="6089" href="FOTC.Program.Collatz.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.Collatz.PropertiesATP</a
+      ><a name="6123"
+      >
+</a
+      ><a name="6124" class="Keyword"
+      >open</a
+      ><a name="6128"
+      > </a
+      ><a name="6129" class="Keyword"
+      >import</a
+      ><a name="6135"
+      > </a
+      ><a name="6136" href="FOTC.Program.Collatz.PropertiesI.html#1" class="Module"
+      >FOTC.Program.Collatz.PropertiesI</a
+      ><a name="6168"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

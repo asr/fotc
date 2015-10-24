@@ -1,0 +1,2155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOL.TheoremsATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- First-order logic theorems</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Comment"
+      >-- This module contains some examples showing the use of the ATPs for</a
+      ><a name="432"
+      >
+</a
+      ><a name="433" class="Comment"
+      >-- proving first-order logic theorems.</a
+      ><a name="471"
+      >
+
+</a
+      ><a name="473" class="Keyword"
+      >module</a
+      ><a name="479"
+      > </a
+      ><a name="480" href="FOL.TheoremsATP.html#1" class="Module"
+      >FOL.TheoremsATP</a
+      ><a name="495"
+      > </a
+      ><a name="496" class="Keyword"
+      >where</a
+      ><a name="501"
+      >
+
+</a
+      ><a name="503" class="Keyword"
+      >open</a
+      ><a name="507"
+      > </a
+      ><a name="508" class="Keyword"
+      >import</a
+      ><a name="514"
+      > </a
+      ><a name="515" href="FOL.Base.html#1" class="Module"
+      >FOL.Base</a
+      ><a name="523"
+      >
+
+</a
+      ><a name="525" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="603"
+      >
+</a
+      ><a name="604" class="Comment"
+      >-- We postulate some formulae and propositional functions.</a
+      ><a name="662"
+      >
+</a
+      ><a name="663" class="Keyword"
+      >postulate</a
+      ><a name="672"
+      >
+  </a
+      ><a name="675" href="FOL.TheoremsATP.html#675" class="Postulate"
+      >A</a
+      ><a name="676"
+      >     </a
+      ><a name="681" class="Symbol"
+      >:</a
+      ><a name="682"
+      > </a
+      ><a name="683" class="PrimitiveType"
+      >Set</a
+      ><a name="686"
+      >
+  </a
+      ><a name="689" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="691"
+      > </a
+      ><a name="692" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="694"
+      > </a
+      ><a name="695" class="Symbol"
+      >:</a
+      ><a name="696"
+      > </a
+      ><a name="697" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="698"
+      > </a
+      ><a name="699" class="Symbol"
+      >&#8594;</a
+      ><a name="700"
+      > </a
+      ><a name="701" class="PrimitiveType"
+      >Set</a
+      ><a name="704"
+      >
+  </a
+      ><a name="707" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="709"
+      >    </a
+      ><a name="713" class="Symbol"
+      >:</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="716"
+      > </a
+      ><a name="717" class="Symbol"
+      >&#8594;</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="720"
+      > </a
+      ><a name="721" class="Symbol"
+      >&#8594;</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="PrimitiveType"
+      >Set</a
+      ><a name="726"
+      >
+
+</a
+      ><a name="728" class="Comment"
+      >-- The introduction and elimination rules for the quantifiers are theorems.</a
+      ><a name="803"
+      >
+</a
+      ><a name="804" class="Comment"
+      >{-
+      &#966;(x)
+  -----------  &#8704;-intro
+    &#8704;x.&#966;(x)
+
+    &#8704;x.&#966;(x)
+  -----------  &#8704;-elim
+     &#966;(t)
+
+      &#966;(t)
+  -----------  &#8707;-intro
+    &#8707;x.&#966;(x)
+
+   &#8707;x.&#966;(x)   &#966;(x) &#8594; &#968;
+ ----------------------  &#8707;-elim
+           &#968;
+-}</a
+      ><a name="1015"
+      >
+
+</a
+      ><a name="1017" class="Keyword"
+      >postulate</a
+      ><a name="1026"
+      >
+  </a
+      ><a name="1029" href="FOL.TheoremsATP.html#1029" class="Postulate"
+      >&#8704;-intro</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" class="Symbol"
+      >:</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" class="Symbol"
+      >((</a
+      ><a name="1041" href="FOL.TheoremsATP.html#1041" class="Bound"
+      >x</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" class="Symbol"
+      >:</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1046" class="Symbol"
+      >)</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" class="Symbol"
+      >&#8594;</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" href="FOL.TheoremsATP.html#1041" class="Bound"
+      >x</a
+      ><a name="1054" class="Symbol"
+      >)</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" class="Symbol"
+      >&#8594;</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" class="Symbol"
+      >&#8704;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOL.TheoremsATP.html#1060" class="Bound"
+      >x</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" class="Symbol"
+      >&#8594;</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="FOL.TheoremsATP.html#1060" class="Bound"
+      >x</a
+      ><a name="1068"
+      >
+  </a
+      ><a name="1071" href="FOL.TheoremsATP.html#1071" class="Postulate"
+      >&#8704;-intro'</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" class="Symbol"
+      >:</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" class="Symbol"
+      >((</a
+      ><a name="1084" href="FOL.TheoremsATP.html#1084" class="Bound"
+      >x</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" class="Symbol"
+      >:</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1089" class="Symbol"
+      >)</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" class="Symbol"
+      >&#8594;</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" href="FOL.TheoremsATP.html#1084" class="Bound"
+      >x</a
+      ><a name="1097" class="Symbol"
+      >)</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" class="Symbol"
+      >&#8594;</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="FOL.Base.html#1040" class="Datatype"
+      >&#8896;</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1105"
+      >
+  </a
+      ><a name="1108" href="FOL.TheoremsATP.html#1108" class="Postulate"
+      >&#8704;-elim</a
+      ><a name="1114"
+      >  </a
+      ><a name="1116" class="Symbol"
+      >:</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >(</a
+      ><a name="1119" href="FOL.TheoremsATP.html#1119" class="Bound"
+      >t</a
+      ><a name="1120"
+      > </a
+      ><a name="1121" class="Symbol"
+      >:</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1124" class="Symbol"
+      >)</a
+      ><a name="1125"
+      > </a
+      ><a name="1126" class="Symbol"
+      >&#8594;</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" class="Symbol"
+      >(&#8704;</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" href="FOL.TheoremsATP.html#1131" class="Bound"
+      >x</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >&#8594;</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" href="FOL.TheoremsATP.html#1131" class="Bound"
+      >x</a
+      ><a name="1139" class="Symbol"
+      >)</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" class="Symbol"
+      >&#8594;</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="FOL.TheoremsATP.html#1119" class="Bound"
+      >t</a
+      ><a name="1147"
+      >
+  </a
+      ><a name="1150" href="FOL.TheoremsATP.html#1150" class="Postulate"
+      >&#8704;-elim'</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" class="Symbol"
+      >:</a
+      ><a name="1159"
+      > </a
+      ><a name="1160" class="Symbol"
+      >(</a
+      ><a name="1161" href="FOL.TheoremsATP.html#1161" class="Bound"
+      >t</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" class="Symbol"
+      >:</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1166" class="Symbol"
+      >)</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >&#8594;</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" href="FOL.Base.html#1040" class="Datatype"
+      >&#8896;</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" class="Symbol"
+      >&#8594;</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOL.TheoremsATP.html#1161" class="Bound"
+      >t</a
+      ><a name="1181"
+      >
+  </a
+      ><a name="1184" href="FOL.TheoremsATP.html#1184" class="Postulate"
+      >&#8707;-intro</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" class="Symbol"
+      >:</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" class="Symbol"
+      >(</a
+      ><a name="1195" href="FOL.TheoremsATP.html#1195" class="Bound"
+      >t</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" class="Symbol"
+      >:</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1200" class="Symbol"
+      >)</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" class="Symbol"
+      >&#8594;</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="FOL.TheoremsATP.html#1195" class="Bound"
+      >t</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" class="Symbol"
+      >&#8594;</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1215"
+      >
+  </a
+      ><a name="1218" href="FOL.TheoremsATP.html#1218" class="Postulate"
+      >&#8707;-elim</a
+      ><a name="1224"
+      >  </a
+      ><a name="1226" class="Symbol"
+      >:</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" class="Symbol"
+      >&#8594;</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" class="Symbol"
+      >((</a
+      ><a name="1237" href="FOL.TheoremsATP.html#1237" class="Bound"
+      >x</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" class="Symbol"
+      >:</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1242" class="Symbol"
+      >)</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" class="Symbol"
+      >&#8594;</a
+      ><a name="1245"
+      > </a
+      ><a name="1246" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" href="FOL.TheoremsATP.html#1237" class="Bound"
+      >x</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" class="Symbol"
+      >&#8594;</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="FOL.TheoremsATP.html#675" class="Postulate"
+      >A</a
+      ><a name="1254" class="Symbol"
+      >)</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" class="Symbol"
+      >&#8594;</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" href="FOL.TheoremsATP.html#675" class="Postulate"
+      >A</a
+      ><a name="1259"
+      >
+</a
+      ><a name="1260" class="Symbol"
+      >{-#</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" class="Keyword"
+      >ATP</a
+      ><a name="1267"
+      > prove </a
+      ><a name="1274" href="FOL.TheoremsATP.html#1029" class="Postulate"
+      >&#8704;-intro</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" class="Symbol"
+      >#-}</a
+      ><a name="1285"
+      >
+</a
+      ><a name="1286" class="Symbol"
+      >{-#</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" class="Keyword"
+      >ATP</a
+      ><a name="1293"
+      > prove </a
+      ><a name="1300" href="FOL.TheoremsATP.html#1071" class="Postulate"
+      >&#8704;-intro'</a
+      ><a name="1308"
+      > </a
+      ><a name="1309" class="Symbol"
+      >#-}</a
+      ><a name="1312"
+      >
+</a
+      ><a name="1313" class="Symbol"
+      >{-#</a
+      ><a name="1316"
+      > </a
+      ><a name="1317" class="Keyword"
+      >ATP</a
+      ><a name="1320"
+      > prove </a
+      ><a name="1327" href="FOL.TheoremsATP.html#1108" class="Postulate"
+      >&#8704;-elim</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" class="Symbol"
+      >#-}</a
+      ><a name="1337"
+      >
+</a
+      ><a name="1338" class="Symbol"
+      >{-#</a
+      ><a name="1341"
+      > </a
+      ><a name="1342" class="Keyword"
+      >ATP</a
+      ><a name="1345"
+      > prove </a
+      ><a name="1352" href="FOL.TheoremsATP.html#1150" class="Postulate"
+      >&#8704;-elim'</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" class="Symbol"
+      >#-}</a
+      ><a name="1363"
+      >
+</a
+      ><a name="1364" class="Symbol"
+      >{-#</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" class="Keyword"
+      >ATP</a
+      ><a name="1371"
+      > prove </a
+      ><a name="1378" href="FOL.TheoremsATP.html#1184" class="Postulate"
+      >&#8707;-intro</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" class="Symbol"
+      >#-}</a
+      ><a name="1389"
+      >
+</a
+      ><a name="1390" class="Symbol"
+      >{-#</a
+      ><a name="1393"
+      > </a
+      ><a name="1394" class="Keyword"
+      >ATP</a
+      ><a name="1397"
+      > prove </a
+      ><a name="1404" href="FOL.TheoremsATP.html#1218" class="Postulate"
+      >&#8707;-elim</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" class="Symbol"
+      >#-}</a
+      ><a name="1414"
+      >
+
+</a
+      ><a name="1416" class="Comment"
+      >-- Generalization of De Morgan's laws.</a
+      ><a name="1454"
+      >
+</a
+      ><a name="1455" class="Keyword"
+      >postulate</a
+      ><a name="1464"
+      >
+  </a
+      ><a name="1467" href="FOL.TheoremsATP.html#1467" class="Postulate"
+      >gDM&#8321;</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" class="Symbol"
+      >:</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" class="Symbol"
+      >(&#8704;</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="FOL.TheoremsATP.html#1479" class="Bound"
+      >x</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" class="Symbol"
+      >&#8594;</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1485"
+      > </a
+      ><a name="1486" href="FOL.TheoremsATP.html#1479" class="Bound"
+      >x</a
+      ><a name="1487" class="Symbol"
+      >)</a
+      ><a name="1488"
+      > </a
+      ><a name="1489" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" class="Symbol"
+      >(</a
+      ><a name="1492" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1494"
+      > </a
+      ><a name="1495" href="FOL.TheoremsATP.html#1495" class="Bound"
+      >x</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" class="Symbol"
+      >(</a
+      ><a name="1502" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="FOL.TheoremsATP.html#1495" class="Bound"
+      >x</a
+      ><a name="1506" class="Symbol"
+      >))</a
+      ><a name="1508"
+      >
+  </a
+      ><a name="1511" href="FOL.TheoremsATP.html#1511" class="Postulate"
+      >gDM&#8322;</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >:</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" class="Symbol"
+      >(</a
+      ><a name="1521" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1525" class="Symbol"
+      >)</a
+      ><a name="1526"
+      >       </a
+      ><a name="1533" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" class="Symbol"
+      >(&#8704;</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="FOL.TheoremsATP.html#1538" class="Bound"
+      >x</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" class="Symbol"
+      >&#8594;</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" class="Symbol"
+      >(</a
+      ><a name="1545" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1547"
+      > </a
+      ><a name="1548" href="FOL.TheoremsATP.html#1538" class="Bound"
+      >x</a
+      ><a name="1549" class="Symbol"
+      >))</a
+      ><a name="1551"
+      >
+  </a
+      ><a name="1554" href="FOL.TheoremsATP.html#1554" class="Postulate"
+      >gDM&#8323;</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" class="Symbol"
+      >:</a
+      ><a name="1560"
+      > </a
+      ><a name="1561" class="Symbol"
+      >(&#8704;</a
+      ><a name="1563"
+      > </a
+      ><a name="1564" href="FOL.TheoremsATP.html#1564" class="Bound"
+      >x</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" class="Symbol"
+      >&#8594;</a
+      ><a name="1567"
+      > </a
+      ><a name="1568" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="FOL.TheoremsATP.html#1564" class="Bound"
+      >x</a
+      ><a name="1572" class="Symbol"
+      >)</a
+      ><a name="1573"
+      >   </a
+      ><a name="1576" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1579"
+      > </a
+      ><a name="1580" class="Symbol"
+      >(</a
+      ><a name="1581" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" href="FOL.TheoremsATP.html#1584" class="Bound"
+      >x</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1587"
+      > </a
+      ><a name="1588" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" class="Symbol"
+      >(</a
+      ><a name="1591" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" href="FOL.TheoremsATP.html#1584" class="Bound"
+      >x</a
+      ><a name="1595" class="Symbol"
+      >))</a
+      ><a name="1597"
+      >
+  </a
+      ><a name="1600" href="FOL.TheoremsATP.html#1600" class="Postulate"
+      >gDM&#8324;</a
+      ><a name="1604"
+      > </a
+      ><a name="1605" class="Symbol"
+      >:</a
+      ><a name="1606"
+      > </a
+      ><a name="1607" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1611"
+      >           </a
+      ><a name="1622" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1625"
+      > </a
+      ><a name="1626" class="Symbol"
+      >(&#8704;</a
+      ><a name="1628"
+      > </a
+      ><a name="1629" href="FOL.TheoremsATP.html#1629" class="Bound"
+      >x</a
+      ><a name="1630"
+      > </a
+      ><a name="1631" class="Symbol"
+      >&#8594;</a
+      ><a name="1632"
+      > </a
+      ><a name="1633" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1634"
+      > </a
+      ><a name="1635" class="Symbol"
+      >(</a
+      ><a name="1636" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="1638"
+      > </a
+      ><a name="1639" href="FOL.TheoremsATP.html#1629" class="Bound"
+      >x</a
+      ><a name="1640" class="Symbol"
+      >))</a
+      ><a name="1642"
+      >
+</a
+      ><a name="1643" class="Symbol"
+      >{-#</a
+      ><a name="1646"
+      > </a
+      ><a name="1647" class="Keyword"
+      >ATP</a
+      ><a name="1650"
+      > prove </a
+      ><a name="1657" href="FOL.TheoremsATP.html#1467" class="Postulate"
+      >gDM&#8321;</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" class="Symbol"
+      >#-}</a
+      ><a name="1665"
+      >
+</a
+      ><a name="1666" class="Symbol"
+      >{-#</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" class="Keyword"
+      >ATP</a
+      ><a name="1673"
+      > prove </a
+      ><a name="1680" href="FOL.TheoremsATP.html#1511" class="Postulate"
+      >gDM&#8322;</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" class="Symbol"
+      >#-}</a
+      ><a name="1688"
+      >
+</a
+      ><a name="1689" class="Symbol"
+      >{-#</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" class="Keyword"
+      >ATP</a
+      ><a name="1696"
+      > prove </a
+      ><a name="1703" href="FOL.TheoremsATP.html#1554" class="Postulate"
+      >gDM&#8323;</a
+      ><a name="1707"
+      > </a
+      ><a name="1708" class="Symbol"
+      >#-}</a
+      ><a name="1711"
+      >
+</a
+      ><a name="1712" class="Symbol"
+      >{-#</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" class="Keyword"
+      >ATP</a
+      ><a name="1719"
+      > prove </a
+      ><a name="1726" href="FOL.TheoremsATP.html#1600" class="Postulate"
+      >gDM&#8324;</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" class="Symbol"
+      >#-}</a
+      ><a name="1734"
+      >
+
+</a
+      ><a name="1736" class="Comment"
+      >-- The order of quantifiers of the same sort is irrelevant.</a
+      ><a name="1795"
+      >
+</a
+      ><a name="1796" class="Keyword"
+      >postulate</a
+      ><a name="1805"
+      >
+  </a
+      ><a name="1808" href="FOL.TheoremsATP.html#1808" class="Postulate"
+      >&#8704;-ord</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" class="Symbol"
+      >:</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" class="Symbol"
+      >(&#8704;</a
+      ><a name="1818"
+      > </a
+      ><a name="1819" href="FOL.TheoremsATP.html#1819" class="Bound"
+      >x</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" href="FOL.TheoremsATP.html#1821" class="Bound"
+      >y</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" class="Symbol"
+      >&#8594;</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" href="FOL.TheoremsATP.html#1819" class="Bound"
+      >x</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" href="FOL.TheoremsATP.html#1821" class="Bound"
+      >y</a
+      ><a name="1831" class="Symbol"
+      >)</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" class="Symbol"
+      >(&#8704;</a
+      ><a name="1837"
+      > </a
+      ><a name="1838" href="FOL.TheoremsATP.html#1838" class="Bound"
+      >y</a
+      ><a name="1839"
+      > </a
+      ><a name="1840" href="FOL.TheoremsATP.html#1840" class="Bound"
+      >x</a
+      ><a name="1841"
+      > </a
+      ><a name="1842" class="Symbol"
+      >&#8594;</a
+      ><a name="1843"
+      > </a
+      ><a name="1844" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" href="FOL.TheoremsATP.html#1840" class="Bound"
+      >x</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="FOL.TheoremsATP.html#1838" class="Bound"
+      >y</a
+      ><a name="1850" class="Symbol"
+      >)</a
+      ><a name="1851"
+      >
+  </a
+      ><a name="1854" href="FOL.TheoremsATP.html#1854" class="Postulate"
+      >&#8707;-ord</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" class="Symbol"
+      >:</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" class="Symbol"
+      >(</a
+      ><a name="1863" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" href="FOL.TheoremsATP.html#1866" class="Bound"
+      >x</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1872"
+      > </a
+      ><a name="1873" href="FOL.TheoremsATP.html#1873" class="Bound"
+      >y</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" href="FOL.TheoremsATP.html#1866" class="Bound"
+      >x</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="FOL.TheoremsATP.html#1873" class="Bound"
+      >y</a
+      ><a name="1883" class="Symbol"
+      >)</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" class="Symbol"
+      >(</a
+      ><a name="1888" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" href="FOL.TheoremsATP.html#1891" class="Bound"
+      >y</a
+      ><a name="1892"
+      > </a
+      ><a name="1893" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="FOL.TheoremsATP.html#1898" class="Bound"
+      >x</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1901"
+      > </a
+      ><a name="1902" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="1904"
+      > </a
+      ><a name="1905" href="FOL.TheoremsATP.html#1898" class="Bound"
+      >x</a
+      ><a name="1906"
+      > </a
+      ><a name="1907" href="FOL.TheoremsATP.html#1891" class="Bound"
+      >y</a
+      ><a name="1908" class="Symbol"
+      >)</a
+      ><a name="1909"
+      >
+</a
+      ><a name="1910" class="Symbol"
+      >{-#</a
+      ><a name="1913"
+      > </a
+      ><a name="1914" class="Keyword"
+      >ATP</a
+      ><a name="1917"
+      > prove </a
+      ><a name="1924" href="FOL.TheoremsATP.html#1808" class="Postulate"
+      >&#8704;-ord</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" class="Symbol"
+      >#-}</a
+      ><a name="1933"
+      >
+</a
+      ><a name="1934" class="Symbol"
+      >{-#</a
+      ><a name="1937"
+      > </a
+      ><a name="1938" class="Keyword"
+      >ATP</a
+      ><a name="1941"
+      > prove </a
+      ><a name="1948" href="FOL.TheoremsATP.html#1854" class="Postulate"
+      >&#8707;-ord</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" class="Symbol"
+      >#-}</a
+      ><a name="1957"
+      >
+
+</a
+      ><a name="1959" class="Comment"
+      >-- Quantification over a variable that does not occur can be erased or</a
+      ><a name="2029"
+      >
+</a
+      ><a name="2030" class="Comment"
+      >-- added.</a
+      ><a name="2039"
+      >
+</a
+      ><a name="2040" class="Keyword"
+      >postulate</a
+      ><a name="2049"
+      > </a
+      ><a name="2050" href="FOL.TheoremsATP.html#2050" class="Postulate"
+      >&#8707;-erase-add</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" class="Symbol"
+      >:</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" class="Symbol"
+      >(</a
+      ><a name="2065" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2067"
+      > </a
+      ><a name="2068" href="FOL.TheoremsATP.html#2068" class="Bound"
+      >x</a
+      ><a name="2069"
+      > </a
+      ><a name="2070" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2071"
+      > </a
+      ><a name="2072" href="FOL.TheoremsATP.html#675" class="Postulate"
+      >A</a
+      ><a name="2073"
+      > </a
+      ><a name="2074" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2075"
+      > </a
+      ><a name="2076" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2078"
+      > </a
+      ><a name="2079" href="FOL.TheoremsATP.html#2068" class="Bound"
+      >x</a
+      ><a name="2080" class="Symbol"
+      >)</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" href="FOL.TheoremsATP.html#675" class="Postulate"
+      >A</a
+      ><a name="2085"
+      > </a
+      ><a name="2086" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" class="Symbol"
+      >(</a
+      ><a name="2089" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" href="FOL.TheoremsATP.html#2092" class="Bound"
+      >x</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2098"
+      > </a
+      ><a name="2099" href="FOL.TheoremsATP.html#2092" class="Bound"
+      >x</a
+      ><a name="2100" class="Symbol"
+      >)</a
+      ><a name="2101"
+      >
+</a
+      ><a name="2102" class="Symbol"
+      >{-#</a
+      ><a name="2105"
+      > </a
+      ><a name="2106" class="Keyword"
+      >ATP</a
+      ><a name="2109"
+      > prove </a
+      ><a name="2116" href="FOL.TheoremsATP.html#2050" class="Postulate"
+      >&#8707;-erase-add</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" class="Symbol"
+      >#-}</a
+      ><a name="2131"
+      >
+
+</a
+      ><a name="2133" class="Comment"
+      >-- Distributes laws for the quantifiers.</a
+      ><a name="2173"
+      >
+</a
+      ><a name="2174" class="Keyword"
+      >postulate</a
+      ><a name="2183"
+      >
+  </a
+      ><a name="2186" href="FOL.TheoremsATP.html#2186" class="Postulate"
+      >&#8704;-dist</a
+      ><a name="2192"
+      > </a
+      ><a name="2193" class="Symbol"
+      >:</a
+      ><a name="2194"
+      > </a
+      ><a name="2195" class="Symbol"
+      >(&#8704;</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="FOL.TheoremsATP.html#2198" class="Bound"
+      >x</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" class="Symbol"
+      >&#8594;</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2204"
+      > </a
+      ><a name="2205" href="FOL.TheoremsATP.html#2198" class="Bound"
+      >x</a
+      ><a name="2206"
+      > </a
+      ><a name="2207" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2208"
+      > </a
+      ><a name="2209" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="2211"
+      > </a
+      ><a name="2212" href="FOL.TheoremsATP.html#2198" class="Bound"
+      >x</a
+      ><a name="2213" class="Symbol"
+      >)</a
+      ><a name="2214"
+      > </a
+      ><a name="2215" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" class="Symbol"
+      >((&#8704;</a
+      ><a name="2220"
+      > </a
+      ><a name="2221" href="FOL.TheoremsATP.html#2221" class="Bound"
+      >x</a
+      ><a name="2222"
+      > </a
+      ><a name="2223" class="Symbol"
+      >&#8594;</a
+      ><a name="2224"
+      > </a
+      ><a name="2225" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" href="FOL.TheoremsATP.html#2221" class="Bound"
+      >x</a
+      ><a name="2229" class="Symbol"
+      >)</a
+      ><a name="2230"
+      > </a
+      ><a name="2231" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2232"
+      > </a
+      ><a name="2233" class="Symbol"
+      >(&#8704;</a
+      ><a name="2235"
+      > </a
+      ><a name="2236" href="FOL.TheoremsATP.html#2236" class="Bound"
+      >x</a
+      ><a name="2237"
+      > </a
+      ><a name="2238" class="Symbol"
+      >&#8594;</a
+      ><a name="2239"
+      > </a
+      ><a name="2240" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="2242"
+      > </a
+      ><a name="2243" href="FOL.TheoremsATP.html#2236" class="Bound"
+      >x</a
+      ><a name="2244" class="Symbol"
+      >))</a
+      ><a name="2246"
+      >
+  </a
+      ><a name="2249" href="FOL.TheoremsATP.html#2249" class="Postulate"
+      >&#8707;-dist</a
+      ><a name="2255"
+      > </a
+      ><a name="2256" class="Symbol"
+      >:</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" class="Symbol"
+      >(</a
+      ><a name="2259" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" href="FOL.TheoremsATP.html#2262" class="Bound"
+      >x</a
+      ><a name="2263"
+      > </a
+      ><a name="2264" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2265"
+      > </a
+      ><a name="2266" class="Symbol"
+      >(</a
+      ><a name="2267" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2269"
+      > </a
+      ><a name="2270" href="FOL.TheoremsATP.html#2262" class="Bound"
+      >x</a
+      ><a name="2271"
+      > </a
+      ><a name="2272" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2273"
+      > </a
+      ><a name="2274" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="2276"
+      > </a
+      ><a name="2277" href="FOL.TheoremsATP.html#2262" class="Bound"
+      >x</a
+      ><a name="2278" class="Symbol"
+      >))</a
+      ><a name="2280"
+      > </a
+      ><a name="2281" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2282"
+      > </a
+      ><a name="2283" class="Symbol"
+      >(</a
+      ><a name="2284" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="2285"
+      > </a
+      ><a name="2286" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2288"
+      > </a
+      ><a name="2289" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2290"
+      > </a
+      ><a name="2291" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="2295" class="Symbol"
+      >)</a
+      ><a name="2296"
+      >
+</a
+      ><a name="2297" class="Symbol"
+      >{-#</a
+      ><a name="2300"
+      > </a
+      ><a name="2301" class="Keyword"
+      >ATP</a
+      ><a name="2304"
+      > prove </a
+      ><a name="2311" href="FOL.TheoremsATP.html#2186" class="Postulate"
+      >&#8704;-dist</a
+      ><a name="2317"
+      > </a
+      ><a name="2318" class="Symbol"
+      >#-}</a
+      ><a name="2321"
+      >
+</a
+      ><a name="2322" class="Symbol"
+      >{-#</a
+      ><a name="2325"
+      > </a
+      ><a name="2326" class="Keyword"
+      >ATP</a
+      ><a name="2329"
+      > prove </a
+      ><a name="2336" href="FOL.TheoremsATP.html#2249" class="Postulate"
+      >&#8707;-dist</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" class="Symbol"
+      >#-}</a
+      ><a name="2346"
+      >
+
+</a
+      ><a name="2348" class="Comment"
+      >-- Interchange of quantifiers.</a
+      ><a name="2378"
+      >
+</a
+      ><a name="2379" class="Comment"
+      >-- The related theorem &#8704;x&#8707;y.Axy &#8594; &#8707;y&#8704;x.Axy is not (classically) valid.</a
+      ><a name="2449"
+      >
+</a
+      ><a name="2450" class="Keyword"
+      >postulate</a
+      ><a name="2459"
+      > </a
+      ><a name="2460" href="FOL.TheoremsATP.html#2460" class="Postulate"
+      >&#8707;&#8704;</a
+      ><a name="2462"
+      > </a
+      ><a name="2463" class="Symbol"
+      >:</a
+      ><a name="2464"
+      > </a
+      ><a name="2465" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2467"
+      > </a
+      ><a name="2468" href="FOL.TheoremsATP.html#2468" class="Bound"
+      >x</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" class="Symbol"
+      >(&#8704;</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" href="FOL.TheoremsATP.html#2475" class="Bound"
+      >y</a
+      ><a name="2476"
+      > </a
+      ><a name="2477" class="Symbol"
+      >&#8594;</a
+      ><a name="2478"
+      > </a
+      ><a name="2479" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="2481"
+      > </a
+      ><a name="2482" href="FOL.TheoremsATP.html#2468" class="Bound"
+      >x</a
+      ><a name="2483"
+      > </a
+      ><a name="2484" href="FOL.TheoremsATP.html#2475" class="Bound"
+      >y</a
+      ><a name="2485" class="Symbol"
+      >)</a
+      ><a name="2486"
+      > </a
+      ><a name="2487" class="Symbol"
+      >&#8594;</a
+      ><a name="2488"
+      > </a
+      ><a name="2489" class="Symbol"
+      >&#8704;</a
+      ><a name="2490"
+      > </a
+      ><a name="2491" href="FOL.TheoremsATP.html#2491" class="Bound"
+      >y</a
+      ><a name="2492"
+      > </a
+      ><a name="2493" class="Symbol"
+      >&#8594;</a
+      ><a name="2494"
+      > </a
+      ><a name="2495" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" href="FOL.TheoremsATP.html#2498" class="Bound"
+      >x</a
+      ><a name="2499"
+      > </a
+      ><a name="2500" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2501"
+      > </a
+      ><a name="2502" href="FOL.TheoremsATP.html#707" class="Postulate"
+      >A&#178;</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" href="FOL.TheoremsATP.html#2498" class="Bound"
+      >x</a
+      ><a name="2506"
+      > </a
+      ><a name="2507" href="FOL.TheoremsATP.html#2491" class="Bound"
+      >y</a
+      ><a name="2508"
+      >
+</a
+      ><a name="2509" class="Symbol"
+      >{-#</a
+      ><a name="2512"
+      > </a
+      ><a name="2513" class="Keyword"
+      >ATP</a
+      ><a name="2516"
+      > prove </a
+      ><a name="2523" href="FOL.TheoremsATP.html#2460" class="Postulate"
+      >&#8707;&#8704;</a
+      ><a name="2525"
+      > </a
+      ><a name="2526" class="Symbol"
+      >#-}</a
+      ><a name="2529"
+      >
+
+</a
+      ><a name="2531" class="Comment"
+      >-- &#8707; in terms of &#8704; and &#172;.</a
+      ><a name="2556"
+      >
+</a
+      ><a name="2557" class="Keyword"
+      >postulate</a
+      ><a name="2566"
+      >
+  </a
+      ><a name="2569" href="FOL.TheoremsATP.html#2569" class="Postulate"
+      >&#8707;&#8594;&#172;&#8704;&#172;</a
+      ><a name="2574"
+      > </a
+      ><a name="2575" class="Symbol"
+      >:</a
+      ><a name="2576"
+      > </a
+      ><a name="2577" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2579"
+      > </a
+      ><a name="2580" href="FOL.TheoremsATP.html#2580" class="Bound"
+      >x</a
+      ><a name="2581"
+      > </a
+      ><a name="2582" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2583"
+      > </a
+      ><a name="2584" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2586"
+      > </a
+      ><a name="2587" href="FOL.TheoremsATP.html#2580" class="Bound"
+      >x</a
+      ><a name="2588"
+      > </a
+      ><a name="2589" class="Symbol"
+      >&#8594;</a
+      ><a name="2590"
+      > </a
+      ><a name="2591" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2592"
+      > </a
+      ><a name="2593" class="Symbol"
+      >(&#8704;</a
+      ><a name="2595"
+      > </a
+      ><a name="2596" class="Symbol"
+      >{</a
+      ><a name="2597" href="FOL.TheoremsATP.html#2597" class="Bound"
+      >x</a
+      ><a name="2598" class="Symbol"
+      >}</a
+      ><a name="2599"
+      > </a
+      ><a name="2600" class="Symbol"
+      >&#8594;</a
+      ><a name="2601"
+      > </a
+      ><a name="2602" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2603"
+      > </a
+      ><a name="2604" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2606"
+      > </a
+      ><a name="2607" href="FOL.TheoremsATP.html#2597" class="Bound"
+      >x</a
+      ><a name="2608" class="Symbol"
+      >)</a
+      ><a name="2609"
+      >
+  </a
+      ><a name="2612" href="FOL.TheoremsATP.html#2612" class="Postulate"
+      >&#8707;&#172;&#8594;&#172;&#8704;</a
+      ><a name="2617"
+      > </a
+      ><a name="2618" class="Symbol"
+      >:</a
+      ><a name="2619"
+      > </a
+      ><a name="2620" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2622"
+      > </a
+      ><a name="2623" href="FOL.TheoremsATP.html#2623" class="Bound"
+      >x</a
+      ><a name="2624"
+      > </a
+      ><a name="2625" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2626"
+      > </a
+      ><a name="2627" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2628"
+      > </a
+      ><a name="2629" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2631"
+      > </a
+      ><a name="2632" href="FOL.TheoremsATP.html#2623" class="Bound"
+      >x</a
+      ><a name="2633"
+      > </a
+      ><a name="2634" class="Symbol"
+      >&#8594;</a
+      ><a name="2635"
+      > </a
+      ><a name="2636" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2637"
+      > </a
+      ><a name="2638" class="Symbol"
+      >(&#8704;</a
+      ><a name="2640"
+      > </a
+      ><a name="2641" class="Symbol"
+      >{</a
+      ><a name="2642" href="FOL.TheoremsATP.html#2642" class="Bound"
+      >x</a
+      ><a name="2643" class="Symbol"
+      >}</a
+      ><a name="2644"
+      > </a
+      ><a name="2645" class="Symbol"
+      >&#8594;</a
+      ><a name="2646"
+      > </a
+      ><a name="2647" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2649"
+      > </a
+      ><a name="2650" href="FOL.TheoremsATP.html#2642" class="Bound"
+      >x</a
+      ><a name="2651" class="Symbol"
+      >)</a
+      ><a name="2652"
+      >
+</a
+      ><a name="2653" class="Symbol"
+      >{-#</a
+      ><a name="2656"
+      > </a
+      ><a name="2657" class="Keyword"
+      >ATP</a
+      ><a name="2660"
+      > prove </a
+      ><a name="2667" href="FOL.TheoremsATP.html#2569" class="Postulate"
+      >&#8707;&#8594;&#172;&#8704;&#172;</a
+      ><a name="2672"
+      > </a
+      ><a name="2673" class="Symbol"
+      >#-}</a
+      ><a name="2676"
+      >
+</a
+      ><a name="2677" class="Symbol"
+      >{-#</a
+      ><a name="2680"
+      > </a
+      ><a name="2681" class="Keyword"
+      >ATP</a
+      ><a name="2684"
+      > prove </a
+      ><a name="2691" href="FOL.TheoremsATP.html#2612" class="Postulate"
+      >&#8707;&#172;&#8594;&#172;&#8704;</a
+      ><a name="2696"
+      > </a
+      ><a name="2697" class="Symbol"
+      >#-}</a
+      ><a name="2700"
+      >
+
+</a
+      ><a name="2702" class="Comment"
+      >-- &#8704; in terms of &#8707; and &#172;.</a
+      ><a name="2727"
+      >
+</a
+      ><a name="2728" class="Keyword"
+      >postulate</a
+      ><a name="2737"
+      >
+  </a
+      ><a name="2740" href="FOL.TheoremsATP.html#2740" class="Postulate"
+      >&#8704;&#8594;&#172;&#8707;&#172;</a
+      ><a name="2745"
+      > </a
+      ><a name="2746" class="Symbol"
+      >:</a
+      ><a name="2747"
+      > </a
+      ><a name="2748" class="Symbol"
+      >(&#8704;</a
+      ><a name="2750"
+      > </a
+      ><a name="2751" class="Symbol"
+      >{</a
+      ><a name="2752" href="FOL.TheoremsATP.html#2752" class="Bound"
+      >x</a
+      ><a name="2753" class="Symbol"
+      >}</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" class="Symbol"
+      >&#8594;</a
+      ><a name="2756"
+      > </a
+      ><a name="2757" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2759"
+      > </a
+      ><a name="2760" href="FOL.TheoremsATP.html#2752" class="Bound"
+      >x</a
+      ><a name="2761" class="Symbol"
+      >)</a
+      ><a name="2762"
+      > </a
+      ><a name="2763" class="Symbol"
+      >&#8594;</a
+      ><a name="2764"
+      > </a
+      ><a name="2765" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2766"
+      > </a
+      ><a name="2767" class="Symbol"
+      >(</a
+      ><a name="2768" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2770"
+      > </a
+      ><a name="2771" href="FOL.TheoremsATP.html#2771" class="Bound"
+      >x</a
+      ><a name="2772"
+      > </a
+      ><a name="2773" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2774"
+      > </a
+      ><a name="2775" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2776"
+      > </a
+      ><a name="2777" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2779"
+      > </a
+      ><a name="2780" href="FOL.TheoremsATP.html#2771" class="Bound"
+      >x</a
+      ><a name="2781" class="Symbol"
+      >)</a
+      ><a name="2782"
+      >
+  </a
+      ><a name="2785" href="FOL.TheoremsATP.html#2785" class="Postulate"
+      >&#8704;&#172;&#8594;&#172;&#8707;</a
+      ><a name="2790"
+      > </a
+      ><a name="2791" class="Symbol"
+      >:</a
+      ><a name="2792"
+      > </a
+      ><a name="2793" class="Symbol"
+      >(&#8704;</a
+      ><a name="2795"
+      > </a
+      ><a name="2796" class="Symbol"
+      >{</a
+      ><a name="2797" href="FOL.TheoremsATP.html#2797" class="Bound"
+      >x</a
+      ><a name="2798" class="Symbol"
+      >}</a
+      ><a name="2799"
+      > </a
+      ><a name="2800" class="Symbol"
+      >&#8594;</a
+      ><a name="2801"
+      > </a
+      ><a name="2802" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2803"
+      > </a
+      ><a name="2804" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" href="FOL.TheoremsATP.html#2797" class="Bound"
+      >x</a
+      ><a name="2808" class="Symbol"
+      >)</a
+      ><a name="2809"
+      > </a
+      ><a name="2810" class="Symbol"
+      >&#8594;</a
+      ><a name="2811"
+      > </a
+      ><a name="2812" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2813"
+      > </a
+      ><a name="2814" class="Symbol"
+      >(</a
+      ><a name="2815" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2817"
+      > </a
+      ><a name="2818" href="FOL.TheoremsATP.html#2818" class="Bound"
+      >x</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2821"
+      > </a
+      ><a name="2822" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2824"
+      > </a
+      ><a name="2825" href="FOL.TheoremsATP.html#2818" class="Bound"
+      >x</a
+      ><a name="2826" class="Symbol"
+      >)</a
+      ><a name="2827"
+      >
+</a
+      ><a name="2828" class="Symbol"
+      >{-#</a
+      ><a name="2831"
+      > </a
+      ><a name="2832" class="Keyword"
+      >ATP</a
+      ><a name="2835"
+      > prove </a
+      ><a name="2842" href="FOL.TheoremsATP.html#2740" class="Postulate"
+      >&#8704;&#8594;&#172;&#8707;&#172;</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" class="Symbol"
+      >#-}</a
+      ><a name="2851"
+      >
+</a
+      ><a name="2852" class="Symbol"
+      >{-#</a
+      ><a name="2855"
+      > </a
+      ><a name="2856" class="Keyword"
+      >ATP</a
+      ><a name="2859"
+      > prove </a
+      ><a name="2866" href="FOL.TheoremsATP.html#2785" class="Postulate"
+      >&#8704;&#172;&#8594;&#172;&#8707;</a
+      ><a name="2871"
+      > </a
+      ><a name="2872" class="Symbol"
+      >#-}</a
+      ><a name="2875"
+      >
+
+</a
+      ><a name="2877" class="Comment"
+      >-- Distribution of &#8707; and &#8744;.</a
+      ><a name="2904"
+      >
+</a
+      ><a name="2905" class="Keyword"
+      >postulate</a
+      ><a name="2914"
+      > </a
+      ><a name="2915" href="FOL.TheoremsATP.html#2915" class="Postulate"
+      >&#8707;&#8744;</a
+      ><a name="2917"
+      > </a
+      ><a name="2918" class="Symbol"
+      >:</a
+      ><a name="2919"
+      > </a
+      ><a name="2920" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" href="FOL.TheoremsATP.html#2923" class="Bound"
+      >x</a
+      ><a name="2924"
+      > </a
+      ><a name="2925" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2926" class="Symbol"
+      >(</a
+      ><a name="2927" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2929"
+      > </a
+      ><a name="2930" href="FOL.TheoremsATP.html#2923" class="Bound"
+      >x</a
+      ><a name="2931"
+      > </a
+      ><a name="2932" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2933"
+      > </a
+      ><a name="2934" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="2936"
+      > </a
+      ><a name="2937" href="FOL.TheoremsATP.html#2923" class="Bound"
+      >x</a
+      ><a name="2938" class="Symbol"
+      >)</a
+      ><a name="2939"
+      > </a
+      ><a name="2940" class="Symbol"
+      >&#8594;</a
+      ><a name="2941"
+      > </a
+      ><a name="2942" class="Symbol"
+      >(</a
+      ><a name="2943" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2945"
+      > </a
+      ><a name="2946" href="FOL.TheoremsATP.html#2946" class="Bound"
+      >x</a
+      ><a name="2947"
+      > </a
+      ><a name="2948" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2949"
+      > </a
+      ><a name="2950" href="FOL.TheoremsATP.html#689" class="Postulate"
+      >A&#185;</a
+      ><a name="2952"
+      > </a
+      ><a name="2953" href="FOL.TheoremsATP.html#2946" class="Bound"
+      >x</a
+      ><a name="2954" class="Symbol"
+      >)</a
+      ><a name="2955"
+      > </a
+      ><a name="2956" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2957"
+      > </a
+      ><a name="2958" class="Symbol"
+      >(</a
+      ><a name="2959" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2961"
+      > </a
+      ><a name="2962" href="FOL.TheoremsATP.html#2962" class="Bound"
+      >x</a
+      ><a name="2963"
+      > </a
+      ><a name="2964" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2965"
+      > </a
+      ><a name="2966" href="FOL.TheoremsATP.html#692" class="Postulate"
+      >B&#185;</a
+      ><a name="2968"
+      > </a
+      ><a name="2969" href="FOL.TheoremsATP.html#2962" class="Bound"
+      >x</a
+      ><a name="2970" class="Symbol"
+      >)</a
+      ><a name="2971"
+      >
+</a
+      ><a name="2972" class="Symbol"
+      >{-#</a
+      ><a name="2975"
+      > </a
+      ><a name="2976" class="Keyword"
+      >ATP</a
+      ><a name="2979"
+      > prove </a
+      ><a name="2986" href="FOL.TheoremsATP.html#2915" class="Postulate"
+      >&#8707;&#8744;</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" class="Symbol"
+      >#-}</a
+      ><a name="2992"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

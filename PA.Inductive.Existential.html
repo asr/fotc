@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Inductive.Existential</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Existential quantifier on the inductive PA universe</a
+      ><a name="134"
+      >
+</a
+      ><a name="135" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="213"
+      >
+
+</a
+      ><a name="215" class="Symbol"
+      >{-#</a
+      ><a name="218"
+      > </a
+      ><a name="219" class="Keyword"
+      >OPTIONS</a
+      ><a name="226"
+      > --exact-split              </a
+      ><a name="254" class="Symbol"
+      >#-}</a
+      ><a name="257"
+      >
+</a
+      ><a name="258" class="Symbol"
+      >{-#</a
+      ><a name="261"
+      > </a
+      ><a name="262" class="Keyword"
+      >OPTIONS</a
+      ><a name="269"
+      > --no-sized-types           </a
+      ><a name="297" class="Symbol"
+      >#-}</a
+      ><a name="300"
+      >
+</a
+      ><a name="301" class="Symbol"
+      >{-#</a
+      ><a name="304"
+      > </a
+      ><a name="305" class="Keyword"
+      >OPTIONS</a
+      ><a name="312"
+      > --no-universe-polymorphism </a
+      ><a name="340" class="Symbol"
+      >#-}</a
+      ><a name="343"
+      >
+</a
+      ><a name="344" class="Symbol"
+      >{-#</a
+      ><a name="347"
+      > </a
+      ><a name="348" class="Keyword"
+      >OPTIONS</a
+      ><a name="355"
+      > --without-K                </a
+      ><a name="383" class="Symbol"
+      >#-}</a
+      ><a name="386"
+      >
+
+</a
+      ><a name="388" class="Keyword"
+      >module</a
+      ><a name="394"
+      > </a
+      ><a name="395" href="PA.Inductive.Existential.html#1" class="Module"
+      >PA.Inductive.Existential</a
+      ><a name="419"
+      > </a
+      ><a name="420" class="Keyword"
+      >where</a
+      ><a name="425"
+      >
+
+</a
+      ><a name="427" class="Keyword"
+      >infix</a
+      ><a name="432"
+      > </a
+      ><a name="433" class="Number"
+      >2</a
+      ><a name="434"
+      > &#8707;
+
+</a
+      ><a name="438" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="516"
+      >
+</a
+      ><a name="517" class="Comment"
+      >-- PA universe</a
+      ><a name="531"
+      >
+</a
+      ><a name="532" class="Keyword"
+      >open</a
+      ><a name="536"
+      > </a
+      ><a name="537" class="Keyword"
+      >import</a
+      ><a name="543"
+      > </a
+      ><a name="544" href="PA.Inductive.Base.Core.html#1" class="Module"
+      >PA.Inductive.Base.Core</a
+      ><a name="566"
+      >
+
+</a
+      ><a name="568" class="Comment"
+      >-- The existential quantifier type on M.</a
+      ><a name="608"
+      >
+</a
+      ><a name="609" class="Keyword"
+      >data</a
+      ><a name="613"
+      > </a
+      ><a name="614" href="PA.Inductive.Existential.html#614" class="Datatype"
+      >&#8707;</a
+      ><a name="615"
+      > </a
+      ><a name="616" class="Symbol"
+      >(</a
+      ><a name="617" href="PA.Inductive.Existential.html#617" class="Bound"
+      >A</a
+      ><a name="618"
+      > </a
+      ><a name="619" class="Symbol"
+      >:</a
+      ><a name="620"
+      > </a
+      ><a name="621" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="622"
+      > </a
+      ><a name="623" class="Symbol"
+      >&#8594;</a
+      ><a name="624"
+      > </a
+      ><a name="625" class="PrimitiveType"
+      >Set</a
+      ><a name="628" class="Symbol"
+      >)</a
+      ><a name="629"
+      > </a
+      ><a name="630" class="Symbol"
+      >:</a
+      ><a name="631"
+      > </a
+      ><a name="632" class="PrimitiveType"
+      >Set</a
+      ><a name="635"
+      > </a
+      ><a name="636" class="Keyword"
+      >where</a
+      ><a name="641"
+      >
+  </a
+      ><a name="644" href="PA.Inductive.Existential.html#644" class="InductiveConstructor Operator"
+      >_,_</a
+      ><a name="647"
+      > </a
+      ><a name="648" class="Symbol"
+      >:</a
+      ><a name="649"
+      > </a
+      ><a name="650" class="Symbol"
+      >(</a
+      ><a name="651" href="PA.Inductive.Existential.html#651" class="Bound"
+      >x</a
+      ><a name="652"
+      > </a
+      ><a name="653" class="Symbol"
+      >:</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="656" class="Symbol"
+      >)</a
+      ><a name="657"
+      > </a
+      ><a name="658" class="Symbol"
+      >&#8594;</a
+      ><a name="659"
+      > </a
+      ><a name="660" href="PA.Inductive.Existential.html#617" class="Bound"
+      >A</a
+      ><a name="661"
+      > </a
+      ><a name="662" href="PA.Inductive.Existential.html#651" class="Bound"
+      >x</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Symbol"
+      >&#8594;</a
+      ><a name="665"
+      > </a
+      ><a name="666" href="PA.Inductive.Existential.html#614" class="Datatype"
+      >&#8707;</a
+      ><a name="667"
+      > </a
+      ><a name="668" href="PA.Inductive.Existential.html#617" class="Bound"
+      >A</a
+      ><a name="669"
+      >
+
+</a
+      ><a name="671" class="Comment"
+      >-- Sugar syntax for the existential quantifier.</a
+      ><a name="718"
+      >
+</a
+      ><a name="719" class="Keyword"
+      >syntax</a
+      ><a name="725"
+      > &#8707; </a
+      ><a name="728" class="Symbol"
+      >(&#955;</a
+      ><a name="730"
+      > x </a
+      ><a name="733" class="Symbol"
+      >&#8594;</a
+      ><a name="734"
+      > e</a
+      ><a name="736" class="Symbol"
+      >)</a
+      ><a name="737"
+      > </a
+      ><a name="738" class="Symbol"
+      >=</a
+      ><a name="739"
+      > &#8707;[ x ] e
+
+</a
+      ><a name="750" class="Comment"
+      >-- 2012-03-05: We avoid to use the existential elimination or the</a
+      ><a name="815"
+      >
+</a
+      ><a name="816" class="Comment"
+      >-- existential projections because we use pattern matching (and the</a
+      ><a name="883"
+      >
+</a
+      ><a name="884" class="Comment"
+      >-- Agda's with constructor).</a
+      ><a name="912"
+      >
+
+</a
+      ><a name="914" class="Comment"
+      >-- The existential elimination.</a
+      ><a name="945"
+      >
+</a
+      ><a name="946" class="Comment"
+      >--</a
+      ><a name="948"
+      >
+</a
+      ><a name="949" class="Comment"
+      >-- NB. We do not use the usual type theory elimination with two</a
+      ><a name="1012"
+      >
+</a
+      ><a name="1013" class="Comment"
+      >-- projections because we are working in first-order logic where we do</a
+      ><a name="1083"
+      >
+</a
+      ><a name="1084" class="Comment"
+      >-- not need extract a witness from an existence proof.</a
+      ><a name="1138"
+      >
+</a
+      ><a name="1139" class="Comment"
+      >-- &#8707;-elim : {A : &#8469; &#8594; Set}{B : Set} &#8594; &#8707; A &#8594; (&#8704; {x} &#8594; A x &#8594; B) &#8594; B</a
+      ><a name="1203"
+      >
+</a
+      ><a name="1204" class="Comment"
+      >-- &#8707;-elim (_ , Ax) h = h Ax</a
+      ><a name="1231"
+      >
+
+</a
+      ><a name="1233" class="Comment"
+      >-- The existential proyections.</a
+      ><a name="1264"
+      >
+</a
+      ><a name="1265" class="Comment"
+      >-- &#8707;-proj&#8321; : &#8704; {A} &#8594; &#8707; A &#8594; M</a
+      ><a name="1293"
+      >
+</a
+      ><a name="1294" class="Comment"
+      >-- &#8707;-proj&#8321; (x , _) = x</a
+      ><a name="1316"
+      >
+
+</a
+      ><a name="1318" class="Comment"
+      >-- &#8707;-proj&#8322; : &#8704; {A} &#8594; (h : &#8707; A) &#8594; A (&#8707;-proj&#8321; h)</a
+      ><a name="1364"
+      >
+</a
+      ><a name="1365" class="Comment"
+      >-- &#8707;-proj&#8322; (_ , Ax) = Ax</a
+      ><a name="1389"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

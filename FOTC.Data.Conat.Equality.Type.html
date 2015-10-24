@@ -1,0 +1,744 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Conat.Equality.Type</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Equality on Conat</a
+      ><a name="100"
+      >
+</a
+      ><a name="101" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="179"
+      >
+
+</a
+      ><a name="181" class="Symbol"
+      >{-#</a
+      ><a name="184"
+      > </a
+      ><a name="185" class="Keyword"
+      >OPTIONS</a
+      ><a name="192"
+      > --exact-split              </a
+      ><a name="220" class="Symbol"
+      >#-}</a
+      ><a name="223"
+      >
+</a
+      ><a name="224" class="Symbol"
+      >{-#</a
+      ><a name="227"
+      > </a
+      ><a name="228" class="Keyword"
+      >OPTIONS</a
+      ><a name="235"
+      > --no-sized-types           </a
+      ><a name="263" class="Symbol"
+      >#-}</a
+      ><a name="266"
+      >
+</a
+      ><a name="267" class="Symbol"
+      >{-#</a
+      ><a name="270"
+      > </a
+      ><a name="271" class="Keyword"
+      >OPTIONS</a
+      ><a name="278"
+      > --no-universe-polymorphism </a
+      ><a name="306" class="Symbol"
+      >#-}</a
+      ><a name="309"
+      >
+</a
+      ><a name="310" class="Symbol"
+      >{-#</a
+      ><a name="313"
+      > </a
+      ><a name="314" class="Keyword"
+      >OPTIONS</a
+      ><a name="321"
+      > --without-K                </a
+      ><a name="349" class="Symbol"
+      >#-}</a
+      ><a name="352"
+      >
+
+</a
+      ><a name="354" class="Keyword"
+      >module</a
+      ><a name="360"
+      > </a
+      ><a name="361" href="FOTC.Data.Conat.Equality.Type.html#1" class="Module"
+      >FOTC.Data.Conat.Equality.Type</a
+      ><a name="390"
+      > </a
+      ><a name="391" class="Keyword"
+      >where</a
+      ><a name="396"
+      >
+
+</a
+      ><a name="398" class="Keyword"
+      >open</a
+      ><a name="402"
+      > </a
+      ><a name="403" class="Keyword"
+      >import</a
+      ><a name="409"
+      > </a
+      ><a name="410" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="419"
+      >
+
+</a
+      ><a name="421" class="Keyword"
+      >infix</a
+      ><a name="426"
+      > </a
+      ><a name="427" class="Number"
+      >4</a
+      ><a name="428"
+      > _&#8776;_
+
+</a
+      ><a name="434" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="512"
+      >
+</a
+      ><a name="513" class="Comment"
+      >-- Functional for the relation _&#8776;_ (adapted from (Sander 1992,</a
+      ><a name="575"
+      >
+</a
+      ><a name="576" class="Comment"
+      >-- p. 58)).</a
+      ><a name="587"
+      >
+</a
+      ><a name="588" class="Comment"
+      >--</a
+      ><a name="590"
+      >
+</a
+      ><a name="591" class="Comment"
+      >-- &#8776;-F : (D &#8594; D &#8594; Set) &#8594; D &#8594; D &#8594; Set</a
+      ><a name="627"
+      >
+</a
+      ><a name="628" class="Comment"
+      >-- &#8776;-F R m n =</a
+      ><a name="642"
+      >
+</a
+      ><a name="643" class="Comment"
+      >-- (m &#8801; zero &#8743; n &#8801; zero) &#8744; (&#8707;[ m' ] &#8707;[ n' ] m &#8801; succ m' &#8743; n &#8801; succ n' &#8743; R m' n')</a
+      ><a name="723"
+      >
+
+</a
+      ><a name="725" class="Comment"
+      >-- The relation _&#8776;_ is the greatest post-fixed point of the functional</a
+      ><a name="795"
+      >
+</a
+      ><a name="796" class="Comment"
+      >-- &#8776;-F (by &#8776;-out and &#8776;-coind).</a
+      ><a name="826"
+      >
+
+</a
+      ><a name="828" class="Comment"
+      >-- The equality on Conat.</a
+      ><a name="853"
+      >
+</a
+      ><a name="854" class="Keyword"
+      >postulate</a
+      ><a name="863"
+      > </a
+      ><a name="864" href="FOTC.Data.Conat.Equality.Type.html#864" class="Postulate Operator"
+      >_&#8776;_</a
+      ><a name="867"
+      > </a
+      ><a name="868" class="Symbol"
+      >:</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="871"
+      > </a
+      ><a name="872" class="Symbol"
+      >&#8594;</a
+      ><a name="873"
+      > </a
+      ><a name="874" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="875"
+      > </a
+      ><a name="876" class="Symbol"
+      >&#8594;</a
+      ><a name="877"
+      > </a
+      ><a name="878" class="PrimitiveType"
+      >Set</a
+      ><a name="881"
+      >
+
+</a
+      ><a name="883" class="Comment"
+      >-- The relation _&#8776;_ is a post-fixed point of the functional &#8776;-F,</a
+      ><a name="947"
+      >
+</a
+      ><a name="948" class="Comment"
+      >-- i.e.</a
+      ><a name="955"
+      >
+</a
+      ><a name="956" class="Comment"
+      >--</a
+      ><a name="958"
+      >
+</a
+      ><a name="959" class="Comment"
+      >-- _&#8776;_ &#8804; &#8776;-F _&#8776;_.</a
+      ><a name="976"
+      >
+</a
+      ><a name="977" class="Keyword"
+      >postulate</a
+      ><a name="986"
+      > </a
+      ><a name="987" href="FOTC.Data.Conat.Equality.Type.html#987" class="Postulate"
+      >&#8776;-out</a
+      ><a name="992"
+      > </a
+      ><a name="993" class="Symbol"
+      >:</a
+      ><a name="994"
+      > </a
+      ><a name="995" class="Symbol"
+      >&#8704;</a
+      ><a name="996"
+      > </a
+      ><a name="997" class="Symbol"
+      >{</a
+      ><a name="998" href="FOTC.Data.Conat.Equality.Type.html#998" class="Bound"
+      >m</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="FOTC.Data.Conat.Equality.Type.html#1000" class="Bound"
+      >n</a
+      ><a name="1001" class="Symbol"
+      >}</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" class="Symbol"
+      >&#8594;</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="FOTC.Data.Conat.Equality.Type.html#998" class="Bound"
+      >m</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" href="FOTC.Data.Conat.Equality.Type.html#864" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="FOTC.Data.Conat.Equality.Type.html#1000" class="Bound"
+      >n</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" class="Symbol"
+      >&#8594;</a
+      ><a name="1012"
+      >
+                  </a
+      ><a name="1031" href="FOTC.Data.Conat.Equality.Type.html#998" class="Bound"
+      >m</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="FOTC.Data.Conat.Equality.Type.html#1000" class="Bound"
+      >n</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1050"
+      >
+                  </a
+      ><a name="1069" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" class="Symbol"
+      >(</a
+      ><a name="1072" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="FOTC.Data.Conat.Equality.Type.html#1075" class="Bound"
+      >m'</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1082"
+      > </a
+      ><a name="1083" href="FOTC.Data.Conat.Equality.Type.html#1083" class="Bound"
+      >n'</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" href="FOTC.Data.Conat.Equality.Type.html#998" class="Bound"
+      >m</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1097"
+      > </a
+      ><a name="1098" href="FOTC.Data.Conat.Equality.Type.html#1075" class="Bound"
+      >m'</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="FOTC.Data.Conat.Equality.Type.html#1000" class="Bound"
+      >n</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1106"
+      > </a
+      ><a name="1107" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" href="FOTC.Data.Conat.Equality.Type.html#1083" class="Bound"
+      >n'</a
+      ><a name="1115"
+      > </a
+      ><a name="1116" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" href="FOTC.Data.Conat.Equality.Type.html#1075" class="Bound"
+      >m'</a
+      ><a name="1120"
+      > </a
+      ><a name="1121" href="FOTC.Data.Conat.Equality.Type.html#864" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="FOTC.Data.Conat.Equality.Type.html#1083" class="Bound"
+      >n'</a
+      ><a name="1125" class="Symbol"
+      >)</a
+      ><a name="1126"
+      >
+</a
+      ><a name="1127" class="Symbol"
+      >{-#</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" class="Keyword"
+      >ATP</a
+      ><a name="1134"
+      > axiom </a
+      ><a name="1141" href="FOTC.Data.Conat.Equality.Type.html#987" class="Postulate"
+      >&#8776;-out</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" class="Symbol"
+      >#-}</a
+      ><a name="1150"
+      >
+
+</a
+      ><a name="1152" class="Comment"
+      >-- The relation _N&#8776;_ is the greatest post-fixed point of _N&#8776;_, i.e.</a
+      ><a name="1219"
+      >
+</a
+      ><a name="1220" class="Comment"
+      >--</a
+      ><a name="1222"
+      >
+</a
+      ><a name="1223" class="Comment"
+      >-- &#8704; R. R &#8804; &#8776;-F R &#8658; R &#8804; _N&#8776;_.</a
+      ><a name="1252"
+      >
+</a
+      ><a name="1253" class="Comment"
+      >--</a
+      ><a name="1255"
+      >
+</a
+      ><a name="1256" class="Comment"
+      >-- N.B. This is an axiom schema. Because in the automatic proofs we</a
+      ><a name="1323"
+      >
+</a
+      ><a name="1324" class="Comment"
+      >-- *must* use an instance, we do not add this postulate as an ATP</a
+      ><a name="1389"
+      >
+</a
+      ><a name="1390" class="Comment"
+      >-- axiom.</a
+      ><a name="1399"
+      >
+</a
+      ><a name="1400" class="Keyword"
+      >postulate</a
+      ><a name="1409"
+      >
+  </a
+      ><a name="1412" href="FOTC.Data.Conat.Equality.Type.html#1412" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="1419"
+      > </a
+      ><a name="1420" class="Symbol"
+      >:</a
+      ><a name="1421"
+      >
+    </a
+      ><a name="1426" class="Symbol"
+      >(</a
+      ><a name="1427" href="FOTC.Data.Conat.Equality.Type.html#1427" class="Bound"
+      >R</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" class="Symbol"
+      >:</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1432"
+      > </a
+      ><a name="1433" class="Symbol"
+      >&#8594;</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" class="Symbol"
+      >&#8594;</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" class="PrimitiveType"
+      >Set</a
+      ><a name="1442" class="Symbol"
+      >)</a
+      ><a name="1443"
+      > </a
+      ><a name="1444" class="Symbol"
+      >&#8594;</a
+      ><a name="1445"
+      >
+    </a
+      ><a name="1450" class="Comment"
+      >-- R is a post-fixed point of the functional &#8776;-F.</a
+      ><a name="1499"
+      >
+    </a
+      ><a name="1504" class="Symbol"
+      >(&#8704;</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" class="Symbol"
+      >{</a
+      ><a name="1508" href="FOTC.Data.Conat.Equality.Type.html#1508" class="Bound"
+      >m</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="FOTC.Data.Conat.Equality.Type.html#1510" class="Bound"
+      >n</a
+      ><a name="1511" class="Symbol"
+      >}</a
+      ><a name="1512"
+      > </a
+      ><a name="1513" class="Symbol"
+      >&#8594;</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" href="FOTC.Data.Conat.Equality.Type.html#1427" class="Bound"
+      >R</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" href="FOTC.Data.Conat.Equality.Type.html#1508" class="Bound"
+      >m</a
+      ><a name="1518"
+      > </a
+      ><a name="1519" href="FOTC.Data.Conat.Equality.Type.html#1510" class="Bound"
+      >n</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" class="Symbol"
+      >&#8594;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOTC.Data.Conat.Equality.Type.html#1508" class="Bound"
+      >m</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1526"
+      > </a
+      ><a name="1527" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1533"
+      > </a
+      ><a name="1534" href="FOTC.Data.Conat.Equality.Type.html#1510" class="Bound"
+      >n</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1542"
+      >
+      </a
+      ><a name="1549" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1550"
+      > </a
+      ><a name="1551" class="Symbol"
+      >(</a
+      ><a name="1552" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1554"
+      > </a
+      ><a name="1555" href="FOTC.Data.Conat.Equality.Type.html#1555" class="Bound"
+      >m'</a
+      ><a name="1557"
+      > </a
+      ><a name="1558" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1559"
+      > </a
+      ><a name="1560" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Data.Conat.Equality.Type.html#1563" class="Bound"
+      >n'</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1567"
+      > </a
+      ><a name="1568" href="FOTC.Data.Conat.Equality.Type.html#1508" class="Bound"
+      >m</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1571"
+      > </a
+      ><a name="1572" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" href="FOTC.Data.Conat.Equality.Type.html#1555" class="Bound"
+      >m'</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1582"
+      > </a
+      ><a name="1583" href="FOTC.Data.Conat.Equality.Type.html#1510" class="Bound"
+      >n</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="FOTC.Data.Conat.Equality.Type.html#1563" class="Bound"
+      >n'</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1597"
+      > </a
+      ><a name="1598" href="FOTC.Data.Conat.Equality.Type.html#1427" class="Bound"
+      >R</a
+      ><a name="1599"
+      > </a
+      ><a name="1600" href="FOTC.Data.Conat.Equality.Type.html#1555" class="Bound"
+      >m'</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" href="FOTC.Data.Conat.Equality.Type.html#1563" class="Bound"
+      >n'</a
+      ><a name="1605" class="Symbol"
+      >))</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" class="Symbol"
+      >&#8594;</a
+      ><a name="1609"
+      >
+    </a
+      ><a name="1614" class="Comment"
+      >-- _&#8776;_ is greater than R.</a
+      ><a name="1639"
+      >
+    </a
+      ><a name="1644" class="Symbol"
+      >&#8704;</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" class="Symbol"
+      >{</a
+      ><a name="1647" href="FOTC.Data.Conat.Equality.Type.html#1647" class="Bound"
+      >m</a
+      ><a name="1648"
+      > </a
+      ><a name="1649" href="FOTC.Data.Conat.Equality.Type.html#1649" class="Bound"
+      >n</a
+      ><a name="1650" class="Symbol"
+      >}</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" class="Symbol"
+      >&#8594;</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="FOTC.Data.Conat.Equality.Type.html#1427" class="Bound"
+      >R</a
+      ><a name="1655"
+      > </a
+      ><a name="1656" href="FOTC.Data.Conat.Equality.Type.html#1647" class="Bound"
+      >m</a
+      ><a name="1657"
+      > </a
+      ><a name="1658" href="FOTC.Data.Conat.Equality.Type.html#1649" class="Bound"
+      >n</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" class="Symbol"
+      >&#8594;</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="FOTC.Data.Conat.Equality.Type.html#1647" class="Bound"
+      >m</a
+      ><a name="1663"
+      > </a
+      ><a name="1664" href="FOTC.Data.Conat.Equality.Type.html#864" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1665"
+      > </a
+      ><a name="1666" href="FOTC.Data.Conat.Equality.Type.html#1649" class="Bound"
+      >n</a
+      ><a name="1667"
+      >
+
+</a
+      ><a name="1669" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1747"
+      >
+</a
+      ><a name="1748" class="Comment"
+      >-- References</a
+      ><a name="1761"
+      >
+</a
+      ><a name="1762" class="Comment"
+      >--</a
+      ><a name="1764"
+      >
+</a
+      ><a name="1765" class="Comment"
+      >-- Sander, Herbert P. (1992). A Logic of Functional Programs with an</a
+      ><a name="1833"
+      >
+</a
+      ><a name="1834" class="Comment"
+      >-- Application to Concurrency. PhD thesis. Department of Computer</a
+      ><a name="1899"
+      >
+</a
+      ><a name="1900" class="Comment"
+      >-- Sciences: Chalmers University of Technology and University of</a
+      ><a name="1964"
+      >
+</a
+      ><a name="1965" class="Comment"
+      >-- Gothenburg.</a
+      ><a name="1979"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

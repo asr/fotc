@@ -1,0 +1,2542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.GCD.Partial.TotalityATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Totality properties of the gcd</a
+      ><a name="113"
+      >
+</a
+      ><a name="114" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="192"
+      >
+
+</a
+      ><a name="194" class="Symbol"
+      >{-#</a
+      ><a name="197"
+      > </a
+      ><a name="198" class="Keyword"
+      >OPTIONS</a
+      ><a name="205"
+      > --exact-split              </a
+      ><a name="233" class="Symbol"
+      >#-}</a
+      ><a name="236"
+      >
+</a
+      ><a name="237" class="Symbol"
+      >{-#</a
+      ><a name="240"
+      > </a
+      ><a name="241" class="Keyword"
+      >OPTIONS</a
+      ><a name="248"
+      > --no-sized-types           </a
+      ><a name="276" class="Symbol"
+      >#-}</a
+      ><a name="279"
+      >
+</a
+      ><a name="280" class="Symbol"
+      >{-#</a
+      ><a name="283"
+      > </a
+      ><a name="284" class="Keyword"
+      >OPTIONS</a
+      ><a name="291"
+      > --no-universe-polymorphism </a
+      ><a name="319" class="Symbol"
+      >#-}</a
+      ><a name="322"
+      >
+</a
+      ><a name="323" class="Symbol"
+      >{-#</a
+      ><a name="326"
+      > </a
+      ><a name="327" class="Keyword"
+      >OPTIONS</a
+      ><a name="334"
+      > --without-K                </a
+      ><a name="362" class="Symbol"
+      >#-}</a
+      ><a name="365"
+      >
+
+</a
+      ><a name="367" class="Keyword"
+      >module</a
+      ><a name="373"
+      > </a
+      ><a name="374" href="FOTC.Program.GCD.Partial.TotalityATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.TotalityATP</a
+      ><a name="410"
+      > </a
+      ><a name="411" class="Keyword"
+      >where</a
+      ><a name="416"
+      >
+
+</a
+      ><a name="418" class="Keyword"
+      >open</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Keyword"
+      >import</a
+      ><a name="429"
+      > </a
+      ><a name="430" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="439"
+      >
+</a
+      ><a name="440" class="Keyword"
+      >open</a
+      ><a name="444"
+      > </a
+      ><a name="445" class="Keyword"
+      >import</a
+      ><a name="451"
+      > </a
+      ><a name="452" href="FOTC.Base.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.PropertiesATP</a
+      ><a name="475"
+      >
+</a
+      ><a name="476" class="Keyword"
+      >open</a
+      ><a name="480"
+      > </a
+      ><a name="481" class="Keyword"
+      >import</a
+      ><a name="487"
+      > </a
+      ><a name="488" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="501"
+      >
+</a
+      ><a name="502" class="Keyword"
+      >open</a
+      ><a name="506"
+      > </a
+      ><a name="507" class="Keyword"
+      >import</a
+      ><a name="513"
+      > </a
+      ><a name="514" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicATP.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.NonAcc.LexicographicATP</a
+      ><a name="561"
+      >
+</a
+      ><a name="562" class="Keyword"
+      >open</a
+      ><a name="566"
+      > </a
+      ><a name="567" class="Keyword"
+      >import</a
+      ><a name="573"
+      > </a
+      ><a name="574" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="600"
+      >
+</a
+      ><a name="601" class="Keyword"
+      >open</a
+      ><a name="605"
+      > </a
+      ><a name="606" class="Keyword"
+      >import</a
+      ><a name="612"
+      > </a
+      ><a name="613" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="664"
+      >
+</a
+      ><a name="665" class="Keyword"
+      >open</a
+      ><a name="669"
+      > </a
+      ><a name="670" class="Keyword"
+      >import</a
+      ><a name="676"
+      > </a
+      ><a name="677" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="717"
+      >
+</a
+      ><a name="718" class="Keyword"
+      >open</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="Keyword"
+      >import</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="757"
+      >
+</a
+      ><a name="758" class="Keyword"
+      >open</a
+      ><a name="762"
+      > </a
+      ><a name="763" class="Keyword"
+      >import</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="FOTC.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.Definitions</a
+      ><a name="806"
+      >
+</a
+      ><a name="807" class="Keyword"
+      >open</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Keyword"
+      >import</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="FOTC.Program.GCD.Partial.GCD.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.GCD</a
+      ><a name="847"
+      >
+
+</a
+      ><a name="849" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="927"
+      >
+</a
+      ><a name="928" class="Comment"
+      >-- gcd 0 (succ n) is total.</a
+      ><a name="955"
+      >
+</a
+      ><a name="956" class="Keyword"
+      >postulate</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="FOTC.Program.GCD.Partial.TotalityATP.html#966" class="Postulate"
+      >gcd-0S-N</a
+      ><a name="974"
+      > </a
+      ><a name="975" class="Symbol"
+      >:</a
+      ><a name="976"
+      > </a
+      ><a name="977" class="Symbol"
+      >&#8704;</a
+      ><a name="978"
+      > </a
+      ><a name="979" class="Symbol"
+      >{</a
+      ><a name="980" href="FOTC.Program.GCD.Partial.TotalityATP.html#980" class="Bound"
+      >n</a
+      ><a name="981" class="Symbol"
+      >}</a
+      ><a name="982"
+      > </a
+      ><a name="983" class="Symbol"
+      >&#8594;</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="986"
+      > </a
+      ><a name="987" href="FOTC.Program.GCD.Partial.TotalityATP.html#980" class="Bound"
+      >n</a
+      ><a name="988"
+      > </a
+      ><a name="989" class="Symbol"
+      >&#8594;</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="992"
+      > </a
+      ><a name="993" class="Symbol"
+      >(</a
+      ><a name="994" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" class="Symbol"
+      >(</a
+      ><a name="1004" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" href="FOTC.Program.GCD.Partial.TotalityATP.html#980" class="Bound"
+      >n</a
+      ><a name="1011" class="Symbol"
+      >))</a
+      ><a name="1013"
+      >
+</a
+      ><a name="1014" class="Symbol"
+      >{-#</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" class="Keyword"
+      >ATP</a
+      ><a name="1021"
+      > prove </a
+      ><a name="1028" href="FOTC.Program.GCD.Partial.TotalityATP.html#966" class="Postulate"
+      >gcd-0S-N</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" class="Symbol"
+      >#-}</a
+      ><a name="1040"
+      >
+
+</a
+      ><a name="1042" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1120"
+      >
+</a
+      ><a name="1121" class="Comment"
+      >-- gcd (succ&#8321; n) 0 is total.</a
+      ><a name="1149"
+      >
+</a
+      ><a name="1150" class="Keyword"
+      >postulate</a
+      ><a name="1159"
+      > </a
+      ><a name="1160" href="FOTC.Program.GCD.Partial.TotalityATP.html#1160" class="Postulate"
+      >gcd-S0-N</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" class="Symbol"
+      >:</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" class="Symbol"
+      >&#8704;</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" class="Symbol"
+      >{</a
+      ><a name="1174" href="FOTC.Program.GCD.Partial.TotalityATP.html#1174" class="Bound"
+      >n</a
+      ><a name="1175" class="Symbol"
+      >}</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" class="Symbol"
+      >&#8594;</a
+      ><a name="1178"
+      > </a
+      ><a name="1179" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" href="FOTC.Program.GCD.Partial.TotalityATP.html#1174" class="Bound"
+      >n</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" class="Symbol"
+      >&#8594;</a
+      ><a name="1184"
+      > </a
+      ><a name="1185" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" class="Symbol"
+      >(</a
+      ><a name="1188" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" class="Symbol"
+      >(</a
+      ><a name="1193" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="FOTC.Program.GCD.Partial.TotalityATP.html#1174" class="Bound"
+      >n</a
+      ><a name="1200" class="Symbol"
+      >)</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1206" class="Symbol"
+      >)</a
+      ><a name="1207"
+      >
+</a
+      ><a name="1208" class="Symbol"
+      >{-#</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" class="Keyword"
+      >ATP</a
+      ><a name="1215"
+      > prove </a
+      ><a name="1222" href="FOTC.Program.GCD.Partial.TotalityATP.html#1160" class="Postulate"
+      >gcd-S0-N</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" class="Symbol"
+      >#-}</a
+      ><a name="1234"
+      >
+
+</a
+      ><a name="1236" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1314"
+      >
+</a
+      ><a name="1315" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &gt; succ&#8321; n is total.</a
+      ><a name="1374"
+      >
+</a
+      ><a name="1375" class="Keyword"
+      >postulate</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="FOTC.Program.GCD.Partial.TotalityATP.html#1385" class="Postulate"
+      >gcd-S&gt;S-N</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" class="Symbol"
+      >:</a
+      ><a name="1396"
+      > </a
+      ><a name="1397" class="Symbol"
+      >&#8704;</a
+      ><a name="1398"
+      > </a
+      ><a name="1399" class="Symbol"
+      >{</a
+      ><a name="1400" href="FOTC.Program.GCD.Partial.TotalityATP.html#1400" class="Bound"
+      >m</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" href="FOTC.Program.GCD.Partial.TotalityATP.html#1402" class="Bound"
+      >n</a
+      ><a name="1403" class="Symbol"
+      >}</a
+      ><a name="1404"
+      > </a
+      ><a name="1405" class="Symbol"
+      >&#8594;</a
+      ><a name="1406"
+      > </a
+      ><a name="1407" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="FOTC.Program.GCD.Partial.TotalityATP.html#1400" class="Bound"
+      >m</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" class="Symbol"
+      >&#8594;</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" href="FOTC.Program.GCD.Partial.TotalityATP.html#1402" class="Bound"
+      >n</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" class="Symbol"
+      >&#8594;</a
+      ><a name="1418"
+      >
+                      </a
+      ><a name="1441" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1442"
+      > </a
+      ><a name="1443" class="Symbol"
+      >(</a
+      ><a name="1444" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1447"
+      > </a
+      ><a name="1448" class="Symbol"
+      >(</a
+      ><a name="1449" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" href="FOTC.Program.GCD.Partial.TotalityATP.html#1400" class="Bound"
+      >m</a
+      ><a name="1456"
+      > </a
+      ><a name="1457" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" href="FOTC.Program.GCD.Partial.TotalityATP.html#1402" class="Bound"
+      >n</a
+      ><a name="1466" class="Symbol"
+      >)</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" class="Symbol"
+      >(</a
+      ><a name="1469" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" href="FOTC.Program.GCD.Partial.TotalityATP.html#1402" class="Bound"
+      >n</a
+      ><a name="1476" class="Symbol"
+      >))</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" class="Symbol"
+      >&#8594;</a
+      ><a name="1480"
+      >
+                      </a
+      ><a name="1503" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" href="FOTC.Program.GCD.Partial.TotalityATP.html#1400" class="Bound"
+      >m</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="1512"
+      > </a
+      ><a name="1513" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1518"
+      > </a
+      ><a name="1519" href="FOTC.Program.GCD.Partial.TotalityATP.html#1402" class="Bound"
+      >n</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" class="Symbol"
+      >&#8594;</a
+      ><a name="1522"
+      >
+                      </a
+      ><a name="1545" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" class="Symbol"
+      >(</a
+      ><a name="1548" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1551"
+      > </a
+      ><a name="1552" class="Symbol"
+      >(</a
+      ><a name="1553" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" href="FOTC.Program.GCD.Partial.TotalityATP.html#1400" class="Bound"
+      >m</a
+      ><a name="1560" class="Symbol"
+      >)</a
+      ><a name="1561"
+      > </a
+      ><a name="1562" class="Symbol"
+      >(</a
+      ><a name="1563" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="FOTC.Program.GCD.Partial.TotalityATP.html#1402" class="Bound"
+      >n</a
+      ><a name="1570" class="Symbol"
+      >))</a
+      ><a name="1572"
+      >
+</a
+      ><a name="1573" class="Symbol"
+      >{-#</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" class="Keyword"
+      >ATP</a
+      ><a name="1580"
+      > prove </a
+      ><a name="1587" href="FOTC.Program.GCD.Partial.TotalityATP.html#1385" class="Postulate"
+      >gcd-S&gt;S-N</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" class="Symbol"
+      >#-}</a
+      ><a name="1600"
+      >
+
+</a
+      ><a name="1602" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1680"
+      >
+</a
+      ><a name="1681" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &#8815; succ&#8321; n is total.</a
+      ><a name="1740"
+      >
+</a
+      ><a name="1741" class="Keyword"
+      >postulate</a
+      ><a name="1750"
+      > </a
+      ><a name="1751" href="FOTC.Program.GCD.Partial.TotalityATP.html#1751" class="Postulate"
+      >gcd-S&#8815;S-N</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" class="Symbol"
+      >:</a
+      ><a name="1762"
+      > </a
+      ><a name="1763" class="Symbol"
+      >&#8704;</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" class="Symbol"
+      >{</a
+      ><a name="1766" href="FOTC.Program.GCD.Partial.TotalityATP.html#1766" class="Bound"
+      >m</a
+      ><a name="1767"
+      > </a
+      ><a name="1768" href="FOTC.Program.GCD.Partial.TotalityATP.html#1768" class="Bound"
+      >n</a
+      ><a name="1769" class="Symbol"
+      >}</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" class="Symbol"
+      >&#8594;</a
+      ><a name="1772"
+      > </a
+      ><a name="1773" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" href="FOTC.Program.GCD.Partial.TotalityATP.html#1766" class="Bound"
+      >m</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >&#8594;</a
+      ><a name="1778"
+      > </a
+      ><a name="1779" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1780"
+      > </a
+      ><a name="1781" href="FOTC.Program.GCD.Partial.TotalityATP.html#1768" class="Bound"
+      >n</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" class="Symbol"
+      >&#8594;</a
+      ><a name="1784"
+      >
+                      </a
+      ><a name="1807" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Symbol"
+      >(</a
+      ><a name="1810" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" class="Symbol"
+      >(</a
+      ><a name="1815" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" href="FOTC.Program.GCD.Partial.TotalityATP.html#1766" class="Bound"
+      >m</a
+      ><a name="1822" class="Symbol"
+      >)</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" class="Symbol"
+      >(</a
+      ><a name="1825" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1830"
+      > </a
+      ><a name="1831" href="FOTC.Program.GCD.Partial.TotalityATP.html#1768" class="Bound"
+      >n</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" href="FOTC.Program.GCD.Partial.TotalityATP.html#1766" class="Bound"
+      >m</a
+      ><a name="1842" class="Symbol"
+      >))</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" class="Symbol"
+      >&#8594;</a
+      ><a name="1846"
+      >
+                      </a
+      ><a name="1869" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" href="FOTC.Program.GCD.Partial.TotalityATP.html#1766" class="Bound"
+      >m</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" href="FOTC.Program.GCD.Partial.TotalityATP.html#1768" class="Bound"
+      >n</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" class="Symbol"
+      >&#8594;</a
+      ><a name="1888"
+      >
+                      </a
+      ><a name="1911" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" class="Symbol"
+      >(</a
+      ><a name="1914" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1917"
+      > </a
+      ><a name="1918" class="Symbol"
+      >(</a
+      ><a name="1919" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1924"
+      > </a
+      ><a name="1925" href="FOTC.Program.GCD.Partial.TotalityATP.html#1766" class="Bound"
+      >m</a
+      ><a name="1926" class="Symbol"
+      >)</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" class="Symbol"
+      >(</a
+      ><a name="1929" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1934"
+      > </a
+      ><a name="1935" href="FOTC.Program.GCD.Partial.TotalityATP.html#1768" class="Bound"
+      >n</a
+      ><a name="1936" class="Symbol"
+      >))</a
+      ><a name="1938"
+      >
+</a
+      ><a name="1939" class="Symbol"
+      >{-#</a
+      ><a name="1942"
+      > </a
+      ><a name="1943" class="Keyword"
+      >ATP</a
+      ><a name="1946"
+      > prove </a
+      ><a name="1953" href="FOTC.Program.GCD.Partial.TotalityATP.html#1751" class="Postulate"
+      >gcd-S&#8815;S-N</a
+      ><a name="1962"
+      > </a
+      ><a name="1963" class="Symbol"
+      >#-}</a
+      ><a name="1966"
+      >
+
+</a
+      ><a name="1968" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2046"
+      >
+</a
+      ><a name="2047" class="Comment"
+      >-- gcd m n when m &gt; n is total.</a
+      ><a name="2078"
+      >
+</a
+      ><a name="2079" href="FOTC.Program.GCD.Partial.TotalityATP.html#2079" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2088"
+      > </a
+      ><a name="2089" class="Symbol"
+      >:</a
+      ><a name="2090"
+      >
+  </a
+      ><a name="2093" class="Symbol"
+      >&#8704;</a
+      ><a name="2094"
+      > </a
+      ><a name="2095" class="Symbol"
+      >{</a
+      ><a name="2096" href="FOTC.Program.GCD.Partial.TotalityATP.html#2096" class="Bound"
+      >m</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" href="FOTC.Program.GCD.Partial.TotalityATP.html#2098" class="Bound"
+      >n</a
+      ><a name="2099" class="Symbol"
+      >}</a
+      ><a name="2100"
+      > </a
+      ><a name="2101" class="Symbol"
+      >&#8594;</a
+      ><a name="2102"
+      > </a
+      ><a name="2103" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2104"
+      > </a
+      ><a name="2105" href="FOTC.Program.GCD.Partial.TotalityATP.html#2096" class="Bound"
+      >m</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" class="Symbol"
+      >&#8594;</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" href="FOTC.Program.GCD.Partial.TotalityATP.html#2098" class="Bound"
+      >n</a
+      ><a name="2112"
+      > </a
+      ><a name="2113" class="Symbol"
+      >&#8594;</a
+      ><a name="2114"
+      >
+  </a
+      ><a name="2117" class="Symbol"
+      >(&#8704;</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" class="Symbol"
+      >{</a
+      ><a name="2121" href="FOTC.Program.GCD.Partial.TotalityATP.html#2121" class="Bound"
+      >o</a
+      ><a name="2122"
+      > </a
+      ><a name="2123" href="FOTC.Program.GCD.Partial.TotalityATP.html#2123" class="Bound"
+      >p</a
+      ><a name="2124" class="Symbol"
+      >}</a
+      ><a name="2125"
+      > </a
+      ><a name="2126" class="Symbol"
+      >&#8594;</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2129"
+      > </a
+      ><a name="2130" href="FOTC.Program.GCD.Partial.TotalityATP.html#2121" class="Bound"
+      >o</a
+      ><a name="2131"
+      > </a
+      ><a name="2132" class="Symbol"
+      >&#8594;</a
+      ><a name="2133"
+      > </a
+      ><a name="2134" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2135"
+      > </a
+      ><a name="2136" href="FOTC.Program.GCD.Partial.TotalityATP.html#2123" class="Bound"
+      >p</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" class="Symbol"
+      >&#8594;</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="2144"
+      > </a
+      ><a name="2145" href="FOTC.Program.GCD.Partial.TotalityATP.html#2121" class="Bound"
+      >o</a
+      ><a name="2146"
+      > </a
+      ><a name="2147" href="FOTC.Program.GCD.Partial.TotalityATP.html#2123" class="Bound"
+      >p</a
+      ><a name="2148"
+      > </a
+      ><a name="2149" href="FOTC.Program.GCD.Partial.TotalityATP.html#2096" class="Bound"
+      >m</a
+      ><a name="2150"
+      > </a
+      ><a name="2151" href="FOTC.Program.GCD.Partial.TotalityATP.html#2098" class="Bound"
+      >n</a
+      ><a name="2152"
+      > </a
+      ><a name="2153" class="Symbol"
+      >&#8594;</a
+      ><a name="2154"
+      > </a
+      ><a name="2155" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="2160"
+      > </a
+      ><a name="2161" href="FOTC.Program.GCD.Partial.TotalityATP.html#2121" class="Bound"
+      >o</a
+      ><a name="2162"
+      > </a
+      ><a name="2163" href="FOTC.Program.GCD.Partial.TotalityATP.html#2123" class="Bound"
+      >p</a
+      ><a name="2164"
+      > </a
+      ><a name="2165" class="Symbol"
+      >&#8594;</a
+      ><a name="2166"
+      > </a
+      ><a name="2167" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2168"
+      > </a
+      ><a name="2169" class="Symbol"
+      >(</a
+      ><a name="2170" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2173"
+      > </a
+      ><a name="2174" href="FOTC.Program.GCD.Partial.TotalityATP.html#2121" class="Bound"
+      >o</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" href="FOTC.Program.GCD.Partial.TotalityATP.html#2123" class="Bound"
+      >p</a
+      ><a name="2177" class="Symbol"
+      >))</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" class="Symbol"
+      >&#8594;</a
+      ><a name="2181"
+      >
+  </a
+      ><a name="2184" href="FOTC.Program.GCD.Partial.TotalityATP.html#2096" class="Bound"
+      >m</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2187"
+      > </a
+      ><a name="2188" href="FOTC.Program.GCD.Partial.TotalityATP.html#2098" class="Bound"
+      >n</a
+      ><a name="2189"
+      > </a
+      ><a name="2190" class="Symbol"
+      >&#8594;</a
+      ><a name="2191"
+      >
+  </a
+      ><a name="2194" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" href="FOTC.Program.GCD.Partial.TotalityATP.html#2096" class="Bound"
+      >m</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="FOTC.Program.GCD.Partial.TotalityATP.html#2098" class="Bound"
+      >n</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" class="Symbol"
+      >&#8594;</a
+      ><a name="2205"
+      >
+  </a
+      ><a name="2208" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2209"
+      > </a
+      ><a name="2210" class="Symbol"
+      >(</a
+      ><a name="2211" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2214"
+      > </a
+      ><a name="2215" href="FOTC.Program.GCD.Partial.TotalityATP.html#2096" class="Bound"
+      >m</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" href="FOTC.Program.GCD.Partial.TotalityATP.html#2098" class="Bound"
+      >n</a
+      ><a name="2218" class="Symbol"
+      >)</a
+      ><a name="2219"
+      >
+</a
+      ><a name="2220" href="FOTC.Program.GCD.Partial.TotalityATP.html#2079" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2229"
+      > </a
+      ><a name="2230" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2235"
+      >          </a
+      ><a name="2245" href="FOTC.Program.GCD.Partial.TotalityATP.html#2245" class="Bound"
+      >Nn</a
+      ><a name="2247"
+      >          </a
+      ><a name="2257" class="Symbol"
+      >_</a
+      ><a name="2258"
+      >  </a
+      ><a name="2260" href="FOTC.Program.GCD.Partial.TotalityATP.html#2260" class="Bound"
+      >0&gt;n</a
+      ><a name="2263"
+      > </a
+      ><a name="2264" class="Symbol"
+      >_</a
+      ><a name="2265"
+      >       </a
+      ><a name="2272" class="Symbol"
+      >=</a
+      ><a name="2273"
+      > </a
+      ><a name="2274" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2280"
+      > </a
+      ><a name="2281" class="Symbol"
+      >(</a
+      ><a name="2282" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="2287"
+      > </a
+      ><a name="2288" href="FOTC.Program.GCD.Partial.TotalityATP.html#2245" class="Bound"
+      >Nn</a
+      ><a name="2290"
+      > </a
+      ><a name="2291" href="FOTC.Program.GCD.Partial.TotalityATP.html#2260" class="Bound"
+      >0&gt;n</a
+      ><a name="2294" class="Symbol"
+      >)</a
+      ><a name="2295"
+      >
+</a
+      ><a name="2296" href="FOTC.Program.GCD.Partial.TotalityATP.html#2079" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2305"
+      > </a
+      ><a name="2306" class="Symbol"
+      >(</a
+      ><a name="2307" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2312"
+      > </a
+      ><a name="2313" href="FOTC.Program.GCD.Partial.TotalityATP.html#2313" class="Bound"
+      >Nm</a
+      ><a name="2315" class="Symbol"
+      >)</a
+      ><a name="2316"
+      >     </a
+      ><a name="2321" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2326"
+      >       </a
+      ><a name="2333" class="Symbol"
+      >_</a
+      ><a name="2334"
+      >  </a
+      ><a name="2336" class="Symbol"
+      >_</a
+      ><a name="2337"
+      >   </a
+      ><a name="2340" class="Symbol"
+      >_</a
+      ><a name="2341"
+      >       </a
+      ><a name="2348" class="Symbol"
+      >=</a
+      ><a name="2349"
+      > </a
+      ><a name="2350" href="FOTC.Program.GCD.Partial.TotalityATP.html#1160" class="Postulate"
+      >gcd-S0-N</a
+      ><a name="2358"
+      > </a
+      ><a name="2359" href="FOTC.Program.GCD.Partial.TotalityATP.html#2313" class="Bound"
+      >Nm</a
+      ><a name="2361"
+      >
+</a
+      ><a name="2362" href="FOTC.Program.GCD.Partial.TotalityATP.html#2079" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2371"
+      > </a
+      ><a name="2372" class="Symbol"
+      >(</a
+      ><a name="2373" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" class="Symbol"
+      >{</a
+      ><a name="2380" href="FOTC.Program.GCD.Partial.TotalityATP.html#2380" class="Bound"
+      >m</a
+      ><a name="2381" class="Symbol"
+      >}</a
+      ><a name="2382"
+      > </a
+      ><a name="2383" href="FOTC.Program.GCD.Partial.TotalityATP.html#2383" class="Bound"
+      >Nm</a
+      ><a name="2385" class="Symbol"
+      >)</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" class="Symbol"
+      >(</a
+      ><a name="2388" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2393"
+      > </a
+      ><a name="2394" class="Symbol"
+      >{</a
+      ><a name="2395" href="FOTC.Program.GCD.Partial.TotalityATP.html#2395" class="Bound"
+      >n</a
+      ><a name="2396" class="Symbol"
+      >}</a
+      ><a name="2397"
+      > </a
+      ><a name="2398" href="FOTC.Program.GCD.Partial.TotalityATP.html#2398" class="Bound"
+      >Nn</a
+      ><a name="2400" class="Symbol"
+      >)</a
+      ><a name="2401"
+      > </a
+      ><a name="2402" href="FOTC.Program.GCD.Partial.TotalityATP.html#2402" class="Bound"
+      >ah</a
+      ><a name="2404"
+      >  </a
+      ><a name="2406" href="FOTC.Program.GCD.Partial.TotalityATP.html#2406" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="2411"
+      > </a
+      ><a name="2412" class="Symbol"
+      >_</a
+      ><a name="2413"
+      > </a
+      ><a name="2414" class="Symbol"
+      >=</a
+      ><a name="2415"
+      >
+  </a
+      ><a name="2418" href="FOTC.Program.GCD.Partial.TotalityATP.html#1385" class="Postulate"
+      >gcd-S&gt;S-N</a
+      ><a name="2427"
+      > </a
+      ><a name="2428" href="FOTC.Program.GCD.Partial.TotalityATP.html#2383" class="Bound"
+      >Nm</a
+      ><a name="2430"
+      > </a
+      ><a name="2431" href="FOTC.Program.GCD.Partial.TotalityATP.html#2398" class="Bound"
+      >Nn</a
+      ><a name="2433"
+      > </a
+      ><a name="2434" href="FOTC.Program.GCD.Partial.TotalityATP.html#2480" class="Function"
+      >ih</a
+      ><a name="2436"
+      > </a
+      ><a name="2437" href="FOTC.Program.GCD.Partial.TotalityATP.html#2406" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="2442"
+      >
+  </a
+      ><a name="2445" class="Keyword"
+      >where</a
+      ><a name="2450"
+      >
+  </a
+      ><a name="2453" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="2477"
+      >
+  </a
+      ><a name="2480" href="FOTC.Program.GCD.Partial.TotalityATP.html#2480" class="Function"
+      >ih</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" class="Symbol"
+      >:</a
+      ><a name="2484"
+      > </a
+      ><a name="2485" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2486"
+      > </a
+      ><a name="2487" class="Symbol"
+      >(</a
+      ><a name="2488" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2491"
+      > </a
+      ><a name="2492" class="Symbol"
+      >(</a
+      ><a name="2493" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2498"
+      > </a
+      ><a name="2499" href="FOTC.Program.GCD.Partial.TotalityATP.html#2380" class="Bound"
+      >m</a
+      ><a name="2500"
+      > </a
+      ><a name="2501" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2502"
+      > </a
+      ><a name="2503" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2508"
+      > </a
+      ><a name="2509" href="FOTC.Program.GCD.Partial.TotalityATP.html#2395" class="Bound"
+      >n</a
+      ><a name="2510" class="Symbol"
+      >)</a
+      ><a name="2511"
+      > </a
+      ><a name="2512" class="Symbol"
+      >(</a
+      ><a name="2513" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2518"
+      > </a
+      ><a name="2519" href="FOTC.Program.GCD.Partial.TotalityATP.html#2395" class="Bound"
+      >n</a
+      ><a name="2520" class="Symbol"
+      >))</a
+      ><a name="2522"
+      >
+  </a
+      ><a name="2525" href="FOTC.Program.GCD.Partial.TotalityATP.html#2480" class="Function"
+      >ih</a
+      ><a name="2527"
+      > </a
+      ><a name="2528" class="Symbol"
+      >=</a
+      ><a name="2529"
+      > </a
+      ><a name="2530" href="FOTC.Program.GCD.Partial.TotalityATP.html#2402" class="Bound"
+      >ah</a
+      ><a name="2532"
+      > </a
+      ><a name="2533" class="Symbol"
+      >{</a
+      ><a name="2534" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2539"
+      > </a
+      ><a name="2540" href="FOTC.Program.GCD.Partial.TotalityATP.html#2380" class="Bound"
+      >m</a
+      ><a name="2541"
+      > </a
+      ><a name="2542" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2543"
+      > </a
+      ><a name="2544" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2549"
+      > </a
+      ><a name="2550" href="FOTC.Program.GCD.Partial.TotalityATP.html#2395" class="Bound"
+      >n</a
+      ><a name="2551" class="Symbol"
+      >}</a
+      ><a name="2552"
+      >
+          </a
+      ><a name="2563" class="Symbol"
+      >{</a
+      ><a name="2564" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2569"
+      > </a
+      ><a name="2570" href="FOTC.Program.GCD.Partial.TotalityATP.html#2395" class="Bound"
+      >n</a
+      ><a name="2571" class="Symbol"
+      >}</a
+      ><a name="2572"
+      >
+          </a
+      ><a name="2583" class="Symbol"
+      >(</a
+      ><a name="2584" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" class="Symbol"
+      >(</a
+      ><a name="2589" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2594"
+      > </a
+      ><a name="2595" href="FOTC.Program.GCD.Partial.TotalityATP.html#2383" class="Bound"
+      >Nm</a
+      ><a name="2597" class="Symbol"
+      >)</a
+      ><a name="2598"
+      > </a
+      ><a name="2599" class="Symbol"
+      >(</a
+      ><a name="2600" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2605"
+      > </a
+      ><a name="2606" href="FOTC.Program.GCD.Partial.TotalityATP.html#2398" class="Bound"
+      >Nn</a
+      ><a name="2608" class="Symbol"
+      >))</a
+      ><a name="2610"
+      >
+          </a
+      ><a name="2621" class="Symbol"
+      >(</a
+      ><a name="2622" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2627"
+      > </a
+      ><a name="2628" href="FOTC.Program.GCD.Partial.TotalityATP.html#2398" class="Bound"
+      >Nn</a
+      ><a name="2630" class="Symbol"
+      >)</a
+      ><a name="2631"
+      >
+          </a
+      ><a name="2642" class="Symbol"
+      >(</a
+      ><a name="2643" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#22349" class="Function"
+      >[Sx&#8760;Sy,Sy]&lt;[Sx,Sy]</a
+      ><a name="2661"
+      > </a
+      ><a name="2662" href="FOTC.Program.GCD.Partial.TotalityATP.html#2383" class="Bound"
+      >Nm</a
+      ><a name="2664"
+      > </a
+      ><a name="2665" href="FOTC.Program.GCD.Partial.TotalityATP.html#2398" class="Bound"
+      >Nn</a
+      ><a name="2667" class="Symbol"
+      >)</a
+      ><a name="2668"
+      >
+          </a
+      ><a name="2679" class="Symbol"
+      >(&#955;</a
+      ><a name="2681"
+      > </a
+      ><a name="2682" href="FOTC.Program.GCD.Partial.TotalityATP.html#2682" class="Bound"
+      >p</a
+      ><a name="2683"
+      > </a
+      ><a name="2684" class="Symbol"
+      >&#8594;</a
+      ><a name="2685"
+      > </a
+      ><a name="2686" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2692"
+      > </a
+      ><a name="2693" class="Symbol"
+      >(</a
+      ><a name="2694" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="2697"
+      > </a
+      ><a name="2698" class="Symbol"
+      >(</a
+      ><a name="2699" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="2706"
+      > </a
+      ><a name="2707" href="FOTC.Program.GCD.Partial.TotalityATP.html#2682" class="Bound"
+      >p</a
+      ><a name="2708" class="Symbol"
+      >)))</a
+      ><a name="2711"
+      >
+
+</a
+      ><a name="2713" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2791"
+      >
+</a
+      ><a name="2792" class="Comment"
+      >-- gcd m n when m &#8815; n is total.</a
+      ><a name="2823"
+      >
+</a
+      ><a name="2824" href="FOTC.Program.GCD.Partial.TotalityATP.html#2824" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="2833"
+      > </a
+      ><a name="2834" class="Symbol"
+      >:</a
+      ><a name="2835"
+      >
+  </a
+      ><a name="2838" class="Symbol"
+      >&#8704;</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" class="Symbol"
+      >{</a
+      ><a name="2841" href="FOTC.Program.GCD.Partial.TotalityATP.html#2841" class="Bound"
+      >m</a
+      ><a name="2842"
+      > </a
+      ><a name="2843" href="FOTC.Program.GCD.Partial.TotalityATP.html#2843" class="Bound"
+      >n</a
+      ><a name="2844" class="Symbol"
+      >}</a
+      ><a name="2845"
+      > </a
+      ><a name="2846" class="Symbol"
+      >&#8594;</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2849"
+      > </a
+      ><a name="2850" href="FOTC.Program.GCD.Partial.TotalityATP.html#2841" class="Bound"
+      >m</a
+      ><a name="2851"
+      > </a
+      ><a name="2852" class="Symbol"
+      >&#8594;</a
+      ><a name="2853"
+      > </a
+      ><a name="2854" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2855"
+      > </a
+      ><a name="2856" href="FOTC.Program.GCD.Partial.TotalityATP.html#2843" class="Bound"
+      >n</a
+      ><a name="2857"
+      > </a
+      ><a name="2858" class="Symbol"
+      >&#8594;</a
+      ><a name="2859"
+      >
+  </a
+      ><a name="2862" class="Symbol"
+      >(&#8704;</a
+      ><a name="2864"
+      > </a
+      ><a name="2865" class="Symbol"
+      >{</a
+      ><a name="2866" href="FOTC.Program.GCD.Partial.TotalityATP.html#2866" class="Bound"
+      >o</a
+      ><a name="2867"
+      > </a
+      ><a name="2868" href="FOTC.Program.GCD.Partial.TotalityATP.html#2868" class="Bound"
+      >p</a
+      ><a name="2869" class="Symbol"
+      >}</a
+      ><a name="2870"
+      > </a
+      ><a name="2871" class="Symbol"
+      >&#8594;</a
+      ><a name="2872"
+      > </a
+      ><a name="2873" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2874"
+      > </a
+      ><a name="2875" href="FOTC.Program.GCD.Partial.TotalityATP.html#2866" class="Bound"
+      >o</a
+      ><a name="2876"
+      > </a
+      ><a name="2877" class="Symbol"
+      >&#8594;</a
+      ><a name="2878"
+      > </a
+      ><a name="2879" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2880"
+      > </a
+      ><a name="2881" href="FOTC.Program.GCD.Partial.TotalityATP.html#2868" class="Bound"
+      >p</a
+      ><a name="2882"
+      > </a
+      ><a name="2883" class="Symbol"
+      >&#8594;</a
+      ><a name="2884"
+      > </a
+      ><a name="2885" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="2889"
+      > </a
+      ><a name="2890" href="FOTC.Program.GCD.Partial.TotalityATP.html#2866" class="Bound"
+      >o</a
+      ><a name="2891"
+      > </a
+      ><a name="2892" href="FOTC.Program.GCD.Partial.TotalityATP.html#2868" class="Bound"
+      >p</a
+      ><a name="2893"
+      > </a
+      ><a name="2894" href="FOTC.Program.GCD.Partial.TotalityATP.html#2841" class="Bound"
+      >m</a
+      ><a name="2895"
+      > </a
+      ><a name="2896" href="FOTC.Program.GCD.Partial.TotalityATP.html#2843" class="Bound"
+      >n</a
+      ><a name="2897"
+      > </a
+      ><a name="2898" class="Symbol"
+      >&#8594;</a
+      ><a name="2899"
+      > </a
+      ><a name="2900" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="2905"
+      > </a
+      ><a name="2906" href="FOTC.Program.GCD.Partial.TotalityATP.html#2866" class="Bound"
+      >o</a
+      ><a name="2907"
+      > </a
+      ><a name="2908" href="FOTC.Program.GCD.Partial.TotalityATP.html#2868" class="Bound"
+      >p</a
+      ><a name="2909"
+      > </a
+      ><a name="2910" class="Symbol"
+      >&#8594;</a
+      ><a name="2911"
+      > </a
+      ><a name="2912" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2913"
+      > </a
+      ><a name="2914" class="Symbol"
+      >(</a
+      ><a name="2915" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2918"
+      > </a
+      ><a name="2919" href="FOTC.Program.GCD.Partial.TotalityATP.html#2866" class="Bound"
+      >o</a
+      ><a name="2920"
+      > </a
+      ><a name="2921" href="FOTC.Program.GCD.Partial.TotalityATP.html#2868" class="Bound"
+      >p</a
+      ><a name="2922" class="Symbol"
+      >))</a
+      ><a name="2924"
+      > </a
+      ><a name="2925" class="Symbol"
+      >&#8594;</a
+      ><a name="2926"
+      >
+  </a
+      ><a name="2929" href="FOTC.Program.GCD.Partial.TotalityATP.html#2841" class="Bound"
+      >m</a
+      ><a name="2930"
+      > </a
+      ><a name="2931" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="2932"
+      > </a
+      ><a name="2933" href="FOTC.Program.GCD.Partial.TotalityATP.html#2843" class="Bound"
+      >n</a
+      ><a name="2934"
+      > </a
+      ><a name="2935" class="Symbol"
+      >&#8594;</a
+      ><a name="2936"
+      >
+  </a
+      ><a name="2939" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="2944"
+      > </a
+      ><a name="2945" href="FOTC.Program.GCD.Partial.TotalityATP.html#2841" class="Bound"
+      >m</a
+      ><a name="2946"
+      > </a
+      ><a name="2947" href="FOTC.Program.GCD.Partial.TotalityATP.html#2843" class="Bound"
+      >n</a
+      ><a name="2948"
+      > </a
+      ><a name="2949" class="Symbol"
+      >&#8594;</a
+      ><a name="2950"
+      >
+  </a
+      ><a name="2953" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2954"
+      > </a
+      ><a name="2955" class="Symbol"
+      >(</a
+      ><a name="2956" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="2959"
+      > </a
+      ><a name="2960" href="FOTC.Program.GCD.Partial.TotalityATP.html#2841" class="Bound"
+      >m</a
+      ><a name="2961"
+      > </a
+      ><a name="2962" href="FOTC.Program.GCD.Partial.TotalityATP.html#2843" class="Bound"
+      >n</a
+      ><a name="2963" class="Symbol"
+      >)</a
+      ><a name="2964"
+      >
+</a
+      ><a name="2965" href="FOTC.Program.GCD.Partial.TotalityATP.html#2824" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="2974"
+      > </a
+      ><a name="2975" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2980"
+      >          </a
+      ><a name="2990" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2995"
+      >          </a
+      ><a name="3005" class="Symbol"
+      >_</a
+      ><a name="3006"
+      >  </a
+      ><a name="3008" class="Symbol"
+      >_</a
+      ><a name="3009"
+      >     </a
+      ><a name="3014" href="FOTC.Program.GCD.Partial.TotalityATP.html#3014" class="Bound"
+      >h</a
+      ><a name="3015"
+      > </a
+      ><a name="3016" class="Symbol"
+      >=</a
+      ><a name="3017"
+      > </a
+      ><a name="3018" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3024"
+      > </a
+      ><a name="3025" class="Symbol"
+      >(</a
+      ><a name="3026" href="FOTC.Program.GCD.Partial.TotalityATP.html#3014" class="Bound"
+      >h</a
+      ><a name="3027"
+      > </a
+      ><a name="3028" class="Symbol"
+      >(</a
+      ><a name="3029" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3033"
+      > </a
+      ><a name="3034" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3035"
+      > </a
+      ><a name="3036" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3040" class="Symbol"
+      >))</a
+      ><a name="3042"
+      >
+</a
+      ><a name="3043" href="FOTC.Program.GCD.Partial.TotalityATP.html#2824" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3052"
+      > </a
+      ><a name="3053" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3058"
+      >          </a
+      ><a name="3068" class="Symbol"
+      >(</a
+      ><a name="3069" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3074"
+      > </a
+      ><a name="3075" href="FOTC.Program.GCD.Partial.TotalityATP.html#3075" class="Bound"
+      >Nn</a
+      ><a name="3077" class="Symbol"
+      >)</a
+      ><a name="3078"
+      >     </a
+      ><a name="3083" class="Symbol"
+      >_</a
+      ><a name="3084"
+      >  </a
+      ><a name="3086" class="Symbol"
+      >_</a
+      ><a name="3087"
+      >     </a
+      ><a name="3092" class="Symbol"
+      >_</a
+      ><a name="3093"
+      > </a
+      ><a name="3094" class="Symbol"
+      >=</a
+      ><a name="3095"
+      > </a
+      ><a name="3096" href="FOTC.Program.GCD.Partial.TotalityATP.html#966" class="Postulate"
+      >gcd-0S-N</a
+      ><a name="3104"
+      > </a
+      ><a name="3105" href="FOTC.Program.GCD.Partial.TotalityATP.html#3075" class="Bound"
+      >Nn</a
+      ><a name="3107"
+      >
+</a
+      ><a name="3108" href="FOTC.Program.GCD.Partial.TotalityATP.html#2824" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3117"
+      > </a
+      ><a name="3118" class="Symbol"
+      >(</a
+      ><a name="3119" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3124"
+      > </a
+      ><a name="3125" class="Symbol"
+      >_)</a
+      ><a name="3127"
+      >      </a
+      ><a name="3133" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3138"
+      >          </a
+      ><a name="3148" class="Symbol"
+      >_</a
+      ><a name="3149"
+      >  </a
+      ><a name="3151" href="FOTC.Program.GCD.Partial.TotalityATP.html#3151" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="3155"
+      >  </a
+      ><a name="3157" class="Symbol"
+      >_</a
+      ><a name="3158"
+      > </a
+      ><a name="3159" class="Symbol"
+      >=</a
+      ><a name="3160"
+      > </a
+      ><a name="3161" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3167"
+      > </a
+      ><a name="3168" class="Symbol"
+      >(</a
+      ><a name="3169" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1646" class="Postulate"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="3174"
+      > </a
+      ><a name="3175" href="FOTC.Program.GCD.Partial.TotalityATP.html#3151" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="3179" class="Symbol"
+      >)</a
+      ><a name="3180"
+      >
+</a
+      ><a name="3181" href="FOTC.Program.GCD.Partial.TotalityATP.html#2824" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3190"
+      > </a
+      ><a name="3191" class="Symbol"
+      >(</a
+      ><a name="3192" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3197"
+      > </a
+      ><a name="3198" class="Symbol"
+      >{</a
+      ><a name="3199" href="FOTC.Program.GCD.Partial.TotalityATP.html#3199" class="Bound"
+      >m</a
+      ><a name="3200" class="Symbol"
+      >}</a
+      ><a name="3201"
+      > </a
+      ><a name="3202" href="FOTC.Program.GCD.Partial.TotalityATP.html#3202" class="Bound"
+      >Nm</a
+      ><a name="3204" class="Symbol"
+      >)</a
+      ><a name="3205"
+      > </a
+      ><a name="3206" class="Symbol"
+      >(</a
+      ><a name="3207" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3212"
+      > </a
+      ><a name="3213" class="Symbol"
+      >{</a
+      ><a name="3214" href="FOTC.Program.GCD.Partial.TotalityATP.html#3214" class="Bound"
+      >n</a
+      ><a name="3215" class="Symbol"
+      >}</a
+      ><a name="3216"
+      > </a
+      ><a name="3217" href="FOTC.Program.GCD.Partial.TotalityATP.html#3217" class="Bound"
+      >Nn</a
+      ><a name="3219" class="Symbol"
+      >)</a
+      ><a name="3220"
+      > </a
+      ><a name="3221" href="FOTC.Program.GCD.Partial.TotalityATP.html#3221" class="Bound"
+      >ah</a
+      ><a name="3223"
+      > </a
+      ><a name="3224" href="FOTC.Program.GCD.Partial.TotalityATP.html#3224" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="3229"
+      > </a
+      ><a name="3230" class="Symbol"
+      >_</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" class="Symbol"
+      >=</a
+      ><a name="3233"
+      > </a
+      ><a name="3234" href="FOTC.Program.GCD.Partial.TotalityATP.html#1751" class="Postulate"
+      >gcd-S&#8815;S-N</a
+      ><a name="3243"
+      > </a
+      ><a name="3244" href="FOTC.Program.GCD.Partial.TotalityATP.html#3202" class="Bound"
+      >Nm</a
+      ><a name="3246"
+      > </a
+      ><a name="3247" href="FOTC.Program.GCD.Partial.TotalityATP.html#3217" class="Bound"
+      >Nn</a
+      ><a name="3249"
+      > </a
+      ><a name="3250" href="FOTC.Program.GCD.Partial.TotalityATP.html#3296" class="Function"
+      >ih</a
+      ><a name="3252"
+      > </a
+      ><a name="3253" href="FOTC.Program.GCD.Partial.TotalityATP.html#3224" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="3258"
+      >
+  </a
+      ><a name="3261" class="Keyword"
+      >where</a
+      ><a name="3266"
+      >
+  </a
+      ><a name="3269" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="3293"
+      >
+  </a
+      ><a name="3296" href="FOTC.Program.GCD.Partial.TotalityATP.html#3296" class="Function"
+      >ih</a
+      ><a name="3298"
+      > </a
+      ><a name="3299" class="Symbol"
+      >:</a
+      ><a name="3300"
+      > </a
+      ><a name="3301" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3302"
+      > </a
+      ><a name="3303" class="Symbol"
+      >(</a
+      ><a name="3304" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3307"
+      > </a
+      ><a name="3308" class="Symbol"
+      >(</a
+      ><a name="3309" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3314"
+      > </a
+      ><a name="3315" href="FOTC.Program.GCD.Partial.TotalityATP.html#3199" class="Bound"
+      >m</a
+      ><a name="3316" class="Symbol"
+      >)</a
+      ><a name="3317"
+      > </a
+      ><a name="3318" class="Symbol"
+      >(</a
+      ><a name="3319" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3324"
+      > </a
+      ><a name="3325" href="FOTC.Program.GCD.Partial.TotalityATP.html#3214" class="Bound"
+      >n</a
+      ><a name="3326"
+      > </a
+      ><a name="3327" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3328"
+      > </a
+      ><a name="3329" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3334"
+      > </a
+      ><a name="3335" href="FOTC.Program.GCD.Partial.TotalityATP.html#3199" class="Bound"
+      >m</a
+      ><a name="3336" class="Symbol"
+      >))</a
+      ><a name="3338"
+      >
+  </a
+      ><a name="3341" href="FOTC.Program.GCD.Partial.TotalityATP.html#3296" class="Function"
+      >ih</a
+      ><a name="3343"
+      > </a
+      ><a name="3344" class="Symbol"
+      >=</a
+      ><a name="3345"
+      > </a
+      ><a name="3346" href="FOTC.Program.GCD.Partial.TotalityATP.html#3221" class="Bound"
+      >ah</a
+      ><a name="3348"
+      > </a
+      ><a name="3349" class="Symbol"
+      >{</a
+      ><a name="3350" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3355"
+      > </a
+      ><a name="3356" href="FOTC.Program.GCD.Partial.TotalityATP.html#3199" class="Bound"
+      >m</a
+      ><a name="3357" class="Symbol"
+      >}</a
+      ><a name="3358"
+      >
+          </a
+      ><a name="3369" class="Symbol"
+      >{</a
+      ><a name="3370" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3375"
+      > </a
+      ><a name="3376" href="FOTC.Program.GCD.Partial.TotalityATP.html#3214" class="Bound"
+      >n</a
+      ><a name="3377"
+      > </a
+      ><a name="3378" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3379"
+      > </a
+      ><a name="3380" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3385"
+      > </a
+      ><a name="3386" href="FOTC.Program.GCD.Partial.TotalityATP.html#3199" class="Bound"
+      >m</a
+      ><a name="3387" class="Symbol"
+      >}</a
+      ><a name="3388"
+      >
+          </a
+      ><a name="3399" class="Symbol"
+      >(</a
+      ><a name="3400" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3405"
+      > </a
+      ><a name="3406" href="FOTC.Program.GCD.Partial.TotalityATP.html#3202" class="Bound"
+      >Nm</a
+      ><a name="3408" class="Symbol"
+      >)</a
+      ><a name="3409"
+      >
+          </a
+      ><a name="3420" class="Symbol"
+      >(</a
+      ><a name="3421" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="3424"
+      > </a
+      ><a name="3425" class="Symbol"
+      >(</a
+      ><a name="3426" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3431"
+      > </a
+      ><a name="3432" href="FOTC.Program.GCD.Partial.TotalityATP.html#3217" class="Bound"
+      >Nn</a
+      ><a name="3434" class="Symbol"
+      >)</a
+      ><a name="3435"
+      > </a
+      ><a name="3436" class="Symbol"
+      >(</a
+      ><a name="3437" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3442"
+      > </a
+      ><a name="3443" href="FOTC.Program.GCD.Partial.TotalityATP.html#3202" class="Bound"
+      >Nm</a
+      ><a name="3445" class="Symbol"
+      >))</a
+      ><a name="3447"
+      >
+          </a
+      ><a name="3458" class="Symbol"
+      >(</a
+      ><a name="3459" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#22628" class="Function"
+      >[Sx,Sy&#8760;Sx]&lt;[Sx,Sy]</a
+      ><a name="3477"
+      > </a
+      ><a name="3478" href="FOTC.Program.GCD.Partial.TotalityATP.html#3202" class="Bound"
+      >Nm</a
+      ><a name="3480"
+      > </a
+      ><a name="3481" href="FOTC.Program.GCD.Partial.TotalityATP.html#3217" class="Bound"
+      >Nn</a
+      ><a name="3483" class="Symbol"
+      >)</a
+      ><a name="3484"
+      >
+          </a
+      ><a name="3495" class="Symbol"
+      >(&#955;</a
+      ><a name="3497"
+      > </a
+      ><a name="3498" href="FOTC.Program.GCD.Partial.TotalityATP.html#3498" class="Bound"
+      >p</a
+      ><a name="3499"
+      > </a
+      ><a name="3500" class="Symbol"
+      >&#8594;</a
+      ><a name="3501"
+      > </a
+      ><a name="3502" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3508"
+      > </a
+      ><a name="3509" class="Symbol"
+      >(</a
+      ><a name="3510" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="3513"
+      > </a
+      ><a name="3514" class="Symbol"
+      >(</a
+      ><a name="3515" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="3522"
+      > </a
+      ><a name="3523" href="FOTC.Program.GCD.Partial.TotalityATP.html#3498" class="Bound"
+      >p</a
+      ><a name="3524" class="Symbol"
+      >)))</a
+      ><a name="3527"
+      >
+
+</a
+      ><a name="3529" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3607"
+      >
+</a
+      ><a name="3608" class="Comment"
+      >-- gcd m n when m &#8802; 0 and n &#8802; 0 is total.</a
+      ><a name="3649"
+      >
+</a
+      ><a name="3650" href="FOTC.Program.GCD.Partial.TotalityATP.html#3650" class="Function"
+      >gcd-N</a
+      ><a name="3655"
+      > </a
+      ><a name="3656" class="Symbol"
+      >:</a
+      ><a name="3657"
+      > </a
+      ><a name="3658" class="Symbol"
+      >&#8704;</a
+      ><a name="3659"
+      > </a
+      ><a name="3660" class="Symbol"
+      >{</a
+      ><a name="3661" href="FOTC.Program.GCD.Partial.TotalityATP.html#3661" class="Bound"
+      >m</a
+      ><a name="3662"
+      > </a
+      ><a name="3663" href="FOTC.Program.GCD.Partial.TotalityATP.html#3663" class="Bound"
+      >n</a
+      ><a name="3664" class="Symbol"
+      >}</a
+      ><a name="3665"
+      > </a
+      ><a name="3666" class="Symbol"
+      >&#8594;</a
+      ><a name="3667"
+      > </a
+      ><a name="3668" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3669"
+      > </a
+      ><a name="3670" href="FOTC.Program.GCD.Partial.TotalityATP.html#3661" class="Bound"
+      >m</a
+      ><a name="3671"
+      > </a
+      ><a name="3672" class="Symbol"
+      >&#8594;</a
+      ><a name="3673"
+      > </a
+      ><a name="3674" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3675"
+      > </a
+      ><a name="3676" href="FOTC.Program.GCD.Partial.TotalityATP.html#3663" class="Bound"
+      >n</a
+      ><a name="3677"
+      > </a
+      ><a name="3678" class="Symbol"
+      >&#8594;</a
+      ><a name="3679"
+      > </a
+      ><a name="3680" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="3685"
+      > </a
+      ><a name="3686" href="FOTC.Program.GCD.Partial.TotalityATP.html#3661" class="Bound"
+      >m</a
+      ><a name="3687"
+      > </a
+      ><a name="3688" href="FOTC.Program.GCD.Partial.TotalityATP.html#3663" class="Bound"
+      >n</a
+      ><a name="3689"
+      > </a
+      ><a name="3690" class="Symbol"
+      >&#8594;</a
+      ><a name="3691"
+      > </a
+      ><a name="3692" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3693"
+      > </a
+      ><a name="3694" class="Symbol"
+      >(</a
+      ><a name="3695" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3698"
+      > </a
+      ><a name="3699" href="FOTC.Program.GCD.Partial.TotalityATP.html#3661" class="Bound"
+      >m</a
+      ><a name="3700"
+      > </a
+      ><a name="3701" href="FOTC.Program.GCD.Partial.TotalityATP.html#3663" class="Bound"
+      >n</a
+      ><a name="3702" class="Symbol"
+      >)</a
+      ><a name="3703"
+      >
+</a
+      ><a name="3704" href="FOTC.Program.GCD.Partial.TotalityATP.html#3650" class="Function"
+      >gcd-N</a
+      ><a name="3709"
+      > </a
+      ><a name="3710" class="Symbol"
+      >=</a
+      ><a name="3711"
+      > </a
+      ><a name="3712" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicATP.html#868" class="Function"
+      >Lexi-wfind</a
+      ><a name="3722"
+      > </a
+      ><a name="3723" href="FOTC.Program.GCD.Partial.TotalityATP.html#3737" class="Function"
+      >A</a
+      ><a name="3724"
+      > </a
+      ><a name="3725" href="FOTC.Program.GCD.Partial.TotalityATP.html#3790" class="Function"
+      >h</a
+      ><a name="3726"
+      >
+  </a
+      ><a name="3729" class="Keyword"
+      >where</a
+      ><a name="3734"
+      >
+  </a
+      ><a name="3737" href="FOTC.Program.GCD.Partial.TotalityATP.html#3737" class="Function"
+      >A</a
+      ><a name="3738"
+      > </a
+      ><a name="3739" class="Symbol"
+      >:</a
+      ><a name="3740"
+      > </a
+      ><a name="3741" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3742"
+      > </a
+      ><a name="3743" class="Symbol"
+      >&#8594;</a
+      ><a name="3744"
+      > </a
+      ><a name="3745" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3746"
+      > </a
+      ><a name="3747" class="Symbol"
+      >&#8594;</a
+      ><a name="3748"
+      > </a
+      ><a name="3749" class="PrimitiveType"
+      >Set</a
+      ><a name="3752"
+      >
+  </a
+      ><a name="3755" href="FOTC.Program.GCD.Partial.TotalityATP.html#3737" class="Function"
+      >A</a
+      ><a name="3756"
+      > </a
+      ><a name="3757" href="FOTC.Program.GCD.Partial.TotalityATP.html#3757" class="Bound"
+      >i</a
+      ><a name="3758"
+      > </a
+      ><a name="3759" href="FOTC.Program.GCD.Partial.TotalityATP.html#3759" class="Bound"
+      >j</a
+      ><a name="3760"
+      > </a
+      ><a name="3761" class="Symbol"
+      >=</a
+      ><a name="3762"
+      > </a
+      ><a name="3763" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="3768"
+      > </a
+      ><a name="3769" href="FOTC.Program.GCD.Partial.TotalityATP.html#3757" class="Bound"
+      >i</a
+      ><a name="3770"
+      > </a
+      ><a name="3771" href="FOTC.Program.GCD.Partial.TotalityATP.html#3759" class="Bound"
+      >j</a
+      ><a name="3772"
+      > </a
+      ><a name="3773" class="Symbol"
+      >&#8594;</a
+      ><a name="3774"
+      > </a
+      ><a name="3775" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3776"
+      > </a
+      ><a name="3777" class="Symbol"
+      >(</a
+      ><a name="3778" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="3781"
+      > </a
+      ><a name="3782" href="FOTC.Program.GCD.Partial.TotalityATP.html#3757" class="Bound"
+      >i</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" href="FOTC.Program.GCD.Partial.TotalityATP.html#3759" class="Bound"
+      >j</a
+      ><a name="3785" class="Symbol"
+      >)</a
+      ><a name="3786"
+      >
+
+  </a
+      ><a name="3790" href="FOTC.Program.GCD.Partial.TotalityATP.html#3790" class="Function"
+      >h</a
+      ><a name="3791"
+      > </a
+      ><a name="3792" class="Symbol"
+      >:</a
+      ><a name="3793"
+      > </a
+      ><a name="3794" class="Symbol"
+      >&#8704;</a
+      ><a name="3795"
+      > </a
+      ><a name="3796" class="Symbol"
+      >{</a
+      ><a name="3797" href="FOTC.Program.GCD.Partial.TotalityATP.html#3797" class="Bound"
+      >i</a
+      ><a name="3798"
+      > </a
+      ><a name="3799" href="FOTC.Program.GCD.Partial.TotalityATP.html#3799" class="Bound"
+      >j</a
+      ><a name="3800" class="Symbol"
+      >}</a
+      ><a name="3801"
+      > </a
+      ><a name="3802" class="Symbol"
+      >&#8594;</a
+      ><a name="3803"
+      > </a
+      ><a name="3804" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3805"
+      > </a
+      ><a name="3806" href="FOTC.Program.GCD.Partial.TotalityATP.html#3797" class="Bound"
+      >i</a
+      ><a name="3807"
+      > </a
+      ><a name="3808" class="Symbol"
+      >&#8594;</a
+      ><a name="3809"
+      > </a
+      ><a name="3810" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3811"
+      > </a
+      ><a name="3812" href="FOTC.Program.GCD.Partial.TotalityATP.html#3799" class="Bound"
+      >j</a
+      ><a name="3813"
+      > </a
+      ><a name="3814" class="Symbol"
+      >&#8594;</a
+      ><a name="3815"
+      > </a
+      ><a name="3816" class="Symbol"
+      >(&#8704;</a
+      ><a name="3818"
+      > </a
+      ><a name="3819" class="Symbol"
+      >{</a
+      ><a name="3820" href="FOTC.Program.GCD.Partial.TotalityATP.html#3820" class="Bound"
+      >k</a
+      ><a name="3821"
+      > </a
+      ><a name="3822" href="FOTC.Program.GCD.Partial.TotalityATP.html#3822" class="Bound"
+      >l</a
+      ><a name="3823" class="Symbol"
+      >}</a
+      ><a name="3824"
+      > </a
+      ><a name="3825" class="Symbol"
+      >&#8594;</a
+      ><a name="3826"
+      > </a
+      ><a name="3827" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3828"
+      > </a
+      ><a name="3829" href="FOTC.Program.GCD.Partial.TotalityATP.html#3820" class="Bound"
+      >k</a
+      ><a name="3830"
+      > </a
+      ><a name="3831" class="Symbol"
+      >&#8594;</a
+      ><a name="3832"
+      > </a
+      ><a name="3833" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3834"
+      > </a
+      ><a name="3835" href="FOTC.Program.GCD.Partial.TotalityATP.html#3822" class="Bound"
+      >l</a
+      ><a name="3836"
+      > </a
+      ><a name="3837" class="Symbol"
+      >&#8594;</a
+      ><a name="3838"
+      > </a
+      ><a name="3839" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="3843"
+      > </a
+      ><a name="3844" href="FOTC.Program.GCD.Partial.TotalityATP.html#3820" class="Bound"
+      >k</a
+      ><a name="3845"
+      > </a
+      ><a name="3846" href="FOTC.Program.GCD.Partial.TotalityATP.html#3822" class="Bound"
+      >l</a
+      ><a name="3847"
+      > </a
+      ><a name="3848" href="FOTC.Program.GCD.Partial.TotalityATP.html#3797" class="Bound"
+      >i</a
+      ><a name="3849"
+      > </a
+      ><a name="3850" href="FOTC.Program.GCD.Partial.TotalityATP.html#3799" class="Bound"
+      >j</a
+      ><a name="3851"
+      > </a
+      ><a name="3852" class="Symbol"
+      >&#8594;</a
+      ><a name="3853"
+      > </a
+      ><a name="3854" href="FOTC.Program.GCD.Partial.TotalityATP.html#3737" class="Function"
+      >A</a
+      ><a name="3855"
+      > </a
+      ><a name="3856" href="FOTC.Program.GCD.Partial.TotalityATP.html#3820" class="Bound"
+      >k</a
+      ><a name="3857"
+      > </a
+      ><a name="3858" href="FOTC.Program.GCD.Partial.TotalityATP.html#3822" class="Bound"
+      >l</a
+      ><a name="3859" class="Symbol"
+      >)</a
+      ><a name="3860"
+      > </a
+      ><a name="3861" class="Symbol"
+      >&#8594;</a
+      ><a name="3862"
+      >
+      </a
+      ><a name="3869" href="FOTC.Program.GCD.Partial.TotalityATP.html#3737" class="Function"
+      >A</a
+      ><a name="3870"
+      > </a
+      ><a name="3871" href="FOTC.Program.GCD.Partial.TotalityATP.html#3797" class="Bound"
+      >i</a
+      ><a name="3872"
+      > </a
+      ><a name="3873" href="FOTC.Program.GCD.Partial.TotalityATP.html#3799" class="Bound"
+      >j</a
+      ><a name="3874"
+      >
+  </a
+      ><a name="3877" href="FOTC.Program.GCD.Partial.TotalityATP.html#3790" class="Function"
+      >h</a
+      ><a name="3878"
+      > </a
+      ><a name="3879" href="FOTC.Program.GCD.Partial.TotalityATP.html#3879" class="Bound"
+      >Ni</a
+      ><a name="3881"
+      > </a
+      ><a name="3882" href="FOTC.Program.GCD.Partial.TotalityATP.html#3882" class="Bound"
+      >Nj</a
+      ><a name="3884"
+      > </a
+      ><a name="3885" href="FOTC.Program.GCD.Partial.TotalityATP.html#3885" class="Bound"
+      >ah</a
+      ><a name="3887"
+      > </a
+      ><a name="3888" class="Symbol"
+      >=</a
+      ><a name="3889"
+      > </a
+      ><a name="3890" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="3894"
+      > </a
+      ><a name="3895" class="Symbol"
+      >(</a
+      ><a name="3896" href="FOTC.Program.GCD.Partial.TotalityATP.html#2079" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="3905"
+      > </a
+      ><a name="3906" href="FOTC.Program.GCD.Partial.TotalityATP.html#3879" class="Bound"
+      >Ni</a
+      ><a name="3908"
+      > </a
+      ><a name="3909" href="FOTC.Program.GCD.Partial.TotalityATP.html#3882" class="Bound"
+      >Nj</a
+      ><a name="3911"
+      > </a
+      ><a name="3912" href="FOTC.Program.GCD.Partial.TotalityATP.html#3885" class="Bound"
+      >ah</a
+      ><a name="3914" class="Symbol"
+      >)</a
+      ><a name="3915"
+      > </a
+      ><a name="3916" class="Symbol"
+      >(</a
+      ><a name="3917" href="FOTC.Program.GCD.Partial.TotalityATP.html#2824" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3926"
+      > </a
+      ><a name="3927" href="FOTC.Program.GCD.Partial.TotalityATP.html#3879" class="Bound"
+      >Ni</a
+      ><a name="3929"
+      > </a
+      ><a name="3930" href="FOTC.Program.GCD.Partial.TotalityATP.html#3882" class="Bound"
+      >Nj</a
+      ><a name="3932"
+      > </a
+      ><a name="3933" href="FOTC.Program.GCD.Partial.TotalityATP.html#3885" class="Bound"
+      >ah</a
+      ><a name="3935" class="Symbol"
+      >)</a
+      ><a name="3936"
+      > </a
+      ><a name="3937" class="Symbol"
+      >(</a
+      ><a name="3938" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#9658" class="Function"
+      >x&gt;y&#8744;x&#8815;y</a
+      ><a name="3945"
+      > </a
+      ><a name="3946" href="FOTC.Program.GCD.Partial.TotalityATP.html#3879" class="Bound"
+      >Ni</a
+      ><a name="3948"
+      > </a
+      ><a name="3949" href="FOTC.Program.GCD.Partial.TotalityATP.html#3882" class="Bound"
+      >Nj</a
+      ><a name="3951" class="Symbol"
+      >)</a
+      ><a name="3952"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

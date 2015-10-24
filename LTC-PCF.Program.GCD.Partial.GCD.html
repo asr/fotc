@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.GCD.Partial.GCD</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Definition of the gcd of two natural numbers using the Euclid's algorithm</a
+      ><a name="156"
+      >
+</a
+      ><a name="157" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="235"
+      >
+
+</a
+      ><a name="237" class="Symbol"
+      >{-#</a
+      ><a name="240"
+      > </a
+      ><a name="241" class="Keyword"
+      >OPTIONS</a
+      ><a name="248"
+      > --exact-split              </a
+      ><a name="276" class="Symbol"
+      >#-}</a
+      ><a name="279"
+      >
+</a
+      ><a name="280" class="Symbol"
+      >{-#</a
+      ><a name="283"
+      > </a
+      ><a name="284" class="Keyword"
+      >OPTIONS</a
+      ><a name="291"
+      > --no-sized-types           </a
+      ><a name="319" class="Symbol"
+      >#-}</a
+      ><a name="322"
+      >
+</a
+      ><a name="323" class="Symbol"
+      >{-#</a
+      ><a name="326"
+      > </a
+      ><a name="327" class="Keyword"
+      >OPTIONS</a
+      ><a name="334"
+      > --no-universe-polymorphism </a
+      ><a name="362" class="Symbol"
+      >#-}</a
+      ><a name="365"
+      >
+</a
+      ><a name="366" class="Symbol"
+      >{-#</a
+      ><a name="369"
+      > </a
+      ><a name="370" class="Keyword"
+      >OPTIONS</a
+      ><a name="377"
+      > --without-K                </a
+      ><a name="405" class="Symbol"
+      >#-}</a
+      ><a name="408"
+      >
+
+</a
+      ><a name="410" class="Keyword"
+      >module</a
+      ><a name="416"
+      > </a
+      ><a name="417" href="LTC-PCF.Program.GCD.Partial.GCD.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.GCD</a
+      ><a name="448"
+      > </a
+      ><a name="449" class="Keyword"
+      >where</a
+      ><a name="454"
+      >
+
+</a
+      ><a name="456" class="Keyword"
+      >open</a
+      ><a name="460"
+      > </a
+      ><a name="461" class="Keyword"
+      >import</a
+      ><a name="467"
+      > </a
+      ><a name="468" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="480"
+      >
+</a
+      ><a name="481" class="Keyword"
+      >open</a
+      ><a name="485"
+      > </a
+      ><a name="486" class="Keyword"
+      >import</a
+      ><a name="492"
+      > </a
+      ><a name="493" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="509"
+      >
+</a
+      ><a name="510" class="Keyword"
+      >open</a
+      ><a name="514"
+      > </a
+      ><a name="515" class="Keyword"
+      >import</a
+      ><a name="521"
+      > </a
+      ><a name="522" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="551"
+      >
+</a
+      ><a name="552" class="Keyword"
+      >open</a
+      ><a name="556"
+      > </a
+      ><a name="557" class="Keyword"
+      >import</a
+      ><a name="563"
+      > </a
+      ><a name="564" href="LTC-PCF.Loop.html#1" class="Module"
+      >LTC-PCF.Loop</a
+      ><a name="576"
+      >
+
+</a
+      ><a name="578" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="656"
+      >
+</a
+      ><a name="657" class="Comment"
+      >-- In GHC &#8804; 7.0.4 the gcd is a partial function, i.e. gcd 0 0 = undefined.</a
+      ><a name="731"
+      >
+
+</a
+      ><a name="733" class="Comment"
+      >-- Let T = D &#8594; D &#8594; D be a type. Instead of defining gcdh : T &#8594; T, we</a
+      ><a name="801"
+      >
+</a
+      ><a name="802" class="Comment"
+      >-- use the LTC-PCF &#955;-abstraction and application to avoid use a</a
+      ><a name="865"
+      >
+</a
+      ><a name="866" class="Comment"
+      >-- polymorphic fixed-point operator.</a
+      ><a name="902"
+      >
+
+</a
+      ><a name="904" href="LTC-PCF.Program.GCD.Partial.GCD.html#904" class="Function"
+      >gcdh</a
+      ><a name="908"
+      > </a
+      ><a name="909" class="Symbol"
+      >:</a
+      ><a name="910"
+      > </a
+      ><a name="911" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="912"
+      > </a
+      ><a name="913" class="Symbol"
+      >&#8594;</a
+      ><a name="914"
+      > </a
+      ><a name="915" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="916"
+      >
+</a
+      ><a name="917" href="LTC-PCF.Program.GCD.Partial.GCD.html#904" class="Function"
+      >gcdh</a
+      ><a name="921"
+      > </a
+      ><a name="922" href="LTC-PCF.Program.GCD.Partial.GCD.html#922" class="Bound"
+      >g</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Symbol"
+      >=</a
+      ><a name="925"
+      > </a
+      ><a name="926" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >(&#955;</a
+      ><a name="932"
+      > </a
+      ><a name="933" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="934"
+      > </a
+      ><a name="935" class="Symbol"
+      >&#8594;</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="940"
+      > </a
+      ><a name="941" class="Symbol"
+      >(&#955;</a
+      ><a name="943"
+      > </a
+      ><a name="944" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="945"
+      > </a
+      ><a name="946" class="Symbol"
+      >&#8594;</a
+      ><a name="947"
+      >
+           </a
+      ><a name="959" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="961"
+      > </a
+      ><a name="962" class="Symbol"
+      >(</a
+      ><a name="963" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="972" class="Symbol"
+      >)</a
+      ><a name="973"
+      >
+             </a
+      ><a name="987" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="991"
+      > </a
+      ><a name="992" class="Symbol"
+      >(</a
+      ><a name="993" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="995"
+      > </a
+      ><a name="996" class="Symbol"
+      >(</a
+      ><a name="997" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1006" class="Symbol"
+      >)</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" href="LTC-PCF.Loop.html#498" class="Function"
+      >error</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1025" class="Symbol"
+      >)</a
+      ><a name="1026"
+      >
+             </a
+      ><a name="1040" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" class="Symbol"
+      >(</a
+      ><a name="1046" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" class="Symbol"
+      >(</a
+      ><a name="1050" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1059" class="Symbol"
+      >)</a
+      ><a name="1060"
+      >
+                     </a
+      ><a name="1082" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="1088"
+      >
+                     </a
+      ><a name="1110" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" class="Symbol"
+      >(</a
+      ><a name="1116" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="1118"
+      > </a
+      ><a name="1119" class="Symbol"
+      >(</a
+      ><a name="1120" href="LTC-PCF.Data.Nat.Inequalities.html#841" class="Function"
+      >gt</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="1126" class="Symbol"
+      >)</a
+      ><a name="1127"
+      >
+                             </a
+      ><a name="1157" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="1161"
+      > </a
+      ><a name="1162" href="LTC-PCF.Program.GCD.Partial.GCD.html#922" class="Bound"
+      >g</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" class="Symbol"
+      >(</a
+      ><a name="1167" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="1172" class="Symbol"
+      >)</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="1177"
+      >
+                             </a
+      ><a name="1207" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="LTC-PCF.Program.GCD.Partial.GCD.html#922" class="Bound"
+      >g</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" class="Symbol"
+      >(</a
+      ><a name="1221" href="LTC-PCF.Program.GCD.Partial.GCD.html#944" class="Bound"
+      >n</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" href="LTC-PCF.Program.GCD.Partial.GCD.html#933" class="Bound"
+      >m</a
+      ><a name="1226" class="Symbol"
+      >)))))</a
+      ><a name="1231"
+      >
+
+</a
+      ><a name="1233" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >:</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" class="Symbol"
+      >&#8594;</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" class="Symbol"
+      >&#8594;</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1248"
+      >
+</a
+      ><a name="1249" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="LTC-PCF.Program.GCD.Partial.GCD.html#1253" class="Bound"
+      >m</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="LTC-PCF.Program.GCD.Partial.GCD.html#1255" class="Bound"
+      >n</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" class="Symbol"
+      >=</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="LTC-PCF.Program.GCD.Partial.GCD.html#904" class="Function"
+      >gcdh</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" href="LTC-PCF.Program.GCD.Partial.GCD.html#1253" class="Bound"
+      >m</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="LTC-PCF.Program.GCD.Partial.GCD.html#1255" class="Bound"
+      >n</a
+      ><a name="1275"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

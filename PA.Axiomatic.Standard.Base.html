@@ -1,0 +1,840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Axiomatic.Standard.Base</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Axiomatic Peano arithmetic base</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Keyword"
+      >module</a
+      ><a name="374"
+      > </a
+      ><a name="375" href="PA.Axiomatic.Standard.Base.html#1" class="Module"
+      >PA.Axiomatic.Standard.Base</a
+      ><a name="401"
+      > </a
+      ><a name="402" class="Keyword"
+      >where</a
+      ><a name="407"
+      >
+
+</a
+      ><a name="409" class="Keyword"
+      >infixl</a
+      ><a name="415"
+      > </a
+      ><a name="416" class="Number"
+      >7</a
+      ><a name="417"
+      > _*_
+</a
+      ><a name="422" class="Keyword"
+      >infixl</a
+      ><a name="428"
+      > </a
+      ><a name="429" class="Number"
+      >6</a
+      ><a name="430"
+      > _+_
+
+</a
+      ><a name="436" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="514"
+      >
+</a
+      ><a name="515" class="Comment"
+      >-- First-order logic with equality.</a
+      ><a name="550"
+      >
+</a
+      ><a name="551" class="Keyword"
+      >open</a
+      ><a name="555"
+      > </a
+      ><a name="556" class="Keyword"
+      >import</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="Common.FOL.FOL-Eq.html#1" class="Module"
+      >Common.FOL.FOL-Eq</a
+      ><a name="580"
+      > </a
+      ><a name="581" class="Keyword"
+      >public</a
+      ><a name="587"
+      > </a
+      ><a name="588" class="Keyword"
+      >renaming</a
+      ><a name="596"
+      > </a
+      ><a name="597" class="Symbol"
+      >(</a
+      ><a name="598"
+      > D </a
+      ><a name="601" class="Symbol"
+      >to</a
+      ><a name="603"
+      > &#8469; </a
+      ><a name="606" class="Symbol"
+      >)</a
+      ><a name="607"
+      >
+
+</a
+      ><a name="609" class="Comment"
+      >-- Common definitions.</a
+      ><a name="631"
+      >
+</a
+      ><a name="632" class="Keyword"
+      >open</a
+      ><a name="636"
+      > </a
+      ><a name="637" class="Keyword"
+      >import</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="Common.DefinitionsATP.html#1" class="Module"
+      >Common.DefinitionsATP</a
+      ><a name="665"
+      >
+
+</a
+      ><a name="667" class="Comment"
+      >-- Non-logical constants</a
+      ><a name="691"
+      >
+</a
+      ><a name="692" class="Keyword"
+      >postulate</a
+      ><a name="701"
+      >
+  </a
+      ><a name="704" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="708"
+      >    </a
+      ><a name="712" class="Symbol"
+      >:</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="715"
+      >
+  </a
+      ><a name="718" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="722"
+      >    </a
+      ><a name="726" class="Symbol"
+      >:</a
+      ><a name="727"
+      > </a
+      ><a name="728" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="729"
+      > </a
+      ><a name="730" class="Symbol"
+      >&#8594;</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="733"
+      >
+  </a
+      ><a name="736" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >_+_</a
+      ><a name="739"
+      > </a
+      ><a name="740" href="PA.Axiomatic.Standard.Base.html#740" class="Postulate Operator"
+      >_*_</a
+      ><a name="743"
+      > </a
+      ><a name="744" class="Symbol"
+      >:</a
+      ><a name="745"
+      > </a
+      ><a name="746" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="747"
+      > </a
+      ><a name="748" class="Symbol"
+      >&#8594;</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="751"
+      > </a
+      ><a name="752" class="Symbol"
+      >&#8594;</a
+      ><a name="753"
+      > </a
+      ><a name="754" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="755"
+      >
+
+</a
+      ><a name="757" class="Comment"
+      >-- Proper axioms</a
+      ><a name="773"
+      >
+</a
+      ><a name="774" class="Comment"
+      >-- From (Machover 1996, p. 263) and (H&#225;jek and Pudl&#225;k 1998, p. 28):</a
+      ><a name="841"
+      >
+</a
+      ><a name="842" class="Comment"
+      >--</a
+      ><a name="844"
+      >
+</a
+      ><a name="845" class="Comment"
+      >-- PA&#8321;. 0 &#8800; n'</a
+      ><a name="859"
+      >
+</a
+      ><a name="860" class="Comment"
+      >-- PA&#8322;. m' = n' &#8594; m = n</a
+      ><a name="883"
+      >
+</a
+      ><a name="884" class="Comment"
+      >-- PA&#8323;. 0 + n = n</a
+      ><a name="901"
+      >
+</a
+      ><a name="902" class="Comment"
+      >-- PA&#8324;. m' + n = (m + n)'</a
+      ><a name="927"
+      >
+</a
+      ><a name="928" class="Comment"
+      >-- PA&#8325;. 0 * n = 0</a
+      ><a name="945"
+      >
+</a
+      ><a name="946" class="Comment"
+      >-- PA&#8326;. m' * n = n + (m * n)</a
+      ><a name="974"
+      >
+</a
+      ><a name="975" class="Comment"
+      >-- Axiom of induction:</a
+      ><a name="997"
+      >
+</a
+      ><a name="998" class="Comment"
+      >-- &#966;(0) &#8594; (&#8704;n.&#966;(n) &#8594; &#966;(succ n)) &#8594; &#8704;n.&#966;(n), for any formulae &#966;</a
+      ><a name="1059"
+      >
+
+</a
+      ><a name="1061" class="Keyword"
+      >postulate</a
+      ><a name="1070"
+      >
+  </a
+      ><a name="1073" href="PA.Axiomatic.Standard.Base.html#1073" class="Postulate"
+      >PA&#8321;</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" class="Symbol"
+      >:</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" class="Symbol"
+      >&#8704;</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" class="Symbol"
+      >{</a
+      ><a name="1082" href="PA.Axiomatic.Standard.Base.html#1082" class="Bound"
+      >n</a
+      ><a name="1083" class="Symbol"
+      >}</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" class="Symbol"
+      >&#8594;</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="PA.Axiomatic.Standard.Base.html#1082" class="Bound"
+      >n</a
+      ><a name="1100"
+      >
+  </a
+      ><a name="1103" href="PA.Axiomatic.Standard.Base.html#1103" class="Postulate"
+      >PA&#8322;</a
+      ><a name="1106"
+      > </a
+      ><a name="1107" class="Symbol"
+      >:</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" class="Symbol"
+      >&#8704;</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" class="Symbol"
+      >{</a
+      ><a name="1112" href="PA.Axiomatic.Standard.Base.html#1112" class="Bound"
+      >m</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" href="PA.Axiomatic.Standard.Base.html#1114" class="Bound"
+      >n</a
+      ><a name="1115" class="Symbol"
+      >}</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" class="Symbol"
+      >&#8594;</a
+      ><a name="1118"
+      > </a
+      ><a name="1119" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" href="PA.Axiomatic.Standard.Base.html#1112" class="Bound"
+      >m</a
+      ><a name="1125"
+      > </a
+      ><a name="1126" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" href="PA.Axiomatic.Standard.Base.html#1114" class="Bound"
+      >n</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" class="Symbol"
+      >&#8594;</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="PA.Axiomatic.Standard.Base.html#1112" class="Bound"
+      >m</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" href="PA.Axiomatic.Standard.Base.html#1114" class="Bound"
+      >n</a
+      ><a name="1142"
+      >
+  </a
+      ><a name="1145" href="PA.Axiomatic.Standard.Base.html#1145" class="Postulate"
+      >PA&#8323;</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" class="Symbol"
+      >:</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="Symbol"
+      >&#8704;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" href="PA.Axiomatic.Standard.Base.html#1153" class="Bound"
+      >n</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" class="Symbol"
+      >&#8594;</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1161"
+      > </a
+      ><a name="1162" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="PA.Axiomatic.Standard.Base.html#1153" class="Bound"
+      >n</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" href="PA.Axiomatic.Standard.Base.html#1153" class="Bound"
+      >n</a
+      ><a name="1169"
+      >
+  </a
+      ><a name="1172" href="PA.Axiomatic.Standard.Base.html#1172" class="Postulate"
+      >PA&#8324;</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" class="Symbol"
+      >:</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" class="Symbol"
+      >&#8704;</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="PA.Axiomatic.Standard.Base.html#1180" class="Bound"
+      >m</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="PA.Axiomatic.Standard.Base.html#1182" class="Bound"
+      >n</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >&#8594;</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="PA.Axiomatic.Standard.Base.html#1180" class="Bound"
+      >m</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="PA.Axiomatic.Standard.Base.html#1182" class="Bound"
+      >n</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" class="Symbol"
+      >(</a
+      ><a name="1205" href="PA.Axiomatic.Standard.Base.html#1180" class="Bound"
+      >m</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="PA.Axiomatic.Standard.Base.html#1182" class="Bound"
+      >n</a
+      ><a name="1210" class="Symbol"
+      >)</a
+      ><a name="1211"
+      >
+  </a
+      ><a name="1214" href="PA.Axiomatic.Standard.Base.html#1214" class="Postulate"
+      >PA&#8325;</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >:</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" class="Symbol"
+      >&#8704;</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" href="PA.Axiomatic.Standard.Base.html#1222" class="Bound"
+      >n</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" class="Symbol"
+      >&#8594;</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="PA.Axiomatic.Standard.Base.html#740" class="Postulate Operator"
+      >*</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" href="PA.Axiomatic.Standard.Base.html#1222" class="Bound"
+      >n</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1241"
+      >
+  </a
+      ><a name="1244" href="PA.Axiomatic.Standard.Base.html#1244" class="Postulate"
+      >PA&#8326;</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" class="Symbol"
+      >:</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" class="Symbol"
+      >&#8704;</a
+      ><a name="1251"
+      > </a
+      ><a name="1252" href="PA.Axiomatic.Standard.Base.html#1252" class="Bound"
+      >m</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="PA.Axiomatic.Standard.Base.html#1254" class="Bound"
+      >n</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" class="Symbol"
+      >&#8594;</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="PA.Axiomatic.Standard.Base.html#1252" class="Bound"
+      >m</a
+      ><a name="1264"
+      > </a
+      ><a name="1265" href="PA.Axiomatic.Standard.Base.html#740" class="Postulate Operator"
+      >*</a
+      ><a name="1266"
+      > </a
+      ><a name="1267" href="PA.Axiomatic.Standard.Base.html#1254" class="Bound"
+      >n</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="PA.Axiomatic.Standard.Base.html#1254" class="Bound"
+      >n</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" href="PA.Axiomatic.Standard.Base.html#736" class="Postulate Operator"
+      >+</a
+      ><a name="1274"
+      > </a
+      ><a name="1275" href="PA.Axiomatic.Standard.Base.html#1252" class="Bound"
+      >m</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" href="PA.Axiomatic.Standard.Base.html#740" class="Postulate Operator"
+      >*</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="PA.Axiomatic.Standard.Base.html#1254" class="Bound"
+      >n</a
+      ><a name="1280"
+      >
+</a
+      ><a name="1281" class="Symbol"
+      >{-#</a
+      ><a name="1284"
+      > </a
+      ><a name="1285" class="Keyword"
+      >ATP</a
+      ><a name="1288"
+      > axioms </a
+      ><a name="1296" href="PA.Axiomatic.Standard.Base.html#1073" class="Postulate"
+      >PA&#8321;</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="PA.Axiomatic.Standard.Base.html#1103" class="Postulate"
+      >PA&#8322;</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="PA.Axiomatic.Standard.Base.html#1145" class="Postulate"
+      >PA&#8323;</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" href="PA.Axiomatic.Standard.Base.html#1172" class="Postulate"
+      >PA&#8324;</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" href="PA.Axiomatic.Standard.Base.html#1214" class="Postulate"
+      >PA&#8325;</a
+      ><a name="1315"
+      > </a
+      ><a name="1316" href="PA.Axiomatic.Standard.Base.html#1244" class="Postulate"
+      >PA&#8326;</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" class="Symbol"
+      >#-}</a
+      ><a name="1323"
+      >
+
+</a
+      ><a name="1325" class="Comment"
+      >-- The axiom of induction is an axiom schema, therefore we do not</a
+      ><a name="1390"
+      >
+</a
+      ><a name="1391" class="Comment"
+      >-- translate it to TPTP.</a
+      ><a name="1415"
+      >
+</a
+      ><a name="1416" class="Keyword"
+      >postulate</a
+      ><a name="1425"
+      >
+  </a
+      ><a name="1428" href="PA.Axiomatic.Standard.Base.html#1428" class="Postulate"
+      >&#8469;-ind</a
+      ><a name="1433"
+      > </a
+      ><a name="1434" class="Symbol"
+      >:</a
+      ><a name="1435"
+      > </a
+      ><a name="1436" class="Symbol"
+      >(</a
+      ><a name="1437" href="PA.Axiomatic.Standard.Base.html#1437" class="Bound"
+      >A</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" class="Symbol"
+      >:</a
+      ><a name="1440"
+      > </a
+      ><a name="1441" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >&#8469;</a
+      ><a name="1442"
+      > </a
+      ><a name="1443" class="Symbol"
+      >&#8594;</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" class="PrimitiveType"
+      >Set</a
+      ><a name="1448" class="Symbol"
+      >)</a
+      ><a name="1449"
+      > </a
+      ><a name="1450" class="Symbol"
+      >&#8594;</a
+      ><a name="1451"
+      > </a
+      ><a name="1452" href="PA.Axiomatic.Standard.Base.html#1437" class="Bound"
+      >A</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" href="PA.Axiomatic.Standard.Base.html#704" class="Postulate"
+      >zero</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" class="Symbol"
+      >&#8594;</a
+      ><a name="1460"
+      > </a
+      ><a name="1461" class="Symbol"
+      >(&#8704;</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="PA.Axiomatic.Standard.Base.html#1464" class="Bound"
+      >n</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Symbol"
+      >&#8594;</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" href="PA.Axiomatic.Standard.Base.html#1437" class="Bound"
+      >A</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" href="PA.Axiomatic.Standard.Base.html#1464" class="Bound"
+      >n</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" class="Symbol"
+      >&#8594;</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="PA.Axiomatic.Standard.Base.html#1437" class="Bound"
+      >A</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" class="Symbol"
+      >(</a
+      ><a name="1477" href="PA.Axiomatic.Standard.Base.html#718" class="Postulate"
+      >succ</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" href="PA.Axiomatic.Standard.Base.html#1464" class="Bound"
+      >n</a
+      ><a name="1483" class="Symbol"
+      >))</a
+      ><a name="1485"
+      > </a
+      ><a name="1486" class="Symbol"
+      >&#8594;</a
+      ><a name="1487"
+      > </a
+      ><a name="1488" class="Symbol"
+      >&#8704;</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" href="PA.Axiomatic.Standard.Base.html#1490" class="Bound"
+      >n</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" class="Symbol"
+      >&#8594;</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="PA.Axiomatic.Standard.Base.html#1437" class="Bound"
+      >A</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" href="PA.Axiomatic.Standard.Base.html#1490" class="Bound"
+      >n</a
+      ><a name="1497"
+      >
+
+</a
+      ><a name="1499" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1577"
+      >
+</a
+      ><a name="1578" class="Comment"
+      >-- References</a
+      ><a name="1591"
+      >
+</a
+      ><a name="1592" class="Comment"
+      >--</a
+      ><a name="1594"
+      >
+</a
+      ><a name="1595" class="Comment"
+      >-- Machover, Mosh&#233; (1996). Set theory, Logic and their</a
+      ><a name="1649"
+      >
+</a
+      ><a name="1650" class="Comment"
+      >-- Limitations. Cambridge University Press.</a
+      ><a name="1693"
+      >
+
+</a
+      ><a name="1695" class="Comment"
+      >-- H&#225;jek, Petr and Pudl&#225;k, Pavel (1998). Metamathematics of</a
+      ><a name="1754"
+      >
+</a
+      ><a name="1755" class="Comment"
+      >-- First-Order Arithmetic. 2nd printing. Springer.</a
+      ><a name="1805"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

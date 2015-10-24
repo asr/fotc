@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Well-founded induction on the relation _&#9665;_</a
+      ><a name="125"
+      >
+</a
+      ><a name="126" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="204"
+      >
+
+</a
+      ><a name="206" class="Symbol"
+      >{-#</a
+      ><a name="209"
+      > </a
+      ><a name="210" class="Keyword"
+      >OPTIONS</a
+      ><a name="217"
+      > --exact-split              </a
+      ><a name="245" class="Symbol"
+      >#-}</a
+      ><a name="248"
+      >
+</a
+      ><a name="249" class="Symbol"
+      >{-#</a
+      ><a name="252"
+      > </a
+      ><a name="253" class="Keyword"
+      >OPTIONS</a
+      ><a name="260"
+      > --no-sized-types           </a
+      ><a name="288" class="Symbol"
+      >#-}</a
+      ><a name="291"
+      >
+</a
+      ><a name="292" class="Symbol"
+      >{-#</a
+      ><a name="295"
+      > </a
+      ><a name="296" class="Keyword"
+      >OPTIONS</a
+      ><a name="303"
+      > --no-universe-polymorphism </a
+      ><a name="331" class="Symbol"
+      >#-}</a
+      ><a name="334"
+      >
+</a
+      ><a name="335" class="Symbol"
+      >{-#</a
+      ><a name="338"
+      > </a
+      ><a name="339" class="Keyword"
+      >OPTIONS</a
+      ><a name="346"
+      > --without-K                </a
+      ><a name="374" class="Symbol"
+      >#-}</a
+      ><a name="377"
+      >
+
+</a
+      ><a name="379" class="Comment"
+      >-- N.B This module does not contain combined proofs, but it imports</a
+      ><a name="446"
+      >
+</a
+      ><a name="447" class="Comment"
+      >-- modules which contain combined proofs.</a
+      ><a name="488"
+      >
+
+</a
+      ><a name="490" class="Keyword"
+      >module</a
+      ><a name="496"
+      > </a
+      ><a name="497" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP</a
+      ><a name="553"
+      > </a
+      ><a name="554" class="Keyword"
+      >where</a
+      ><a name="559"
+      >
+
+</a
+      ><a name="561" class="Keyword"
+      >open</a
+      ><a name="565"
+      > </a
+      ><a name="566" class="Keyword"
+      >import</a
+      ><a name="572"
+      > </a
+      ><a name="573" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="582"
+      >
+</a
+      ><a name="583" class="Keyword"
+      >open</a
+      ><a name="587"
+      > </a
+      ><a name="588" class="Keyword"
+      >import</a
+      ><a name="594"
+      > </a
+      ><a name="595" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="608"
+      >
+
+</a
+      ><a name="610" class="Keyword"
+      >import</a
+      ><a name="616"
+      > </a
+      ><a name="617" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.Acc.WF-ATP</a
+      ><a name="651"
+      >
+</a
+      ><a name="652" class="Keyword"
+      >open</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#500" class="Module"
+      >FOTC.</a
+      ><a name="662" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#505" class="Module"
+      >Data.</a
+      ><a name="667" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#510" class="Module"
+      >Nat.</a
+      ><a name="671" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#514" class="Module"
+      >Induction.</a
+      ><a name="681" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#524" class="Module"
+      >Acc.</a
+      ><a name="685" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#528" class="Module"
+      >WF-ATP.</a
+      ><a name="692" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#905" class="Module"
+      >&lt;-WF</a
+      ><a name="696"
+      > </a
+      ><a name="697" class="Keyword"
+      >using</a
+      ><a name="702"
+      > </a
+      ><a name="703" class="Symbol"
+      >(</a
+      ><a name="704"
+      > &lt;-wf </a
+      ><a name="710" class="Symbol"
+      >)</a
+      ><a name="711"
+      >
+
+</a
+      ><a name="713" class="Keyword"
+      >open</a
+      ><a name="717"
+      > </a
+      ><a name="718" class="Keyword"
+      >import</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="751"
+      >
+</a
+      ><a name="752" class="Keyword"
+      >open</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Keyword"
+      >import</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="FOTC.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers</a
+      ><a name="790"
+      >
+</a
+      ><a name="791" class="Keyword"
+      >open</a
+      ><a name="795"
+      > </a
+      ><a name="796" class="Keyword"
+      >import</a
+      ><a name="802"
+      > </a
+      ><a name="803" href="FOTC.Induction.WF.html#1" class="Module"
+      >FOTC.Induction.WF</a
+      ><a name="820"
+      >
+</a
+      ><a name="821" class="Keyword"
+      >open</a
+      ><a name="825"
+      > </a
+      ><a name="826" class="Keyword"
+      >import</a
+      ><a name="832"
+      > </a
+      ><a name="833" href="FOTC.Program.McCarthy91.WF-Relation.html#1" class="Module"
+      >FOTC.Program.McCarthy91.WF-Relation</a
+      ><a name="868"
+      >
+</a
+      ><a name="869" class="Keyword"
+      >open</a
+      ><a name="873"
+      > </a
+      ><a name="874" class="Keyword"
+      >import</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.WF-Relation.PropertiesATP</a
+      ><a name="930"
+      >
+
+</a
+      ><a name="932" class="Comment"
+      >-- Parametrized modules</a
+      ><a name="955"
+      >
+</a
+      ><a name="956" class="Keyword"
+      >open</a
+      ><a name="960"
+      > </a
+      ><a name="961" class="Keyword"
+      >module</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#968" class="Module"
+      >InvImg</a
+      ><a name="974"
+      > </a
+      ><a name="975" class="Symbol"
+      >=</a
+      ><a name="976"
+      >
+  </a
+      ><a name="979" href="FOTC.Induction.WF.html#526" class="Module"
+      >FOTC.</a
+      ><a name="984" href="FOTC.Induction.WF.html#531" class="Module"
+      >Induction.</a
+      ><a name="994" href="FOTC.Induction.WF.html#541" class="Module"
+      >WF.</a
+      ><a name="997" href="FOTC.Induction.WF.html#2091" class="Module"
+      >InverseImage</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" class="Symbol"
+      >{</a
+      ><a name="1011" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1012" class="Symbol"
+      >}</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" class="Symbol"
+      >{</a
+      ><a name="1015" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1016" class="Symbol"
+      >}</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" class="Symbol"
+      >{</a
+      ><a name="1019" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="1022" class="Symbol"
+      >}</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1153" class="Function"
+      >&#9665;-fn-N</a
+      ><a name="1030"
+      >
+
+</a
+      ><a name="1032" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1110"
+      >
+</a
+      ><a name="1111" class="Comment"
+      >-- The relation _&#9665;_ is well-founded (using the inverse image combinator).</a
+      ><a name="1184"
+      >
+</a
+      ><a name="1185" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1185" class="Function"
+      >&#9665;-wf</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" class="Symbol"
+      >:</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="FOTC.Induction.WF.html#1292" class="Function"
+      >WellFounded</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >_&#9665;_</a
+      ><a name="1207"
+      >
+</a
+      ><a name="1208" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1185" class="Function"
+      >&#9665;-wf</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1213" class="Bound"
+      >Nn</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" class="Symbol"
+      >=</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" href="FOTC.Induction.WF.html#2454" class="Function"
+      >wellFounded</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#918" class="Function"
+      >&lt;-wf</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1213" class="Bound"
+      >Nn</a
+      ><a name="1237"
+      >
+
+</a
+      ><a name="1239" class="Comment"
+      >-- Well-founded induction on the relation _&#9665;_.</a
+      ><a name="1285"
+      >
+</a
+      ><a name="1286" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1286" class="Function"
+      >&#9665;-wfind</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" class="Symbol"
+      >:</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" class="Symbol"
+      >(</a
+      ><a name="1297" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1297" class="Bound"
+      >A</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" class="Symbol"
+      >:</a
+      ><a name="1300"
+      > </a
+      ><a name="1301" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1302"
+      > </a
+      ><a name="1303" class="Symbol"
+      >&#8594;</a
+      ><a name="1304"
+      > </a
+      ><a name="1305" class="PrimitiveType"
+      >Set</a
+      ><a name="1308" class="Symbol"
+      >)</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" class="Symbol"
+      >&#8594;</a
+      ><a name="1311"
+      >
+          </a
+      ><a name="1322" class="Symbol"
+      >(&#8704;</a
+      ><a name="1324"
+      > </a
+      ><a name="1325" class="Symbol"
+      >{</a
+      ><a name="1326" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1327" class="Symbol"
+      >}</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" class="Symbol"
+      >&#8594;</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1334"
+      > </a
+      ><a name="1335" class="Symbol"
+      >&#8594;</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" class="Symbol"
+      >(&#8704;</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" class="Symbol"
+      >{</a
+      ><a name="1341" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1341" class="Bound"
+      >m</a
+      ><a name="1342" class="Symbol"
+      >}</a
+      ><a name="1343"
+      > </a
+      ><a name="1344" class="Symbol"
+      >&#8594;</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1341" class="Bound"
+      >m</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" class="Symbol"
+      >&#8594;</a
+      ><a name="1351"
+      > </a
+      ><a name="1352" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1341" class="Bound"
+      >m</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" class="Symbol"
+      >&#8594;</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1297" class="Bound"
+      >A</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1341" class="Bound"
+      >m</a
+      ><a name="1363" class="Symbol"
+      >)</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" class="Symbol"
+      >&#8594;</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1297" class="Bound"
+      >A</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1370" class="Symbol"
+      >)</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" class="Symbol"
+      >&#8594;</a
+      ><a name="1373"
+      >
+          </a
+      ><a name="1384" class="Symbol"
+      >&#8704;</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" class="Symbol"
+      >{</a
+      ><a name="1387" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1387" class="Bound"
+      >n</a
+      ><a name="1388" class="Symbol"
+      >}</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" class="Symbol"
+      >&#8594;</a
+      ><a name="1391"
+      > </a
+      ><a name="1392" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1393"
+      > </a
+      ><a name="1394" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1387" class="Bound"
+      >n</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" class="Symbol"
+      >&#8594;</a
+      ><a name="1397"
+      > </a
+      ><a name="1398" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1297" class="Bound"
+      >A</a
+      ><a name="1399"
+      > </a
+      ><a name="1400" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1387" class="Bound"
+      >n</a
+      ><a name="1401"
+      >
+</a
+      ><a name="1402" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1286" class="Function"
+      >&#9665;-wfind</a
+      ><a name="1409"
+      > </a
+      ><a name="1410" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1410" class="Bound"
+      >A</a
+      ><a name="1411"
+      > </a
+      ><a name="1412" class="Symbol"
+      >=</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" href="FOTC.Induction.WF.html#1391" class="Function"
+      >WellFoundedInduction</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP.html#1185" class="Function"
+      >&#9665;-wf</a
+      ><a name="1439"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

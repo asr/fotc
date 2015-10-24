@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.GCD.Partial.CorrectnessProofATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The gcd program is correct</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Comment"
+      >-- This module proves the correctness of the gcd program using</a
+      ><a name="425"
+      >
+</a
+      ><a name="426" class="Comment"
+      >-- the Euclid's algorithm.</a
+      ><a name="452"
+      >
+
+</a
+      ><a name="454" class="Comment"
+      >-- N.B This module does not contain combined proofs, but it imports</a
+      ><a name="521"
+      >
+</a
+      ><a name="522" class="Comment"
+      >-- modules which contain combined proofs.</a
+      ><a name="563"
+      >
+
+</a
+      ><a name="565" class="Keyword"
+      >module</a
+      ><a name="571"
+      > </a
+      ><a name="572" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.CorrectnessProofATP</a
+      ><a name="616"
+      > </a
+      ><a name="617" class="Keyword"
+      >where</a
+      ><a name="622"
+      >
+
+</a
+      ><a name="624" class="Keyword"
+      >open</a
+      ><a name="628"
+      > </a
+      ><a name="629" class="Keyword"
+      >import</a
+      ><a name="635"
+      > </a
+      ><a name="636" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="645"
+      >
+</a
+      ><a name="646" class="Keyword"
+      >open</a
+      ><a name="650"
+      > </a
+      ><a name="651" class="Keyword"
+      >import</a
+      ><a name="657"
+      > </a
+      ><a name="658" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP</a
+      ><a name="705"
+      > </a
+      ><a name="706" class="Keyword"
+      >using</a
+      ><a name="711"
+      > </a
+      ><a name="712" class="Symbol"
+      >(</a
+      ><a name="713"
+      > 0&#8740;x </a
+      ><a name="718" class="Symbol"
+      >;</a
+      ><a name="719"
+      > x&#8739;S&#8594;x&#8804;S </a
+      ><a name="728" class="Symbol"
+      >)</a
+      ><a name="729"
+      >
+</a
+      ><a name="730" class="Keyword"
+      >open</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Keyword"
+      >import</a
+      ><a name="741"
+      > </a
+      ><a name="742" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="760"
+      >
+</a
+      ><a name="761" class="Keyword"
+      >open</a
+      ><a name="765"
+      > </a
+      ><a name="766" class="Keyword"
+      >import</a
+      ><a name="772"
+      > </a
+      ><a name="773" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.CommonDivisorATP</a
+      ><a name="814"
+      > </a
+      ><a name="815" class="Keyword"
+      >using</a
+      ><a name="820"
+      > </a
+      ><a name="821" class="Symbol"
+      >(</a
+      ><a name="822"
+      > gcdCD </a
+      ><a name="829" class="Symbol"
+      >)</a
+      ><a name="830"
+      >
+</a
+      ><a name="831" class="Keyword"
+      >open</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Keyword"
+      >import</a
+      ><a name="842"
+      > </a
+      ><a name="843" href="FOTC.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.Definitions</a
+      ><a name="879"
+      > </a
+      ><a name="880" class="Keyword"
+      >using</a
+      ><a name="885"
+      > </a
+      ><a name="886" class="Symbol"
+      >(</a
+      ><a name="887"
+      > x&#8802;0&#8802;y </a
+      ><a name="894" class="Symbol"
+      >;</a
+      ><a name="895"
+      > gcdSpec </a
+      ><a name="904" class="Symbol"
+      >)</a
+      ><a name="905"
+      >
+</a
+      ><a name="906" class="Keyword"
+      >open</a
+      ><a name="910"
+      > </a
+      ><a name="911" class="Keyword"
+      >import</a
+      ><a name="917"
+      > </a
+      ><a name="918" href="FOTC.Program.GCD.Partial.DivisibleATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.DivisibleATP</a
+      ><a name="955"
+      > </a
+      ><a name="956" class="Keyword"
+      >using</a
+      ><a name="961"
+      > </a
+      ><a name="962" class="Symbol"
+      >(</a
+      ><a name="963"
+      > gcdDivisible </a
+      ><a name="977" class="Symbol"
+      >)</a
+      ><a name="978"
+      >
+</a
+      ><a name="979" class="Keyword"
+      >open</a
+      ><a name="983"
+      > </a
+      ><a name="984" class="Keyword"
+      >import</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="FOTC.Program.GCD.Partial.GCD.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.GCD</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" class="Keyword"
+      >using</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" class="Symbol"
+      >(</a
+      ><a name="1027"
+      > gcd </a
+      ><a name="1032" class="Symbol"
+      >)</a
+      ><a name="1033"
+      >
+
+</a
+      ><a name="1035" class="Keyword"
+      >import</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor</a
+      ><a name="1091"
+      >
+</a
+      ><a name="1092" class="Keyword"
+      >open</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" class="Keyword"
+      >module</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1104" class="Module"
+      >GreatestAnyCommonDivisorATP</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" class="Symbol"
+      >=</a
+      ><a name="1133"
+      >
+  </a
+      ><a name="1136" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2965" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#916" class="Postulate"
+      >0&#8740;x</a
+      ><a name="1197"
+      >
+  </a
+      ><a name="1200" class="Keyword"
+      >using</a
+      ><a name="1205"
+      > </a
+      ><a name="1206" class="Symbol"
+      >(</a
+      ><a name="1207"
+      > gcdGACD </a
+      ><a name="1216" class="Symbol"
+      >)</a
+      ><a name="1217"
+      >
+
+</a
+      ><a name="1219" class="Keyword"
+      >open</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" class="Keyword"
+      >import</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOTC.Program.GCD.Partial.TotalityATP.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.TotalityATP</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" class="Keyword"
+      >using</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" class="Symbol"
+      >(</a
+      ><a name="1275"
+      > gcd-N </a
+      ><a name="1282" class="Symbol"
+      >)</a
+      ><a name="1283"
+      >
+
+</a
+      ><a name="1285" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1363"
+      >
+</a
+      ><a name="1364" class="Comment"
+      >-- The gcd is correct.</a
+      ><a name="1386"
+      >
+</a
+      ><a name="1387" class="Keyword"
+      >postulate</a
+      ><a name="1396"
+      > </a
+      ><a name="1397" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1397" class="Postulate"
+      >gcdCorrect</a
+      ><a name="1407"
+      > </a
+      ><a name="1408" class="Symbol"
+      >:</a
+      ><a name="1409"
+      > </a
+      ><a name="1410" class="Symbol"
+      >&#8704;</a
+      ><a name="1411"
+      > </a
+      ><a name="1412" class="Symbol"
+      >{</a
+      ><a name="1413" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1413" class="Bound"
+      >m</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1415" class="Bound"
+      >n</a
+      ><a name="1416" class="Symbol"
+      >}</a
+      ><a name="1417"
+      > </a
+      ><a name="1418" class="Symbol"
+      >&#8594;</a
+      ><a name="1419"
+      > </a
+      ><a name="1420" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1421"
+      > </a
+      ><a name="1422" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1413" class="Bound"
+      >m</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" class="Symbol"
+      >&#8594;</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1415" class="Bound"
+      >n</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" class="Symbol"
+      >&#8594;</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" href="FOTC.Program.GCD.Partial.Definitions.html#1173" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1413" class="Bound"
+      >m</a
+      ><a name="1439"
+      > </a
+      ><a name="1440" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1415" class="Bound"
+      >n</a
+      ><a name="1441"
+      > </a
+      ><a name="1442" class="Symbol"
+      >&#8594;</a
+      ><a name="1443"
+      > </a
+      ><a name="1444" href="FOTC.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >gcdSpec</a
+      ><a name="1451"
+      > </a
+      ><a name="1452" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1413" class="Bound"
+      >m</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1415" class="Bound"
+      >n</a
+      ><a name="1455"
+      > </a
+      ><a name="1456" class="Symbol"
+      >(</a
+      ><a name="1457" href="FOTC.Program.GCD.Partial.GCD.html#735" class="Postulate"
+      >gcd</a
+      ><a name="1460"
+      > </a
+      ><a name="1461" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1413" class="Bound"
+      >m</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1415" class="Bound"
+      >n</a
+      ><a name="1464" class="Symbol"
+      >)</a
+      ><a name="1465"
+      >
+</a
+      ><a name="1466" class="Symbol"
+      >{-#</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" class="Keyword"
+      >ATP</a
+      ><a name="1473"
+      > prove </a
+      ><a name="1480" href="FOTC.Program.GCD.Partial.CorrectnessProofATP.html#1397" class="Postulate"
+      >gcdCorrect</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" href="FOTC.Program.GCD.Partial.CommonDivisorATP.html#9067" class="Function"
+      >gcdCD</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1023" class="Function"
+      >gcdGACD</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="FOTC.Program.GCD.Partial.TotalityATP.html#3650" class="Function"
+      >gcd-N</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" href="FOTC.Program.GCD.Partial.DivisibleATP.html#5198" class="Function"
+      >gcdDivisible</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" class="Symbol"
+      >#-}</a
+      ><a name="1527"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

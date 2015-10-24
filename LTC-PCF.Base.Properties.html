@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Base.Properties</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- LTC-PCF terms properties</a
+      ><a name="107"
+      >
+</a
+      ><a name="108" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="186"
+      >
+
+</a
+      ><a name="188" class="Symbol"
+      >{-#</a
+      ><a name="191"
+      > </a
+      ><a name="192" class="Keyword"
+      >OPTIONS</a
+      ><a name="199"
+      > --exact-split              </a
+      ><a name="227" class="Symbol"
+      >#-}</a
+      ><a name="230"
+      >
+</a
+      ><a name="231" class="Symbol"
+      >{-#</a
+      ><a name="234"
+      > </a
+      ><a name="235" class="Keyword"
+      >OPTIONS</a
+      ><a name="242"
+      > --no-sized-types           </a
+      ><a name="270" class="Symbol"
+      >#-}</a
+      ><a name="273"
+      >
+</a
+      ><a name="274" class="Symbol"
+      >{-#</a
+      ><a name="277"
+      > </a
+      ><a name="278" class="Keyword"
+      >OPTIONS</a
+      ><a name="285"
+      > --no-universe-polymorphism </a
+      ><a name="313" class="Symbol"
+      >#-}</a
+      ><a name="316"
+      >
+</a
+      ><a name="317" class="Symbol"
+      >{-#</a
+      ><a name="320"
+      > </a
+      ><a name="321" class="Keyword"
+      >OPTIONS</a
+      ><a name="328"
+      > --without-K                </a
+      ><a name="356" class="Symbol"
+      >#-}</a
+      ><a name="359"
+      >
+
+</a
+      ><a name="361" class="Keyword"
+      >module</a
+      ><a name="367"
+      > </a
+      ><a name="368" href="LTC-PCF.Base.Properties.html#1" class="Module"
+      >LTC-PCF.Base.Properties</a
+      ><a name="391"
+      > </a
+      ><a name="392" class="Keyword"
+      >where</a
+      ><a name="397"
+      >
+
+</a
+      ><a name="399" class="Keyword"
+      >open</a
+      ><a name="403"
+      > </a
+      ><a name="404" class="Keyword"
+      >import</a
+      ><a name="410"
+      > </a
+      ><a name="411" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="423"
+      >
+
+</a
+      ><a name="425" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="503"
+      >
+</a
+      ><a name="504" class="Comment"
+      >-- Congruence properties</a
+      ><a name="528"
+      >
+
+</a
+      ><a name="530" href="LTC-PCF.Base.Properties.html#530" class="Function"
+      >&#183;-leftCong</a
+      ><a name="540"
+      > </a
+      ><a name="541" class="Symbol"
+      >:</a
+      ><a name="542"
+      > </a
+      ><a name="543" class="Symbol"
+      >&#8704;</a
+      ><a name="544"
+      > </a
+      ><a name="545" class="Symbol"
+      >{</a
+      ><a name="546" href="LTC-PCF.Base.Properties.html#546" class="Bound"
+      >m</a
+      ><a name="547"
+      > </a
+      ><a name="548" href="LTC-PCF.Base.Properties.html#548" class="Bound"
+      >n</a
+      ><a name="549"
+      > </a
+      ><a name="550" href="LTC-PCF.Base.Properties.html#550" class="Bound"
+      >o</a
+      ><a name="551" class="Symbol"
+      >}</a
+      ><a name="552"
+      > </a
+      ><a name="553" class="Symbol"
+      >&#8594;</a
+      ><a name="554"
+      > </a
+      ><a name="555" href="LTC-PCF.Base.Properties.html#546" class="Bound"
+      >m</a
+      ><a name="556"
+      > </a
+      ><a name="557" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="558"
+      > </a
+      ><a name="559" href="LTC-PCF.Base.Properties.html#548" class="Bound"
+      >n</a
+      ><a name="560"
+      > </a
+      ><a name="561" class="Symbol"
+      >&#8594;</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="LTC-PCF.Base.Properties.html#546" class="Bound"
+      >m</a
+      ><a name="564"
+      > </a
+      ><a name="565" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="566"
+      > </a
+      ><a name="567" href="LTC-PCF.Base.Properties.html#550" class="Bound"
+      >o</a
+      ><a name="568"
+      > </a
+      ><a name="569" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="570"
+      > </a
+      ><a name="571" href="LTC-PCF.Base.Properties.html#548" class="Bound"
+      >n</a
+      ><a name="572"
+      > </a
+      ><a name="573" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="574"
+      > </a
+      ><a name="575" href="LTC-PCF.Base.Properties.html#550" class="Bound"
+      >o</a
+      ><a name="576"
+      >
+</a
+      ><a name="577" href="LTC-PCF.Base.Properties.html#530" class="Function"
+      >&#183;-leftCong</a
+      ><a name="587"
+      > </a
+      ><a name="588" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="592"
+      > </a
+      ><a name="593" class="Symbol"
+      >=</a
+      ><a name="594"
+      > </a
+      ><a name="595" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="599"
+      >
+
+</a
+      ><a name="601" href="LTC-PCF.Base.Properties.html#601" class="Function"
+      >&#183;-rightCong</a
+      ><a name="612"
+      > </a
+      ><a name="613" class="Symbol"
+      >:</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Symbol"
+      >&#8704;</a
+      ><a name="616"
+      > </a
+      ><a name="617" class="Symbol"
+      >{</a
+      ><a name="618" href="LTC-PCF.Base.Properties.html#618" class="Bound"
+      >m</a
+      ><a name="619"
+      > </a
+      ><a name="620" href="LTC-PCF.Base.Properties.html#620" class="Bound"
+      >n</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="LTC-PCF.Base.Properties.html#622" class="Bound"
+      >o</a
+      ><a name="623" class="Symbol"
+      >}</a
+      ><a name="624"
+      > </a
+      ><a name="625" class="Symbol"
+      >&#8594;</a
+      ><a name="626"
+      > </a
+      ><a name="627" href="LTC-PCF.Base.Properties.html#620" class="Bound"
+      >n</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="LTC-PCF.Base.Properties.html#622" class="Bound"
+      >o</a
+      ><a name="632"
+      > </a
+      ><a name="633" class="Symbol"
+      >&#8594;</a
+      ><a name="634"
+      > </a
+      ><a name="635" href="LTC-PCF.Base.Properties.html#618" class="Bound"
+      >m</a
+      ><a name="636"
+      > </a
+      ><a name="637" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="638"
+      > </a
+      ><a name="639" href="LTC-PCF.Base.Properties.html#620" class="Bound"
+      >n</a
+      ><a name="640"
+      > </a
+      ><a name="641" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="642"
+      > </a
+      ><a name="643" href="LTC-PCF.Base.Properties.html#618" class="Bound"
+      >m</a
+      ><a name="644"
+      > </a
+      ><a name="645" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="646"
+      > </a
+      ><a name="647" href="LTC-PCF.Base.Properties.html#622" class="Bound"
+      >o</a
+      ><a name="648"
+      >
+</a
+      ><a name="649" href="LTC-PCF.Base.Properties.html#601" class="Function"
+      >&#183;-rightCong</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Symbol"
+      >=</a
+      ><a name="667"
+      > </a
+      ><a name="668" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="672"
+      >
+
+</a
+      ><a name="674" href="LTC-PCF.Base.Properties.html#674" class="Function"
+      >succCong</a
+      ><a name="682"
+      > </a
+      ><a name="683" class="Symbol"
+      >:</a
+      ><a name="684"
+      > </a
+      ><a name="685" class="Symbol"
+      >&#8704;</a
+      ><a name="686"
+      > </a
+      ><a name="687" class="Symbol"
+      >{</a
+      ><a name="688" href="LTC-PCF.Base.Properties.html#688" class="Bound"
+      >m</a
+      ><a name="689"
+      > </a
+      ><a name="690" href="LTC-PCF.Base.Properties.html#690" class="Bound"
+      >n</a
+      ><a name="691" class="Symbol"
+      >}</a
+      ><a name="692"
+      > </a
+      ><a name="693" class="Symbol"
+      >&#8594;</a
+      ><a name="694"
+      > </a
+      ><a name="695" href="LTC-PCF.Base.Properties.html#688" class="Bound"
+      >m</a
+      ><a name="696"
+      > </a
+      ><a name="697" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="698"
+      > </a
+      ><a name="699" href="LTC-PCF.Base.Properties.html#690" class="Bound"
+      >n</a
+      ><a name="700"
+      > </a
+      ><a name="701" class="Symbol"
+      >&#8594;</a
+      ><a name="702"
+      > </a
+      ><a name="703" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="708"
+      > </a
+      ><a name="709" href="LTC-PCF.Base.Properties.html#688" class="Bound"
+      >m</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="712"
+      > </a
+      ><a name="713" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="LTC-PCF.Base.Properties.html#690" class="Bound"
+      >n</a
+      ><a name="720"
+      >
+</a
+      ><a name="721" href="LTC-PCF.Base.Properties.html#674" class="Function"
+      >succCong</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="734"
+      > </a
+      ><a name="735" class="Symbol"
+      >=</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="741"
+      >
+
+</a
+      ><a name="743" href="LTC-PCF.Base.Properties.html#743" class="Function"
+      >predCong</a
+      ><a name="751"
+      > </a
+      ><a name="752" class="Symbol"
+      >:</a
+      ><a name="753"
+      > </a
+      ><a name="754" class="Symbol"
+      >&#8704;</a
+      ><a name="755"
+      > </a
+      ><a name="756" class="Symbol"
+      >{</a
+      ><a name="757" href="LTC-PCF.Base.Properties.html#757" class="Bound"
+      >m</a
+      ><a name="758"
+      > </a
+      ><a name="759" href="LTC-PCF.Base.Properties.html#759" class="Bound"
+      >n</a
+      ><a name="760" class="Symbol"
+      >}</a
+      ><a name="761"
+      > </a
+      ><a name="762" class="Symbol"
+      >&#8594;</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="LTC-PCF.Base.Properties.html#757" class="Bound"
+      >m</a
+      ><a name="765"
+      > </a
+      ><a name="766" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="767"
+      > </a
+      ><a name="768" href="LTC-PCF.Base.Properties.html#759" class="Bound"
+      >n</a
+      ><a name="769"
+      > </a
+      ><a name="770" class="Symbol"
+      >&#8594;</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="777"
+      > </a
+      ><a name="778" href="LTC-PCF.Base.Properties.html#757" class="Bound"
+      >m</a
+      ><a name="779"
+      > </a
+      ><a name="780" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="LTC-PCF.Base.Properties.html#759" class="Bound"
+      >n</a
+      ><a name="789"
+      >
+</a
+      ><a name="790" href="LTC-PCF.Base.Properties.html#743" class="Function"
+      >predCong</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="803"
+      > </a
+      ><a name="804" class="Symbol"
+      >=</a
+      ><a name="805"
+      > </a
+      ><a name="806" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="810"
+      >
+
+</a
+      ><a name="812" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="890"
+      >
+
+</a
+      ><a name="892" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="895"
+      > </a
+      ><a name="896" class="Symbol"
+      >:</a
+      ><a name="897"
+      > </a
+      ><a name="898" class="Symbol"
+      >&#8704;</a
+      ><a name="899"
+      > </a
+      ><a name="900" class="Symbol"
+      >{</a
+      ><a name="901" href="LTC-PCF.Base.Properties.html#901" class="Bound"
+      >n</a
+      ><a name="902" class="Symbol"
+      >}</a
+      ><a name="903"
+      > </a
+      ><a name="904" class="Symbol"
+      >&#8594;</a
+      ><a name="905"
+      > </a
+      ><a name="906" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="911"
+      > </a
+      ><a name="912" href="LTC-PCF.Base.Properties.html#901" class="Bound"
+      >n</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="Common.DefinitionsI.html#715" class="Function Operator"
+      >&#8802;</a
+      ><a name="915"
+      > </a
+      ><a name="916" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="920"
+      >
+</a
+      ><a name="921" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="924"
+      > </a
+      ><a name="925" href="LTC-PCF.Base.Properties.html#925" class="Bound"
+      >S&#8801;0</a
+      ><a name="928"
+      > </a
+      ><a name="929" class="Symbol"
+      >=</a
+      ><a name="930"
+      > </a
+      ><a name="931" href="LTC-PCF.Base.html#3556" class="Postulate"
+      >0&#8802;S</a
+      ><a name="934"
+      > </a
+      ><a name="935" class="Symbol"
+      >(</a
+      ><a name="936" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="939"
+      > </a
+      ><a name="940" href="LTC-PCF.Base.Properties.html#925" class="Bound"
+      >S&#8801;0</a
+      ><a name="943" class="Symbol"
+      >)</a
+      ><a name="944"
+      >
+
+</a
+      ><a name="946" class="Comment"
+      >-- We added Common.Relation.Binary.PropositionalEquality.cong, so this</a
+      ><a name="1016"
+      >
+</a
+      ><a name="1017" class="Comment"
+      >-- theorem is not necessary.</a
+      ><a name="1045"
+      >
+</a
+      ><a name="1046" class="Comment"
+      >-- x&#8801;y&#8594;Sx&#8801;Sy : &#8704; {m n} &#8594; m &#8801; n &#8594; succ&#8321; m &#8801;</a
+      ><a name="1088"
+      >
+</a
+      ><a name="1089" class="Comment"
+      >-- succ&#8321; n x&#8801;y&#8594;Sx&#8801;Sy refl = refl</a
+      ><a name="1121"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

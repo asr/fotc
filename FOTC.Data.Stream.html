@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Stream</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Streams (unbounded lists)</a
+      ><a name="108"
+      >
+</a
+      ><a name="109" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="187"
+      >
+
+</a
+      ><a name="189" class="Symbol"
+      >{-#</a
+      ><a name="192"
+      > </a
+      ><a name="193" class="Keyword"
+      >OPTIONS</a
+      ><a name="200"
+      > --exact-split              </a
+      ><a name="228" class="Symbol"
+      >#-}</a
+      ><a name="231"
+      >
+</a
+      ><a name="232" class="Symbol"
+      >{-#</a
+      ><a name="235"
+      > </a
+      ><a name="236" class="Keyword"
+      >OPTIONS</a
+      ><a name="243"
+      > --no-sized-types           </a
+      ><a name="271" class="Symbol"
+      >#-}</a
+      ><a name="274"
+      >
+</a
+      ><a name="275" class="Symbol"
+      >{-#</a
+      ><a name="278"
+      > </a
+      ><a name="279" class="Keyword"
+      >OPTIONS</a
+      ><a name="286"
+      > --no-universe-polymorphism </a
+      ><a name="314" class="Symbol"
+      >#-}</a
+      ><a name="317"
+      >
+</a
+      ><a name="318" class="Symbol"
+      >{-#</a
+      ><a name="321"
+      > </a
+      ><a name="322" class="Keyword"
+      >OPTIONS</a
+      ><a name="329"
+      > --without-K                </a
+      ><a name="357" class="Symbol"
+      >#-}</a
+      ><a name="360"
+      >
+
+</a
+      ><a name="362" class="Keyword"
+      >module</a
+      ><a name="368"
+      > </a
+      ><a name="369" href="FOTC.Data.Stream.html#1" class="Module"
+      >FOTC.Data.Stream</a
+      ><a name="385"
+      > </a
+      ><a name="386" class="Keyword"
+      >where</a
+      ><a name="391"
+      >
+
+</a
+      ><a name="393" class="Keyword"
+      >open</a
+      ><a name="397"
+      > </a
+      ><a name="398" class="Keyword"
+      >import</a
+      ><a name="404"
+      > </a
+      ><a name="405" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="414"
+      >
+</a
+      ><a name="415" class="Keyword"
+      >open</a
+      ><a name="419"
+      > </a
+      ><a name="420" class="Keyword"
+      >import</a
+      ><a name="426"
+      > </a
+      ><a name="427" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="441"
+      >
+</a
+      ><a name="442" class="Keyword"
+      >open</a
+      ><a name="446"
+      > </a
+      ><a name="447" class="Keyword"
+      >import</a
+      ><a name="453"
+      > </a
+      ><a name="454" href="FOTC.Data.Stream.Type.html#1" class="Module"
+      >FOTC.Data.Stream.Type</a
+      ><a name="475"
+      > </a
+      ><a name="476" class="Keyword"
+      >public</a
+      ><a name="482"
+      >
+
+</a
+      ><a name="484" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="562"
+      >
+
+</a
+      ><a name="564" class="Keyword"
+      >postulate</a
+      ><a name="573"
+      >
+  </a
+      ><a name="576" href="FOTC.Data.Stream.html#576" class="Postulate"
+      >zeros</a
+      ><a name="581"
+      >    </a
+      ><a name="585" class="Symbol"
+      >:</a
+      ><a name="586"
+      > </a
+      ><a name="587" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="588"
+      >
+  </a
+      ><a name="591" href="FOTC.Data.Stream.html#591" class="Postulate"
+      >zeros-eq</a
+      ><a name="599"
+      > </a
+      ><a name="600" class="Symbol"
+      >:</a
+      ><a name="601"
+      > </a
+      ><a name="602" href="FOTC.Data.Stream.html#576" class="Postulate"
+      >zeros</a
+      ><a name="607"
+      > </a
+      ><a name="608" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="609"
+      > </a
+      ><a name="610" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="614"
+      > </a
+      ><a name="615" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="616"
+      > </a
+      ><a name="617" href="FOTC.Data.Stream.html#576" class="Postulate"
+      >zeros</a
+      ><a name="622"
+      >
+</a
+      ><a name="623" class="Symbol"
+      >{-#</a
+      ><a name="626"
+      > </a
+      ><a name="627" class="Keyword"
+      >ATP</a
+      ><a name="630"
+      > axiom </a
+      ><a name="637" href="FOTC.Data.Stream.html#591" class="Postulate"
+      >zeros-eq</a
+      ><a name="645"
+      > </a
+      ><a name="646" class="Symbol"
+      >#-}</a
+      ><a name="649"
+      >
+
+</a
+      ><a name="651" class="Keyword"
+      >postulate</a
+      ><a name="660"
+      >
+  </a
+      ><a name="663" href="FOTC.Data.Stream.html#663" class="Postulate"
+      >ones</a
+      ><a name="667"
+      >    </a
+      ><a name="671" class="Symbol"
+      >:</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="674"
+      >
+  </a
+      ><a name="677" href="FOTC.Data.Stream.html#677" class="Postulate"
+      >ones-eq</a
+      ><a name="684"
+      > </a
+      ><a name="685" class="Symbol"
+      >:</a
+      ><a name="686"
+      > </a
+      ><a name="687" href="FOTC.Data.Stream.html#663" class="Postulate"
+      >ones</a
+      ><a name="691"
+      > </a
+      ><a name="692" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="699"
+      > </a
+      ><a name="700" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="704"
+      > </a
+      ><a name="705" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="FOTC.Data.Stream.html#663" class="Postulate"
+      >ones</a
+      ><a name="711"
+      >
+</a
+      ><a name="712" class="Symbol"
+      >{-#</a
+      ><a name="715"
+      > </a
+      ><a name="716" class="Keyword"
+      >ATP</a
+      ><a name="719"
+      > axiom </a
+      ><a name="726" href="FOTC.Data.Stream.html#677" class="Postulate"
+      >ones-eq</a
+      ><a name="733"
+      > </a
+      ><a name="734" class="Symbol"
+      >#-}</a
+      ><a name="737"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

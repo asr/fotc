@@ -1,0 +1,3169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Relation.Binary.Bisimilarity.PropertiesI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties for the bisimilarity relation</a
+      ><a name="123"
+      >
+</a
+      ><a name="124" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="202"
+      >
+
+</a
+      ><a name="204" class="Symbol"
+      >{-#</a
+      ><a name="207"
+      > </a
+      ><a name="208" class="Keyword"
+      >OPTIONS</a
+      ><a name="215"
+      > --exact-split              </a
+      ><a name="243" class="Symbol"
+      >#-}</a
+      ><a name="246"
+      >
+</a
+      ><a name="247" class="Symbol"
+      >{-#</a
+      ><a name="250"
+      > </a
+      ><a name="251" class="Keyword"
+      >OPTIONS</a
+      ><a name="258"
+      > --no-sized-types           </a
+      ><a name="286" class="Symbol"
+      >#-}</a
+      ><a name="289"
+      >
+</a
+      ><a name="290" class="Symbol"
+      >{-#</a
+      ><a name="293"
+      > </a
+      ><a name="294" class="Keyword"
+      >OPTIONS</a
+      ><a name="301"
+      > --no-universe-polymorphism </a
+      ><a name="329" class="Symbol"
+      >#-}</a
+      ><a name="332"
+      >
+</a
+      ><a name="333" class="Symbol"
+      >{-#</a
+      ><a name="336"
+      > </a
+      ><a name="337" class="Keyword"
+      >OPTIONS</a
+      ><a name="344"
+      > --without-K                </a
+      ><a name="372" class="Symbol"
+      >#-}</a
+      ><a name="375"
+      >
+
+</a
+      ><a name="377" class="Keyword"
+      >module</a
+      ><a name="383"
+      > </a
+      ><a name="384" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.PropertiesI</a
+      ><a name="429"
+      > </a
+      ><a name="430" class="Keyword"
+      >where</a
+      ><a name="435"
+      >
+
+</a
+      ><a name="437" class="Keyword"
+      >open</a
+      ><a name="441"
+      > </a
+      ><a name="442" class="Keyword"
+      >import</a
+      ><a name="448"
+      > </a
+      ><a name="449" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="458"
+      >
+</a
+      ><a name="459" class="Keyword"
+      >open</a
+      ><a name="463"
+      > </a
+      ><a name="464" class="Keyword"
+      >import</a
+      ><a name="470"
+      > </a
+      ><a name="471" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="485"
+      >
+</a
+      ><a name="486" class="Keyword"
+      >open</a
+      ><a name="490"
+      > </a
+      ><a name="491" class="Keyword"
+      >import</a
+      ><a name="497"
+      > </a
+      ><a name="498" href="FOTC.Base.List.PropertiesI.html#1" class="Module"
+      >FOTC.Base.List.PropertiesI</a
+      ><a name="524"
+      >
+</a
+      ><a name="525" class="Keyword"
+      >open</a
+      ><a name="529"
+      > </a
+      ><a name="530" class="Keyword"
+      >import</a
+      ><a name="536"
+      > </a
+      ><a name="537" href="FOTC.Base.PropertiesI.html#1" class="Module"
+      >FOTC.Base.PropertiesI</a
+      ><a name="558"
+      >
+</a
+      ><a name="559" class="Keyword"
+      >open</a
+      ><a name="563"
+      > </a
+      ><a name="564" class="Keyword"
+      >import</a
+      ><a name="570"
+      > </a
+      ><a name="571" href="FOTC.Data.Stream.Type.html#1" class="Module"
+      >FOTC.Data.Stream.Type</a
+      ><a name="592"
+      >
+</a
+      ><a name="593" class="Keyword"
+      >open</a
+      ><a name="597"
+      > </a
+      ><a name="598" class="Keyword"
+      >import</a
+      ><a name="604"
+      > </a
+      ><a name="605" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.Type</a
+      ><a name="643"
+      >
+
+</a
+      ><a name="645" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="723"
+      >
+</a
+      ><a name="724" class="Comment"
+      >-- Because a greatest post-fixed point is a fixed-point, the</a
+      ><a name="784"
+      >
+</a
+      ><a name="785" class="Comment"
+      >-- bisimilarity relation _&#8776;_ on unbounded lists is also a pre-fixed</a
+      ><a name="852"
+      >
+</a
+      ><a name="853" class="Comment"
+      >-- point of the bisimulation functional (see</a
+      ><a name="897"
+      >
+</a
+      ><a name="898" class="Comment"
+      >-- FOTC.Relation.Binary.Bisimulation).</a
+      ><a name="936"
+      >
+</a
+      ><a name="937" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#937" class="Function"
+      >&#8776;-in</a
+      ><a name="941"
+      > </a
+      ><a name="942" class="Symbol"
+      >:</a
+      ><a name="943"
+      > </a
+      ><a name="944" class="Symbol"
+      >&#8704;</a
+      ><a name="945"
+      > </a
+      ><a name="946" class="Symbol"
+      >{</a
+      ><a name="947" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#947" class="Bound"
+      >xs</a
+      ><a name="949"
+      > </a
+      ><a name="950" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#950" class="Bound"
+      >ys</a
+      ><a name="952" class="Symbol"
+      >}</a
+      ><a name="953"
+      > </a
+      ><a name="954" class="Symbol"
+      >&#8594;</a
+      ><a name="955"
+      >
+       </a
+      ><a name="963" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#966" class="Bound"
+      >x'</a
+      ><a name="968"
+      > </a
+      ><a name="969" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="970"
+      >  </a
+      ><a name="972" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#975" class="Bound"
+      >xs'</a
+      ><a name="978"
+      > </a
+      ><a name="979" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#984" class="Bound"
+      >ys'</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="989"
+      >
+         </a
+      ><a name="999" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#947" class="Bound"
+      >xs</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#966" class="Bound"
+      >x'</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#975" class="Bound"
+      >xs'</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#950" class="Bound"
+      >ys</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#966" class="Bound"
+      >x'</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1024"
+      > </a
+      ><a name="1025" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#984" class="Bound"
+      >ys'</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#975" class="Bound"
+      >xs'</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#984" class="Bound"
+      >ys'</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" class="Symbol"
+      >&#8594;</a
+      ><a name="1042"
+      >
+       </a
+      ><a name="1050" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#947" class="Bound"
+      >xs</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#950" class="Bound"
+      >ys</a
+      ><a name="1057"
+      >
+</a
+      ><a name="1058" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#937" class="Function"
+      >&#8776;-in</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1063" class="Bound"
+      >h</a
+      ><a name="1064"
+      > </a
+      ><a name="1065" class="Symbol"
+      >=</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1444" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1092" class="Function"
+      >B</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1206" class="Function"
+      >h'</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1063" class="Bound"
+      >h</a
+      ><a name="1081"
+      >
+  </a
+      ><a name="1084" class="Keyword"
+      >where</a
+      ><a name="1089"
+      >
+  </a
+      ><a name="1092" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1092" class="Function"
+      >B</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" class="Symbol"
+      >:</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1097"
+      > </a
+      ><a name="1098" class="Symbol"
+      >&#8594;</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" class="Symbol"
+      >&#8594;</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" class="PrimitiveType"
+      >Set</a
+      ><a name="1107"
+      >
+  </a
+      ><a name="1110" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1092" class="Function"
+      >B</a
+      ><a name="1111"
+      > </a
+      ><a name="1112" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1112" class="Bound"
+      >xs</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1115" class="Bound"
+      >ys</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >=</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1123" class="Bound"
+      >x'</a
+      ><a name="1125"
+      > </a
+      ><a name="1126" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1127"
+      >  </a
+      ><a name="1129" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1132" class="Bound"
+      >xs'</a
+      ><a name="1135"
+      > </a
+      ><a name="1136" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1141" class="Bound"
+      >ys'</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1146"
+      >
+              </a
+      ><a name="1161" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1112" class="Bound"
+      >xs</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1123" class="Bound"
+      >x'</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1132" class="Bound"
+      >xs'</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1115" class="Bound"
+      >ys</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1123" class="Bound"
+      >x'</a
+      ><a name="1184"
+      > </a
+      ><a name="1185" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1141" class="Bound"
+      >ys'</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1132" class="Bound"
+      >xs'</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1141" class="Bound"
+      >ys'</a
+      ><a name="1202"
+      >
+
+  </a
+      ><a name="1206" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1206" class="Function"
+      >h'</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" class="Symbol"
+      >:</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" class="Symbol"
+      >&#8704;</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" class="Symbol"
+      >{</a
+      ><a name="1214" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1214" class="Bound"
+      >xs</a
+      ><a name="1216" class="Symbol"
+      >}</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >{</a
+      ><a name="1219" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1219" class="Bound"
+      >ys</a
+      ><a name="1221" class="Symbol"
+      >}</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" class="Symbol"
+      >&#8594;</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1092" class="Function"
+      >B</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1214" class="Bound"
+      >xs</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1219" class="Bound"
+      >ys</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" class="Symbol"
+      >&#8594;</a
+      ><a name="1234"
+      >
+       </a
+      ><a name="1242" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1245" class="Bound"
+      >x'</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1253" class="Bound"
+      >xs'</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1262" class="Bound"
+      >ys'</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1214" class="Bound"
+      >xs</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1245" class="Bound"
+      >x'</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1253" class="Bound"
+      >xs'</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1283"
+      > </a
+      ><a name="1284" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1219" class="Bound"
+      >ys</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1288"
+      > </a
+      ><a name="1289" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1245" class="Bound"
+      >x'</a
+      ><a name="1291"
+      > </a
+      ><a name="1292" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1262" class="Bound"
+      >ys'</a
+      ><a name="1297"
+      > </a
+      ><a name="1298" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1092" class="Function"
+      >B</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1253" class="Bound"
+      >xs'</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1262" class="Bound"
+      >ys'</a
+      ><a name="1309"
+      >
+  </a
+      ><a name="1312" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1206" class="Function"
+      >h'</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" class="Symbol"
+      >(</a
+      ><a name="1316" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1316" class="Bound"
+      >x'</a
+      ><a name="1318"
+      > </a
+      ><a name="1319" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1320"
+      > </a
+      ><a name="1321" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1321" class="Bound"
+      >xs'</a
+      ><a name="1324"
+      > </a
+      ><a name="1325" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1326"
+      > </a
+      ><a name="1327" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1327" class="Bound"
+      >ys'</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1333" class="Bound"
+      >prf&#8321;</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1340" class="Bound"
+      >prf&#8322;</a
+      ><a name="1344"
+      > </a
+      ><a name="1345" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1347" class="Bound"
+      >xs'&#8776;ys'</a
+      ><a name="1354" class="Symbol"
+      >)</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" class="Symbol"
+      >=</a
+      ><a name="1357"
+      >
+    </a
+      ><a name="1362" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1316" class="Bound"
+      >x'</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1321" class="Bound"
+      >xs'</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1327" class="Bound"
+      >ys'</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1333" class="Bound"
+      >prf&#8321;</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1340" class="Bound"
+      >prf&#8322;</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1392"
+      > </a
+      ><a name="1393" href="FOTC.Relation.Binary.Bisimilarity.Type.html#989" class="Postulate"
+      >&#8776;-out</a
+      ><a name="1398"
+      > </a
+      ><a name="1399" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1347" class="Bound"
+      >xs'&#8776;ys'</a
+      ><a name="1406"
+      >
+
+</a
+      ><a name="1408" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1408" class="Function"
+      >&#8776;-refl</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" class="Symbol"
+      >:</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" class="Symbol"
+      >&#8704;</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" class="Symbol"
+      >{</a
+      ><a name="1420" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1420" class="Bound"
+      >xs</a
+      ><a name="1422" class="Symbol"
+      >}</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" class="Symbol"
+      >&#8594;</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1432"
+      > </a
+      ><a name="1433" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1420" class="Bound"
+      >xs</a
+      ><a name="1435"
+      > </a
+      ><a name="1436" class="Symbol"
+      >&#8594;</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1420" class="Bound"
+      >xs</a
+      ><a name="1440"
+      > </a
+      ><a name="1441" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1442"
+      > </a
+      ><a name="1443" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1420" class="Bound"
+      >xs</a
+      ><a name="1445"
+      >
+</a
+      ><a name="1446" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1408" class="Function"
+      >&#8776;-refl</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" class="Symbol"
+      >{</a
+      ><a name="1454" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1454" class="Bound"
+      >xs</a
+      ><a name="1456" class="Symbol"
+      >}</a
+      ><a name="1457"
+      > </a
+      ><a name="1458" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1458" class="Bound"
+      >Sxs</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" class="Symbol"
+      >=</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1444" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1490" class="Function"
+      >B</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1541" class="Function"
+      >h&#8321;</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1763" class="Function"
+      >h&#8322;</a
+      ><a name="1479"
+      >
+  </a
+      ><a name="1482" class="Keyword"
+      >where</a
+      ><a name="1487"
+      >
+  </a
+      ><a name="1490" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1490" class="Function"
+      >B</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" class="Symbol"
+      >:</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" class="Symbol"
+      >&#8594;</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" class="Symbol"
+      >&#8594;</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" class="PrimitiveType"
+      >Set</a
+      ><a name="1505"
+      >
+  </a
+      ><a name="1508" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1490" class="Function"
+      >B</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1510" class="Bound"
+      >xs</a
+      ><a name="1512"
+      > </a
+      ><a name="1513" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1513" class="Bound"
+      >ys</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >=</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1510" class="Bound"
+      >xs</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1510" class="Bound"
+      >xs</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1513" class="Bound"
+      >ys</a
+      ><a name="1537"
+      >
+
+  </a
+      ><a name="1541" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1541" class="Function"
+      >h&#8321;</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" class="Symbol"
+      >:</a
+      ><a name="1545"
+      > </a
+      ><a name="1546" class="Symbol"
+      >&#8704;</a
+      ><a name="1547"
+      > </a
+      ><a name="1548" class="Symbol"
+      >{</a
+      ><a name="1549" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1549" class="Bound"
+      >xs</a
+      ><a name="1551"
+      > </a
+      ><a name="1552" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1552" class="Bound"
+      >ys</a
+      ><a name="1554" class="Symbol"
+      >}</a
+      ><a name="1555"
+      > </a
+      ><a name="1556" class="Symbol"
+      >&#8594;</a
+      ><a name="1557"
+      > </a
+      ><a name="1558" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1490" class="Function"
+      >B</a
+      ><a name="1559"
+      > </a
+      ><a name="1560" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1549" class="Bound"
+      >xs</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1552" class="Bound"
+      >ys</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" class="Symbol"
+      >&#8594;</a
+      ><a name="1567"
+      >
+       </a
+      ><a name="1575" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1578" class="Bound"
+      >x'</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1582"
+      > </a
+      ><a name="1583" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1586" class="Bound"
+      >xs'</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1595" class="Bound"
+      >ys'</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1549" class="Bound"
+      >xs</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1578" class="Bound"
+      >x'</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1610"
+      > </a
+      ><a name="1611" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1586" class="Bound"
+      >xs'</a
+      ><a name="1614"
+      > </a
+      ><a name="1615" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1616"
+      > </a
+      ><a name="1617" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1552" class="Bound"
+      >ys</a
+      ><a name="1619"
+      > </a
+      ><a name="1620" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1621"
+      > </a
+      ><a name="1622" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1578" class="Bound"
+      >x'</a
+      ><a name="1624"
+      > </a
+      ><a name="1625" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1626"
+      > </a
+      ><a name="1627" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1595" class="Bound"
+      >ys'</a
+      ><a name="1630"
+      > </a
+      ><a name="1631" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1632"
+      > </a
+      ><a name="1633" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1490" class="Function"
+      >B</a
+      ><a name="1634"
+      > </a
+      ><a name="1635" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1586" class="Bound"
+      >xs'</a
+      ><a name="1638"
+      > </a
+      ><a name="1639" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1595" class="Bound"
+      >ys'</a
+      ><a name="1642"
+      >
+  </a
+      ><a name="1645" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1541" class="Function"
+      >h&#8321;</a
+      ><a name="1647"
+      > </a
+      ><a name="1648" class="Symbol"
+      >(</a
+      ><a name="1649" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1649" class="Bound"
+      >Sxs</a
+      ><a name="1652"
+      > </a
+      ><a name="1653" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1654"
+      > </a
+      ><a name="1655" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1659" class="Symbol"
+      >)</a
+      ><a name="1660"
+      > </a
+      ><a name="1661" class="Keyword"
+      >with</a
+      ><a name="1665"
+      > </a
+      ><a name="1666" href="FOTC.Data.Stream.Type.html#931" class="Postulate"
+      >Stream-out</a
+      ><a name="1676"
+      > </a
+      ><a name="1677" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1649" class="Bound"
+      >Sxs</a
+      ><a name="1680"
+      >
+  </a
+      ><a name="1683" class="Symbol"
+      >...</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" class="Symbol"
+      >|</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1689" class="Bound"
+      >x'</a
+      ><a name="1691"
+      > </a
+      ><a name="1692" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1693"
+      > </a
+      ><a name="1694" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1694" class="Bound"
+      >xs'</a
+      ><a name="1697"
+      > </a
+      ><a name="1698" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1699"
+      > </a
+      ><a name="1700" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1700" class="Bound"
+      >prf</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1706" class="Bound"
+      >Sxs'</a
+      ><a name="1710"
+      > </a
+      ><a name="1711" class="Symbol"
+      >=</a
+      ><a name="1712"
+      >
+    </a
+      ><a name="1717" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1689" class="Bound"
+      >x'</a
+      ><a name="1719"
+      > </a
+      ><a name="1720" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1721"
+      > </a
+      ><a name="1722" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1694" class="Bound"
+      >xs'</a
+      ><a name="1725"
+      > </a
+      ><a name="1726" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1727"
+      > </a
+      ><a name="1728" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1694" class="Bound"
+      >xs'</a
+      ><a name="1731"
+      > </a
+      ><a name="1732" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1733"
+      > </a
+      ><a name="1734" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1700" class="Bound"
+      >prf</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1700" class="Bound"
+      >prf</a
+      ><a name="1743"
+      > </a
+      ><a name="1744" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >(</a
+      ><a name="1747" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1706" class="Bound"
+      >Sxs'</a
+      ><a name="1751"
+      > </a
+      ><a name="1752" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1753"
+      > </a
+      ><a name="1754" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1758" class="Symbol"
+      >)</a
+      ><a name="1759"
+      >
+
+  </a
+      ><a name="1763" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1763" class="Function"
+      >h&#8322;</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" class="Symbol"
+      >:</a
+      ><a name="1767"
+      > </a
+      ><a name="1768" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1490" class="Function"
+      >B</a
+      ><a name="1769"
+      > </a
+      ><a name="1770" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1454" class="Bound"
+      >xs</a
+      ><a name="1772"
+      > </a
+      ><a name="1773" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1454" class="Bound"
+      >xs</a
+      ><a name="1775"
+      >
+  </a
+      ><a name="1778" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1763" class="Function"
+      >h&#8322;</a
+      ><a name="1780"
+      > </a
+      ><a name="1781" class="Symbol"
+      >=</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1458" class="Bound"
+      >Sxs</a
+      ><a name="1786"
+      > </a
+      ><a name="1787" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1788"
+      > </a
+      ><a name="1789" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1793"
+      >
+
+</a
+      ><a name="1795" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1795" class="Function"
+      >&#8776;-sym</a
+      ><a name="1800"
+      > </a
+      ><a name="1801" class="Symbol"
+      >:</a
+      ><a name="1802"
+      > </a
+      ><a name="1803" class="Symbol"
+      >&#8704;</a
+      ><a name="1804"
+      > </a
+      ><a name="1805" class="Symbol"
+      >{</a
+      ><a name="1806" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1806" class="Bound"
+      >xs</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1809" class="Bound"
+      >ys</a
+      ><a name="1811" class="Symbol"
+      >}</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" class="Symbol"
+      >&#8594;</a
+      ><a name="1814"
+      > </a
+      ><a name="1815" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1806" class="Bound"
+      >xs</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1809" class="Bound"
+      >ys</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" class="Symbol"
+      >&#8594;</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1809" class="Bound"
+      >ys</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1806" class="Bound"
+      >xs</a
+      ><a name="1832"
+      >
+</a
+      ><a name="1833" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1795" class="Function"
+      >&#8776;-sym</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" class="Symbol"
+      >{</a
+      ><a name="1840" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1840" class="Bound"
+      >xs</a
+      ><a name="1842" class="Symbol"
+      >}</a
+      ><a name="1843"
+      > </a
+      ><a name="1844" class="Symbol"
+      >{</a
+      ><a name="1845" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1845" class="Bound"
+      >ys</a
+      ><a name="1847" class="Symbol"
+      >}</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1849" class="Bound"
+      >xs&#8776;ys</a
+      ><a name="1854"
+      > </a
+      ><a name="1855" class="Symbol"
+      >=</a
+      ><a name="1856"
+      > </a
+      ><a name="1857" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1444" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="1864"
+      > </a
+      ><a name="1865" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1883" class="Function"
+      >B</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1922" class="Function"
+      >h&#8321;</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2147" class="Function"
+      >h&#8322;</a
+      ><a name="1872"
+      >
+  </a
+      ><a name="1875" class="Keyword"
+      >where</a
+      ><a name="1880"
+      >
+  </a
+      ><a name="1883" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1883" class="Function"
+      >B</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" class="Symbol"
+      >:</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1888"
+      > </a
+      ><a name="1889" class="Symbol"
+      >&#8594;</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1892"
+      > </a
+      ><a name="1893" class="Symbol"
+      >&#8594;</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" class="PrimitiveType"
+      >Set</a
+      ><a name="1898"
+      >
+  </a
+      ><a name="1901" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1883" class="Function"
+      >B</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1903" class="Bound"
+      >xs</a
+      ><a name="1905"
+      > </a
+      ><a name="1906" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1906" class="Bound"
+      >ys</a
+      ><a name="1908"
+      > </a
+      ><a name="1909" class="Symbol"
+      >=</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1906" class="Bound"
+      >ys</a
+      ><a name="1913"
+      > </a
+      ><a name="1914" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="1915"
+      > </a
+      ><a name="1916" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1903" class="Bound"
+      >xs</a
+      ><a name="1918"
+      >
+
+  </a
+      ><a name="1922" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1922" class="Function"
+      >h&#8321;</a
+      ><a name="1924"
+      > </a
+      ><a name="1925" class="Symbol"
+      >:</a
+      ><a name="1926"
+      > </a
+      ><a name="1927" class="Symbol"
+      >&#8704;</a
+      ><a name="1928"
+      > </a
+      ><a name="1929" class="Symbol"
+      >{</a
+      ><a name="1930" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1930" class="Bound"
+      >ys</a
+      ><a name="1932"
+      > </a
+      ><a name="1933" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1933" class="Bound"
+      >xs</a
+      ><a name="1935" class="Symbol"
+      >}</a
+      ><a name="1936"
+      > </a
+      ><a name="1937" class="Symbol"
+      >&#8594;</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1883" class="Function"
+      >B</a
+      ><a name="1940"
+      > </a
+      ><a name="1941" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1930" class="Bound"
+      >ys</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1933" class="Bound"
+      >xs</a
+      ><a name="1946"
+      > </a
+      ><a name="1947" class="Symbol"
+      >&#8594;</a
+      ><a name="1948"
+      >
+       </a
+      ><a name="1956" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1959" class="Bound"
+      >y'</a
+      ><a name="1961"
+      > </a
+      ><a name="1962" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1966"
+      > </a
+      ><a name="1967" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1967" class="Bound"
+      >ys'</a
+      ><a name="1970"
+      > </a
+      ><a name="1971" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1972"
+      > </a
+      ><a name="1973" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1975"
+      > </a
+      ><a name="1976" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1976" class="Bound"
+      >xs'</a
+      ><a name="1979"
+      > </a
+      ><a name="1980" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1930" class="Bound"
+      >ys</a
+      ><a name="1984"
+      > </a
+      ><a name="1985" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1959" class="Bound"
+      >y'</a
+      ><a name="1989"
+      > </a
+      ><a name="1990" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1967" class="Bound"
+      >ys'</a
+      ><a name="1995"
+      > </a
+      ><a name="1996" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1997"
+      > </a
+      ><a name="1998" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1933" class="Bound"
+      >xs</a
+      ><a name="2000"
+      > </a
+      ><a name="2001" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2002"
+      > </a
+      ><a name="2003" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1959" class="Bound"
+      >y'</a
+      ><a name="2005"
+      > </a
+      ><a name="2006" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2007"
+      > </a
+      ><a name="2008" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1976" class="Bound"
+      >xs'</a
+      ><a name="2011"
+      > </a
+      ><a name="2012" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1883" class="Function"
+      >B</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1967" class="Bound"
+      >ys'</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1976" class="Bound"
+      >xs'</a
+      ><a name="2023"
+      >
+  </a
+      ><a name="2026" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1922" class="Function"
+      >h&#8321;</a
+      ><a name="2028"
+      > </a
+      ><a name="2029" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2029" class="Bound"
+      >Bxsys</a
+      ><a name="2034"
+      > </a
+      ><a name="2035" class="Keyword"
+      >with</a
+      ><a name="2039"
+      > </a
+      ><a name="2040" href="FOTC.Relation.Binary.Bisimilarity.Type.html#989" class="Postulate"
+      >&#8776;-out</a
+      ><a name="2045"
+      > </a
+      ><a name="2046" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2029" class="Bound"
+      >Bxsys</a
+      ><a name="2051"
+      >
+  </a
+      ><a name="2054" class="Symbol"
+      >...</a
+      ><a name="2057"
+      > </a
+      ><a name="2058" class="Symbol"
+      >|</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2060" class="Bound"
+      >y'</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2065" class="Bound"
+      >ys'</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2071" class="Bound"
+      >xs'</a
+      ><a name="2074"
+      > </a
+      ><a name="2075" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2076"
+      > </a
+      ><a name="2077" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2077" class="Bound"
+      >prf&#8321;</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2084" class="Bound"
+      >prf&#8322;</a
+      ><a name="2088"
+      > </a
+      ><a name="2089" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2090"
+      > </a
+      ><a name="2091" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2091" class="Bound"
+      >ys'&#8776;xs'</a
+      ><a name="2098"
+      > </a
+      ><a name="2099" class="Symbol"
+      >=</a
+      ><a name="2100"
+      >
+    </a
+      ><a name="2105" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2060" class="Bound"
+      >y'</a
+      ><a name="2107"
+      > </a
+      ><a name="2108" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2109"
+      > </a
+      ><a name="2110" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2071" class="Bound"
+      >xs'</a
+      ><a name="2113"
+      > </a
+      ><a name="2114" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2115"
+      > </a
+      ><a name="2116" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2065" class="Bound"
+      >ys'</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2121"
+      > </a
+      ><a name="2122" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2084" class="Bound"
+      >prf&#8322;</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2128"
+      > </a
+      ><a name="2129" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2077" class="Bound"
+      >prf&#8321;</a
+      ><a name="2133"
+      > </a
+      ><a name="2134" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2135"
+      > </a
+      ><a name="2136" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2091" class="Bound"
+      >ys'&#8776;xs'</a
+      ><a name="2143"
+      >
+
+  </a
+      ><a name="2147" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2147" class="Function"
+      >h&#8322;</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" class="Symbol"
+      >:</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1883" class="Function"
+      >B</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1845" class="Bound"
+      >ys</a
+      ><a name="2156"
+      > </a
+      ><a name="2157" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1840" class="Bound"
+      >xs</a
+      ><a name="2159"
+      >
+  </a
+      ><a name="2162" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2147" class="Function"
+      >h&#8322;</a
+      ><a name="2164"
+      > </a
+      ><a name="2165" class="Symbol"
+      >=</a
+      ><a name="2166"
+      > </a
+      ><a name="2167" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#1849" class="Bound"
+      >xs&#8776;ys</a
+      ><a name="2172"
+      >
+
+</a
+      ><a name="2174" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2174" class="Function"
+      >&#8776;-trans</a
+      ><a name="2181"
+      > </a
+      ><a name="2182" class="Symbol"
+      >:</a
+      ><a name="2183"
+      > </a
+      ><a name="2184" class="Symbol"
+      >&#8704;</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" class="Symbol"
+      >{</a
+      ><a name="2187" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2187" class="Bound"
+      >xs</a
+      ><a name="2189"
+      > </a
+      ><a name="2190" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2190" class="Bound"
+      >ys</a
+      ><a name="2192"
+      > </a
+      ><a name="2193" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2193" class="Bound"
+      >zs</a
+      ><a name="2195" class="Symbol"
+      >}</a
+      ><a name="2196"
+      > </a
+      ><a name="2197" class="Symbol"
+      >&#8594;</a
+      ><a name="2198"
+      > </a
+      ><a name="2199" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2187" class="Bound"
+      >xs</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2190" class="Bound"
+      >ys</a
+      ><a name="2206"
+      > </a
+      ><a name="2207" class="Symbol"
+      >&#8594;</a
+      ><a name="2208"
+      > </a
+      ><a name="2209" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2190" class="Bound"
+      >ys</a
+      ><a name="2211"
+      > </a
+      ><a name="2212" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="2213"
+      > </a
+      ><a name="2214" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2193" class="Bound"
+      >zs</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" class="Symbol"
+      >&#8594;</a
+      ><a name="2218"
+      > </a
+      ><a name="2219" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2187" class="Bound"
+      >xs</a
+      ><a name="2221"
+      > </a
+      ><a name="2222" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="2223"
+      > </a
+      ><a name="2224" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2193" class="Bound"
+      >zs</a
+      ><a name="2226"
+      >
+</a
+      ><a name="2227" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2174" class="Function"
+      >&#8776;-trans</a
+      ><a name="2234"
+      > </a
+      ><a name="2235" class="Symbol"
+      >{</a
+      ><a name="2236" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2236" class="Bound"
+      >xs</a
+      ><a name="2238" class="Symbol"
+      >}</a
+      ><a name="2239"
+      > </a
+      ><a name="2240" class="Symbol"
+      >{</a
+      ><a name="2241" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2241" class="Bound"
+      >ys</a
+      ><a name="2243" class="Symbol"
+      >}</a
+      ><a name="2244"
+      > </a
+      ><a name="2245" class="Symbol"
+      >{</a
+      ><a name="2246" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2246" class="Bound"
+      >zs</a
+      ><a name="2248" class="Symbol"
+      >}</a
+      ><a name="2249"
+      > </a
+      ><a name="2250" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2250" class="Bound"
+      >xs&#8776;ys</a
+      ><a name="2255"
+      > </a
+      ><a name="2256" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2256" class="Bound"
+      >ys&#8776;zs</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" class="Symbol"
+      >=</a
+      ><a name="2263"
+      > </a
+      ><a name="2264" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1444" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="2271"
+      > </a
+      ><a name="2272" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2290" class="Function"
+      >B</a
+      ><a name="2273"
+      > </a
+      ><a name="2274" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2347" class="Function"
+      >h&#8321;</a
+      ><a name="2276"
+      > </a
+      ><a name="2277" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2944" class="Function"
+      >h&#8322;</a
+      ><a name="2279"
+      >
+  </a
+      ><a name="2282" class="Keyword"
+      >where</a
+      ><a name="2287"
+      >
+  </a
+      ><a name="2290" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2290" class="Function"
+      >B</a
+      ><a name="2291"
+      > </a
+      ><a name="2292" class="Symbol"
+      >:</a
+      ><a name="2293"
+      > </a
+      ><a name="2294" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2295"
+      > </a
+      ><a name="2296" class="Symbol"
+      >&#8594;</a
+      ><a name="2297"
+      > </a
+      ><a name="2298" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" class="Symbol"
+      >&#8594;</a
+      ><a name="2301"
+      > </a
+      ><a name="2302" class="PrimitiveType"
+      >Set</a
+      ><a name="2305"
+      >
+  </a
+      ><a name="2308" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2290" class="Function"
+      >B</a
+      ><a name="2309"
+      > </a
+      ><a name="2310" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2310" class="Bound"
+      >xs</a
+      ><a name="2312"
+      > </a
+      ><a name="2313" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2313" class="Bound"
+      >zs</a
+      ><a name="2315"
+      > </a
+      ><a name="2316" class="Symbol"
+      >=</a
+      ><a name="2317"
+      > </a
+      ><a name="2318" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2320"
+      > </a
+      ><a name="2321" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2321" class="Bound"
+      >ys</a
+      ><a name="2323"
+      > </a
+      ><a name="2324" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2325"
+      > </a
+      ><a name="2326" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2310" class="Bound"
+      >xs</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="2330"
+      > </a
+      ><a name="2331" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2321" class="Bound"
+      >ys</a
+      ><a name="2333"
+      > </a
+      ><a name="2334" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2335"
+      > </a
+      ><a name="2336" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2321" class="Bound"
+      >ys</a
+      ><a name="2338"
+      > </a
+      ><a name="2339" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="2340"
+      > </a
+      ><a name="2341" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2313" class="Bound"
+      >zs</a
+      ><a name="2343"
+      >
+
+  </a
+      ><a name="2347" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2347" class="Function"
+      >h&#8321;</a
+      ><a name="2349"
+      > </a
+      ><a name="2350" class="Symbol"
+      >:</a
+      ><a name="2351"
+      > </a
+      ><a name="2352" class="Symbol"
+      >&#8704;</a
+      ><a name="2353"
+      > </a
+      ><a name="2354" class="Symbol"
+      >{</a
+      ><a name="2355" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2355" class="Bound"
+      >as</a
+      ><a name="2357" class="Symbol"
+      >}</a
+      ><a name="2358"
+      > </a
+      ><a name="2359" class="Symbol"
+      >{</a
+      ><a name="2360" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2360" class="Bound"
+      >cs</a
+      ><a name="2362" class="Symbol"
+      >}</a
+      ><a name="2363"
+      > </a
+      ><a name="2364" class="Symbol"
+      >&#8594;</a
+      ><a name="2365"
+      > </a
+      ><a name="2366" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2290" class="Function"
+      >B</a
+      ><a name="2367"
+      > </a
+      ><a name="2368" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2355" class="Bound"
+      >as</a
+      ><a name="2370"
+      > </a
+      ><a name="2371" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2360" class="Bound"
+      >cs</a
+      ><a name="2373"
+      > </a
+      ><a name="2374" class="Symbol"
+      >&#8594;</a
+      ><a name="2375"
+      >
+       </a
+      ><a name="2383" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2385"
+      > </a
+      ><a name="2386" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2386" class="Bound"
+      >a'</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2393"
+      > </a
+      ><a name="2394" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2394" class="Bound"
+      >as'</a
+      ><a name="2397"
+      > </a
+      ><a name="2398" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2399"
+      > </a
+      ><a name="2400" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2402"
+      > </a
+      ><a name="2403" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2403" class="Bound"
+      >cs'</a
+      ><a name="2406"
+      > </a
+      ><a name="2407" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2408"
+      > </a
+      ><a name="2409" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2355" class="Bound"
+      >as</a
+      ><a name="2411"
+      > </a
+      ><a name="2412" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2413"
+      > </a
+      ><a name="2414" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2386" class="Bound"
+      >a'</a
+      ><a name="2416"
+      > </a
+      ><a name="2417" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2418"
+      > </a
+      ><a name="2419" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2394" class="Bound"
+      >as'</a
+      ><a name="2422"
+      > </a
+      ><a name="2423" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2424"
+      > </a
+      ><a name="2425" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2360" class="Bound"
+      >cs</a
+      ><a name="2427"
+      > </a
+      ><a name="2428" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2429"
+      > </a
+      ><a name="2430" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2386" class="Bound"
+      >a'</a
+      ><a name="2432"
+      > </a
+      ><a name="2433" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2434"
+      > </a
+      ><a name="2435" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2403" class="Bound"
+      >cs'</a
+      ><a name="2438"
+      > </a
+      ><a name="2439" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2440"
+      > </a
+      ><a name="2441" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2290" class="Function"
+      >B</a
+      ><a name="2442"
+      > </a
+      ><a name="2443" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2394" class="Bound"
+      >as'</a
+      ><a name="2446"
+      > </a
+      ><a name="2447" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2403" class="Bound"
+      >cs'</a
+      ><a name="2450"
+      >
+  </a
+      ><a name="2453" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2347" class="Function"
+      >h&#8321;</a
+      ><a name="2455"
+      > </a
+      ><a name="2456" class="Symbol"
+      >{</a
+      ><a name="2457" class="Argument"
+      >cs</a
+      ><a name="2459"
+      > </a
+      ><a name="2460" class="Symbol"
+      >=</a
+      ><a name="2461"
+      > </a
+      ><a name="2462" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2462" class="Bound"
+      >cs</a
+      ><a name="2464" class="Symbol"
+      >}</a
+      ><a name="2465"
+      > </a
+      ><a name="2466" class="Symbol"
+      >(</a
+      ><a name="2467" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2467" class="Bound"
+      >bs</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2472" class="Bound"
+      >as&#8776;bs</a
+      ><a name="2477"
+      > </a
+      ><a name="2478" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2479"
+      > </a
+      ><a name="2480" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2480" class="Bound"
+      >bs&#8776;cs</a
+      ><a name="2485" class="Symbol"
+      >)</a
+      ><a name="2486"
+      > </a
+      ><a name="2487" class="Keyword"
+      >with</a
+      ><a name="2491"
+      > </a
+      ><a name="2492" href="FOTC.Relation.Binary.Bisimilarity.Type.html#989" class="Postulate"
+      >&#8776;-out</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2472" class="Bound"
+      >as&#8776;bs</a
+      ><a name="2503"
+      >
+  </a
+      ><a name="2506" class="Symbol"
+      >...</a
+      ><a name="2509"
+      > </a
+      ><a name="2510" class="Symbol"
+      >|</a
+      ><a name="2511"
+      > </a
+      ><a name="2512" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2512" class="Bound"
+      >a'</a
+      ><a name="2514"
+      > </a
+      ><a name="2515" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2516"
+      > </a
+      ><a name="2517" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2517" class="Bound"
+      >as'</a
+      ><a name="2520"
+      > </a
+      ><a name="2521" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2522"
+      > </a
+      ><a name="2523" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2523" class="Bound"
+      >bs'</a
+      ><a name="2526"
+      > </a
+      ><a name="2527" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2528"
+      > </a
+      ><a name="2529" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2529" class="Bound"
+      >prf&#8321;</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2536" class="Bound"
+      >prf&#8322;</a
+      ><a name="2540"
+      > </a
+      ><a name="2541" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2542"
+      > </a
+      ><a name="2543" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2543" class="Bound"
+      >as'&#8776;bs'</a
+      ><a name="2550"
+      > </a
+      ><a name="2551" class="Keyword"
+      >with</a
+      ><a name="2555"
+      > </a
+      ><a name="2556" href="FOTC.Relation.Binary.Bisimilarity.Type.html#989" class="Postulate"
+      >&#8776;-out</a
+      ><a name="2561"
+      > </a
+      ><a name="2562" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2480" class="Bound"
+      >bs&#8776;cs</a
+      ><a name="2567"
+      >
+  </a
+      ><a name="2570" class="Symbol"
+      >...</a
+      ><a name="2573"
+      > </a
+      ><a name="2574" class="Symbol"
+      >|</a
+      ><a name="2575"
+      > </a
+      ><a name="2576" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2576" class="Bound"
+      >b'</a
+      ><a name="2578"
+      > </a
+      ><a name="2579" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2580"
+      > </a
+      ><a name="2581" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2581" class="Bound"
+      >bs''</a
+      ><a name="2585"
+      > </a
+      ><a name="2586" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2588" class="Bound"
+      >cs'</a
+      ><a name="2591"
+      > </a
+      ><a name="2592" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2593"
+      > </a
+      ><a name="2594" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2594" class="Bound"
+      >prf&#8323;</a
+      ><a name="2598"
+      > </a
+      ><a name="2599" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2600"
+      > </a
+      ><a name="2601" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2601" class="Bound"
+      >prf&#8324;</a
+      ><a name="2605"
+      > </a
+      ><a name="2606" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2607"
+      > </a
+      ><a name="2608" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2608" class="Bound"
+      >bs''&#8776;cs'</a
+      ><a name="2616"
+      > </a
+      ><a name="2617" class="Symbol"
+      >=</a
+      ><a name="2618"
+      >
+    </a
+      ><a name="2623" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2512" class="Bound"
+      >a'</a
+      ><a name="2625"
+      >
+    </a
+      ><a name="2630" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2631"
+      > </a
+      ><a name="2632" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2517" class="Bound"
+      >as'</a
+      ><a name="2635"
+      >
+    </a
+      ><a name="2640" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2641"
+      > </a
+      ><a name="2642" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2588" class="Bound"
+      >cs'</a
+      ><a name="2645"
+      >
+    </a
+      ><a name="2650" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2651"
+      > </a
+      ><a name="2652" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2529" class="Bound"
+      >prf&#8321;</a
+      ><a name="2656"
+      >
+    </a
+      ><a name="2661" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2662"
+      > </a
+      ><a name="2663" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2668"
+      > </a
+      ><a name="2669" class="Symbol"
+      >(&#955;</a
+      ><a name="2671"
+      > </a
+      ><a name="2672" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2672" class="Bound"
+      >t</a
+      ><a name="2673"
+      > </a
+      ><a name="2674" class="Symbol"
+      >&#8594;</a
+      ><a name="2675"
+      > </a
+      ><a name="2676" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2462" class="Bound"
+      >cs</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2680"
+      > </a
+      ><a name="2681" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2672" class="Bound"
+      >t</a
+      ><a name="2682"
+      > </a
+      ><a name="2683" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2684"
+      > </a
+      ><a name="2685" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2588" class="Bound"
+      >cs'</a
+      ><a name="2688" class="Symbol"
+      >)</a
+      ><a name="2689"
+      > </a
+      ><a name="2690" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2779" class="Function"
+      >b'&#8801;a'</a
+      ><a name="2695"
+      > </a
+      ><a name="2696" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2601" class="Bound"
+      >prf&#8324;</a
+      ><a name="2700"
+      >
+    </a
+      ><a name="2705" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2706"
+      > </a
+      ><a name="2707" class="Symbol"
+      >(</a
+      ><a name="2708" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2523" class="Bound"
+      >bs'</a
+      ><a name="2711"
+      > </a
+      ><a name="2712" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2543" class="Bound"
+      >as'&#8776;bs'</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2723"
+      > </a
+      ><a name="2724" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2729"
+      > </a
+      ><a name="2730" class="Symbol"
+      >(&#955;</a
+      ><a name="2732"
+      > </a
+      ><a name="2733" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2733" class="Bound"
+      >t</a
+      ><a name="2734"
+      > </a
+      ><a name="2735" class="Symbol"
+      >&#8594;</a
+      ><a name="2736"
+      > </a
+      ><a name="2737" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2733" class="Bound"
+      >t</a
+      ><a name="2738"
+      > </a
+      ><a name="2739" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="2740"
+      > </a
+      ><a name="2741" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2588" class="Bound"
+      >cs'</a
+      ><a name="2744" class="Symbol"
+      >)</a
+      ><a name="2745"
+      > </a
+      ><a name="2746" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2858" class="Function"
+      >bs''&#8801;bs'</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2608" class="Bound"
+      >bs''&#8776;cs'</a
+      ><a name="2763" class="Symbol"
+      >)</a
+      ><a name="2764"
+      >
+    </a
+      ><a name="2769" class="Keyword"
+      >where</a
+      ><a name="2774"
+      >
+    </a
+      ><a name="2779" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2779" class="Function"
+      >b'&#8801;a'</a
+      ><a name="2784"
+      > </a
+      ><a name="2785" class="Symbol"
+      >:</a
+      ><a name="2786"
+      > </a
+      ><a name="2787" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2576" class="Bound"
+      >b'</a
+      ><a name="2789"
+      > </a
+      ><a name="2790" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2791"
+      > </a
+      ><a name="2792" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2512" class="Bound"
+      >a'</a
+      ><a name="2794"
+      >
+    </a
+      ><a name="2799" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2779" class="Function"
+      >b'&#8801;a'</a
+      ><a name="2804"
+      > </a
+      ><a name="2805" class="Symbol"
+      >=</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="2814"
+      > </a
+      ><a name="2815" class="Symbol"
+      >(</a
+      ><a name="2816" href="FOTC.Base.List.PropertiesI.html#1102" class="Function"
+      >&#8759;-injective</a
+      ><a name="2827"
+      > </a
+      ><a name="2828" class="Symbol"
+      >(</a
+      ><a name="2829" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="2834"
+      > </a
+      ><a name="2835" class="Symbol"
+      >(</a
+      ><a name="2836" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2594" class="Bound"
+      >prf&#8323;</a
+      ><a name="2844" class="Symbol"
+      >)</a
+      ><a name="2845"
+      > </a
+      ><a name="2846" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2536" class="Bound"
+      >prf&#8322;</a
+      ><a name="2850" class="Symbol"
+      >))</a
+      ><a name="2852"
+      >
+
+    </a
+      ><a name="2858" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2858" class="Function"
+      >bs''&#8801;bs'</a
+      ><a name="2866"
+      > </a
+      ><a name="2867" class="Symbol"
+      >:</a
+      ><a name="2868"
+      > </a
+      ><a name="2869" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2581" class="Bound"
+      >bs''</a
+      ><a name="2873"
+      > </a
+      ><a name="2874" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2875"
+      > </a
+      ><a name="2876" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2523" class="Bound"
+      >bs'</a
+      ><a name="2879"
+      >
+    </a
+      ><a name="2884" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2858" class="Function"
+      >bs''&#8801;bs'</a
+      ><a name="2892"
+      > </a
+      ><a name="2893" class="Symbol"
+      >=</a
+      ><a name="2894"
+      > </a
+      ><a name="2895" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="2902"
+      > </a
+      ><a name="2903" class="Symbol"
+      >(</a
+      ><a name="2904" href="FOTC.Base.List.PropertiesI.html#1102" class="Function"
+      >&#8759;-injective</a
+      ><a name="2915"
+      > </a
+      ><a name="2916" class="Symbol"
+      >(</a
+      ><a name="2917" href="Common.FOL.Relation.Binary.PropositionalEquality.html#877" class="Function"
+      >trans</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" class="Symbol"
+      >(</a
+      ><a name="2924" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="2927"
+      > </a
+      ><a name="2928" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2594" class="Bound"
+      >prf&#8323;</a
+      ><a name="2932" class="Symbol"
+      >)</a
+      ><a name="2933"
+      > </a
+      ><a name="2934" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2536" class="Bound"
+      >prf&#8322;</a
+      ><a name="2938" class="Symbol"
+      >))</a
+      ><a name="2940"
+      >
+
+  </a
+      ><a name="2944" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2944" class="Function"
+      >h&#8322;</a
+      ><a name="2946"
+      > </a
+      ><a name="2947" class="Symbol"
+      >:</a
+      ><a name="2948"
+      > </a
+      ><a name="2949" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2290" class="Function"
+      >B</a
+      ><a name="2950"
+      > </a
+      ><a name="2951" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2236" class="Bound"
+      >xs</a
+      ><a name="2953"
+      > </a
+      ><a name="2954" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2246" class="Bound"
+      >zs</a
+      ><a name="2956"
+      >
+  </a
+      ><a name="2959" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2944" class="Function"
+      >h&#8322;</a
+      ><a name="2961"
+      > </a
+      ><a name="2962" class="Symbol"
+      >=</a
+      ><a name="2963"
+      > </a
+      ><a name="2964" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2241" class="Bound"
+      >ys</a
+      ><a name="2966"
+      > </a
+      ><a name="2967" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2968"
+      > </a
+      ><a name="2969" class="Symbol"
+      >(</a
+      ><a name="2970" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2250" class="Bound"
+      >xs&#8776;ys</a
+      ><a name="2975"
+      > </a
+      ><a name="2976" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2977"
+      > </a
+      ><a name="2978" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2256" class="Bound"
+      >ys&#8776;zs</a
+      ><a name="2983" class="Symbol"
+      >)</a
+      ><a name="2984"
+      >
+
+</a
+      ><a name="2986" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2986" class="Function"
+      >&#8759;-injective&#8776;</a
+      ><a name="2998"
+      > </a
+      ><a name="2999" class="Symbol"
+      >:</a
+      ><a name="3000"
+      > </a
+      ><a name="3001" class="Symbol"
+      >&#8704;</a
+      ><a name="3002"
+      > </a
+      ><a name="3003" class="Symbol"
+      >{</a
+      ><a name="3004" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3004" class="Bound"
+      >x</a
+      ><a name="3005"
+      > </a
+      ><a name="3006" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3006" class="Bound"
+      >xs</a
+      ><a name="3008"
+      > </a
+      ><a name="3009" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3009" class="Bound"
+      >ys</a
+      ><a name="3011" class="Symbol"
+      >}</a
+      ><a name="3012"
+      > </a
+      ><a name="3013" class="Symbol"
+      >&#8594;</a
+      ><a name="3014"
+      > </a
+      ><a name="3015" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3004" class="Bound"
+      >x</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3018"
+      > </a
+      ><a name="3019" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3006" class="Bound"
+      >xs</a
+      ><a name="3021"
+      > </a
+      ><a name="3022" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="3023"
+      > </a
+      ><a name="3024" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3004" class="Bound"
+      >x</a
+      ><a name="3025"
+      > </a
+      ><a name="3026" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3027"
+      > </a
+      ><a name="3028" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3009" class="Bound"
+      >ys</a
+      ><a name="3030"
+      > </a
+      ><a name="3031" class="Symbol"
+      >&#8594;</a
+      ><a name="3032"
+      > </a
+      ><a name="3033" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3006" class="Bound"
+      >xs</a
+      ><a name="3035"
+      > </a
+      ><a name="3036" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="3037"
+      > </a
+      ><a name="3038" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3009" class="Bound"
+      >ys</a
+      ><a name="3040"
+      >
+</a
+      ><a name="3041" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#2986" class="Function"
+      >&#8759;-injective&#8776;</a
+      ><a name="3053"
+      > </a
+      ><a name="3054" class="Symbol"
+      >{</a
+      ><a name="3055" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3055" class="Bound"
+      >x</a
+      ><a name="3056" class="Symbol"
+      >}</a
+      ><a name="3057"
+      > </a
+      ><a name="3058" class="Symbol"
+      >{</a
+      ><a name="3059" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3059" class="Bound"
+      >xs</a
+      ><a name="3061" class="Symbol"
+      >}</a
+      ><a name="3062"
+      > </a
+      ><a name="3063" class="Symbol"
+      >{</a
+      ><a name="3064" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3064" class="Bound"
+      >ys</a
+      ><a name="3066" class="Symbol"
+      >}</a
+      ><a name="3067"
+      > </a
+      ><a name="3068" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3068" class="Bound"
+      >h</a
+      ><a name="3069"
+      > </a
+      ><a name="3070" class="Keyword"
+      >with</a
+      ><a name="3074"
+      > </a
+      ><a name="3075" href="FOTC.Relation.Binary.Bisimilarity.Type.html#989" class="Postulate"
+      >&#8776;-out</a
+      ><a name="3080"
+      > </a
+      ><a name="3081" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3068" class="Bound"
+      >h</a
+      ><a name="3082"
+      >
+</a
+      ><a name="3083" class="Symbol"
+      >...</a
+      ><a name="3086"
+      > </a
+      ><a name="3087" class="Symbol"
+      >|</a
+      ><a name="3088"
+      > </a
+      ><a name="3089" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3089" class="Bound"
+      >x'</a
+      ><a name="3091"
+      > </a
+      ><a name="3092" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3093"
+      > </a
+      ><a name="3094" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3094" class="Bound"
+      >xs'</a
+      ><a name="3097"
+      > </a
+      ><a name="3098" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3099"
+      > </a
+      ><a name="3100" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3100" class="Bound"
+      >ys'</a
+      ><a name="3103"
+      > </a
+      ><a name="3104" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3105"
+      > </a
+      ><a name="3106" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3106" class="Bound"
+      >prf&#8321;</a
+      ><a name="3110"
+      > </a
+      ><a name="3111" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3112"
+      > </a
+      ><a name="3113" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3113" class="Bound"
+      >prf&#8322;</a
+      ><a name="3117"
+      > </a
+      ><a name="3118" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3119"
+      > </a
+      ><a name="3120" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3120" class="Bound"
+      >prf&#8323;</a
+      ><a name="3124"
+      > </a
+      ><a name="3125" class="Symbol"
+      >=</a
+      ><a name="3126"
+      > </a
+      ><a name="3127" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3261" class="Function"
+      >xs&#8776;ys</a
+      ><a name="3132"
+      >
+  </a
+      ><a name="3135" class="Keyword"
+      >where</a
+      ><a name="3140"
+      >
+  </a
+      ><a name="3143" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3143" class="Function"
+      >xs&#8801;xs'</a
+      ><a name="3149"
+      > </a
+      ><a name="3150" class="Symbol"
+      >:</a
+      ><a name="3151"
+      > </a
+      ><a name="3152" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3059" class="Bound"
+      >xs</a
+      ><a name="3154"
+      > </a
+      ><a name="3155" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3156"
+      > </a
+      ><a name="3157" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3094" class="Bound"
+      >xs'</a
+      ><a name="3160"
+      >
+  </a
+      ><a name="3163" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3143" class="Function"
+      >xs&#8801;xs'</a
+      ><a name="3169"
+      > </a
+      ><a name="3170" class="Symbol"
+      >=</a
+      ><a name="3171"
+      > </a
+      ><a name="3172" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="3179"
+      > </a
+      ><a name="3180" class="Symbol"
+      >(</a
+      ><a name="3181" href="FOTC.Base.List.PropertiesI.html#1102" class="Function"
+      >&#8759;-injective</a
+      ><a name="3192"
+      > </a
+      ><a name="3193" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3106" class="Bound"
+      >prf&#8321;</a
+      ><a name="3197" class="Symbol"
+      >)</a
+      ><a name="3198"
+      >
+
+  </a
+      ><a name="3202" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3202" class="Function"
+      >ys&#8801;ys'</a
+      ><a name="3208"
+      > </a
+      ><a name="3209" class="Symbol"
+      >:</a
+      ><a name="3210"
+      > </a
+      ><a name="3211" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3064" class="Bound"
+      >ys</a
+      ><a name="3213"
+      > </a
+      ><a name="3214" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3215"
+      > </a
+      ><a name="3216" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3100" class="Bound"
+      >ys'</a
+      ><a name="3219"
+      >
+  </a
+      ><a name="3222" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3202" class="Function"
+      >ys&#8801;ys'</a
+      ><a name="3228"
+      > </a
+      ><a name="3229" class="Symbol"
+      >=</a
+      ><a name="3230"
+      > </a
+      ><a name="3231" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="3238"
+      > </a
+      ><a name="3239" class="Symbol"
+      >(</a
+      ><a name="3240" href="FOTC.Base.List.PropertiesI.html#1102" class="Function"
+      >&#8759;-injective</a
+      ><a name="3251"
+      > </a
+      ><a name="3252" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3113" class="Bound"
+      >prf&#8322;</a
+      ><a name="3256" class="Symbol"
+      >)</a
+      ><a name="3257"
+      >
+
+  </a
+      ><a name="3261" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3261" class="Function"
+      >xs&#8776;ys</a
+      ><a name="3266"
+      > </a
+      ><a name="3267" class="Symbol"
+      >:</a
+      ><a name="3268"
+      > </a
+      ><a name="3269" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3059" class="Bound"
+      >xs</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="3273"
+      > </a
+      ><a name="3274" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3064" class="Bound"
+      >ys</a
+      ><a name="3276"
+      >
+  </a
+      ><a name="3279" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3261" class="Function"
+      >xs&#8776;ys</a
+      ><a name="3284"
+      > </a
+      ><a name="3285" class="Symbol"
+      >=</a
+      ><a name="3286"
+      > </a
+      ><a name="3287" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3292"
+      > </a
+      ><a name="3293" class="Symbol"
+      >(&#955;</a
+      ><a name="3295"
+      > </a
+      ><a name="3296" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3296" class="Bound"
+      >t</a
+      ><a name="3297"
+      > </a
+      ><a name="3298" class="Symbol"
+      >&#8594;</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3296" class="Bound"
+      >t</a
+      ><a name="3301"
+      > </a
+      ><a name="3302" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="3303"
+      > </a
+      ><a name="3304" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3064" class="Bound"
+      >ys</a
+      ><a name="3306" class="Symbol"
+      >)</a
+      ><a name="3307"
+      >
+                </a
+      ><a name="3324" class="Symbol"
+      >(</a
+      ><a name="3325" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3328"
+      > </a
+      ><a name="3329" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3143" class="Function"
+      >xs&#8801;xs'</a
+      ><a name="3335" class="Symbol"
+      >)</a
+      ><a name="3336"
+      >
+                </a
+      ><a name="3353" class="Symbol"
+      >(</a
+      ><a name="3354" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3359"
+      > </a
+      ><a name="3360" class="Symbol"
+      >(</a
+      ><a name="3361" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >_&#8776;_</a
+      ><a name="3364"
+      > </a
+      ><a name="3365" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3094" class="Bound"
+      >xs'</a
+      ><a name="3368" class="Symbol"
+      >)</a
+      ><a name="3369"
+      > </a
+      ><a name="3370" class="Symbol"
+      >(</a
+      ><a name="3371" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3374"
+      > </a
+      ><a name="3375" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3202" class="Function"
+      >ys&#8801;ys'</a
+      ><a name="3381" class="Symbol"
+      >)</a
+      ><a name="3382"
+      > </a
+      ><a name="3383" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3120" class="Bound"
+      >prf&#8323;</a
+      ><a name="3387" class="Symbol"
+      >)</a
+      ><a name="3388"
+      >
+
+</a
+      ><a name="3390" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3390" class="Function"
+      >&#8759;-rightCong&#8776;</a
+      ><a name="3402"
+      > </a
+      ><a name="3403" class="Symbol"
+      >:</a
+      ><a name="3404"
+      > </a
+      ><a name="3405" class="Symbol"
+      >&#8704;</a
+      ><a name="3406"
+      > </a
+      ><a name="3407" class="Symbol"
+      >{</a
+      ><a name="3408" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3408" class="Bound"
+      >x</a
+      ><a name="3409"
+      > </a
+      ><a name="3410" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3410" class="Bound"
+      >xs</a
+      ><a name="3412"
+      > </a
+      ><a name="3413" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3413" class="Bound"
+      >ys</a
+      ><a name="3415" class="Symbol"
+      >}</a
+      ><a name="3416"
+      > </a
+      ><a name="3417" class="Symbol"
+      >&#8594;</a
+      ><a name="3418"
+      > </a
+      ><a name="3419" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3410" class="Bound"
+      >xs</a
+      ><a name="3421"
+      > </a
+      ><a name="3422" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="3423"
+      > </a
+      ><a name="3424" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3413" class="Bound"
+      >ys</a
+      ><a name="3426"
+      > </a
+      ><a name="3427" class="Symbol"
+      >&#8594;</a
+      ><a name="3428"
+      > </a
+      ><a name="3429" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3408" class="Bound"
+      >x</a
+      ><a name="3430"
+      > </a
+      ><a name="3431" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3432"
+      > </a
+      ><a name="3433" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3410" class="Bound"
+      >xs</a
+      ><a name="3435"
+      > </a
+      ><a name="3436" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="3437"
+      > </a
+      ><a name="3438" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3408" class="Bound"
+      >x</a
+      ><a name="3439"
+      > </a
+      ><a name="3440" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3441"
+      > </a
+      ><a name="3442" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3413" class="Bound"
+      >ys</a
+      ><a name="3444"
+      >
+</a
+      ><a name="3445" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3390" class="Function"
+      >&#8759;-rightCong&#8776;</a
+      ><a name="3457"
+      > </a
+      ><a name="3458" class="Symbol"
+      >{</a
+      ><a name="3459" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3459" class="Bound"
+      >x</a
+      ><a name="3460" class="Symbol"
+      >}</a
+      ><a name="3461"
+      > </a
+      ><a name="3462" class="Symbol"
+      >{</a
+      ><a name="3463" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3463" class="Bound"
+      >xs</a
+      ><a name="3465" class="Symbol"
+      >}</a
+      ><a name="3466"
+      > </a
+      ><a name="3467" class="Symbol"
+      >{</a
+      ><a name="3468" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3468" class="Bound"
+      >ys</a
+      ><a name="3470" class="Symbol"
+      >}</a
+      ><a name="3471"
+      > </a
+      ><a name="3472" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3472" class="Bound"
+      >h</a
+      ><a name="3473"
+      > </a
+      ><a name="3474" class="Symbol"
+      >=</a
+      ><a name="3475"
+      > </a
+      ><a name="3476" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#937" class="Function"
+      >&#8776;-in</a
+      ><a name="3480"
+      > </a
+      ><a name="3481" class="Symbol"
+      >(</a
+      ><a name="3482" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3459" class="Bound"
+      >x</a
+      ><a name="3483"
+      > </a
+      ><a name="3484" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3485"
+      > </a
+      ><a name="3486" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3463" class="Bound"
+      >xs</a
+      ><a name="3488"
+      > </a
+      ><a name="3489" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3490"
+      > </a
+      ><a name="3491" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3468" class="Bound"
+      >ys</a
+      ><a name="3493"
+      > </a
+      ><a name="3494" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3495"
+      > </a
+      ><a name="3496" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3500"
+      > </a
+      ><a name="3501" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3502"
+      > </a
+      ><a name="3503" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3507"
+      > </a
+      ><a name="3508" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3509"
+      > </a
+      ><a name="3510" href="FOTC.Relation.Binary.Bisimilarity.PropertiesI.html#3472" class="Bound"
+      >h</a
+      ><a name="3511" class="Symbol"
+      >)</a
+      ><a name="3512"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

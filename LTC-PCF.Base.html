@@ -1,0 +1,1260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Base</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The LTC-PCF base</a
+      ><a name="99"
+      >
+</a
+      ><a name="100" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="178"
+      >
+
+</a
+      ><a name="180" class="Symbol"
+      >{-#</a
+      ><a name="183"
+      > </a
+      ><a name="184" class="Keyword"
+      >OPTIONS</a
+      ><a name="191"
+      > --exact-split              </a
+      ><a name="219" class="Symbol"
+      >#-}</a
+      ><a name="222"
+      >
+</a
+      ><a name="223" class="Symbol"
+      >{-#</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Keyword"
+      >OPTIONS</a
+      ><a name="234"
+      > --no-sized-types           </a
+      ><a name="262" class="Symbol"
+      >#-}</a
+      ><a name="265"
+      >
+</a
+      ><a name="266" class="Symbol"
+      >{-#</a
+      ><a name="269"
+      > </a
+      ><a name="270" class="Keyword"
+      >OPTIONS</a
+      ><a name="277"
+      > --no-universe-polymorphism </a
+      ><a name="305" class="Symbol"
+      >#-}</a
+      ><a name="308"
+      >
+</a
+      ><a name="309" class="Symbol"
+      >{-#</a
+      ><a name="312"
+      > </a
+      ><a name="313" class="Keyword"
+      >OPTIONS</a
+      ><a name="320"
+      > --without-K                </a
+      ><a name="348" class="Symbol"
+      >#-}</a
+      ><a name="351"
+      >
+
+</a
+      ><a name="353" class="Comment"
+      >{-
+LTC-PCF                               The logical framework (Agda)
+
+* Logical constants                   * Curry-Howard isomorphism
+* Equality                            * Identity type
+* Term language and conversion rules  * Postulates
+* Inductively defined predicates      * Inductive families
+-}</a
+      ><a name="655"
+      >
+
+</a
+      ><a name="657" class="Keyword"
+      >module</a
+      ><a name="663"
+      > </a
+      ><a name="664" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="676"
+      > </a
+      ><a name="677" class="Keyword"
+      >where</a
+      ><a name="682"
+      >
+
+</a
+      ><a name="684" class="Comment"
+      >-- First-order logic with equality.</a
+      ><a name="719"
+      >
+</a
+      ><a name="720" class="Keyword"
+      >open</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Keyword"
+      >import</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="Common.FOL.FOL-Eq.html#1" class="Module"
+      >Common.FOL.FOL-Eq</a
+      ><a name="749"
+      > </a
+      ><a name="750" class="Keyword"
+      >public</a
+      ><a name="756"
+      >
+
+</a
+      ><a name="758" class="Comment"
+      >-- Common definitions.</a
+      ><a name="780"
+      >
+</a
+      ><a name="781" class="Keyword"
+      >open</a
+      ><a name="785"
+      > </a
+      ><a name="786" class="Keyword"
+      >import</a
+      ><a name="792"
+      > </a
+      ><a name="793" href="Common.DefinitionsI.html#1" class="Module"
+      >Common.DefinitionsI</a
+      ><a name="812"
+      > </a
+      ><a name="813" class="Keyword"
+      >public</a
+      ><a name="819"
+      >
+
+</a
+      ><a name="821" class="Keyword"
+      >infixl</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Number"
+      >7</a
+      ><a name="829"
+      > _&#183;_
+</a
+      ><a name="834" class="Keyword"
+      >infix</a
+      ><a name="839"
+      >  </a
+      ><a name="841" class="Number"
+      >0</a
+      ><a name="842"
+      > if_then_else_
+
+</a
+      ><a name="858" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="936"
+      >
+</a
+      ><a name="937" class="Comment"
+      >-- The term language of LTC-PCF correspond to the PCF terms.</a
+      ><a name="997"
+      >
+
+</a
+      ><a name="999" class="Comment"
+      >--   t ::= x</a
+      ><a name="1011"
+      >
+</a
+      ><a name="1012" class="Comment"
+      >--      | t &#183; t</a
+      ><a name="1027"
+      >
+</a
+      ><a name="1028" class="Comment"
+      >--      | &#955; x.t</a
+      ><a name="1043"
+      >
+</a
+      ><a name="1044" class="Comment"
+      >--      | fix x.t</a
+      ><a name="1061"
+      >
+</a
+      ><a name="1062" class="Comment"
+      >--      | true | false | if</a
+      ><a name="1089"
+      >
+</a
+      ><a name="1090" class="Comment"
+      >--      | zero | succ  | pred | iszero</a
+      ><a name="1128"
+      >
+
+</a
+      ><a name="1130" class="Comment"
+      >-- NB. We define the PCF terms as constants. After that, we will</a
+      ><a name="1194"
+      >
+</a
+      ><a name="1195" class="Comment"
+      >-- define some function symbols based on these constants for</a
+      ><a name="1255"
+      >
+</a
+      ><a name="1256" class="Comment"
+      >-- convenience in writing.</a
+      ><a name="1282"
+      >
+
+</a
+      ><a name="1284" class="Keyword"
+      >postulate</a
+      ><a name="1293"
+      >
+  </a
+      ><a name="1296" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >_&#183;_</a
+      ><a name="1299"
+      >                   </a
+      ><a name="1318" class="Symbol"
+      >:</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" class="Symbol"
+      >&#8594;</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Symbol"
+      >&#8594;</a
+      ><a name="1327"
+      > </a
+      ><a name="1328" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1329"
+      >    </a
+      ><a name="1333" class="Comment"
+      >-- LTC-PCF application.</a
+      ><a name="1356"
+      >
+  </a
+      ><a name="1359" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="1362"
+      >                   </a
+      ><a name="1381" class="Symbol"
+      >:</a
+      ><a name="1382"
+      > </a
+      ><a name="1383" class="Symbol"
+      >(</a
+      ><a name="1384" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" class="Symbol"
+      >&#8594;</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1389" class="Symbol"
+      >)</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" class="Symbol"
+      >&#8594;</a
+      ><a name="1392"
+      > </a
+      ><a name="1393" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1394"
+      >  </a
+      ><a name="1396" class="Comment"
+      >-- LTC-PCF &#955;-abstraction.</a
+      ><a name="1421"
+      >
+  </a
+      ><a name="1424" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="1427"
+      >                   </a
+      ><a name="1446" class="Symbol"
+      >:</a
+      ><a name="1447"
+      > </a
+      ><a name="1448" class="Symbol"
+      >(</a
+      ><a name="1449" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1450"
+      > </a
+      ><a name="1451" class="Symbol"
+      >&#8594;</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1454" class="Symbol"
+      >)</a
+      ><a name="1455"
+      > </a
+      ><a name="1456" class="Symbol"
+      >&#8594;</a
+      ><a name="1457"
+      > </a
+      ><a name="1458" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1459"
+      >  </a
+      ><a name="1461" class="Comment"
+      >-- LTC-PCF fixed-point operator.</a
+      ><a name="1493"
+      >
+  </a
+      ><a name="1496" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" href="LTC-PCF.Base.html#1507" class="Postulate"
+      >if</a
+      ><a name="1509"
+      >         </a
+      ><a name="1518" class="Symbol"
+      >:</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1521"
+      >            </a
+      ><a name="1533" class="Comment"
+      >-- LTC-PCF partial Booleans.</a
+      ><a name="1561"
+      >
+  </a
+      ><a name="1564" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="LTC-PCF.Base.html#1569" class="Postulate"
+      >succ</a
+      ><a name="1573"
+      > </a
+      ><a name="1574" href="LTC-PCF.Base.html#1574" class="Postulate"
+      >pred</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" href="LTC-PCF.Base.html#1579" class="Postulate"
+      >iszero</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" class="Symbol"
+      >:</a
+      ><a name="1587"
+      > </a
+      ><a name="1588" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1589"
+      >            </a
+      ><a name="1601" class="Comment"
+      >-- LTC-PCF partial natural numbers.</a
+      ><a name="1636"
+      >
+
+</a
+      ><a name="1638" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1716"
+      >
+</a
+      ><a name="1717" class="Comment"
+      >-- Definitions</a
+      ><a name="1731"
+      >
+
+</a
+      ><a name="1733" class="Comment"
+      >-- We define some function symbols for convenience in writing.</a
+      ><a name="1795"
+      >
+</a
+      ><a name="1796" class="Keyword"
+      >abstract</a
+      ><a name="1804"
+      >
+  </a
+      ><a name="1807" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if_then_else_</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" class="Symbol"
+      >:</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" class="Symbol"
+      >&#8594;</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1828"
+      > </a
+      ><a name="1829" class="Symbol"
+      >&#8594;</a
+      ><a name="1830"
+      > </a
+      ><a name="1831" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" class="Symbol"
+      >&#8594;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1836"
+      >
+  </a
+      ><a name="1839" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="1841"
+      > </a
+      ><a name="1842" href="LTC-PCF.Base.html#1842" class="Bound"
+      >b</a
+      ><a name="1843"
+      > </a
+      ><a name="1844" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="LTC-PCF.Base.html#1849" class="Bound"
+      >t</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="LTC-PCF.Base.html#1856" class="Bound"
+      >t'</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" class="Symbol"
+      >=</a
+      ><a name="1860"
+      > </a
+      ><a name="1861" href="LTC-PCF.Base.html#1507" class="Postulate"
+      >if</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" href="LTC-PCF.Base.html#1842" class="Bound"
+      >b</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" href="LTC-PCF.Base.html#1849" class="Bound"
+      >t</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1873"
+      > </a
+      ><a name="1874" href="LTC-PCF.Base.html#1856" class="Bound"
+      >t'</a
+      ><a name="1876"
+      >
+
+  </a
+      ><a name="1880" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" class="Symbol"
+      >:</a
+      ><a name="1887"
+      > </a
+      ><a name="1888" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1889"
+      > </a
+      ><a name="1890" class="Symbol"
+      >&#8594;</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1893"
+      >
+  </a
+      ><a name="1896" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1901"
+      > </a
+      ><a name="1902" href="LTC-PCF.Base.html#1902" class="Bound"
+      >n</a
+      ><a name="1903"
+      > </a
+      ><a name="1904" class="Symbol"
+      >=</a
+      ><a name="1905"
+      > </a
+      ><a name="1906" href="LTC-PCF.Base.html#1569" class="Postulate"
+      >succ</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" href="LTC-PCF.Base.html#1902" class="Bound"
+      >n</a
+      ><a name="1914"
+      >
+
+  </a
+      ><a name="1918" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="1923"
+      > </a
+      ><a name="1924" class="Symbol"
+      >:</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" class="Symbol"
+      >&#8594;</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1931"
+      >
+  </a
+      ><a name="1934" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="1939"
+      > </a
+      ><a name="1940" href="LTC-PCF.Base.html#1940" class="Bound"
+      >n</a
+      ><a name="1941"
+      > </a
+      ><a name="1942" class="Symbol"
+      >=</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" href="LTC-PCF.Base.html#1574" class="Postulate"
+      >pred</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1950"
+      > </a
+      ><a name="1951" href="LTC-PCF.Base.html#1940" class="Bound"
+      >n</a
+      ><a name="1952"
+      >
+
+  </a
+      ><a name="1956" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" class="Symbol"
+      >:</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1967"
+      > </a
+      ><a name="1968" class="Symbol"
+      >&#8594;</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1971"
+      >
+  </a
+      ><a name="1974" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" href="LTC-PCF.Base.html#1982" class="Bound"
+      >n</a
+      ><a name="1983"
+      > </a
+      ><a name="1984" class="Symbol"
+      >=</a
+      ><a name="1985"
+      > </a
+      ><a name="1986" href="LTC-PCF.Base.html#1579" class="Postulate"
+      >iszero</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="LTC-PCF.Base.html#1982" class="Bound"
+      >n</a
+      ><a name="1996"
+      >
+
+</a
+      ><a name="1998" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2076"
+      >
+</a
+      ><a name="2077" class="Comment"
+      >-- Conversion rules</a
+      ><a name="2096"
+      >
+
+</a
+      ><a name="2098" class="Comment"
+      >-- The conversion relation _conv_ satifies (Aczel 1977. The strength</a
+      ><a name="2166"
+      >
+</a
+      ><a name="2167" class="Comment"
+      >-- of Martin-L&#246;f's intuitionistic type theory with one universe,</a
+      ><a name="2231"
+      >
+</a
+      ><a name="2232" class="Comment"
+      >-- p. 8).</a
+      ><a name="2241"
+      >
+</a
+      ><a name="2242" class="Comment"
+      >--</a
+      ><a name="2244"
+      >
+</a
+      ><a name="2245" class="Comment"
+      >-- x conv y &lt;=&gt; FOTC &#8866; x &#8801; y,</a
+      ><a name="2274"
+      >
+</a
+      ><a name="2275" class="Comment"
+      >--</a
+      ><a name="2277"
+      >
+</a
+      ><a name="2278" class="Comment"
+      >-- therefore, we introduce the conversion rules as non-logical axioms.</a
+      ><a name="2348"
+      >
+
+</a
+      ><a name="2350" class="Comment"
+      >-- N.B. We write the conversion rules on the defined function symbols</a
+      ><a name="2419"
+      >
+</a
+      ><a name="2420" class="Comment"
+      >-- instead of on the PCF constants.</a
+      ><a name="2455"
+      >
+
+</a
+      ><a name="2457" class="Comment"
+      >-- Conversion rule for the &#955;-abstraction and the application.</a
+      ><a name="2518"
+      >
+</a
+      ><a name="2519" class="Keyword"
+      >postulate</a
+      ><a name="2528"
+      > </a
+      ><a name="2529" href="LTC-PCF.Base.html#2529" class="Postulate"
+      >beta</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" class="Symbol"
+      >:</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" class="Symbol"
+      >&#8704;</a
+      ><a name="2537"
+      > </a
+      ><a name="2538" href="LTC-PCF.Base.html#2538" class="Bound"
+      >f</a
+      ><a name="2539"
+      > </a
+      ><a name="2540" href="LTC-PCF.Base.html#2540" class="Bound"
+      >a</a
+      ><a name="2541"
+      > </a
+      ><a name="2542" class="Symbol"
+      >&#8594;</a
+      ><a name="2543"
+      > </a
+      ><a name="2544" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="2547"
+      > </a
+      ><a name="2548" href="LTC-PCF.Base.html#2538" class="Bound"
+      >f</a
+      ><a name="2549"
+      > </a
+      ><a name="2550" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2551"
+      > </a
+      ><a name="2552" href="LTC-PCF.Base.html#2540" class="Bound"
+      >a</a
+      ><a name="2553"
+      > </a
+      ><a name="2554" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2555"
+      > </a
+      ><a name="2556" href="LTC-PCF.Base.html#2538" class="Bound"
+      >f</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" href="LTC-PCF.Base.html#2540" class="Bound"
+      >a</a
+      ><a name="2559"
+      >
+
+</a
+      ><a name="2561" class="Comment"
+      >-- Conversion rule for the fixed-pointed operator.</a
+      ><a name="2611"
+      >
+</a
+      ><a name="2612" class="Keyword"
+      >postulate</a
+      ><a name="2621"
+      > </a
+      ><a name="2622" href="LTC-PCF.Base.html#2622" class="Postulate"
+      >fix-eq</a
+      ><a name="2628"
+      > </a
+      ><a name="2629" class="Symbol"
+      >:</a
+      ><a name="2630"
+      > </a
+      ><a name="2631" class="Symbol"
+      >&#8704;</a
+      ><a name="2632"
+      > </a
+      ><a name="2633" href="LTC-PCF.Base.html#2633" class="Bound"
+      >f</a
+      ><a name="2634"
+      > </a
+      ><a name="2635" class="Symbol"
+      >&#8594;</a
+      ><a name="2636"
+      > </a
+      ><a name="2637" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="2640"
+      > </a
+      ><a name="2641" href="LTC-PCF.Base.html#2633" class="Bound"
+      >f</a
+      ><a name="2642"
+      > </a
+      ><a name="2643" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2644"
+      > </a
+      ><a name="2645" href="LTC-PCF.Base.html#2633" class="Bound"
+      >f</a
+      ><a name="2646"
+      > </a
+      ><a name="2647" class="Symbol"
+      >(</a
+      ><a name="2648" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="2651"
+      > </a
+      ><a name="2652" href="LTC-PCF.Base.html#2633" class="Bound"
+      >f</a
+      ><a name="2653" class="Symbol"
+      >)</a
+      ><a name="2654"
+      >
+
+</a
+      ><a name="2656" class="Comment"
+      >-- Conversion rules for Booleans.</a
+      ><a name="2689"
+      >
+</a
+      ><a name="2690" class="Keyword"
+      >postulate</a
+      ><a name="2699"
+      >
+  </a
+      ><a name="2702" class="Comment"
+      >-- if-true  : &#8704; t {t'} &#8594; if &#183; true  &#183; t &#183; t' &#8801; t</a
+      ><a name="2750"
+      >
+  </a
+      ><a name="2753" class="Comment"
+      >-- if-false : &#8704; {t} t' &#8594; if &#183; false &#183; t &#183; t' &#8801; t'</a
+      ><a name="2802"
+      >
+  </a
+      ><a name="2805" href="LTC-PCF.Base.html#2805" class="Postulate"
+      >if-true</a
+      ><a name="2812"
+      >  </a
+      ><a name="2814" class="Symbol"
+      >:</a
+      ><a name="2815"
+      > </a
+      ><a name="2816" class="Symbol"
+      >&#8704;</a
+      ><a name="2817"
+      > </a
+      ><a name="2818" href="LTC-PCF.Base.html#2818" class="Bound"
+      >t</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" class="Symbol"
+      >{</a
+      ><a name="2821" href="LTC-PCF.Base.html#2821" class="Bound"
+      >t'</a
+      ><a name="2823" class="Symbol"
+      >}</a
+      ><a name="2824"
+      > </a
+      ><a name="2825" class="Symbol"
+      >&#8594;</a
+      ><a name="2826"
+      > </a
+      ><a name="2827" class="Symbol"
+      >(</a
+      ><a name="2828" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="2830"
+      > </a
+      ><a name="2831" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="2835"
+      > </a
+      ><a name="2836" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="2840"
+      > </a
+      ><a name="2841" href="LTC-PCF.Base.html#2818" class="Bound"
+      >t</a
+      ><a name="2842"
+      > </a
+      ><a name="2843" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" href="LTC-PCF.Base.html#2821" class="Bound"
+      >t'</a
+      ><a name="2850" class="Symbol"
+      >)</a
+      ><a name="2851"
+      >  </a
+      ><a name="2853" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2854"
+      > </a
+      ><a name="2855" href="LTC-PCF.Base.html#2818" class="Bound"
+      >t</a
+      ><a name="2856"
+      >
+  </a
+      ><a name="2859" href="LTC-PCF.Base.html#2859" class="Postulate"
+      >if-false</a
+      ><a name="2867"
+      > </a
+      ><a name="2868" class="Symbol"
+      >:</a
+      ><a name="2869"
+      > </a
+      ><a name="2870" class="Symbol"
+      >&#8704;</a
+      ><a name="2871"
+      > </a
+      ><a name="2872" class="Symbol"
+      >{</a
+      ><a name="2873" href="LTC-PCF.Base.html#2873" class="Bound"
+      >t</a
+      ><a name="2874" class="Symbol"
+      >}</a
+      ><a name="2875"
+      > </a
+      ><a name="2876" href="LTC-PCF.Base.html#2876" class="Bound"
+      >t'</a
+      ><a name="2878"
+      > </a
+      ><a name="2879" class="Symbol"
+      >&#8594;</a
+      ><a name="2880"
+      > </a
+      ><a name="2881" class="Symbol"
+      >(</a
+      ><a name="2882" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="2884"
+      > </a
+      ><a name="2885" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="2890"
+      > </a
+      ><a name="2891" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="2895"
+      > </a
+      ><a name="2896" href="LTC-PCF.Base.html#2873" class="Bound"
+      >t</a
+      ><a name="2897"
+      > </a
+      ><a name="2898" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="2902"
+      > </a
+      ><a name="2903" href="LTC-PCF.Base.html#2876" class="Bound"
+      >t'</a
+      ><a name="2905" class="Symbol"
+      >)</a
+      ><a name="2906"
+      > </a
+      ><a name="2907" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2908"
+      > </a
+      ><a name="2909" href="LTC-PCF.Base.html#2876" class="Bound"
+      >t'</a
+      ><a name="2911"
+      >
+
+</a
+      ><a name="2913" class="Comment"
+      >-- Conversion rules for pred.</a
+      ><a name="2942"
+      >
+</a
+      ><a name="2943" class="Keyword"
+      >postulate</a
+      ><a name="2952"
+      >
+  </a
+      ><a name="2955" class="Comment"
+      >-- pred-0 : pred &#183; zero &#8801; zero</a
+      ><a name="2985"
+      >
+  </a
+      ><a name="2988" class="Comment"
+      >-- pred-S : &#8704; d &#8594; pred &#183; (succ &#183; d) &#8801; d</a
+      ><a name="3027"
+      >
+
+ </a
+      ><a name="3030" class="Comment"
+      >-- N.B. We don't need this equation in FOTC.</a
+      ><a name="3074"
+      >
+  </a
+      ><a name="3077" href="LTC-PCF.Base.html#3077" class="Postulate"
+      >pred-0</a
+      ><a name="3083"
+      > </a
+      ><a name="3084" class="Symbol"
+      >:</a
+      ><a name="3085"
+      > </a
+      ><a name="3086" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="3091"
+      > </a
+      ><a name="3092" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="3096"
+      >            </a
+      ><a name="3108" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3109"
+      > </a
+      ><a name="3110" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="3114"
+      >
+  </a
+      ><a name="3117" href="LTC-PCF.Base.html#3117" class="Postulate"
+      >pred-S</a
+      ><a name="3123"
+      > </a
+      ><a name="3124" class="Symbol"
+      >:</a
+      ><a name="3125"
+      > </a
+      ><a name="3126" class="Symbol"
+      >&#8704;</a
+      ><a name="3127"
+      > </a
+      ><a name="3128" href="LTC-PCF.Base.html#3128" class="Bound"
+      >n</a
+      ><a name="3129"
+      > </a
+      ><a name="3130" class="Symbol"
+      >&#8594;</a
+      ><a name="3131"
+      > </a
+      ><a name="3132" href="LTC-PCF.Base.html#1918" class="Function"
+      >pred&#8321;</a
+      ><a name="3137"
+      > </a
+      ><a name="3138" class="Symbol"
+      >(</a
+      ><a name="3139" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3144"
+      > </a
+      ><a name="3145" href="LTC-PCF.Base.html#3128" class="Bound"
+      >n</a
+      ><a name="3146" class="Symbol"
+      >)</a
+      ><a name="3147"
+      > </a
+      ><a name="3148" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3149"
+      > </a
+      ><a name="3150" href="LTC-PCF.Base.html#3128" class="Bound"
+      >n</a
+      ><a name="3151"
+      >
+
+</a
+      ><a name="3153" class="Comment"
+      >-- Conversion rules for iszero.</a
+      ><a name="3184"
+      >
+</a
+      ><a name="3185" class="Keyword"
+      >postulate</a
+      ><a name="3194"
+      >
+  </a
+      ><a name="3197" class="Comment"
+      >-- iszero-0 :       iszero &#183; zero       &#8801; true</a
+      ><a name="3243"
+      >
+  </a
+      ><a name="3246" class="Comment"
+      >-- iszero-S : &#8704; d &#8594; iszero &#183; (succ &#183; d) &#8801; false</a
+      ><a name="3293"
+      >
+  </a
+      ><a name="3296" href="LTC-PCF.Base.html#3296" class="Postulate"
+      >iszero-0</a
+      ><a name="3304"
+      > </a
+      ><a name="3305" class="Symbol"
+      >:</a
+      ><a name="3306"
+      > </a
+      ><a name="3307" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="3314"
+      > </a
+      ><a name="3315" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="3319"
+      >            </a
+      ><a name="3331" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3332"
+      > </a
+      ><a name="3333" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="3337"
+      >
+  </a
+      ><a name="3340" href="LTC-PCF.Base.html#3340" class="Postulate"
+      >iszero-S</a
+      ><a name="3348"
+      > </a
+      ><a name="3349" class="Symbol"
+      >:</a
+      ><a name="3350"
+      > </a
+      ><a name="3351" class="Symbol"
+      >&#8704;</a
+      ><a name="3352"
+      > </a
+      ><a name="3353" href="LTC-PCF.Base.html#3353" class="Bound"
+      >n</a
+      ><a name="3354"
+      > </a
+      ><a name="3355" class="Symbol"
+      >&#8594;</a
+      ><a name="3356"
+      > </a
+      ><a name="3357" href="LTC-PCF.Base.html#1956" class="Function"
+      >iszero&#8321;</a
+      ><a name="3364"
+      > </a
+      ><a name="3365" class="Symbol"
+      >(</a
+      ><a name="3366" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3371"
+      > </a
+      ><a name="3372" href="LTC-PCF.Base.html#3353" class="Bound"
+      >n</a
+      ><a name="3373" class="Symbol"
+      >)</a
+      ><a name="3374"
+      > </a
+      ><a name="3375" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3376"
+      > </a
+      ><a name="3377" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="3382"
+      >
+
+</a
+      ><a name="3384" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3462"
+      >
+</a
+      ><a name="3463" class="Comment"
+      >-- Discrimination rules</a
+      ><a name="3486"
+      >
+
+</a
+      ><a name="3488" class="Keyword"
+      >postulate</a
+      ><a name="3497"
+      >
+  </a
+      ><a name="3500" href="LTC-PCF.Base.html#3500" class="Postulate"
+      >t&#8802;f</a
+      ><a name="3503"
+      > </a
+      ><a name="3504" class="Symbol"
+      >:</a
+      ><a name="3505"
+      > </a
+      ><a name="3506" href="LTC-PCF.Base.html#1496" class="Postulate"
+      >true</a
+      ><a name="3510"
+      > </a
+      ><a name="3511" href="Common.DefinitionsI.html#715" class="Function Operator"
+      >&#8802;</a
+      ><a name="3512"
+      > </a
+      ><a name="3513" href="LTC-PCF.Base.html#1501" class="Postulate"
+      >false</a
+      ><a name="3518"
+      >
+  </a
+      ><a name="3521" class="Comment"
+      >-- 0&#8802;S : &#8704; {d} &#8594; zero &#8802; succ &#183; d</a
+      ><a name="3553"
+      >
+  </a
+      ><a name="3556" href="LTC-PCF.Base.html#3556" class="Postulate"
+      >0&#8802;S</a
+      ><a name="3559"
+      > </a
+      ><a name="3560" class="Symbol"
+      >:</a
+      ><a name="3561"
+      > </a
+      ><a name="3562" class="Symbol"
+      >&#8704;</a
+      ><a name="3563"
+      > </a
+      ><a name="3564" class="Symbol"
+      >{</a
+      ><a name="3565" href="LTC-PCF.Base.html#3565" class="Bound"
+      >n</a
+      ><a name="3566" class="Symbol"
+      >}</a
+      ><a name="3567"
+      > </a
+      ><a name="3568" class="Symbol"
+      >&#8594;</a
+      ><a name="3569"
+      > </a
+      ><a name="3570" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="3574"
+      > </a
+      ><a name="3575" href="Common.DefinitionsI.html#715" class="Function Operator"
+      >&#8802;</a
+      ><a name="3576"
+      > </a
+      ><a name="3577" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3582"
+      > </a
+      ><a name="3583" href="LTC-PCF.Base.html#3565" class="Bound"
+      >n</a
+      ><a name="3584"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

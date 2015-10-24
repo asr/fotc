@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.Division.Specification</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The division specification</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Keyword"
+      >module</a
+      ><a name="369"
+      > </a
+      ><a name="370" href="LTC-PCF.Program.Division.Specification.html#1" class="Module"
+      >LTC-PCF.Program.Division.Specification</a
+      ><a name="408"
+      > </a
+      ><a name="409" class="Keyword"
+      >where</a
+      ><a name="414"
+      >
+
+</a
+      ><a name="416" class="Keyword"
+      >open</a
+      ><a name="420"
+      > </a
+      ><a name="421" class="Keyword"
+      >import</a
+      ><a name="427"
+      > </a
+      ><a name="428" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="440"
+      >
+</a
+      ><a name="441" class="Keyword"
+      >open</a
+      ><a name="445"
+      > </a
+      ><a name="446" class="Keyword"
+      >import</a
+      ><a name="452"
+      > </a
+      ><a name="453" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="469"
+      >
+</a
+      ><a name="470" class="Keyword"
+      >open</a
+      ><a name="474"
+      > </a
+      ><a name="475" class="Keyword"
+      >import</a
+      ><a name="481"
+      > </a
+      ><a name="482" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="511"
+      >
+
+</a
+      ><a name="513" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="591"
+      >
+</a
+      ><a name="592" class="Comment"
+      >-- Specification: The division is total and the result is correct.</a
+      ><a name="658"
+      >
+</a
+      ><a name="659" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="666"
+      > </a
+      ><a name="667" class="Symbol"
+      >:</a
+      ><a name="668"
+      > </a
+      ><a name="669" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="670"
+      > </a
+      ><a name="671" class="Symbol"
+      >&#8594;</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="674"
+      > </a
+      ><a name="675" class="Symbol"
+      >&#8594;</a
+      ><a name="676"
+      > </a
+      ><a name="677" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="678"
+      > </a
+      ><a name="679" class="Symbol"
+      >&#8594;</a
+      ><a name="680"
+      > </a
+      ><a name="681" class="PrimitiveType"
+      >Set</a
+      ><a name="684"
+      >
+</a
+      ><a name="685" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="692"
+      > </a
+      ><a name="693" href="LTC-PCF.Program.Division.Specification.html#693" class="Bound"
+      >i</a
+      ><a name="694"
+      > </a
+      ><a name="695" href="LTC-PCF.Program.Division.Specification.html#695" class="Bound"
+      >j</a
+      ><a name="696"
+      > </a
+      ><a name="697" href="LTC-PCF.Program.Division.Specification.html#697" class="Bound"
+      >q</a
+      ><a name="698"
+      > </a
+      ><a name="699" class="Symbol"
+      >=</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="702"
+      > </a
+      ><a name="703" href="LTC-PCF.Program.Division.Specification.html#697" class="Bound"
+      >q</a
+      ><a name="704"
+      > </a
+      ><a name="705" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="706"
+      > </a
+      ><a name="707" class="Symbol"
+      >(</a
+      ><a name="708" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="LTC-PCF.Program.Division.Specification.html#711" class="Bound"
+      >r</a
+      ><a name="712"
+      > </a
+      ><a name="713" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="716"
+      > </a
+      ><a name="717" href="LTC-PCF.Program.Division.Specification.html#711" class="Bound"
+      >r</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="LTC-PCF.Program.Division.Specification.html#711" class="Bound"
+      >r</a
+      ><a name="722"
+      > </a
+      ><a name="723" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="LTC-PCF.Program.Division.Specification.html#695" class="Bound"
+      >j</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="728"
+      > </a
+      ><a name="729" href="LTC-PCF.Program.Division.Specification.html#693" class="Bound"
+      >i</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="732"
+      > </a
+      ><a name="733" href="LTC-PCF.Program.Division.Specification.html#695" class="Bound"
+      >j</a
+      ><a name="734"
+      > </a
+      ><a name="735" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="LTC-PCF.Program.Division.Specification.html#697" class="Bound"
+      >q</a
+      ><a name="738"
+      > </a
+      ><a name="739" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="LTC-PCF.Program.Division.Specification.html#711" class="Bound"
+      >r</a
+      ><a name="742" class="Symbol"
+      >)</a
+      ><a name="743"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

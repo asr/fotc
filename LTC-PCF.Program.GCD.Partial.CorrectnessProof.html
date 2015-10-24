@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.GCD.Partial.CorrectnessProof</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The gcd program is correct</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Comment"
+      >-- This module proves the correctness of the gcd program using</a
+      ><a name="425"
+      >
+</a
+      ><a name="426" class="Comment"
+      >-- the Euclid's algorithm.</a
+      ><a name="452"
+      >
+
+</a
+      ><a name="454" class="Keyword"
+      >module</a
+      ><a name="460"
+      > </a
+      ><a name="461" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.CorrectnessProof</a
+      ><a name="505"
+      > </a
+      ><a name="506" class="Keyword"
+      >where</a
+      ><a name="511"
+      >
+
+</a
+      ><a name="513" class="Keyword"
+      >open</a
+      ><a name="517"
+      > </a
+      ><a name="518" class="Keyword"
+      >import</a
+      ><a name="524"
+      > </a
+      ><a name="525" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="537"
+      >
+</a
+      ><a name="538" class="Keyword"
+      >open</a
+      ><a name="542"
+      > </a
+      ><a name="543" class="Keyword"
+      >import</a
+      ><a name="549"
+      > </a
+      ><a name="550" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties</a
+      ><a name="597"
+      >
+  </a
+      ><a name="600" class="Keyword"
+      >using</a
+      ><a name="605"
+      > </a
+      ><a name="606" class="Symbol"
+      >(</a
+      ><a name="607"
+      > 0&#8740;x </a
+      ><a name="612" class="Symbol"
+      >;</a
+      ><a name="613"
+      > x&#8739;S&#8594;x&#8804;S </a
+      ><a name="622" class="Symbol"
+      >)</a
+      ><a name="623"
+      >
+</a
+      ><a name="624" class="Keyword"
+      >open</a
+      ><a name="628"
+      > </a
+      ><a name="629" class="Keyword"
+      >import</a
+      ><a name="635"
+      > </a
+      ><a name="636" href="LTC-PCF.Data.Nat.Type.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Type</a
+      ><a name="657"
+      >
+
+</a
+      ><a name="659" class="Keyword"
+      >open</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Keyword"
+      >import</a
+      ><a name="670"
+      > </a
+      ><a name="671" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.CommonDivisor</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Keyword"
+      >using</a
+      ><a name="718"
+      > </a
+      ><a name="719" class="Symbol"
+      >(</a
+      ><a name="720"
+      > gcdCD </a
+      ><a name="727" class="Symbol"
+      >)</a
+      ><a name="728"
+      >
+</a
+      ><a name="729" class="Keyword"
+      >open</a
+      ><a name="733"
+      > </a
+      ><a name="734" class="Keyword"
+      >import</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Definitions</a
+      ><a name="780"
+      > </a
+      ><a name="781" class="Keyword"
+      >using</a
+      ><a name="786"
+      > </a
+      ><a name="787" class="Symbol"
+      >(</a
+      ><a name="788"
+      > x&#8802;0&#8802;y </a
+      ><a name="795" class="Symbol"
+      >;</a
+      ><a name="796"
+      > gcdSpec </a
+      ><a name="805" class="Symbol"
+      >)</a
+      ><a name="806"
+      >
+</a
+      ><a name="807" class="Keyword"
+      >open</a
+      ><a name="811"
+      > </a
+      ><a name="812" class="Keyword"
+      >import</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="LTC-PCF.Program.GCD.Partial.Divisible.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Divisible</a
+      ><a name="856"
+      > </a
+      ><a name="857" class="Keyword"
+      >using</a
+      ><a name="862"
+      > </a
+      ><a name="863" class="Symbol"
+      >(</a
+      ><a name="864"
+      > gcdDivisible </a
+      ><a name="878" class="Symbol"
+      >)</a
+      ><a name="879"
+      >
+</a
+      ><a name="880" class="Keyword"
+      >open</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="Keyword"
+      >import</a
+      ><a name="891"
+      > </a
+      ><a name="892" href="LTC-PCF.Program.GCD.Partial.GCD.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.GCD</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Keyword"
+      >using</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >(</a
+      ><a name="931"
+      > gcd </a
+      ><a name="936" class="Symbol"
+      >)</a
+      ><a name="937"
+      >
+
+</a
+      ><a name="939" class="Keyword"
+      >import</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor</a
+      ><a name="998"
+      >
+</a
+      ><a name="999" class="Keyword"
+      >open</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" class="Keyword"
+      >module</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1011" class="Module"
+      >GreatestAnyCommonDivisor</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" class="Symbol"
+      >=</a
+      ><a name="1037"
+      >
+  </a
+      ><a name="1040" href="LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#3080" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1044" class="Function"
+      >0&#8740;x</a
+      ><a name="1104"
+      >
+  </a
+      ><a name="1107" class="Keyword"
+      >using</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" class="Symbol"
+      >(</a
+      ><a name="1114"
+      > gcdGACD </a
+      ><a name="1123" class="Symbol"
+      >)</a
+      ><a name="1124"
+      >
+
+</a
+      ><a name="1126" class="Keyword"
+      >open</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" class="Keyword"
+      >import</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" href="LTC-PCF.Program.GCD.Partial.Totality.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Totality</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" class="Keyword"
+      >using</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" class="Symbol"
+      >(</a
+      ><a name="1182"
+      > gcd-N </a
+      ><a name="1189" class="Symbol"
+      >)</a
+      ><a name="1190"
+      >
+
+</a
+      ><a name="1192" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1270"
+      >
+</a
+      ><a name="1271" class="Comment"
+      >-- The gcd is correct</a
+      ><a name="1292"
+      >
+</a
+      ><a name="1293" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1293" class="Function"
+      >gcdCorrect</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" class="Symbol"
+      >:</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" class="Symbol"
+      >&#8704;</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" class="Symbol"
+      >{</a
+      ><a name="1309" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1309" class="Bound"
+      >m</a
+      ><a name="1310"
+      > </a
+      ><a name="1311" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1311" class="Bound"
+      >n</a
+      ><a name="1312" class="Symbol"
+      >}</a
+      ><a name="1313"
+      > </a
+      ><a name="1314" class="Symbol"
+      >&#8594;</a
+      ><a name="1315"
+      > </a
+      ><a name="1316" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1309" class="Bound"
+      >m</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" class="Symbol"
+      >&#8594;</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1311" class="Bound"
+      >n</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Symbol"
+      >&#8594;</a
+      ><a name="1327"
+      > </a
+      ><a name="1328" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1309" class="Bound"
+      >m</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1311" class="Bound"
+      >n</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" class="Symbol"
+      >&#8594;</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1000" class="Function"
+      >gcdSpec</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1309" class="Bound"
+      >m</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1311" class="Bound"
+      >n</a
+      ><a name="1351"
+      > </a
+      ><a name="1352" class="Symbol"
+      >(</a
+      ><a name="1353" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1309" class="Bound"
+      >m</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1311" class="Bound"
+      >n</a
+      ><a name="1360" class="Symbol"
+      >)</a
+      ><a name="1361"
+      >
+</a
+      ><a name="1362" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1293" class="Function"
+      >gcdCorrect</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1373" class="Bound"
+      >Nm</a
+      ><a name="1375"
+      > </a
+      ><a name="1376" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1376" class="Bound"
+      >Nn</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1379" class="Bound"
+      >m&#8802;0&#8802;n</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" class="Symbol"
+      >=</a
+      ><a name="1386"
+      > </a
+      ><a name="1387" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9307" class="Function"
+      >gcdCD</a
+      ><a name="1392"
+      > </a
+      ><a name="1393" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1373" class="Bound"
+      >Nm</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1376" class="Bound"
+      >Nn</a
+      ><a name="1398"
+      > </a
+      ><a name="1399" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1379" class="Bound"
+      >m&#8802;0&#8802;n</a
+      ><a name="1404"
+      >
+                         </a
+      ><a name="1430" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" href="LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1041" class="Function"
+      >gcdGACD</a
+      ><a name="1439"
+      > </a
+      ><a name="1440" class="Symbol"
+      >(</a
+      ><a name="1441" href="LTC-PCF.Program.GCD.Partial.Totality.html#3760" class="Function"
+      >gcd-N</a
+      ><a name="1446"
+      > </a
+      ><a name="1447" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1373" class="Bound"
+      >Nm</a
+      ><a name="1449"
+      > </a
+      ><a name="1450" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1376" class="Bound"
+      >Nn</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1379" class="Bound"
+      >m&#8802;0&#8802;n</a
+      ><a name="1458" class="Symbol"
+      >)</a
+      ><a name="1459"
+      >
+                                   </a
+      ><a name="1495" class="Symbol"
+      >(</a
+      ><a name="1496" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9307" class="Function"
+      >gcdCD</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1373" class="Bound"
+      >Nm</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1376" class="Bound"
+      >Nn</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1379" class="Bound"
+      >m&#8802;0&#8802;n</a
+      ><a name="1513" class="Symbol"
+      >)</a
+      ><a name="1514"
+      >
+                                   </a
+      ><a name="1550" class="Symbol"
+      >(</a
+      ><a name="1551" href="LTC-PCF.Program.GCD.Partial.Divisible.html#5492" class="Function"
+      >gcdDivisible</a
+      ><a name="1563"
+      > </a
+      ><a name="1564" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1373" class="Bound"
+      >Nm</a
+      ><a name="1566"
+      > </a
+      ><a name="1567" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1376" class="Bound"
+      >Nn</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" href="LTC-PCF.Program.GCD.Partial.CorrectnessProof.html#1379" class="Bound"
+      >m&#8802;0&#8802;n</a
+      ><a name="1575" class="Symbol"
+      >)</a
+      ><a name="1576"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

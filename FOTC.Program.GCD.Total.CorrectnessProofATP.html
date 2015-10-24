@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.GCD.Total.CorrectnessProofATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The gcd program is correct</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Comment"
+      >-- This module proves the correctness of the gcd program using</a
+      ><a name="425"
+      >
+</a
+      ><a name="426" class="Comment"
+      >-- the Euclid's algorithm.</a
+      ><a name="452"
+      >
+
+</a
+      ><a name="454" class="Comment"
+      >-- N.B This module does not contain combined proofs, but it imports</a
+      ><a name="521"
+      >
+</a
+      ><a name="522" class="Comment"
+      >-- modules which contain combined proofs.</a
+      ><a name="563"
+      >
+
+</a
+      ><a name="565" class="Keyword"
+      >module</a
+      ><a name="571"
+      > </a
+      ><a name="572" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1" class="Module"
+      >FOTC.Program.GCD.Total.CorrectnessProofATP</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Keyword"
+      >where</a
+      ><a name="620"
+      >
+
+</a
+      ><a name="622" class="Keyword"
+      >open</a
+      ><a name="626"
+      > </a
+      ><a name="627" class="Keyword"
+      >import</a
+      ><a name="633"
+      > </a
+      ><a name="634" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="643"
+      >
+</a
+      ><a name="644" class="Keyword"
+      >open</a
+      ><a name="648"
+      > </a
+      ><a name="649" class="Keyword"
+      >import</a
+      ><a name="655"
+      > </a
+      ><a name="656" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="674"
+      >
+</a
+      ><a name="675" class="Keyword"
+      >open</a
+      ><a name="679"
+      > </a
+      ><a name="680" class="Keyword"
+      >import</a
+      ><a name="686"
+      > </a
+      ><a name="687" href="FOTC.Program.GCD.Total.CommonDivisorATP.html#1" class="Module"
+      >FOTC.Program.GCD.Total.CommonDivisorATP</a
+      ><a name="726"
+      > </a
+      ><a name="727" class="Keyword"
+      >using</a
+      ><a name="732"
+      > </a
+      ><a name="733" class="Symbol"
+      >(</a
+      ><a name="734"
+      > gcdCD </a
+      ><a name="741" class="Symbol"
+      >)</a
+      ><a name="742"
+      >
+</a
+      ><a name="743" class="Keyword"
+      >open</a
+      ><a name="747"
+      > </a
+      ><a name="748" class="Keyword"
+      >import</a
+      ><a name="754"
+      > </a
+      ><a name="755" href="FOTC.Program.GCD.Total.Definitions.html#1" class="Module"
+      >FOTC.Program.GCD.Total.Definitions</a
+      ><a name="789"
+      > </a
+      ><a name="790" class="Keyword"
+      >using</a
+      ><a name="795"
+      > </a
+      ><a name="796" class="Symbol"
+      >(</a
+      ><a name="797"
+      > gcdSpec </a
+      ><a name="806" class="Symbol"
+      >)</a
+      ><a name="807"
+      >
+</a
+      ><a name="808" class="Keyword"
+      >open</a
+      ><a name="812"
+      > </a
+      ><a name="813" class="Keyword"
+      >import</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="FOTC.Program.GCD.Total.DivisibleATP.html#1" class="Module"
+      >FOTC.Program.GCD.Total.DivisibleATP</a
+      ><a name="855"
+      > </a
+      ><a name="856" class="Keyword"
+      >using</a
+      ><a name="861"
+      > </a
+      ><a name="862" class="Symbol"
+      >(</a
+      ><a name="863"
+      > gcdDivisible </a
+      ><a name="877" class="Symbol"
+      >)</a
+      ><a name="878"
+      >
+</a
+      ><a name="879" class="Keyword"
+      >open</a
+      ><a name="883"
+      > </a
+      ><a name="884" class="Keyword"
+      >import</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="FOTC.Program.GCD.Total.GCD.html#1" class="Module"
+      >FOTC.Program.GCD.Total.GCD</a
+      ><a name="917"
+      > </a
+      ><a name="918" class="Keyword"
+      >using</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Symbol"
+      >(</a
+      ><a name="925"
+      > gcd </a
+      ><a name="930" class="Symbol"
+      >)</a
+      ><a name="931"
+      >
+
+</a
+      ><a name="933" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1011"
+      >
+</a
+      ><a name="1012" class="Comment"
+      >-- The gcd is correct.</a
+      ><a name="1034"
+      >
+</a
+      ><a name="1035" class="Keyword"
+      >postulate</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1045" class="Postulate"
+      >gcdCorrect</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" class="Symbol"
+      >:</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" class="Symbol"
+      >&#8704;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" class="Symbol"
+      >{</a
+      ><a name="1061" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1061" class="Bound"
+      >m</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1063" class="Bound"
+      >n</a
+      ><a name="1064" class="Symbol"
+      >}</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" class="Symbol"
+      >&#8594;</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1061" class="Bound"
+      >m</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" class="Symbol"
+      >&#8594;</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1063" class="Bound"
+      >n</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" class="Symbol"
+      >&#8594;</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="FOTC.Program.GCD.Total.Definitions.html#1095" class="Function"
+      >gcdSpec</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1061" class="Bound"
+      >m</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1063" class="Bound"
+      >n</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" class="Symbol"
+      >(</a
+      ><a name="1093" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1061" class="Bound"
+      >m</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1063" class="Bound"
+      >n</a
+      ><a name="1100" class="Symbol"
+      >)</a
+      ><a name="1101"
+      >
+</a
+      ><a name="1102" class="Symbol"
+      >{-#</a
+      ><a name="1105"
+      > </a
+      ><a name="1106" class="Keyword"
+      >ATP</a
+      ><a name="1109"
+      > prove </a
+      ><a name="1116" href="FOTC.Program.GCD.Total.CorrectnessProofATP.html#1045" class="Postulate"
+      >gcdCorrect</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="FOTC.Program.GCD.Total.CommonDivisorATP.html#9070" class="Function"
+      >gcdCD</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" href="FOTC.Program.GCD.Total.DivisibleATP.html#5092" class="Function"
+      >gcdDivisible</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >#-}</a
+      ><a name="1149"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

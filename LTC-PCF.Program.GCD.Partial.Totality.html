@@ -1,0 +1,2747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.GCD.Partial.Totality</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Totality properties of the gcd</a
+      ><a name="113"
+      >
+</a
+      ><a name="114" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="192"
+      >
+
+</a
+      ><a name="194" class="Symbol"
+      >{-#</a
+      ><a name="197"
+      > </a
+      ><a name="198" class="Keyword"
+      >OPTIONS</a
+      ><a name="205"
+      > --exact-split              </a
+      ><a name="233" class="Symbol"
+      >#-}</a
+      ><a name="236"
+      >
+</a
+      ><a name="237" class="Symbol"
+      >{-#</a
+      ><a name="240"
+      > </a
+      ><a name="241" class="Keyword"
+      >OPTIONS</a
+      ><a name="248"
+      > --no-sized-types           </a
+      ><a name="276" class="Symbol"
+      >#-}</a
+      ><a name="279"
+      >
+</a
+      ><a name="280" class="Symbol"
+      >{-#</a
+      ><a name="283"
+      > </a
+      ><a name="284" class="Keyword"
+      >OPTIONS</a
+      ><a name="291"
+      > --no-universe-polymorphism </a
+      ><a name="319" class="Symbol"
+      >#-}</a
+      ><a name="322"
+      >
+</a
+      ><a name="323" class="Symbol"
+      >{-#</a
+      ><a name="326"
+      > </a
+      ><a name="327" class="Keyword"
+      >OPTIONS</a
+      ><a name="334"
+      > --without-K                </a
+      ><a name="362" class="Symbol"
+      >#-}</a
+      ><a name="365"
+      >
+
+</a
+      ><a name="367" class="Keyword"
+      >module</a
+      ><a name="373"
+      > </a
+      ><a name="374" href="LTC-PCF.Program.GCD.Partial.Totality.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Totality</a
+      ><a name="410"
+      > </a
+      ><a name="411" class="Keyword"
+      >where</a
+      ><a name="416"
+      >
+
+</a
+      ><a name="418" class="Keyword"
+      >open</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Keyword"
+      >import</a
+      ><a name="429"
+      > </a
+      ><a name="430" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="442"
+      >
+</a
+      ><a name="443" class="Keyword"
+      >open</a
+      ><a name="447"
+      > </a
+      ><a name="448" class="Keyword"
+      >import</a
+      ><a name="454"
+      > </a
+      ><a name="455" href="LTC-PCF.Base.Properties.html#1" class="Module"
+      >LTC-PCF.Base.Properties</a
+      ><a name="478"
+      >
+</a
+      ><a name="479" class="Keyword"
+      >open</a
+      ><a name="483"
+      > </a
+      ><a name="484" class="Keyword"
+      >import</a
+      ><a name="490"
+      > </a
+      ><a name="491" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="507"
+      >
+</a
+      ><a name="508" class="Keyword"
+      >open</a
+      ><a name="512"
+      > </a
+      ><a name="513" class="Keyword"
+      >import</a
+      ><a name="519"
+      > </a
+      ><a name="520" href="LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic</a
+      ><a name="567"
+      >
+</a
+      ><a name="568" class="Keyword"
+      >open</a
+      ><a name="572"
+      > </a
+      ><a name="573" class="Keyword"
+      >import</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="609"
+      >
+</a
+      ><a name="610" class="Keyword"
+      >open</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Keyword"
+      >import</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="LTC-PCF.Data.Nat.Inequalities.EliminationProperties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities.EliminationProperties</a
+      ><a name="673"
+      >
+</a
+      ><a name="674" class="Keyword"
+      >open</a
+      ><a name="678"
+      > </a
+      ><a name="679" class="Keyword"
+      >import</a
+      ><a name="685"
+      > </a
+      ><a name="686" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities.Properties</a
+      ><a name="726"
+      >
+</a
+      ><a name="727" class="Keyword"
+      >open</a
+      ><a name="731"
+      > </a
+      ><a name="732" class="Keyword"
+      >import</a
+      ><a name="738"
+      > </a
+      ><a name="739" href="LTC-PCF.Data.Nat.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Properties</a
+      ><a name="766"
+      >
+</a
+      ><a name="767" class="Keyword"
+      >open</a
+      ><a name="771"
+      > </a
+      ><a name="772" class="Keyword"
+      >import</a
+      ><a name="778"
+      > </a
+      ><a name="779" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.ConversionRules</a
+      ><a name="822"
+      >
+</a
+      ><a name="823" class="Keyword"
+      >open</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Keyword"
+      >import</a
+      ><a name="834"
+      > </a
+      ><a name="835" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Definitions</a
+      ><a name="874"
+      >
+</a
+      ><a name="875" class="Keyword"
+      >open</a
+      ><a name="879"
+      > </a
+      ><a name="880" class="Keyword"
+      >import</a
+      ><a name="886"
+      > </a
+      ><a name="887" href="LTC-PCF.Program.GCD.Partial.GCD.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.GCD</a
+      ><a name="918"
+      >
+
+</a
+      ><a name="920" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="998"
+      >
+</a
+      ><a name="999" class="Comment"
+      >-- gcd 0 (succ n) is total.</a
+      ><a name="1026"
+      >
+</a
+      ><a name="1027" href="LTC-PCF.Program.GCD.Partial.Totality.html#1027" class="Function"
+      >gcd-0S-N</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" class="Symbol"
+      >:</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" class="Symbol"
+      >&#8704;</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" class="Symbol"
+      >{</a
+      ><a name="1041" href="LTC-PCF.Program.GCD.Partial.Totality.html#1041" class="Bound"
+      >n</a
+      ><a name="1042" class="Symbol"
+      >}</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" class="Symbol"
+      >&#8594;</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" href="LTC-PCF.Program.GCD.Partial.Totality.html#1041" class="Bound"
+      >n</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" class="Symbol"
+      >&#8594;</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1053"
+      > </a
+      ><a name="1054" class="Symbol"
+      >(</a
+      ><a name="1055" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" class="Symbol"
+      >(</a
+      ><a name="1065" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" href="LTC-PCF.Program.GCD.Partial.Totality.html#1041" class="Bound"
+      >n</a
+      ><a name="1072" class="Symbol"
+      >))</a
+      ><a name="1074"
+      >
+</a
+      ><a name="1075" href="LTC-PCF.Program.GCD.Partial.Totality.html#1027" class="Function"
+      >gcd-0S-N</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" class="Symbol"
+      >{</a
+      ><a name="1085" href="LTC-PCF.Program.GCD.Partial.Totality.html#1085" class="Bound"
+      >n</a
+      ><a name="1086" class="Symbol"
+      >}</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" href="LTC-PCF.Program.GCD.Partial.Totality.html#1088" class="Bound"
+      >Nn</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" class="Symbol"
+      >=</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" class="Symbol"
+      >(</a
+      ><a name="1102" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1105"
+      > </a
+      ><a name="1106" class="Symbol"
+      >(</a
+      ><a name="1107" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#7393" class="Function"
+      >gcd-0S</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" href="LTC-PCF.Program.GCD.Partial.Totality.html#1085" class="Bound"
+      >n</a
+      ><a name="1115" class="Symbol"
+      >))</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >(</a
+      ><a name="1119" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="LTC-PCF.Program.GCD.Partial.Totality.html#1088" class="Bound"
+      >Nn</a
+      ><a name="1127" class="Symbol"
+      >)</a
+      ><a name="1128"
+      >
+
+</a
+      ><a name="1130" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1208"
+      >
+</a
+      ><a name="1209" class="Comment"
+      >-- gcd (succ&#8321; n) 0 is total.</a
+      ><a name="1237"
+      >
+</a
+      ><a name="1238" href="LTC-PCF.Program.GCD.Partial.Totality.html#1238" class="Function"
+      >gcd-S0-N</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" class="Symbol"
+      >:</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" class="Symbol"
+      >&#8704;</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" class="Symbol"
+      >{</a
+      ><a name="1252" href="LTC-PCF.Program.GCD.Partial.Totality.html#1252" class="Bound"
+      >n</a
+      ><a name="1253" class="Symbol"
+      >}</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" class="Symbol"
+      >&#8594;</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" href="LTC-PCF.Program.GCD.Partial.Totality.html#1252" class="Bound"
+      >n</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" class="Symbol"
+      >&#8594;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1264"
+      > </a
+      ><a name="1265" class="Symbol"
+      >(</a
+      ><a name="1266" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" class="Symbol"
+      >(</a
+      ><a name="1271" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" href="LTC-PCF.Program.GCD.Partial.Totality.html#1252" class="Bound"
+      >n</a
+      ><a name="1278" class="Symbol"
+      >)</a
+      ><a name="1279"
+      > </a
+      ><a name="1280" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1284" class="Symbol"
+      >)</a
+      ><a name="1285"
+      >
+</a
+      ><a name="1286" href="LTC-PCF.Program.GCD.Partial.Totality.html#1238" class="Function"
+      >gcd-S0-N</a
+      ><a name="1294"
+      > </a
+      ><a name="1295" class="Symbol"
+      >{</a
+      ><a name="1296" href="LTC-PCF.Program.GCD.Partial.Totality.html#1296" class="Bound"
+      >n</a
+      ><a name="1297" class="Symbol"
+      >}</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" href="LTC-PCF.Program.GCD.Partial.Totality.html#1299" class="Bound"
+      >Nn</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" class="Symbol"
+      >=</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" class="Symbol"
+      >(</a
+      ><a name="1313" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1316"
+      > </a
+      ><a name="1317" class="Symbol"
+      >(</a
+      ><a name="1318" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#6858" class="Function"
+      >gcd-S0</a
+      ><a name="1324"
+      > </a
+      ><a name="1325" href="LTC-PCF.Program.GCD.Partial.Totality.html#1296" class="Bound"
+      >n</a
+      ><a name="1326" class="Symbol"
+      >))</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" class="Symbol"
+      >(</a
+      ><a name="1330" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" href="LTC-PCF.Program.GCD.Partial.Totality.html#1299" class="Bound"
+      >Nn</a
+      ><a name="1338" class="Symbol"
+      >)</a
+      ><a name="1339"
+      >
+
+</a
+      ><a name="1341" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1419"
+      >
+</a
+      ><a name="1420" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &gt; succ&#8321; n is total.</a
+      ><a name="1479"
+      >
+</a
+      ><a name="1480" href="LTC-PCF.Program.GCD.Partial.Totality.html#1480" class="Function"
+      >gcd-S&gt;S-N</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" class="Symbol"
+      >:</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" class="Symbol"
+      >&#8704;</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" class="Symbol"
+      >{</a
+      ><a name="1495" href="LTC-PCF.Program.GCD.Partial.Totality.html#1495" class="Bound"
+      >m</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="LTC-PCF.Program.GCD.Partial.Totality.html#1497" class="Bound"
+      >n</a
+      ><a name="1498" class="Symbol"
+      >}</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" class="Symbol"
+      >&#8594;</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1503"
+      > </a
+      ><a name="1504" href="LTC-PCF.Program.GCD.Partial.Totality.html#1495" class="Bound"
+      >m</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" class="Symbol"
+      >&#8594;</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="LTC-PCF.Program.GCD.Partial.Totality.html#1497" class="Bound"
+      >n</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" class="Symbol"
+      >&#8594;</a
+      ><a name="1513"
+      >
+            </a
+      ><a name="1526" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" class="Symbol"
+      >(</a
+      ><a name="1529" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" class="Symbol"
+      >(</a
+      ><a name="1534" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" href="LTC-PCF.Program.GCD.Partial.Totality.html#1495" class="Bound"
+      >m</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" href="LTC-PCF.Program.GCD.Partial.Totality.html#1497" class="Bound"
+      >n</a
+      ><a name="1551" class="Symbol"
+      >)</a
+      ><a name="1552"
+      > </a
+      ><a name="1553" class="Symbol"
+      >(</a
+      ><a name="1554" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1559"
+      > </a
+      ><a name="1560" href="LTC-PCF.Program.GCD.Partial.Totality.html#1497" class="Bound"
+      >n</a
+      ><a name="1561" class="Symbol"
+      >))</a
+      ><a name="1563"
+      > </a
+      ><a name="1564" class="Symbol"
+      >&#8594;</a
+      ><a name="1565"
+      >
+            </a
+      ><a name="1578" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" href="LTC-PCF.Program.GCD.Partial.Totality.html#1495" class="Bound"
+      >m</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="1587"
+      > </a
+      ><a name="1588" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" href="LTC-PCF.Program.GCD.Partial.Totality.html#1497" class="Bound"
+      >n</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" class="Symbol"
+      >&#8594;</a
+      ><a name="1597"
+      >
+            </a
+      ><a name="1610" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1611"
+      > </a
+      ><a name="1612" class="Symbol"
+      >(</a
+      ><a name="1613" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1616"
+      > </a
+      ><a name="1617" class="Symbol"
+      >(</a
+      ><a name="1618" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" href="LTC-PCF.Program.GCD.Partial.Totality.html#1495" class="Bound"
+      >m</a
+      ><a name="1625" class="Symbol"
+      >)</a
+      ><a name="1626"
+      > </a
+      ><a name="1627" class="Symbol"
+      >(</a
+      ><a name="1628" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" href="LTC-PCF.Program.GCD.Partial.Totality.html#1497" class="Bound"
+      >n</a
+      ><a name="1635" class="Symbol"
+      >))</a
+      ><a name="1637"
+      >
+</a
+      ><a name="1638" href="LTC-PCF.Program.GCD.Partial.Totality.html#1480" class="Function"
+      >gcd-S&gt;S-N</a
+      ><a name="1647"
+      > </a
+      ><a name="1648" class="Symbol"
+      >{</a
+      ><a name="1649" href="LTC-PCF.Program.GCD.Partial.Totality.html#1649" class="Bound"
+      >m</a
+      ><a name="1650" class="Symbol"
+      >}</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" class="Symbol"
+      >{</a
+      ><a name="1653" href="LTC-PCF.Program.GCD.Partial.Totality.html#1653" class="Bound"
+      >n</a
+      ><a name="1654" class="Symbol"
+      >}</a
+      ><a name="1655"
+      > </a
+      ><a name="1656" href="LTC-PCF.Program.GCD.Partial.Totality.html#1656" class="Bound"
+      >Nm</a
+      ><a name="1658"
+      > </a
+      ><a name="1659" href="LTC-PCF.Program.GCD.Partial.Totality.html#1659" class="Bound"
+      >Nn</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="LTC-PCF.Program.GCD.Partial.Totality.html#1662" class="Bound"
+      >ih</a
+      ><a name="1664"
+      > </a
+      ><a name="1665" href="LTC-PCF.Program.GCD.Partial.Totality.html#1665" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" class="Symbol"
+      >=</a
+      ><a name="1672"
+      > </a
+      ><a name="1673" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1680"
+      > </a
+      ><a name="1681" class="Symbol"
+      >(</a
+      ><a name="1682" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1685"
+      > </a
+      ><a name="1686" class="Symbol"
+      >(</a
+      ><a name="1687" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#7947" class="Function"
+      >gcd-S&gt;S</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="LTC-PCF.Program.GCD.Partial.Totality.html#1649" class="Bound"
+      >m</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" href="LTC-PCF.Program.GCD.Partial.Totality.html#1653" class="Bound"
+      >n</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" href="LTC-PCF.Program.GCD.Partial.Totality.html#1665" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="1704" class="Symbol"
+      >))</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" href="LTC-PCF.Program.GCD.Partial.Totality.html#1662" class="Bound"
+      >ih</a
+      ><a name="1709"
+      >
+
+</a
+      ><a name="1711" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1789"
+      >
+</a
+      ><a name="1790" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &#8815; succ&#8321; n is total.</a
+      ><a name="1849"
+      >
+</a
+      ><a name="1850" href="LTC-PCF.Program.GCD.Partial.Totality.html#1850" class="Function"
+      >gcd-S&#8815;S-N</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" class="Symbol"
+      >:</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" class="Symbol"
+      >&#8704;</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" class="Symbol"
+      >{</a
+      ><a name="1865" href="LTC-PCF.Program.GCD.Partial.Totality.html#1865" class="Bound"
+      >m</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="LTC-PCF.Program.GCD.Partial.Totality.html#1867" class="Bound"
+      >n</a
+      ><a name="1868" class="Symbol"
+      >}</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" class="Symbol"
+      >&#8594;</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1873"
+      > </a
+      ><a name="1874" href="LTC-PCF.Program.GCD.Partial.Totality.html#1865" class="Bound"
+      >m</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" class="Symbol"
+      >&#8594;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" href="LTC-PCF.Program.GCD.Partial.Totality.html#1867" class="Bound"
+      >n</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" class="Symbol"
+      >&#8594;</a
+      ><a name="1883"
+      >
+            </a
+      ><a name="1896" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" class="Symbol"
+      >(</a
+      ><a name="1899" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" class="Symbol"
+      >(</a
+      ><a name="1904" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1909"
+      > </a
+      ><a name="1910" href="LTC-PCF.Program.GCD.Partial.Totality.html#1865" class="Bound"
+      >m</a
+      ><a name="1911" class="Symbol"
+      >)</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" class="Symbol"
+      >(</a
+      ><a name="1914" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" href="LTC-PCF.Program.GCD.Partial.Totality.html#1867" class="Bound"
+      >n</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1923"
+      > </a
+      ><a name="1924" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" href="LTC-PCF.Program.GCD.Partial.Totality.html#1865" class="Bound"
+      >m</a
+      ><a name="1931" class="Symbol"
+      >))</a
+      ><a name="1933"
+      > </a
+      ><a name="1934" class="Symbol"
+      >&#8594;</a
+      ><a name="1935"
+      >
+            </a
+      ><a name="1948" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" href="LTC-PCF.Program.GCD.Partial.Totality.html#1865" class="Bound"
+      >m</a
+      ><a name="1955"
+      > </a
+      ><a name="1956" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="1957"
+      > </a
+      ><a name="1958" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" href="LTC-PCF.Program.GCD.Partial.Totality.html#1867" class="Bound"
+      >n</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" class="Symbol"
+      >&#8594;</a
+      ><a name="1967"
+      >
+            </a
+      ><a name="1980" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" class="Symbol"
+      >(</a
+      ><a name="1983" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" class="Symbol"
+      >(</a
+      ><a name="1988" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" href="LTC-PCF.Program.GCD.Partial.Totality.html#1865" class="Bound"
+      >m</a
+      ><a name="1995" class="Symbol"
+      >)</a
+      ><a name="1996"
+      > </a
+      ><a name="1997" class="Symbol"
+      >(</a
+      ><a name="1998" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2003"
+      > </a
+      ><a name="2004" href="LTC-PCF.Program.GCD.Partial.Totality.html#1867" class="Bound"
+      >n</a
+      ><a name="2005" class="Symbol"
+      >))</a
+      ><a name="2007"
+      >
+</a
+      ><a name="2008" href="LTC-PCF.Program.GCD.Partial.Totality.html#1850" class="Function"
+      >gcd-S&#8815;S-N</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" class="Symbol"
+      >{</a
+      ><a name="2019" href="LTC-PCF.Program.GCD.Partial.Totality.html#2019" class="Bound"
+      >m</a
+      ><a name="2020" class="Symbol"
+      >}</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" class="Symbol"
+      >{</a
+      ><a name="2023" href="LTC-PCF.Program.GCD.Partial.Totality.html#2023" class="Bound"
+      >n</a
+      ><a name="2024" class="Symbol"
+      >}</a
+      ><a name="2025"
+      > </a
+      ><a name="2026" href="LTC-PCF.Program.GCD.Partial.Totality.html#2026" class="Bound"
+      >Nm</a
+      ><a name="2028"
+      > </a
+      ><a name="2029" href="LTC-PCF.Program.GCD.Partial.Totality.html#2029" class="Bound"
+      >Nn</a
+      ><a name="2031"
+      > </a
+      ><a name="2032" href="LTC-PCF.Program.GCD.Partial.Totality.html#2032" class="Bound"
+      >ih</a
+      ><a name="2034"
+      > </a
+      ><a name="2035" href="LTC-PCF.Program.GCD.Partial.Totality.html#2035" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" class="Symbol"
+      >=</a
+      ><a name="2042"
+      > </a
+      ><a name="2043" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2048"
+      > </a
+      ><a name="2049" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2050"
+      > </a
+      ><a name="2051" class="Symbol"
+      >(</a
+      ><a name="2052" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="2055"
+      > </a
+      ><a name="2056" class="Symbol"
+      >(</a
+      ><a name="2057" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#8812" class="Function"
+      >gcd-S&#8815;S</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" href="LTC-PCF.Program.GCD.Partial.Totality.html#2019" class="Bound"
+      >m</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="LTC-PCF.Program.GCD.Partial.Totality.html#2023" class="Bound"
+      >n</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" href="LTC-PCF.Program.GCD.Partial.Totality.html#2035" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="2074" class="Symbol"
+      >))</a
+      ><a name="2076"
+      > </a
+      ><a name="2077" href="LTC-PCF.Program.GCD.Partial.Totality.html#2032" class="Bound"
+      >ih</a
+      ><a name="2079"
+      >
+
+</a
+      ><a name="2081" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2159"
+      >
+</a
+      ><a name="2160" class="Comment"
+      >-- gcd m n when m &gt; n is total.</a
+      ><a name="2191"
+      >
+</a
+      ><a name="2192" href="LTC-PCF.Program.GCD.Partial.Totality.html#2192" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" class="Symbol"
+      >:</a
+      ><a name="2203"
+      >
+  </a
+      ><a name="2206" class="Symbol"
+      >&#8704;</a
+      ><a name="2207"
+      > </a
+      ><a name="2208" class="Symbol"
+      >{</a
+      ><a name="2209" href="LTC-PCF.Program.GCD.Partial.Totality.html#2209" class="Bound"
+      >m</a
+      ><a name="2210"
+      > </a
+      ><a name="2211" href="LTC-PCF.Program.GCD.Partial.Totality.html#2211" class="Bound"
+      >n</a
+      ><a name="2212" class="Symbol"
+      >}</a
+      ><a name="2213"
+      > </a
+      ><a name="2214" class="Symbol"
+      >&#8594;</a
+      ><a name="2215"
+      > </a
+      ><a name="2216" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2217"
+      > </a
+      ><a name="2218" href="LTC-PCF.Program.GCD.Partial.Totality.html#2209" class="Bound"
+      >m</a
+      ><a name="2219"
+      > </a
+      ><a name="2220" class="Symbol"
+      >&#8594;</a
+      ><a name="2221"
+      > </a
+      ><a name="2222" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2223"
+      > </a
+      ><a name="2224" href="LTC-PCF.Program.GCD.Partial.Totality.html#2211" class="Bound"
+      >n</a
+      ><a name="2225"
+      > </a
+      ><a name="2226" class="Symbol"
+      >&#8594;</a
+      ><a name="2227"
+      >
+  </a
+      ><a name="2230" class="Symbol"
+      >(&#8704;</a
+      ><a name="2232"
+      > </a
+      ><a name="2233" class="Symbol"
+      >{</a
+      ><a name="2234" href="LTC-PCF.Program.GCD.Partial.Totality.html#2234" class="Bound"
+      >o</a
+      ><a name="2235"
+      > </a
+      ><a name="2236" href="LTC-PCF.Program.GCD.Partial.Totality.html#2236" class="Bound"
+      >p</a
+      ><a name="2237" class="Symbol"
+      >}</a
+      ><a name="2238"
+      > </a
+      ><a name="2239" class="Symbol"
+      >&#8594;</a
+      ><a name="2240"
+      > </a
+      ><a name="2241" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2242"
+      > </a
+      ><a name="2243" href="LTC-PCF.Program.GCD.Partial.Totality.html#2234" class="Bound"
+      >o</a
+      ><a name="2244"
+      > </a
+      ><a name="2245" class="Symbol"
+      >&#8594;</a
+      ><a name="2246"
+      > </a
+      ><a name="2247" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" href="LTC-PCF.Program.GCD.Partial.Totality.html#2236" class="Bound"
+      >p</a
+      ><a name="2250"
+      > </a
+      ><a name="2251" class="Symbol"
+      >&#8594;</a
+      ><a name="2252"
+      > </a
+      ><a name="2253" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" href="LTC-PCF.Program.GCD.Partial.Totality.html#2234" class="Bound"
+      >o</a
+      ><a name="2259"
+      > </a
+      ><a name="2260" href="LTC-PCF.Program.GCD.Partial.Totality.html#2236" class="Bound"
+      >p</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" href="LTC-PCF.Program.GCD.Partial.Totality.html#2209" class="Bound"
+      >m</a
+      ><a name="2263"
+      > </a
+      ><a name="2264" href="LTC-PCF.Program.GCD.Partial.Totality.html#2211" class="Bound"
+      >n</a
+      ><a name="2265"
+      > </a
+      ><a name="2266" class="Symbol"
+      >&#8594;</a
+      ><a name="2267"
+      > </a
+      ><a name="2268" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="2273"
+      > </a
+      ><a name="2274" href="LTC-PCF.Program.GCD.Partial.Totality.html#2234" class="Bound"
+      >o</a
+      ><a name="2275"
+      > </a
+      ><a name="2276" href="LTC-PCF.Program.GCD.Partial.Totality.html#2236" class="Bound"
+      >p</a
+      ><a name="2277"
+      > </a
+      ><a name="2278" class="Symbol"
+      >&#8594;</a
+      ><a name="2279"
+      > </a
+      ><a name="2280" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2281"
+      > </a
+      ><a name="2282" class="Symbol"
+      >(</a
+      ><a name="2283" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2286"
+      > </a
+      ><a name="2287" href="LTC-PCF.Program.GCD.Partial.Totality.html#2234" class="Bound"
+      >o</a
+      ><a name="2288"
+      > </a
+      ><a name="2289" href="LTC-PCF.Program.GCD.Partial.Totality.html#2236" class="Bound"
+      >p</a
+      ><a name="2290" class="Symbol"
+      >))</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" class="Symbol"
+      >&#8594;</a
+      ><a name="2294"
+      >
+  </a
+      ><a name="2297" href="LTC-PCF.Program.GCD.Partial.Totality.html#2209" class="Bound"
+      >m</a
+      ><a name="2298"
+      > </a
+      ><a name="2299" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="2300"
+      > </a
+      ><a name="2301" href="LTC-PCF.Program.GCD.Partial.Totality.html#2211" class="Bound"
+      >n</a
+      ><a name="2302"
+      > </a
+      ><a name="2303" class="Symbol"
+      >&#8594;</a
+      ><a name="2304"
+      >
+  </a
+      ><a name="2307" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="2312"
+      > </a
+      ><a name="2313" href="LTC-PCF.Program.GCD.Partial.Totality.html#2209" class="Bound"
+      >m</a
+      ><a name="2314"
+      > </a
+      ><a name="2315" href="LTC-PCF.Program.GCD.Partial.Totality.html#2211" class="Bound"
+      >n</a
+      ><a name="2316"
+      > </a
+      ><a name="2317" class="Symbol"
+      >&#8594;</a
+      ><a name="2318"
+      >
+  </a
+      ><a name="2321" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2322"
+      > </a
+      ><a name="2323" class="Symbol"
+      >(</a
+      ><a name="2324" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2327"
+      > </a
+      ><a name="2328" href="LTC-PCF.Program.GCD.Partial.Totality.html#2209" class="Bound"
+      >m</a
+      ><a name="2329"
+      > </a
+      ><a name="2330" href="LTC-PCF.Program.GCD.Partial.Totality.html#2211" class="Bound"
+      >n</a
+      ><a name="2331" class="Symbol"
+      >)</a
+      ><a name="2332"
+      >
+</a
+      ><a name="2333" href="LTC-PCF.Program.GCD.Partial.Totality.html#2192" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2348"
+      >          </a
+      ><a name="2358" href="LTC-PCF.Program.GCD.Partial.Totality.html#2358" class="Bound"
+      >Nn</a
+      ><a name="2360"
+      >             </a
+      ><a name="2373" class="Symbol"
+      >_</a
+      ><a name="2374"
+      >  </a
+      ><a name="2376" href="LTC-PCF.Program.GCD.Partial.Totality.html#2376" class="Bound"
+      >0&gt;n</a
+      ><a name="2379"
+      >   </a
+      ><a name="2382" class="Symbol"
+      >_</a
+      ><a name="2383"
+      > </a
+      ><a name="2384" class="Symbol"
+      >=</a
+      ><a name="2385"
+      > </a
+      ><a name="2386" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" class="Symbol"
+      >(</a
+      ><a name="2394" href="LTC-PCF.Data.Nat.Inequalities.EliminationProperties.html#1225" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="2399"
+      > </a
+      ><a name="2400" href="LTC-PCF.Program.GCD.Partial.Totality.html#2358" class="Bound"
+      >Nn</a
+      ><a name="2402"
+      > </a
+      ><a name="2403" href="LTC-PCF.Program.GCD.Partial.Totality.html#2376" class="Bound"
+      >0&gt;n</a
+      ><a name="2406" class="Symbol"
+      >)</a
+      ><a name="2407"
+      >
+</a
+      ><a name="2408" href="LTC-PCF.Program.GCD.Partial.Totality.html#2192" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2417"
+      > </a
+      ><a name="2418" class="Symbol"
+      >(</a
+      ><a name="2419" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2424"
+      > </a
+      ><a name="2425" href="LTC-PCF.Program.GCD.Partial.Totality.html#2425" class="Bound"
+      >Nm</a
+      ><a name="2427" class="Symbol"
+      >)</a
+      ><a name="2428"
+      >     </a
+      ><a name="2433" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2438"
+      >          </a
+      ><a name="2448" class="Symbol"
+      >_</a
+      ><a name="2449"
+      >  </a
+      ><a name="2451" class="Symbol"
+      >_</a
+      ><a name="2452"
+      >     </a
+      ><a name="2457" class="Symbol"
+      >_</a
+      ><a name="2458"
+      > </a
+      ><a name="2459" class="Symbol"
+      >=</a
+      ><a name="2460"
+      > </a
+      ><a name="2461" href="LTC-PCF.Program.GCD.Partial.Totality.html#1238" class="Function"
+      >gcd-S0-N</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="LTC-PCF.Program.GCD.Partial.Totality.html#2425" class="Bound"
+      >Nm</a
+      ><a name="2472"
+      >
+</a
+      ><a name="2473" href="LTC-PCF.Program.GCD.Partial.Totality.html#2192" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" class="Symbol"
+      >(</a
+      ><a name="2484" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2489"
+      > </a
+      ><a name="2490" class="Symbol"
+      >{</a
+      ><a name="2491" href="LTC-PCF.Program.GCD.Partial.Totality.html#2491" class="Bound"
+      >m</a
+      ><a name="2492" class="Symbol"
+      >}</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="LTC-PCF.Program.GCD.Partial.Totality.html#2494" class="Bound"
+      >Nm</a
+      ><a name="2496" class="Symbol"
+      >)</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" class="Symbol"
+      >(</a
+      ><a name="2499" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" class="Symbol"
+      >{</a
+      ><a name="2506" href="LTC-PCF.Program.GCD.Partial.Totality.html#2506" class="Bound"
+      >n</a
+      ><a name="2507" class="Symbol"
+      >}</a
+      ><a name="2508"
+      > </a
+      ><a name="2509" href="LTC-PCF.Program.GCD.Partial.Totality.html#2509" class="Bound"
+      >Nn</a
+      ><a name="2511" class="Symbol"
+      >)</a
+      ><a name="2512"
+      > </a
+      ><a name="2513" href="LTC-PCF.Program.GCD.Partial.Totality.html#2513" class="Bound"
+      >ah</a
+      ><a name="2515"
+      > </a
+      ><a name="2516" href="LTC-PCF.Program.GCD.Partial.Totality.html#2516" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="2521"
+      > </a
+      ><a name="2522" class="Symbol"
+      >_</a
+      ><a name="2523"
+      > </a
+      ><a name="2524" class="Symbol"
+      >=</a
+      ><a name="2525"
+      >
+  </a
+      ><a name="2528" href="LTC-PCF.Program.GCD.Partial.Totality.html#1480" class="Function"
+      >gcd-S&gt;S-N</a
+      ><a name="2537"
+      > </a
+      ><a name="2538" href="LTC-PCF.Program.GCD.Partial.Totality.html#2494" class="Bound"
+      >Nm</a
+      ><a name="2540"
+      > </a
+      ><a name="2541" href="LTC-PCF.Program.GCD.Partial.Totality.html#2509" class="Bound"
+      >Nn</a
+      ><a name="2543"
+      > </a
+      ><a name="2544" href="LTC-PCF.Program.GCD.Partial.Totality.html#2590" class="Function"
+      >ih</a
+      ><a name="2546"
+      > </a
+      ><a name="2547" href="LTC-PCF.Program.GCD.Partial.Totality.html#2516" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="2552"
+      >
+  </a
+      ><a name="2555" class="Keyword"
+      >where</a
+      ><a name="2560"
+      >
+  </a
+      ><a name="2563" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="2587"
+      >
+  </a
+      ><a name="2590" href="LTC-PCF.Program.GCD.Partial.Totality.html#2590" class="Function"
+      >ih</a
+      ><a name="2592"
+      > </a
+      ><a name="2593" class="Symbol"
+      >:</a
+      ><a name="2594"
+      > </a
+      ><a name="2595" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2596"
+      > </a
+      ><a name="2597" class="Symbol"
+      >(</a
+      ><a name="2598" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2601"
+      > </a
+      ><a name="2602" class="Symbol"
+      >(</a
+      ><a name="2603" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2608"
+      > </a
+      ><a name="2609" href="LTC-PCF.Program.GCD.Partial.Totality.html#2491" class="Bound"
+      >m</a
+      ><a name="2610"
+      > </a
+      ><a name="2611" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2612"
+      > </a
+      ><a name="2613" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2618"
+      > </a
+      ><a name="2619" href="LTC-PCF.Program.GCD.Partial.Totality.html#2506" class="Bound"
+      >n</a
+      ><a name="2620" class="Symbol"
+      >)</a
+      ><a name="2621"
+      > </a
+      ><a name="2622" class="Symbol"
+      >(</a
+      ><a name="2623" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2628"
+      > </a
+      ><a name="2629" href="LTC-PCF.Program.GCD.Partial.Totality.html#2506" class="Bound"
+      >n</a
+      ><a name="2630" class="Symbol"
+      >))</a
+      ><a name="2632"
+      >
+  </a
+      ><a name="2635" href="LTC-PCF.Program.GCD.Partial.Totality.html#2590" class="Function"
+      >ih</a
+      ><a name="2637"
+      > </a
+      ><a name="2638" class="Symbol"
+      >=</a
+      ><a name="2639"
+      > </a
+      ><a name="2640" href="LTC-PCF.Program.GCD.Partial.Totality.html#2513" class="Bound"
+      >ah</a
+      ><a name="2642"
+      > </a
+      ><a name="2643" class="Symbol"
+      >{</a
+      ><a name="2644" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2649"
+      > </a
+      ><a name="2650" href="LTC-PCF.Program.GCD.Partial.Totality.html#2491" class="Bound"
+      >m</a
+      ><a name="2651"
+      > </a
+      ><a name="2652" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2653"
+      > </a
+      ><a name="2654" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2659"
+      > </a
+      ><a name="2660" href="LTC-PCF.Program.GCD.Partial.Totality.html#2506" class="Bound"
+      >n</a
+      ><a name="2661" class="Symbol"
+      >}</a
+      ><a name="2662"
+      >
+          </a
+      ><a name="2673" class="Symbol"
+      >{</a
+      ><a name="2674" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2679"
+      > </a
+      ><a name="2680" href="LTC-PCF.Program.GCD.Partial.Totality.html#2506" class="Bound"
+      >n</a
+      ><a name="2681" class="Symbol"
+      >}</a
+      ><a name="2682"
+      >
+          </a
+      ><a name="2693" class="Symbol"
+      >(</a
+      ><a name="2694" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="2697"
+      > </a
+      ><a name="2698" class="Symbol"
+      >(</a
+      ><a name="2699" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2704"
+      > </a
+      ><a name="2705" href="LTC-PCF.Program.GCD.Partial.Totality.html#2494" class="Bound"
+      >Nm</a
+      ><a name="2707" class="Symbol"
+      >)</a
+      ><a name="2708"
+      > </a
+      ><a name="2709" class="Symbol"
+      >(</a
+      ><a name="2710" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2715"
+      > </a
+      ><a name="2716" href="LTC-PCF.Program.GCD.Partial.Totality.html#2509" class="Bound"
+      >Nn</a
+      ><a name="2718" class="Symbol"
+      >))</a
+      ><a name="2720"
+      >
+          </a
+      ><a name="2731" class="Symbol"
+      >(</a
+      ><a name="2732" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2737"
+      > </a
+      ><a name="2738" href="LTC-PCF.Program.GCD.Partial.Totality.html#2509" class="Bound"
+      >Nn</a
+      ><a name="2740" class="Symbol"
+      >)</a
+      ><a name="2741"
+      >
+          </a
+      ><a name="2752" class="Symbol"
+      >(</a
+      ><a name="2753" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#11540" class="Function"
+      >[Sx&#8760;Sy,Sy]&lt;[Sx,Sy]</a
+      ><a name="2771"
+      > </a
+      ><a name="2772" href="LTC-PCF.Program.GCD.Partial.Totality.html#2494" class="Bound"
+      >Nm</a
+      ><a name="2774"
+      > </a
+      ><a name="2775" href="LTC-PCF.Program.GCD.Partial.Totality.html#2509" class="Bound"
+      >Nn</a
+      ><a name="2777" class="Symbol"
+      >)</a
+      ><a name="2778"
+      >
+          </a
+      ><a name="2789" class="Symbol"
+      >(&#955;</a
+      ><a name="2791"
+      > </a
+      ><a name="2792" href="LTC-PCF.Program.GCD.Partial.Totality.html#2792" class="Bound"
+      >p</a
+      ><a name="2793"
+      > </a
+      ><a name="2794" class="Symbol"
+      >&#8594;</a
+      ><a name="2795"
+      > </a
+      ><a name="2796" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2802"
+      > </a
+      ><a name="2803" class="Symbol"
+      >(</a
+      ><a name="2804" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="2807"
+      > </a
+      ><a name="2808" class="Symbol"
+      >(</a
+      ><a name="2809" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="2816"
+      > </a
+      ><a name="2817" href="LTC-PCF.Program.GCD.Partial.Totality.html#2792" class="Bound"
+      >p</a
+      ><a name="2818" class="Symbol"
+      >)))</a
+      ><a name="2821"
+      >
+
+</a
+      ><a name="2823" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2901"
+      >
+</a
+      ><a name="2902" class="Comment"
+      >-- gcd m n when m &#8815; n is total.</a
+      ><a name="2933"
+      >
+</a
+      ><a name="2934" href="LTC-PCF.Program.GCD.Partial.Totality.html#2934" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="2943"
+      > </a
+      ><a name="2944" class="Symbol"
+      >:</a
+      ><a name="2945"
+      >
+  </a
+      ><a name="2948" class="Symbol"
+      >&#8704;</a
+      ><a name="2949"
+      > </a
+      ><a name="2950" class="Symbol"
+      >{</a
+      ><a name="2951" href="LTC-PCF.Program.GCD.Partial.Totality.html#2951" class="Bound"
+      >m</a
+      ><a name="2952"
+      > </a
+      ><a name="2953" href="LTC-PCF.Program.GCD.Partial.Totality.html#2953" class="Bound"
+      >n</a
+      ><a name="2954" class="Symbol"
+      >}</a
+      ><a name="2955"
+      > </a
+      ><a name="2956" class="Symbol"
+      >&#8594;</a
+      ><a name="2957"
+      > </a
+      ><a name="2958" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2959"
+      > </a
+      ><a name="2960" href="LTC-PCF.Program.GCD.Partial.Totality.html#2951" class="Bound"
+      >m</a
+      ><a name="2961"
+      > </a
+      ><a name="2962" class="Symbol"
+      >&#8594;</a
+      ><a name="2963"
+      > </a
+      ><a name="2964" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2965"
+      > </a
+      ><a name="2966" href="LTC-PCF.Program.GCD.Partial.Totality.html#2953" class="Bound"
+      >n</a
+      ><a name="2967"
+      > </a
+      ><a name="2968" class="Symbol"
+      >&#8594;</a
+      ><a name="2969"
+      >
+  </a
+      ><a name="2972" class="Symbol"
+      >(&#8704;</a
+      ><a name="2974"
+      > </a
+      ><a name="2975" class="Symbol"
+      >{</a
+      ><a name="2976" href="LTC-PCF.Program.GCD.Partial.Totality.html#2976" class="Bound"
+      >o</a
+      ><a name="2977"
+      > </a
+      ><a name="2978" href="LTC-PCF.Program.GCD.Partial.Totality.html#2978" class="Bound"
+      >p</a
+      ><a name="2979" class="Symbol"
+      >}</a
+      ><a name="2980"
+      > </a
+      ><a name="2981" class="Symbol"
+      >&#8594;</a
+      ><a name="2982"
+      > </a
+      ><a name="2983" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2984"
+      > </a
+      ><a name="2985" href="LTC-PCF.Program.GCD.Partial.Totality.html#2976" class="Bound"
+      >o</a
+      ><a name="2986"
+      > </a
+      ><a name="2987" class="Symbol"
+      >&#8594;</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2990"
+      > </a
+      ><a name="2991" href="LTC-PCF.Program.GCD.Partial.Totality.html#2978" class="Bound"
+      >p</a
+      ><a name="2992"
+      > </a
+      ><a name="2993" class="Symbol"
+      >&#8594;</a
+      ><a name="2994"
+      > </a
+      ><a name="2995" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="2999"
+      > </a
+      ><a name="3000" href="LTC-PCF.Program.GCD.Partial.Totality.html#2976" class="Bound"
+      >o</a
+      ><a name="3001"
+      > </a
+      ><a name="3002" href="LTC-PCF.Program.GCD.Partial.Totality.html#2978" class="Bound"
+      >p</a
+      ><a name="3003"
+      > </a
+      ><a name="3004" href="LTC-PCF.Program.GCD.Partial.Totality.html#2951" class="Bound"
+      >m</a
+      ><a name="3005"
+      > </a
+      ><a name="3006" href="LTC-PCF.Program.GCD.Partial.Totality.html#2953" class="Bound"
+      >n</a
+      ><a name="3007"
+      > </a
+      ><a name="3008" class="Symbol"
+      >&#8594;</a
+      ><a name="3009"
+      > </a
+      ><a name="3010" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="3015"
+      > </a
+      ><a name="3016" href="LTC-PCF.Program.GCD.Partial.Totality.html#2976" class="Bound"
+      >o</a
+      ><a name="3017"
+      > </a
+      ><a name="3018" href="LTC-PCF.Program.GCD.Partial.Totality.html#2978" class="Bound"
+      >p</a
+      ><a name="3019"
+      > </a
+      ><a name="3020" class="Symbol"
+      >&#8594;</a
+      ><a name="3021"
+      > </a
+      ><a name="3022" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3023"
+      > </a
+      ><a name="3024" class="Symbol"
+      >(</a
+      ><a name="3025" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3028"
+      > </a
+      ><a name="3029" href="LTC-PCF.Program.GCD.Partial.Totality.html#2976" class="Bound"
+      >o</a
+      ><a name="3030"
+      > </a
+      ><a name="3031" href="LTC-PCF.Program.GCD.Partial.Totality.html#2978" class="Bound"
+      >p</a
+      ><a name="3032" class="Symbol"
+      >))</a
+      ><a name="3034"
+      > </a
+      ><a name="3035" class="Symbol"
+      >&#8594;</a
+      ><a name="3036"
+      >
+  </a
+      ><a name="3039" href="LTC-PCF.Program.GCD.Partial.Totality.html#2951" class="Bound"
+      >m</a
+      ><a name="3040"
+      > </a
+      ><a name="3041" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="3042"
+      > </a
+      ><a name="3043" href="LTC-PCF.Program.GCD.Partial.Totality.html#2953" class="Bound"
+      >n</a
+      ><a name="3044"
+      > </a
+      ><a name="3045" class="Symbol"
+      >&#8594;</a
+      ><a name="3046"
+      >
+  </a
+      ><a name="3049" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="3054"
+      > </a
+      ><a name="3055" href="LTC-PCF.Program.GCD.Partial.Totality.html#2951" class="Bound"
+      >m</a
+      ><a name="3056"
+      > </a
+      ><a name="3057" href="LTC-PCF.Program.GCD.Partial.Totality.html#2953" class="Bound"
+      >n</a
+      ><a name="3058"
+      > </a
+      ><a name="3059" class="Symbol"
+      >&#8594;</a
+      ><a name="3060"
+      >
+  </a
+      ><a name="3063" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3064"
+      > </a
+      ><a name="3065" class="Symbol"
+      >(</a
+      ><a name="3066" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3069"
+      > </a
+      ><a name="3070" href="LTC-PCF.Program.GCD.Partial.Totality.html#2951" class="Bound"
+      >m</a
+      ><a name="3071"
+      > </a
+      ><a name="3072" href="LTC-PCF.Program.GCD.Partial.Totality.html#2953" class="Bound"
+      >n</a
+      ><a name="3073" class="Symbol"
+      >)</a
+      ><a name="3074"
+      >
+</a
+      ><a name="3075" href="LTC-PCF.Program.GCD.Partial.Totality.html#2934" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3084"
+      > </a
+      ><a name="3085" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3090"
+      >          </a
+      ><a name="3100" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3105"
+      >          </a
+      ><a name="3115" class="Symbol"
+      >_</a
+      ><a name="3116"
+      >  </a
+      ><a name="3118" class="Symbol"
+      >_</a
+      ><a name="3119"
+      >     </a
+      ><a name="3124" href="LTC-PCF.Program.GCD.Partial.Totality.html#3124" class="Bound"
+      >h</a
+      ><a name="3125"
+      > </a
+      ><a name="3126" class="Symbol"
+      >=</a
+      ><a name="3127"
+      > </a
+      ><a name="3128" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3134"
+      > </a
+      ><a name="3135" class="Symbol"
+      >(</a
+      ><a name="3136" href="LTC-PCF.Program.GCD.Partial.Totality.html#3124" class="Bound"
+      >h</a
+      ><a name="3137"
+      > </a
+      ><a name="3138" class="Symbol"
+      >(</a
+      ><a name="3139" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3143"
+      > </a
+      ><a name="3144" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3145"
+      > </a
+      ><a name="3146" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3150" class="Symbol"
+      >))</a
+      ><a name="3152"
+      >
+</a
+      ><a name="3153" href="LTC-PCF.Program.GCD.Partial.Totality.html#2934" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3162"
+      > </a
+      ><a name="3163" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3168"
+      >          </a
+      ><a name="3178" class="Symbol"
+      >(</a
+      ><a name="3179" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3184"
+      > </a
+      ><a name="3185" href="LTC-PCF.Program.GCD.Partial.Totality.html#3185" class="Bound"
+      >Nn</a
+      ><a name="3187" class="Symbol"
+      >)</a
+      ><a name="3188"
+      >     </a
+      ><a name="3193" class="Symbol"
+      >_</a
+      ><a name="3194"
+      >  </a
+      ><a name="3196" class="Symbol"
+      >_</a
+      ><a name="3197"
+      >     </a
+      ><a name="3202" class="Symbol"
+      >_</a
+      ><a name="3203"
+      > </a
+      ><a name="3204" class="Symbol"
+      >=</a
+      ><a name="3205"
+      > </a
+      ><a name="3206" href="LTC-PCF.Program.GCD.Partial.Totality.html#1027" class="Function"
+      >gcd-0S-N</a
+      ><a name="3214"
+      > </a
+      ><a name="3215" href="LTC-PCF.Program.GCD.Partial.Totality.html#3185" class="Bound"
+      >Nn</a
+      ><a name="3217"
+      >
+</a
+      ><a name="3218" href="LTC-PCF.Program.GCD.Partial.Totality.html#2934" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3227"
+      > </a
+      ><a name="3228" class="Symbol"
+      >(</a
+      ><a name="3229" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3234"
+      > </a
+      ><a name="3235" class="Symbol"
+      >_)</a
+      ><a name="3237"
+      >      </a
+      ><a name="3243" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3248"
+      >          </a
+      ><a name="3258" class="Symbol"
+      >_</a
+      ><a name="3259"
+      >  </a
+      ><a name="3261" href="LTC-PCF.Program.GCD.Partial.Totality.html#3261" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="3265"
+      >  </a
+      ><a name="3267" class="Symbol"
+      >_</a
+      ><a name="3268"
+      > </a
+      ><a name="3269" class="Symbol"
+      >=</a
+      ><a name="3270"
+      > </a
+      ><a name="3271" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3277"
+      > </a
+      ><a name="3278" class="Symbol"
+      >(</a
+      ><a name="3279" href="LTC-PCF.Data.Nat.Inequalities.EliminationProperties.html#2014" class="Function"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="3284"
+      > </a
+      ><a name="3285" href="LTC-PCF.Program.GCD.Partial.Totality.html#3261" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="3289" class="Symbol"
+      >)</a
+      ><a name="3290"
+      >
+</a
+      ><a name="3291" href="LTC-PCF.Program.GCD.Partial.Totality.html#2934" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="3300"
+      > </a
+      ><a name="3301" class="Symbol"
+      >(</a
+      ><a name="3302" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3307"
+      > </a
+      ><a name="3308" class="Symbol"
+      >{</a
+      ><a name="3309" href="LTC-PCF.Program.GCD.Partial.Totality.html#3309" class="Bound"
+      >m</a
+      ><a name="3310" class="Symbol"
+      >}</a
+      ><a name="3311"
+      > </a
+      ><a name="3312" href="LTC-PCF.Program.GCD.Partial.Totality.html#3312" class="Bound"
+      >Nm</a
+      ><a name="3314" class="Symbol"
+      >)</a
+      ><a name="3315"
+      > </a
+      ><a name="3316" class="Symbol"
+      >(</a
+      ><a name="3317" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3322"
+      > </a
+      ><a name="3323" class="Symbol"
+      >{</a
+      ><a name="3324" href="LTC-PCF.Program.GCD.Partial.Totality.html#3324" class="Bound"
+      >n</a
+      ><a name="3325" class="Symbol"
+      >}</a
+      ><a name="3326"
+      > </a
+      ><a name="3327" href="LTC-PCF.Program.GCD.Partial.Totality.html#3327" class="Bound"
+      >Nn</a
+      ><a name="3329" class="Symbol"
+      >)</a
+      ><a name="3330"
+      > </a
+      ><a name="3331" href="LTC-PCF.Program.GCD.Partial.Totality.html#3331" class="Bound"
+      >ah</a
+      ><a name="3333"
+      > </a
+      ><a name="3334" href="LTC-PCF.Program.GCD.Partial.Totality.html#3334" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="3339"
+      > </a
+      ><a name="3340" class="Symbol"
+      >_</a
+      ><a name="3341"
+      > </a
+      ><a name="3342" class="Symbol"
+      >=</a
+      ><a name="3343"
+      > </a
+      ><a name="3344" href="LTC-PCF.Program.GCD.Partial.Totality.html#1850" class="Function"
+      >gcd-S&#8815;S-N</a
+      ><a name="3353"
+      > </a
+      ><a name="3354" href="LTC-PCF.Program.GCD.Partial.Totality.html#3312" class="Bound"
+      >Nm</a
+      ><a name="3356"
+      > </a
+      ><a name="3357" href="LTC-PCF.Program.GCD.Partial.Totality.html#3327" class="Bound"
+      >Nn</a
+      ><a name="3359"
+      > </a
+      ><a name="3360" href="LTC-PCF.Program.GCD.Partial.Totality.html#3406" class="Function"
+      >ih</a
+      ><a name="3362"
+      > </a
+      ><a name="3363" href="LTC-PCF.Program.GCD.Partial.Totality.html#3334" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="3368"
+      >
+  </a
+      ><a name="3371" class="Keyword"
+      >where</a
+      ><a name="3376"
+      >
+  </a
+      ><a name="3379" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="3403"
+      >
+  </a
+      ><a name="3406" href="LTC-PCF.Program.GCD.Partial.Totality.html#3406" class="Function"
+      >ih</a
+      ><a name="3408"
+      > </a
+      ><a name="3409" class="Symbol"
+      >:</a
+      ><a name="3410"
+      > </a
+      ><a name="3411" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3412"
+      > </a
+      ><a name="3413" class="Symbol"
+      >(</a
+      ><a name="3414" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3417"
+      > </a
+      ><a name="3418" class="Symbol"
+      >(</a
+      ><a name="3419" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3424"
+      > </a
+      ><a name="3425" href="LTC-PCF.Program.GCD.Partial.Totality.html#3309" class="Bound"
+      >m</a
+      ><a name="3426" class="Symbol"
+      >)</a
+      ><a name="3427"
+      > </a
+      ><a name="3428" class="Symbol"
+      >(</a
+      ><a name="3429" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3434"
+      > </a
+      ><a name="3435" href="LTC-PCF.Program.GCD.Partial.Totality.html#3324" class="Bound"
+      >n</a
+      ><a name="3436"
+      > </a
+      ><a name="3437" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="3438"
+      > </a
+      ><a name="3439" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3444"
+      > </a
+      ><a name="3445" href="LTC-PCF.Program.GCD.Partial.Totality.html#3309" class="Bound"
+      >m</a
+      ><a name="3446" class="Symbol"
+      >))</a
+      ><a name="3448"
+      >
+  </a
+      ><a name="3451" href="LTC-PCF.Program.GCD.Partial.Totality.html#3406" class="Function"
+      >ih</a
+      ><a name="3453"
+      > </a
+      ><a name="3454" class="Symbol"
+      >=</a
+      ><a name="3455"
+      > </a
+      ><a name="3456" href="LTC-PCF.Program.GCD.Partial.Totality.html#3331" class="Bound"
+      >ah</a
+      ><a name="3458"
+      > </a
+      ><a name="3459" class="Symbol"
+      >{</a
+      ><a name="3460" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3465"
+      > </a
+      ><a name="3466" href="LTC-PCF.Program.GCD.Partial.Totality.html#3309" class="Bound"
+      >m</a
+      ><a name="3467" class="Symbol"
+      >}</a
+      ><a name="3468"
+      >
+          </a
+      ><a name="3479" class="Symbol"
+      >{</a
+      ><a name="3480" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3485"
+      > </a
+      ><a name="3486" href="LTC-PCF.Program.GCD.Partial.Totality.html#3324" class="Bound"
+      >n</a
+      ><a name="3487"
+      > </a
+      ><a name="3488" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="3489"
+      > </a
+      ><a name="3490" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3495"
+      > </a
+      ><a name="3496" href="LTC-PCF.Program.GCD.Partial.Totality.html#3309" class="Bound"
+      >m</a
+      ><a name="3497" class="Symbol"
+      >}</a
+      ><a name="3498"
+      >
+          </a
+      ><a name="3509" class="Symbol"
+      >(</a
+      ><a name="3510" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3515"
+      > </a
+      ><a name="3516" href="LTC-PCF.Program.GCD.Partial.Totality.html#3312" class="Bound"
+      >Nm</a
+      ><a name="3518" class="Symbol"
+      >)</a
+      ><a name="3519"
+      >
+          </a
+      ><a name="3530" class="Symbol"
+      >(</a
+      ><a name="3531" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="3534"
+      > </a
+      ><a name="3535" class="Symbol"
+      >(</a
+      ><a name="3536" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3541"
+      > </a
+      ><a name="3542" href="LTC-PCF.Program.GCD.Partial.Totality.html#3327" class="Bound"
+      >Nn</a
+      ><a name="3544" class="Symbol"
+      >)</a
+      ><a name="3545"
+      > </a
+      ><a name="3546" class="Symbol"
+      >(</a
+      ><a name="3547" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3552"
+      > </a
+      ><a name="3553" href="LTC-PCF.Program.GCD.Partial.Totality.html#3312" class="Bound"
+      >Nm</a
+      ><a name="3555" class="Symbol"
+      >))</a
+      ><a name="3557"
+      >
+          </a
+      ><a name="3568" class="Symbol"
+      >(</a
+      ><a name="3569" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#11709" class="Function"
+      >[Sx,Sy&#8760;Sx]&lt;[Sx,Sy]</a
+      ><a name="3587"
+      > </a
+      ><a name="3588" href="LTC-PCF.Program.GCD.Partial.Totality.html#3312" class="Bound"
+      >Nm</a
+      ><a name="3590"
+      > </a
+      ><a name="3591" href="LTC-PCF.Program.GCD.Partial.Totality.html#3327" class="Bound"
+      >Nn</a
+      ><a name="3593" class="Symbol"
+      >)</a
+      ><a name="3594"
+      >
+          </a
+      ><a name="3605" class="Symbol"
+      >(&#955;</a
+      ><a name="3607"
+      > </a
+      ><a name="3608" href="LTC-PCF.Program.GCD.Partial.Totality.html#3608" class="Bound"
+      >p</a
+      ><a name="3609"
+      > </a
+      ><a name="3610" class="Symbol"
+      >&#8594;</a
+      ><a name="3611"
+      > </a
+      ><a name="3612" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3618"
+      > </a
+      ><a name="3619" class="Symbol"
+      >(</a
+      ><a name="3620" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="3623"
+      > </a
+      ><a name="3624" class="Symbol"
+      >(</a
+      ><a name="3625" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="3632"
+      > </a
+      ><a name="3633" href="LTC-PCF.Program.GCD.Partial.Totality.html#3608" class="Bound"
+      >p</a
+      ><a name="3634" class="Symbol"
+      >)))</a
+      ><a name="3637"
+      >
+
+</a
+      ><a name="3639" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3717"
+      >
+</a
+      ><a name="3718" class="Comment"
+      >-- gcd m n when m &#8802; 0 and n &#8802; 0 is total.</a
+      ><a name="3759"
+      >
+</a
+      ><a name="3760" href="LTC-PCF.Program.GCD.Partial.Totality.html#3760" class="Function"
+      >gcd-N</a
+      ><a name="3765"
+      > </a
+      ><a name="3766" class="Symbol"
+      >:</a
+      ><a name="3767"
+      > </a
+      ><a name="3768" class="Symbol"
+      >&#8704;</a
+      ><a name="3769"
+      > </a
+      ><a name="3770" class="Symbol"
+      >{</a
+      ><a name="3771" href="LTC-PCF.Program.GCD.Partial.Totality.html#3771" class="Bound"
+      >m</a
+      ><a name="3772"
+      > </a
+      ><a name="3773" href="LTC-PCF.Program.GCD.Partial.Totality.html#3773" class="Bound"
+      >n</a
+      ><a name="3774" class="Symbol"
+      >}</a
+      ><a name="3775"
+      > </a
+      ><a name="3776" class="Symbol"
+      >&#8594;</a
+      ><a name="3777"
+      > </a
+      ><a name="3778" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3779"
+      > </a
+      ><a name="3780" href="LTC-PCF.Program.GCD.Partial.Totality.html#3771" class="Bound"
+      >m</a
+      ><a name="3781"
+      > </a
+      ><a name="3782" class="Symbol"
+      >&#8594;</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3785"
+      > </a
+      ><a name="3786" href="LTC-PCF.Program.GCD.Partial.Totality.html#3773" class="Bound"
+      >n</a
+      ><a name="3787"
+      > </a
+      ><a name="3788" class="Symbol"
+      >&#8594;</a
+      ><a name="3789"
+      > </a
+      ><a name="3790" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="3795"
+      > </a
+      ><a name="3796" href="LTC-PCF.Program.GCD.Partial.Totality.html#3771" class="Bound"
+      >m</a
+      ><a name="3797"
+      > </a
+      ><a name="3798" href="LTC-PCF.Program.GCD.Partial.Totality.html#3773" class="Bound"
+      >n</a
+      ><a name="3799"
+      > </a
+      ><a name="3800" class="Symbol"
+      >&#8594;</a
+      ><a name="3801"
+      > </a
+      ><a name="3802" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3803"
+      > </a
+      ><a name="3804" class="Symbol"
+      >(</a
+      ><a name="3805" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3808"
+      > </a
+      ><a name="3809" href="LTC-PCF.Program.GCD.Partial.Totality.html#3771" class="Bound"
+      >m</a
+      ><a name="3810"
+      > </a
+      ><a name="3811" href="LTC-PCF.Program.GCD.Partial.Totality.html#3773" class="Bound"
+      >n</a
+      ><a name="3812" class="Symbol"
+      >)</a
+      ><a name="3813"
+      >
+</a
+      ><a name="3814" href="LTC-PCF.Program.GCD.Partial.Totality.html#3760" class="Function"
+      >gcd-N</a
+      ><a name="3819"
+      > </a
+      ><a name="3820" class="Symbol"
+      >=</a
+      ><a name="3821"
+      > </a
+      ><a name="3822" href="LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic.html#766" class="Function"
+      >Lexi-wfind</a
+      ><a name="3832"
+      > </a
+      ><a name="3833" href="LTC-PCF.Program.GCD.Partial.Totality.html#3847" class="Function"
+      >A</a
+      ><a name="3834"
+      > </a
+      ><a name="3835" href="LTC-PCF.Program.GCD.Partial.Totality.html#3900" class="Function"
+      >h</a
+      ><a name="3836"
+      >
+  </a
+      ><a name="3839" class="Keyword"
+      >where</a
+      ><a name="3844"
+      >
+  </a
+      ><a name="3847" href="LTC-PCF.Program.GCD.Partial.Totality.html#3847" class="Function"
+      >A</a
+      ><a name="3848"
+      > </a
+      ><a name="3849" class="Symbol"
+      >:</a
+      ><a name="3850"
+      > </a
+      ><a name="3851" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3852"
+      > </a
+      ><a name="3853" class="Symbol"
+      >&#8594;</a
+      ><a name="3854"
+      > </a
+      ><a name="3855" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3856"
+      > </a
+      ><a name="3857" class="Symbol"
+      >&#8594;</a
+      ><a name="3858"
+      > </a
+      ><a name="3859" class="PrimitiveType"
+      >Set</a
+      ><a name="3862"
+      >
+  </a
+      ><a name="3865" href="LTC-PCF.Program.GCD.Partial.Totality.html#3847" class="Function"
+      >A</a
+      ><a name="3866"
+      > </a
+      ><a name="3867" href="LTC-PCF.Program.GCD.Partial.Totality.html#3867" class="Bound"
+      >i</a
+      ><a name="3868"
+      > </a
+      ><a name="3869" href="LTC-PCF.Program.GCD.Partial.Totality.html#3869" class="Bound"
+      >j</a
+      ><a name="3870"
+      > </a
+      ><a name="3871" class="Symbol"
+      >=</a
+      ><a name="3872"
+      > </a
+      ><a name="3873" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="3878"
+      > </a
+      ><a name="3879" href="LTC-PCF.Program.GCD.Partial.Totality.html#3867" class="Bound"
+      >i</a
+      ><a name="3880"
+      > </a
+      ><a name="3881" href="LTC-PCF.Program.GCD.Partial.Totality.html#3869" class="Bound"
+      >j</a
+      ><a name="3882"
+      > </a
+      ><a name="3883" class="Symbol"
+      >&#8594;</a
+      ><a name="3884"
+      > </a
+      ><a name="3885" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3886"
+      > </a
+      ><a name="3887" class="Symbol"
+      >(</a
+      ><a name="3888" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3891"
+      > </a
+      ><a name="3892" href="LTC-PCF.Program.GCD.Partial.Totality.html#3867" class="Bound"
+      >i</a
+      ><a name="3893"
+      > </a
+      ><a name="3894" href="LTC-PCF.Program.GCD.Partial.Totality.html#3869" class="Bound"
+      >j</a
+      ><a name="3895" class="Symbol"
+      >)</a
+      ><a name="3896"
+      >
+
+  </a
+      ><a name="3900" href="LTC-PCF.Program.GCD.Partial.Totality.html#3900" class="Function"
+      >h</a
+      ><a name="3901"
+      > </a
+      ><a name="3902" class="Symbol"
+      >:</a
+      ><a name="3903"
+      > </a
+      ><a name="3904" class="Symbol"
+      >&#8704;</a
+      ><a name="3905"
+      > </a
+      ><a name="3906" class="Symbol"
+      >{</a
+      ><a name="3907" href="LTC-PCF.Program.GCD.Partial.Totality.html#3907" class="Bound"
+      >i</a
+      ><a name="3908"
+      > </a
+      ><a name="3909" href="LTC-PCF.Program.GCD.Partial.Totality.html#3909" class="Bound"
+      >j</a
+      ><a name="3910" class="Symbol"
+      >}</a
+      ><a name="3911"
+      > </a
+      ><a name="3912" class="Symbol"
+      >&#8594;</a
+      ><a name="3913"
+      > </a
+      ><a name="3914" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3915"
+      > </a
+      ><a name="3916" href="LTC-PCF.Program.GCD.Partial.Totality.html#3907" class="Bound"
+      >i</a
+      ><a name="3917"
+      > </a
+      ><a name="3918" class="Symbol"
+      >&#8594;</a
+      ><a name="3919"
+      > </a
+      ><a name="3920" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3921"
+      > </a
+      ><a name="3922" href="LTC-PCF.Program.GCD.Partial.Totality.html#3909" class="Bound"
+      >j</a
+      ><a name="3923"
+      > </a
+      ><a name="3924" class="Symbol"
+      >&#8594;</a
+      ><a name="3925"
+      > </a
+      ><a name="3926" class="Symbol"
+      >(&#8704;</a
+      ><a name="3928"
+      > </a
+      ><a name="3929" class="Symbol"
+      >{</a
+      ><a name="3930" href="LTC-PCF.Program.GCD.Partial.Totality.html#3930" class="Bound"
+      >k</a
+      ><a name="3931"
+      > </a
+      ><a name="3932" href="LTC-PCF.Program.GCD.Partial.Totality.html#3932" class="Bound"
+      >l</a
+      ><a name="3933" class="Symbol"
+      >}</a
+      ><a name="3934"
+      > </a
+      ><a name="3935" class="Symbol"
+      >&#8594;</a
+      ><a name="3936"
+      > </a
+      ><a name="3937" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3938"
+      > </a
+      ><a name="3939" href="LTC-PCF.Program.GCD.Partial.Totality.html#3930" class="Bound"
+      >k</a
+      ><a name="3940"
+      > </a
+      ><a name="3941" class="Symbol"
+      >&#8594;</a
+      ><a name="3942"
+      > </a
+      ><a name="3943" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3944"
+      > </a
+      ><a name="3945" href="LTC-PCF.Program.GCD.Partial.Totality.html#3932" class="Bound"
+      >l</a
+      ><a name="3946"
+      > </a
+      ><a name="3947" class="Symbol"
+      >&#8594;</a
+      ><a name="3948"
+      > </a
+      ><a name="3949" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="3953"
+      > </a
+      ><a name="3954" href="LTC-PCF.Program.GCD.Partial.Totality.html#3930" class="Bound"
+      >k</a
+      ><a name="3955"
+      > </a
+      ><a name="3956" href="LTC-PCF.Program.GCD.Partial.Totality.html#3932" class="Bound"
+      >l</a
+      ><a name="3957"
+      > </a
+      ><a name="3958" href="LTC-PCF.Program.GCD.Partial.Totality.html#3907" class="Bound"
+      >i</a
+      ><a name="3959"
+      > </a
+      ><a name="3960" href="LTC-PCF.Program.GCD.Partial.Totality.html#3909" class="Bound"
+      >j</a
+      ><a name="3961"
+      > </a
+      ><a name="3962" class="Symbol"
+      >&#8594;</a
+      ><a name="3963"
+      > </a
+      ><a name="3964" href="LTC-PCF.Program.GCD.Partial.Totality.html#3847" class="Function"
+      >A</a
+      ><a name="3965"
+      > </a
+      ><a name="3966" href="LTC-PCF.Program.GCD.Partial.Totality.html#3930" class="Bound"
+      >k</a
+      ><a name="3967"
+      > </a
+      ><a name="3968" href="LTC-PCF.Program.GCD.Partial.Totality.html#3932" class="Bound"
+      >l</a
+      ><a name="3969" class="Symbol"
+      >)</a
+      ><a name="3970"
+      > </a
+      ><a name="3971" class="Symbol"
+      >&#8594;</a
+      ><a name="3972"
+      >
+      </a
+      ><a name="3979" href="LTC-PCF.Program.GCD.Partial.Totality.html#3847" class="Function"
+      >A</a
+      ><a name="3980"
+      > </a
+      ><a name="3981" href="LTC-PCF.Program.GCD.Partial.Totality.html#3907" class="Bound"
+      >i</a
+      ><a name="3982"
+      > </a
+      ><a name="3983" href="LTC-PCF.Program.GCD.Partial.Totality.html#3909" class="Bound"
+      >j</a
+      ><a name="3984"
+      >
+  </a
+      ><a name="3987" href="LTC-PCF.Program.GCD.Partial.Totality.html#3900" class="Function"
+      >h</a
+      ><a name="3988"
+      > </a
+      ><a name="3989" href="LTC-PCF.Program.GCD.Partial.Totality.html#3989" class="Bound"
+      >Ni</a
+      ><a name="3991"
+      > </a
+      ><a name="3992" href="LTC-PCF.Program.GCD.Partial.Totality.html#3992" class="Bound"
+      >Nj</a
+      ><a name="3994"
+      > </a
+      ><a name="3995" href="LTC-PCF.Program.GCD.Partial.Totality.html#3995" class="Bound"
+      >ah</a
+      ><a name="3997"
+      > </a
+      ><a name="3998" class="Symbol"
+      >=</a
+      ><a name="3999"
+      > </a
+      ><a name="4000" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="4004"
+      > </a
+      ><a name="4005" class="Symbol"
+      >(</a
+      ><a name="4006" href="LTC-PCF.Program.GCD.Partial.Totality.html#2192" class="Function"
+      >gcd-x&gt;y-N</a
+      ><a name="4015"
+      > </a
+      ><a name="4016" href="LTC-PCF.Program.GCD.Partial.Totality.html#3989" class="Bound"
+      >Ni</a
+      ><a name="4018"
+      > </a
+      ><a name="4019" href="LTC-PCF.Program.GCD.Partial.Totality.html#3992" class="Bound"
+      >Nj</a
+      ><a name="4021"
+      > </a
+      ><a name="4022" href="LTC-PCF.Program.GCD.Partial.Totality.html#3995" class="Bound"
+      >ah</a
+      ><a name="4024" class="Symbol"
+      >)</a
+      ><a name="4025"
+      > </a
+      ><a name="4026" class="Symbol"
+      >(</a
+      ><a name="4027" href="LTC-PCF.Program.GCD.Partial.Totality.html#2934" class="Function"
+      >gcd-x&#8815;y-N</a
+      ><a name="4036"
+      > </a
+      ><a name="4037" href="LTC-PCF.Program.GCD.Partial.Totality.html#3989" class="Bound"
+      >Ni</a
+      ><a name="4039"
+      > </a
+      ><a name="4040" href="LTC-PCF.Program.GCD.Partial.Totality.html#3992" class="Bound"
+      >Nj</a
+      ><a name="4042"
+      > </a
+      ><a name="4043" href="LTC-PCF.Program.GCD.Partial.Totality.html#3995" class="Bound"
+      >ah</a
+      ><a name="4045" class="Symbol"
+      >)</a
+      ><a name="4046"
+      > </a
+      ><a name="4047" class="Symbol"
+      >(</a
+      ><a name="4048" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#3872" class="Function"
+      >x&gt;y&#8744;x&#8815;y</a
+      ><a name="4055"
+      > </a
+      ><a name="4056" href="LTC-PCF.Program.GCD.Partial.Totality.html#3989" class="Bound"
+      >Ni</a
+      ><a name="4058"
+      > </a
+      ><a name="4059" href="LTC-PCF.Program.GCD.Partial.Totality.html#3992" class="Bound"
+      >Nj</a
+      ><a name="4061" class="Symbol"
+      >)</a
+      ><a name="4062"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

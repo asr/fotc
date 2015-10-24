@@ -1,0 +1,3760 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOL.Propositional.TheoremsATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Propositional logic theorems</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Comment"
+      >-- This module contains some examples showing the use of the ATPs to</a
+      ><a name="433"
+      >
+</a
+      ><a name="434" class="Comment"
+      >-- prove theorems from propositional logic.</a
+      ><a name="477"
+      >
+
+</a
+      ><a name="479" class="Keyword"
+      >module</a
+      ><a name="485"
+      > </a
+      ><a name="486" href="FOL.Propositional.TheoremsATP.html#1" class="Module"
+      >FOL.Propositional.TheoremsATP</a
+      ><a name="515"
+      > </a
+      ><a name="516" class="Keyword"
+      >where</a
+      ><a name="521"
+      >
+
+</a
+      ><a name="523" class="Keyword"
+      >open</a
+      ><a name="527"
+      > </a
+      ><a name="528" class="Keyword"
+      >import</a
+      ><a name="534"
+      > </a
+      ><a name="535" href="FOL.Base.html#1" class="Module"
+      >FOL.Base</a
+      ><a name="543"
+      >
+
+</a
+      ><a name="545" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="623"
+      >
+</a
+      ><a name="624" class="Comment"
+      >-- We postulate some propositional formulae (which are translated as</a
+      ><a name="692"
+      >
+</a
+      ><a name="693" class="Comment"
+      >-- 0-ary predicates).</a
+      ><a name="714"
+      >
+</a
+      ><a name="715" class="Keyword"
+      >postulate</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="728"
+      > </a
+      ><a name="729" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="730"
+      > </a
+      ><a name="731" class="Symbol"
+      >:</a
+      ><a name="732"
+      > </a
+      ><a name="733" class="PrimitiveType"
+      >Set</a
+      ><a name="736"
+      >
+
+</a
+      ><a name="738" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="816"
+      >
+</a
+      ><a name="817" class="Comment"
+      >-- The introduction and elimination rules for the intuitionist</a
+      ><a name="879"
+      >
+</a
+      ><a name="880" class="Comment"
+      >-- propositional connectives are theorems.</a
+      ><a name="922"
+      >
+
+</a
+      ><a name="924" class="Keyword"
+      >postulate</a
+      ><a name="933"
+      >
+  </a
+      ><a name="936" href="FOL.Propositional.TheoremsATP.html#936" class="Postulate"
+      >&#8594;I</a
+      ><a name="938"
+      >  </a
+      ><a name="940" class="Symbol"
+      >:</a
+      ><a name="941"
+      > </a
+      ><a name="942" class="Symbol"
+      >(</a
+      ><a name="943" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="944"
+      > </a
+      ><a name="945" class="Symbol"
+      >&#8594;</a
+      ><a name="946"
+      > </a
+      ><a name="947" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="948" class="Symbol"
+      >)</a
+      ><a name="949"
+      > </a
+      ><a name="950" class="Symbol"
+      >&#8594;</a
+      ><a name="951"
+      > </a
+      ><a name="952" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="953"
+      > </a
+      ><a name="954" class="Symbol"
+      >&#8594;</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="957"
+      >
+  </a
+      ><a name="960" href="FOL.Propositional.TheoremsATP.html#960" class="Postulate"
+      >&#8594;E</a
+      ><a name="962"
+      >  </a
+      ><a name="964" class="Symbol"
+      >:</a
+      ><a name="965"
+      > </a
+      ><a name="966" class="Symbol"
+      >(</a
+      ><a name="967" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="968"
+      > </a
+      ><a name="969" class="Symbol"
+      >&#8594;</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="972" class="Symbol"
+      >)</a
+      ><a name="973"
+      > </a
+      ><a name="974" class="Symbol"
+      >&#8594;</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="977"
+      > </a
+      ><a name="978" class="Symbol"
+      >&#8594;</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="981"
+      >
+  </a
+      ><a name="984" href="FOL.Propositional.TheoremsATP.html#984" class="Postulate"
+      >&#8594;I'</a
+      ><a name="987"
+      > </a
+      ><a name="988" class="Symbol"
+      >:</a
+      ><a name="989"
+      > </a
+      ><a name="990" class="Symbol"
+      >(</a
+      ><a name="991" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="992"
+      > </a
+      ><a name="993" class="Symbol"
+      >&#8594;</a
+      ><a name="994"
+      > </a
+      ><a name="995" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="996" class="Symbol"
+      >)</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Symbol"
+      >&#8594;</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" class="Symbol"
+      >&#8594;</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1005"
+      >
+  </a
+      ><a name="1008" href="FOL.Propositional.TheoremsATP.html#1008" class="Postulate"
+      >&#8594;E'</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" class="Symbol"
+      >:</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" class="Symbol"
+      >(</a
+      ><a name="1015" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1020" class="Symbol"
+      >)</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1029"
+      >
+</a
+      ><a name="1030" class="Symbol"
+      >{-#</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" class="Keyword"
+      >ATP</a
+      ><a name="1037"
+      > prove </a
+      ><a name="1044" href="FOL.Propositional.TheoremsATP.html#936" class="Postulate"
+      >&#8594;I</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" class="Symbol"
+      >#-}</a
+      ><a name="1050"
+      >
+</a
+      ><a name="1051" class="Symbol"
+      >{-#</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" class="Keyword"
+      >ATP</a
+      ><a name="1058"
+      > prove </a
+      ><a name="1065" href="FOL.Propositional.TheoremsATP.html#960" class="Postulate"
+      >&#8594;E</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" class="Symbol"
+      >#-}</a
+      ><a name="1071"
+      >
+</a
+      ><a name="1072" class="Symbol"
+      >{-#</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" class="Keyword"
+      >ATP</a
+      ><a name="1079"
+      > prove </a
+      ><a name="1086" href="FOL.Propositional.TheoremsATP.html#984" class="Postulate"
+      >&#8594;I'</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" class="Symbol"
+      >#-}</a
+      ><a name="1093"
+      >
+</a
+      ><a name="1094" class="Symbol"
+      >{-#</a
+      ><a name="1097"
+      > </a
+      ><a name="1098" class="Keyword"
+      >ATP</a
+      ><a name="1101"
+      > prove </a
+      ><a name="1108" href="FOL.Propositional.TheoremsATP.html#1008" class="Postulate"
+      >&#8594;E'</a
+      ><a name="1111"
+      > </a
+      ><a name="1112" class="Symbol"
+      >#-}</a
+      ><a name="1115"
+      >
+
+</a
+      ><a name="1117" class="Keyword"
+      >postulate</a
+      ><a name="1126"
+      >
+  </a
+      ><a name="1129" href="FOL.Propositional.TheoremsATP.html#1129" class="Postulate"
+      >&#8743;I</a
+      ><a name="1131"
+      >   </a
+      ><a name="1134" class="Symbol"
+      >:</a
+      ><a name="1135"
+      > </a
+      ><a name="1136" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" class="Symbol"
+      >&#8594;</a
+      ><a name="1139"
+      > </a
+      ><a name="1140" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1141"
+      > </a
+      ><a name="1142" class="Symbol"
+      >&#8594;</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1149"
+      >
+  </a
+      ><a name="1152" href="FOL.Propositional.TheoremsATP.html#1152" class="Postulate"
+      >&#8743;E&#8321;</a
+      ><a name="1155"
+      >  </a
+      ><a name="1157" class="Symbol"
+      >:</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" class="Symbol"
+      >&#8594;</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1168"
+      >
+  </a
+      ><a name="1171" href="FOL.Propositional.TheoremsATP.html#1171" class="Postulate"
+      >&#8743;E&#8322;</a
+      ><a name="1174"
+      >  </a
+      ><a name="1176" class="Symbol"
+      >:</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >&#8594;</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1187"
+      >
+  </a
+      ><a name="1190" href="FOL.Propositional.TheoremsATP.html#1190" class="Postulate"
+      >&#8743;I'</a
+      ><a name="1193"
+      >  </a
+      ><a name="1195" class="Symbol"
+      >:</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1210"
+      >
+  </a
+      ><a name="1213" href="FOL.Propositional.TheoremsATP.html#1213" class="Postulate"
+      >&#8743;E&#8322;'</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >:</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1229"
+      >
+  </a
+      ><a name="1232" href="FOL.Propositional.TheoremsATP.html#1232" class="Postulate"
+      >&#8743;E&#8321;'</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >:</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1248"
+      >
+</a
+      ><a name="1249" class="Symbol"
+      >{-#</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" class="Keyword"
+      >ATP</a
+      ><a name="1256"
+      > prove </a
+      ><a name="1263" href="FOL.Propositional.TheoremsATP.html#1129" class="Postulate"
+      >&#8743;I</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" class="Symbol"
+      >#-}</a
+      ><a name="1269"
+      >
+</a
+      ><a name="1270" class="Symbol"
+      >{-#</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" class="Keyword"
+      >ATP</a
+      ><a name="1277"
+      > prove </a
+      ><a name="1284" href="FOL.Propositional.TheoremsATP.html#1152" class="Postulate"
+      >&#8743;E&#8321;</a
+      ><a name="1287"
+      > </a
+      ><a name="1288" class="Symbol"
+      >#-}</a
+      ><a name="1291"
+      >
+</a
+      ><a name="1292" class="Symbol"
+      >{-#</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" class="Keyword"
+      >ATP</a
+      ><a name="1299"
+      > prove </a
+      ><a name="1306" href="FOL.Propositional.TheoremsATP.html#1171" class="Postulate"
+      >&#8743;E&#8322;</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" class="Symbol"
+      >#-}</a
+      ><a name="1313"
+      >
+</a
+      ><a name="1314" class="Symbol"
+      >{-#</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" class="Keyword"
+      >ATP</a
+      ><a name="1321"
+      > prove </a
+      ><a name="1328" href="FOL.Propositional.TheoremsATP.html#1190" class="Postulate"
+      >&#8743;I'</a
+      ><a name="1331"
+      > </a
+      ><a name="1332" class="Symbol"
+      >#-}</a
+      ><a name="1335"
+      >
+</a
+      ><a name="1336" class="Symbol"
+      >{-#</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" class="Keyword"
+      >ATP</a
+      ><a name="1343"
+      > prove </a
+      ><a name="1350" href="FOL.Propositional.TheoremsATP.html#1232" class="Postulate"
+      >&#8743;E&#8321;'</a
+      ><a name="1354"
+      > </a
+      ><a name="1355" class="Symbol"
+      >#-}</a
+      ><a name="1358"
+      >
+</a
+      ><a name="1359" class="Symbol"
+      >{-#</a
+      ><a name="1362"
+      > </a
+      ><a name="1363" class="Keyword"
+      >ATP</a
+      ><a name="1366"
+      > prove </a
+      ><a name="1373" href="FOL.Propositional.TheoremsATP.html#1213" class="Postulate"
+      >&#8743;E&#8322;'</a
+      ><a name="1377"
+      > </a
+      ><a name="1378" class="Symbol"
+      >#-}</a
+      ><a name="1381"
+      >
+
+</a
+      ><a name="1383" class="Keyword"
+      >postulate</a
+      ><a name="1392"
+      >
+  </a
+      ><a name="1395" href="FOL.Propositional.TheoremsATP.html#1395" class="Postulate"
+      >&#8744;I&#8321;</a
+      ><a name="1398"
+      >  </a
+      ><a name="1400" class="Symbol"
+      >:</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" class="Symbol"
+      >&#8594;</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1407"
+      > </a
+      ><a name="1408" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1409"
+      > </a
+      ><a name="1410" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1411"
+      >
+  </a
+      ><a name="1414" href="FOL.Propositional.TheoremsATP.html#1414" class="Postulate"
+      >&#8744;I&#8322;</a
+      ><a name="1417"
+      >  </a
+      ><a name="1419" class="Symbol"
+      >:</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1422"
+      > </a
+      ><a name="1423" class="Symbol"
+      >&#8594;</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1426"
+      > </a
+      ><a name="1427" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1430"
+      >
+  </a
+      ><a name="1433" href="FOL.Propositional.TheoremsATP.html#1433" class="Postulate"
+      >&#8744;E</a
+      ><a name="1435"
+      >   </a
+      ><a name="1438" class="Symbol"
+      >:</a
+      ><a name="1439"
+      > </a
+      ><a name="1440" class="Symbol"
+      >(</a
+      ><a name="1441" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1442"
+      > </a
+      ><a name="1443" class="Symbol"
+      >&#8594;</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="1446" class="Symbol"
+      >)</a
+      ><a name="1447"
+      > </a
+      ><a name="1448" class="Symbol"
+      >&#8594;</a
+      ><a name="1449"
+      > </a
+      ><a name="1450" class="Symbol"
+      >(</a
+      ><a name="1451" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" class="Symbol"
+      >&#8594;</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="1456" class="Symbol"
+      >)</a
+      ><a name="1457"
+      > </a
+      ><a name="1458" class="Symbol"
+      >&#8594;</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Symbol"
+      >&#8594;</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="1469"
+      >
+  </a
+      ><a name="1472" href="FOL.Propositional.TheoremsATP.html#1472" class="Postulate"
+      >&#8744;I&#8321;'</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" class="Symbol"
+      >:</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1486"
+      > </a
+      ><a name="1487" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1488"
+      >
+  </a
+      ><a name="1491" href="FOL.Propositional.TheoremsATP.html#1491" class="Postulate"
+      >&#8744;I&#8322;'</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" class="Symbol"
+      >:</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1503"
+      > </a
+      ><a name="1504" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1507"
+      >
+  </a
+      ><a name="1510" href="FOL.Propositional.TheoremsATP.html#1510" class="Postulate"
+      >&#8744;E'</a
+      ><a name="1513"
+      >  </a
+      ><a name="1515" class="Symbol"
+      >:</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" class="Symbol"
+      >(</a
+      ><a name="1518" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1521"
+      > </a
+      ><a name="1522" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="1523" class="Symbol"
+      >)</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1526"
+      > </a
+      ><a name="1527" class="Symbol"
+      >(</a
+      ><a name="1528" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="1533" class="Symbol"
+      >)</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1536"
+      > </a
+      ><a name="1537" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1538"
+      > </a
+      ><a name="1539" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1540"
+      > </a
+      ><a name="1541" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="1542"
+      > </a
+      ><a name="1543" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="1546"
+      >
+</a
+      ><a name="1547" class="Symbol"
+      >{-#</a
+      ><a name="1550"
+      > </a
+      ><a name="1551" class="Keyword"
+      >ATP</a
+      ><a name="1554"
+      > prove </a
+      ><a name="1561" href="FOL.Propositional.TheoremsATP.html#1395" class="Postulate"
+      >&#8744;I&#8321;</a
+      ><a name="1564"
+      > </a
+      ><a name="1565" class="Symbol"
+      >#-}</a
+      ><a name="1568"
+      >
+</a
+      ><a name="1569" class="Symbol"
+      >{-#</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" class="Keyword"
+      >ATP</a
+      ><a name="1576"
+      > prove </a
+      ><a name="1583" href="FOL.Propositional.TheoremsATP.html#1414" class="Postulate"
+      >&#8744;I&#8322;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" class="Symbol"
+      >#-}</a
+      ><a name="1590"
+      >
+</a
+      ><a name="1591" class="Symbol"
+      >{-#</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" class="Keyword"
+      >ATP</a
+      ><a name="1598"
+      > prove </a
+      ><a name="1605" href="FOL.Propositional.TheoremsATP.html#1433" class="Postulate"
+      >&#8744;E</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" class="Symbol"
+      >#-}</a
+      ><a name="1611"
+      >
+</a
+      ><a name="1612" class="Symbol"
+      >{-#</a
+      ><a name="1615"
+      > </a
+      ><a name="1616" class="Keyword"
+      >ATP</a
+      ><a name="1619"
+      > prove </a
+      ><a name="1626" href="FOL.Propositional.TheoremsATP.html#1472" class="Postulate"
+      >&#8744;I&#8321;'</a
+      ><a name="1630"
+      > </a
+      ><a name="1631" class="Symbol"
+      >#-}</a
+      ><a name="1634"
+      >
+</a
+      ><a name="1635" class="Symbol"
+      >{-#</a
+      ><a name="1638"
+      > </a
+      ><a name="1639" class="Keyword"
+      >ATP</a
+      ><a name="1642"
+      > prove </a
+      ><a name="1649" href="FOL.Propositional.TheoremsATP.html#1491" class="Postulate"
+      >&#8744;I&#8322;'</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" class="Symbol"
+      >#-}</a
+      ><a name="1657"
+      >
+</a
+      ><a name="1658" class="Symbol"
+      >{-#</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" class="Keyword"
+      >ATP</a
+      ><a name="1665"
+      > prove </a
+      ><a name="1672" href="FOL.Propositional.TheoremsATP.html#1510" class="Postulate"
+      >&#8744;E'</a
+      ><a name="1675"
+      > </a
+      ><a name="1676" class="Symbol"
+      >#-}</a
+      ><a name="1679"
+      >
+
+</a
+      ><a name="1681" class="Keyword"
+      >postulate</a
+      ><a name="1690"
+      >
+  </a
+      ><a name="1693" href="FOL.Propositional.TheoremsATP.html#1693" class="Postulate"
+      >&#8869;E</a
+      ><a name="1695"
+      >  </a
+      ><a name="1697" class="Symbol"
+      >:</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1700"
+      > </a
+      ><a name="1701" class="Symbol"
+      >&#8594;</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1704"
+      >
+  </a
+      ><a name="1707" href="FOL.Propositional.TheoremsATP.html#1707" class="Postulate"
+      >&#8869;E'</a
+      ><a name="1710"
+      > </a
+      ><a name="1711" class="Symbol"
+      >:</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" href="FOL.Base.html#820" class="Datatype Operator"
+      >&#8658;</a
+      ><a name="1716"
+      > </a
+      ><a name="1717" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1718"
+      >
+</a
+      ><a name="1719" class="Symbol"
+      >{-#</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" class="Keyword"
+      >ATP</a
+      ><a name="1726"
+      > prove </a
+      ><a name="1733" href="FOL.Propositional.TheoremsATP.html#1693" class="Postulate"
+      >&#8869;E</a
+      ><a name="1735"
+      > </a
+      ><a name="1736" class="Symbol"
+      >#-}</a
+      ><a name="1739"
+      >
+</a
+      ><a name="1740" class="Symbol"
+      >{-#</a
+      ><a name="1743"
+      > </a
+      ><a name="1744" class="Keyword"
+      >ATP</a
+      ><a name="1747"
+      > prove </a
+      ><a name="1754" href="FOL.Propositional.TheoremsATP.html#1707" class="Postulate"
+      >&#8869;E'</a
+      ><a name="1757"
+      > </a
+      ><a name="1758" class="Symbol"
+      >#-}</a
+      ><a name="1761"
+      >
+
+</a
+      ><a name="1763" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1841"
+      >
+</a
+      ><a name="1842" class="Comment"
+      >-- Boolean laws (there are some non-intuitionistic laws)</a
+      ><a name="1898"
+      >
+
+</a
+      ><a name="1900" class="Keyword"
+      >postulate</a
+      ><a name="1909"
+      >
+  </a
+      ><a name="1912" href="FOL.Propositional.TheoremsATP.html#1912" class="Postulate"
+      >&#8743;-ident</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" class="Symbol"
+      >:</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1923"
+      > </a
+      ><a name="1924" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="1927"
+      >       </a
+      ><a name="1934" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1935"
+      > </a
+      ><a name="1936" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1937"
+      >
+  </a
+      ><a name="1940" href="FOL.Propositional.TheoremsATP.html#1940" class="Postulate"
+      >&#8744;-ident</a
+      ><a name="1947"
+      > </a
+      ><a name="1948" class="Symbol"
+      >:</a
+      ><a name="1949"
+      > </a
+      ><a name="1950" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1955"
+      >       </a
+      ><a name="1962" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1965"
+      >
+  </a
+      ><a name="1968" href="FOL.Propositional.TheoremsATP.html#1968" class="Postulate"
+      >&#8743;-dom</a
+      ><a name="1973"
+      >   </a
+      ><a name="1976" class="Symbol"
+      >:</a
+      ><a name="1977"
+      > </a
+      ><a name="1978" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="1979"
+      > </a
+      ><a name="1980" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1981"
+      > </a
+      ><a name="1982" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1983"
+      >       </a
+      ><a name="1990" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1993"
+      >
+  </a
+      ><a name="1996" href="FOL.Propositional.TheoremsATP.html#1996" class="Postulate"
+      >&#8744;-dom</a
+      ><a name="2001"
+      >   </a
+      ><a name="2004" class="Symbol"
+      >:</a
+      ><a name="2005"
+      > </a
+      ><a name="2006" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2007"
+      > </a
+      ><a name="2008" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2009"
+      > </a
+      ><a name="2010" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="2011"
+      >       </a
+      ><a name="2018" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="2021"
+      >
+  </a
+      ><a name="2024" href="FOL.Propositional.TheoremsATP.html#2024" class="Postulate"
+      >&#8743;-idemp</a
+      ><a name="2031"
+      > </a
+      ><a name="2032" class="Symbol"
+      >:</a
+      ><a name="2033"
+      > </a
+      ><a name="2034" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2035"
+      > </a
+      ><a name="2036" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2037"
+      > </a
+      ><a name="2038" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2039"
+      >       </a
+      ><a name="2046" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2047"
+      > </a
+      ><a name="2048" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2049"
+      >
+  </a
+      ><a name="2052" href="FOL.Propositional.TheoremsATP.html#2052" class="Postulate"
+      >&#8744;-idemp</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" class="Symbol"
+      >:</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2065"
+      > </a
+      ><a name="2066" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2067"
+      >       </a
+      ><a name="2074" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2075"
+      > </a
+      ><a name="2076" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2077"
+      >
+  </a
+      ><a name="2080" href="FOL.Propositional.TheoremsATP.html#2080" class="Postulate"
+      >dn</a
+      ><a name="2082"
+      >      </a
+      ><a name="2088" class="Symbol"
+      >:</a
+      ><a name="2089"
+      > </a
+      ><a name="2090" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2095"
+      >       </a
+      ><a name="2102" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2103"
+      > </a
+      ><a name="2104" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2105"
+      >
+  </a
+      ><a name="2108" href="FOL.Propositional.TheoremsATP.html#2108" class="Postulate"
+      >&#8743;-comm</a
+      ><a name="2114"
+      >  </a
+      ><a name="2116" class="Symbol"
+      >:</a
+      ><a name="2117"
+      > </a
+      ><a name="2118" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2121"
+      > </a
+      ><a name="2122" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2123"
+      >       </a
+      ><a name="2130" class="Symbol"
+      >&#8594;</a
+      ><a name="2131"
+      > </a
+      ><a name="2132" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2133"
+      > </a
+      ><a name="2134" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2135"
+      > </a
+      ><a name="2136" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2137"
+      >
+  </a
+      ><a name="2140" href="FOL.Propositional.TheoremsATP.html#2140" class="Postulate"
+      >&#8744;-comm</a
+      ><a name="2146"
+      >  </a
+      ><a name="2148" class="Symbol"
+      >:</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2155"
+      >       </a
+      ><a name="2162" class="Symbol"
+      >&#8594;</a
+      ><a name="2163"
+      > </a
+      ><a name="2164" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2165"
+      > </a
+      ><a name="2166" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2167"
+      > </a
+      ><a name="2168" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2169"
+      >
+  </a
+      ><a name="2172" href="FOL.Propositional.TheoremsATP.html#2172" class="Postulate"
+      >&#8743;-assoc</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" class="Symbol"
+      >:</a
+      ><a name="2181"
+      > </a
+      ><a name="2182" class="Symbol"
+      >(</a
+      ><a name="2183" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2184"
+      > </a
+      ><a name="2185" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2188" class="Symbol"
+      >)</a
+      ><a name="2189"
+      > </a
+      ><a name="2190" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2191"
+      > </a
+      ><a name="2192" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2193"
+      > </a
+      ><a name="2194" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2195"
+      > </a
+      ><a name="2196" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2205"
+      >
+  </a
+      ><a name="2208" href="FOL.Propositional.TheoremsATP.html#2208" class="Postulate"
+      >&#8744;-assoc</a
+      ><a name="2215"
+      > </a
+      ><a name="2216" class="Symbol"
+      >:</a
+      ><a name="2217"
+      > </a
+      ><a name="2218" class="Symbol"
+      >(</a
+      ><a name="2219" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2220"
+      > </a
+      ><a name="2221" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2222"
+      > </a
+      ><a name="2223" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2224" class="Symbol"
+      >)</a
+      ><a name="2225"
+      > </a
+      ><a name="2226" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2229"
+      > </a
+      ><a name="2230" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2231"
+      > </a
+      ><a name="2232" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2233"
+      > </a
+      ><a name="2234" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2235"
+      > </a
+      ><a name="2236" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2237"
+      > </a
+      ><a name="2238" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2239"
+      > </a
+      ><a name="2240" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2241"
+      >
+  </a
+      ><a name="2244" href="FOL.Propositional.TheoremsATP.html#2244" class="Postulate"
+      >&#8743;&#8744;-dist</a
+      ><a name="2251"
+      > </a
+      ><a name="2252" class="Symbol"
+      >:</a
+      ><a name="2253"
+      > </a
+      ><a name="2254" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2255"
+      > </a
+      ><a name="2256" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" class="Symbol"
+      >(</a
+      ><a name="2259" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2260"
+      > </a
+      ><a name="2261" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2262"
+      > </a
+      ><a name="2263" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2264" class="Symbol"
+      >)</a
+      ><a name="2265"
+      > </a
+      ><a name="2266" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2267"
+      > </a
+      ><a name="2268" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2269"
+      > </a
+      ><a name="2270" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2271"
+      > </a
+      ><a name="2272" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2273"
+      > </a
+      ><a name="2274" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2275"
+      > </a
+      ><a name="2276" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2277"
+      > </a
+      ><a name="2278" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2279"
+      > </a
+      ><a name="2280" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2281"
+      >
+  </a
+      ><a name="2284" href="FOL.Propositional.TheoremsATP.html#2284" class="Postulate"
+      >&#8744;&#8743;-dist</a
+      ><a name="2291"
+      > </a
+      ><a name="2292" class="Symbol"
+      >:</a
+      ><a name="2293"
+      > </a
+      ><a name="2294" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2295"
+      > </a
+      ><a name="2296" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2297"
+      > </a
+      ><a name="2298" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2301"
+      > </a
+      ><a name="2302" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2303"
+      >   </a
+      ><a name="2306" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2307"
+      > </a
+      ><a name="2308" class="Symbol"
+      >(</a
+      ><a name="2309" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2310"
+      > </a
+      ><a name="2311" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2312"
+      > </a
+      ><a name="2313" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2314" class="Symbol"
+      >)</a
+      ><a name="2315"
+      > </a
+      ><a name="2316" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2317"
+      > </a
+      ><a name="2318" class="Symbol"
+      >(</a
+      ><a name="2319" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2320"
+      > </a
+      ><a name="2321" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2322"
+      > </a
+      ><a name="2323" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="2324" class="Symbol"
+      >)</a
+      ><a name="2325"
+      >
+  </a
+      ><a name="2328" href="FOL.Propositional.TheoremsATP.html#2328" class="Postulate"
+      >DM&#8321;</a
+      ><a name="2331"
+      >     </a
+      ><a name="2336" class="Symbol"
+      >:</a
+      ><a name="2337"
+      > </a
+      ><a name="2338" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2339"
+      > </a
+      ><a name="2340" class="Symbol"
+      >(</a
+      ><a name="2341" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2344"
+      > </a
+      ><a name="2345" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2346" class="Symbol"
+      >)</a
+      ><a name="2347"
+      >   </a
+      ><a name="2350" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2351"
+      > </a
+      ><a name="2352" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2353"
+      > </a
+      ><a name="2354" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2355"
+      > </a
+      ><a name="2356" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2357"
+      > </a
+      ><a name="2358" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2359"
+      > </a
+      ><a name="2360" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2361"
+      >
+  </a
+      ><a name="2364" href="FOL.Propositional.TheoremsATP.html#2364" class="Postulate"
+      >DM&#8322;</a
+      ><a name="2367"
+      >     </a
+      ><a name="2372" class="Symbol"
+      >:</a
+      ><a name="2373"
+      > </a
+      ><a name="2374" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2375"
+      > </a
+      ><a name="2376" class="Symbol"
+      >(</a
+      ><a name="2377" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2380"
+      > </a
+      ><a name="2381" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2382" class="Symbol"
+      >)</a
+      ><a name="2383"
+      >   </a
+      ><a name="2386" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2387"
+      > </a
+      ><a name="2388" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2389"
+      > </a
+      ><a name="2390" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2391"
+      > </a
+      ><a name="2392" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2393"
+      > </a
+      ><a name="2394" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2395"
+      > </a
+      ><a name="2396" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2397"
+      >
+  </a
+      ><a name="2400" href="FOL.Propositional.TheoremsATP.html#2400" class="Postulate"
+      >abs&#8321;</a
+      ><a name="2404"
+      >    </a
+      ><a name="2408" class="Symbol"
+      >:</a
+      ><a name="2409"
+      > </a
+      ><a name="2410" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2411"
+      > </a
+      ><a name="2412" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2413"
+      > </a
+      ><a name="2414" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2415"
+      > </a
+      ><a name="2416" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2417"
+      > </a
+      ><a name="2418" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2419"
+      >   </a
+      ><a name="2422" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2423"
+      > </a
+      ><a name="2424" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2425"
+      >
+  </a
+      ><a name="2428" href="FOL.Propositional.TheoremsATP.html#2428" class="Postulate"
+      >abs&#8322;</a
+      ><a name="2432"
+      >    </a
+      ><a name="2436" class="Symbol"
+      >:</a
+      ><a name="2437"
+      > </a
+      ><a name="2438" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2439"
+      > </a
+      ><a name="2440" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2441"
+      > </a
+      ><a name="2442" class="Symbol"
+      >(</a
+      ><a name="2443" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2444"
+      > </a
+      ><a name="2445" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2446"
+      > </a
+      ><a name="2447" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="2448" class="Symbol"
+      >)</a
+      ><a name="2449"
+      > </a
+      ><a name="2450" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2451"
+      > </a
+      ><a name="2452" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2453"
+      >
+  </a
+      ><a name="2456" href="FOL.Propositional.TheoremsATP.html#2456" class="Postulate"
+      >&#8743;-neg</a
+      ><a name="2461"
+      >   </a
+      ><a name="2464" class="Symbol"
+      >:</a
+      ><a name="2465"
+      > </a
+      ><a name="2466" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2467"
+      > </a
+      ><a name="2468" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2473"
+      >     </a
+      ><a name="2478" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2479"
+      > </a
+      ><a name="2480" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2481"
+      >
+  </a
+      ><a name="2484" href="FOL.Propositional.TheoremsATP.html#2484" class="Postulate"
+      >&#8744;-neg</a
+      ><a name="2489"
+      >   </a
+      ><a name="2492" class="Symbol"
+      >:</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2495"
+      > </a
+      ><a name="2496" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2499"
+      > </a
+      ><a name="2500" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="2501"
+      >     </a
+      ><a name="2506" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2507"
+      > </a
+      ><a name="2508" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="2509"
+      >
+</a
+      ><a name="2510" class="Symbol"
+      >{-#</a
+      ><a name="2513"
+      > </a
+      ><a name="2514" class="Keyword"
+      >ATP</a
+      ><a name="2517"
+      > prove </a
+      ><a name="2524" href="FOL.Propositional.TheoremsATP.html#1912" class="Postulate"
+      >&#8743;-ident</a
+      ><a name="2531"
+      > </a
+      ><a name="2532" class="Symbol"
+      >#-}</a
+      ><a name="2535"
+      >
+</a
+      ><a name="2536" class="Symbol"
+      >{-#</a
+      ><a name="2539"
+      > </a
+      ><a name="2540" class="Keyword"
+      >ATP</a
+      ><a name="2543"
+      > prove </a
+      ><a name="2550" href="FOL.Propositional.TheoremsATP.html#1940" class="Postulate"
+      >&#8744;-ident</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" class="Symbol"
+      >#-}</a
+      ><a name="2561"
+      >
+</a
+      ><a name="2562" class="Symbol"
+      >{-#</a
+      ><a name="2565"
+      > </a
+      ><a name="2566" class="Keyword"
+      >ATP</a
+      ><a name="2569"
+      > prove </a
+      ><a name="2576" href="FOL.Propositional.TheoremsATP.html#1968" class="Postulate"
+      >&#8743;-dom</a
+      ><a name="2581"
+      > </a
+      ><a name="2582" class="Symbol"
+      >#-}</a
+      ><a name="2585"
+      >
+</a
+      ><a name="2586" class="Symbol"
+      >{-#</a
+      ><a name="2589"
+      > </a
+      ><a name="2590" class="Keyword"
+      >ATP</a
+      ><a name="2593"
+      > prove </a
+      ><a name="2600" href="FOL.Propositional.TheoremsATP.html#1996" class="Postulate"
+      >&#8744;-dom</a
+      ><a name="2605"
+      > </a
+      ><a name="2606" class="Symbol"
+      >#-}</a
+      ><a name="2609"
+      >
+</a
+      ><a name="2610" class="Symbol"
+      >{-#</a
+      ><a name="2613"
+      > </a
+      ><a name="2614" class="Keyword"
+      >ATP</a
+      ><a name="2617"
+      > prove </a
+      ><a name="2624" href="FOL.Propositional.TheoremsATP.html#2024" class="Postulate"
+      >&#8743;-idemp</a
+      ><a name="2631"
+      > </a
+      ><a name="2632" class="Symbol"
+      >#-}</a
+      ><a name="2635"
+      >
+</a
+      ><a name="2636" class="Symbol"
+      >{-#</a
+      ><a name="2639"
+      > </a
+      ><a name="2640" class="Keyword"
+      >ATP</a
+      ><a name="2643"
+      > prove </a
+      ><a name="2650" href="FOL.Propositional.TheoremsATP.html#2052" class="Postulate"
+      >&#8744;-idemp</a
+      ><a name="2657"
+      > </a
+      ><a name="2658" class="Symbol"
+      >#-}</a
+      ><a name="2661"
+      >
+</a
+      ><a name="2662" class="Symbol"
+      >{-#</a
+      ><a name="2665"
+      > </a
+      ><a name="2666" class="Keyword"
+      >ATP</a
+      ><a name="2669"
+      > prove </a
+      ><a name="2676" href="FOL.Propositional.TheoremsATP.html#2080" class="Postulate"
+      >dn</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" class="Symbol"
+      >#-}</a
+      ><a name="2682"
+      >
+</a
+      ><a name="2683" class="Symbol"
+      >{-#</a
+      ><a name="2686"
+      > </a
+      ><a name="2687" class="Keyword"
+      >ATP</a
+      ><a name="2690"
+      > prove </a
+      ><a name="2697" href="FOL.Propositional.TheoremsATP.html#2108" class="Postulate"
+      >&#8743;-comm</a
+      ><a name="2703"
+      > </a
+      ><a name="2704" class="Symbol"
+      >#-}</a
+      ><a name="2707"
+      >
+</a
+      ><a name="2708" class="Symbol"
+      >{-#</a
+      ><a name="2711"
+      > </a
+      ><a name="2712" class="Keyword"
+      >ATP</a
+      ><a name="2715"
+      > prove </a
+      ><a name="2722" href="FOL.Propositional.TheoremsATP.html#2140" class="Postulate"
+      >&#8744;-comm</a
+      ><a name="2728"
+      > </a
+      ><a name="2729" class="Symbol"
+      >#-}</a
+      ><a name="2732"
+      >
+</a
+      ><a name="2733" class="Symbol"
+      >{-#</a
+      ><a name="2736"
+      > </a
+      ><a name="2737" class="Keyword"
+      >ATP</a
+      ><a name="2740"
+      > prove </a
+      ><a name="2747" href="FOL.Propositional.TheoremsATP.html#2172" class="Postulate"
+      >&#8743;-assoc</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" class="Symbol"
+      >#-}</a
+      ><a name="2758"
+      >
+</a
+      ><a name="2759" class="Symbol"
+      >{-#</a
+      ><a name="2762"
+      > </a
+      ><a name="2763" class="Keyword"
+      >ATP</a
+      ><a name="2766"
+      > prove </a
+      ><a name="2773" href="FOL.Propositional.TheoremsATP.html#2208" class="Postulate"
+      >&#8744;-assoc</a
+      ><a name="2780"
+      > </a
+      ><a name="2781" class="Symbol"
+      >#-}</a
+      ><a name="2784"
+      >
+</a
+      ><a name="2785" class="Symbol"
+      >{-#</a
+      ><a name="2788"
+      > </a
+      ><a name="2789" class="Keyword"
+      >ATP</a
+      ><a name="2792"
+      > prove </a
+      ><a name="2799" href="FOL.Propositional.TheoremsATP.html#2244" class="Postulate"
+      >&#8743;&#8744;-dist</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" class="Symbol"
+      >#-}</a
+      ><a name="2810"
+      >
+</a
+      ><a name="2811" class="Symbol"
+      >{-#</a
+      ><a name="2814"
+      > </a
+      ><a name="2815" class="Keyword"
+      >ATP</a
+      ><a name="2818"
+      > prove </a
+      ><a name="2825" href="FOL.Propositional.TheoremsATP.html#2284" class="Postulate"
+      >&#8744;&#8743;-dist</a
+      ><a name="2832"
+      > </a
+      ><a name="2833" class="Symbol"
+      >#-}</a
+      ><a name="2836"
+      >
+</a
+      ><a name="2837" class="Symbol"
+      >{-#</a
+      ><a name="2840"
+      > </a
+      ><a name="2841" class="Keyword"
+      >ATP</a
+      ><a name="2844"
+      > prove </a
+      ><a name="2851" href="FOL.Propositional.TheoremsATP.html#2328" class="Postulate"
+      >DM&#8321;</a
+      ><a name="2854"
+      > </a
+      ><a name="2855" class="Symbol"
+      >#-}</a
+      ><a name="2858"
+      >
+</a
+      ><a name="2859" class="Symbol"
+      >{-#</a
+      ><a name="2862"
+      > </a
+      ><a name="2863" class="Keyword"
+      >ATP</a
+      ><a name="2866"
+      > prove </a
+      ><a name="2873" href="FOL.Propositional.TheoremsATP.html#2364" class="Postulate"
+      >DM&#8322;</a
+      ><a name="2876"
+      > </a
+      ><a name="2877" class="Symbol"
+      >#-}</a
+      ><a name="2880"
+      >
+</a
+      ><a name="2881" class="Symbol"
+      >{-#</a
+      ><a name="2884"
+      > </a
+      ><a name="2885" class="Keyword"
+      >ATP</a
+      ><a name="2888"
+      > prove </a
+      ><a name="2895" href="FOL.Propositional.TheoremsATP.html#2400" class="Postulate"
+      >abs&#8321;</a
+      ><a name="2899"
+      > </a
+      ><a name="2900" class="Symbol"
+      >#-}</a
+      ><a name="2903"
+      >
+</a
+      ><a name="2904" class="Symbol"
+      >{-#</a
+      ><a name="2907"
+      > </a
+      ><a name="2908" class="Keyword"
+      >ATP</a
+      ><a name="2911"
+      > prove </a
+      ><a name="2918" href="FOL.Propositional.TheoremsATP.html#2428" class="Postulate"
+      >abs&#8322;</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" class="Symbol"
+      >#-}</a
+      ><a name="2926"
+      >
+</a
+      ><a name="2927" class="Symbol"
+      >{-#</a
+      ><a name="2930"
+      > </a
+      ><a name="2931" class="Keyword"
+      >ATP</a
+      ><a name="2934"
+      > prove </a
+      ><a name="2941" href="FOL.Propositional.TheoremsATP.html#2456" class="Postulate"
+      >&#8743;-neg</a
+      ><a name="2946"
+      > </a
+      ><a name="2947" class="Symbol"
+      >#-}</a
+      ><a name="2950"
+      >
+</a
+      ><a name="2951" class="Symbol"
+      >{-#</a
+      ><a name="2954"
+      > </a
+      ><a name="2955" class="Keyword"
+      >ATP</a
+      ><a name="2958"
+      > prove </a
+      ><a name="2965" href="FOL.Propositional.TheoremsATP.html#2484" class="Postulate"
+      >&#8744;-neg</a
+      ><a name="2970"
+      > </a
+      ><a name="2971" class="Symbol"
+      >#-}</a
+      ><a name="2974"
+      >
+
+</a
+      ><a name="2976" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3054"
+      >
+</a
+      ><a name="3055" class="Comment"
+      >-- Theorems related with the definition of logical connectives in</a
+      ><a name="3120"
+      >
+</a
+      ><a name="3121" class="Comment"
+      >-- terms of others</a
+      ><a name="3139"
+      >
+
+</a
+      ><a name="3141" class="Keyword"
+      >postulate</a
+      ><a name="3150"
+      >
+  </a
+      ><a name="3153" href="FOL.Propositional.TheoremsATP.html#3153" class="Postulate"
+      >&#8596;-def</a
+      ><a name="3158"
+      >  </a
+      ><a name="3160" class="Symbol"
+      >:</a
+      ><a name="3161"
+      > </a
+      ><a name="3162" class="Symbol"
+      >(</a
+      ><a name="3163" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3164"
+      > </a
+      ><a name="3165" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3166"
+      > </a
+      ><a name="3167" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3168" class="Symbol"
+      >)</a
+      ><a name="3169"
+      > </a
+      ><a name="3170" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3171"
+      > </a
+      ><a name="3172" class="Symbol"
+      >(</a
+      ><a name="3173" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3174"
+      > </a
+      ><a name="3175" class="Symbol"
+      >&#8594;</a
+      ><a name="3176"
+      > </a
+      ><a name="3177" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3178" class="Symbol"
+      >)</a
+      ><a name="3179"
+      > </a
+      ><a name="3180" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3181"
+      > </a
+      ><a name="3182" class="Symbol"
+      >(</a
+      ><a name="3183" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3184"
+      > </a
+      ><a name="3185" class="Symbol"
+      >&#8594;</a
+      ><a name="3186"
+      > </a
+      ><a name="3187" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3188" class="Symbol"
+      >)</a
+      ><a name="3189"
+      >
+  </a
+      ><a name="3192" href="FOL.Propositional.TheoremsATP.html#3192" class="Postulate"
+      >&#8594;-def</a
+      ><a name="3197"
+      >  </a
+      ><a name="3199" class="Symbol"
+      >:</a
+      ><a name="3200"
+      > </a
+      ><a name="3201" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3202"
+      > </a
+      ><a name="3203" class="Symbol"
+      >&#8594;</a
+      ><a name="3204"
+      > </a
+      ><a name="3205" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3206"
+      >   </a
+      ><a name="3209" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3210"
+      > </a
+      ><a name="3211" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3212"
+      > </a
+      ><a name="3213" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3214"
+      > </a
+      ><a name="3215" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3216"
+      > </a
+      ><a name="3217" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3218"
+      >
+  </a
+      ><a name="3221" href="FOL.Propositional.TheoremsATP.html#3221" class="Postulate"
+      >&#8744;&#8321;-def</a
+      ><a name="3227"
+      > </a
+      ><a name="3228" class="Symbol"
+      >:</a
+      ><a name="3229"
+      > </a
+      ><a name="3230" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3233"
+      > </a
+      ><a name="3234" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3235"
+      >   </a
+      ><a name="3238" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3239"
+      > </a
+      ><a name="3240" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3241"
+      > </a
+      ><a name="3242" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3243"
+      > </a
+      ><a name="3244" class="Symbol"
+      >&#8594;</a
+      ><a name="3245"
+      > </a
+      ><a name="3246" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3247"
+      >
+  </a
+      ><a name="3250" href="FOL.Propositional.TheoremsATP.html#3250" class="Postulate"
+      >&#8744;&#8322;-def</a
+      ><a name="3256"
+      > </a
+      ><a name="3257" class="Symbol"
+      >:</a
+      ><a name="3258"
+      > </a
+      ><a name="3259" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3260"
+      > </a
+      ><a name="3261" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3262"
+      > </a
+      ><a name="3263" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3264"
+      >   </a
+      ><a name="3267" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3268"
+      > </a
+      ><a name="3269" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3270"
+      > </a
+      ><a name="3271" class="Symbol"
+      >(</a
+      ><a name="3272" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3273"
+      > </a
+      ><a name="3274" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3275"
+      > </a
+      ><a name="3276" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3277"
+      > </a
+      ><a name="3278" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3279"
+      > </a
+      ><a name="3280" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3281" class="Symbol"
+      >)</a
+      ><a name="3282"
+      >
+  </a
+      ><a name="3285" href="FOL.Propositional.TheoremsATP.html#3285" class="Postulate"
+      >&#8743;-def</a
+      ><a name="3290"
+      >  </a
+      ><a name="3292" class="Symbol"
+      >:</a
+      ><a name="3293"
+      > </a
+      ><a name="3294" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3295"
+      > </a
+      ><a name="3296" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3297"
+      > </a
+      ><a name="3298" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3299"
+      >   </a
+      ><a name="3302" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3303"
+      > </a
+      ><a name="3304" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3305"
+      > </a
+      ><a name="3306" class="Symbol"
+      >(</a
+      ><a name="3307" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3308"
+      > </a
+      ><a name="3309" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3310"
+      > </a
+      ><a name="3311" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3312"
+      > </a
+      ><a name="3313" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3314"
+      > </a
+      ><a name="3315" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3316" class="Symbol"
+      >)</a
+      ><a name="3317"
+      >
+  </a
+      ><a name="3320" href="FOL.Propositional.TheoremsATP.html#3320" class="Postulate"
+      >&#172;-def</a
+      ><a name="3325"
+      >  </a
+      ><a name="3327" class="Symbol"
+      >:</a
+      ><a name="3328"
+      > </a
+      ><a name="3329" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3330"
+      > </a
+      ><a name="3331" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3332"
+      >     </a
+      ><a name="3337" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3338"
+      > </a
+      ><a name="3339" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3340"
+      > </a
+      ><a name="3341" class="Symbol"
+      >&#8594;</a
+      ><a name="3342"
+      > </a
+      ><a name="3343" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="3344"
+      >
+  </a
+      ><a name="3347" href="FOL.Propositional.TheoremsATP.html#3347" class="Postulate"
+      >&#8869;-def</a
+      ><a name="3352"
+      >  </a
+      ><a name="3354" class="Symbol"
+      >:</a
+      ><a name="3355"
+      > </a
+      ><a name="3356" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="3357"
+      >       </a
+      ><a name="3364" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3365"
+      > </a
+      ><a name="3366" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3367"
+      > </a
+      ><a name="3368" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3369"
+      > </a
+      ><a name="3370" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3371"
+      > </a
+      ><a name="3372" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3373"
+      >
+  </a
+      ><a name="3376" href="FOL.Propositional.TheoremsATP.html#3376" class="Postulate"
+      >&#8868;-def</a
+      ><a name="3381"
+      >  </a
+      ><a name="3383" class="Symbol"
+      >:</a
+      ><a name="3384"
+      > </a
+      ><a name="3385" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="3386"
+      >       </a
+      ><a name="3393" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3394"
+      > </a
+      ><a name="3395" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3396"
+      > </a
+      ><a name="3397" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="3398"
+      >
+</a
+      ><a name="3399" class="Symbol"
+      >{-#</a
+      ><a name="3402"
+      > </a
+      ><a name="3403" class="Keyword"
+      >ATP</a
+      ><a name="3406"
+      > prove </a
+      ><a name="3413" href="FOL.Propositional.TheoremsATP.html#3153" class="Postulate"
+      >&#8596;-def</a
+      ><a name="3418"
+      > </a
+      ><a name="3419" class="Symbol"
+      >#-}</a
+      ><a name="3422"
+      >
+</a
+      ><a name="3423" class="Symbol"
+      >{-#</a
+      ><a name="3426"
+      > </a
+      ><a name="3427" class="Keyword"
+      >ATP</a
+      ><a name="3430"
+      > prove </a
+      ><a name="3437" href="FOL.Propositional.TheoremsATP.html#3192" class="Postulate"
+      >&#8594;-def</a
+      ><a name="3442"
+      > </a
+      ><a name="3443" class="Symbol"
+      >#-}</a
+      ><a name="3446"
+      >
+</a
+      ><a name="3447" class="Symbol"
+      >{-#</a
+      ><a name="3450"
+      > </a
+      ><a name="3451" class="Keyword"
+      >ATP</a
+      ><a name="3454"
+      > prove </a
+      ><a name="3461" href="FOL.Propositional.TheoremsATP.html#3221" class="Postulate"
+      >&#8744;&#8321;-def</a
+      ><a name="3467"
+      > </a
+      ><a name="3468" class="Symbol"
+      >#-}</a
+      ><a name="3471"
+      >
+</a
+      ><a name="3472" class="Symbol"
+      >{-#</a
+      ><a name="3475"
+      > </a
+      ><a name="3476" class="Keyword"
+      >ATP</a
+      ><a name="3479"
+      > prove </a
+      ><a name="3486" href="FOL.Propositional.TheoremsATP.html#3250" class="Postulate"
+      >&#8744;&#8322;-def</a
+      ><a name="3492"
+      > </a
+      ><a name="3493" class="Symbol"
+      >#-}</a
+      ><a name="3496"
+      >
+</a
+      ><a name="3497" class="Symbol"
+      >{-#</a
+      ><a name="3500"
+      > </a
+      ><a name="3501" class="Keyword"
+      >ATP</a
+      ><a name="3504"
+      > prove </a
+      ><a name="3511" href="FOL.Propositional.TheoremsATP.html#3285" class="Postulate"
+      >&#8743;-def</a
+      ><a name="3516"
+      > </a
+      ><a name="3517" class="Symbol"
+      >#-}</a
+      ><a name="3520"
+      >
+</a
+      ><a name="3521" class="Symbol"
+      >{-#</a
+      ><a name="3524"
+      > </a
+      ><a name="3525" class="Keyword"
+      >ATP</a
+      ><a name="3528"
+      > prove </a
+      ><a name="3535" href="FOL.Propositional.TheoremsATP.html#3320" class="Postulate"
+      >&#172;-def</a
+      ><a name="3540"
+      > </a
+      ><a name="3541" class="Symbol"
+      >#-}</a
+      ><a name="3544"
+      >
+</a
+      ><a name="3545" class="Symbol"
+      >{-#</a
+      ><a name="3548"
+      > </a
+      ><a name="3549" class="Keyword"
+      >ATP</a
+      ><a name="3552"
+      > prove </a
+      ><a name="3559" href="FOL.Propositional.TheoremsATP.html#3347" class="Postulate"
+      >&#8869;-def</a
+      ><a name="3564"
+      > </a
+      ><a name="3565" class="Symbol"
+      >#-}</a
+      ><a name="3568"
+      >
+</a
+      ><a name="3569" class="Symbol"
+      >{-#</a
+      ><a name="3572"
+      > </a
+      ><a name="3573" class="Keyword"
+      >ATP</a
+      ><a name="3576"
+      > prove </a
+      ><a name="3583" href="FOL.Propositional.TheoremsATP.html#3376" class="Postulate"
+      >&#8868;-def</a
+      ><a name="3588"
+      > </a
+      ><a name="3589" class="Symbol"
+      >#-}</a
+      ><a name="3592"
+      >
+
+</a
+      ><a name="3594" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3672"
+      >
+</a
+      ><a name="3673" class="Comment"
+      >-- Some intuitionistic theorems</a
+      ><a name="3704"
+      >
+
+</a
+      ><a name="3706" class="Keyword"
+      >postulate</a
+      ><a name="3715"
+      > </a
+      ><a name="3716" href="FOL.Propositional.TheoremsATP.html#3716" class="Postulate"
+      >&#8594;-transposition</a
+      ><a name="3731"
+      > </a
+      ><a name="3732" class="Symbol"
+      >:</a
+      ><a name="3733"
+      > </a
+      ><a name="3734" class="Symbol"
+      >(</a
+      ><a name="3735" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3736"
+      > </a
+      ><a name="3737" class="Symbol"
+      >&#8594;</a
+      ><a name="3738"
+      > </a
+      ><a name="3739" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3740" class="Symbol"
+      >)</a
+      ><a name="3741"
+      > </a
+      ><a name="3742" class="Symbol"
+      >&#8594;</a
+      ><a name="3743"
+      > </a
+      ><a name="3744" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3745"
+      > </a
+      ><a name="3746" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3747"
+      > </a
+      ><a name="3748" class="Symbol"
+      >&#8594;</a
+      ><a name="3749"
+      > </a
+      ><a name="3750" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3751"
+      > </a
+      ><a name="3752" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3753"
+      >
+</a
+      ><a name="3754" class="Symbol"
+      >{-#</a
+      ><a name="3757"
+      > </a
+      ><a name="3758" class="Keyword"
+      >ATP</a
+      ><a name="3761"
+      > prove </a
+      ><a name="3768" href="FOL.Propositional.TheoremsATP.html#3716" class="Postulate"
+      >&#8594;-transposition</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" class="Symbol"
+      >#-}</a
+      ><a name="3787"
+      >
+
+</a
+      ><a name="3789" class="Keyword"
+      >postulate</a
+      ><a name="3798"
+      >
+  </a
+      ><a name="3801" href="FOL.Propositional.TheoremsATP.html#3801" class="Postulate"
+      >i&#8321;</a
+      ><a name="3803"
+      > </a
+      ><a name="3804" class="Symbol"
+      >:</a
+      ><a name="3805"
+      > </a
+      ><a name="3806" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3807"
+      > </a
+      ><a name="3808" class="Symbol"
+      >&#8594;</a
+      ><a name="3809"
+      > </a
+      ><a name="3810" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3811"
+      > </a
+      ><a name="3812" class="Symbol"
+      >&#8594;</a
+      ><a name="3813"
+      > </a
+      ><a name="3814" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3815"
+      >
+  </a
+      ><a name="3818" href="FOL.Propositional.TheoremsATP.html#3818" class="Postulate"
+      >i&#8322;</a
+      ><a name="3820"
+      > </a
+      ><a name="3821" class="Symbol"
+      >:</a
+      ><a name="3822"
+      > </a
+      ><a name="3823" class="Symbol"
+      >(</a
+      ><a name="3824" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3825"
+      > </a
+      ><a name="3826" class="Symbol"
+      >&#8594;</a
+      ><a name="3827"
+      > </a
+      ><a name="3828" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3829"
+      > </a
+      ><a name="3830" class="Symbol"
+      >&#8594;</a
+      ><a name="3831"
+      > </a
+      ><a name="3832" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="3833" class="Symbol"
+      >)</a
+      ><a name="3834"
+      > </a
+      ><a name="3835" class="Symbol"
+      >&#8594;</a
+      ><a name="3836"
+      > </a
+      ><a name="3837" class="Symbol"
+      >(</a
+      ><a name="3838" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3839"
+      > </a
+      ><a name="3840" class="Symbol"
+      >&#8594;</a
+      ><a name="3841"
+      > </a
+      ><a name="3842" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3843" class="Symbol"
+      >)</a
+      ><a name="3844"
+      > </a
+      ><a name="3845" class="Symbol"
+      >&#8594;</a
+      ><a name="3846"
+      > </a
+      ><a name="3847" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3848"
+      > </a
+      ><a name="3849" class="Symbol"
+      >&#8594;</a
+      ><a name="3850"
+      > </a
+      ><a name="3851" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="3852"
+      >
+  </a
+      ><a name="3855" href="FOL.Propositional.TheoremsATP.html#3855" class="Postulate"
+      >i&#8323;</a
+      ><a name="3857"
+      > </a
+      ><a name="3858" class="Symbol"
+      >:</a
+      ><a name="3859"
+      > </a
+      ><a name="3860" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3861"
+      > </a
+      ><a name="3862" class="Symbol"
+      >&#8594;</a
+      ><a name="3863"
+      > </a
+      ><a name="3864" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3865"
+      > </a
+      ><a name="3866" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3867"
+      > </a
+      ><a name="3868" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3869"
+      >
+  </a
+      ><a name="3872" href="FOL.Propositional.TheoremsATP.html#3872" class="Postulate"
+      >i&#8324;</a
+      ><a name="3874"
+      > </a
+      ><a name="3875" class="Symbol"
+      >:</a
+      ><a name="3876"
+      > </a
+      ><a name="3877" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3878"
+      > </a
+      ><a name="3879" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3880"
+      > </a
+      ><a name="3881" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3882"
+      > </a
+      ><a name="3883" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3884"
+      > </a
+      ><a name="3885" class="Symbol"
+      >&#8594;</a
+      ><a name="3886"
+      > </a
+      ><a name="3887" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3888"
+      > </a
+      ><a name="3889" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3890"
+      >
+  </a
+      ><a name="3893" href="FOL.Propositional.TheoremsATP.html#3893" class="Postulate"
+      >i&#8325;</a
+      ><a name="3895"
+      > </a
+      ><a name="3896" class="Symbol"
+      >:</a
+      ><a name="3897"
+      > </a
+      ><a name="3898" class="Symbol"
+      >((</a
+      ><a name="3900" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3901"
+      > </a
+      ><a name="3902" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3903"
+      > </a
+      ><a name="3904" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3905" class="Symbol"
+      >)</a
+      ><a name="3906"
+      > </a
+      ><a name="3907" class="Symbol"
+      >&#8594;</a
+      ><a name="3908"
+      > </a
+      ><a name="3909" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="3910" class="Symbol"
+      >)</a
+      ><a name="3911"
+      > </a
+      ><a name="3912" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="3913"
+      > </a
+      ><a name="3914" class="Symbol"
+      >(</a
+      ><a name="3915" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3916"
+      > </a
+      ><a name="3917" class="Symbol"
+      >&#8594;</a
+      ><a name="3918"
+      > </a
+      ><a name="3919" class="Symbol"
+      >(</a
+      ><a name="3920" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="3921"
+      > </a
+      ><a name="3922" class="Symbol"
+      >&#8594;</a
+      ><a name="3923"
+      > </a
+      ><a name="3924" href="FOL.Propositional.TheoremsATP.html#729" class="Postulate"
+      >R</a
+      ><a name="3925" class="Symbol"
+      >))</a
+      ><a name="3927"
+      >
+  </a
+      ><a name="3930" href="FOL.Propositional.TheoremsATP.html#3930" class="Postulate"
+      >i&#8326;</a
+      ><a name="3932"
+      > </a
+      ><a name="3933" class="Symbol"
+      >:</a
+      ><a name="3934"
+      > </a
+      ><a name="3935" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3936"
+      > </a
+      ><a name="3937" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3938"
+      > </a
+      ><a name="3939" class="Symbol"
+      >(</a
+      ><a name="3940" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3941"
+      > </a
+      ><a name="3942" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3943"
+      > </a
+      ><a name="3944" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3945"
+      > </a
+      ><a name="3946" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3947" class="Symbol"
+      >)</a
+      ><a name="3948"
+      >
+  </a
+      ><a name="3951" href="FOL.Propositional.TheoremsATP.html#3951" class="Postulate"
+      >i&#8327;</a
+      ><a name="3953"
+      > </a
+      ><a name="3954" class="Symbol"
+      >:</a
+      ><a name="3955"
+      > </a
+      ><a name="3956" class="Symbol"
+      >(</a
+      ><a name="3957" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3958"
+      > </a
+      ><a name="3959" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3960"
+      > </a
+      ><a name="3961" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3962"
+      > </a
+      ><a name="3963" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3964" class="Symbol"
+      >)</a
+      ><a name="3965"
+      > </a
+      ><a name="3966" class="Symbol"
+      >&#8594;</a
+      ><a name="3967"
+      > </a
+      ><a name="3968" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3969"
+      > </a
+      ><a name="3970" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="3971"
+      > </a
+      ><a name="3972" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3973"
+      > </a
+      ><a name="3974" class="Symbol"
+      >&#8594;</a
+      ><a name="3975"
+      > </a
+      ><a name="3976" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="3977"
+      >
+</a
+      ><a name="3978" class="Symbol"
+      >{-#</a
+      ><a name="3981"
+      > </a
+      ><a name="3982" class="Keyword"
+      >ATP</a
+      ><a name="3985"
+      > prove </a
+      ><a name="3992" href="FOL.Propositional.TheoremsATP.html#3801" class="Postulate"
+      >i&#8321;</a
+      ><a name="3994"
+      > </a
+      ><a name="3995" class="Symbol"
+      >#-}</a
+      ><a name="3998"
+      >
+</a
+      ><a name="3999" class="Symbol"
+      >{-#</a
+      ><a name="4002"
+      > </a
+      ><a name="4003" class="Keyword"
+      >ATP</a
+      ><a name="4006"
+      > prove </a
+      ><a name="4013" href="FOL.Propositional.TheoremsATP.html#3818" class="Postulate"
+      >i&#8322;</a
+      ><a name="4015"
+      > </a
+      ><a name="4016" class="Symbol"
+      >#-}</a
+      ><a name="4019"
+      >
+</a
+      ><a name="4020" class="Symbol"
+      >{-#</a
+      ><a name="4023"
+      > </a
+      ><a name="4024" class="Keyword"
+      >ATP</a
+      ><a name="4027"
+      > prove </a
+      ><a name="4034" href="FOL.Propositional.TheoremsATP.html#3855" class="Postulate"
+      >i&#8323;</a
+      ><a name="4036"
+      > </a
+      ><a name="4037" class="Symbol"
+      >#-}</a
+      ><a name="4040"
+      >
+</a
+      ><a name="4041" class="Symbol"
+      >{-#</a
+      ><a name="4044"
+      > </a
+      ><a name="4045" class="Keyword"
+      >ATP</a
+      ><a name="4048"
+      > prove </a
+      ><a name="4055" href="FOL.Propositional.TheoremsATP.html#3872" class="Postulate"
+      >i&#8324;</a
+      ><a name="4057"
+      > </a
+      ><a name="4058" class="Symbol"
+      >#-}</a
+      ><a name="4061"
+      >
+</a
+      ><a name="4062" class="Symbol"
+      >{-#</a
+      ><a name="4065"
+      > </a
+      ><a name="4066" class="Keyword"
+      >ATP</a
+      ><a name="4069"
+      > prove </a
+      ><a name="4076" href="FOL.Propositional.TheoremsATP.html#3893" class="Postulate"
+      >i&#8325;</a
+      ><a name="4078"
+      > </a
+      ><a name="4079" class="Symbol"
+      >#-}</a
+      ><a name="4082"
+      >
+</a
+      ><a name="4083" class="Symbol"
+      >{-#</a
+      ><a name="4086"
+      > </a
+      ><a name="4087" class="Keyword"
+      >ATP</a
+      ><a name="4090"
+      > prove </a
+      ><a name="4097" href="FOL.Propositional.TheoremsATP.html#3930" class="Postulate"
+      >i&#8326;</a
+      ><a name="4099"
+      > </a
+      ><a name="4100" class="Symbol"
+      >#-}</a
+      ><a name="4103"
+      >
+</a
+      ><a name="4104" class="Symbol"
+      >{-#</a
+      ><a name="4107"
+      > </a
+      ><a name="4108" class="Keyword"
+      >ATP</a
+      ><a name="4111"
+      > prove </a
+      ><a name="4118" href="FOL.Propositional.TheoremsATP.html#3951" class="Postulate"
+      >i&#8327;</a
+      ><a name="4120"
+      > </a
+      ><a name="4121" class="Symbol"
+      >#-}</a
+      ><a name="4124"
+      >
+
+</a
+      ><a name="4126" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="4204"
+      >
+</a
+      ><a name="4205" class="Comment"
+      >-- Some non-intuitionistic theorems</a
+      ><a name="4240"
+      >
+
+</a
+      ><a name="4242" class="Keyword"
+      >postulate</a
+      ><a name="4251"
+      > </a
+      ><a name="4252" href="FOL.Propositional.TheoremsATP.html#4252" class="Postulate"
+      >&#8592;-transposition</a
+      ><a name="4267"
+      > </a
+      ><a name="4268" class="Symbol"
+      >:</a
+      ><a name="4269"
+      > </a
+      ><a name="4270" class="Symbol"
+      >(</a
+      ><a name="4271" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4272"
+      > </a
+      ><a name="4273" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4274"
+      > </a
+      ><a name="4275" class="Symbol"
+      >&#8594;</a
+      ><a name="4276"
+      > </a
+      ><a name="4277" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4278"
+      > </a
+      ><a name="4279" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4280" class="Symbol"
+      >)</a
+      ><a name="4281"
+      > </a
+      ><a name="4282" class="Symbol"
+      >&#8594;</a
+      ><a name="4283"
+      > </a
+      ><a name="4284" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4285"
+      > </a
+      ><a name="4286" class="Symbol"
+      >&#8594;</a
+      ><a name="4287"
+      > </a
+      ><a name="4288" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4289"
+      >
+</a
+      ><a name="4290" class="Symbol"
+      >{-#</a
+      ><a name="4293"
+      > </a
+      ><a name="4294" class="Keyword"
+      >ATP</a
+      ><a name="4297"
+      > prove </a
+      ><a name="4304" href="FOL.Propositional.TheoremsATP.html#4252" class="Postulate"
+      >&#8592;-transposition</a
+      ><a name="4319"
+      > </a
+      ><a name="4320" class="Symbol"
+      >#-}</a
+      ><a name="4323"
+      >
+
+</a
+      ><a name="4325" class="Keyword"
+      >postulate</a
+      ><a name="4334"
+      >
+  </a
+      ><a name="4337" href="FOL.Propositional.TheoremsATP.html#4337" class="Postulate"
+      >ni&#8321;</a
+      ><a name="4340"
+      > </a
+      ><a name="4341" class="Symbol"
+      >:</a
+      ><a name="4342"
+      > </a
+      ><a name="4343" class="Symbol"
+      >((</a
+      ><a name="4345" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4346"
+      > </a
+      ><a name="4347" class="Symbol"
+      >&#8594;</a
+      ><a name="4348"
+      > </a
+      ><a name="4349" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4350" class="Symbol"
+      >)</a
+      ><a name="4351"
+      > </a
+      ><a name="4352" class="Symbol"
+      >&#8594;</a
+      ><a name="4353"
+      > </a
+      ><a name="4354" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4355" class="Symbol"
+      >)</a
+      ><a name="4356"
+      > </a
+      ><a name="4357" class="Symbol"
+      >&#8594;</a
+      ><a name="4358"
+      > </a
+      ><a name="4359" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4360"
+      >
+  </a
+      ><a name="4363" href="FOL.Propositional.TheoremsATP.html#4363" class="Postulate"
+      >ni&#8322;</a
+      ><a name="4366"
+      > </a
+      ><a name="4367" class="Symbol"
+      >:</a
+      ><a name="4368"
+      > </a
+      ><a name="4369" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4370"
+      > </a
+      ><a name="4371" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="4372"
+      > </a
+      ><a name="4373" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4374"
+      > </a
+      ><a name="4375" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4376"
+      >
+  </a
+      ><a name="4379" href="FOL.Propositional.TheoremsATP.html#4379" class="Postulate"
+      >ni&#8323;</a
+      ><a name="4382"
+      > </a
+      ><a name="4383" class="Symbol"
+      >:</a
+      ><a name="4384"
+      > </a
+      ><a name="4385" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4386"
+      > </a
+      ><a name="4387" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4388"
+      > </a
+      ><a name="4389" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4390"
+      > </a
+      ><a name="4391" class="Symbol"
+      >&#8594;</a
+      ><a name="4392"
+      > </a
+      ><a name="4393" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4394"
+      >
+  </a
+      ><a name="4397" href="FOL.Propositional.TheoremsATP.html#4397" class="Postulate"
+      >ni&#8324;</a
+      ><a name="4400"
+      > </a
+      ><a name="4401" class="Symbol"
+      >:</a
+      ><a name="4402"
+      > </a
+      ><a name="4403" class="Symbol"
+      >(</a
+      ><a name="4404" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4405"
+      > </a
+      ><a name="4406" class="Symbol"
+      >&#8594;</a
+      ><a name="4407"
+      > </a
+      ><a name="4408" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4409" class="Symbol"
+      >)</a
+      ><a name="4410"
+      > </a
+      ><a name="4411" class="Symbol"
+      >&#8594;</a
+      ><a name="4412"
+      > </a
+      ><a name="4413" class="Symbol"
+      >(</a
+      ><a name="4414" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4415"
+      > </a
+      ><a name="4416" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4417"
+      > </a
+      ><a name="4418" class="Symbol"
+      >&#8594;</a
+      ><a name="4419"
+      > </a
+      ><a name="4420" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4421" class="Symbol"
+      >)</a
+      ><a name="4422"
+      > </a
+      ><a name="4423" class="Symbol"
+      >&#8594;</a
+      ><a name="4424"
+      > </a
+      ><a name="4425" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4426"
+      >
+  </a
+      ><a name="4429" href="FOL.Propositional.TheoremsATP.html#4429" class="Postulate"
+      >ni&#8325;</a
+      ><a name="4432"
+      > </a
+      ><a name="4433" class="Symbol"
+      >:</a
+      ><a name="4434"
+      > </a
+      ><a name="4435" class="Symbol"
+      >(</a
+      ><a name="4436" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4437"
+      > </a
+      ><a name="4438" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="4439"
+      > </a
+      ><a name="4440" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4441"
+      > </a
+      ><a name="4442" class="Symbol"
+      >&#8594;</a
+      ><a name="4443"
+      > </a
+      ><a name="4444" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4445" class="Symbol"
+      >)</a
+      ><a name="4446"
+      > </a
+      ><a name="4447" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="4448"
+      > </a
+      ><a name="4449" class="Symbol"
+      >(</a
+      ><a name="4450" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4451"
+      > </a
+      ><a name="4452" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="4453"
+      > </a
+      ><a name="4454" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4455"
+      > </a
+      ><a name="4456" class="Symbol"
+      >&#8594;</a
+      ><a name="4457"
+      > </a
+      ><a name="4458" href="FOL.Propositional.TheoremsATP.html#727" class="Postulate"
+      >Q</a
+      ><a name="4459" class="Symbol"
+      >)</a
+      ><a name="4460"
+      >
+  </a
+      ><a name="4463" href="FOL.Propositional.TheoremsATP.html#4463" class="Postulate"
+      >ni&#8326;</a
+      ><a name="4466"
+      > </a
+      ><a name="4467" class="Symbol"
+      >:</a
+      ><a name="4468"
+      > </a
+      ><a name="4469" class="Symbol"
+      >(</a
+      ><a name="4470" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4471"
+      > </a
+      ><a name="4472" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4473"
+      > </a
+      ><a name="4474" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4475"
+      > </a
+      ><a name="4476" class="Symbol"
+      >&#8594;</a
+      ><a name="4477"
+      > </a
+      ><a name="4478" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4479" class="Symbol"
+      >)</a
+      ><a name="4480"
+      > </a
+      ><a name="4481" class="Symbol"
+      >&#8594;</a
+      ><a name="4482"
+      > </a
+      ><a name="4483" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4484"
+      > </a
+      ><a name="4485" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="4486"
+      > </a
+      ><a name="4487" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="4488"
+      > </a
+      ><a name="4489" href="FOL.Propositional.TheoremsATP.html#725" class="Postulate"
+      >P</a
+      ><a name="4490"
+      >
+</a
+      ><a name="4491" class="Symbol"
+      >{-#</a
+      ><a name="4494"
+      > </a
+      ><a name="4495" class="Keyword"
+      >ATP</a
+      ><a name="4498"
+      > prove </a
+      ><a name="4505" href="FOL.Propositional.TheoremsATP.html#4337" class="Postulate"
+      >ni&#8321;</a
+      ><a name="4508"
+      > </a
+      ><a name="4509" class="Symbol"
+      >#-}</a
+      ><a name="4512"
+      >
+</a
+      ><a name="4513" class="Symbol"
+      >{-#</a
+      ><a name="4516"
+      > </a
+      ><a name="4517" class="Keyword"
+      >ATP</a
+      ><a name="4520"
+      > prove </a
+      ><a name="4527" href="FOL.Propositional.TheoremsATP.html#4363" class="Postulate"
+      >ni&#8322;</a
+      ><a name="4530"
+      > </a
+      ><a name="4531" class="Symbol"
+      >#-}</a
+      ><a name="4534"
+      >
+</a
+      ><a name="4535" class="Symbol"
+      >{-#</a
+      ><a name="4538"
+      > </a
+      ><a name="4539" class="Keyword"
+      >ATP</a
+      ><a name="4542"
+      > prove </a
+      ><a name="4549" href="FOL.Propositional.TheoremsATP.html#4379" class="Postulate"
+      >ni&#8323;</a
+      ><a name="4552"
+      > </a
+      ><a name="4553" class="Symbol"
+      >#-}</a
+      ><a name="4556"
+      >
+</a
+      ><a name="4557" class="Symbol"
+      >{-#</a
+      ><a name="4560"
+      > </a
+      ><a name="4561" class="Keyword"
+      >ATP</a
+      ><a name="4564"
+      > prove </a
+      ><a name="4571" href="FOL.Propositional.TheoremsATP.html#4397" class="Postulate"
+      >ni&#8324;</a
+      ><a name="4574"
+      > </a
+      ><a name="4575" class="Symbol"
+      >#-}</a
+      ><a name="4578"
+      >
+</a
+      ><a name="4579" class="Symbol"
+      >{-#</a
+      ><a name="4582"
+      > </a
+      ><a name="4583" class="Keyword"
+      >ATP</a
+      ><a name="4586"
+      > prove </a
+      ><a name="4593" href="FOL.Propositional.TheoremsATP.html#4429" class="Postulate"
+      >ni&#8325;</a
+      ><a name="4596"
+      > </a
+      ><a name="4597" class="Symbol"
+      >#-}</a
+      ><a name="4600"
+      >
+</a
+      ><a name="4601" class="Symbol"
+      >{-#</a
+      ><a name="4604"
+      > </a
+      ><a name="4605" class="Keyword"
+      >ATP</a
+      ><a name="4608"
+      > prove </a
+      ><a name="4615" href="FOL.Propositional.TheoremsATP.html#4463" class="Postulate"
+      >ni&#8326;</a
+      ><a name="4618"
+      > </a
+      ><a name="4619" class="Symbol"
+      >#-}</a
+      ><a name="4622"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

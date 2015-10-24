@@ -1,0 +1,1705 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.McCarthy91.WF-Relation.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties for the relation _&#9665;_</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Keyword"
+      >module</a
+      ><a name="374"
+      > </a
+      ><a name="375" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.WF-Relation.PropertiesATP</a
+      ><a name="424"
+      > </a
+      ><a name="425" class="Keyword"
+      >where</a
+      ><a name="430"
+      >
+
+</a
+      ><a name="432" class="Keyword"
+      >open</a
+      ><a name="436"
+      > </a
+      ><a name="437" class="Keyword"
+      >import</a
+      ><a name="443"
+      > </a
+      ><a name="444" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="453"
+      >
+</a
+      ><a name="454" class="Keyword"
+      >open</a
+      ><a name="458"
+      > </a
+      ><a name="459" class="Keyword"
+      >import</a
+      ><a name="465"
+      > </a
+      ><a name="466" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="479"
+      >
+</a
+      ><a name="480" class="Keyword"
+      >open</a
+      ><a name="484"
+      > </a
+      ><a name="485" class="Keyword"
+      >import</a
+      ><a name="491"
+      > </a
+      ><a name="492" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="518"
+      >
+</a
+      ><a name="519" class="Keyword"
+      >open</a
+      ><a name="523"
+      > </a
+      ><a name="524" class="Keyword"
+      >import</a
+      ><a name="530"
+      > </a
+      ><a name="531" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="582"
+      >
+  </a
+      ><a name="585" class="Keyword"
+      >using</a
+      ><a name="590"
+      > </a
+      ><a name="591" class="Symbol"
+      >(</a
+      ><a name="592"
+      > x&lt;y&#8594;y&lt;x&#8594;&#8869; </a
+      ><a name="603" class="Symbol"
+      >)</a
+      ><a name="604"
+      >
+</a
+      ><a name="605" class="Keyword"
+      >open</a
+      ><a name="609"
+      > </a
+      ><a name="610" class="Keyword"
+      >import</a
+      ><a name="616"
+      > </a
+      ><a name="617" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="657"
+      >
+  </a
+      ><a name="660" class="Keyword"
+      >using</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Symbol"
+      >(</a
+      ><a name="667"
+      > x&#8760;y&lt;Sx
+        </a
+      ><a name="683" class="Symbol"
+      >;</a
+      ><a name="684"
+      > &lt;-trans
+        </a
+      ><a name="701" class="Symbol"
+      >;</a
+      ><a name="702"
+      > x&lt;x&#8760;y&#8594;&#8869;
+        </a
+      ><a name="719" class="Symbol"
+      >;</a
+      ><a name="720"
+      > x&#8760;y&lt;x&#8760;z&#8594;Sx&#8760;y&lt;Sx&#8760;z
+        </a
+      ><a name="747" class="Symbol"
+      >;</a
+      ><a name="748"
+      > x&lt;y&#8594;y&#8804;z&#8594;x&lt;z
+        </a
+      ><a name="769" class="Symbol"
+      >;</a
+      ><a name="770"
+      > x&#8760;Sy&#8804;x&#8760;y
+        </a
+      ><a name="788" class="Symbol"
+      >)</a
+      ><a name="789"
+      >
+</a
+      ><a name="790" class="Keyword"
+      >open</a
+      ><a name="794"
+      > </a
+      ><a name="795" class="Keyword"
+      >import</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="829"
+      >
+  </a
+      ><a name="832" class="Keyword"
+      >using</a
+      ><a name="837"
+      > </a
+      ><a name="838" class="Symbol"
+      >(</a
+      ><a name="839"
+      > &#8760;-N
+        </a
+      ><a name="852" class="Symbol"
+      >;</a
+      ><a name="853"
+      > S&#8760;S
+        </a
+      ><a name="866" class="Symbol"
+      >)</a
+      ><a name="867"
+      >
+</a
+      ><a name="868" class="Keyword"
+      >open</a
+      ><a name="872"
+      > </a
+      ><a name="873" class="Keyword"
+      >import</a
+      ><a name="879"
+      > </a
+      ><a name="880" href="FOTC.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers</a
+      ><a name="906"
+      >
+</a
+      ><a name="907" class="Keyword"
+      >open</a
+      ><a name="911"
+      > </a
+      ><a name="912" class="Keyword"
+      >import</a
+      ><a name="918"
+      > </a
+      ><a name="919" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers.TotalityATP</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Keyword"
+      >using</a
+      ><a name="963"
+      > </a
+      ><a name="964" class="Symbol"
+      >(</a
+      ><a name="965"
+      > 101-N </a
+      ><a name="972" class="Symbol"
+      >)</a
+      ><a name="973"
+      >
+</a
+      ><a name="974" class="Keyword"
+      >open</a
+      ><a name="978"
+      > </a
+      ><a name="979" class="Keyword"
+      >import</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="FOTC.Program.McCarthy91.ArithmeticATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.ArithmeticATP</a
+      ><a name="1023"
+      >
+</a
+      ><a name="1024" class="Keyword"
+      >open</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" class="Keyword"
+      >import</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" href="FOTC.Program.McCarthy91.WF-Relation.html#1" class="Module"
+      >FOTC.Program.McCarthy91.WF-Relation</a
+      ><a name="1071"
+      >
+
+</a
+      ><a name="1073" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1151"
+      >
+
+</a
+      ><a name="1153" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1153" class="Function"
+      >&#9665;-fn-N</a
+      ><a name="1159"
+      > </a
+      ><a name="1160" class="Symbol"
+      >:</a
+      ><a name="1161"
+      > </a
+      ><a name="1162" class="Symbol"
+      >&#8704;</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" class="Symbol"
+      >{</a
+      ><a name="1165" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1165" class="Bound"
+      >n</a
+      ><a name="1166" class="Symbol"
+      >}</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >&#8594;</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1165" class="Bound"
+      >n</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" class="Symbol"
+      >&#8594;</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" class="Symbol"
+      >(</a
+      ><a name="1179" href="FOTC.Program.McCarthy91.WF-Relation.html#672" class="Function"
+      >&#9665;-fn</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1165" class="Bound"
+      >n</a
+      ><a name="1185" class="Symbol"
+      >)</a
+      ><a name="1186"
+      >
+</a
+      ><a name="1187" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1153" class="Function"
+      >&#9665;-fn-N</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1194" class="Bound"
+      >Nn</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" class="Symbol"
+      >=</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1194" class="Bound"
+      >Nn</a
+      ><a name="1211"
+      >
+
+</a
+      ><a name="1213" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1213" class="Function"
+      >0&#9665;x&#8594;&#8869;</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" class="Symbol"
+      >:</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" class="Symbol"
+      >&#8704;</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" class="Symbol"
+      >{</a
+      ><a name="1224" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1224" class="Bound"
+      >n</a
+      ><a name="1225" class="Symbol"
+      >}</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" class="Symbol"
+      >&#8594;</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1224" class="Bound"
+      >n</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" class="Symbol"
+      >&#8594;</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >(</a
+      ><a name="1238" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1224" class="Bound"
+      >n</a
+      ><a name="1246" class="Symbol"
+      >)</a
+      ><a name="1247"
+      >
+</a
+      ><a name="1248" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1213" class="Function"
+      >0&#9665;x&#8594;&#8869;</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1260" class="Bound"
+      >0&#9665;n</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" class="Symbol"
+      >=</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1290" class="Postulate"
+      >prf</a
+      ><a name="1269"
+      >
+  </a
+      ><a name="1272" class="Keyword"
+      >where</a
+      ><a name="1277"
+      >
+  </a
+      ><a name="1280" class="Keyword"
+      >postulate</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1290" class="Postulate"
+      >prf</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" class="Symbol"
+      >:</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1297"
+      >
+  </a
+      ><a name="1300" class="Symbol"
+      >{-#</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" class="Keyword"
+      >ATP</a
+      ><a name="1307"
+      > prove </a
+      ><a name="1314" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1290" class="Postulate"
+      >prf</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" class="Symbol"
+      >#-}</a
+      ><a name="1321"
+      >
+
+</a
+      ><a name="1323" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1213" class="Function"
+      >0&#9665;x&#8594;&#8869;</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" class="Symbol"
+      >(</a
+      ><a name="1330" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1336" class="Bound"
+      >Nn</a
+      ><a name="1338" class="Symbol"
+      >)</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1340" class="Bound"
+      >0&#9665;Sn</a
+      ><a name="1344"
+      > </a
+      ><a name="1345" class="Symbol"
+      >=</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1371" class="Postulate"
+      >prf</a
+      ><a name="1350"
+      >
+  </a
+      ><a name="1353" class="Keyword"
+      >where</a
+      ><a name="1358"
+      >
+  </a
+      ><a name="1361" class="Keyword"
+      >postulate</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1371" class="Postulate"
+      >prf</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" class="Symbol"
+      >:</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1378"
+      >
+  </a
+      ><a name="1381" class="Symbol"
+      >{-#</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" class="Keyword"
+      >ATP</a
+      ><a name="1388"
+      > prove </a
+      ><a name="1395" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1371" class="Postulate"
+      >prf</a
+      ><a name="1398"
+      > </a
+      ><a name="1399" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1402"
+      > </a
+      ><a name="1403" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#15100" class="Function"
+      >x&#8760;y&lt;Sx</a
+      ><a name="1409"
+      > </a
+      ><a name="1410" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1706" class="Function"
+      >x&lt;y&#8594;y&lt;x&#8594;&#8869;</a
+      ><a name="1419"
+      > </a
+      ><a name="1420" href="FOTC.Data.Nat.PropertiesATP.html#3770" class="Function"
+      >S&#8760;S</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" class="Symbol"
+      >#-}</a
+      ><a name="1427"
+      >
+
+</a
+      ><a name="1429" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1429" class="Function"
+      >&#9665;-trans</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" class="Symbol"
+      >:</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" class="Symbol"
+      >&#8704;</a
+      ><a name="1440"
+      > </a
+      ><a name="1441" class="Symbol"
+      >{</a
+      ><a name="1442" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1442" class="Bound"
+      >m</a
+      ><a name="1443"
+      > </a
+      ><a name="1444" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1444" class="Bound"
+      >n</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1446" class="Bound"
+      >o</a
+      ><a name="1447" class="Symbol"
+      >}</a
+      ><a name="1448"
+      > </a
+      ><a name="1449" class="Symbol"
+      >&#8594;</a
+      ><a name="1450"
+      > </a
+      ><a name="1451" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1442" class="Bound"
+      >m</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" class="Symbol"
+      >&#8594;</a
+      ><a name="1456"
+      > </a
+      ><a name="1457" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1444" class="Bound"
+      >n</a
+      ><a name="1460"
+      > </a
+      ><a name="1461" class="Symbol"
+      >&#8594;</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1446" class="Bound"
+      >o</a
+      ><a name="1466"
+      > </a
+      ><a name="1467" class="Symbol"
+      >&#8594;</a
+      ><a name="1468"
+      > </a
+      ><a name="1469" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1442" class="Bound"
+      >m</a
+      ><a name="1470"
+      > </a
+      ><a name="1471" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1472"
+      > </a
+      ><a name="1473" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1444" class="Bound"
+      >n</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" class="Symbol"
+      >&#8594;</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1444" class="Bound"
+      >n</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1446" class="Bound"
+      >o</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" class="Symbol"
+      >&#8594;</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1442" class="Bound"
+      >m</a
+      ><a name="1486"
+      > </a
+      ><a name="1487" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1488"
+      > </a
+      ><a name="1489" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1446" class="Bound"
+      >o</a
+      ><a name="1490"
+      >
+</a
+      ><a name="1491" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1429" class="Function"
+      >&#9665;-trans</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1499" class="Bound"
+      >Nm</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1502" class="Bound"
+      >Nn</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1505" class="Bound"
+      >No</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1508" class="Bound"
+      >m&#9665;n</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1512" class="Bound"
+      >n&#9665;o</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >=</a
+      ><a name="1517"
+      >
+  </a
+      ><a name="1520" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#10127" class="Function"
+      >&lt;-trans</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" class="Symbol"
+      >(</a
+      ><a name="1529" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="1538"
+      > </a
+      ><a name="1539" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1499" class="Bound"
+      >Nm</a
+      ><a name="1541" class="Symbol"
+      >)</a
+      ><a name="1542"
+      > </a
+      ><a name="1543" class="Symbol"
+      >(</a
+      ><a name="1544" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1547"
+      > </a
+      ><a name="1548" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="1553"
+      > </a
+      ><a name="1554" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1502" class="Bound"
+      >Nn</a
+      ><a name="1556" class="Symbol"
+      >)</a
+      ><a name="1557"
+      > </a
+      ><a name="1558" class="Symbol"
+      >(</a
+      ><a name="1559" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1505" class="Bound"
+      >No</a
+      ><a name="1571" class="Symbol"
+      >)</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1508" class="Bound"
+      >m&#9665;n</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1512" class="Bound"
+      >n&#9665;o</a
+      ><a name="1580"
+      >
+
+</a
+      ><a name="1582" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1582" class="Function"
+      >Sx&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" class="Symbol"
+      >:</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" class="Symbol"
+      >&#8704;</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" class="Symbol"
+      >{</a
+      ><a name="1597" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1597" class="Bound"
+      >m</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1599" class="Bound"
+      >n</a
+      ><a name="1600" class="Symbol"
+      >}</a
+      ><a name="1601"
+      > </a
+      ><a name="1602" class="Symbol"
+      >&#8594;</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1597" class="Bound"
+      >m</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" class="Symbol"
+      >&#8594;</a
+      ><a name="1609"
+      > </a
+      ><a name="1610" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1611"
+      > </a
+      ><a name="1612" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1599" class="Bound"
+      >n</a
+      ><a name="1613"
+      > </a
+      ><a name="1614" class="Symbol"
+      >&#8594;</a
+      ><a name="1615"
+      > </a
+      ><a name="1616" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1621"
+      > </a
+      ><a name="1622" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1597" class="Bound"
+      >m</a
+      ><a name="1623"
+      > </a
+      ><a name="1624" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1625"
+      > </a
+      ><a name="1626" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1599" class="Bound"
+      >n</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" class="Symbol"
+      >&#8594;</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1597" class="Bound"
+      >m</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1599" class="Bound"
+      >n</a
+      ><a name="1641"
+      >
+</a
+      ><a name="1642" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1582" class="Function"
+      >Sx&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1657"
+      > </a
+      ><a name="1658" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1663"
+      > </a
+      ><a name="1664" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1664" class="Bound"
+      >S0&#9665;S0</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" class="Symbol"
+      >=</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1696" class="Postulate"
+      >prf</a
+      ><a name="1675"
+      >
+  </a
+      ><a name="1678" class="Keyword"
+      >where</a
+      ><a name="1683"
+      >
+  </a
+      ><a name="1686" class="Keyword"
+      >postulate</a
+      ><a name="1695"
+      > </a
+      ><a name="1696" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1696" class="Postulate"
+      >prf</a
+      ><a name="1699"
+      > </a
+      ><a name="1700" class="Symbol"
+      >:</a
+      ><a name="1701"
+      > </a
+      ><a name="1702" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1713"
+      >
+  </a
+      ><a name="1716" class="Symbol"
+      >{-#</a
+      ><a name="1719"
+      > </a
+      ><a name="1720" class="Keyword"
+      >ATP</a
+      ><a name="1723"
+      > prove </a
+      ><a name="1730" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1696" class="Postulate"
+      >prf</a
+      ><a name="1733"
+      > </a
+      ><a name="1734" class="Symbol"
+      >#-}</a
+      ><a name="1737"
+      >
+
+</a
+      ><a name="1739" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1582" class="Function"
+      >Sx&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" class="Symbol"
+      >(</a
+      ><a name="1756" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" class="Symbol"
+      >{</a
+      ><a name="1763" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1763" class="Bound"
+      >n</a
+      ><a name="1764" class="Symbol"
+      >}</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1766" class="Bound"
+      >Nn</a
+      ><a name="1768" class="Symbol"
+      >)</a
+      ><a name="1769"
+      > </a
+      ><a name="1770" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1770" class="Bound"
+      >S0&#9665;SSn</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >=</a
+      ><a name="1778"
+      > </a
+      ><a name="1779" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1803" class="Postulate"
+      >prf</a
+      ><a name="1782"
+      >
+  </a
+      ><a name="1785" class="Keyword"
+      >where</a
+      ><a name="1790"
+      >
+  </a
+      ><a name="1793" class="Keyword"
+      >postulate</a
+      ><a name="1802"
+      > </a
+      ><a name="1803" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1803" class="Postulate"
+      >prf</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" class="Symbol"
+      >:</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1763" class="Bound"
+      >n</a
+      ><a name="1823"
+      >
+  </a
+      ><a name="1826" class="Symbol"
+      >{-#</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" class="Keyword"
+      >ATP</a
+      ><a name="1833"
+      > prove </a
+      ><a name="1840" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1803" class="Postulate"
+      >prf</a
+      ><a name="1843"
+      > </a
+      ><a name="1844" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#15669" class="Function"
+      >x&lt;x&#8760;y&#8594;&#8869;</a
+      ><a name="1851"
+      > </a
+      ><a name="1852" href="FOTC.Data.Nat.PropertiesATP.html#3770" class="Function"
+      >S&#8760;S</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" class="Symbol"
+      >#-}</a
+      ><a name="1859"
+      >
+
+</a
+      ><a name="1861" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1582" class="Function"
+      >Sx&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" class="Symbol"
+      >(</a
+      ><a name="1872" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" class="Symbol"
+      >{</a
+      ><a name="1879" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1879" class="Bound"
+      >m</a
+      ><a name="1880" class="Symbol"
+      >}</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1882" class="Bound"
+      >Nm</a
+      ><a name="1884" class="Symbol"
+      >)</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1892" class="Bound"
+      >SSm&#9665;S0</a
+      ><a name="1898"
+      > </a
+      ><a name="1899" class="Symbol"
+      >=</a
+      ><a name="1900"
+      > </a
+      ><a name="1901" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1925" class="Postulate"
+      >prf</a
+      ><a name="1904"
+      >
+  </a
+      ><a name="1907" class="Keyword"
+      >where</a
+      ><a name="1912"
+      >
+  </a
+      ><a name="1915" class="Keyword"
+      >postulate</a
+      ><a name="1924"
+      > </a
+      ><a name="1925" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1925" class="Postulate"
+      >prf</a
+      ><a name="1928"
+      > </a
+      ><a name="1929" class="Symbol"
+      >:</a
+      ><a name="1930"
+      > </a
+      ><a name="1931" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1936"
+      > </a
+      ><a name="1937" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1879" class="Bound"
+      >m</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="1940"
+      > </a
+      ><a name="1941" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1945"
+      >
+  </a
+      ><a name="1948" class="Symbol"
+      >{-#</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" class="Keyword"
+      >ATP</a
+      ><a name="1955"
+      > prove </a
+      ><a name="1962" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1925" class="Postulate"
+      >prf</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#15100" class="Function"
+      >x&#8760;y&lt;Sx</a
+      ><a name="1976"
+      > </a
+      ><a name="1977" href="FOTC.Data.Nat.PropertiesATP.html#3770" class="Function"
+      >S&#8760;S</a
+      ><a name="1980"
+      > </a
+      ><a name="1981" class="Symbol"
+      >#-}</a
+      ><a name="1984"
+      >
+
+</a
+      ><a name="1986" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1582" class="Function"
+      >Sx&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="1995"
+      > </a
+      ><a name="1996" class="Symbol"
+      >(</a
+      ><a name="1997" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2002"
+      > </a
+      ><a name="2003" class="Symbol"
+      >{</a
+      ><a name="2004" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2004" class="Bound"
+      >m</a
+      ><a name="2005" class="Symbol"
+      >}</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2007" class="Bound"
+      >Nm</a
+      ><a name="2009" class="Symbol"
+      >)</a
+      ><a name="2010"
+      > </a
+      ><a name="2011" class="Symbol"
+      >(</a
+      ><a name="2012" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" class="Symbol"
+      >{</a
+      ><a name="2019" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2019" class="Bound"
+      >n</a
+      ><a name="2020" class="Symbol"
+      >}</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2022" class="Bound"
+      >Nn</a
+      ><a name="2024" class="Symbol"
+      >)</a
+      ><a name="2025"
+      > </a
+      ><a name="2026" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2026" class="Bound"
+      >SSm&#9665;SSn</a
+      ><a name="2033"
+      > </a
+      ><a name="2034" class="Symbol"
+      >=</a
+      ><a name="2035"
+      > </a
+      ><a name="2036" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2060" class="Postulate"
+      >prf</a
+      ><a name="2039"
+      >
+  </a
+      ><a name="2042" class="Keyword"
+      >where</a
+      ><a name="2047"
+      >
+  </a
+      ><a name="2050" class="Keyword"
+      >postulate</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2060" class="Postulate"
+      >prf</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" class="Symbol"
+      >:</a
+      ><a name="2065"
+      > </a
+      ><a name="2066" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2071"
+      > </a
+      ><a name="2072" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2004" class="Bound"
+      >m</a
+      ><a name="2073"
+      > </a
+      ><a name="2074" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="2075"
+      > </a
+      ><a name="2076" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2019" class="Bound"
+      >n</a
+      ><a name="2083"
+      >
+  </a
+      ><a name="2086" class="Symbol"
+      >{-#</a
+      ><a name="2089"
+      > </a
+      ><a name="2090" class="Keyword"
+      >ATP</a
+      ><a name="2093"
+      > prove </a
+      ><a name="2100" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2060" class="Postulate"
+      >prf</a
+      ><a name="2103"
+      > </a
+      ><a name="2104" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#20782" class="Function"
+      >x&#8760;y&lt;x&#8760;z&#8594;Sx&#8760;y&lt;Sx&#8760;z</a
+      ><a name="2121"
+      > </a
+      ><a name="2122" href="FOTC.Data.Nat.PropertiesATP.html#3770" class="Function"
+      >S&#8760;S</a
+      ><a name="2125"
+      > </a
+      ><a name="2126" class="Symbol"
+      >#-}</a
+      ><a name="2129"
+      >
+
+</a
+      ><a name="2131" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2131" class="Function"
+      >x&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" class="Symbol"
+      >:</a
+      ><a name="2141"
+      > </a
+      ><a name="2142" class="Symbol"
+      >&#8704;</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" class="Symbol"
+      >{</a
+      ><a name="2145" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2145" class="Bound"
+      >m</a
+      ><a name="2146"
+      > </a
+      ><a name="2147" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2147" class="Bound"
+      >n</a
+      ><a name="2148" class="Symbol"
+      >}</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" class="Symbol"
+      >&#8594;</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2145" class="Bound"
+      >m</a
+      ><a name="2155"
+      > </a
+      ><a name="2156" class="Symbol"
+      >&#8594;</a
+      ><a name="2157"
+      > </a
+      ><a name="2158" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2159"
+      > </a
+      ><a name="2160" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2147" class="Bound"
+      >n</a
+      ><a name="2161"
+      > </a
+      ><a name="2162" class="Symbol"
+      >&#8594;</a
+      ><a name="2163"
+      > </a
+      ><a name="2164" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2145" class="Bound"
+      >m</a
+      ><a name="2165"
+      > </a
+      ><a name="2166" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="2167"
+      > </a
+      ><a name="2168" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2173"
+      > </a
+      ><a name="2174" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2147" class="Bound"
+      >n</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" class="Symbol"
+      >&#8594;</a
+      ><a name="2177"
+      > </a
+      ><a name="2178" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2145" class="Bound"
+      >m</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="2181"
+      > </a
+      ><a name="2182" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2147" class="Bound"
+      >n</a
+      ><a name="2183"
+      >
+</a
+      ><a name="2184" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2131" class="Function"
+      >x&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="2192"
+      > </a
+      ><a name="2193" class="Symbol"
+      >{</a
+      ><a name="2194" class="Argument"
+      >n</a
+      ><a name="2195"
+      > </a
+      ><a name="2196" class="Symbol"
+      >=</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2198" class="Bound"
+      >n</a
+      ><a name="2199" class="Symbol"
+      >}</a
+      ><a name="2200"
+      > </a
+      ><a name="2201" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2206"
+      > </a
+      ><a name="2207" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2207" class="Bound"
+      >Nn</a
+      ><a name="2209"
+      > </a
+      ><a name="2210" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2210" class="Bound"
+      >0&#9665;Sn</a
+      ><a name="2214"
+      > </a
+      ><a name="2215" class="Symbol"
+      >=</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2223"
+      > </a
+      ><a name="2224" class="Symbol"
+      >(</a
+      ><a name="2225" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#1213" class="Function"
+      >0&#9665;x&#8594;&#8869;</a
+      ><a name="2230"
+      > </a
+      ><a name="2231" class="Symbol"
+      >(</a
+      ><a name="2232" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2237"
+      > </a
+      ><a name="2238" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2207" class="Bound"
+      >Nn</a
+      ><a name="2240" class="Symbol"
+      >)</a
+      ><a name="2241"
+      > </a
+      ><a name="2242" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2210" class="Bound"
+      >0&#9665;Sn</a
+      ><a name="2246" class="Symbol"
+      >)</a
+      ><a name="2247"
+      >
+
+</a
+      ><a name="2249" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2131" class="Function"
+      >x&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" class="Symbol"
+      >(</a
+      ><a name="2259" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2264"
+      > </a
+      ><a name="2265" class="Symbol"
+      >{</a
+      ><a name="2266" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2266" class="Bound"
+      >m</a
+      ><a name="2267" class="Symbol"
+      >}</a
+      ><a name="2268"
+      > </a
+      ><a name="2269" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2269" class="Bound"
+      >Nm</a
+      ><a name="2271" class="Symbol"
+      >)</a
+      ><a name="2272"
+      > </a
+      ><a name="2273" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2278"
+      > </a
+      ><a name="2279" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2279" class="Bound"
+      >Sm&#9665;S0</a
+      ><a name="2284"
+      > </a
+      ><a name="2285" class="Symbol"
+      >=</a
+      ><a name="2286"
+      > </a
+      ><a name="2287" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2313" class="Postulate"
+      >prf</a
+      ><a name="2290"
+      >
+   </a
+      ><a name="2294" class="Keyword"
+      >where</a
+      ><a name="2299"
+      >
+   </a
+      ><a name="2303" class="Keyword"
+      >postulate</a
+      ><a name="2312"
+      > </a
+      ><a name="2313" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2313" class="Postulate"
+      >prf</a
+      ><a name="2316"
+      > </a
+      ><a name="2317" class="Symbol"
+      >:</a
+      ><a name="2318"
+      > </a
+      ><a name="2319" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2324"
+      > </a
+      ><a name="2325" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2266" class="Bound"
+      >m</a
+      ><a name="2326"
+      > </a
+      ><a name="2327" href="FOTC.Program.McCarthy91.WF-Relation.html#732" class="Function Operator"
+      >&#9665;</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2333"
+      >
+   </a
+      ><a name="2337" class="Symbol"
+      >{-#</a
+      ><a name="2340"
+      > </a
+      ><a name="2341" class="Keyword"
+      >ATP</a
+      ><a name="2344"
+      > prove </a
+      ><a name="2351" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2313" class="Postulate"
+      >prf</a
+      ><a name="2354"
+      > </a
+      ><a name="2355" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#15100" class="Function"
+      >x&#8760;y&lt;Sx</a
+      ><a name="2361"
+      > </a
+      ><a name="2362" href="FOTC.Data.Nat.PropertiesATP.html#3770" class="Function"
+      >S&#8760;S</a
+      ><a name="2365"
+      > </a
+      ><a name="2366" class="Symbol"
+      >#-}</a
+      ><a name="2369"
+      >
+
+</a
+      ><a name="2371" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2131" class="Function"
+      >x&#9665;Sy&#8594;x&#9665;y</a
+      ><a name="2379"
+      > </a
+      ><a name="2380" class="Symbol"
+      >(</a
+      ><a name="2381" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" class="Symbol"
+      >{</a
+      ><a name="2388" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2388" class="Bound"
+      >m</a
+      ><a name="2389" class="Symbol"
+      >}</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2391" class="Bound"
+      >Nm</a
+      ><a name="2393" class="Symbol"
+      >)</a
+      ><a name="2394"
+      > </a
+      ><a name="2395" class="Symbol"
+      >(</a
+      ><a name="2396" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2401"
+      > </a
+      ><a name="2402" class="Symbol"
+      >{</a
+      ><a name="2403" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2403" class="Bound"
+      >n</a
+      ><a name="2404" class="Symbol"
+      >}</a
+      ><a name="2405"
+      > </a
+      ><a name="2406" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2406" class="Bound"
+      >Nn</a
+      ><a name="2408" class="Symbol"
+      >)</a
+      ><a name="2409"
+      > </a
+      ><a name="2410" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2410" class="Bound"
+      >Sm&#9665;SSn</a
+      ><a name="2416"
+      > </a
+      ><a name="2417" class="Symbol"
+      >=</a
+      ><a name="2418"
+      >
+  </a
+      ><a name="2421" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#19295" class="Function"
+      >x&lt;y&#8594;y&#8804;z&#8594;x&lt;z</a
+      ><a name="2432"
+      > </a
+      ><a name="2433" class="Symbol"
+      >(</a
+      ><a name="2434" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="2437"
+      > </a
+      ><a name="2438" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="2443"
+      > </a
+      ><a name="2444" class="Symbol"
+      >(</a
+      ><a name="2445" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2450"
+      > </a
+      ><a name="2451" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2391" class="Bound"
+      >Nm</a
+      ><a name="2453" class="Symbol"
+      >))</a
+      ><a name="2455"
+      >
+              </a
+      ><a name="2470" class="Symbol"
+      >(</a
+      ><a name="2471" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" class="Symbol"
+      >(</a
+      ><a name="2482" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2487"
+      > </a
+      ><a name="2488" class="Symbol"
+      >(</a
+      ><a name="2489" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2494"
+      > </a
+      ><a name="2495" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2406" class="Bound"
+      >Nn</a
+      ><a name="2497" class="Symbol"
+      >)))</a
+      ><a name="2500"
+      >
+              </a
+      ><a name="2515" class="Symbol"
+      >(</a
+      ><a name="2516" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="2519"
+      > </a
+      ><a name="2520" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="2525"
+      > </a
+      ><a name="2526" class="Symbol"
+      >(</a
+      ><a name="2527" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2532"
+      > </a
+      ><a name="2533" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2406" class="Bound"
+      >Nn</a
+      ><a name="2535" class="Symbol"
+      >))</a
+      ><a name="2537"
+      >
+              </a
+      ><a name="2552" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2410" class="Bound"
+      >Sm&#9665;SSn</a
+      ><a name="2558"
+      >
+              </a
+      ><a name="2573" class="Symbol"
+      >(</a
+      ><a name="2574" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#16033" class="Postulate"
+      >x&#8760;Sy&#8804;x&#8760;y</a
+      ><a name="2582"
+      > </a
+      ><a name="2583" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="2588"
+      > </a
+      ><a name="2589" class="Symbol"
+      >(</a
+      ><a name="2590" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2595"
+      > </a
+      ><a name="2596" href="FOTC.Program.McCarthy91.WF-Relation.PropertiesATP.html#2406" class="Bound"
+      >Nn</a
+      ><a name="2598" class="Symbol"
+      >))</a
+      ><a name="2600"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

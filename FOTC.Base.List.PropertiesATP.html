@@ -1,0 +1,756 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Base.List.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- FOCT list terms properties</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Keyword"
+      >module</a
+      ><a name="369"
+      > </a
+      ><a name="370" href="FOTC.Base.List.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.List.PropertiesATP</a
+      ><a name="398"
+      > </a
+      ><a name="399" class="Keyword"
+      >where</a
+      ><a name="404"
+      >
+
+</a
+      ><a name="406" class="Keyword"
+      >open</a
+      ><a name="410"
+      > </a
+      ><a name="411" class="Keyword"
+      >import</a
+      ><a name="417"
+      > </a
+      ><a name="418" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="427"
+      >
+</a
+      ><a name="428" class="Keyword"
+      >open</a
+      ><a name="432"
+      > </a
+      ><a name="433" class="Keyword"
+      >import</a
+      ><a name="439"
+      > </a
+      ><a name="440" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="454"
+      >
+
+</a
+      ><a name="456" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="534"
+      >
+</a
+      ><a name="535" class="Comment"
+      >-- Congruence properties</a
+      ><a name="559"
+      >
+
+</a
+      ><a name="561" class="Keyword"
+      >postulate</a
+      ><a name="570"
+      > </a
+      ><a name="571" href="FOTC.Base.List.PropertiesATP.html#571" class="Postulate"
+      >&#8759;-leftCong</a
+      ><a name="581"
+      > </a
+      ><a name="582" class="Symbol"
+      >:</a
+      ><a name="583"
+      > </a
+      ><a name="584" class="Symbol"
+      >&#8704;</a
+      ><a name="585"
+      > </a
+      ><a name="586" class="Symbol"
+      >{</a
+      ><a name="587" href="FOTC.Base.List.PropertiesATP.html#587" class="Bound"
+      >x</a
+      ><a name="588"
+      > </a
+      ><a name="589" href="FOTC.Base.List.PropertiesATP.html#589" class="Bound"
+      >y</a
+      ><a name="590"
+      > </a
+      ><a name="591" href="FOTC.Base.List.PropertiesATP.html#591" class="Bound"
+      >xs</a
+      ><a name="593" class="Symbol"
+      >}</a
+      ><a name="594"
+      > </a
+      ><a name="595" class="Symbol"
+      >&#8594;</a
+      ><a name="596"
+      > </a
+      ><a name="597" href="FOTC.Base.List.PropertiesATP.html#587" class="Bound"
+      >x</a
+      ><a name="598"
+      > </a
+      ><a name="599" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="600"
+      > </a
+      ><a name="601" href="FOTC.Base.List.PropertiesATP.html#589" class="Bound"
+      >y</a
+      ><a name="602"
+      > </a
+      ><a name="603" class="Symbol"
+      >&#8594;</a
+      ><a name="604"
+      > </a
+      ><a name="605" href="FOTC.Base.List.PropertiesATP.html#587" class="Bound"
+      >x</a
+      ><a name="606"
+      > </a
+      ><a name="607" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="608"
+      > </a
+      ><a name="609" href="FOTC.Base.List.PropertiesATP.html#591" class="Bound"
+      >xs</a
+      ><a name="611"
+      > </a
+      ><a name="612" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="613"
+      > </a
+      ><a name="614" href="FOTC.Base.List.PropertiesATP.html#589" class="Bound"
+      >y</a
+      ><a name="615"
+      > </a
+      ><a name="616" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="617"
+      > </a
+      ><a name="618" href="FOTC.Base.List.PropertiesATP.html#591" class="Bound"
+      >xs</a
+      ><a name="620"
+      >
+</a
+      ><a name="621" class="Symbol"
+      >{-#</a
+      ><a name="624"
+      > </a
+      ><a name="625" class="Keyword"
+      >ATP</a
+      ><a name="628"
+      > prove </a
+      ><a name="635" href="FOTC.Base.List.PropertiesATP.html#571" class="Postulate"
+      >&#8759;-leftCong</a
+      ><a name="645"
+      > </a
+      ><a name="646" class="Symbol"
+      >#-}</a
+      ><a name="649"
+      >
+
+</a
+      ><a name="651" class="Keyword"
+      >postulate</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="FOTC.Base.List.PropertiesATP.html#661" class="Postulate"
+      >&#8759;-rightCong</a
+      ><a name="672"
+      > </a
+      ><a name="673" class="Symbol"
+      >:</a
+      ><a name="674"
+      > </a
+      ><a name="675" class="Symbol"
+      >&#8704;</a
+      ><a name="676"
+      > </a
+      ><a name="677" class="Symbol"
+      >{</a
+      ><a name="678" href="FOTC.Base.List.PropertiesATP.html#678" class="Bound"
+      >x</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="FOTC.Base.List.PropertiesATP.html#680" class="Bound"
+      >xs</a
+      ><a name="682"
+      > </a
+      ><a name="683" href="FOTC.Base.List.PropertiesATP.html#683" class="Bound"
+      >ys</a
+      ><a name="685" class="Symbol"
+      >}</a
+      ><a name="686"
+      > </a
+      ><a name="687" class="Symbol"
+      >&#8594;</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="FOTC.Base.List.PropertiesATP.html#680" class="Bound"
+      >xs</a
+      ><a name="691"
+      > </a
+      ><a name="692" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="FOTC.Base.List.PropertiesATP.html#683" class="Bound"
+      >ys</a
+      ><a name="696"
+      > </a
+      ><a name="697" class="Symbol"
+      >&#8594;</a
+      ><a name="698"
+      > </a
+      ><a name="699" href="FOTC.Base.List.PropertiesATP.html#678" class="Bound"
+      >x</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="702"
+      > </a
+      ><a name="703" href="FOTC.Base.List.PropertiesATP.html#680" class="Bound"
+      >xs</a
+      ><a name="705"
+      > </a
+      ><a name="706" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="707"
+      > </a
+      ><a name="708" href="FOTC.Base.List.PropertiesATP.html#678" class="Bound"
+      >x</a
+      ><a name="709"
+      > </a
+      ><a name="710" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="FOTC.Base.List.PropertiesATP.html#683" class="Bound"
+      >ys</a
+      ><a name="714"
+      >
+</a
+      ><a name="715" class="Symbol"
+      >{-#</a
+      ><a name="718"
+      > </a
+      ><a name="719" class="Keyword"
+      >ATP</a
+      ><a name="722"
+      > prove </a
+      ><a name="729" href="FOTC.Base.List.PropertiesATP.html#661" class="Postulate"
+      >&#8759;-rightCong</a
+      ><a name="740"
+      > </a
+      ><a name="741" class="Symbol"
+      >#-}</a
+      ><a name="744"
+      >
+
+</a
+      ><a name="746" class="Keyword"
+      >postulate</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="FOTC.Base.List.PropertiesATP.html#756" class="Postulate"
+      >&#8759;-Cong</a
+      ><a name="762"
+      > </a
+      ><a name="763" class="Symbol"
+      >:</a
+      ><a name="764"
+      > </a
+      ><a name="765" class="Symbol"
+      >&#8704;</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Symbol"
+      >{</a
+      ><a name="768" href="FOTC.Base.List.PropertiesATP.html#768" class="Bound"
+      >x</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="FOTC.Base.List.PropertiesATP.html#770" class="Bound"
+      >y</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="FOTC.Base.List.PropertiesATP.html#772" class="Bound"
+      >xs</a
+      ><a name="774"
+      > </a
+      ><a name="775" href="FOTC.Base.List.PropertiesATP.html#775" class="Bound"
+      >ys</a
+      ><a name="777" class="Symbol"
+      >}</a
+      ><a name="778"
+      > </a
+      ><a name="779" class="Symbol"
+      >&#8594;</a
+      ><a name="780"
+      > </a
+      ><a name="781" href="FOTC.Base.List.PropertiesATP.html#768" class="Bound"
+      >x</a
+      ><a name="782"
+      > </a
+      ><a name="783" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="784"
+      > </a
+      ><a name="785" href="FOTC.Base.List.PropertiesATP.html#770" class="Bound"
+      >y</a
+      ><a name="786"
+      > </a
+      ><a name="787" class="Symbol"
+      >&#8594;</a
+      ><a name="788"
+      > </a
+      ><a name="789" href="FOTC.Base.List.PropertiesATP.html#772" class="Bound"
+      >xs</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="793"
+      > </a
+      ><a name="794" href="FOTC.Base.List.PropertiesATP.html#775" class="Bound"
+      >ys</a
+      ><a name="796"
+      > </a
+      ><a name="797" class="Symbol"
+      >&#8594;</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="FOTC.Base.List.PropertiesATP.html#768" class="Bound"
+      >x</a
+      ><a name="800"
+      > </a
+      ><a name="801" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="802"
+      > </a
+      ><a name="803" href="FOTC.Base.List.PropertiesATP.html#772" class="Bound"
+      >xs</a
+      ><a name="805"
+      > </a
+      ><a name="806" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="807"
+      > </a
+      ><a name="808" href="FOTC.Base.List.PropertiesATP.html#770" class="Bound"
+      >y</a
+      ><a name="809"
+      > </a
+      ><a name="810" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="811"
+      > </a
+      ><a name="812" href="FOTC.Base.List.PropertiesATP.html#775" class="Bound"
+      >ys</a
+      ><a name="814"
+      >
+</a
+      ><a name="815" class="Symbol"
+      >{-#</a
+      ><a name="818"
+      > </a
+      ><a name="819" class="Keyword"
+      >ATP</a
+      ><a name="822"
+      > prove </a
+      ><a name="829" href="FOTC.Base.List.PropertiesATP.html#756" class="Postulate"
+      >&#8759;-Cong</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Symbol"
+      >#-}</a
+      ><a name="839"
+      >
+
+</a
+      ><a name="841" class="Keyword"
+      >postulate</a
+      ><a name="850"
+      > </a
+      ><a name="851" href="FOTC.Base.List.PropertiesATP.html#851" class="Postulate"
+      >headCong</a
+      ><a name="859"
+      > </a
+      ><a name="860" class="Symbol"
+      >:</a
+      ><a name="861"
+      > </a
+      ><a name="862" class="Symbol"
+      >&#8704;</a
+      ><a name="863"
+      > </a
+      ><a name="864" class="Symbol"
+      >{</a
+      ><a name="865" href="FOTC.Base.List.PropertiesATP.html#865" class="Bound"
+      >xs</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="FOTC.Base.List.PropertiesATP.html#868" class="Bound"
+      >ys</a
+      ><a name="870" class="Symbol"
+      >}</a
+      ><a name="871"
+      > </a
+      ><a name="872" class="Symbol"
+      >&#8594;</a
+      ><a name="873"
+      > </a
+      ><a name="874" href="FOTC.Base.List.PropertiesATP.html#865" class="Bound"
+      >xs</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="878"
+      > </a
+      ><a name="879" href="FOTC.Base.List.PropertiesATP.html#868" class="Bound"
+      >ys</a
+      ><a name="881"
+      > </a
+      ><a name="882" class="Symbol"
+      >&#8594;</a
+      ><a name="883"
+      > </a
+      ><a name="884" href="FOTC.Base.List.html#716" class="Function"
+      >head&#8321;</a
+      ><a name="889"
+      > </a
+      ><a name="890" href="FOTC.Base.List.PropertiesATP.html#865" class="Bound"
+      >xs</a
+      ><a name="892"
+      > </a
+      ><a name="893" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="894"
+      > </a
+      ><a name="895" href="FOTC.Base.List.html#716" class="Function"
+      >head&#8321;</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="FOTC.Base.List.PropertiesATP.html#868" class="Bound"
+      >ys</a
+      ><a name="903"
+      >
+</a
+      ><a name="904" class="Symbol"
+      >{-#</a
+      ><a name="907"
+      > </a
+      ><a name="908" class="Keyword"
+      >ATP</a
+      ><a name="911"
+      > prove </a
+      ><a name="918" href="FOTC.Base.List.PropertiesATP.html#851" class="Postulate"
+      >headCong</a
+      ><a name="926"
+      > </a
+      ><a name="927" class="Symbol"
+      >#-}</a
+      ><a name="930"
+      >
+
+</a
+      ><a name="932" class="Keyword"
+      >postulate</a
+      ><a name="941"
+      > </a
+      ><a name="942" href="FOTC.Base.List.PropertiesATP.html#942" class="Postulate"
+      >tailCong</a
+      ><a name="950"
+      > </a
+      ><a name="951" class="Symbol"
+      >:</a
+      ><a name="952"
+      > </a
+      ><a name="953" class="Symbol"
+      >&#8704;</a
+      ><a name="954"
+      > </a
+      ><a name="955" class="Symbol"
+      >{</a
+      ><a name="956" href="FOTC.Base.List.PropertiesATP.html#956" class="Bound"
+      >xs</a
+      ><a name="958"
+      > </a
+      ><a name="959" href="FOTC.Base.List.PropertiesATP.html#959" class="Bound"
+      >ys</a
+      ><a name="961" class="Symbol"
+      >}</a
+      ><a name="962"
+      > </a
+      ><a name="963" class="Symbol"
+      >&#8594;</a
+      ><a name="964"
+      > </a
+      ><a name="965" href="FOTC.Base.List.PropertiesATP.html#956" class="Bound"
+      >xs</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="FOTC.Base.List.PropertiesATP.html#959" class="Bound"
+      >ys</a
+      ><a name="972"
+      > </a
+      ><a name="973" class="Symbol"
+      >&#8594;</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="FOTC.Base.List.PropertiesATP.html#956" class="Bound"
+      >xs</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="991"
+      > </a
+      ><a name="992" href="FOTC.Base.List.PropertiesATP.html#959" class="Bound"
+      >ys</a
+      ><a name="994"
+      >
+</a
+      ><a name="995" class="Symbol"
+      >{-#</a
+      ><a name="998"
+      > </a
+      ><a name="999" class="Keyword"
+      >ATP</a
+      ><a name="1002"
+      > prove </a
+      ><a name="1009" href="FOTC.Base.List.PropertiesATP.html#942" class="Postulate"
+      >tailCong</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" class="Symbol"
+      >#-}</a
+      ><a name="1021"
+      >
+
+</a
+      ><a name="1023" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1101"
+      >
+</a
+      ><a name="1102" class="Comment"
+      >-- Injective properties</a
+      ><a name="1125"
+      >
+
+</a
+      ><a name="1127" class="Keyword"
+      >postulate</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="FOTC.Base.List.PropertiesATP.html#1137" class="Postulate"
+      >&#8759;-injective</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" class="Symbol"
+      >:</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="Symbol"
+      >&#8704;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" class="Symbol"
+      >{</a
+      ><a name="1154" href="FOTC.Base.List.PropertiesATP.html#1154" class="Bound"
+      >x</a
+      ><a name="1155"
+      > </a
+      ><a name="1156" href="FOTC.Base.List.PropertiesATP.html#1156" class="Bound"
+      >y</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" href="FOTC.Base.List.PropertiesATP.html#1158" class="Bound"
+      >xs</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" href="FOTC.Base.List.PropertiesATP.html#1161" class="Bound"
+      >ys</a
+      ><a name="1163" class="Symbol"
+      >}</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" class="Symbol"
+      >&#8594;</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="FOTC.Base.List.PropertiesATP.html#1154" class="Bound"
+      >x</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="FOTC.Base.List.PropertiesATP.html#1158" class="Bound"
+      >xs</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" href="FOTC.Base.List.PropertiesATP.html#1156" class="Bound"
+      >y</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOTC.Base.List.PropertiesATP.html#1161" class="Bound"
+      >ys</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" class="Symbol"
+      >&#8594;</a
+      ><a name="1184"
+      > </a
+      ><a name="1185" href="FOTC.Base.List.PropertiesATP.html#1154" class="Bound"
+      >x</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="FOTC.Base.List.PropertiesATP.html#1156" class="Bound"
+      >y</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="FOTC.Base.List.PropertiesATP.html#1158" class="Bound"
+      >xs</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="FOTC.Base.List.PropertiesATP.html#1161" class="Bound"
+      >ys</a
+      ><a name="1200"
+      >
+</a
+      ><a name="1201" class="Symbol"
+      >{-#</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" class="Keyword"
+      >ATP</a
+      ><a name="1208"
+      > prove </a
+      ><a name="1215" href="FOTC.Base.List.PropertiesATP.html#1137" class="Postulate"
+      >&#8759;-injective</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" class="Symbol"
+      >#-}</a
+      ><a name="1230"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

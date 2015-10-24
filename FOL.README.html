@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOL.README</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- First-order logic</a
+      ><a name="100"
+      >
+</a
+      ><a name="101" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="179"
+      >
+
+</a
+      ><a name="181" class="Symbol"
+      >{-#</a
+      ><a name="184"
+      > </a
+      ><a name="185" class="Keyword"
+      >OPTIONS</a
+      ><a name="192"
+      > --exact-split              </a
+      ><a name="220" class="Symbol"
+      >#-}</a
+      ><a name="223"
+      >
+</a
+      ><a name="224" class="Symbol"
+      >{-#</a
+      ><a name="227"
+      > </a
+      ><a name="228" class="Keyword"
+      >OPTIONS</a
+      ><a name="235"
+      > --no-sized-types           </a
+      ><a name="263" class="Symbol"
+      >#-}</a
+      ><a name="266"
+      >
+</a
+      ><a name="267" class="Symbol"
+      >{-#</a
+      ><a name="270"
+      > </a
+      ><a name="271" class="Keyword"
+      >OPTIONS</a
+      ><a name="278"
+      > --no-universe-polymorphism </a
+      ><a name="306" class="Symbol"
+      >#-}</a
+      ><a name="309"
+      >
+</a
+      ><a name="310" class="Symbol"
+      >{-#</a
+      ><a name="313"
+      > </a
+      ><a name="314" class="Keyword"
+      >OPTIONS</a
+      ><a name="321"
+      > --without-K                </a
+      ><a name="349" class="Symbol"
+      >#-}</a
+      ><a name="352"
+      >
+
+</a
+      ><a name="354" class="Keyword"
+      >module</a
+      ><a name="360"
+      > </a
+      ><a name="361" href="FOL.README.html#1" class="Module"
+      >FOL.README</a
+      ><a name="371"
+      > </a
+      ><a name="372" class="Keyword"
+      >where</a
+      ><a name="377"
+      >
+
+</a
+      ><a name="379" class="Comment"
+      >-- Formalization of first-order logic using Agda's inductive notions.</a
+      ><a name="448"
+      >
+
+</a
+      ><a name="450" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="528"
+      >
+</a
+      ><a name="529" class="Comment"
+      >-- Definition of the connectives and quantifiers</a
+      ><a name="577"
+      >
+</a
+      ><a name="578" class="Keyword"
+      >open</a
+      ><a name="582"
+      > </a
+      ><a name="583" class="Keyword"
+      >import</a
+      ><a name="589"
+      > </a
+      ><a name="590" href="FOL.Base.html#1" class="Module"
+      >FOL.Base</a
+      ><a name="598"
+      >
+
+</a
+      ><a name="600" class="Comment"
+      >-- Propositional logic theorems</a
+      ><a name="631"
+      >
+</a
+      ><a name="632" class="Keyword"
+      >open</a
+      ><a name="636"
+      > </a
+      ><a name="637" class="Keyword"
+      >import</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="FOL.Propositional.TheoremsATP.html#1" class="Module"
+      >FOL.Propositional.TheoremsATP</a
+      ><a name="673"
+      >
+</a
+      ><a name="674" class="Keyword"
+      >open</a
+      ><a name="678"
+      > </a
+      ><a name="679" class="Keyword"
+      >import</a
+      ><a name="685"
+      > </a
+      ><a name="686" href="FOL.Propositional.TheoremsI.html#1" class="Module"
+      >FOL.Propositional.TheoremsI</a
+      ><a name="713"
+      >
+
+</a
+      ><a name="715" class="Comment"
+      >-- First-order logic theorems</a
+      ><a name="744"
+      >
+</a
+      ><a name="745" class="Keyword"
+      >open</a
+      ><a name="749"
+      > </a
+      ><a name="750" class="Keyword"
+      >import</a
+      ><a name="756"
+      > </a
+      ><a name="757" href="FOL.TheoremsATP.html#1" class="Module"
+      >FOL.TheoremsATP</a
+      ><a name="772"
+      >
+</a
+      ><a name="773" class="Keyword"
+      >open</a
+      ><a name="777"
+      > </a
+      ><a name="778" class="Keyword"
+      >import</a
+      ><a name="784"
+      > </a
+      ><a name="785" href="FOL.TheoremsI.html#1" class="Module"
+      >FOL.TheoremsI</a
+      ><a name="798"
+      >
+
+</a
+      ><a name="800" class="Comment"
+      >-- Logical schemata</a
+      ><a name="819"
+      >
+</a
+      ><a name="820" class="Keyword"
+      >open</a
+      ><a name="824"
+      > </a
+      ><a name="825" class="Keyword"
+      >import</a
+      ><a name="831"
+      > </a
+      ><a name="832" href="FOL.SchemataATP.html#1" class="Module"
+      >FOL.SchemataATP</a
+      ><a name="847"
+      >
+
+</a
+      ><a name="849" class="Comment"
+      >-- Non-empty domains</a
+      ><a name="869"
+      >
+</a
+      ><a name="870" class="Keyword"
+      >open</a
+      ><a name="874"
+      > </a
+      ><a name="875" class="Keyword"
+      >import</a
+      ><a name="881"
+      > </a
+      ><a name="882" href="FOL.NonEmptyDomain.TheoremsATP.html#1" class="Module"
+      >FOL.NonEmptyDomain.TheoremsATP</a
+      ><a name="912"
+      >
+</a
+      ><a name="913" class="Keyword"
+      >open</a
+      ><a name="917"
+      > </a
+      ><a name="918" class="Keyword"
+      >import</a
+      ><a name="924"
+      > </a
+      ><a name="925" href="FOL.NonEmptyDomain.TheoremsI.html#1" class="Module"
+      >FOL.NonEmptyDomain.TheoremsI</a
+      ><a name="953"
+      >
+
+</a
+      ><a name="955" class="Comment"
+      >-- Non-intuitionistic logic theorems</a
+      ><a name="991"
+      >
+</a
+      ><a name="992" class="Keyword"
+      >open</a
+      ><a name="996"
+      > </a
+      ><a name="997" class="Keyword"
+      >import</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" href="FOL.NonIntuitionistic.TheoremsATP.html#1" class="Module"
+      >FOL.NonIntuitionistic.TheoremsATP</a
+      ><a name="1037"
+      >
+</a
+      ><a name="1038" class="Keyword"
+      >open</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" class="Keyword"
+      >import</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" href="FOL.NonIntuitionistic.TheoremsI.html#1" class="Module"
+      >FOL.NonIntuitionistic.TheoremsI</a
+      ><a name="1081"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

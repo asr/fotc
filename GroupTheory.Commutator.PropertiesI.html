@@ -1,0 +1,1936 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >GroupTheory.Commutator.PropertiesI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties related with the group commutator</a
+      ><a name="127"
+      >
+</a
+      ><a name="128" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="206"
+      >
+
+</a
+      ><a name="208" class="Symbol"
+      >{-#</a
+      ><a name="211"
+      > </a
+      ><a name="212" class="Keyword"
+      >OPTIONS</a
+      ><a name="219"
+      > --exact-split              </a
+      ><a name="247" class="Symbol"
+      >#-}</a
+      ><a name="250"
+      >
+</a
+      ><a name="251" class="Symbol"
+      >{-#</a
+      ><a name="254"
+      > </a
+      ><a name="255" class="Keyword"
+      >OPTIONS</a
+      ><a name="262"
+      > --no-sized-types           </a
+      ><a name="290" class="Symbol"
+      >#-}</a
+      ><a name="293"
+      >
+</a
+      ><a name="294" class="Symbol"
+      >{-#</a
+      ><a name="297"
+      > </a
+      ><a name="298" class="Keyword"
+      >OPTIONS</a
+      ><a name="305"
+      > --no-universe-polymorphism </a
+      ><a name="333" class="Symbol"
+      >#-}</a
+      ><a name="336"
+      >
+</a
+      ><a name="337" class="Symbol"
+      >{-#</a
+      ><a name="340"
+      > </a
+      ><a name="341" class="Keyword"
+      >OPTIONS</a
+      ><a name="348"
+      > --without-K                </a
+      ><a name="376" class="Symbol"
+      >#-}</a
+      ><a name="379"
+      >
+
+</a
+      ><a name="381" class="Keyword"
+      >module</a
+      ><a name="387"
+      > </a
+      ><a name="388" href="GroupTheory.Commutator.PropertiesI.html#1" class="Module"
+      >GroupTheory.Commutator.PropertiesI</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Keyword"
+      >where</a
+      ><a name="428"
+      >
+
+</a
+      ><a name="430" class="Keyword"
+      >open</a
+      ><a name="434"
+      > </a
+      ><a name="435" class="Keyword"
+      >import</a
+      ><a name="441"
+      > </a
+      ><a name="442" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="480"
+      >
+
+</a
+      ><a name="482" class="Keyword"
+      >open</a
+      ><a name="486"
+      > </a
+      ><a name="487" class="Keyword"
+      >import</a
+      ><a name="493"
+      > </a
+      ><a name="494" href="GroupTheory.Base.html#1" class="Module"
+      >GroupTheory.Base</a
+      ><a name="510"
+      >
+</a
+      ><a name="511" class="Keyword"
+      >open</a
+      ><a name="515"
+      > </a
+      ><a name="516" class="Keyword"
+      >import</a
+      ><a name="522"
+      > </a
+      ><a name="523" href="GroupTheory.Commutator.html#1" class="Module"
+      >GroupTheory.Commutator</a
+      ><a name="545"
+      >
+</a
+      ><a name="546" class="Keyword"
+      >open</a
+      ><a name="550"
+      > </a
+      ><a name="551" class="Keyword"
+      >import</a
+      ><a name="557"
+      > </a
+      ><a name="558" href="GroupTheory.PropertiesI.html#1" class="Module"
+      >GroupTheory.PropertiesI</a
+      ><a name="581"
+      >
+
+</a
+      ><a name="583" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="661"
+      >
+</a
+      ><a name="662" class="Comment"
+      >-- Kurosh (1960), p. 99.</a
+      ><a name="686"
+      >
+</a
+      ><a name="687" href="GroupTheory.Commutator.PropertiesI.html#687" class="Function"
+      >commutatorInverse</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Symbol"
+      >:</a
+      ><a name="706"
+      > </a
+      ><a name="707" class="Symbol"
+      >&#8704;</a
+      ><a name="708"
+      > </a
+      ><a name="709" href="GroupTheory.Commutator.PropertiesI.html#709" class="Bound"
+      >a</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="GroupTheory.Commutator.PropertiesI.html#711" class="Bound"
+      >b</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Symbol"
+      >&#8594;</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >[</a
+      ><a name="716"
+      > </a
+      ><a name="717" href="GroupTheory.Commutator.PropertiesI.html#709" class="Bound"
+      >a</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >,</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="GroupTheory.Commutator.PropertiesI.html#711" class="Bound"
+      >b</a
+      ><a name="722"
+      > </a
+      ><a name="723" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >]</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >[</a
+      ><a name="728"
+      > </a
+      ><a name="729" href="GroupTheory.Commutator.PropertiesI.html#711" class="Bound"
+      >b</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >,</a
+      ><a name="732"
+      > </a
+      ><a name="733" href="GroupTheory.Commutator.PropertiesI.html#709" class="Bound"
+      >a</a
+      ><a name="734"
+      > </a
+      ><a name="735" href="GroupTheory.Commutator.html#880" class="Function Operator"
+      >]</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="738"
+      > </a
+      ><a name="739" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="740"
+      >
+</a
+      ><a name="741" href="GroupTheory.Commutator.PropertiesI.html#687" class="Function"
+      >commutatorInverse</a
+      ><a name="758"
+      > </a
+      ><a name="759" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="760"
+      > </a
+      ><a name="761" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="762"
+      > </a
+      ><a name="763" class="Symbol"
+      >=</a
+      ><a name="764"
+      >
+  </a
+      ><a name="767" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="768"
+      > </a
+      ><a name="769" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="773"
+      > </a
+      ><a name="774" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="775"
+      > </a
+      ><a name="776" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="778"
+      > </a
+      ><a name="779" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="780"
+      > </a
+      ><a name="781" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="782"
+      > </a
+      ><a name="783" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="784"
+      > </a
+      ><a name="785" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="786"
+      > </a
+      ><a name="787" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="788"
+      > </a
+      ><a name="789" class="Symbol"
+      >(</a
+      ><a name="790" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="791"
+      > </a
+      ><a name="792" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="794"
+      > </a
+      ><a name="795" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="805"
+      > </a
+      ><a name="806" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="807"
+      > </a
+      ><a name="808" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="809" class="Symbol"
+      >)</a
+      ><a name="810"
+      >
+    </a
+      ><a name="815" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="817"
+      > </a
+      ><a name="818" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="823"
+      > </a
+      ><a name="824" class="Symbol"
+      >(</a
+      ><a name="825" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="826"
+      > </a
+      ><a name="827" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="829"
+      > </a
+      ><a name="830" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="831"
+      > </a
+      ><a name="832" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="833"
+      > </a
+      ><a name="834" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="836"
+      > </a
+      ><a name="837" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="838"
+      > </a
+      ><a name="839" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="840" class="Symbol"
+      >)</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="843"
+      > </a
+      ><a name="844" class="Symbol"
+      >(</a
+      ><a name="845" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="846"
+      > </a
+      ><a name="847" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="851"
+      > </a
+      ><a name="852" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="853"
+      > </a
+      ><a name="854" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="856"
+      > </a
+      ><a name="857" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="860"
+      > </a
+      ><a name="861" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="862"
+      > </a
+      ><a name="863" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="864" class="Symbol"
+      >)</a
+      ><a name="865"
+      > </a
+      ><a name="866" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="867"
+      >
+  </a
+      ><a name="870" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="871"
+      > </a
+      ><a name="872" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="874"
+      > </a
+      ><a name="875" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="878"
+      > </a
+      ><a name="879" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="881"
+      > </a
+      ><a name="882" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="883"
+      > </a
+      ><a name="884" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="885"
+      > </a
+      ><a name="886" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="887"
+      > </a
+      ><a name="888" class="Symbol"
+      >(</a
+      ><a name="889" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="892"
+      > </a
+      ><a name="893" class="Symbol"
+      >(</a
+      ><a name="894" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="895"
+      > </a
+      ><a name="896" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="902"
+      > </a
+      ><a name="903" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="905"
+      > </a
+      ><a name="906" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="907"
+      > </a
+      ><a name="908" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="909"
+      > </a
+      ><a name="910" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="911"
+      > </a
+      ><a name="912" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="913" class="Symbol"
+      >))</a
+      ><a name="915"
+      >
+    </a
+      ><a name="920" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="922"
+      > </a
+      ><a name="923" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="934"
+      > </a
+      ><a name="935" class="Symbol"
+      >(</a
+      ><a name="936" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="947"
+      > </a
+      ><a name="948" class="Symbol"
+      >(</a
+      ><a name="949" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="954"
+      > </a
+      ><a name="955" class="Symbol"
+      >(</a
+      ><a name="956" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="960"
+      > </a
+      ><a name="961" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="962"
+      > </a
+      ><a name="963" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="964"
+      > </a
+      ><a name="965" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="967" class="Symbol"
+      >)</a
+      ><a name="968"
+      > </a
+      ><a name="969" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="972" class="Symbol"
+      >))</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="976"
+      >
+  </a
+      ><a name="979" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="983"
+      > </a
+      ><a name="984" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="992"
+      > </a
+      ><a name="993" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="994"
+      > </a
+      ><a name="995" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="996"
+      > </a
+      ><a name="997" class="Symbol"
+      >(</a
+      ><a name="998" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" class="Symbol"
+      >(</a
+      ><a name="1003" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" class="Symbol"
+      >(</a
+      ><a name="1018" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1023" class="Symbol"
+      >)))</a
+      ><a name="1026"
+      >
+    </a
+      ><a name="1031" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" class="Symbol"
+      >(</a
+      ><a name="1047" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" class="Symbol"
+      >(</a
+      ><a name="1060" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" class="Symbol"
+      >(</a
+      ><a name="1067" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1071" class="Symbol"
+      >)</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" class="Symbol"
+      >(</a
+      ><a name="1074" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1078" class="Symbol"
+      >)</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" class="Symbol"
+      >(</a
+      ><a name="1081" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1082"
+      > </a
+      ><a name="1083" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1086" class="Symbol"
+      >)))</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1091"
+      >
+  </a
+      ><a name="1094" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1098"
+      > </a
+      ><a name="1099" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1105"
+      > </a
+      ><a name="1106" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1107"
+      > </a
+      ><a name="1108" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1111"
+      > </a
+      ><a name="1112" class="Symbol"
+      >(</a
+      ><a name="1113" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" class="Symbol"
+      >(</a
+      ><a name="1118" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" class="Symbol"
+      >(</a
+      ><a name="1126" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >(</a
+      ><a name="1134" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1135"
+      > </a
+      ><a name="1136" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1139" class="Symbol"
+      >))))</a
+      ><a name="1143"
+      >
+    </a
+      ><a name="1148" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" class="Symbol"
+      >(</a
+      ><a name="1164" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >(</a
+      ><a name="1169" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" class="Symbol"
+      >(</a
+      ><a name="1178" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1182" class="Symbol"
+      >)</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >(</a
+      ><a name="1185" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" class="Symbol"
+      >(</a
+      ><a name="1193" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1198" class="Symbol"
+      >))))</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1204"
+      >
+  </a
+      ><a name="1207" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1222"
+      > </a
+      ><a name="1223" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" class="Symbol"
+      >(</a
+      ><a name="1226" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >(</a
+      ><a name="1238" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" class="Symbol"
+      >(</a
+      ><a name="1246" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1251" class="Symbol"
+      >)))</a
+      ><a name="1254"
+      >
+    </a
+      ><a name="1259" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" class="Symbol"
+      >(</a
+      ><a name="1275" href="GroupTheory.PropertiesI.html#657" class="Function"
+      >&#183;-leftCong</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" class="Symbol"
+      >(</a
+      ><a name="1287" href="GroupTheory.PropertiesI.html#2672" class="Function"
+      >rightInverse</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1301" class="Symbol"
+      >))</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1305"
+      >
+  </a
+      ><a name="1308" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1312"
+      > </a
+      ><a name="1313" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1316"
+      > </a
+      ><a name="1317" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Symbol"
+      >(</a
+      ><a name="1327" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" class="Symbol"
+      >(</a
+      ><a name="1332" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1338"
+      > </a
+      ><a name="1339" class="Symbol"
+      >(</a
+      ><a name="1340" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1341"
+      > </a
+      ><a name="1342" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1343"
+      > </a
+      ><a name="1344" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1345" class="Symbol"
+      >)))</a
+      ><a name="1348"
+      >
+    </a
+      ><a name="1353" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" class="Symbol"
+      >(</a
+      ><a name="1369" href="GroupTheory.Base.html#953" class="Postulate"
+      >leftIdentity</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" class="Symbol"
+      >(</a
+      ><a name="1383" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" class="Symbol"
+      >(</a
+      ><a name="1391" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1392"
+      > </a
+      ><a name="1393" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1396" class="Symbol"
+      >)))</a
+      ><a name="1399"
+      > </a
+      ><a name="1400" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1401"
+      >
+  </a
+      ><a name="1404" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1415"
+      > </a
+      ><a name="1416" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1417"
+      > </a
+      ><a name="1418" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1419"
+      > </a
+      ><a name="1420" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1421"
+      > </a
+      ><a name="1422" class="Symbol"
+      >(</a
+      ><a name="1423" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" class="Symbol"
+      >(</a
+      ><a name="1431" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1432"
+      > </a
+      ><a name="1433" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1436" class="Symbol"
+      >))</a
+      ><a name="1438"
+      >
+    </a
+      ><a name="1443" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1451"
+      > </a
+      ><a name="1452" class="Symbol"
+      >(</a
+      ><a name="1453" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1457"
+      > </a
+      ><a name="1458" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1464" class="Symbol"
+      >)</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" class="Symbol"
+      >(</a
+      ><a name="1469" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1470"
+      > </a
+      ><a name="1471" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" class="Symbol"
+      >(</a
+      ><a name="1477" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1482" class="Symbol"
+      >))</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1486"
+      >
+  </a
+      ><a name="1489" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" class="Symbol"
+      >(</a
+      ><a name="1504" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" class="Symbol"
+      >(</a
+      ><a name="1509" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >(</a
+      ><a name="1517" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1518"
+      > </a
+      ><a name="1519" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1522" class="Symbol"
+      >)))</a
+      ><a name="1525"
+      >
+    </a
+      ><a name="1530" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" class="Symbol"
+      >(</a
+      ><a name="1546" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" class="Symbol"
+      >(</a
+      ><a name="1551" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1556"
+      > </a
+      ><a name="1557" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" class="Symbol"
+      >(</a
+      ><a name="1560" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1561"
+      > </a
+      ><a name="1562" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1564" class="Symbol"
+      >)</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" class="Symbol"
+      >(</a
+      ><a name="1567" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1572" class="Symbol"
+      >)))</a
+      ><a name="1575"
+      > </a
+      ><a name="1576" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1577"
+      >
+  </a
+      ><a name="1580" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1588"
+      > </a
+      ><a name="1589" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" class="Symbol"
+      >(</a
+      ><a name="1595" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" class="Symbol"
+      >(</a
+      ><a name="1607" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1610"
+      > </a
+      ><a name="1611" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1612" class="Symbol"
+      >))</a
+      ><a name="1614"
+      >
+    </a
+      ><a name="1619" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1621"
+      > </a
+      ><a name="1622" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" class="Symbol"
+      >(</a
+      ><a name="1635" href="GroupTheory.PropertiesI.html#657" class="Function"
+      >&#183;-leftCong</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" class="Symbol"
+      >(</a
+      ><a name="1647" href="GroupTheory.PropertiesI.html#2672" class="Function"
+      >rightInverse</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1661" class="Symbol"
+      >))</a
+      ><a name="1663"
+      > </a
+      ><a name="1664" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1665"
+      >
+  </a
+      ><a name="1668" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1672"
+      > </a
+      ><a name="1673" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1674"
+      > </a
+      ><a name="1675" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1676"
+      > </a
+      ><a name="1677" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1679"
+      > </a
+      ><a name="1680" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1681"
+      > </a
+      ><a name="1682" class="Symbol"
+      >(</a
+      ><a name="1683" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" class="Symbol"
+      >(</a
+      ><a name="1688" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1689"
+      > </a
+      ><a name="1690" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1691"
+      > </a
+      ><a name="1692" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1693" class="Symbol"
+      >))</a
+      ><a name="1695"
+      >
+    </a
+      ><a name="1700" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" class="Symbol"
+      >(</a
+      ><a name="1716" href="GroupTheory.Base.html#953" class="Postulate"
+      >leftIdentity</a
+      ><a name="1728"
+      > </a
+      ><a name="1729" class="Symbol"
+      >(</a
+      ><a name="1730" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1731"
+      > </a
+      ><a name="1732" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1733"
+      > </a
+      ><a name="1734" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1735" class="Symbol"
+      >))</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1739"
+      >
+  </a
+      ><a name="1742" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1743"
+      > </a
+      ><a name="1744" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1746"
+      > </a
+      ><a name="1747" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1750"
+      > </a
+      ><a name="1751" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1753"
+      > </a
+      ><a name="1754" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1755"
+      > </a
+      ><a name="1756" class="Symbol"
+      >(</a
+      ><a name="1757" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1762" class="Symbol"
+      >)</a
+      ><a name="1763"
+      >
+    </a
+      ><a name="1768" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >(</a
+      ><a name="1778" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1782" class="Symbol"
+      >)</a
+      ><a name="1783"
+      > </a
+      ><a name="1784" class="Symbol"
+      >(</a
+      ><a name="1785" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1786"
+      > </a
+      ><a name="1787" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1789" class="Symbol"
+      >)</a
+      ><a name="1790"
+      > </a
+      ><a name="1791" class="Symbol"
+      >(</a
+      ><a name="1792" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1797" class="Symbol"
+      >)</a
+      ><a name="1798"
+      > </a
+      ><a name="1799" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1800"
+      >
+  </a
+      ><a name="1803" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1804"
+      > </a
+      ><a name="1805" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" class="Symbol"
+      >(</a
+      ><a name="1811" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" class="Symbol"
+      >(</a
+      ><a name="1819" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1824" class="Symbol"
+      >))</a
+      ><a name="1826"
+      >
+     </a
+      ><a name="1832" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" class="Symbol"
+      >(</a
+      ><a name="1848" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1851"
+      > </a
+      ><a name="1852" class="Symbol"
+      >(</a
+      ><a name="1853" href="GroupTheory.Base.html#901" class="Postulate"
+      >assoc</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" class="Symbol"
+      >(</a
+      ><a name="1860" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1864" class="Symbol"
+      >)</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1869" class="Symbol"
+      >))</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1873"
+      >
+  </a
+      ><a name="1876" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1880"
+      > </a
+      ><a name="1881" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1882"
+      > </a
+      ><a name="1883" class="Symbol"
+      >((</a
+      ><a name="1885" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1889"
+      > </a
+      ><a name="1890" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1893" class="Symbol"
+      >)</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1896"
+      > </a
+      ><a name="1897" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1898" class="Symbol"
+      >)</a
+      ><a name="1899"
+      >
+     </a
+      ><a name="1905" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1907"
+      > </a
+      ><a name="1908" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" class="Symbol"
+      >(</a
+      ><a name="1921" href="GroupTheory.PropertiesI.html#657" class="Function"
+      >&#183;-leftCong</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" class="Symbol"
+      >(</a
+      ><a name="1933" href="GroupTheory.Base.html#995" class="Postulate"
+      >leftInverse</a
+      ><a name="1944"
+      > </a
+      ><a name="1945" href="GroupTheory.Commutator.PropertiesI.html#761" class="Bound"
+      >b</a
+      ><a name="1946" class="Symbol"
+      >))</a
+      ><a name="1948"
+      > </a
+      ><a name="1949" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1950"
+      >
+  </a
+      ><a name="1953" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1954"
+      > </a
+      ><a name="1955" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="1957"
+      > </a
+      ><a name="1958" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1959"
+      > </a
+      ><a name="1960" class="Symbol"
+      >(</a
+      ><a name="1961" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="1962"
+      > </a
+      ><a name="1963" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1964"
+      > </a
+      ><a name="1965" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="1966" class="Symbol"
+      >)</a
+      ><a name="1967"
+      >
+     </a
+      ><a name="1973" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1975"
+      > </a
+      ><a name="1976" href="GroupTheory.PropertiesI.html#728" class="Function"
+      >&#183;-rightCong</a
+      ><a name="1987"
+      > </a
+      ><a name="1988" class="Symbol"
+      >(</a
+      ><a name="1989" href="GroupTheory.Base.html#953" class="Postulate"
+      >leftIdentity</a
+      ><a name="2001"
+      > </a
+      ><a name="2002" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="2003" class="Symbol"
+      >)</a
+      ><a name="2004"
+      > </a
+      ><a name="2005" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2006"
+      >
+  </a
+      ><a name="2009" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="2010"
+      > </a
+      ><a name="2011" href="GroupTheory.Base.html#708" class="Postulate Operator"
+      >&#8315;&#185;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="GroupTheory.Base.html#664" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="2017"
+      >
+     </a
+      ><a name="2023" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2025"
+      > </a
+      ><a name="2026" href="GroupTheory.Base.html#995" class="Postulate"
+      >leftInverse</a
+      ><a name="2037"
+      > </a
+      ><a name="2038" href="GroupTheory.Commutator.PropertiesI.html#759" class="Bound"
+      >a</a
+      ><a name="2039"
+      > </a
+      ><a name="2040" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2041"
+      >
+  </a
+      ><a name="2044" href="GroupTheory.Base.html#620" class="Postulate"
+      >&#949;</a
+      ><a name="2045"
+      > </a
+      ><a name="2046" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="2047"
+      >
+
+</a
+      ><a name="2049" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2127"
+      >
+</a
+      ><a name="2128" class="Comment"
+      >-- References</a
+      ><a name="2141"
+      >
+</a
+      ><a name="2142" class="Comment"
+      >--</a
+      ><a name="2144"
+      >
+</a
+      ><a name="2145" class="Comment"
+      >-- Kurosh, A. G. (1960). The Theory of Groups. 2nd</a
+      ><a name="2195"
+      >
+</a
+      ><a name="2196" class="Comment"
+      >-- ed. Vol. 1. Translated and edited by K. A. Hirsch. Chelsea</a
+      ><a name="2257"
+      >
+</a
+      ><a name="2258" class="Comment"
+      >-- Publising Company.</a
+      ><a name="2279"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

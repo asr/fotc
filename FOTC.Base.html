@@ -1,0 +1,1190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Base</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The first-order theory of combinators (FOTC) base</a
+      ><a name="132"
+      >
+</a
+      ><a name="133" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="211"
+      >
+
+</a
+      ><a name="213" class="Symbol"
+      >{-#</a
+      ><a name="216"
+      > </a
+      ><a name="217" class="Keyword"
+      >OPTIONS</a
+      ><a name="224"
+      > --exact-split              </a
+      ><a name="252" class="Symbol"
+      >#-}</a
+      ><a name="255"
+      >
+</a
+      ><a name="256" class="Symbol"
+      >{-#</a
+      ><a name="259"
+      > </a
+      ><a name="260" class="Keyword"
+      >OPTIONS</a
+      ><a name="267"
+      > --no-sized-types           </a
+      ><a name="295" class="Symbol"
+      >#-}</a
+      ><a name="298"
+      >
+</a
+      ><a name="299" class="Symbol"
+      >{-#</a
+      ><a name="302"
+      > </a
+      ><a name="303" class="Keyword"
+      >OPTIONS</a
+      ><a name="310"
+      > --no-universe-polymorphism </a
+      ><a name="338" class="Symbol"
+      >#-}</a
+      ><a name="341"
+      >
+</a
+      ><a name="342" class="Symbol"
+      >{-#</a
+      ><a name="345"
+      > </a
+      ><a name="346" class="Keyword"
+      >OPTIONS</a
+      ><a name="353"
+      > --without-K                </a
+      ><a name="381" class="Symbol"
+      >#-}</a
+      ><a name="384"
+      >
+
+</a
+      ><a name="386" class="Comment"
+      >{-
+FOTC                                  The logical framework (Agda)
+
+* Logical constants                   * Curry-Howard isomorphism
+* Equality                            * Identity type
+* Term language and conversion rules  * Postulates
+* Inductively defined predicates      * Inductive families
+* Co-inductively defined predicates   * Greatest fixed-points
+-}</a
+      ><a name="750"
+      >
+
+</a
+      ><a name="752" class="Keyword"
+      >module</a
+      ><a name="758"
+      > </a
+      ><a name="759" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="768"
+      > </a
+      ><a name="769" class="Keyword"
+      >where</a
+      ><a name="774"
+      >
+
+</a
+      ><a name="776" class="Comment"
+      >-- First-order logic with equality.</a
+      ><a name="811"
+      >
+</a
+      ><a name="812" class="Keyword"
+      >open</a
+      ><a name="816"
+      > </a
+      ><a name="817" class="Keyword"
+      >import</a
+      ><a name="823"
+      > </a
+      ><a name="824" href="Common.FOL.FOL-Eq.html#1" class="Module"
+      >Common.FOL.FOL-Eq</a
+      ><a name="841"
+      > </a
+      ><a name="842" class="Keyword"
+      >public</a
+      ><a name="848"
+      >
+
+</a
+      ><a name="850" class="Comment"
+      >-- Common definitions.</a
+      ><a name="872"
+      >
+</a
+      ><a name="873" class="Keyword"
+      >open</a
+      ><a name="877"
+      > </a
+      ><a name="878" class="Keyword"
+      >import</a
+      ><a name="884"
+      > </a
+      ><a name="885" href="Common.DefinitionsATP.html#1" class="Module"
+      >Common.DefinitionsATP</a
+      ><a name="906"
+      > </a
+      ><a name="907" class="Keyword"
+      >public</a
+      ><a name="913"
+      >
+
+</a
+      ><a name="915" class="Keyword"
+      >infixl</a
+      ><a name="921"
+      > </a
+      ><a name="922" class="Number"
+      >7</a
+      ><a name="923"
+      > _&#183;_
+</a
+      ><a name="928" class="Keyword"
+      >infix</a
+      ><a name="933"
+      >  </a
+      ><a name="935" class="Number"
+      >0</a
+      ><a name="936"
+      > if_then_else_
+
+</a
+      ><a name="952" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1030"
+      >
+</a
+      ><a name="1031" class="Comment"
+      >-- The term language of FOTC</a
+      ><a name="1059"
+      >
+
+</a
+      ><a name="1061" class="Comment"
+      >--   t ::= x   | t &#183; t |</a
+      ><a name="1085"
+      >
+</a
+      ><a name="1086" class="Comment"
+      >--      | true | false | if</a
+      ><a name="1113"
+      >
+</a
+      ><a name="1114" class="Comment"
+      >--      | 0    | succ  | pred | iszero</a
+      ><a name="1152"
+      >
+
+</a
+      ><a name="1154" class="Keyword"
+      >postulate</a
+      ><a name="1163"
+      >
+  </a
+      ><a name="1166" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >_&#183;_</a
+      ><a name="1169"
+      >                    </a
+      ><a name="1189" class="Symbol"
+      >:</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" class="Symbol"
+      >&#8594;</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" class="Symbol"
+      >&#8594;</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1200"
+      >  </a
+      ><a name="1202" class="Comment"
+      >-- FOTC application.</a
+      ><a name="1222"
+      >
+  </a
+      ><a name="1225" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" href="FOTC.Base.html#1236" class="Postulate"
+      >if</a
+      ><a name="1238"
+      >          </a
+      ><a name="1248" class="Symbol"
+      >:</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1251"
+      >          </a
+      ><a name="1261" class="Comment"
+      >-- FOTC partial Booleans.</a
+      ><a name="1286"
+      >
+  </a
+      ><a name="1289" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="FOTC.Base.html#1294" class="Postulate"
+      >succ</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" href="FOTC.Base.html#1299" class="Postulate"
+      >pred</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="FOTC.Base.html#1304" class="Postulate"
+      >iszero</a
+      ><a name="1310"
+      >  </a
+      ><a name="1312" class="Symbol"
+      >:</a
+      ><a name="1313"
+      > </a
+      ><a name="1314" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1315"
+      >          </a
+      ><a name="1325" class="Comment"
+      >-- FOTC partial natural numbers.</a
+      ><a name="1357"
+      >
+
+</a
+      ><a name="1359" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1437"
+      >
+</a
+      ><a name="1438" class="Comment"
+      >-- Definitions</a
+      ><a name="1452"
+      >
+
+</a
+      ><a name="1454" class="Comment"
+      >-- We define some function symbols for convenience in writing and</a
+      ><a name="1519"
+      >
+</a
+      ><a name="1520" class="Comment"
+      >-- looking for an optimization for the ATPs.</a
+      ><a name="1564"
+      >
+
+</a
+      ><a name="1566" class="Comment"
+      >-- 2012-03-20. The definitions are inside an abstract block because</a
+      ><a name="1633"
+      >
+</a
+      ><a name="1634" class="Comment"
+      >-- the conversion rules (see below) are based on them, so we want to</a
+      ><a name="1702"
+      >
+</a
+      ><a name="1703" class="Comment"
+      >-- avoid their expansion.</a
+      ><a name="1728"
+      >
+
+</a
+      ><a name="1730" class="Keyword"
+      >abstract</a
+      ><a name="1738"
+      >
+  </a
+      ><a name="1741" href="FOTC.Base.html#1741" class="Function Operator"
+      >if_then_else_</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" class="Symbol"
+      >:</a
+      ><a name="1756"
+      > </a
+      ><a name="1757" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" class="Symbol"
+      >&#8594;</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1762"
+      > </a
+      ><a name="1763" class="Symbol"
+      >&#8594;</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" class="Symbol"
+      >&#8594;</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1770"
+      >
+  </a
+      ><a name="1773" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="1775"
+      > </a
+      ><a name="1776" href="FOTC.Base.html#1776" class="Bound"
+      >b</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" href="FOTC.Base.html#1783" class="Bound"
+      >t</a
+      ><a name="1784"
+      > </a
+      ><a name="1785" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="FOTC.Base.html#1790" class="Bound"
+      >t'</a
+      ><a name="1792"
+      > </a
+      ><a name="1793" class="Symbol"
+      >=</a
+      ><a name="1794"
+      > </a
+      ><a name="1795" href="FOTC.Base.html#1236" class="Postulate"
+      >if</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="FOTC.Base.html#1776" class="Bound"
+      >b</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" href="FOTC.Base.html#1783" class="Bound"
+      >t</a
+      ><a name="1805"
+      > </a
+      ><a name="1806" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="FOTC.Base.html#1790" class="Bound"
+      >t'</a
+      ><a name="1810"
+      >
+  </a
+      ><a name="1813" class="Comment"
+      >-- {-# ATP definition if_then_else_ #-}</a
+      ><a name="1852"
+      >
+
+  </a
+      ><a name="1856" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" class="Symbol"
+      >:</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" class="Symbol"
+      >&#8594;</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1869"
+      >
+  </a
+      ><a name="1872" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="FOTC.Base.html#1878" class="Bound"
+      >n</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" class="Symbol"
+      >=</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="FOTC.Base.html#1294" class="Postulate"
+      >succ</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1888"
+      > </a
+      ><a name="1889" href="FOTC.Base.html#1878" class="Bound"
+      >n</a
+      ><a name="1890"
+      >
+  </a
+      ><a name="1893" class="Comment"
+      >-- {-# ATP definition succ&#8321; #-}</a
+      ><a name="1924"
+      >
+
+  </a
+      ><a name="1928" href="FOTC.Base.html#1928" class="Function"
+      >pred&#8321;</a
+      ><a name="1933"
+      > </a
+      ><a name="1934" class="Symbol"
+      >:</a
+      ><a name="1935"
+      > </a
+      ><a name="1936" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1937"
+      > </a
+      ><a name="1938" class="Symbol"
+      >&#8594;</a
+      ><a name="1939"
+      > </a
+      ><a name="1940" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1941"
+      >
+  </a
+      ><a name="1944" href="FOTC.Base.html#1928" class="Function"
+      >pred&#8321;</a
+      ><a name="1949"
+      > </a
+      ><a name="1950" href="FOTC.Base.html#1950" class="Bound"
+      >n</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" class="Symbol"
+      >=</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" href="FOTC.Base.html#1299" class="Postulate"
+      >pred</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" href="FOTC.Base.html#1950" class="Bound"
+      >n</a
+      ><a name="1962"
+      >
+  </a
+      ><a name="1965" class="Comment"
+      >-- {-# ATP definition pred&#8321; #-}</a
+      ><a name="1996"
+      >
+
+  </a
+      ><a name="2000" href="FOTC.Base.html#2000" class="Function"
+      >iszero&#8321;</a
+      ><a name="2007"
+      > </a
+      ><a name="2008" class="Symbol"
+      >:</a
+      ><a name="2009"
+      > </a
+      ><a name="2010" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2011"
+      > </a
+      ><a name="2012" class="Symbol"
+      >&#8594;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2015"
+      >
+  </a
+      ><a name="2018" href="FOTC.Base.html#2000" class="Function"
+      >iszero&#8321;</a
+      ><a name="2025"
+      > </a
+      ><a name="2026" href="FOTC.Base.html#2026" class="Bound"
+      >n</a
+      ><a name="2027"
+      > </a
+      ><a name="2028" class="Symbol"
+      >=</a
+      ><a name="2029"
+      > </a
+      ><a name="2030" href="FOTC.Base.html#1304" class="Postulate"
+      >iszero</a
+      ><a name="2036"
+      > </a
+      ><a name="2037" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="FOTC.Base.html#2026" class="Bound"
+      >n</a
+      ><a name="2040"
+      >
+  </a
+      ><a name="2043" class="Comment"
+      >-- {-# ATP definition iszero&#8321; #-}</a
+      ><a name="2076"
+      >
+
+</a
+      ><a name="2078" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2156"
+      >
+</a
+      ><a name="2157" class="Comment"
+      >-- Conversion rules</a
+      ><a name="2176"
+      >
+
+</a
+      ><a name="2178" class="Comment"
+      >-- The conversion relation _conv_ satifies (Aczel 1977, p. 8)</a
+      ><a name="2239"
+      >
+</a
+      ><a name="2240" class="Comment"
+      >--</a
+      ><a name="2242"
+      >
+</a
+      ><a name="2243" class="Comment"
+      >-- x conv y &lt;=&gt; FOTC &#8866; x &#8801; y,</a
+      ><a name="2272"
+      >
+</a
+      ><a name="2273" class="Comment"
+      >--</a
+      ><a name="2275"
+      >
+</a
+      ><a name="2276" class="Comment"
+      >-- therefore, we introduce the conversion rules as non-logical axioms.</a
+      ><a name="2346"
+      >
+
+</a
+      ><a name="2348" class="Comment"
+      >-- N.B. Looking for an optimization for the ATPs, we write the</a
+      ><a name="2410"
+      >
+</a
+      ><a name="2411" class="Comment"
+      >-- conversion rules on the defined function symbols instead of on the</a
+      ><a name="2480"
+      >
+</a
+      ><a name="2481" class="Comment"
+      >-- term constants.</a
+      ><a name="2499"
+      >
+
+</a
+      ><a name="2501" class="Comment"
+      >-- Conversion rules for Booleans.</a
+      ><a name="2534"
+      >
+</a
+      ><a name="2535" class="Comment"
+      >-- if-true  : &#8704; t {t'} &#8594; if &#183; true  &#183; t &#183; t' &#8801; t</a
+      ><a name="2583"
+      >
+</a
+      ><a name="2584" class="Comment"
+      >-- if-false : &#8704; {t} t' &#8594; if &#183; false &#183; t &#183; t' &#8801; t'</a
+      ><a name="2633"
+      >
+</a
+      ><a name="2634" class="Keyword"
+      >postulate</a
+      ><a name="2643"
+      >
+  </a
+      ><a name="2646" href="FOTC.Base.html#2646" class="Postulate"
+      >if-true</a
+      ><a name="2653"
+      >  </a
+      ><a name="2655" class="Symbol"
+      >:</a
+      ><a name="2656"
+      > </a
+      ><a name="2657" class="Symbol"
+      >&#8704;</a
+      ><a name="2658"
+      > </a
+      ><a name="2659" href="FOTC.Base.html#2659" class="Bound"
+      >t</a
+      ><a name="2660"
+      > </a
+      ><a name="2661" class="Symbol"
+      >{</a
+      ><a name="2662" href="FOTC.Base.html#2662" class="Bound"
+      >t'</a
+      ><a name="2664" class="Symbol"
+      >}</a
+      ><a name="2665"
+      > </a
+      ><a name="2666" class="Symbol"
+      >&#8594;</a
+      ><a name="2667"
+      > </a
+      ><a name="2668" class="Symbol"
+      >(</a
+      ><a name="2669" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="2671"
+      > </a
+      ><a name="2672" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="2676"
+      > </a
+      ><a name="2677" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="2681"
+      > </a
+      ><a name="2682" href="FOTC.Base.html#2659" class="Bound"
+      >t</a
+      ><a name="2683"
+      > </a
+      ><a name="2684" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="2688"
+      > </a
+      ><a name="2689" href="FOTC.Base.html#2662" class="Bound"
+      >t'</a
+      ><a name="2691" class="Symbol"
+      >)</a
+      ><a name="2692"
+      >  </a
+      ><a name="2694" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2695"
+      > </a
+      ><a name="2696" href="FOTC.Base.html#2659" class="Bound"
+      >t</a
+      ><a name="2697"
+      >
+  </a
+      ><a name="2700" href="FOTC.Base.html#2700" class="Postulate"
+      >if-false</a
+      ><a name="2708"
+      > </a
+      ><a name="2709" class="Symbol"
+      >:</a
+      ><a name="2710"
+      > </a
+      ><a name="2711" class="Symbol"
+      >&#8704;</a
+      ><a name="2712"
+      > </a
+      ><a name="2713" class="Symbol"
+      >{</a
+      ><a name="2714" href="FOTC.Base.html#2714" class="Bound"
+      >t</a
+      ><a name="2715" class="Symbol"
+      >}</a
+      ><a name="2716"
+      > </a
+      ><a name="2717" href="FOTC.Base.html#2717" class="Bound"
+      >t'</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" class="Symbol"
+      >&#8594;</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" class="Symbol"
+      >(</a
+      ><a name="2723" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="2725"
+      > </a
+      ><a name="2726" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="2731"
+      > </a
+      ><a name="2732" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="2736"
+      > </a
+      ><a name="2737" href="FOTC.Base.html#2714" class="Bound"
+      >t</a
+      ><a name="2738"
+      > </a
+      ><a name="2739" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="2743"
+      > </a
+      ><a name="2744" href="FOTC.Base.html#2717" class="Bound"
+      >t'</a
+      ><a name="2746" class="Symbol"
+      >)</a
+      ><a name="2747"
+      > </a
+      ><a name="2748" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2749"
+      > </a
+      ><a name="2750" href="FOTC.Base.html#2717" class="Bound"
+      >t'</a
+      ><a name="2752"
+      >
+</a
+      ><a name="2753" class="Symbol"
+      >{-#</a
+      ><a name="2756"
+      > </a
+      ><a name="2757" class="Keyword"
+      >ATP</a
+      ><a name="2760"
+      > axioms </a
+      ><a name="2768" href="FOTC.Base.html#2646" class="Postulate"
+      >if-true</a
+      ><a name="2775"
+      > </a
+      ><a name="2776" href="FOTC.Base.html#2700" class="Postulate"
+      >if-false</a
+      ><a name="2784"
+      > </a
+      ><a name="2785" class="Symbol"
+      >#-}</a
+      ><a name="2788"
+      >
+
+</a
+      ><a name="2790" class="Comment"
+      >-- Conversion rules for pred.</a
+      ><a name="2819"
+      >
+</a
+      ><a name="2820" class="Comment"
+      >-- pred-0 :       pred &#183; zero     &#8801; zero</a
+      ><a name="2860"
+      >
+</a
+      ><a name="2861" class="Comment"
+      >-- pred-S : &#8704; n &#8594; pred &#183; (succ &#183; n) &#8801; n</a
+      ><a name="2900"
+      >
+</a
+      ><a name="2901" class="Keyword"
+      >postulate</a
+      ><a name="2910"
+      >
+  </a
+      ><a name="2913" href="FOTC.Base.html#2913" class="Postulate"
+      >pred-0</a
+      ><a name="2919"
+      > </a
+      ><a name="2920" class="Symbol"
+      >:</a
+      ><a name="2921"
+      > </a
+      ><a name="2922" href="FOTC.Base.html#1928" class="Function"
+      >pred&#8321;</a
+      ><a name="2927"
+      > </a
+      ><a name="2928" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2932"
+      >            </a
+      ><a name="2944" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2945"
+      > </a
+      ><a name="2946" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2950"
+      >
+  </a
+      ><a name="2953" href="FOTC.Base.html#2953" class="Postulate"
+      >pred-S</a
+      ><a name="2959"
+      > </a
+      ><a name="2960" class="Symbol"
+      >:</a
+      ><a name="2961"
+      > </a
+      ><a name="2962" class="Symbol"
+      >&#8704;</a
+      ><a name="2963"
+      > </a
+      ><a name="2964" href="FOTC.Base.html#2964" class="Bound"
+      >n</a
+      ><a name="2965"
+      > </a
+      ><a name="2966" class="Symbol"
+      >&#8594;</a
+      ><a name="2967"
+      > </a
+      ><a name="2968" href="FOTC.Base.html#1928" class="Function"
+      >pred&#8321;</a
+      ><a name="2973"
+      > </a
+      ><a name="2974" class="Symbol"
+      >(</a
+      ><a name="2975" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2980"
+      > </a
+      ><a name="2981" href="FOTC.Base.html#2964" class="Bound"
+      >n</a
+      ><a name="2982" class="Symbol"
+      >)</a
+      ><a name="2983"
+      > </a
+      ><a name="2984" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2985"
+      > </a
+      ><a name="2986" href="FOTC.Base.html#2964" class="Bound"
+      >n</a
+      ><a name="2987"
+      >
+</a
+      ><a name="2988" class="Symbol"
+      >{-#</a
+      ><a name="2991"
+      > </a
+      ><a name="2992" class="Keyword"
+      >ATP</a
+      ><a name="2995"
+      > axioms </a
+      ><a name="3003" href="FOTC.Base.html#2913" class="Postulate"
+      >pred-0</a
+      ><a name="3009"
+      > </a
+      ><a name="3010" href="FOTC.Base.html#2953" class="Postulate"
+      >pred-S</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" class="Symbol"
+      >#-}</a
+      ><a name="3020"
+      >
+
+</a
+      ><a name="3022" class="Comment"
+      >-- Conversion rules for iszero.</a
+      ><a name="3053"
+      >
+</a
+      ><a name="3054" class="Comment"
+      >-- iszero-0 :       iszero &#183; zero       &#8801; true</a
+      ><a name="3100"
+      >
+</a
+      ><a name="3101" class="Comment"
+      >-- iszero-S : &#8704; n &#8594; iszero &#183; (succ &#183; n) &#8801; false</a
+      ><a name="3148"
+      >
+</a
+      ><a name="3149" class="Keyword"
+      >postulate</a
+      ><a name="3158"
+      >
+  </a
+      ><a name="3161" href="FOTC.Base.html#3161" class="Postulate"
+      >iszero-0</a
+      ><a name="3169"
+      > </a
+      ><a name="3170" class="Symbol"
+      >:</a
+      ><a name="3171"
+      > </a
+      ><a name="3172" href="FOTC.Base.html#2000" class="Function"
+      >iszero&#8321;</a
+      ><a name="3179"
+      > </a
+      ><a name="3180" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="3184"
+      >            </a
+      ><a name="3196" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3197"
+      > </a
+      ><a name="3198" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="3202"
+      >
+  </a
+      ><a name="3205" href="FOTC.Base.html#3205" class="Postulate"
+      >iszero-S</a
+      ><a name="3213"
+      > </a
+      ><a name="3214" class="Symbol"
+      >:</a
+      ><a name="3215"
+      > </a
+      ><a name="3216" class="Symbol"
+      >&#8704;</a
+      ><a name="3217"
+      > </a
+      ><a name="3218" href="FOTC.Base.html#3218" class="Bound"
+      >n</a
+      ><a name="3219"
+      > </a
+      ><a name="3220" class="Symbol"
+      >&#8594;</a
+      ><a name="3221"
+      > </a
+      ><a name="3222" href="FOTC.Base.html#2000" class="Function"
+      >iszero&#8321;</a
+      ><a name="3229"
+      > </a
+      ><a name="3230" class="Symbol"
+      >(</a
+      ><a name="3231" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3236"
+      > </a
+      ><a name="3237" href="FOTC.Base.html#3218" class="Bound"
+      >n</a
+      ><a name="3238" class="Symbol"
+      >)</a
+      ><a name="3239"
+      > </a
+      ><a name="3240" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3241"
+      > </a
+      ><a name="3242" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="3247"
+      >
+</a
+      ><a name="3248" class="Symbol"
+      >{-#</a
+      ><a name="3251"
+      > </a
+      ><a name="3252" class="Keyword"
+      >ATP</a
+      ><a name="3255"
+      > axioms </a
+      ><a name="3263" href="FOTC.Base.html#3161" class="Postulate"
+      >iszero-0</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" href="FOTC.Base.html#3205" class="Postulate"
+      >iszero-S</a
+      ><a name="3280"
+      > </a
+      ><a name="3281" class="Symbol"
+      >#-}</a
+      ><a name="3284"
+      >
+
+</a
+      ><a name="3286" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3364"
+      >
+</a
+      ><a name="3365" class="Comment"
+      >-- Discrimination rules</a
+      ><a name="3388"
+      >
+
+</a
+      ><a name="3390" class="Comment"
+      >--  0&#8802;S : &#8704; {n} &#8594; zero &#8802; succ &#183; n</a
+      ><a name="3423"
+      >
+</a
+      ><a name="3424" class="Keyword"
+      >postulate</a
+      ><a name="3433"
+      >
+  </a
+      ><a name="3436" href="FOTC.Base.html#3436" class="Postulate"
+      >t&#8802;f</a
+      ><a name="3439"
+      > </a
+      ><a name="3440" class="Symbol"
+      >:</a
+      ><a name="3441"
+      > </a
+      ><a name="3442" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="3446"
+      > </a
+      ><a name="3447" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="3448"
+      > </a
+      ><a name="3449" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="3454"
+      >
+  </a
+      ><a name="3457" href="FOTC.Base.html#3457" class="Postulate"
+      >0&#8802;S</a
+      ><a name="3460"
+      > </a
+      ><a name="3461" class="Symbol"
+      >:</a
+      ><a name="3462"
+      > </a
+      ><a name="3463" class="Symbol"
+      >&#8704;</a
+      ><a name="3464"
+      > </a
+      ><a name="3465" class="Symbol"
+      >{</a
+      ><a name="3466" href="FOTC.Base.html#3466" class="Bound"
+      >n</a
+      ><a name="3467" class="Symbol"
+      >}</a
+      ><a name="3468"
+      > </a
+      ><a name="3469" class="Symbol"
+      >&#8594;</a
+      ><a name="3470"
+      > </a
+      ><a name="3471" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="3475"
+      > </a
+      ><a name="3476" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="3477"
+      > </a
+      ><a name="3478" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3483"
+      > </a
+      ><a name="3484" href="FOTC.Base.html#3466" class="Bound"
+      >n</a
+      ><a name="3485"
+      >
+</a
+      ><a name="3486" class="Symbol"
+      >{-#</a
+      ><a name="3489"
+      > </a
+      ><a name="3490" class="Keyword"
+      >ATP</a
+      ><a name="3493"
+      > axioms </a
+      ><a name="3501" href="FOTC.Base.html#3436" class="Postulate"
+      >t&#8802;f</a
+      ><a name="3504"
+      > </a
+      ><a name="3505" href="FOTC.Base.html#3457" class="Postulate"
+      >0&#8802;S</a
+      ><a name="3508"
+      > </a
+      ><a name="3509" class="Symbol"
+      >#-}</a
+      ><a name="3512"
+      >
+
+</a
+      ><a name="3514" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3592"
+      >
+</a
+      ><a name="3593" class="Comment"
+      >-- References</a
+      ><a name="3606"
+      >
+</a
+      ><a name="3607" class="Comment"
+      >--</a
+      ><a name="3609"
+      >
+</a
+      ><a name="3610" class="Comment"
+      >-- Aczel, Peter (1977). The Strength of MartinL&#246;f&#8217;s Intuitionistic</a
+      ><a name="3676"
+      >
+</a
+      ><a name="3677" class="Comment"
+      >-- Type Theory with One Universe. In: Proc. of the Symposium on</a
+      ><a name="3740"
+      >
+</a
+      ><a name="3741" class="Comment"
+      >-- Mathematical Logic (Oulu, 1974). Ed. by Miettinen, S. and V&#228;&#228;nanen,</a
+      ><a name="3811"
+      >
+</a
+      ><a name="3812" class="Comment"
+      >-- J. Report No. 2, Department of Philosophy, University of Helsinki,</a
+      ><a name="3881"
+      >
+</a
+      ><a name="3882" class="Comment"
+      >-- Helsinki, pp. 1&#8211;32.</a
+      ><a name="3904"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.README</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws on a binary operation (Stanovsk&#253; example)</a
+      ><a name="142"
+      >
+</a
+      ><a name="143" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="221"
+      >
+
+</a
+      ><a name="223" class="Symbol"
+      >{-#</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Keyword"
+      >OPTIONS</a
+      ><a name="234"
+      > --exact-split              </a
+      ><a name="262" class="Symbol"
+      >#-}</a
+      ><a name="265"
+      >
+</a
+      ><a name="266" class="Symbol"
+      >{-#</a
+      ><a name="269"
+      > </a
+      ><a name="270" class="Keyword"
+      >OPTIONS</a
+      ><a name="277"
+      > --no-sized-types           </a
+      ><a name="305" class="Symbol"
+      >#-}</a
+      ><a name="308"
+      >
+</a
+      ><a name="309" class="Symbol"
+      >{-#</a
+      ><a name="312"
+      > </a
+      ><a name="313" class="Keyword"
+      >OPTIONS</a
+      ><a name="320"
+      > --no-universe-polymorphism </a
+      ><a name="348" class="Symbol"
+      >#-}</a
+      ><a name="351"
+      >
+</a
+      ><a name="352" class="Symbol"
+      >{-#</a
+      ><a name="355"
+      > </a
+      ><a name="356" class="Keyword"
+      >OPTIONS</a
+      ><a name="363"
+      > --without-K                </a
+      ><a name="391" class="Symbol"
+      >#-}</a
+      ><a name="394"
+      >
+
+</a
+      ><a name="396" class="Keyword"
+      >module</a
+      ><a name="402"
+      > </a
+      ><a name="403" href="DistributiveLaws.README.html#1" class="Module"
+      >DistributiveLaws.README</a
+      ><a name="426"
+      > </a
+      ><a name="427" class="Keyword"
+      >where</a
+      ><a name="432"
+      >
+
+</a
+      ><a name="434" class="Comment"
+      >-- Let _&#183;_ be a left-associative binary operation which satifies the</a
+      ><a name="502"
+      >
+</a
+      ><a name="503" class="Comment"
+      >-- left and right distributive axioms:</a
+      ><a name="541"
+      >
+</a
+      ><a name="542" class="Comment"
+      >--</a
+      ><a name="544"
+      >
+</a
+      ><a name="545" class="Comment"
+      >-- &#8704; x y z &#8594; x &#8729; (y &#8729; z) &#8801; (x &#8729; y) &#8729; (x &#8729; z)</a
+      ><a name="589"
+      >
+</a
+      ><a name="590" class="Comment"
+      >-- &#8704; x y z &#8594; (x &#8729; y) &#8729; z &#8801; (x &#8729; z) &#8729; (y &#8729; z).</a
+      ><a name="635"
+      >
+
+</a
+      ><a name="637" class="Comment"
+      >-- We prove some properties of Stanovsk&#253; (2008): Task&#160;B, Lemma&#160;3,</a
+      ><a name="702"
+      >
+</a
+      ><a name="703" class="Comment"
+      >-- Lemma&#160;4, Lemma&#160;5 (Task&#160;A) and Lemma&#160;6.</a
+      ><a name="744"
+      >
+
+</a
+      ><a name="746" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="824"
+      >
+</a
+      ><a name="825" class="Comment"
+      >-- The axioms</a
+      ><a name="838"
+      >
+</a
+      ><a name="839" class="Keyword"
+      >open</a
+      ><a name="843"
+      > </a
+      ><a name="844" class="Keyword"
+      >import</a
+      ><a name="850"
+      > </a
+      ><a name="851" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="872"
+      >
+
+</a
+      ><a name="874" class="Comment"
+      >-- The interactive and combined proofs</a
+      ><a name="912"
+      >
+</a
+      ><a name="913" class="Keyword"
+      >open</a
+      ><a name="917"
+      > </a
+      ><a name="918" class="Keyword"
+      >import</a
+      ><a name="924"
+      > </a
+      ><a name="925" href="DistributiveLaws.Lemma3-ATP.html#1" class="Module"
+      >DistributiveLaws.Lemma3-ATP</a
+      ><a name="952"
+      >
+</a
+      ><a name="953" class="Keyword"
+      >open</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Keyword"
+      >import</a
+      ><a name="964"
+      > </a
+      ><a name="965" href="DistributiveLaws.Lemma4-ATP.html#1" class="Module"
+      >DistributiveLaws.Lemma4-ATP</a
+      ><a name="992"
+      >
+</a
+      ><a name="993" class="Keyword"
+      >open</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Keyword"
+      >import</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" href="DistributiveLaws.Lemma5-ATP.html#1" class="Module"
+      >DistributiveLaws.Lemma5-ATP</a
+      ><a name="1032"
+      >
+</a
+      ><a name="1033" class="Keyword"
+      >open</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" class="Keyword"
+      >import</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="DistributiveLaws.Lemma6-ATP.html#1" class="Module"
+      >DistributiveLaws.Lemma6-ATP</a
+      ><a name="1072"
+      >
+</a
+      ><a name="1073" class="Keyword"
+      >open</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" class="Keyword"
+      >import</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" href="DistributiveLaws.TaskB-AllStepsATP.html#1" class="Module"
+      >DistributiveLaws.TaskB-AllStepsATP</a
+      ><a name="1119"
+      >
+</a
+      ><a name="1120" class="Keyword"
+      >open</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" class="Keyword"
+      >import</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" href="DistributiveLaws.TaskB-HalvedStepsATP.html#1" class="Module"
+      >DistributiveLaws.TaskB-HalvedStepsATP</a
+      ><a name="1169"
+      >
+</a
+      ><a name="1170" class="Keyword"
+      >open</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" class="Keyword"
+      >import</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="DistributiveLaws.TaskB-I.html#1" class="Module"
+      >DistributiveLaws.TaskB-I</a
+      ><a name="1206"
+      >
+</a
+      ><a name="1207" class="Keyword"
+      >open</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" class="Keyword"
+      >import</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="DistributiveLaws.TaskB-TopDownATP.html#1" class="Module"
+      >DistributiveLaws.TaskB-TopDownATP</a
+      ><a name="1252"
+      >
+
+</a
+      ><a name="1254" class="Comment"
+      >-- Unproven theorem by the ATPs</a
+      ><a name="1285"
+      >
+</a
+      ><a name="1286" class="Keyword"
+      >open</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" class="Keyword"
+      >import</a
+      ><a name="1297"
+      > </a
+      ><a name="1298" href="DistributiveLaws.TaskB.UnprovedATP.html#1" class="Module"
+      >DistributiveLaws.TaskB.UnprovedATP</a
+      ><a name="1332"
+      >
+
+</a
+      ><a name="1334" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1412"
+      >
+</a
+      ><a name="1413" class="Comment"
+      >-- References:</a
+      ><a name="1427"
+      >
+</a
+      ><a name="1428" class="Comment"
+      >--</a
+      ><a name="1430"
+      >
+</a
+      ><a name="1431" class="Comment"
+      >-- Stanovsk&#253;, David (2008). Distributive Groupoids are</a
+      ><a name="1485"
+      >
+</a
+      ><a name="1486" class="Comment"
+      >-- Symmetrical-by-Medial: An Elementary Proof. Commentations</a
+      ><a name="1546"
+      >
+</a
+      ><a name="1547" class="Comment"
+      >-- Mathematicae Universitatis Carolinae 49.4, pp. 541&#8211;546.</a
+      ><a name="1605"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

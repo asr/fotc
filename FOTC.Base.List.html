@@ -1,0 +1,757 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Base.List</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- FOTC combinators for lists, colists, streams, etc.</a
+      ><a name="133"
+      >
+</a
+      ><a name="134" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="212"
+      >
+
+</a
+      ><a name="214" class="Symbol"
+      >{-#</a
+      ><a name="217"
+      > </a
+      ><a name="218" class="Keyword"
+      >OPTIONS</a
+      ><a name="225"
+      > --exact-split              </a
+      ><a name="253" class="Symbol"
+      >#-}</a
+      ><a name="256"
+      >
+</a
+      ><a name="257" class="Symbol"
+      >{-#</a
+      ><a name="260"
+      > </a
+      ><a name="261" class="Keyword"
+      >OPTIONS</a
+      ><a name="268"
+      > --no-sized-types           </a
+      ><a name="296" class="Symbol"
+      >#-}</a
+      ><a name="299"
+      >
+</a
+      ><a name="300" class="Symbol"
+      >{-#</a
+      ><a name="303"
+      > </a
+      ><a name="304" class="Keyword"
+      >OPTIONS</a
+      ><a name="311"
+      > --no-universe-polymorphism </a
+      ><a name="339" class="Symbol"
+      >#-}</a
+      ><a name="342"
+      >
+</a
+      ><a name="343" class="Symbol"
+      >{-#</a
+      ><a name="346"
+      > </a
+      ><a name="347" class="Keyword"
+      >OPTIONS</a
+      ><a name="354"
+      > --without-K                </a
+      ><a name="382" class="Symbol"
+      >#-}</a
+      ><a name="385"
+      >
+
+</a
+      ><a name="387" class="Keyword"
+      >module</a
+      ><a name="393"
+      > </a
+      ><a name="394" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="408"
+      > </a
+      ><a name="409" class="Keyword"
+      >where</a
+      ><a name="414"
+      >
+
+</a
+      ><a name="416" class="Keyword"
+      >open</a
+      ><a name="420"
+      > </a
+      ><a name="421" class="Keyword"
+      >import</a
+      ><a name="427"
+      > </a
+      ><a name="428" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="437"
+      >
+
+</a
+      ><a name="439" class="Keyword"
+      >infixr</a
+      ><a name="445"
+      > </a
+      ><a name="446" class="Number"
+      >5</a
+      ><a name="447"
+      > _&#8759;_
+
+</a
+      ><a name="453" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="531"
+      >
+</a
+      ><a name="532" class="Comment"
+      >-- List constants.</a
+      ><a name="550"
+      >
+</a
+      ><a name="551" class="Keyword"
+      >postulate</a
+      ><a name="560"
+      > </a
+      ><a name="561" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="563"
+      > </a
+      ><a name="564" href="FOTC.Base.List.html#564" class="Postulate"
+      >cons</a
+      ><a name="568"
+      > </a
+      ><a name="569" href="FOTC.Base.List.html#569" class="Postulate"
+      >head</a
+      ><a name="573"
+      > </a
+      ><a name="574" href="FOTC.Base.List.html#574" class="Postulate"
+      >tail</a
+      ><a name="578"
+      > </a
+      ><a name="579" href="FOTC.Base.List.html#579" class="Postulate"
+      >null</a
+      ><a name="583"
+      > </a
+      ><a name="584" class="Symbol"
+      >:</a
+      ><a name="585"
+      > </a
+      ><a name="586" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="587"
+      >  </a
+      ><a name="589" class="Comment"
+      >-- FOTC partial lists.</a
+      ><a name="611"
+      >
+
+</a
+      ><a name="613" class="Comment"
+      >-- Definitions</a
+      ><a name="627"
+      >
+</a
+      ><a name="628" class="Keyword"
+      >abstract</a
+      ><a name="636"
+      >
+  </a
+      ><a name="639" href="FOTC.Base.List.html#639" class="Function Operator"
+      >_&#8759;_</a
+      ><a name="642"
+      >  </a
+      ><a name="644" class="Symbol"
+      >:</a
+      ><a name="645"
+      > </a
+      ><a name="646" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="647"
+      > </a
+      ><a name="648" class="Symbol"
+      >&#8594;</a
+      ><a name="649"
+      > </a
+      ><a name="650" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="651"
+      > </a
+      ><a name="652" class="Symbol"
+      >&#8594;</a
+      ><a name="653"
+      > </a
+      ><a name="654" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="655"
+      >
+  </a
+      ><a name="658" href="FOTC.Base.List.html#658" class="Bound"
+      >x</a
+      ><a name="659"
+      > </a
+      ><a name="660" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="661"
+      > </a
+      ><a name="662" href="FOTC.Base.List.html#662" class="Bound"
+      >xs</a
+      ><a name="664"
+      > </a
+      ><a name="665" class="Symbol"
+      >=</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="FOTC.Base.List.html#564" class="Postulate"
+      >cons</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="673"
+      > </a
+      ><a name="674" href="FOTC.Base.List.html#658" class="Bound"
+      >x</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="677"
+      > </a
+      ><a name="678" href="FOTC.Base.List.html#662" class="Bound"
+      >xs</a
+      ><a name="680"
+      >
+  </a
+      ><a name="683" class="Comment"
+      >-- {-# ATP definition _&#8759;_ #-}</a
+      ><a name="712"
+      >
+
+  </a
+      ><a name="716" href="FOTC.Base.List.html#716" class="Function"
+      >head&#8321;</a
+      ><a name="721"
+      > </a
+      ><a name="722" class="Symbol"
+      >:</a
+      ><a name="723"
+      > </a
+      ><a name="724" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="725"
+      > </a
+      ><a name="726" class="Symbol"
+      >&#8594;</a
+      ><a name="727"
+      > </a
+      ><a name="728" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="729"
+      >
+  </a
+      ><a name="732" href="FOTC.Base.List.html#716" class="Function"
+      >head&#8321;</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="FOTC.Base.List.html#738" class="Bound"
+      >xs</a
+      ><a name="740"
+      > </a
+      ><a name="741" class="Symbol"
+      >=</a
+      ><a name="742"
+      > </a
+      ><a name="743" href="FOTC.Base.List.html#569" class="Postulate"
+      >head</a
+      ><a name="747"
+      > </a
+      ><a name="748" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="FOTC.Base.List.html#738" class="Bound"
+      >xs</a
+      ><a name="752"
+      >
+  </a
+      ><a name="755" class="Comment"
+      >-- {-# ATP definition head&#8321; #-}</a
+      ><a name="786"
+      >
+
+  </a
+      ><a name="790" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="795"
+      > </a
+      ><a name="796" class="Symbol"
+      >:</a
+      ><a name="797"
+      > </a
+      ><a name="798" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="799"
+      > </a
+      ><a name="800" class="Symbol"
+      >&#8594;</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="803"
+      >
+  </a
+      ><a name="806" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="811"
+      > </a
+      ><a name="812" href="FOTC.Base.List.html#812" class="Bound"
+      >xs</a
+      ><a name="814"
+      > </a
+      ><a name="815" class="Symbol"
+      >=</a
+      ><a name="816"
+      > </a
+      ><a name="817" href="FOTC.Base.List.html#574" class="Postulate"
+      >tail</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="823"
+      > </a
+      ><a name="824" href="FOTC.Base.List.html#812" class="Bound"
+      >xs</a
+      ><a name="826"
+      >
+  </a
+      ><a name="829" class="Comment"
+      >-- {-# ATP definition tail&#8321; #-}</a
+      ><a name="860"
+      >
+
+  </a
+      ><a name="864" href="FOTC.Base.List.html#864" class="Function"
+      >null&#8321;</a
+      ><a name="869"
+      > </a
+      ><a name="870" class="Symbol"
+      >:</a
+      ><a name="871"
+      > </a
+      ><a name="872" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="873"
+      > </a
+      ><a name="874" class="Symbol"
+      >&#8594;</a
+      ><a name="875"
+      > </a
+      ><a name="876" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="877"
+      >
+  </a
+      ><a name="880" href="FOTC.Base.List.html#864" class="Function"
+      >null&#8321;</a
+      ><a name="885"
+      > </a
+      ><a name="886" href="FOTC.Base.List.html#886" class="Bound"
+      >xs</a
+      ><a name="888"
+      > </a
+      ><a name="889" class="Symbol"
+      >=</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="FOTC.Base.List.html#579" class="Postulate"
+      >null</a
+      ><a name="895"
+      > </a
+      ><a name="896" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="897"
+      > </a
+      ><a name="898" href="FOTC.Base.List.html#886" class="Bound"
+      >xs</a
+      ><a name="900"
+      >
+  </a
+      ><a name="903" class="Comment"
+      >-- {-# ATP definition null&#8321; #-}</a
+      ><a name="934"
+      >
+
+</a
+      ><a name="936" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1014"
+      >
+</a
+      ><a name="1015" class="Comment"
+      >-- Conversion rules</a
+      ><a name="1034"
+      >
+
+</a
+      ><a name="1036" class="Comment"
+      >-- Conversion rules for null.</a
+      ><a name="1065"
+      >
+</a
+      ><a name="1066" class="Comment"
+      >-- null-[] :          null &#183; []              &#8801; true</a
+      ><a name="1117"
+      >
+</a
+      ><a name="1118" class="Comment"
+      >-- null-&#8759;  : &#8704; x xs &#8594; null &#183; (cons &#183; x &#183; xs) &#8801; false</a
+      ><a name="1170"
+      >
+</a
+      ><a name="1171" class="Keyword"
+      >postulate</a
+      ><a name="1180"
+      >
+  </a
+      ><a name="1183" href="FOTC.Base.List.html#1183" class="Postulate"
+      >null-[]</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" class="Symbol"
+      >:</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" href="FOTC.Base.List.html#864" class="Function"
+      >null&#8321;</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1201"
+      >                </a
+      ><a name="1217" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="1223"
+      >
+  </a
+      ><a name="1226" href="FOTC.Base.List.html#1226" class="Postulate"
+      >null-&#8759;</a
+      ><a name="1232"
+      >  </a
+      ><a name="1234" class="Symbol"
+      >:</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" class="Symbol"
+      >&#8704;</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOTC.Base.List.html#1238" class="Bound"
+      >x</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="FOTC.Base.List.html#1240" class="Bound"
+      >xs</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" class="Symbol"
+      >&#8594;</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOTC.Base.List.html#864" class="Function"
+      >null&#8321;</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" class="Symbol"
+      >(</a
+      ><a name="1252" href="FOTC.Base.List.html#1238" class="Bound"
+      >x</a
+      ><a name="1253"
+      > </a
+      ><a name="1254" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1255"
+      > </a
+      ><a name="1256" href="FOTC.Base.List.html#1240" class="Bound"
+      >xs</a
+      ><a name="1258" class="Symbol"
+      >)</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="1267"
+      >
+
+</a
+      ><a name="1269" class="Comment"
+      >-- Conversion rule for head.</a
+      ><a name="1297"
+      >
+</a
+      ><a name="1298" class="Comment"
+      >-- head-&#8759; : &#8704; x xs &#8594; head &#183; (cons &#183; x &#183; xs) &#8801; x</a
+      ><a name="1345"
+      >
+</a
+      ><a name="1346" class="Keyword"
+      >postulate</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="FOTC.Base.List.html#1356" class="Postulate"
+      >head-&#8759;</a
+      ><a name="1362"
+      > </a
+      ><a name="1363" class="Symbol"
+      >:</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" class="Symbol"
+      >&#8704;</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" href="FOTC.Base.List.html#1367" class="Bound"
+      >x</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" href="FOTC.Base.List.html#1369" class="Bound"
+      >xs</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" class="Symbol"
+      >&#8594;</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="FOTC.Base.List.html#716" class="Function"
+      >head&#8321;</a
+      ><a name="1379"
+      > </a
+      ><a name="1380" class="Symbol"
+      >(</a
+      ><a name="1381" href="FOTC.Base.List.html#1367" class="Bound"
+      >x</a
+      ><a name="1382"
+      > </a
+      ><a name="1383" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="FOTC.Base.List.html#1369" class="Bound"
+      >xs</a
+      ><a name="1387" class="Symbol"
+      >)</a
+      ><a name="1388"
+      > </a
+      ><a name="1389" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" href="FOTC.Base.List.html#1367" class="Bound"
+      >x</a
+      ><a name="1392"
+      >
+</a
+      ><a name="1393" class="Symbol"
+      >{-#</a
+      ><a name="1396"
+      > </a
+      ><a name="1397" class="Keyword"
+      >ATP</a
+      ><a name="1400"
+      > axiom </a
+      ><a name="1407" href="FOTC.Base.List.html#1356" class="Postulate"
+      >head-&#8759;</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" class="Symbol"
+      >#-}</a
+      ><a name="1417"
+      >
+
+</a
+      ><a name="1419" class="Comment"
+      >-- Conversion rule for tail.</a
+      ><a name="1447"
+      >
+</a
+      ><a name="1448" class="Comment"
+      >-- tail-&#8759; : &#8704; x xs &#8594; tail &#183; (cons &#183; x &#183; xs) &#8801; xs</a
+      ><a name="1496"
+      >
+</a
+      ><a name="1497" class="Keyword"
+      >postulate</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" href="FOTC.Base.List.html#1507" class="Postulate"
+      >tail-&#8759;</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" class="Symbol"
+      >:</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >&#8704;</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="FOTC.Base.List.html#1518" class="Bound"
+      >x</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" href="FOTC.Base.List.html#1520" class="Bound"
+      >xs</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" class="Symbol"
+      >&#8594;</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1530"
+      > </a
+      ><a name="1531" class="Symbol"
+      >(</a
+      ><a name="1532" href="FOTC.Base.List.html#1518" class="Bound"
+      >x</a
+      ><a name="1533"
+      > </a
+      ><a name="1534" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" href="FOTC.Base.List.html#1520" class="Bound"
+      >xs</a
+      ><a name="1538" class="Symbol"
+      >)</a
+      ><a name="1539"
+      > </a
+      ><a name="1540" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" href="FOTC.Base.List.html#1520" class="Bound"
+      >xs</a
+      ><a name="1544"
+      >
+</a
+      ><a name="1545" class="Symbol"
+      >{-#</a
+      ><a name="1548"
+      > </a
+      ><a name="1549" class="Keyword"
+      >ATP</a
+      ><a name="1552"
+      > axiom </a
+      ><a name="1559" href="FOTC.Base.List.html#1507" class="Postulate"
+      >tail-&#8759;</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" class="Symbol"
+      >#-}</a
+      ><a name="1569"
+      >
+
+</a
+      ><a name="1571" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1649"
+      >
+</a
+      ><a name="1650" class="Comment"
+      >-- Discrimination rules</a
+      ><a name="1673"
+      >
+
+</a
+      ><a name="1675" class="Comment"
+      >-- postulate []&#8802;cons : &#8704; {x xs} &#8594; [] &#8802; cons &#183; x &#183; xs</a
+      ><a name="1727"
+      >
+</a
+      ><a name="1728" class="Keyword"
+      >postulate</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="FOTC.Base.List.html#1738" class="Postulate"
+      >[]&#8802;cons</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >:</a
+      ><a name="1747"
+      > </a
+      ><a name="1748" class="Symbol"
+      >&#8704;</a
+      ><a name="1749"
+      > </a
+      ><a name="1750" class="Symbol"
+      >{</a
+      ><a name="1751" href="FOTC.Base.List.html#1751" class="Bound"
+      >x</a
+      ><a name="1752"
+      > </a
+      ><a name="1753" href="FOTC.Base.List.html#1753" class="Bound"
+      >xs</a
+      ><a name="1755" class="Symbol"
+      >}</a
+      ><a name="1756"
+      > </a
+      ><a name="1757" class="Symbol"
+      >&#8594;</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="1763"
+      > </a
+      ><a name="1764" href="FOTC.Base.List.html#1751" class="Bound"
+      >x</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1767"
+      > </a
+      ><a name="1768" href="FOTC.Base.List.html#1753" class="Bound"
+      >xs</a
+      ><a name="1770"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

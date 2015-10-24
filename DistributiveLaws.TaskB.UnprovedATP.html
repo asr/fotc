@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.TaskB.UnprovedATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws on a binary operation: Task B</a
+      ><a name="130"
+      >
+</a
+      ><a name="131" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="209"
+      >
+
+</a
+      ><a name="211" class="Symbol"
+      >{-#</a
+      ><a name="214"
+      > </a
+      ><a name="215" class="Keyword"
+      >OPTIONS</a
+      ><a name="222"
+      > --exact-split              </a
+      ><a name="250" class="Symbol"
+      >#-}</a
+      ><a name="253"
+      >
+</a
+      ><a name="254" class="Symbol"
+      >{-#</a
+      ><a name="257"
+      > </a
+      ><a name="258" class="Keyword"
+      >OPTIONS</a
+      ><a name="265"
+      > --no-sized-types           </a
+      ><a name="293" class="Symbol"
+      >#-}</a
+      ><a name="296"
+      >
+</a
+      ><a name="297" class="Symbol"
+      >{-#</a
+      ><a name="300"
+      > </a
+      ><a name="301" class="Keyword"
+      >OPTIONS</a
+      ><a name="308"
+      > --no-universe-polymorphism </a
+      ><a name="336" class="Symbol"
+      >#-}</a
+      ><a name="339"
+      >
+</a
+      ><a name="340" class="Symbol"
+      >{-#</a
+      ><a name="343"
+      > </a
+      ><a name="344" class="Keyword"
+      >OPTIONS</a
+      ><a name="351"
+      > --without-K                </a
+      ><a name="379" class="Symbol"
+      >#-}</a
+      ><a name="382"
+      >
+
+</a
+      ><a name="384" class="Keyword"
+      >module</a
+      ><a name="390"
+      > </a
+      ><a name="391" href="DistributiveLaws.TaskB.UnprovedATP.html#1" class="Module"
+      >DistributiveLaws.TaskB.UnprovedATP</a
+      ><a name="425"
+      > </a
+      ><a name="426" class="Keyword"
+      >where</a
+      ><a name="431"
+      >
+
+</a
+      ><a name="433" class="Keyword"
+      >open</a
+      ><a name="437"
+      > </a
+      ><a name="438" class="Keyword"
+      >import</a
+      ><a name="444"
+      > </a
+      ><a name="445" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="466"
+      >
+
+</a
+      ><a name="468" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="546"
+      >
+</a
+      ><a name="547" class="Comment"
+      >-- 16 July 2015: The ATPs could not prove the theorem (240 sec).</a
+      ><a name="611"
+      >
+</a
+      ><a name="612" class="Keyword"
+      >postulate</a
+      ><a name="621"
+      >
+  </a
+      ><a name="624" href="DistributiveLaws.TaskB.UnprovedATP.html#624" class="Postulate"
+      >prop&#8322;</a
+      ><a name="629"
+      > </a
+      ><a name="630" class="Symbol"
+      >:</a
+      ><a name="631"
+      > </a
+      ><a name="632" class="Symbol"
+      >&#8704;</a
+      ><a name="633"
+      > </a
+      ><a name="634" href="DistributiveLaws.TaskB.UnprovedATP.html#634" class="Bound"
+      >u</a
+      ><a name="635"
+      > </a
+      ><a name="636" href="DistributiveLaws.TaskB.UnprovedATP.html#636" class="Bound"
+      >x</a
+      ><a name="637"
+      > </a
+      ><a name="638" href="DistributiveLaws.TaskB.UnprovedATP.html#638" class="Bound"
+      >y</a
+      ><a name="639"
+      > </a
+      ><a name="640" href="DistributiveLaws.TaskB.UnprovedATP.html#640" class="Bound"
+      >z</a
+      ><a name="641"
+      > </a
+      ><a name="642" class="Symbol"
+      >&#8594;</a
+      ><a name="643"
+      >
+          </a
+      ><a name="654" class="Symbol"
+      >(</a
+      ><a name="655" href="DistributiveLaws.TaskB.UnprovedATP.html#636" class="Bound"
+      >x</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="658"
+      > </a
+      ><a name="659" href="DistributiveLaws.TaskB.UnprovedATP.html#638" class="Bound"
+      >y</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="662"
+      > </a
+      ><a name="663" class="Symbol"
+      >(</a
+      ><a name="664" href="DistributiveLaws.TaskB.UnprovedATP.html#640" class="Bound"
+      >z</a
+      ><a name="665"
+      > </a
+      ><a name="666" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="667"
+      > </a
+      ><a name="668" href="DistributiveLaws.TaskB.UnprovedATP.html#634" class="Bound"
+      >u</a
+      ><a name="669" class="Symbol"
+      >))</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="Symbol"
+      >((</a
+      ><a name="676" href="DistributiveLaws.TaskB.UnprovedATP.html#636" class="Bound"
+      >x</a
+      ><a name="677"
+      > </a
+      ><a name="678" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="DistributiveLaws.TaskB.UnprovedATP.html#638" class="Bound"
+      >y</a
+      ><a name="681"
+      > </a
+      ><a name="682" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="683"
+      > </a
+      ><a name="684" class="Symbol"
+      >(</a
+      ><a name="685" href="DistributiveLaws.TaskB.UnprovedATP.html#640" class="Bound"
+      >z</a
+      ><a name="686"
+      > </a
+      ><a name="687" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="DistributiveLaws.TaskB.UnprovedATP.html#634" class="Bound"
+      >u</a
+      ><a name="690" class="Symbol"
+      >))</a
+      ><a name="692"
+      > </a
+      ><a name="693" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="694"
+      > </a
+      ><a name="695" class="Symbol"
+      >(</a
+      ><a name="696" href="DistributiveLaws.TaskB.UnprovedATP.html#636" class="Bound"
+      >x</a
+      ><a name="697"
+      > </a
+      ><a name="698" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="699"
+      > </a
+      ><a name="700" href="DistributiveLaws.TaskB.UnprovedATP.html#640" class="Bound"
+      >z</a
+      ><a name="701"
+      > </a
+      ><a name="702" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="703"
+      > </a
+      ><a name="704" class="Symbol"
+      >(</a
+      ><a name="705" href="DistributiveLaws.TaskB.UnprovedATP.html#638" class="Bound"
+      >y</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="708"
+      > </a
+      ><a name="709" href="DistributiveLaws.TaskB.UnprovedATP.html#634" class="Bound"
+      >u</a
+      ><a name="710" class="Symbol"
+      >)))</a
+      ><a name="713"
+      > </a
+      ><a name="714" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="715"
+      >
+            </a
+      ><a name="728" href="DistributiveLaws.TaskB.UnprovedATP.html#636" class="Bound"
+      >x</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="DistributiveLaws.TaskB.UnprovedATP.html#640" class="Bound"
+      >z</a
+      ><a name="733"
+      > </a
+      ><a name="734" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="735"
+      > </a
+      ><a name="736" class="Symbol"
+      >(</a
+      ><a name="737" href="DistributiveLaws.TaskB.UnprovedATP.html#638" class="Bound"
+      >y</a
+      ><a name="738"
+      > </a
+      ><a name="739" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="DistributiveLaws.TaskB.UnprovedATP.html#634" class="Bound"
+      >u</a
+      ><a name="742" class="Symbol"
+      >)</a
+      ><a name="743"
+      >
+</a
+      ><a name="744" class="Symbol"
+      >{-#</a
+      ><a name="747"
+      > </a
+      ><a name="748" class="Keyword"
+      >ATP</a
+      ><a name="751"
+      > prove </a
+      ><a name="758" href="DistributiveLaws.TaskB.UnprovedATP.html#624" class="Postulate"
+      >prop&#8322;</a
+      ><a name="763"
+      > </a
+      ><a name="764" class="Symbol"
+      >#-}</a
+      ><a name="767"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

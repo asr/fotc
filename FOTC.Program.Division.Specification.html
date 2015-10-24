@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Division.Specification</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The division specification</a
+      ><a name="109"
+      >
+</a
+      ><a name="110" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="188"
+      >
+
+</a
+      ><a name="190" class="Symbol"
+      >{-#</a
+      ><a name="193"
+      > </a
+      ><a name="194" class="Keyword"
+      >OPTIONS</a
+      ><a name="201"
+      > --exact-split              </a
+      ><a name="229" class="Symbol"
+      >#-}</a
+      ><a name="232"
+      >
+</a
+      ><a name="233" class="Symbol"
+      >{-#</a
+      ><a name="236"
+      > </a
+      ><a name="237" class="Keyword"
+      >OPTIONS</a
+      ><a name="244"
+      > --no-sized-types           </a
+      ><a name="272" class="Symbol"
+      >#-}</a
+      ><a name="275"
+      >
+</a
+      ><a name="276" class="Symbol"
+      >{-#</a
+      ><a name="279"
+      > </a
+      ><a name="280" class="Keyword"
+      >OPTIONS</a
+      ><a name="287"
+      > --no-universe-polymorphism </a
+      ><a name="315" class="Symbol"
+      >#-}</a
+      ><a name="318"
+      >
+</a
+      ><a name="319" class="Symbol"
+      >{-#</a
+      ><a name="322"
+      > </a
+      ><a name="323" class="Keyword"
+      >OPTIONS</a
+      ><a name="330"
+      > --without-K                </a
+      ><a name="358" class="Symbol"
+      >#-}</a
+      ><a name="361"
+      >
+
+</a
+      ><a name="363" class="Keyword"
+      >module</a
+      ><a name="369"
+      > </a
+      ><a name="370" href="FOTC.Program.Division.Specification.html#1" class="Module"
+      >FOTC.Program.Division.Specification</a
+      ><a name="405"
+      > </a
+      ><a name="406" class="Keyword"
+      >where</a
+      ><a name="411"
+      >
+
+</a
+      ><a name="413" class="Keyword"
+      >open</a
+      ><a name="417"
+      > </a
+      ><a name="418" class="Keyword"
+      >import</a
+      ><a name="424"
+      > </a
+      ><a name="425" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="434"
+      >
+</a
+      ><a name="435" class="Keyword"
+      >open</a
+      ><a name="439"
+      > </a
+      ><a name="440" class="Keyword"
+      >import</a
+      ><a name="446"
+      > </a
+      ><a name="447" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="460"
+      >
+</a
+      ><a name="461" class="Keyword"
+      >open</a
+      ><a name="465"
+      > </a
+      ><a name="466" class="Keyword"
+      >import</a
+      ><a name="472"
+      > </a
+      ><a name="473" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="499"
+      >
+
+</a
+      ><a name="501" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="579"
+      >
+</a
+      ><a name="580" class="Comment"
+      >-- Specification: The division is total and the result is correct.</a
+      ><a name="646"
+      >
+</a
+      ><a name="647" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="654"
+      > </a
+      ><a name="655" class="Symbol"
+      >:</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="658"
+      > </a
+      ><a name="659" class="Symbol"
+      >&#8594;</a
+      ><a name="660"
+      > </a
+      ><a name="661" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="662"
+      > </a
+      ><a name="663" class="Symbol"
+      >&#8594;</a
+      ><a name="664"
+      > </a
+      ><a name="665" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="666"
+      > </a
+      ><a name="667" class="Symbol"
+      >&#8594;</a
+      ><a name="668"
+      > </a
+      ><a name="669" class="PrimitiveType"
+      >Set</a
+      ><a name="672"
+      >
+</a
+      ><a name="673" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="680"
+      > </a
+      ><a name="681" href="FOTC.Program.Division.Specification.html#681" class="Bound"
+      >i</a
+      ><a name="682"
+      > </a
+      ><a name="683" href="FOTC.Program.Division.Specification.html#683" class="Bound"
+      >j</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="FOTC.Program.Division.Specification.html#685" class="Bound"
+      >q</a
+      ><a name="686"
+      > </a
+      ><a name="687" class="Symbol"
+      >=</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="690"
+      > </a
+      ><a name="691" href="FOTC.Program.Division.Specification.html#685" class="Bound"
+      >q</a
+      ><a name="692"
+      > </a
+      ><a name="693" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="694"
+      > </a
+      ><a name="695" class="Symbol"
+      >(</a
+      ><a name="696" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="698"
+      > </a
+      ><a name="699" href="FOTC.Program.Division.Specification.html#699" class="Bound"
+      >r</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="702"
+      > </a
+      ><a name="703" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="704"
+      > </a
+      ><a name="705" href="FOTC.Program.Division.Specification.html#699" class="Bound"
+      >r</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="708"
+      > </a
+      ><a name="709" href="FOTC.Program.Division.Specification.html#699" class="Bound"
+      >r</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="712"
+      > </a
+      ><a name="713" href="FOTC.Program.Division.Specification.html#683" class="Bound"
+      >j</a
+      ><a name="714"
+      > </a
+      ><a name="715" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="716"
+      > </a
+      ><a name="717" href="FOTC.Program.Division.Specification.html#681" class="Bound"
+      >i</a
+      ><a name="718"
+      > </a
+      ><a name="719" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="FOTC.Program.Division.Specification.html#683" class="Bound"
+      >j</a
+      ><a name="722"
+      > </a
+      ><a name="723" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="FOTC.Program.Division.Specification.html#685" class="Bound"
+      >q</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="728"
+      > </a
+      ><a name="729" href="FOTC.Program.Division.Specification.html#699" class="Bound"
+      >r</a
+      ><a name="730" class="Symbol"
+      >)</a
+      ><a name="731"
+      >
+</a
+      ><a name="732" class="Symbol"
+      >{-#</a
+      ><a name="735"
+      > </a
+      ><a name="736" class="Keyword"
+      >ATP</a
+      ><a name="739"
+      > definition </a
+      ><a name="751" href="FOTC.Program.Division.Specification.html#647" class="Function"
+      >divSpec</a
+      ><a name="758"
+      > </a
+      ><a name="759" class="Symbol"
+      >#-}</a
+      ><a name="762"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

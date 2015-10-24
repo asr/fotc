@@ -1,0 +1,6304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.GCD.Partial.CommonDivisor</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The gcd is a common divisor</a
+      ><a name="110"
+      >
+</a
+      ><a name="111" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="189"
+      >
+
+</a
+      ><a name="191" class="Symbol"
+      >{-#</a
+      ><a name="194"
+      > </a
+      ><a name="195" class="Keyword"
+      >OPTIONS</a
+      ><a name="202"
+      > --exact-split              </a
+      ><a name="230" class="Symbol"
+      >#-}</a
+      ><a name="233"
+      >
+</a
+      ><a name="234" class="Symbol"
+      >{-#</a
+      ><a name="237"
+      > </a
+      ><a name="238" class="Keyword"
+      >OPTIONS</a
+      ><a name="245"
+      > --no-sized-types           </a
+      ><a name="273" class="Symbol"
+      >#-}</a
+      ><a name="276"
+      >
+</a
+      ><a name="277" class="Symbol"
+      >{-#</a
+      ><a name="280"
+      > </a
+      ><a name="281" class="Keyword"
+      >OPTIONS</a
+      ><a name="288"
+      > --no-universe-polymorphism </a
+      ><a name="316" class="Symbol"
+      >#-}</a
+      ><a name="319"
+      >
+</a
+      ><a name="320" class="Symbol"
+      >{-#</a
+      ><a name="323"
+      > </a
+      ><a name="324" class="Keyword"
+      >OPTIONS</a
+      ><a name="331"
+      > --without-K                </a
+      ><a name="359" class="Symbol"
+      >#-}</a
+      ><a name="362"
+      >
+
+</a
+      ><a name="364" class="Keyword"
+      >module</a
+      ><a name="370"
+      > </a
+      ><a name="371" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.CommonDivisor</a
+      ><a name="412"
+      > </a
+      ><a name="413" class="Keyword"
+      >where</a
+      ><a name="418"
+      >
+
+</a
+      ><a name="420" class="Keyword"
+      >open</a
+      ><a name="424"
+      > </a
+      ><a name="425" class="Keyword"
+      >import</a
+      ><a name="431"
+      > </a
+      ><a name="432" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="444"
+      >
+</a
+      ><a name="445" class="Keyword"
+      >open</a
+      ><a name="449"
+      > </a
+      ><a name="450" class="Keyword"
+      >import</a
+      ><a name="456"
+      > </a
+      ><a name="457" href="LTC-PCF.Base.Properties.html#1" class="Module"
+      >LTC-PCF.Base.Properties</a
+      ><a name="480"
+      >
+</a
+      ><a name="481" class="Keyword"
+      >open</a
+      ><a name="485"
+      > </a
+      ><a name="486" class="Keyword"
+      >import</a
+      ><a name="492"
+      > </a
+      ><a name="493" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="509"
+      >
+</a
+      ><a name="510" class="Keyword"
+      >open</a
+      ><a name="514"
+      > </a
+      ><a name="515" class="Keyword"
+      >import</a
+      ><a name="521"
+      > </a
+      ><a name="522" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Divisibility.NotBy0</a
+      ><a name="558"
+      >
+</a
+      ><a name="559" class="Keyword"
+      >open</a
+      ><a name="563"
+      > </a
+      ><a name="564" class="Keyword"
+      >import</a
+      ><a name="570"
+      > </a
+      ><a name="571" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties</a
+      ><a name="618"
+      >
+</a
+      ><a name="619" class="Keyword"
+      >open</a
+      ><a name="623"
+      > </a
+      ><a name="624" class="Keyword"
+      >import</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic</a
+      ><a name="678"
+      >
+</a
+      ><a name="679" class="Keyword"
+      >open</a
+      ><a name="683"
+      > </a
+      ><a name="684" class="Keyword"
+      >import</a
+      ><a name="690"
+      > </a
+      ><a name="691" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="720"
+      >
+</a
+      ><a name="721" class="Keyword"
+      >open</a
+      ><a name="725"
+      > </a
+      ><a name="726" class="Keyword"
+      >import</a
+      ><a name="732"
+      > </a
+      ><a name="733" href="LTC-PCF.Data.Nat.Inequalities.EliminationProperties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities.EliminationProperties</a
+      ><a name="784"
+      >
+</a
+      ><a name="785" class="Keyword"
+      >open</a
+      ><a name="789"
+      > </a
+      ><a name="790" class="Keyword"
+      >import</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities.Properties</a
+      ><a name="837"
+      >
+</a
+      ><a name="838" class="Keyword"
+      >open</a
+      ><a name="842"
+      > </a
+      ><a name="843" class="Keyword"
+      >import</a
+      ><a name="849"
+      > </a
+      ><a name="850" href="LTC-PCF.Data.Nat.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Properties</a
+      ><a name="877"
+      >
+</a
+      ><a name="878" class="Keyword"
+      >open</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Keyword"
+      >import</a
+      ><a name="889"
+      > </a
+      ><a name="890" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.ConversionRules</a
+      ><a name="933"
+      >
+</a
+      ><a name="934" class="Keyword"
+      >open</a
+      ><a name="938"
+      > </a
+      ><a name="939" class="Keyword"
+      >import</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Definitions</a
+      ><a name="985"
+      >
+</a
+      ><a name="986" class="Keyword"
+      >open</a
+      ><a name="990"
+      > </a
+      ><a name="991" class="Keyword"
+      >import</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="LTC-PCF.Program.GCD.Partial.GCD.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.GCD</a
+      ><a name="1029"
+      >
+</a
+      ><a name="1030" class="Keyword"
+      >open</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" class="Keyword"
+      >import</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="LTC-PCF.Program.GCD.Partial.Totality.html#1" class="Module"
+      >LTC-PCF.Program.GCD.Partial.Totality</a
+      ><a name="1078"
+      >
+
+</a
+      ><a name="1080" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1158"
+      >
+</a
+      ><a name="1159" class="Comment"
+      >-- Some cases of the gcd-&#8739;&#8321;.</a
+      ><a name="1187"
+      >
+
+</a
+      ><a name="1189" class="Comment"
+      >-- We don't prove that</a
+      ><a name="1211"
+      >
+</a
+      ><a name="1212" class="Comment"
+      >--</a
+      ><a name="1214"
+      >
+</a
+      ><a name="1215" class="Comment"
+      >-- gcd-&#8739;&#8321; : ... &#8594; (gcd m n) &#8739; m</a
+      ><a name="1246"
+      >
+
+</a
+      ><a name="1248" class="Comment"
+      >-- because this proof should be defined mutually recursive with the</a
+      ><a name="1315"
+      >
+</a
+      ><a name="1316" class="Comment"
+      >-- proof</a
+      ><a name="1324"
+      >
+</a
+      ><a name="1325" class="Comment"
+      >--</a
+      ><a name="1327"
+      >
+</a
+      ><a name="1328" class="Comment"
+      >-- gcd-&#8739;&#8322; : ... &#8594; (gcd m n) &#8739; n.</a
+      ><a name="1360"
+      >
+</a
+      ><a name="1361" class="Comment"
+      >--</a
+      ><a name="1363"
+      >
+</a
+      ><a name="1364" class="Comment"
+      >-- Therefore, instead of proving</a
+      ><a name="1396"
+      >
+</a
+      ><a name="1397" class="Comment"
+      >--</a
+      ><a name="1399"
+      >
+</a
+      ><a name="1400" class="Comment"
+      >-- gcdCD : ... &#8594; CD m n (gcd m n)</a
+      ><a name="1433"
+      >
+</a
+      ><a name="1434" class="Comment"
+      >--</a
+      ><a name="1436"
+      >
+</a
+      ><a name="1437" class="Comment"
+      >-- using these proofs (i.e. the conjunction of them), we proved it</a
+      ><a name="1503"
+      >
+</a
+      ><a name="1504" class="Comment"
+      >-- using well-founded induction.</a
+      ><a name="1536"
+      >
+
+</a
+      ><a name="1538" class="Comment"
+      >-- gcd 0 (succ n) &#8739; 0.</a
+      ><a name="1560"
+      >
+</a
+      ><a name="1561" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1561" class="Function"
+      >gcd-0S-&#8739;&#8321;</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" class="Symbol"
+      >:</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" class="Symbol"
+      >&#8704;</a
+      ><a name="1574"
+      > </a
+      ><a name="1575" class="Symbol"
+      >{</a
+      ><a name="1576" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1576" class="Bound"
+      >n</a
+      ><a name="1577" class="Symbol"
+      >}</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" class="Symbol"
+      >&#8594;</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1582"
+      > </a
+      ><a name="1583" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1576" class="Bound"
+      >n</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" class="Symbol"
+      >&#8594;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" class="Symbol"
+      >(</a
+      ><a name="1597" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1576" class="Bound"
+      >n</a
+      ><a name="1604" class="Symbol"
+      >)</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1612"
+      >
+</a
+      ><a name="1613" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1561" class="Function"
+      >gcd-0S-&#8739;&#8321;</a
+      ><a name="1622"
+      > </a
+      ><a name="1623" class="Symbol"
+      >{</a
+      ><a name="1624" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1624" class="Bound"
+      >n</a
+      ><a name="1625" class="Symbol"
+      >}</a
+      ><a name="1626"
+      > </a
+      ><a name="1627" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1627" class="Bound"
+      >Nn</a
+      ><a name="1629"
+      > </a
+      ><a name="1630" class="Symbol"
+      >=</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" class="Symbol"
+      >(&#955;</a
+      ><a name="1640"
+      > </a
+      ><a name="1641" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1641" class="Bound"
+      >x</a
+      ><a name="1642"
+      > </a
+      ><a name="1643" class="Symbol"
+      >&#8594;</a
+      ><a name="1644"
+      > </a
+      ><a name="1645" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1641" class="Bound"
+      >x</a
+      ><a name="1646"
+      > </a
+      ><a name="1647" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1648"
+      > </a
+      ><a name="1649" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1653" class="Symbol"
+      >)</a
+      ><a name="1654"
+      >
+                         </a
+      ><a name="1680" class="Symbol"
+      >(</a
+      ><a name="1681" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" class="Symbol"
+      >(</a
+      ><a name="1686" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#7393" class="Function"
+      >gcd-0S</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1624" class="Bound"
+      >n</a
+      ><a name="1694" class="Symbol"
+      >))</a
+      ><a name="1696"
+      >
+                         </a
+      ><a name="1722" class="Symbol"
+      >(</a
+      ><a name="1723" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#918" class="Function"
+      >S&#8739;0</a
+      ><a name="1726"
+      > </a
+      ><a name="1727" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1627" class="Bound"
+      >Nn</a
+      ><a name="1729" class="Symbol"
+      >)</a
+      ><a name="1730"
+      >
+
+</a
+      ><a name="1732" class="Comment"
+      >-- gcd (succ&#8321; m) 0 &#8739; succ&#8321; m.</a
+      ><a name="1761"
+      >
+</a
+      ><a name="1762" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1762" class="Function"
+      >gcd-S0-&#8739;&#8321;</a
+      ><a name="1771"
+      > </a
+      ><a name="1772" class="Symbol"
+      >:</a
+      ><a name="1773"
+      > </a
+      ><a name="1774" class="Symbol"
+      >&#8704;</a
+      ><a name="1775"
+      > </a
+      ><a name="1776" class="Symbol"
+      >{</a
+      ><a name="1777" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1777" class="Bound"
+      >m</a
+      ><a name="1778" class="Symbol"
+      >}</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" class="Symbol"
+      >&#8594;</a
+      ><a name="1781"
+      > </a
+      ><a name="1782" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1783"
+      > </a
+      ><a name="1784" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1777" class="Bound"
+      >m</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" class="Symbol"
+      >&#8594;</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" class="Symbol"
+      >(</a
+      ><a name="1793" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1798"
+      > </a
+      ><a name="1799" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1777" class="Bound"
+      >m</a
+      ><a name="1800" class="Symbol"
+      >)</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1814"
+      > </a
+      ><a name="1815" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1777" class="Bound"
+      >m</a
+      ><a name="1816"
+      >
+</a
+      ><a name="1817" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1762" class="Function"
+      >gcd-S0-&#8739;&#8321;</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" class="Symbol"
+      >{</a
+      ><a name="1828" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1828" class="Bound"
+      >m</a
+      ><a name="1829" class="Symbol"
+      >}</a
+      ><a name="1830"
+      > </a
+      ><a name="1831" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1831" class="Bound"
+      >Nm</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" class="Symbol"
+      >=</a
+      ><a name="1835"
+      > </a
+      ><a name="1836" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1841"
+      > </a
+      ><a name="1842" class="Symbol"
+      >(&#955;</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1845" class="Bound"
+      >x</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" class="Symbol"
+      >&#8594;</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1845" class="Bound"
+      >x</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1828" class="Bound"
+      >m</a
+      ><a name="1860" class="Symbol"
+      >)</a
+      ><a name="1861"
+      >
+                         </a
+      ><a name="1887" class="Symbol"
+      >(</a
+      ><a name="1888" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" class="Symbol"
+      >(</a
+      ><a name="1893" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#6858" class="Function"
+      >gcd-S0</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1828" class="Bound"
+      >m</a
+      ><a name="1901" class="Symbol"
+      >))</a
+      ><a name="1903"
+      >
+                         </a
+      ><a name="1929" class="Symbol"
+      >(</a
+      ><a name="1930" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1170" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1831" class="Bound"
+      >Nm</a
+      ><a name="1941" class="Symbol"
+      >)</a
+      ><a name="1942"
+      >
+
+</a
+      ><a name="1944" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; m, when succ&#8321; m &#8815; succ&#8321; n.</a
+      ><a name="2005"
+      >
+</a
+      ><a name="2006" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2006" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8321;</a
+      ><a name="2016"
+      > </a
+      ><a name="2017" class="Symbol"
+      >:</a
+      ><a name="2018"
+      >
+  </a
+      ><a name="2021" class="Symbol"
+      >&#8704;</a
+      ><a name="2022"
+      > </a
+      ><a name="2023" class="Symbol"
+      >{</a
+      ><a name="2024" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2025"
+      > </a
+      ><a name="2026" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2026" class="Bound"
+      >n</a
+      ><a name="2027" class="Symbol"
+      >}</a
+      ><a name="2028"
+      > </a
+      ><a name="2029" class="Symbol"
+      >&#8594;</a
+      ><a name="2030"
+      > </a
+      ><a name="2031" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2032"
+      > </a
+      ><a name="2033" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2034"
+      > </a
+      ><a name="2035" class="Symbol"
+      >&#8594;</a
+      ><a name="2036"
+      > </a
+      ><a name="2037" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2026" class="Bound"
+      >n</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" class="Symbol"
+      >&#8594;</a
+      ><a name="2042"
+      >
+  </a
+      ><a name="2045" class="Symbol"
+      >(</a
+      ><a name="2046" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2049"
+      > </a
+      ><a name="2050" class="Symbol"
+      >(</a
+      ><a name="2051" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2056"
+      > </a
+      ><a name="2057" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2058" class="Symbol"
+      >)</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" class="Symbol"
+      >(</a
+      ><a name="2061" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2026" class="Bound"
+      >n</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2076"
+      > </a
+      ><a name="2077" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2078" class="Symbol"
+      >)</a
+      ><a name="2079"
+      > </a
+      ><a name="2080" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2089" class="Symbol"
+      >)</a
+      ><a name="2090"
+      > </a
+      ><a name="2091" class="Symbol"
+      >&#8594;</a
+      ><a name="2092"
+      >
+  </a
+      ><a name="2095" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2100"
+      > </a
+      ><a name="2101" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2102"
+      > </a
+      ><a name="2103" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="2104"
+      > </a
+      ><a name="2105" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2026" class="Bound"
+      >n</a
+      ><a name="2112"
+      > </a
+      ><a name="2113" class="Symbol"
+      >&#8594;</a
+      ><a name="2114"
+      >
+  </a
+      ><a name="2117" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" class="Symbol"
+      >(</a
+      ><a name="2122" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2129" class="Symbol"
+      >)</a
+      ><a name="2130"
+      > </a
+      ><a name="2131" class="Symbol"
+      >(</a
+      ><a name="2132" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2026" class="Bound"
+      >n</a
+      ><a name="2139" class="Symbol"
+      >)</a
+      ><a name="2140"
+      > </a
+      ><a name="2141" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2142"
+      > </a
+      ><a name="2143" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2148"
+      > </a
+      ><a name="2149" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2024" class="Bound"
+      >m</a
+      ><a name="2150"
+      >
+</a
+      ><a name="2151" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2006" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8321;</a
+      ><a name="2161"
+      > </a
+      ><a name="2162" class="Symbol"
+      >{</a
+      ><a name="2163" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2163" class="Bound"
+      >m</a
+      ><a name="2164" class="Symbol"
+      >}</a
+      ><a name="2165"
+      > </a
+      ><a name="2166" class="Symbol"
+      >{</a
+      ><a name="2167" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2167" class="Bound"
+      >n</a
+      ><a name="2168" class="Symbol"
+      >}</a
+      ><a name="2169"
+      > </a
+      ><a name="2170" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2170" class="Bound"
+      >Nm</a
+      ><a name="2172"
+      > </a
+      ><a name="2173" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2173" class="Bound"
+      >Nn</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2176" class="Bound"
+      >ih</a
+      ><a name="2178"
+      > </a
+      ><a name="2179" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2179" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="2184"
+      > </a
+      ><a name="2185" class="Symbol"
+      >=</a
+      ><a name="2186"
+      >
+  </a
+      ><a name="2189" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2194"
+      > </a
+      ><a name="2195" class="Symbol"
+      >(&#955;</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2198" class="Bound"
+      >x</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" class="Symbol"
+      >&#8594;</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2198" class="Bound"
+      >x</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2205"
+      > </a
+      ><a name="2206" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2211"
+      > </a
+      ><a name="2212" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2163" class="Bound"
+      >m</a
+      ><a name="2213" class="Symbol"
+      >)</a
+      ><a name="2214"
+      >
+        </a
+      ><a name="2223" class="Symbol"
+      >(</a
+      ><a name="2224" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" class="Symbol"
+      >(</a
+      ><a name="2229" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#8812" class="Function"
+      >gcd-S&#8815;S</a
+      ><a name="2236"
+      > </a
+      ><a name="2237" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2163" class="Bound"
+      >m</a
+      ><a name="2238"
+      > </a
+      ><a name="2239" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2167" class="Bound"
+      >n</a
+      ><a name="2240"
+      > </a
+      ><a name="2241" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2179" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="2246" class="Symbol"
+      >))</a
+      ><a name="2248"
+      >
+        </a
+      ><a name="2257" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2176" class="Bound"
+      >ih</a
+      ><a name="2259"
+      >
+
+</a
+      ><a name="2261" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; m when succ&#8321; m &gt; succ&#8321; n.</a
+      ><a name="2321"
+      >
+</a
+      ><a name="2322" class="Comment"
+      >-- We use gcd-&#8739;&#8322;.</a
+      ><a name="2339"
+      >
+</a
+      ><a name="2340" class="Comment"
+      >-- We apply the theorem that if m&#8739;n and m&#8739;o then m&#8739;(n+o).</a
+      ><a name="2397"
+      >
+</a
+      ><a name="2398" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2398" class="Function"
+      >gcd-S&gt;S-&#8739;&#8321;</a
+      ><a name="2408"
+      > </a
+      ><a name="2409" class="Symbol"
+      >:</a
+      ><a name="2410"
+      >
+  </a
+      ><a name="2413" class="Symbol"
+      >&#8704;</a
+      ><a name="2414"
+      > </a
+      ><a name="2415" class="Symbol"
+      >{</a
+      ><a name="2416" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2417"
+      > </a
+      ><a name="2418" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2419" class="Symbol"
+      >}</a
+      ><a name="2420"
+      > </a
+      ><a name="2421" class="Symbol"
+      >&#8594;</a
+      ><a name="2422"
+      > </a
+      ><a name="2423" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2424"
+      > </a
+      ><a name="2425" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2426"
+      > </a
+      ><a name="2427" class="Symbol"
+      >&#8594;</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2430"
+      > </a
+      ><a name="2431" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2432"
+      > </a
+      ><a name="2433" class="Symbol"
+      >&#8594;</a
+      ><a name="2434"
+      >
+  </a
+      ><a name="2437" class="Symbol"
+      >(</a
+      ><a name="2438" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2441"
+      > </a
+      ><a name="2442" class="Symbol"
+      >(</a
+      ><a name="2443" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2448"
+      > </a
+      ><a name="2449" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2450"
+      > </a
+      ><a name="2451" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2452"
+      > </a
+      ><a name="2453" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2458"
+      > </a
+      ><a name="2459" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2460" class="Symbol"
+      >)</a
+      ><a name="2461"
+      > </a
+      ><a name="2462" class="Symbol"
+      >(</a
+      ><a name="2463" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2468"
+      > </a
+      ><a name="2469" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2470" class="Symbol"
+      >)</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2473"
+      > </a
+      ><a name="2474" class="Symbol"
+      >(</a
+      ><a name="2475" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2484"
+      > </a
+      ><a name="2485" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2490"
+      > </a
+      ><a name="2491" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2492" class="Symbol"
+      >))</a
+      ><a name="2494"
+      > </a
+      ><a name="2495" class="Symbol"
+      >&#8594;</a
+      ><a name="2496"
+      >
+  </a
+      ><a name="2499" class="Symbol"
+      >(</a
+      ><a name="2500" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2503"
+      > </a
+      ><a name="2504" class="Symbol"
+      >(</a
+      ><a name="2505" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2510"
+      > </a
+      ><a name="2511" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2512"
+      > </a
+      ><a name="2513" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2514"
+      > </a
+      ><a name="2515" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2520"
+      > </a
+      ><a name="2521" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2522" class="Symbol"
+      >)</a
+      ><a name="2523"
+      > </a
+      ><a name="2524" class="Symbol"
+      >(</a
+      ><a name="2525" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2530"
+      > </a
+      ><a name="2531" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2532" class="Symbol"
+      >)</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2541"
+      > </a
+      ><a name="2542" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2543" class="Symbol"
+      >)</a
+      ><a name="2544"
+      > </a
+      ><a name="2545" class="Symbol"
+      >&#8594;</a
+      ><a name="2546"
+      >
+  </a
+      ><a name="2549" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2554"
+      > </a
+      ><a name="2555" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2556"
+      > </a
+      ><a name="2557" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="2558"
+      > </a
+      ><a name="2559" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2564"
+      > </a
+      ><a name="2565" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2566"
+      > </a
+      ><a name="2567" class="Symbol"
+      >&#8594;</a
+      ><a name="2568"
+      >
+  </a
+      ><a name="2571" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="2574"
+      > </a
+      ><a name="2575" class="Symbol"
+      >(</a
+      ><a name="2576" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2581"
+      > </a
+      ><a name="2582" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2583" class="Symbol"
+      >)</a
+      ><a name="2584"
+      > </a
+      ><a name="2585" class="Symbol"
+      >(</a
+      ><a name="2586" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2591"
+      > </a
+      ><a name="2592" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2418" class="Bound"
+      >n</a
+      ><a name="2593" class="Symbol"
+      >)</a
+      ><a name="2594"
+      > </a
+      ><a name="2595" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="2596"
+      > </a
+      ><a name="2597" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2602"
+      > </a
+      ><a name="2603" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2416" class="Bound"
+      >m</a
+      ><a name="2604"
+      >
+
+</a
+      ><a name="2606" class="Comment"
+      >{- Proof:
+1. gcd (Sm &#8760; Sn) Sn | (Sm &#8760; Sn)        IH
+2. gcd (Sm &#8760; Sn) Sn | Sn               gcd-&#8739;&#8322;
+3. gcd (Sm &#8760; Sn) Sn | (Sm &#8760; Sn) + Sn   m&#8739;n&#8594;m&#8739;o&#8594;m&#8739;n+o 1,2
+4. Sm &gt; Sn                             Hip
+5. gcd (Sm &#8760; Sn) Sn | Sm               arith-gcd-m&gt;n&#8322; 3,4
+6. gcd Sm Sn = gcd (Sm &#8760; Sn) Sn        gcd eq. 4
+7. gcd Sm Sn | Sm                      subst 5,6
+-}</a
+      ><a name="2962"
+      >
+
+</a
+      ><a name="2964" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2398" class="Function"
+      >gcd-S&gt;S-&#8739;&#8321;</a
+      ><a name="2974"
+      > </a
+      ><a name="2975" class="Symbol"
+      >{</a
+      ><a name="2976" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="2977" class="Symbol"
+      >}</a
+      ><a name="2978"
+      > </a
+      ><a name="2979" class="Symbol"
+      >{</a
+      ><a name="2980" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="2981" class="Symbol"
+      >}</a
+      ><a name="2982"
+      > </a
+      ><a name="2983" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2983" class="Bound"
+      >Nm</a
+      ><a name="2985"
+      > </a
+      ><a name="2986" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2986" class="Bound"
+      >Nn</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2989" class="Bound"
+      >ih</a
+      ><a name="2991"
+      > </a
+      ><a name="2992" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2992" class="Bound"
+      >gcd-&#8739;&#8322;</a
+      ><a name="2998"
+      > </a
+      ><a name="2999" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2999" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3004"
+      > </a
+      ><a name="3005" class="Symbol"
+      >=</a
+      ><a name="3006"
+      >
+  </a
+      ><a name="3009" class="Comment"
+      >-- The first substitution is based on</a
+      ><a name="3046"
+      >
+  </a
+      ><a name="3049" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) = gcd (succ&#8321; m &#8760; succ&#8321; n) (succ&#8321; n).</a
+      ><a name="3112"
+      >
+  </a
+      ><a name="3115" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3120"
+      > </a
+      ><a name="3121" class="Symbol"
+      >(&#955;</a
+      ><a name="3123"
+      > </a
+      ><a name="3124" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3124" class="Bound"
+      >x</a
+      ><a name="3125"
+      > </a
+      ><a name="3126" class="Symbol"
+      >&#8594;</a
+      ><a name="3127"
+      > </a
+      ><a name="3128" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3124" class="Bound"
+      >x</a
+      ><a name="3129"
+      > </a
+      ><a name="3130" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="3131"
+      > </a
+      ><a name="3132" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3137"
+      > </a
+      ><a name="3138" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="3139" class="Symbol"
+      >)</a
+      ><a name="3140"
+      >
+        </a
+      ><a name="3149" class="Symbol"
+      >(</a
+      ><a name="3150" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="3153"
+      > </a
+      ><a name="3154" class="Symbol"
+      >(</a
+      ><a name="3155" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#7947" class="Function"
+      >gcd-S&gt;S</a
+      ><a name="3162"
+      > </a
+      ><a name="3163" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="3164"
+      > </a
+      ><a name="3165" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3166"
+      > </a
+      ><a name="3167" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2999" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3172" class="Symbol"
+      >))</a
+      ><a name="3174"
+      >
+        </a
+      ><a name="3183" class="Comment"
+      >-- The second substitution is based on</a
+      ><a name="3221"
+      >
+        </a
+      ><a name="3230" class="Comment"
+      >-- m = (m &#8760; n) + n.</a
+      ><a name="3249"
+      >
+        </a
+      ><a name="3258" class="Symbol"
+      >(</a
+      ><a name="3259" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3264"
+      > </a
+      ><a name="3265" class="Symbol"
+      >(&#955;</a
+      ><a name="3267"
+      > </a
+      ><a name="3268" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3268" class="Bound"
+      >y</a
+      ><a name="3269"
+      > </a
+      ><a name="3270" class="Symbol"
+      >&#8594;</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3275"
+      > </a
+      ><a name="3276" class="Symbol"
+      >(</a
+      ><a name="3277" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3282"
+      > </a
+      ><a name="3283" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="3284"
+      > </a
+      ><a name="3285" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="3286"
+      > </a
+      ><a name="3287" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3292"
+      > </a
+      ><a name="3293" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3294" class="Symbol"
+      >)</a
+      ><a name="3295"
+      > </a
+      ><a name="3296" class="Symbol"
+      >(</a
+      ><a name="3297" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3302"
+      > </a
+      ><a name="3303" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3304" class="Symbol"
+      >)</a
+      ><a name="3305"
+      > </a
+      ><a name="3306" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="3307"
+      > </a
+      ><a name="3308" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3268" class="Bound"
+      >y</a
+      ><a name="3309" class="Symbol"
+      >)</a
+      ><a name="3310"
+      >
+               </a
+      ><a name="3326" class="Symbol"
+      >(</a
+      ><a name="3327" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#7779" class="Function"
+      >x&gt;y&#8594;x&#8760;y+y&#8801;x</a
+      ><a name="3338"
+      > </a
+      ><a name="3339" class="Symbol"
+      >(</a
+      ><a name="3340" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3345"
+      > </a
+      ><a name="3346" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2983" class="Bound"
+      >Nm</a
+      ><a name="3348" class="Symbol"
+      >)</a
+      ><a name="3349"
+      > </a
+      ><a name="3350" class="Symbol"
+      >(</a
+      ><a name="3351" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3356"
+      > </a
+      ><a name="3357" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2986" class="Bound"
+      >Nn</a
+      ><a name="3359" class="Symbol"
+      >)</a
+      ><a name="3360"
+      > </a
+      ><a name="3361" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2999" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3366" class="Symbol"
+      >)</a
+      ><a name="3367"
+      >
+               </a
+      ><a name="3383" class="Symbol"
+      >(</a
+      ><a name="3384" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2670" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="3397"
+      >
+                 </a
+      ><a name="3415" class="Symbol"
+      >{</a
+      ><a name="3416" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="3419"
+      > </a
+      ><a name="3420" class="Symbol"
+      >(</a
+      ><a name="3421" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3426"
+      > </a
+      ><a name="3427" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="3428"
+      > </a
+      ><a name="3429" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="3430"
+      > </a
+      ><a name="3431" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3436"
+      > </a
+      ><a name="3437" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3438" class="Symbol"
+      >)</a
+      ><a name="3439"
+      > </a
+      ><a name="3440" class="Symbol"
+      >(</a
+      ><a name="3441" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3446"
+      > </a
+      ><a name="3447" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3448" class="Symbol"
+      >)}</a
+      ><a name="3450"
+      >
+                 </a
+      ><a name="3468" class="Symbol"
+      >{</a
+      ><a name="3469" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3474"
+      > </a
+      ><a name="3475" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="3478"
+      > </a
+      ><a name="3479" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3484"
+      > </a
+      ><a name="3485" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3486" class="Symbol"
+      >}</a
+      ><a name="3487"
+      >
+                 </a
+      ><a name="3505" class="Symbol"
+      >{</a
+      ><a name="3506" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3511"
+      > </a
+      ><a name="3512" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3513" class="Symbol"
+      >}</a
+      ><a name="3514"
+      >
+                 </a
+      ><a name="3532" class="Symbol"
+      >(</a
+      ><a name="3533" href="LTC-PCF.Program.GCD.Partial.Totality.html#3760" class="Function"
+      >gcd-N</a
+      ><a name="3538"
+      > </a
+      ><a name="3539" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3725" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3546"
+      > </a
+      ><a name="3547" class="Symbol"
+      >(</a
+      ><a name="3548" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3553"
+      > </a
+      ><a name="3554" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2986" class="Bound"
+      >Nn</a
+      ><a name="3556" class="Symbol"
+      >)</a
+      ><a name="3557"
+      > </a
+      ><a name="3558" class="Symbol"
+      >(&#955;</a
+      ><a name="3560"
+      > </a
+      ><a name="3561" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3561" class="Bound"
+      >p</a
+      ><a name="3562"
+      > </a
+      ><a name="3563" class="Symbol"
+      >&#8594;</a
+      ><a name="3564"
+      > </a
+      ><a name="3565" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3571"
+      > </a
+      ><a name="3572" class="Symbol"
+      >(</a
+      ><a name="3573" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="3576"
+      > </a
+      ><a name="3577" class="Symbol"
+      >(</a
+      ><a name="3578" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="3585"
+      > </a
+      ><a name="3586" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3561" class="Bound"
+      >p</a
+      ><a name="3587" class="Symbol"
+      >))))</a
+      ><a name="3591"
+      >
+                 </a
+      ><a name="3609" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3725" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3616"
+      >
+                 </a
+      ><a name="3634" class="Symbol"
+      >(</a
+      ><a name="3635" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3640"
+      > </a
+      ><a name="3641" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2986" class="Bound"
+      >Nn</a
+      ><a name="3643" class="Symbol"
+      >)</a
+      ><a name="3644"
+      >
+                 </a
+      ><a name="3662" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2989" class="Bound"
+      >ih</a
+      ><a name="3664"
+      >
+                 </a
+      ><a name="3682" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2992" class="Bound"
+      >gcd-&#8739;&#8322;</a
+      ><a name="3688"
+      >
+               </a
+      ><a name="3704" class="Symbol"
+      >)</a
+      ><a name="3705"
+      >
+       </a
+      ><a name="3713" class="Symbol"
+      >)</a
+      ><a name="3714"
+      >
+  </a
+      ><a name="3717" class="Keyword"
+      >where</a
+      ><a name="3722"
+      >
+  </a
+      ><a name="3725" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3725" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3732"
+      > </a
+      ><a name="3733" class="Symbol"
+      >:</a
+      ><a name="3734"
+      > </a
+      ><a name="3735" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="3736"
+      > </a
+      ><a name="3737" class="Symbol"
+      >(</a
+      ><a name="3738" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3743"
+      > </a
+      ><a name="3744" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2976" class="Bound"
+      >m</a
+      ><a name="3745"
+      > </a
+      ><a name="3746" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="3747"
+      > </a
+      ><a name="3748" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="3753"
+      > </a
+      ><a name="3754" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2980" class="Bound"
+      >n</a
+      ><a name="3755" class="Symbol"
+      >)</a
+      ><a name="3756"
+      >
+  </a
+      ><a name="3759" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#3725" class="Function"
+      >Sm-Sn-N</a
+      ><a name="3766"
+      > </a
+      ><a name="3767" class="Symbol"
+      >=</a
+      ><a name="3768"
+      > </a
+      ><a name="3769" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="3772"
+      > </a
+      ><a name="3773" class="Symbol"
+      >(</a
+      ><a name="3774" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3779"
+      > </a
+      ><a name="3780" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2983" class="Bound"
+      >Nm</a
+      ><a name="3782" class="Symbol"
+      >)</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" class="Symbol"
+      >(</a
+      ><a name="3785" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3790"
+      > </a
+      ><a name="3791" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2986" class="Bound"
+      >Nn</a
+      ><a name="3793" class="Symbol"
+      >)</a
+      ><a name="3794"
+      >
+
+</a
+      ><a name="3796" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3874"
+      >
+</a
+      ><a name="3875" class="Comment"
+      >-- Some case of the gcd-&#8739;&#8322;</a
+      ><a name="3901"
+      >
+</a
+      ><a name="3902" class="Comment"
+      >-- We don't prove that gcd-&#8739;&#8322; : ... &#8594; gcd m n &#8739; n. The reason is</a
+      ><a name="3966"
+      >
+</a
+      ><a name="3967" class="Comment"
+      >-- the same to don't prove gcd-&#8739;&#8321; : ... &#8594; gcd m n &#8739; m.</a
+      ><a name="4021"
+      >
+
+</a
+      ><a name="4023" class="Comment"
+      >-- gcd 0 (succ&#8321; n) &#8739;&#8322; succ&#8321; n.</a
+      ><a name="4053"
+      >
+</a
+      ><a name="4054" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4054" class="Function"
+      >gcd-0S-&#8739;&#8322;</a
+      ><a name="4063"
+      > </a
+      ><a name="4064" class="Symbol"
+      >:</a
+      ><a name="4065"
+      > </a
+      ><a name="4066" class="Symbol"
+      >&#8704;</a
+      ><a name="4067"
+      > </a
+      ><a name="4068" class="Symbol"
+      >{</a
+      ><a name="4069" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4069" class="Bound"
+      >n</a
+      ><a name="4070" class="Symbol"
+      >}</a
+      ><a name="4071"
+      > </a
+      ><a name="4072" class="Symbol"
+      >&#8594;</a
+      ><a name="4073"
+      > </a
+      ><a name="4074" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="4075"
+      > </a
+      ><a name="4076" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4069" class="Bound"
+      >n</a
+      ><a name="4077"
+      > </a
+      ><a name="4078" class="Symbol"
+      >&#8594;</a
+      ><a name="4079"
+      > </a
+      ><a name="4080" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="4083"
+      > </a
+      ><a name="4084" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="4088"
+      > </a
+      ><a name="4089" class="Symbol"
+      >(</a
+      ><a name="4090" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4095"
+      > </a
+      ><a name="4096" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4069" class="Bound"
+      >n</a
+      ><a name="4097" class="Symbol"
+      >)</a
+      ><a name="4098"
+      > </a
+      ><a name="4099" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4100"
+      > </a
+      ><a name="4101" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4106"
+      > </a
+      ><a name="4107" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4069" class="Bound"
+      >n</a
+      ><a name="4108"
+      >
+</a
+      ><a name="4109" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4054" class="Function"
+      >gcd-0S-&#8739;&#8322;</a
+      ><a name="4118"
+      > </a
+      ><a name="4119" class="Symbol"
+      >{</a
+      ><a name="4120" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4120" class="Bound"
+      >n</a
+      ><a name="4121" class="Symbol"
+      >}</a
+      ><a name="4122"
+      > </a
+      ><a name="4123" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4123" class="Bound"
+      >Nn</a
+      ><a name="4125"
+      > </a
+      ><a name="4126" class="Symbol"
+      >=</a
+      ><a name="4127"
+      > </a
+      ><a name="4128" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4133"
+      > </a
+      ><a name="4134" class="Symbol"
+      >(&#955;</a
+      ><a name="4136"
+      > </a
+      ><a name="4137" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4137" class="Bound"
+      >x</a
+      ><a name="4138"
+      > </a
+      ><a name="4139" class="Symbol"
+      >&#8594;</a
+      ><a name="4140"
+      > </a
+      ><a name="4141" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4137" class="Bound"
+      >x</a
+      ><a name="4142"
+      > </a
+      ><a name="4143" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4144"
+      > </a
+      ><a name="4145" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4150"
+      > </a
+      ><a name="4151" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4120" class="Bound"
+      >n</a
+      ><a name="4152" class="Symbol"
+      >)</a
+      ><a name="4153"
+      >
+                         </a
+      ><a name="4179" class="Symbol"
+      >(</a
+      ><a name="4180" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="4183"
+      > </a
+      ><a name="4184" class="Symbol"
+      >(</a
+      ><a name="4185" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#7393" class="Function"
+      >gcd-0S</a
+      ><a name="4191"
+      > </a
+      ><a name="4192" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4120" class="Bound"
+      >n</a
+      ><a name="4193" class="Symbol"
+      >))</a
+      ><a name="4195"
+      >
+                         </a
+      ><a name="4221" class="Symbol"
+      >(</a
+      ><a name="4222" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#1170" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="4230"
+      > </a
+      ><a name="4231" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4123" class="Bound"
+      >Nn</a
+      ><a name="4233" class="Symbol"
+      >)</a
+      ><a name="4234"
+      >
+
+</a
+      ><a name="4236" class="Comment"
+      >-- gcd (succ&#8321; m) 0 &#8739; 0.</a
+      ><a name="4259"
+      >
+</a
+      ><a name="4260" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4260" class="Function"
+      >gcd-S0-&#8739;&#8322;</a
+      ><a name="4269"
+      > </a
+      ><a name="4270" class="Symbol"
+      >:</a
+      ><a name="4271"
+      > </a
+      ><a name="4272" class="Symbol"
+      >&#8704;</a
+      ><a name="4273"
+      > </a
+      ><a name="4274" class="Symbol"
+      >{</a
+      ><a name="4275" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4275" class="Bound"
+      >m</a
+      ><a name="4276" class="Symbol"
+      >}</a
+      ><a name="4277"
+      > </a
+      ><a name="4278" class="Symbol"
+      >&#8594;</a
+      ><a name="4279"
+      > </a
+      ><a name="4280" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="4281"
+      > </a
+      ><a name="4282" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4275" class="Bound"
+      >m</a
+      ><a name="4283"
+      > </a
+      ><a name="4284" class="Symbol"
+      >&#8594;</a
+      ><a name="4285"
+      > </a
+      ><a name="4286" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="4289"
+      > </a
+      ><a name="4290" class="Symbol"
+      >(</a
+      ><a name="4291" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4296"
+      > </a
+      ><a name="4297" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4275" class="Bound"
+      >m</a
+      ><a name="4298" class="Symbol"
+      >)</a
+      ><a name="4299"
+      > </a
+      ><a name="4300" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="4304"
+      > </a
+      ><a name="4305" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4306"
+      > </a
+      ><a name="4307" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="4311"
+      >
+</a
+      ><a name="4312" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4260" class="Function"
+      >gcd-S0-&#8739;&#8322;</a
+      ><a name="4321"
+      >  </a
+      ><a name="4323" class="Symbol"
+      >{</a
+      ><a name="4324" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4324" class="Bound"
+      >m</a
+      ><a name="4325" class="Symbol"
+      >}</a
+      ><a name="4326"
+      > </a
+      ><a name="4327" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4327" class="Bound"
+      >Nm</a
+      ><a name="4329"
+      > </a
+      ><a name="4330" class="Symbol"
+      >=</a
+      ><a name="4331"
+      > </a
+      ><a name="4332" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4337"
+      > </a
+      ><a name="4338" class="Symbol"
+      >(&#955;</a
+      ><a name="4340"
+      > </a
+      ><a name="4341" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4341" class="Bound"
+      >x</a
+      ><a name="4342"
+      > </a
+      ><a name="4343" class="Symbol"
+      >&#8594;</a
+      ><a name="4344"
+      > </a
+      ><a name="4345" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4341" class="Bound"
+      >x</a
+      ><a name="4346"
+      > </a
+      ><a name="4347" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4348"
+      > </a
+      ><a name="4349" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="4353" class="Symbol"
+      >)</a
+      ><a name="4354"
+      >
+                          </a
+      ><a name="4381" class="Symbol"
+      >(</a
+      ><a name="4382" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="4385"
+      > </a
+      ><a name="4386" class="Symbol"
+      >(</a
+      ><a name="4387" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#6858" class="Function"
+      >gcd-S0</a
+      ><a name="4393"
+      > </a
+      ><a name="4394" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4324" class="Bound"
+      >m</a
+      ><a name="4395" class="Symbol"
+      >))</a
+      ><a name="4397"
+      >
+                          </a
+      ><a name="4424" class="Symbol"
+      >(</a
+      ><a name="4425" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#918" class="Function"
+      >S&#8739;0</a
+      ><a name="4428"
+      > </a
+      ><a name="4429" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4327" class="Bound"
+      >Nm</a
+      ><a name="4431" class="Symbol"
+      >)</a
+      ><a name="4432"
+      >
+
+</a
+      ><a name="4434" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; n when succ&#8321; m &gt; succ&#8321; n.</a
+      ><a name="4494"
+      >
+</a
+      ><a name="4495" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4495" class="Function"
+      >gcd-S&gt;S-&#8739;&#8322;</a
+      ><a name="4505"
+      > </a
+      ><a name="4506" class="Symbol"
+      >:</a
+      ><a name="4507"
+      >
+  </a
+      ><a name="4510" class="Symbol"
+      >&#8704;</a
+      ><a name="4511"
+      > </a
+      ><a name="4512" class="Symbol"
+      >{</a
+      ><a name="4513" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4513" class="Bound"
+      >m</a
+      ><a name="4514"
+      > </a
+      ><a name="4515" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4516" class="Symbol"
+      >}</a
+      ><a name="4517"
+      > </a
+      ><a name="4518" class="Symbol"
+      >&#8594;</a
+      ><a name="4519"
+      > </a
+      ><a name="4520" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="4521"
+      > </a
+      ><a name="4522" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4513" class="Bound"
+      >m</a
+      ><a name="4523"
+      > </a
+      ><a name="4524" class="Symbol"
+      >&#8594;</a
+      ><a name="4525"
+      > </a
+      ><a name="4526" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="4527"
+      > </a
+      ><a name="4528" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4529"
+      > </a
+      ><a name="4530" class="Symbol"
+      >&#8594;</a
+      ><a name="4531"
+      >
+  </a
+      ><a name="4534" class="Symbol"
+      >(</a
+      ><a name="4535" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="4538"
+      > </a
+      ><a name="4539" class="Symbol"
+      >(</a
+      ><a name="4540" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4545"
+      > </a
+      ><a name="4546" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4513" class="Bound"
+      >m</a
+      ><a name="4547"
+      > </a
+      ><a name="4548" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="4549"
+      > </a
+      ><a name="4550" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4555"
+      > </a
+      ><a name="4556" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4557" class="Symbol"
+      >)</a
+      ><a name="4558"
+      > </a
+      ><a name="4559" class="Symbol"
+      >(</a
+      ><a name="4560" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4565"
+      > </a
+      ><a name="4566" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4567" class="Symbol"
+      >)</a
+      ><a name="4568"
+      > </a
+      ><a name="4569" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4570"
+      > </a
+      ><a name="4571" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4576"
+      > </a
+      ><a name="4577" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4578" class="Symbol"
+      >)</a
+      ><a name="4579"
+      > </a
+      ><a name="4580" class="Symbol"
+      >&#8594;</a
+      ><a name="4581"
+      >
+  </a
+      ><a name="4584" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4589"
+      > </a
+      ><a name="4590" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4513" class="Bound"
+      >m</a
+      ><a name="4591"
+      > </a
+      ><a name="4592" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="4593"
+      > </a
+      ><a name="4594" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4599"
+      > </a
+      ><a name="4600" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4601"
+      > </a
+      ><a name="4602" class="Symbol"
+      >&#8594;</a
+      ><a name="4603"
+      >
+  </a
+      ><a name="4606" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="4609"
+      > </a
+      ><a name="4610" class="Symbol"
+      >(</a
+      ><a name="4611" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4616"
+      > </a
+      ><a name="4617" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4513" class="Bound"
+      >m</a
+      ><a name="4618" class="Symbol"
+      >)</a
+      ><a name="4619"
+      > </a
+      ><a name="4620" class="Symbol"
+      >(</a
+      ><a name="4621" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4626"
+      > </a
+      ><a name="4627" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4628" class="Symbol"
+      >)</a
+      ><a name="4629"
+      > </a
+      ><a name="4630" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4631"
+      > </a
+      ><a name="4632" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4637"
+      > </a
+      ><a name="4638" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4515" class="Bound"
+      >n</a
+      ><a name="4639"
+      >
+
+</a
+      ><a name="4641" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4495" class="Function"
+      >gcd-S&gt;S-&#8739;&#8322;</a
+      ><a name="4651"
+      > </a
+      ><a name="4652" class="Symbol"
+      >{</a
+      ><a name="4653" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4653" class="Bound"
+      >m</a
+      ><a name="4654" class="Symbol"
+      >}</a
+      ><a name="4655"
+      > </a
+      ><a name="4656" class="Symbol"
+      >{</a
+      ><a name="4657" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4657" class="Bound"
+      >n</a
+      ><a name="4658" class="Symbol"
+      >}</a
+      ><a name="4659"
+      > </a
+      ><a name="4660" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4660" class="Bound"
+      >Nm</a
+      ><a name="4662"
+      > </a
+      ><a name="4663" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4663" class="Bound"
+      >Nn</a
+      ><a name="4665"
+      > </a
+      ><a name="4666" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4666" class="Bound"
+      >ih</a
+      ><a name="4668"
+      > </a
+      ><a name="4669" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4669" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="4674"
+      > </a
+      ><a name="4675" class="Symbol"
+      >=</a
+      ><a name="4676"
+      >
+  </a
+      ><a name="4679" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4684"
+      > </a
+      ><a name="4685" class="Symbol"
+      >(&#955;</a
+      ><a name="4687"
+      > </a
+      ><a name="4688" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4688" class="Bound"
+      >x</a
+      ><a name="4689"
+      > </a
+      ><a name="4690" class="Symbol"
+      >&#8594;</a
+      ><a name="4691"
+      > </a
+      ><a name="4692" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4688" class="Bound"
+      >x</a
+      ><a name="4693"
+      > </a
+      ><a name="4694" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4695"
+      > </a
+      ><a name="4696" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4701"
+      > </a
+      ><a name="4702" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4657" class="Bound"
+      >n</a
+      ><a name="4703" class="Symbol"
+      >)</a
+      ><a name="4704"
+      >
+        </a
+      ><a name="4713" class="Symbol"
+      >(</a
+      ><a name="4714" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="4717"
+      > </a
+      ><a name="4718" class="Symbol"
+      >(</a
+      ><a name="4719" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#7947" class="Function"
+      >gcd-S&gt;S</a
+      ><a name="4726"
+      > </a
+      ><a name="4727" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4653" class="Bound"
+      >m</a
+      ><a name="4728"
+      > </a
+      ><a name="4729" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4657" class="Bound"
+      >n</a
+      ><a name="4730"
+      > </a
+      ><a name="4731" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4669" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="4736" class="Symbol"
+      >))</a
+      ><a name="4738"
+      >
+        </a
+      ><a name="4747" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4666" class="Bound"
+      >ih</a
+      ><a name="4749"
+      >
+
+</a
+      ><a name="4751" class="Comment"
+      >-- gcd (succ&#8321; m) (succ&#8321; n) &#8739; succ&#8321; n when succ&#8321; m &#8815; succ&#8321; n.</a
+      ><a name="4811"
+      >
+</a
+      ><a name="4812" class="Comment"
+      >-- We use gcd-&#8739;&#8321;.</a
+      ><a name="4829"
+      >
+</a
+      ><a name="4830" class="Comment"
+      >-- We apply the theorem that if m&#8739;n and m&#8739;o then m&#8739;(n+o).</a
+      ><a name="4887"
+      >
+</a
+      ><a name="4888" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4888" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8322;</a
+      ><a name="4898"
+      > </a
+      ><a name="4899" class="Symbol"
+      >:</a
+      ><a name="4900"
+      >
+  </a
+      ><a name="4903" class="Symbol"
+      >&#8704;</a
+      ><a name="4904"
+      > </a
+      ><a name="4905" class="Symbol"
+      >{</a
+      ><a name="4906" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="4907"
+      > </a
+      ><a name="4908" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="4909" class="Symbol"
+      >}</a
+      ><a name="4910"
+      > </a
+      ><a name="4911" class="Symbol"
+      >&#8594;</a
+      ><a name="4912"
+      > </a
+      ><a name="4913" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="4914"
+      > </a
+      ><a name="4915" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="4916"
+      > </a
+      ><a name="4917" class="Symbol"
+      >&#8594;</a
+      ><a name="4918"
+      > </a
+      ><a name="4919" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="4920"
+      > </a
+      ><a name="4921" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="4922"
+      > </a
+      ><a name="4923" class="Symbol"
+      >&#8594;</a
+      ><a name="4924"
+      >
+  </a
+      ><a name="4927" class="Symbol"
+      >(</a
+      ><a name="4928" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="4931"
+      > </a
+      ><a name="4932" class="Symbol"
+      >(</a
+      ><a name="4933" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4938"
+      > </a
+      ><a name="4939" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="4940" class="Symbol"
+      >)</a
+      ><a name="4941"
+      > </a
+      ><a name="4942" class="Symbol"
+      >(</a
+      ><a name="4943" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4948"
+      > </a
+      ><a name="4949" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="4950"
+      > </a
+      ><a name="4951" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="4952"
+      > </a
+      ><a name="4953" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4958"
+      > </a
+      ><a name="4959" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="4960" class="Symbol"
+      >)</a
+      ><a name="4961"
+      > </a
+      ><a name="4962" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="4963"
+      > </a
+      ><a name="4964" class="Symbol"
+      >(</a
+      ><a name="4965" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4970"
+      > </a
+      ><a name="4971" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="4972"
+      > </a
+      ><a name="4973" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="4974"
+      > </a
+      ><a name="4975" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="4980"
+      > </a
+      ><a name="4981" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="4982" class="Symbol"
+      >))</a
+      ><a name="4984"
+      > </a
+      ><a name="4985" class="Symbol"
+      >&#8594;</a
+      ><a name="4986"
+      >
+  </a
+      ><a name="4989" class="Symbol"
+      >(</a
+      ><a name="4990" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="4993"
+      > </a
+      ><a name="4994" class="Symbol"
+      >(</a
+      ><a name="4995" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5000"
+      > </a
+      ><a name="5001" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="5002" class="Symbol"
+      >)</a
+      ><a name="5003"
+      > </a
+      ><a name="5004" class="Symbol"
+      >(</a
+      ><a name="5005" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5010"
+      > </a
+      ><a name="5011" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="5012"
+      > </a
+      ><a name="5013" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="5014"
+      > </a
+      ><a name="5015" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5020"
+      > </a
+      ><a name="5021" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="5022" class="Symbol"
+      >)</a
+      ><a name="5023"
+      > </a
+      ><a name="5024" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="5025"
+      > </a
+      ><a name="5026" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5031"
+      > </a
+      ><a name="5032" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="5033" class="Symbol"
+      >)</a
+      ><a name="5034"
+      > </a
+      ><a name="5035" class="Symbol"
+      >&#8594;</a
+      ><a name="5036"
+      >
+  </a
+      ><a name="5039" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5044"
+      > </a
+      ><a name="5045" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="5046"
+      > </a
+      ><a name="5047" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="5048"
+      > </a
+      ><a name="5049" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5054"
+      > </a
+      ><a name="5055" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="5056"
+      >  </a
+      ><a name="5058" class="Symbol"
+      >&#8594;</a
+      ><a name="5059"
+      >
+  </a
+      ><a name="5062" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="5065"
+      > </a
+      ><a name="5066" class="Symbol"
+      >(</a
+      ><a name="5067" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5072"
+      > </a
+      ><a name="5073" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4906" class="Bound"
+      >m</a
+      ><a name="5074" class="Symbol"
+      >)</a
+      ><a name="5075"
+      > </a
+      ><a name="5076" class="Symbol"
+      >(</a
+      ><a name="5077" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5082"
+      > </a
+      ><a name="5083" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="5084" class="Symbol"
+      >)</a
+      ><a name="5085"
+      > </a
+      ><a name="5086" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="5087"
+      > </a
+      ><a name="5088" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5093"
+      > </a
+      ><a name="5094" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4908" class="Bound"
+      >n</a
+      ><a name="5095"
+      >
+
+</a
+      ><a name="5097" class="Comment"
+      >{- Proof:
+1. gcd Sm (Sn &#8760; Sm) | (Sn &#8760; Sm)        IH
+2  gcd Sm (Sn &#8760; Sm) | Sm               gcd-&#8739;&#8321;
+3. gcd Sm (Sn &#8760; Sm) | (Sn &#8760; Sm) + Sm   m&#8739;n&#8594;m&#8739;o&#8594;m&#8739;n+o 1,2
+4. Sm &#8815; Sn                             Hip
+5. gcd (Sm &#8760; Sn) Sn | Sm               arith-gcd-m&#8804;n&#8322; 3,4
+6. gcd Sm Sn = gcd Sm (Sn &#8760; Sm)        gcd eq. 4
+7. gcd Sm Sn | Sn                      subst 5,6
+-}</a
+      ><a name="5453"
+      >
+
+</a
+      ><a name="5455" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4888" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8322;</a
+      ><a name="5465"
+      > </a
+      ><a name="5466" class="Symbol"
+      >{</a
+      ><a name="5467" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5468" class="Symbol"
+      >}</a
+      ><a name="5469"
+      > </a
+      ><a name="5470" class="Symbol"
+      >{</a
+      ><a name="5471" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="5472" class="Symbol"
+      >}</a
+      ><a name="5473"
+      > </a
+      ><a name="5474" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5474" class="Bound"
+      >Nm</a
+      ><a name="5476"
+      > </a
+      ><a name="5477" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5477" class="Bound"
+      >Nn</a
+      ><a name="5479"
+      > </a
+      ><a name="5480" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5480" class="Bound"
+      >ih</a
+      ><a name="5482"
+      > </a
+      ><a name="5483" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5483" class="Bound"
+      >gcd-&#8739;&#8321;</a
+      ><a name="5489"
+      > </a
+      ><a name="5490" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5490" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="5495"
+      > </a
+      ><a name="5496" class="Symbol"
+      >=</a
+      ><a name="5497"
+      >
+  </a
+      ><a name="5500" class="Comment"
+      >-- The first substitution is based on gcd m n = gcd m (n &#8760; m).</a
+      ><a name="5562"
+      >
+  </a
+      ><a name="5565" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="5570"
+      > </a
+      ><a name="5571" class="Symbol"
+      >(&#955;</a
+      ><a name="5573"
+      > </a
+      ><a name="5574" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5574" class="Bound"
+      >x</a
+      ><a name="5575"
+      > </a
+      ><a name="5576" class="Symbol"
+      >&#8594;</a
+      ><a name="5577"
+      > </a
+      ><a name="5578" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5574" class="Bound"
+      >x</a
+      ><a name="5579"
+      > </a
+      ><a name="5580" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="5581"
+      > </a
+      ><a name="5582" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5587"
+      > </a
+      ><a name="5588" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="5589" class="Symbol"
+      >)</a
+      ><a name="5590"
+      >
+        </a
+      ><a name="5599" class="Symbol"
+      >(</a
+      ><a name="5600" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="5603"
+      > </a
+      ><a name="5604" class="Symbol"
+      >(</a
+      ><a name="5605" href="LTC-PCF.Program.GCD.Partial.ConversionRules.html#8812" class="Function"
+      >gcd-S&#8815;S</a
+      ><a name="5612"
+      > </a
+      ><a name="5613" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5614"
+      > </a
+      ><a name="5615" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="5616"
+      > </a
+      ><a name="5617" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5490" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="5622" class="Symbol"
+      >))</a
+      ><a name="5624"
+      >
+         </a
+      ><a name="5634" class="Comment"
+      >-- The second substitution is based on</a
+      ><a name="5672"
+      >
+         </a
+      ><a name="5682" class="Comment"
+      >-- n = (n &#8760; m) + m.</a
+      ><a name="5701"
+      >
+        </a
+      ><a name="5710" class="Symbol"
+      >(</a
+      ><a name="5711" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="5716"
+      > </a
+      ><a name="5717" class="Symbol"
+      >(&#955;</a
+      ><a name="5719"
+      > </a
+      ><a name="5720" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5720" class="Bound"
+      >y</a
+      ><a name="5721"
+      > </a
+      ><a name="5722" class="Symbol"
+      >&#8594;</a
+      ><a name="5723"
+      > </a
+      ><a name="5724" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="5727"
+      > </a
+      ><a name="5728" class="Symbol"
+      >(</a
+      ><a name="5729" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5734"
+      > </a
+      ><a name="5735" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5736" class="Symbol"
+      >)</a
+      ><a name="5737"
+      > </a
+      ><a name="5738" class="Symbol"
+      >(</a
+      ><a name="5739" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5744"
+      > </a
+      ><a name="5745" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="5746"
+      > </a
+      ><a name="5747" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="5748"
+      > </a
+      ><a name="5749" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5754"
+      > </a
+      ><a name="5755" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5756" class="Symbol"
+      >)</a
+      ><a name="5757"
+      > </a
+      ><a name="5758" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="5759"
+      > </a
+      ><a name="5760" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5720" class="Bound"
+      >y</a
+      ><a name="5761" class="Symbol"
+      >)</a
+      ><a name="5762"
+      >
+               </a
+      ><a name="5778" class="Symbol"
+      >(</a
+      ><a name="5779" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#8382" class="Function"
+      >x&#8804;y&#8594;y&#8760;x+x&#8801;y</a
+      ><a name="5790"
+      > </a
+      ><a name="5791" class="Symbol"
+      >(</a
+      ><a name="5792" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5797"
+      > </a
+      ><a name="5798" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5474" class="Bound"
+      >Nm</a
+      ><a name="5800" class="Symbol"
+      >)</a
+      ><a name="5801"
+      > </a
+      ><a name="5802" class="Symbol"
+      >(</a
+      ><a name="5803" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5808"
+      > </a
+      ><a name="5809" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5477" class="Bound"
+      >Nn</a
+      ><a name="5811" class="Symbol"
+      >)</a
+      ><a name="5812"
+      > </a
+      ><a name="5813" class="Symbol"
+      >(</a
+      ><a name="5814" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#3588" class="Function"
+      >x&#8815;y&#8594;x&#8804;y</a
+      ><a name="5821"
+      > </a
+      ><a name="5822" class="Symbol"
+      >(</a
+      ><a name="5823" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5828"
+      > </a
+      ><a name="5829" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5474" class="Bound"
+      >Nm</a
+      ><a name="5831" class="Symbol"
+      >)</a
+      ><a name="5832"
+      > </a
+      ><a name="5833" class="Symbol"
+      >(</a
+      ><a name="5834" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="5839"
+      > </a
+      ><a name="5840" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5477" class="Bound"
+      >Nn</a
+      ><a name="5842" class="Symbol"
+      >)</a
+      ><a name="5843"
+      > </a
+      ><a name="5844" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5490" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="5849" class="Symbol"
+      >))</a
+      ><a name="5851"
+      >
+               </a
+      ><a name="5867" class="Symbol"
+      >(</a
+      ><a name="5868" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties.html#2670" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="5881"
+      >
+                 </a
+      ><a name="5899" class="Symbol"
+      >{</a
+      ><a name="5900" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="5903"
+      > </a
+      ><a name="5904" class="Symbol"
+      >(</a
+      ><a name="5905" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5910"
+      > </a
+      ><a name="5911" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5912" class="Symbol"
+      >)</a
+      ><a name="5913"
+      > </a
+      ><a name="5914" class="Symbol"
+      >(</a
+      ><a name="5915" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5920"
+      > </a
+      ><a name="5921" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="5922"
+      > </a
+      ><a name="5923" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="5924"
+      > </a
+      ><a name="5925" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5930"
+      > </a
+      ><a name="5931" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5932" class="Symbol"
+      >)}</a
+      ><a name="5934"
+      >
+                 </a
+      ><a name="5952" class="Symbol"
+      >{</a
+      ><a name="5953" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5958"
+      > </a
+      ><a name="5959" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="5960"
+      > </a
+      ><a name="5961" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="5962"
+      > </a
+      ><a name="5963" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5968"
+      > </a
+      ><a name="5969" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5970" class="Symbol"
+      >}</a
+      ><a name="5971"
+      >
+                 </a
+      ><a name="5989" class="Symbol"
+      >{</a
+      ><a name="5990" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="5995"
+      > </a
+      ><a name="5996" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="5997" class="Symbol"
+      >}</a
+      ><a name="5998"
+      >
+                 </a
+      ><a name="6016" class="Symbol"
+      >(</a
+      ><a name="6017" href="LTC-PCF.Program.GCD.Partial.Totality.html#3760" class="Function"
+      >gcd-N</a
+      ><a name="6022"
+      > </a
+      ><a name="6023" class="Symbol"
+      >(</a
+      ><a name="6024" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="6029"
+      > </a
+      ><a name="6030" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5474" class="Bound"
+      >Nm</a
+      ><a name="6032" class="Symbol"
+      >)</a
+      ><a name="6033"
+      > </a
+      ><a name="6034" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6211" class="Function"
+      >Sn-Sm-N</a
+      ><a name="6041"
+      > </a
+      ><a name="6042" class="Symbol"
+      >(&#955;</a
+      ><a name="6044"
+      > </a
+      ><a name="6045" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6045" class="Bound"
+      >p</a
+      ><a name="6046"
+      > </a
+      ><a name="6047" class="Symbol"
+      >&#8594;</a
+      ><a name="6048"
+      > </a
+      ><a name="6049" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="6055"
+      > </a
+      ><a name="6056" class="Symbol"
+      >(</a
+      ><a name="6057" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="6060"
+      > </a
+      ><a name="6061" class="Symbol"
+      >(</a
+      ><a name="6062" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="6069"
+      > </a
+      ><a name="6070" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6045" class="Bound"
+      >p</a
+      ><a name="6071" class="Symbol"
+      >))))</a
+      ><a name="6075"
+      >
+                 </a
+      ><a name="6093" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6211" class="Function"
+      >Sn-Sm-N</a
+      ><a name="6100"
+      >
+                 </a
+      ><a name="6118" class="Symbol"
+      >(</a
+      ><a name="6119" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="6124"
+      > </a
+      ><a name="6125" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5474" class="Bound"
+      >Nm</a
+      ><a name="6127" class="Symbol"
+      >)</a
+      ><a name="6128"
+      >
+                 </a
+      ><a name="6146" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5480" class="Bound"
+      >ih</a
+      ><a name="6148"
+      >
+                 </a
+      ><a name="6166" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5483" class="Bound"
+      >gcd-&#8739;&#8321;</a
+      ><a name="6172"
+      >
+               </a
+      ><a name="6188" class="Symbol"
+      >)</a
+      ><a name="6189"
+      >
+        </a
+      ><a name="6198" class="Symbol"
+      >)</a
+      ><a name="6199"
+      >
+
+  </a
+      ><a name="6203" class="Keyword"
+      >where</a
+      ><a name="6208"
+      >
+  </a
+      ><a name="6211" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6211" class="Function"
+      >Sn-Sm-N</a
+      ><a name="6218"
+      > </a
+      ><a name="6219" class="Symbol"
+      >:</a
+      ><a name="6220"
+      > </a
+      ><a name="6221" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="6222"
+      > </a
+      ><a name="6223" class="Symbol"
+      >(</a
+      ><a name="6224" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6229"
+      > </a
+      ><a name="6230" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5471" class="Bound"
+      >n</a
+      ><a name="6231"
+      > </a
+      ><a name="6232" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="6233"
+      > </a
+      ><a name="6234" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6239"
+      > </a
+      ><a name="6240" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5467" class="Bound"
+      >m</a
+      ><a name="6241" class="Symbol"
+      >)</a
+      ><a name="6242"
+      >
+  </a
+      ><a name="6245" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6211" class="Function"
+      >Sn-Sm-N</a
+      ><a name="6252"
+      > </a
+      ><a name="6253" class="Symbol"
+      >=</a
+      ><a name="6254"
+      > </a
+      ><a name="6255" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="6258"
+      > </a
+      ><a name="6259" class="Symbol"
+      >(</a
+      ><a name="6260" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="6265"
+      > </a
+      ><a name="6266" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5477" class="Bound"
+      >Nn</a
+      ><a name="6268" class="Symbol"
+      >)</a
+      ><a name="6269"
+      > </a
+      ><a name="6270" class="Symbol"
+      >(</a
+      ><a name="6271" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="6276"
+      > </a
+      ><a name="6277" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#5474" class="Bound"
+      >Nm</a
+      ><a name="6279" class="Symbol"
+      >)</a
+      ><a name="6280"
+      >
+
+</a
+      ><a name="6282" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="6360"
+      >
+</a
+      ><a name="6361" class="Comment"
+      >-- The gcd is CD.</a
+      ><a name="6378"
+      >
+</a
+      ><a name="6379" class="Comment"
+      >-- We will prove that gcdCD : ... &#8594; CD m n (gcd m n).</a
+      ><a name="6432"
+      >
+
+</a
+      ><a name="6434" class="Comment"
+      >-- The gcd 0 (succ&#8321; n) is CD.</a
+      ><a name="6463"
+      >
+</a
+      ><a name="6464" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6464" class="Function"
+      >gcd-0S-CD</a
+      ><a name="6473"
+      > </a
+      ><a name="6474" class="Symbol"
+      >:</a
+      ><a name="6475"
+      > </a
+      ><a name="6476" class="Symbol"
+      >&#8704;</a
+      ><a name="6477"
+      > </a
+      ><a name="6478" class="Symbol"
+      >{</a
+      ><a name="6479" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6479" class="Bound"
+      >n</a
+      ><a name="6480" class="Symbol"
+      >}</a
+      ><a name="6481"
+      > </a
+      ><a name="6482" class="Symbol"
+      >&#8594;</a
+      ><a name="6483"
+      > </a
+      ><a name="6484" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="6485"
+      > </a
+      ><a name="6486" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6479" class="Bound"
+      >n</a
+      ><a name="6487"
+      > </a
+      ><a name="6488" class="Symbol"
+      >&#8594;</a
+      ><a name="6489"
+      > </a
+      ><a name="6490" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="6492"
+      > </a
+      ><a name="6493" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="6497"
+      > </a
+      ><a name="6498" class="Symbol"
+      >(</a
+      ><a name="6499" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6504"
+      > </a
+      ><a name="6505" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6479" class="Bound"
+      >n</a
+      ><a name="6506" class="Symbol"
+      >)</a
+      ><a name="6507"
+      > </a
+      ><a name="6508" class="Symbol"
+      >(</a
+      ><a name="6509" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="6512"
+      > </a
+      ><a name="6513" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="6517"
+      > </a
+      ><a name="6518" class="Symbol"
+      >(</a
+      ><a name="6519" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6524"
+      > </a
+      ><a name="6525" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6479" class="Bound"
+      >n</a
+      ><a name="6526" class="Symbol"
+      >))</a
+      ><a name="6528"
+      >
+</a
+      ><a name="6529" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6464" class="Function"
+      >gcd-0S-CD</a
+      ><a name="6538"
+      > </a
+      ><a name="6539" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6539" class="Bound"
+      >Nn</a
+      ><a name="6541"
+      > </a
+      ><a name="6542" class="Symbol"
+      >=</a
+      ><a name="6543"
+      > </a
+      ><a name="6544" class="Symbol"
+      >(</a
+      ><a name="6545" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1561" class="Function"
+      >gcd-0S-&#8739;&#8321;</a
+      ><a name="6554"
+      > </a
+      ><a name="6555" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6539" class="Bound"
+      >Nn</a
+      ><a name="6557"
+      > </a
+      ><a name="6558" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6559"
+      > </a
+      ><a name="6560" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4054" class="Function"
+      >gcd-0S-&#8739;&#8322;</a
+      ><a name="6569"
+      > </a
+      ><a name="6570" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6539" class="Bound"
+      >Nn</a
+      ><a name="6572" class="Symbol"
+      >)</a
+      ><a name="6573"
+      >
+
+</a
+      ><a name="6575" class="Comment"
+      >-- The gcd (succ&#8321; m) 0 is CD.</a
+      ><a name="6604"
+      >
+</a
+      ><a name="6605" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6605" class="Function"
+      >gcd-S0-CD</a
+      ><a name="6614"
+      > </a
+      ><a name="6615" class="Symbol"
+      >:</a
+      ><a name="6616"
+      > </a
+      ><a name="6617" class="Symbol"
+      >&#8704;</a
+      ><a name="6618"
+      > </a
+      ><a name="6619" class="Symbol"
+      >{</a
+      ><a name="6620" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6620" class="Bound"
+      >m</a
+      ><a name="6621" class="Symbol"
+      >}</a
+      ><a name="6622"
+      > </a
+      ><a name="6623" class="Symbol"
+      >&#8594;</a
+      ><a name="6624"
+      > </a
+      ><a name="6625" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="6626"
+      > </a
+      ><a name="6627" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6620" class="Bound"
+      >m</a
+      ><a name="6628"
+      > </a
+      ><a name="6629" class="Symbol"
+      >&#8594;</a
+      ><a name="6630"
+      > </a
+      ><a name="6631" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="6633"
+      > </a
+      ><a name="6634" class="Symbol"
+      >(</a
+      ><a name="6635" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6640"
+      > </a
+      ><a name="6641" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6620" class="Bound"
+      >m</a
+      ><a name="6642" class="Symbol"
+      >)</a
+      ><a name="6643"
+      > </a
+      ><a name="6644" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="6648"
+      > </a
+      ><a name="6649" class="Symbol"
+      >(</a
+      ><a name="6650" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="6653"
+      > </a
+      ><a name="6654" class="Symbol"
+      >(</a
+      ><a name="6655" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6660"
+      > </a
+      ><a name="6661" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6620" class="Bound"
+      >m</a
+      ><a name="6662" class="Symbol"
+      >)</a
+      ><a name="6663"
+      > </a
+      ><a name="6664" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="6668" class="Symbol"
+      >)</a
+      ><a name="6669"
+      >
+</a
+      ><a name="6670" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6605" class="Function"
+      >gcd-S0-CD</a
+      ><a name="6679"
+      > </a
+      ><a name="6680" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6680" class="Bound"
+      >Nm</a
+      ><a name="6682"
+      > </a
+      ><a name="6683" class="Symbol"
+      >=</a
+      ><a name="6684"
+      > </a
+      ><a name="6685" class="Symbol"
+      >(</a
+      ><a name="6686" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#1762" class="Function"
+      >gcd-S0-&#8739;&#8321;</a
+      ><a name="6695"
+      > </a
+      ><a name="6696" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6680" class="Bound"
+      >Nm</a
+      ><a name="6698"
+      > </a
+      ><a name="6699" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="6700"
+      > </a
+      ><a name="6701" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4260" class="Function"
+      >gcd-S0-&#8739;&#8322;</a
+      ><a name="6710"
+      > </a
+      ><a name="6711" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6680" class="Bound"
+      >Nm</a
+      ><a name="6713" class="Symbol"
+      >)</a
+      ><a name="6714"
+      >
+
+</a
+      ><a name="6716" class="Comment"
+      >-- The gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &gt; succ&#8321; n is CD.</a
+      ><a name="6776"
+      >
+</a
+      ><a name="6777" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6777" class="Function"
+      >gcd-S&gt;S-CD</a
+      ><a name="6787"
+      > </a
+      ><a name="6788" class="Symbol"
+      >:</a
+      ><a name="6789"
+      >
+  </a
+      ><a name="6792" class="Symbol"
+      >&#8704;</a
+      ><a name="6793"
+      > </a
+      ><a name="6794" class="Symbol"
+      >{</a
+      ><a name="6795" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6796"
+      > </a
+      ><a name="6797" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6798" class="Symbol"
+      >}</a
+      ><a name="6799"
+      > </a
+      ><a name="6800" class="Symbol"
+      >&#8594;</a
+      ><a name="6801"
+      > </a
+      ><a name="6802" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="6803"
+      > </a
+      ><a name="6804" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6805"
+      > </a
+      ><a name="6806" class="Symbol"
+      >&#8594;</a
+      ><a name="6807"
+      > </a
+      ><a name="6808" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="6809"
+      > </a
+      ><a name="6810" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6811"
+      > </a
+      ><a name="6812" class="Symbol"
+      >&#8594;</a
+      ><a name="6813"
+      >
+  </a
+      ><a name="6816" class="Symbol"
+      >(</a
+      ><a name="6817" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="6819"
+      > </a
+      ><a name="6820" class="Symbol"
+      >(</a
+      ><a name="6821" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6826"
+      > </a
+      ><a name="6827" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6828"
+      > </a
+      ><a name="6829" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="6830"
+      > </a
+      ><a name="6831" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6836"
+      > </a
+      ><a name="6837" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6838" class="Symbol"
+      >)</a
+      ><a name="6839"
+      > </a
+      ><a name="6840" class="Symbol"
+      >(</a
+      ><a name="6841" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6846"
+      > </a
+      ><a name="6847" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6848" class="Symbol"
+      >)</a
+      ><a name="6849"
+      > </a
+      ><a name="6850" class="Symbol"
+      >(</a
+      ><a name="6851" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="6854"
+      > </a
+      ><a name="6855" class="Symbol"
+      >(</a
+      ><a name="6856" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6861"
+      > </a
+      ><a name="6862" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6863"
+      > </a
+      ><a name="6864" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="6865"
+      > </a
+      ><a name="6866" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6871"
+      > </a
+      ><a name="6872" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6873" class="Symbol"
+      >)</a
+      ><a name="6874"
+      > </a
+      ><a name="6875" class="Symbol"
+      >(</a
+      ><a name="6876" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6881"
+      > </a
+      ><a name="6882" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6883" class="Symbol"
+      >)))</a
+      ><a name="6886"
+      > </a
+      ><a name="6887" class="Symbol"
+      >&#8594;</a
+      ><a name="6888"
+      >
+  </a
+      ><a name="6891" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6896"
+      > </a
+      ><a name="6897" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6898"
+      > </a
+      ><a name="6899" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="6900"
+      > </a
+      ><a name="6901" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6906"
+      > </a
+      ><a name="6907" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6908"
+      > </a
+      ><a name="6909" class="Symbol"
+      >&#8594;</a
+      ><a name="6910"
+      >
+  </a
+      ><a name="6913" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="6915"
+      > </a
+      ><a name="6916" class="Symbol"
+      >(</a
+      ><a name="6917" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6922"
+      > </a
+      ><a name="6923" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6924" class="Symbol"
+      >)</a
+      ><a name="6925"
+      > </a
+      ><a name="6926" class="Symbol"
+      >(</a
+      ><a name="6927" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6932"
+      > </a
+      ><a name="6933" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6934" class="Symbol"
+      >)</a
+      ><a name="6935"
+      > </a
+      ><a name="6936" class="Symbol"
+      >(</a
+      ><a name="6937" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="6940"
+      > </a
+      ><a name="6941" class="Symbol"
+      >(</a
+      ><a name="6942" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6947"
+      > </a
+      ><a name="6948" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6795" class="Bound"
+      >m</a
+      ><a name="6949" class="Symbol"
+      >)</a
+      ><a name="6950"
+      > </a
+      ><a name="6951" class="Symbol"
+      >(</a
+      ><a name="6952" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="6957"
+      > </a
+      ><a name="6958" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6797" class="Bound"
+      >n</a
+      ><a name="6959" class="Symbol"
+      >))</a
+      ><a name="6961"
+      >
+</a
+      ><a name="6962" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6777" class="Function"
+      >gcd-S&gt;S-CD</a
+      ><a name="6972"
+      > </a
+      ><a name="6973" class="Symbol"
+      >{</a
+      ><a name="6974" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6974" class="Bound"
+      >m</a
+      ><a name="6975" class="Symbol"
+      >}</a
+      ><a name="6976"
+      > </a
+      ><a name="6977" class="Symbol"
+      >{</a
+      ><a name="6978" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="6979" class="Symbol"
+      >}</a
+      ><a name="6980"
+      > </a
+      ><a name="6981" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6981" class="Bound"
+      >Nm</a
+      ><a name="6983"
+      > </a
+      ><a name="6984" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6984" class="Bound"
+      >Nn</a
+      ><a name="6986"
+      > </a
+      ><a name="6987" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6987" class="Bound"
+      >acc</a
+      ><a name="6990"
+      > </a
+      ><a name="6991" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6991" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="6996"
+      > </a
+      ><a name="6997" class="Symbol"
+      >=</a
+      ><a name="6998"
+      >
+   </a
+      ><a name="7002" class="Symbol"
+      >(</a
+      ><a name="7003" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2398" class="Function"
+      >gcd-S&gt;S-&#8739;&#8321;</a
+      ><a name="7013"
+      > </a
+      ><a name="7014" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6981" class="Bound"
+      >Nm</a
+      ><a name="7016"
+      > </a
+      ><a name="7017" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6984" class="Bound"
+      >Nn</a
+      ><a name="7019"
+      > </a
+      ><a name="7020" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7083" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7026"
+      > </a
+      ><a name="7027" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7174" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7033"
+      > </a
+      ><a name="7034" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6991" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="7039"
+      > </a
+      ><a name="7040" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7041"
+      > </a
+      ><a name="7042" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4495" class="Function"
+      >gcd-S&gt;S-&#8739;&#8322;</a
+      ><a name="7052"
+      > </a
+      ><a name="7053" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6981" class="Bound"
+      >Nm</a
+      ><a name="7055"
+      > </a
+      ><a name="7056" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6984" class="Bound"
+      >Nn</a
+      ><a name="7058"
+      > </a
+      ><a name="7059" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7174" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7065"
+      > </a
+      ><a name="7066" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6991" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="7071" class="Symbol"
+      >)</a
+      ><a name="7072"
+      >
+  </a
+      ><a name="7075" class="Keyword"
+      >where</a
+      ><a name="7080"
+      >
+  </a
+      ><a name="7083" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7083" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7089"
+      > </a
+      ><a name="7090" class="Symbol"
+      >:</a
+      ><a name="7091"
+      > </a
+      ><a name="7092" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7095"
+      > </a
+      ><a name="7096" class="Symbol"
+      >(</a
+      ><a name="7097" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7102"
+      > </a
+      ><a name="7103" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6974" class="Bound"
+      >m</a
+      ><a name="7104"
+      > </a
+      ><a name="7105" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7106"
+      > </a
+      ><a name="7107" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7112"
+      > </a
+      ><a name="7113" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="7114" class="Symbol"
+      >)</a
+      ><a name="7115"
+      > </a
+      ><a name="7116" class="Symbol"
+      >(</a
+      ><a name="7117" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7122"
+      > </a
+      ><a name="7123" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="7124" class="Symbol"
+      >)</a
+      ><a name="7125"
+      > </a
+      ><a name="7126" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="7127"
+      > </a
+      ><a name="7128" class="Symbol"
+      >(</a
+      ><a name="7129" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7134"
+      > </a
+      ><a name="7135" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6974" class="Bound"
+      >m</a
+      ><a name="7136"
+      > </a
+      ><a name="7137" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7138"
+      > </a
+      ><a name="7139" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7144"
+      > </a
+      ><a name="7145" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="7146" class="Symbol"
+      >)</a
+      ><a name="7147"
+      >
+  </a
+      ><a name="7150" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7083" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7156"
+      > </a
+      ><a name="7157" class="Symbol"
+      >=</a
+      ><a name="7158"
+      > </a
+      ><a name="7159" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="7166"
+      > </a
+      ><a name="7167" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6987" class="Bound"
+      >acc</a
+      ><a name="7170"
+      >
+
+  </a
+      ><a name="7174" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7174" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7180"
+      > </a
+      ><a name="7181" class="Symbol"
+      >:</a
+      ><a name="7182"
+      > </a
+      ><a name="7183" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7186"
+      > </a
+      ><a name="7187" class="Symbol"
+      >(</a
+      ><a name="7188" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7193"
+      > </a
+      ><a name="7194" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6974" class="Bound"
+      >m</a
+      ><a name="7195"
+      > </a
+      ><a name="7196" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7197"
+      > </a
+      ><a name="7198" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7203"
+      > </a
+      ><a name="7204" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="7205" class="Symbol"
+      >)</a
+      ><a name="7206"
+      > </a
+      ><a name="7207" class="Symbol"
+      >(</a
+      ><a name="7208" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7213"
+      > </a
+      ><a name="7214" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="7215" class="Symbol"
+      >)</a
+      ><a name="7216"
+      > </a
+      ><a name="7217" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="7218"
+      > </a
+      ><a name="7219" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7224"
+      > </a
+      ><a name="7225" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6978" class="Bound"
+      >n</a
+      ><a name="7226"
+      >
+  </a
+      ><a name="7229" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7174" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7235"
+      > </a
+      ><a name="7236" class="Symbol"
+      >=</a
+      ><a name="7237"
+      > </a
+      ><a name="7238" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="7245"
+      > </a
+      ><a name="7246" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6987" class="Bound"
+      >acc</a
+      ><a name="7249"
+      >
+
+</a
+      ><a name="7251" class="Comment"
+      >-- The gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &#8815; succ&#8321; n is CD.</a
+      ><a name="7311"
+      >
+</a
+      ><a name="7312" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7312" class="Function"
+      >gcd-S&#8815;S-CD</a
+      ><a name="7322"
+      > </a
+      ><a name="7323" class="Symbol"
+      >:</a
+      ><a name="7324"
+      >
+  </a
+      ><a name="7327" class="Symbol"
+      >&#8704;</a
+      ><a name="7328"
+      > </a
+      ><a name="7329" class="Symbol"
+      >{</a
+      ><a name="7330" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7331"
+      > </a
+      ><a name="7332" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7333" class="Symbol"
+      >}</a
+      ><a name="7334"
+      > </a
+      ><a name="7335" class="Symbol"
+      >&#8594;</a
+      ><a name="7336"
+      > </a
+      ><a name="7337" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="7338"
+      > </a
+      ><a name="7339" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7340"
+      > </a
+      ><a name="7341" class="Symbol"
+      >&#8594;</a
+      ><a name="7342"
+      > </a
+      ><a name="7343" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="7344"
+      > </a
+      ><a name="7345" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7346"
+      > </a
+      ><a name="7347" class="Symbol"
+      >&#8594;</a
+      ><a name="7348"
+      >
+  </a
+      ><a name="7351" class="Symbol"
+      >(</a
+      ><a name="7352" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="7354"
+      > </a
+      ><a name="7355" class="Symbol"
+      >(</a
+      ><a name="7356" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7361"
+      > </a
+      ><a name="7362" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7363" class="Symbol"
+      >)</a
+      ><a name="7364"
+      > </a
+      ><a name="7365" class="Symbol"
+      >(</a
+      ><a name="7366" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7371"
+      > </a
+      ><a name="7372" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7373"
+      > </a
+      ><a name="7374" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7375"
+      > </a
+      ><a name="7376" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7381"
+      > </a
+      ><a name="7382" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7383" class="Symbol"
+      >)</a
+      ><a name="7384"
+      > </a
+      ><a name="7385" class="Symbol"
+      >(</a
+      ><a name="7386" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7389"
+      > </a
+      ><a name="7390" class="Symbol"
+      >(</a
+      ><a name="7391" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7396"
+      > </a
+      ><a name="7397" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7398" class="Symbol"
+      >)</a
+      ><a name="7399"
+      > </a
+      ><a name="7400" class="Symbol"
+      >(</a
+      ><a name="7401" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7406"
+      > </a
+      ><a name="7407" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7408"
+      > </a
+      ><a name="7409" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7410"
+      > </a
+      ><a name="7411" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7416"
+      > </a
+      ><a name="7417" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7418" class="Symbol"
+      >)))</a
+      ><a name="7421"
+      > </a
+      ><a name="7422" class="Symbol"
+      >&#8594;</a
+      ><a name="7423"
+      >
+  </a
+      ><a name="7426" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7431"
+      > </a
+      ><a name="7432" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7433"
+      > </a
+      ><a name="7434" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="7435"
+      > </a
+      ><a name="7436" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7441"
+      > </a
+      ><a name="7442" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7443"
+      > </a
+      ><a name="7444" class="Symbol"
+      >&#8594;</a
+      ><a name="7445"
+      >
+  </a
+      ><a name="7448" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="7450"
+      > </a
+      ><a name="7451" class="Symbol"
+      >(</a
+      ><a name="7452" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7457"
+      > </a
+      ><a name="7458" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7459" class="Symbol"
+      >)</a
+      ><a name="7460"
+      > </a
+      ><a name="7461" class="Symbol"
+      >(</a
+      ><a name="7462" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7467"
+      > </a
+      ><a name="7468" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7469" class="Symbol"
+      >)</a
+      ><a name="7470"
+      > </a
+      ><a name="7471" class="Symbol"
+      >(</a
+      ><a name="7472" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7475"
+      > </a
+      ><a name="7476" class="Symbol"
+      >(</a
+      ><a name="7477" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7482"
+      > </a
+      ><a name="7483" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7330" class="Bound"
+      >m</a
+      ><a name="7484" class="Symbol"
+      >)</a
+      ><a name="7485"
+      > </a
+      ><a name="7486" class="Symbol"
+      >(</a
+      ><a name="7487" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7492"
+      > </a
+      ><a name="7493" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7332" class="Bound"
+      >n</a
+      ><a name="7494" class="Symbol"
+      >))</a
+      ><a name="7496"
+      >
+</a
+      ><a name="7497" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7312" class="Function"
+      >gcd-S&#8815;S-CD</a
+      ><a name="7507"
+      > </a
+      ><a name="7508" class="Symbol"
+      >{</a
+      ><a name="7509" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7510" class="Symbol"
+      >}</a
+      ><a name="7511"
+      > </a
+      ><a name="7512" class="Symbol"
+      >{</a
+      ><a name="7513" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7513" class="Bound"
+      >n</a
+      ><a name="7514" class="Symbol"
+      >}</a
+      ><a name="7515"
+      > </a
+      ><a name="7516" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7516" class="Bound"
+      >Nm</a
+      ><a name="7518"
+      > </a
+      ><a name="7519" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7519" class="Bound"
+      >Nn</a
+      ><a name="7521"
+      > </a
+      ><a name="7522" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7522" class="Bound"
+      >acc</a
+      ><a name="7525"
+      > </a
+      ><a name="7526" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7526" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="7531"
+      > </a
+      ><a name="7532" class="Symbol"
+      >=</a
+      ><a name="7533"
+      >
+  </a
+      ><a name="7536" class="Symbol"
+      >(</a
+      ><a name="7537" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#2006" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8321;</a
+      ><a name="7547"
+      > </a
+      ><a name="7548" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7516" class="Bound"
+      >Nm</a
+      ><a name="7550"
+      > </a
+      ><a name="7551" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7519" class="Bound"
+      >Nn</a
+      ><a name="7553"
+      > </a
+      ><a name="7554" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7617" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7560"
+      > </a
+      ><a name="7561" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7526" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="7566"
+      > </a
+      ><a name="7567" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="7568"
+      > </a
+      ><a name="7569" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#4888" class="Function"
+      >gcd-S&#8815;S-&#8739;&#8322;</a
+      ><a name="7579"
+      > </a
+      ><a name="7580" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7516" class="Bound"
+      >Nm</a
+      ><a name="7582"
+      > </a
+      ><a name="7583" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7519" class="Bound"
+      >Nn</a
+      ><a name="7585"
+      > </a
+      ><a name="7586" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7696" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7592"
+      > </a
+      ><a name="7593" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7617" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7599"
+      > </a
+      ><a name="7600" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7526" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="7605" class="Symbol"
+      >)</a
+      ><a name="7606"
+      >
+  </a
+      ><a name="7609" class="Keyword"
+      >where</a
+      ><a name="7614"
+      >
+  </a
+      ><a name="7617" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7617" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7623"
+      > </a
+      ><a name="7624" class="Symbol"
+      >:</a
+      ><a name="7625"
+      > </a
+      ><a name="7626" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7629"
+      > </a
+      ><a name="7630" class="Symbol"
+      >(</a
+      ><a name="7631" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7636"
+      > </a
+      ><a name="7637" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7638" class="Symbol"
+      >)</a
+      ><a name="7639"
+      > </a
+      ><a name="7640" class="Symbol"
+      >(</a
+      ><a name="7641" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7646"
+      > </a
+      ><a name="7647" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7513" class="Bound"
+      >n</a
+      ><a name="7648"
+      > </a
+      ><a name="7649" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7650"
+      > </a
+      ><a name="7651" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7656"
+      > </a
+      ><a name="7657" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7658" class="Symbol"
+      >)</a
+      ><a name="7659"
+      > </a
+      ><a name="7660" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="7661"
+      > </a
+      ><a name="7662" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7667"
+      > </a
+      ><a name="7668" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7669"
+      >
+  </a
+      ><a name="7672" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7617" class="Function"
+      >acc-&#8739;&#8321;</a
+      ><a name="7678"
+      > </a
+      ><a name="7679" class="Symbol"
+      >=</a
+      ><a name="7680"
+      > </a
+      ><a name="7681" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="7688"
+      > </a
+      ><a name="7689" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7522" class="Bound"
+      >acc</a
+      ><a name="7692"
+      >
+
+  </a
+      ><a name="7696" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7696" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7702"
+      > </a
+      ><a name="7703" class="Symbol"
+      >:</a
+      ><a name="7704"
+      > </a
+      ><a name="7705" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7708"
+      > </a
+      ><a name="7709" class="Symbol"
+      >(</a
+      ><a name="7710" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7715"
+      > </a
+      ><a name="7716" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7717" class="Symbol"
+      >)</a
+      ><a name="7718"
+      > </a
+      ><a name="7719" class="Symbol"
+      >(</a
+      ><a name="7720" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7725"
+      > </a
+      ><a name="7726" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7513" class="Bound"
+      >n</a
+      ><a name="7727"
+      > </a
+      ><a name="7728" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7729"
+      > </a
+      ><a name="7730" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7735"
+      > </a
+      ><a name="7736" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7737" class="Symbol"
+      >)</a
+      ><a name="7738"
+      > </a
+      ><a name="7739" href="LTC-PCF.Data.Nat.Divisibility.NotBy0.html#951" class="Function Operator"
+      >&#8739;</a
+      ><a name="7740"
+      > </a
+      ><a name="7741" class="Symbol"
+      >(</a
+      ><a name="7742" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7747"
+      > </a
+      ><a name="7748" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7513" class="Bound"
+      >n</a
+      ><a name="7749"
+      > </a
+      ><a name="7750" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="7751"
+      > </a
+      ><a name="7752" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="7757"
+      > </a
+      ><a name="7758" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7509" class="Bound"
+      >m</a
+      ><a name="7759" class="Symbol"
+      >)</a
+      ><a name="7760"
+      >
+  </a
+      ><a name="7763" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7696" class="Function"
+      >acc-&#8739;&#8322;</a
+      ><a name="7769"
+      > </a
+      ><a name="7770" class="Symbol"
+      >=</a
+      ><a name="7771"
+      > </a
+      ><a name="7772" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="7779"
+      > </a
+      ><a name="7780" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7522" class="Bound"
+      >acc</a
+      ><a name="7783"
+      >
+
+</a
+      ><a name="7785" class="Comment"
+      >-- The gcd m n when m &gt; n is CD.</a
+      ><a name="7817"
+      >
+</a
+      ><a name="7818" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7818" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="7828"
+      > </a
+      ><a name="7829" class="Symbol"
+      >:</a
+      ><a name="7830"
+      >
+  </a
+      ><a name="7833" class="Symbol"
+      >&#8704;</a
+      ><a name="7834"
+      > </a
+      ><a name="7835" class="Symbol"
+      >{</a
+      ><a name="7836" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7837"
+      > </a
+      ><a name="7838" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7839" class="Symbol"
+      >}</a
+      ><a name="7840"
+      > </a
+      ><a name="7841" class="Symbol"
+      >&#8594;</a
+      ><a name="7842"
+      > </a
+      ><a name="7843" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="7844"
+      > </a
+      ><a name="7845" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7846"
+      > </a
+      ><a name="7847" class="Symbol"
+      >&#8594;</a
+      ><a name="7848"
+      > </a
+      ><a name="7849" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="7850"
+      > </a
+      ><a name="7851" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7852"
+      > </a
+      ><a name="7853" class="Symbol"
+      >&#8594;</a
+      ><a name="7854"
+      >
+  </a
+      ><a name="7857" class="Symbol"
+      >(&#8704;</a
+      ><a name="7859"
+      > </a
+      ><a name="7860" class="Symbol"
+      >{</a
+      ><a name="7861" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7861" class="Bound"
+      >o</a
+      ><a name="7862"
+      > </a
+      ><a name="7863" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7863" class="Bound"
+      >p</a
+      ><a name="7864" class="Symbol"
+      >}</a
+      ><a name="7865"
+      > </a
+      ><a name="7866" class="Symbol"
+      >&#8594;</a
+      ><a name="7867"
+      > </a
+      ><a name="7868" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="7869"
+      > </a
+      ><a name="7870" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7861" class="Bound"
+      >o</a
+      ><a name="7871"
+      > </a
+      ><a name="7872" class="Symbol"
+      >&#8594;</a
+      ><a name="7873"
+      > </a
+      ><a name="7874" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="7875"
+      > </a
+      ><a name="7876" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7863" class="Bound"
+      >p</a
+      ><a name="7877"
+      > </a
+      ><a name="7878" class="Symbol"
+      >&#8594;</a
+      ><a name="7879"
+      > </a
+      ><a name="7880" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="7884"
+      > </a
+      ><a name="7885" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7861" class="Bound"
+      >o</a
+      ><a name="7886"
+      > </a
+      ><a name="7887" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7863" class="Bound"
+      >p</a
+      ><a name="7888"
+      > </a
+      ><a name="7889" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7890"
+      > </a
+      ><a name="7891" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7892"
+      > </a
+      ><a name="7893" class="Symbol"
+      >&#8594;</a
+      ><a name="7894"
+      > </a
+      ><a name="7895" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="7900"
+      > </a
+      ><a name="7901" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7861" class="Bound"
+      >o</a
+      ><a name="7902"
+      > </a
+      ><a name="7903" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7863" class="Bound"
+      >p</a
+      ><a name="7904"
+      > </a
+      ><a name="7905" class="Symbol"
+      >&#8594;</a
+      ><a name="7906"
+      > </a
+      ><a name="7907" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="7909"
+      > </a
+      ><a name="7910" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7861" class="Bound"
+      >o</a
+      ><a name="7911"
+      > </a
+      ><a name="7912" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7863" class="Bound"
+      >p</a
+      ><a name="7913"
+      > </a
+      ><a name="7914" class="Symbol"
+      >(</a
+      ><a name="7915" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7918"
+      > </a
+      ><a name="7919" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7861" class="Bound"
+      >o</a
+      ><a name="7920"
+      > </a
+      ><a name="7921" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7863" class="Bound"
+      >p</a
+      ><a name="7922" class="Symbol"
+      >))</a
+      ><a name="7924"
+      > </a
+      ><a name="7925" class="Symbol"
+      >&#8594;</a
+      ><a name="7926"
+      >
+  </a
+      ><a name="7929" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7930"
+      > </a
+      ><a name="7931" href="LTC-PCF.Data.Nat.Inequalities.html#1080" class="Function Operator"
+      >&gt;</a
+      ><a name="7932"
+      > </a
+      ><a name="7933" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7934"
+      > </a
+      ><a name="7935" class="Symbol"
+      >&#8594;</a
+      ><a name="7936"
+      >
+  </a
+      ><a name="7939" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="7944"
+      > </a
+      ><a name="7945" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7946"
+      > </a
+      ><a name="7947" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7948"
+      > </a
+      ><a name="7949" class="Symbol"
+      >&#8594;</a
+      ><a name="7950"
+      >
+  </a
+      ><a name="7953" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="7955"
+      > </a
+      ><a name="7956" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7957"
+      > </a
+      ><a name="7958" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7959"
+      > </a
+      ><a name="7960" class="Symbol"
+      >(</a
+      ><a name="7961" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="7964"
+      > </a
+      ><a name="7965" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7836" class="Bound"
+      >m</a
+      ><a name="7966"
+      > </a
+      ><a name="7967" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7838" class="Bound"
+      >n</a
+      ><a name="7968" class="Symbol"
+      >)</a
+      ><a name="7969"
+      >
+</a
+      ><a name="7970" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7818" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="7980"
+      > </a
+      ><a name="7981" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="7986"
+      >          </a
+      ><a name="7996" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7996" class="Bound"
+      >Nn</a
+      ><a name="7998"
+      >             </a
+      ><a name="8011" class="Symbol"
+      >_</a
+      ><a name="8012"
+      >  </a
+      ><a name="8014" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8014" class="Bound"
+      >0&gt;n</a
+      ><a name="8017"
+      >   </a
+      ><a name="8020" class="Symbol"
+      >_</a
+      ><a name="8021"
+      > </a
+      ><a name="8022" class="Symbol"
+      >=</a
+      ><a name="8023"
+      > </a
+      ><a name="8024" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8030"
+      > </a
+      ><a name="8031" class="Symbol"
+      >(</a
+      ><a name="8032" href="LTC-PCF.Data.Nat.Inequalities.EliminationProperties.html#1225" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="8037"
+      > </a
+      ><a name="8038" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7996" class="Bound"
+      >Nn</a
+      ><a name="8040"
+      > </a
+      ><a name="8041" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8014" class="Bound"
+      >0&gt;n</a
+      ><a name="8044" class="Symbol"
+      >)</a
+      ><a name="8045"
+      >
+</a
+      ><a name="8046" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7818" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="8056"
+      > </a
+      ><a name="8057" class="Symbol"
+      >(</a
+      ><a name="8058" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8063"
+      > </a
+      ><a name="8064" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8064" class="Bound"
+      >Nm</a
+      ><a name="8066" class="Symbol"
+      >)</a
+      ><a name="8067"
+      >     </a
+      ><a name="8072" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8077"
+      >          </a
+      ><a name="8087" class="Symbol"
+      >_</a
+      ><a name="8088"
+      >  </a
+      ><a name="8090" class="Symbol"
+      >_</a
+      ><a name="8091"
+      >     </a
+      ><a name="8096" class="Symbol"
+      >_</a
+      ><a name="8097"
+      > </a
+      ><a name="8098" class="Symbol"
+      >=</a
+      ><a name="8099"
+      > </a
+      ><a name="8100" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6605" class="Function"
+      >gcd-S0-CD</a
+      ><a name="8109"
+      > </a
+      ><a name="8110" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8064" class="Bound"
+      >Nm</a
+      ><a name="8112"
+      >
+</a
+      ><a name="8113" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7818" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="8123"
+      > </a
+      ><a name="8124" class="Symbol"
+      >(</a
+      ><a name="8125" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8130"
+      > </a
+      ><a name="8131" class="Symbol"
+      >{</a
+      ><a name="8132" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8132" class="Bound"
+      >m</a
+      ><a name="8133" class="Symbol"
+      >}</a
+      ><a name="8134"
+      > </a
+      ><a name="8135" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8135" class="Bound"
+      >Nm</a
+      ><a name="8137" class="Symbol"
+      >)</a
+      ><a name="8138"
+      > </a
+      ><a name="8139" class="Symbol"
+      >(</a
+      ><a name="8140" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8145"
+      > </a
+      ><a name="8146" class="Symbol"
+      >{</a
+      ><a name="8147" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8148" class="Symbol"
+      >}</a
+      ><a name="8149"
+      > </a
+      ><a name="8150" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8150" class="Bound"
+      >Nn</a
+      ><a name="8152" class="Symbol"
+      >)</a
+      ><a name="8153"
+      > </a
+      ><a name="8154" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8154" class="Bound"
+      >ah</a
+      ><a name="8156"
+      > </a
+      ><a name="8157" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8157" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="8162"
+      > </a
+      ><a name="8163" class="Symbol"
+      >_</a
+      ><a name="8164"
+      > </a
+      ><a name="8165" class="Symbol"
+      >=</a
+      ><a name="8166"
+      >
+  </a
+      ><a name="8169" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6777" class="Function"
+      >gcd-S&gt;S-CD</a
+      ><a name="8179"
+      > </a
+      ><a name="8180" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8135" class="Bound"
+      >Nm</a
+      ><a name="8182"
+      > </a
+      ><a name="8183" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8150" class="Bound"
+      >Nn</a
+      ><a name="8185"
+      > </a
+      ><a name="8186" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8232" class="Function"
+      >ih</a
+      ><a name="8188"
+      > </a
+      ><a name="8189" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8157" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="8194"
+      >
+  </a
+      ><a name="8197" class="Keyword"
+      >where</a
+      ><a name="8202"
+      >
+  </a
+      ><a name="8205" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="8229"
+      >
+  </a
+      ><a name="8232" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8232" class="Function"
+      >ih</a
+      ><a name="8234"
+      > </a
+      ><a name="8235" class="Symbol"
+      >:</a
+      ><a name="8236"
+      > </a
+      ><a name="8237" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="8239"
+      > </a
+      ><a name="8240" class="Symbol"
+      >(</a
+      ><a name="8241" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8246"
+      > </a
+      ><a name="8247" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8132" class="Bound"
+      >m</a
+      ><a name="8248"
+      > </a
+      ><a name="8249" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="8250"
+      > </a
+      ><a name="8251" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8256"
+      > </a
+      ><a name="8257" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8258" class="Symbol"
+      >)</a
+      ><a name="8259"
+      > </a
+      ><a name="8260" class="Symbol"
+      >(</a
+      ><a name="8261" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8266"
+      > </a
+      ><a name="8267" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8268" class="Symbol"
+      >)</a
+      ><a name="8269"
+      > </a
+      ><a name="8270" class="Symbol"
+      >(</a
+      ><a name="8271" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="8274"
+      > </a
+      ><a name="8275" class="Symbol"
+      >(</a
+      ><a name="8276" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8281"
+      > </a
+      ><a name="8282" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8132" class="Bound"
+      >m</a
+      ><a name="8283"
+      > </a
+      ><a name="8284" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="8285"
+      > </a
+      ><a name="8286" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8291"
+      > </a
+      ><a name="8292" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8293" class="Symbol"
+      >)</a
+      ><a name="8294"
+      > </a
+      ><a name="8295" class="Symbol"
+      >(</a
+      ><a name="8296" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8301"
+      > </a
+      ><a name="8302" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8303" class="Symbol"
+      >))</a
+      ><a name="8305"
+      >
+  </a
+      ><a name="8308" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8232" class="Function"
+      >ih</a
+      ><a name="8310"
+      >  </a
+      ><a name="8312" class="Symbol"
+      >=</a
+      ><a name="8313"
+      > </a
+      ><a name="8314" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8154" class="Bound"
+      >ah</a
+      ><a name="8316"
+      > </a
+      ><a name="8317" class="Symbol"
+      >{</a
+      ><a name="8318" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8323"
+      > </a
+      ><a name="8324" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8132" class="Bound"
+      >m</a
+      ><a name="8325"
+      > </a
+      ><a name="8326" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="8327"
+      > </a
+      ><a name="8328" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8333"
+      > </a
+      ><a name="8334" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8335" class="Symbol"
+      >}</a
+      ><a name="8336"
+      >
+           </a
+      ><a name="8348" class="Symbol"
+      >{</a
+      ><a name="8349" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="8354"
+      > </a
+      ><a name="8355" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8147" class="Bound"
+      >n</a
+      ><a name="8356" class="Symbol"
+      >}</a
+      ><a name="8357"
+      >
+           </a
+      ><a name="8369" class="Symbol"
+      >(</a
+      ><a name="8370" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="8373"
+      > </a
+      ><a name="8374" class="Symbol"
+      >(</a
+      ><a name="8375" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8380"
+      > </a
+      ><a name="8381" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8135" class="Bound"
+      >Nm</a
+      ><a name="8383" class="Symbol"
+      >)</a
+      ><a name="8384"
+      > </a
+      ><a name="8385" class="Symbol"
+      >(</a
+      ><a name="8386" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8391"
+      > </a
+      ><a name="8392" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8150" class="Bound"
+      >Nn</a
+      ><a name="8394" class="Symbol"
+      >))</a
+      ><a name="8396"
+      >
+           </a
+      ><a name="8408" class="Symbol"
+      >(</a
+      ><a name="8409" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8414"
+      > </a
+      ><a name="8415" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8150" class="Bound"
+      >Nn</a
+      ><a name="8417" class="Symbol"
+      >)</a
+      ><a name="8418"
+      >
+           </a
+      ><a name="8430" class="Symbol"
+      >(</a
+      ><a name="8431" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#11540" class="Function"
+      >[Sx&#8760;Sy,Sy]&lt;[Sx,Sy]</a
+      ><a name="8449"
+      > </a
+      ><a name="8450" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8135" class="Bound"
+      >Nm</a
+      ><a name="8452"
+      > </a
+      ><a name="8453" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8150" class="Bound"
+      >Nn</a
+      ><a name="8455" class="Symbol"
+      >)</a
+      ><a name="8456"
+      >
+           </a
+      ><a name="8468" class="Symbol"
+      >(&#955;</a
+      ><a name="8470"
+      > </a
+      ><a name="8471" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8471" class="Bound"
+      >p</a
+      ><a name="8472"
+      > </a
+      ><a name="8473" class="Symbol"
+      >&#8594;</a
+      ><a name="8474"
+      > </a
+      ><a name="8475" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8481"
+      > </a
+      ><a name="8482" class="Symbol"
+      >(</a
+      ><a name="8483" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="8486"
+      > </a
+      ><a name="8487" class="Symbol"
+      >(</a
+      ><a name="8488" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="8495"
+      > </a
+      ><a name="8496" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8471" class="Bound"
+      >p</a
+      ><a name="8497" class="Symbol"
+      >)))</a
+      ><a name="8500"
+      >
+
+</a
+      ><a name="8502" class="Comment"
+      >-- The gcd m n when m &#8815; n is CD.</a
+      ><a name="8534"
+      >
+</a
+      ><a name="8535" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8535" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8545"
+      > </a
+      ><a name="8546" class="Symbol"
+      >:</a
+      ><a name="8547"
+      >
+  </a
+      ><a name="8550" class="Symbol"
+      >&#8704;</a
+      ><a name="8551"
+      > </a
+      ><a name="8552" class="Symbol"
+      >{</a
+      ><a name="8553" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8554"
+      > </a
+      ><a name="8555" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8556" class="Symbol"
+      >}</a
+      ><a name="8557"
+      > </a
+      ><a name="8558" class="Symbol"
+      >&#8594;</a
+      ><a name="8559"
+      > </a
+      ><a name="8560" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="8561"
+      > </a
+      ><a name="8562" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8563"
+      > </a
+      ><a name="8564" class="Symbol"
+      >&#8594;</a
+      ><a name="8565"
+      > </a
+      ><a name="8566" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="8567"
+      > </a
+      ><a name="8568" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8569"
+      > </a
+      ><a name="8570" class="Symbol"
+      >&#8594;</a
+      ><a name="8571"
+      >
+  </a
+      ><a name="8574" class="Symbol"
+      >(&#8704;</a
+      ><a name="8576"
+      > </a
+      ><a name="8577" class="Symbol"
+      >{</a
+      ><a name="8578" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8578" class="Bound"
+      >o</a
+      ><a name="8579"
+      > </a
+      ><a name="8580" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8580" class="Bound"
+      >p</a
+      ><a name="8581" class="Symbol"
+      >}</a
+      ><a name="8582"
+      > </a
+      ><a name="8583" class="Symbol"
+      >&#8594;</a
+      ><a name="8584"
+      > </a
+      ><a name="8585" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="8586"
+      > </a
+      ><a name="8587" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8578" class="Bound"
+      >o</a
+      ><a name="8588"
+      > </a
+      ><a name="8589" class="Symbol"
+      >&#8594;</a
+      ><a name="8590"
+      > </a
+      ><a name="8591" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="8592"
+      > </a
+      ><a name="8593" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8580" class="Bound"
+      >p</a
+      ><a name="8594"
+      > </a
+      ><a name="8595" class="Symbol"
+      >&#8594;</a
+      ><a name="8596"
+      > </a
+      ><a name="8597" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="8601"
+      > </a
+      ><a name="8602" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8578" class="Bound"
+      >o</a
+      ><a name="8603"
+      > </a
+      ><a name="8604" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8580" class="Bound"
+      >p</a
+      ><a name="8605"
+      > </a
+      ><a name="8606" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8607"
+      > </a
+      ><a name="8608" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8609"
+      > </a
+      ><a name="8610" class="Symbol"
+      >&#8594;</a
+      ><a name="8611"
+      > </a
+      ><a name="8612" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="8617"
+      > </a
+      ><a name="8618" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8578" class="Bound"
+      >o</a
+      ><a name="8619"
+      > </a
+      ><a name="8620" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8580" class="Bound"
+      >p</a
+      ><a name="8621"
+      > </a
+      ><a name="8622" class="Symbol"
+      >&#8594;</a
+      ><a name="8623"
+      > </a
+      ><a name="8624" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="8626"
+      > </a
+      ><a name="8627" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8578" class="Bound"
+      >o</a
+      ><a name="8628"
+      > </a
+      ><a name="8629" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8580" class="Bound"
+      >p</a
+      ><a name="8630"
+      > </a
+      ><a name="8631" class="Symbol"
+      >(</a
+      ><a name="8632" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="8635"
+      > </a
+      ><a name="8636" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8578" class="Bound"
+      >o</a
+      ><a name="8637"
+      > </a
+      ><a name="8638" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8580" class="Bound"
+      >p</a
+      ><a name="8639" class="Symbol"
+      >))</a
+      ><a name="8641"
+      > </a
+      ><a name="8642" class="Symbol"
+      >&#8594;</a
+      ><a name="8643"
+      >
+  </a
+      ><a name="8646" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8647"
+      > </a
+      ><a name="8648" href="LTC-PCF.Data.Nat.Inequalities.html#1121" class="Function Operator"
+      >&#8815;</a
+      ><a name="8649"
+      > </a
+      ><a name="8650" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8651"
+      > </a
+      ><a name="8652" class="Symbol"
+      >&#8594;</a
+      ><a name="8653"
+      >
+  </a
+      ><a name="8656" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="8661"
+      > </a
+      ><a name="8662" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8663"
+      > </a
+      ><a name="8664" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8665"
+      > </a
+      ><a name="8666" class="Symbol"
+      >&#8594;</a
+      ><a name="8667"
+      >
+  </a
+      ><a name="8670" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="8672"
+      > </a
+      ><a name="8673" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8674"
+      > </a
+      ><a name="8675" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8676"
+      > </a
+      ><a name="8677" class="Symbol"
+      >(</a
+      ><a name="8678" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="8681"
+      > </a
+      ><a name="8682" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8553" class="Bound"
+      >m</a
+      ><a name="8683"
+      > </a
+      ><a name="8684" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8555" class="Bound"
+      >n</a
+      ><a name="8685" class="Symbol"
+      >)</a
+      ><a name="8686"
+      >
+</a
+      ><a name="8687" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8535" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8697"
+      > </a
+      ><a name="8698" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8703"
+      >          </a
+      ><a name="8713" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8718"
+      >          </a
+      ><a name="8728" class="Symbol"
+      >_</a
+      ><a name="8729"
+      >  </a
+      ><a name="8731" class="Symbol"
+      >_</a
+      ><a name="8732"
+      >     </a
+      ><a name="8737" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8737" class="Bound"
+      >h</a
+      ><a name="8738"
+      > </a
+      ><a name="8739" class="Symbol"
+      >=</a
+      ><a name="8740"
+      > </a
+      ><a name="8741" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8747"
+      > </a
+      ><a name="8748" class="Symbol"
+      >(</a
+      ><a name="8749" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8737" class="Bound"
+      >h</a
+      ><a name="8750"
+      > </a
+      ><a name="8751" class="Symbol"
+      >(</a
+      ><a name="8752" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="8756"
+      > </a
+      ><a name="8757" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="8758"
+      > </a
+      ><a name="8759" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="8763" class="Symbol"
+      >))</a
+      ><a name="8765"
+      >
+</a
+      ><a name="8766" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8535" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8776"
+      > </a
+      ><a name="8777" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8782"
+      >          </a
+      ><a name="8792" class="Symbol"
+      >(</a
+      ><a name="8793" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8798"
+      > </a
+      ><a name="8799" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8799" class="Bound"
+      >Nn</a
+      ><a name="8801" class="Symbol"
+      >)</a
+      ><a name="8802"
+      >     </a
+      ><a name="8807" class="Symbol"
+      >_</a
+      ><a name="8808"
+      >  </a
+      ><a name="8810" class="Symbol"
+      >_</a
+      ><a name="8811"
+      >     </a
+      ><a name="8816" class="Symbol"
+      >_</a
+      ><a name="8817"
+      > </a
+      ><a name="8818" class="Symbol"
+      >=</a
+      ><a name="8819"
+      > </a
+      ><a name="8820" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#6464" class="Function"
+      >gcd-0S-CD</a
+      ><a name="8829"
+      > </a
+      ><a name="8830" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8799" class="Bound"
+      >Nn</a
+      ><a name="8832"
+      >
+</a
+      ><a name="8833" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8535" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8843"
+      > </a
+      ><a name="8844" class="Symbol"
+      >(</a
+      ><a name="8845" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8850"
+      > </a
+      ><a name="8851" class="Symbol"
+      >_)</a
+      ><a name="8853"
+      >      </a
+      ><a name="8859" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="8864"
+      >          </a
+      ><a name="8874" class="Symbol"
+      >_</a
+      ><a name="8875"
+      >  </a
+      ><a name="8877" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8877" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="8881"
+      >  </a
+      ><a name="8883" class="Symbol"
+      >_</a
+      ><a name="8884"
+      > </a
+      ><a name="8885" class="Symbol"
+      >=</a
+      ><a name="8886"
+      > </a
+      ><a name="8887" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="8893"
+      > </a
+      ><a name="8894" class="Symbol"
+      >(</a
+      ><a name="8895" href="LTC-PCF.Data.Nat.Inequalities.EliminationProperties.html#2014" class="Function"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="8900"
+      > </a
+      ><a name="8901" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8877" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="8905" class="Symbol"
+      >)</a
+      ><a name="8906"
+      >
+</a
+      ><a name="8907" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8535" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="8917"
+      > </a
+      ><a name="8918" class="Symbol"
+      >(</a
+      ><a name="8919" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8924"
+      > </a
+      ><a name="8925" class="Symbol"
+      >{</a
+      ><a name="8926" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="8927" class="Symbol"
+      >}</a
+      ><a name="8928"
+      > </a
+      ><a name="8929" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8929" class="Bound"
+      >Nm</a
+      ><a name="8931" class="Symbol"
+      >)</a
+      ><a name="8932"
+      > </a
+      ><a name="8933" class="Symbol"
+      >(</a
+      ><a name="8934" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="8939"
+      > </a
+      ><a name="8940" class="Symbol"
+      >{</a
+      ><a name="8941" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8941" class="Bound"
+      >n</a
+      ><a name="8942" class="Symbol"
+      >}</a
+      ><a name="8943"
+      > </a
+      ><a name="8944" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8944" class="Bound"
+      >Nn</a
+      ><a name="8946" class="Symbol"
+      >)</a
+      ><a name="8947"
+      > </a
+      ><a name="8948" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8948" class="Bound"
+      >ah</a
+      ><a name="8950"
+      > </a
+      ><a name="8951" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8951" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="8956"
+      > </a
+      ><a name="8957" class="Symbol"
+      >_</a
+      ><a name="8958"
+      > </a
+      ><a name="8959" class="Symbol"
+      >=</a
+      ><a name="8960"
+      > </a
+      ><a name="8961" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7312" class="Function"
+      >gcd-S&#8815;S-CD</a
+      ><a name="8971"
+      > </a
+      ><a name="8972" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8929" class="Bound"
+      >Nm</a
+      ><a name="8974"
+      > </a
+      ><a name="8975" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8944" class="Bound"
+      >Nn</a
+      ><a name="8977"
+      > </a
+      ><a name="8978" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9024" class="Function"
+      >ih</a
+      ><a name="8980"
+      > </a
+      ><a name="8981" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8951" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="8986"
+      >
+  </a
+      ><a name="8989" class="Keyword"
+      >where</a
+      ><a name="8994"
+      >
+  </a
+      ><a name="8997" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="9021"
+      >
+  </a
+      ><a name="9024" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9024" class="Function"
+      >ih</a
+      ><a name="9026"
+      > </a
+      ><a name="9027" class="Symbol"
+      >:</a
+      ><a name="9028"
+      > </a
+      ><a name="9029" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="9031"
+      > </a
+      ><a name="9032" class="Symbol"
+      >(</a
+      ><a name="9033" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9038"
+      > </a
+      ><a name="9039" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="9040" class="Symbol"
+      >)</a
+      ><a name="9041"
+      > </a
+      ><a name="9042" class="Symbol"
+      >(</a
+      ><a name="9043" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9048"
+      > </a
+      ><a name="9049" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8941" class="Bound"
+      >n</a
+      ><a name="9050"
+      > </a
+      ><a name="9051" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="9052"
+      > </a
+      ><a name="9053" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9058"
+      > </a
+      ><a name="9059" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="9060" class="Symbol"
+      >)</a
+      ><a name="9061"
+      >  </a
+      ><a name="9063" class="Symbol"
+      >(</a
+      ><a name="9064" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="9067"
+      > </a
+      ><a name="9068" class="Symbol"
+      >(</a
+      ><a name="9069" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9074"
+      > </a
+      ><a name="9075" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="9076" class="Symbol"
+      >)</a
+      ><a name="9077"
+      > </a
+      ><a name="9078" class="Symbol"
+      >(</a
+      ><a name="9079" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9084"
+      > </a
+      ><a name="9085" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8941" class="Bound"
+      >n</a
+      ><a name="9086"
+      > </a
+      ><a name="9087" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="9088"
+      > </a
+      ><a name="9089" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9094"
+      > </a
+      ><a name="9095" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="9096" class="Symbol"
+      >))</a
+      ><a name="9098"
+      >
+  </a
+      ><a name="9101" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9024" class="Function"
+      >ih</a
+      ><a name="9103"
+      > </a
+      ><a name="9104" class="Symbol"
+      >=</a
+      ><a name="9105"
+      > </a
+      ><a name="9106" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8948" class="Bound"
+      >ah</a
+      ><a name="9108"
+      > </a
+      ><a name="9109" class="Symbol"
+      >{</a
+      ><a name="9110" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9115"
+      > </a
+      ><a name="9116" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="9117" class="Symbol"
+      >}</a
+      ><a name="9118"
+      >
+          </a
+      ><a name="9129" class="Symbol"
+      >{</a
+      ><a name="9130" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9135"
+      > </a
+      ><a name="9136" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8941" class="Bound"
+      >n</a
+      ><a name="9137"
+      > </a
+      ><a name="9138" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="9139"
+      > </a
+      ><a name="9140" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="9145"
+      > </a
+      ><a name="9146" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8926" class="Bound"
+      >m</a
+      ><a name="9147" class="Symbol"
+      >}</a
+      ><a name="9148"
+      >
+          </a
+      ><a name="9159" class="Symbol"
+      >(</a
+      ><a name="9160" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="9165"
+      > </a
+      ><a name="9166" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8929" class="Bound"
+      >Nm</a
+      ><a name="9168" class="Symbol"
+      >)</a
+      ><a name="9169"
+      >
+          </a
+      ><a name="9180" class="Symbol"
+      >(</a
+      ><a name="9181" href="LTC-PCF.Data.Nat.Properties.html#3171" class="Function"
+      >&#8760;-N</a
+      ><a name="9184"
+      > </a
+      ><a name="9185" class="Symbol"
+      >(</a
+      ><a name="9186" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="9191"
+      > </a
+      ><a name="9192" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8944" class="Bound"
+      >Nn</a
+      ><a name="9194" class="Symbol"
+      >)</a
+      ><a name="9195"
+      > </a
+      ><a name="9196" class="Symbol"
+      >(</a
+      ><a name="9197" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="9202"
+      > </a
+      ><a name="9203" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8929" class="Bound"
+      >Nm</a
+      ><a name="9205" class="Symbol"
+      >))</a
+      ><a name="9207"
+      >
+          </a
+      ><a name="9218" class="Symbol"
+      >(</a
+      ><a name="9219" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#11709" class="Function"
+      >[Sx,Sy&#8760;Sx]&lt;[Sx,Sy]</a
+      ><a name="9237"
+      > </a
+      ><a name="9238" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8929" class="Bound"
+      >Nm</a
+      ><a name="9240"
+      > </a
+      ><a name="9241" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8944" class="Bound"
+      >Nn</a
+      ><a name="9243" class="Symbol"
+      >)</a
+      ><a name="9244"
+      >
+          </a
+      ><a name="9255" class="Symbol"
+      >(&#955;</a
+      ><a name="9257"
+      > </a
+      ><a name="9258" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9258" class="Bound"
+      >p</a
+      ><a name="9259"
+      > </a
+      ><a name="9260" class="Symbol"
+      >&#8594;</a
+      ><a name="9261"
+      > </a
+      ><a name="9262" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="9268"
+      > </a
+      ><a name="9269" class="Symbol"
+      >(</a
+      ><a name="9270" href="LTC-PCF.Base.Properties.html#892" class="Function"
+      >S&#8802;0</a
+      ><a name="9273"
+      > </a
+      ><a name="9274" class="Symbol"
+      >(</a
+      ><a name="9275" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="9282"
+      > </a
+      ><a name="9283" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9258" class="Bound"
+      >p</a
+      ><a name="9284" class="Symbol"
+      >)))</a
+      ><a name="9287"
+      >
+
+</a
+      ><a name="9289" class="Comment"
+      >-- The gcd is CD.</a
+      ><a name="9306"
+      >
+</a
+      ><a name="9307" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9307" class="Function"
+      >gcdCD</a
+      ><a name="9312"
+      > </a
+      ><a name="9313" class="Symbol"
+      >:</a
+      ><a name="9314"
+      > </a
+      ><a name="9315" class="Symbol"
+      >&#8704;</a
+      ><a name="9316"
+      > </a
+      ><a name="9317" class="Symbol"
+      >{</a
+      ><a name="9318" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9318" class="Bound"
+      >m</a
+      ><a name="9319"
+      > </a
+      ><a name="9320" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9320" class="Bound"
+      >n</a
+      ><a name="9321" class="Symbol"
+      >}</a
+      ><a name="9322"
+      > </a
+      ><a name="9323" class="Symbol"
+      >&#8594;</a
+      ><a name="9324"
+      > </a
+      ><a name="9325" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="9326"
+      > </a
+      ><a name="9327" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9318" class="Bound"
+      >m</a
+      ><a name="9328"
+      > </a
+      ><a name="9329" class="Symbol"
+      >&#8594;</a
+      ><a name="9330"
+      > </a
+      ><a name="9331" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="9332"
+      > </a
+      ><a name="9333" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9320" class="Bound"
+      >n</a
+      ><a name="9334"
+      > </a
+      ><a name="9335" class="Symbol"
+      >&#8594;</a
+      ><a name="9336"
+      > </a
+      ><a name="9337" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="9342"
+      > </a
+      ><a name="9343" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9318" class="Bound"
+      >m</a
+      ><a name="9344"
+      > </a
+      ><a name="9345" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9320" class="Bound"
+      >n</a
+      ><a name="9346"
+      > </a
+      ><a name="9347" class="Symbol"
+      >&#8594;</a
+      ><a name="9348"
+      > </a
+      ><a name="9349" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="9351"
+      > </a
+      ><a name="9352" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9318" class="Bound"
+      >m</a
+      ><a name="9353"
+      > </a
+      ><a name="9354" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9320" class="Bound"
+      >n</a
+      ><a name="9355"
+      > </a
+      ><a name="9356" class="Symbol"
+      >(</a
+      ><a name="9357" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="9360"
+      > </a
+      ><a name="9361" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9318" class="Bound"
+      >m</a
+      ><a name="9362"
+      > </a
+      ><a name="9363" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9320" class="Bound"
+      >n</a
+      ><a name="9364" class="Symbol"
+      >)</a
+      ><a name="9365"
+      >
+</a
+      ><a name="9366" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9307" class="Function"
+      >gcdCD</a
+      ><a name="9371"
+      > </a
+      ><a name="9372" class="Symbol"
+      >=</a
+      ><a name="9373"
+      > </a
+      ><a name="9374" href="LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic.html#766" class="Function"
+      >Lexi-wfind</a
+      ><a name="9384"
+      > </a
+      ><a name="9385" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9399" class="Function"
+      >A</a
+      ><a name="9386"
+      > </a
+      ><a name="9387" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9457" class="Function"
+      >h</a
+      ><a name="9388"
+      >
+  </a
+      ><a name="9391" class="Keyword"
+      >where</a
+      ><a name="9396"
+      >
+  </a
+      ><a name="9399" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9399" class="Function"
+      >A</a
+      ><a name="9400"
+      > </a
+      ><a name="9401" class="Symbol"
+      >:</a
+      ><a name="9402"
+      > </a
+      ><a name="9403" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="9404"
+      > </a
+      ><a name="9405" class="Symbol"
+      >&#8594;</a
+      ><a name="9406"
+      > </a
+      ><a name="9407" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="9408"
+      > </a
+      ><a name="9409" class="Symbol"
+      >&#8594;</a
+      ><a name="9410"
+      > </a
+      ><a name="9411" class="PrimitiveType"
+      >Set</a
+      ><a name="9414"
+      >
+  </a
+      ><a name="9417" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9399" class="Function"
+      >A</a
+      ><a name="9418"
+      > </a
+      ><a name="9419" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9419" class="Bound"
+      >i</a
+      ><a name="9420"
+      > </a
+      ><a name="9421" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9421" class="Bound"
+      >j</a
+      ><a name="9422"
+      > </a
+      ><a name="9423" class="Symbol"
+      >=</a
+      ><a name="9424"
+      > </a
+      ><a name="9425" href="LTC-PCF.Program.GCD.Partial.Definitions.html#1071" class="Function"
+      >x&#8802;0&#8802;y</a
+      ><a name="9430"
+      > </a
+      ><a name="9431" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9419" class="Bound"
+      >i</a
+      ><a name="9432"
+      > </a
+      ><a name="9433" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9421" class="Bound"
+      >j</a
+      ><a name="9434"
+      > </a
+      ><a name="9435" class="Symbol"
+      >&#8594;</a
+      ><a name="9436"
+      > </a
+      ><a name="9437" href="LTC-PCF.Program.GCD.Partial.Definitions.html#676" class="Function"
+      >CD</a
+      ><a name="9439"
+      > </a
+      ><a name="9440" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9419" class="Bound"
+      >i</a
+      ><a name="9441"
+      > </a
+      ><a name="9442" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9421" class="Bound"
+      >j</a
+      ><a name="9443"
+      > </a
+      ><a name="9444" class="Symbol"
+      >(</a
+      ><a name="9445" href="LTC-PCF.Program.GCD.Partial.GCD.html#1233" class="Function"
+      >gcd</a
+      ><a name="9448"
+      > </a
+      ><a name="9449" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9419" class="Bound"
+      >i</a
+      ><a name="9450"
+      > </a
+      ><a name="9451" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9421" class="Bound"
+      >j</a
+      ><a name="9452" class="Symbol"
+      >)</a
+      ><a name="9453"
+      >
+
+  </a
+      ><a name="9457" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9457" class="Function"
+      >h</a
+      ><a name="9458"
+      > </a
+      ><a name="9459" class="Symbol"
+      >:</a
+      ><a name="9460"
+      > </a
+      ><a name="9461" class="Symbol"
+      >&#8704;</a
+      ><a name="9462"
+      > </a
+      ><a name="9463" class="Symbol"
+      >{</a
+      ><a name="9464" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9464" class="Bound"
+      >i</a
+      ><a name="9465"
+      > </a
+      ><a name="9466" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9466" class="Bound"
+      >j</a
+      ><a name="9467" class="Symbol"
+      >}</a
+      ><a name="9468"
+      > </a
+      ><a name="9469" class="Symbol"
+      >&#8594;</a
+      ><a name="9470"
+      > </a
+      ><a name="9471" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="9472"
+      > </a
+      ><a name="9473" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9464" class="Bound"
+      >i</a
+      ><a name="9474"
+      > </a
+      ><a name="9475" class="Symbol"
+      >&#8594;</a
+      ><a name="9476"
+      > </a
+      ><a name="9477" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="9478"
+      > </a
+      ><a name="9479" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9466" class="Bound"
+      >j</a
+      ><a name="9480"
+      > </a
+      ><a name="9481" class="Symbol"
+      >&#8594;</a
+      ><a name="9482"
+      > </a
+      ><a name="9483" class="Symbol"
+      >(&#8704;</a
+      ><a name="9485"
+      > </a
+      ><a name="9486" class="Symbol"
+      >{</a
+      ><a name="9487" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9487" class="Bound"
+      >k</a
+      ><a name="9488"
+      > </a
+      ><a name="9489" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9489" class="Bound"
+      >l</a
+      ><a name="9490" class="Symbol"
+      >}</a
+      ><a name="9491"
+      > </a
+      ><a name="9492" class="Symbol"
+      >&#8594;</a
+      ><a name="9493"
+      > </a
+      ><a name="9494" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="9495"
+      > </a
+      ><a name="9496" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9487" class="Bound"
+      >k</a
+      ><a name="9497"
+      > </a
+      ><a name="9498" class="Symbol"
+      >&#8594;</a
+      ><a name="9499"
+      > </a
+      ><a name="9500" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="9501"
+      > </a
+      ><a name="9502" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9489" class="Bound"
+      >l</a
+      ><a name="9503"
+      > </a
+      ><a name="9504" class="Symbol"
+      >&#8594;</a
+      ><a name="9505"
+      > </a
+      ><a name="9506" href="LTC-PCF.Data.Nat.Inequalities.html#1440" class="Function"
+      >Lexi</a
+      ><a name="9510"
+      > </a
+      ><a name="9511" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9487" class="Bound"
+      >k</a
+      ><a name="9512"
+      > </a
+      ><a name="9513" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9489" class="Bound"
+      >l</a
+      ><a name="9514"
+      > </a
+      ><a name="9515" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9464" class="Bound"
+      >i</a
+      ><a name="9516"
+      > </a
+      ><a name="9517" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9466" class="Bound"
+      >j</a
+      ><a name="9518"
+      > </a
+      ><a name="9519" class="Symbol"
+      >&#8594;</a
+      ><a name="9520"
+      > </a
+      ><a name="9521" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9399" class="Function"
+      >A</a
+      ><a name="9522"
+      > </a
+      ><a name="9523" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9487" class="Bound"
+      >k</a
+      ><a name="9524"
+      > </a
+      ><a name="9525" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9489" class="Bound"
+      >l</a
+      ><a name="9526" class="Symbol"
+      >)</a
+      ><a name="9527"
+      > </a
+      ><a name="9528" class="Symbol"
+      >&#8594;</a
+      ><a name="9529"
+      >
+      </a
+      ><a name="9536" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9399" class="Function"
+      >A</a
+      ><a name="9537"
+      > </a
+      ><a name="9538" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9464" class="Bound"
+      >i</a
+      ><a name="9539"
+      > </a
+      ><a name="9540" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9466" class="Bound"
+      >j</a
+      ><a name="9541"
+      >
+  </a
+      ><a name="9544" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9457" class="Function"
+      >h</a
+      ><a name="9545"
+      > </a
+      ><a name="9546" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9546" class="Bound"
+      >Ni</a
+      ><a name="9548"
+      > </a
+      ><a name="9549" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9549" class="Bound"
+      >Nj</a
+      ><a name="9551"
+      > </a
+      ><a name="9552" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9552" class="Bound"
+      >ah</a
+      ><a name="9554"
+      > </a
+      ><a name="9555" class="Symbol"
+      >=</a
+      ><a name="9556"
+      > </a
+      ><a name="9557" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="9561"
+      > </a
+      ><a name="9562" class="Symbol"
+      >(</a
+      ><a name="9563" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#7818" class="Function"
+      >gcd-x&gt;y-CD</a
+      ><a name="9573"
+      > </a
+      ><a name="9574" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9546" class="Bound"
+      >Ni</a
+      ><a name="9576"
+      > </a
+      ><a name="9577" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9549" class="Bound"
+      >Nj</a
+      ><a name="9579"
+      > </a
+      ><a name="9580" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9552" class="Bound"
+      >ah</a
+      ><a name="9582" class="Symbol"
+      >)</a
+      ><a name="9583"
+      > </a
+      ><a name="9584" class="Symbol"
+      >(</a
+      ><a name="9585" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#8535" class="Function"
+      >gcd-x&#8815;y-CD</a
+      ><a name="9595"
+      > </a
+      ><a name="9596" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9546" class="Bound"
+      >Ni</a
+      ><a name="9598"
+      > </a
+      ><a name="9599" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9549" class="Bound"
+      >Nj</a
+      ><a name="9601"
+      > </a
+      ><a name="9602" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9552" class="Bound"
+      >ah</a
+      ><a name="9604" class="Symbol"
+      >)</a
+      ><a name="9605"
+      > </a
+      ><a name="9606" class="Symbol"
+      >(</a
+      ><a name="9607" href="LTC-PCF.Data.Nat.Inequalities.Properties.html#3872" class="Function"
+      >x&gt;y&#8744;x&#8815;y</a
+      ><a name="9614"
+      > </a
+      ><a name="9615" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9546" class="Bound"
+      >Ni</a
+      ><a name="9617"
+      > </a
+      ><a name="9618" href="LTC-PCF.Program.GCD.Partial.CommonDivisor.html#9549" class="Bound"
+      >Nj</a
+      ><a name="9620" class="Symbol"
+      >)</a
+      ><a name="9621"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

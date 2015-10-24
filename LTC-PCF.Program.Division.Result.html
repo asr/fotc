@@ -1,0 +1,2086 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.Division.Result</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The division result is correct</a
+      ><a name="113"
+      >
+</a
+      ><a name="114" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="192"
+      >
+
+</a
+      ><a name="194" class="Symbol"
+      >{-#</a
+      ><a name="197"
+      > </a
+      ><a name="198" class="Keyword"
+      >OPTIONS</a
+      ><a name="205"
+      > --exact-split              </a
+      ><a name="233" class="Symbol"
+      >#-}</a
+      ><a name="236"
+      >
+</a
+      ><a name="237" class="Symbol"
+      >{-#</a
+      ><a name="240"
+      > </a
+      ><a name="241" class="Keyword"
+      >OPTIONS</a
+      ><a name="248"
+      > --no-sized-types           </a
+      ><a name="276" class="Symbol"
+      >#-}</a
+      ><a name="279"
+      >
+</a
+      ><a name="280" class="Symbol"
+      >{-#</a
+      ><a name="283"
+      > </a
+      ><a name="284" class="Keyword"
+      >OPTIONS</a
+      ><a name="291"
+      > --no-universe-polymorphism </a
+      ><a name="319" class="Symbol"
+      >#-}</a
+      ><a name="322"
+      >
+</a
+      ><a name="323" class="Symbol"
+      >{-#</a
+      ><a name="326"
+      > </a
+      ><a name="327" class="Keyword"
+      >OPTIONS</a
+      ><a name="334"
+      > --without-K                </a
+      ><a name="362" class="Symbol"
+      >#-}</a
+      ><a name="365"
+      >
+
+</a
+      ><a name="367" class="Keyword"
+      >module</a
+      ><a name="373"
+      > </a
+      ><a name="374" href="LTC-PCF.Program.Division.Result.html#1" class="Module"
+      >LTC-PCF.Program.Division.Result</a
+      ><a name="405"
+      > </a
+      ><a name="406" class="Keyword"
+      >where</a
+      ><a name="411"
+      >
+
+</a
+      ><a name="413" class="Keyword"
+      >open</a
+      ><a name="417"
+      > </a
+      ><a name="418" class="Keyword"
+      >import</a
+      ><a name="424"
+      > </a
+      ><a name="425" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="463"
+      >
+
+</a
+      ><a name="465" class="Keyword"
+      >open</a
+      ><a name="469"
+      > </a
+      ><a name="470" class="Keyword"
+      >import</a
+      ><a name="476"
+      > </a
+      ><a name="477" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="489"
+      >
+</a
+      ><a name="490" class="Keyword"
+      >open</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Keyword"
+      >import</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="518"
+      >
+</a
+      ><a name="519" class="Keyword"
+      >open</a
+      ><a name="523"
+      > </a
+      ><a name="524" class="Keyword"
+      >import</a
+      ><a name="530"
+      > </a
+      ><a name="531" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="560"
+      >
+</a
+      ><a name="561" class="Keyword"
+      >open</a
+      ><a name="565"
+      > </a
+      ><a name="566" class="Keyword"
+      >import</a
+      ><a name="572"
+      > </a
+      ><a name="573" href="LTC-PCF.Data.Nat.Properties.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Properties</a
+      ><a name="600"
+      >
+</a
+      ><a name="601" class="Keyword"
+      >open</a
+      ><a name="605"
+      > </a
+      ><a name="606" class="Keyword"
+      >import</a
+      ><a name="612"
+      > </a
+      ><a name="613" href="LTC-PCF.Program.Division.ConversionRules.html#1" class="Module"
+      >LTC-PCF.Program.Division.ConversionRules</a
+      ><a name="653"
+      >
+</a
+      ><a name="654" class="Keyword"
+      >open</a
+      ><a name="658"
+      > </a
+      ><a name="659" class="Keyword"
+      >import</a
+      ><a name="665"
+      > </a
+      ><a name="666" href="LTC-PCF.Program.Division.Division.html#1" class="Module"
+      >LTC-PCF.Program.Division.Division</a
+      ><a name="699"
+      >
+</a
+      ><a name="700" class="Keyword"
+      >open</a
+      ><a name="704"
+      > </a
+      ><a name="705" class="Keyword"
+      >import</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="LTC-PCF.Program.Division.Specification.html#1" class="Module"
+      >LTC-PCF.Program.Division.Specification</a
+      ><a name="750"
+      >
+
+</a
+      ><a name="752" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="830"
+      >
+</a
+      ><a name="831" class="Comment"
+      >-- The division result is correct when the dividend is less than</a
+      ><a name="895"
+      >
+</a
+      ><a name="896" class="Comment"
+      >-- the divisor.</a
+      ><a name="911"
+      >
+
+</a
+      ><a name="913" href="LTC-PCF.Program.Division.Result.html#913" class="Function"
+      >div-x&lt;y-helper</a
+      ><a name="927"
+      > </a
+      ><a name="928" class="Symbol"
+      >:</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >&#8704;</a
+      ><a name="931"
+      > </a
+      ><a name="932" class="Symbol"
+      >{</a
+      ><a name="933" href="LTC-PCF.Program.Division.Result.html#933" class="Bound"
+      >i</a
+      ><a name="934"
+      > </a
+      ><a name="935" href="LTC-PCF.Program.Division.Result.html#935" class="Bound"
+      >j</a
+      ><a name="936" class="Symbol"
+      >}</a
+      ><a name="937"
+      > </a
+      ><a name="938" class="Symbol"
+      >&#8594;</a
+      ><a name="939"
+      > </a
+      ><a name="940" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="941"
+      > </a
+      ><a name="942" href="LTC-PCF.Program.Division.Result.html#933" class="Bound"
+      >i</a
+      ><a name="943"
+      > </a
+      ><a name="944" class="Symbol"
+      >&#8594;</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="LTC-PCF.Program.Division.Result.html#935" class="Bound"
+      >j</a
+      ><a name="949"
+      > </a
+      ><a name="950" class="Symbol"
+      >&#8594;</a
+      ><a name="951"
+      > </a
+      ><a name="952" href="LTC-PCF.Program.Division.Result.html#933" class="Bound"
+      >i</a
+      ><a name="953"
+      > </a
+      ><a name="954" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="LTC-PCF.Program.Division.Result.html#935" class="Bound"
+      >j</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Symbol"
+      >&#8594;</a
+      ><a name="959"
+      > </a
+      ><a name="960" href="LTC-PCF.Program.Division.Result.html#933" class="Bound"
+      >i</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="963"
+      > </a
+      ><a name="964" href="LTC-PCF.Program.Division.Result.html#935" class="Bound"
+      >j</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="LTC-PCF.Program.Division.Result.html#933" class="Bound"
+      >i</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="LTC-PCF.Program.Division.Result.html#935" class="Bound"
+      >j</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="LTC-PCF.Program.Division.Result.html#933" class="Bound"
+      >i</a
+      ><a name="979"
+      >
+</a
+      ><a name="980" href="LTC-PCF.Program.Division.Result.html#913" class="Function"
+      >div-x&lt;y-helper</a
+      ><a name="994"
+      > </a
+      ><a name="995" class="Symbol"
+      >{</a
+      ><a name="996" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="997" class="Symbol"
+      >}</a
+      ><a name="998"
+      > </a
+      ><a name="999" class="Symbol"
+      >{</a
+      ><a name="1000" href="LTC-PCF.Program.Division.Result.html#1000" class="Bound"
+      >j</a
+      ><a name="1001" class="Symbol"
+      >}</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="LTC-PCF.Program.Division.Result.html#1003" class="Bound"
+      >Ni</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" href="LTC-PCF.Program.Division.Result.html#1006" class="Bound"
+      >Nj</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="LTC-PCF.Program.Division.Result.html#1009" class="Bound"
+      >i&lt;j</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" class="Symbol"
+      >=</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="LTC-PCF.Program.Division.Result.html#1033" class="Function"
+      >prf</a
+      ><a name="1022"
+      >
+  </a
+      ><a name="1025" class="Keyword"
+      >where</a
+      ><a name="1030"
+      >
+  </a
+      ><a name="1033" href="LTC-PCF.Program.Division.Result.html#1033" class="Function"
+      >prf</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" class="Symbol"
+      >:</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" href="LTC-PCF.Program.Division.Result.html#1000" class="Bound"
+      >j</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" href="LTC-PCF.Program.Division.Result.html#1000" class="Bound"
+      >j</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1058"
+      >
+  </a
+      ><a name="1061" href="LTC-PCF.Program.Division.Result.html#1033" class="Function"
+      >prf</a
+      ><a name="1064"
+      > </a
+      ><a name="1065" class="Symbol"
+      >=</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="LTC-PCF.Program.Division.Result.html#1000" class="Bound"
+      >j</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1070"
+      > </a
+      ><a name="1071" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" href="LTC-PCF.Program.Division.Result.html#1000" class="Bound"
+      >j</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1082"
+      > </a
+      ><a name="1083" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" href="LTC-PCF.Data.Nat.Properties.html#772" class="Function"
+      >+-leftCong</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" class="Symbol"
+      >(</a
+      ><a name="1098" href="LTC-PCF.Data.Nat.Properties.html#1131" class="Function"
+      >*-rightCong</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" class="Symbol"
+      >(</a
+      ><a name="1111" href="LTC-PCF.Program.Division.ConversionRules.html#5006" class="Function"
+      >div-x&lt;y</a
+      ><a name="1118"
+      > </a
+      ><a name="1119" href="LTC-PCF.Program.Division.Result.html#1009" class="Bound"
+      >i&lt;j</a
+      ><a name="1122" class="Symbol"
+      >))</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1126"
+      >
+        </a
+      ><a name="1135" href="LTC-PCF.Program.Division.Result.html#1000" class="Bound"
+      >j</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1147"
+      >    </a
+      ><a name="1151" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" href="LTC-PCF.Data.Nat.Properties.html#772" class="Function"
+      >+-leftCong</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" class="Symbol"
+      >(</a
+      ><a name="1166" href="LTC-PCF.Data.Nat.Properties.html#6274" class="Function"
+      >*-rightZero</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="LTC-PCF.Program.Division.Result.html#1006" class="Bound"
+      >Nj</a
+      ><a name="1180" class="Symbol"
+      >)</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1183"
+      >
+        </a
+      ><a name="1192" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1200"
+      >        </a
+      ><a name="1208" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="LTC-PCF.Data.Nat.Properties.html#2603" class="Function"
+      >+-leftIdentity</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1229"
+      >
+        </a
+      ><a name="1238" href="LTC-PCF.Program.Division.Result.html#996" class="Bound"
+      >i</a
+      ><a name="1239"
+      >               </a
+      ><a name="1254" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="1255"
+      >
+
+</a
+      ><a name="1257" href="LTC-PCF.Program.Division.Result.html#1257" class="Function"
+      >div-x&lt;y-resultCorrect</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" class="Symbol"
+      >:</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" class="Symbol"
+      >&#8704;</a
+      ><a name="1282"
+      > </a
+      ><a name="1283" class="Symbol"
+      >{</a
+      ><a name="1284" href="LTC-PCF.Program.Division.Result.html#1284" class="Bound"
+      >i</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" href="LTC-PCF.Program.Division.Result.html#1286" class="Bound"
+      >j</a
+      ><a name="1287" class="Symbol"
+      >}</a
+      ><a name="1288"
+      > </a
+      ><a name="1289" class="Symbol"
+      >&#8594;</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" href="LTC-PCF.Program.Division.Result.html#1284" class="Bound"
+      >i</a
+      ><a name="1294"
+      > </a
+      ><a name="1295" class="Symbol"
+      >&#8594;</a
+      ><a name="1296"
+      > </a
+      ><a name="1297" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1298"
+      > </a
+      ><a name="1299" href="LTC-PCF.Program.Division.Result.html#1286" class="Bound"
+      >j</a
+      ><a name="1300"
+      > </a
+      ><a name="1301" class="Symbol"
+      >&#8594;</a
+      ><a name="1302"
+      > </a
+      ><a name="1303" href="LTC-PCF.Program.Division.Result.html#1284" class="Bound"
+      >i</a
+      ><a name="1304"
+      > </a
+      ><a name="1305" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1306"
+      > </a
+      ><a name="1307" href="LTC-PCF.Program.Division.Result.html#1286" class="Bound"
+      >j</a
+      ><a name="1308"
+      > </a
+      ><a name="1309" class="Symbol"
+      >&#8594;</a
+      ><a name="1310"
+      >
+                        </a
+      ><a name="1335" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" href="LTC-PCF.Program.Division.Result.html#1338" class="Bound"
+      >r</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1341"
+      > </a
+      ><a name="1342" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1343"
+      > </a
+      ><a name="1344" href="LTC-PCF.Program.Division.Result.html#1338" class="Bound"
+      >r</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="LTC-PCF.Program.Division.Result.html#1338" class="Bound"
+      >r</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="1351"
+      > </a
+      ><a name="1352" href="LTC-PCF.Program.Division.Result.html#1286" class="Bound"
+      >j</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="LTC-PCF.Program.Division.Result.html#1284" class="Bound"
+      >i</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" href="LTC-PCF.Program.Division.Result.html#1286" class="Bound"
+      >j</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" href="LTC-PCF.Program.Division.Result.html#1284" class="Bound"
+      >i</a
+      ><a name="1369"
+      > </a
+      ><a name="1370" href="LTC-PCF.Program.Division.Result.html#1286" class="Bound"
+      >j</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="LTC-PCF.Program.Division.Result.html#1338" class="Bound"
+      >r</a
+      ><a name="1375"
+      >
+</a
+      ><a name="1376" href="LTC-PCF.Program.Division.Result.html#1257" class="Function"
+      >div-x&lt;y-resultCorrect</a
+      ><a name="1397"
+      > </a
+      ><a name="1398" href="LTC-PCF.Program.Division.Result.html#1398" class="Bound"
+      >Ni</a
+      ><a name="1400"
+      > </a
+      ><a name="1401" href="LTC-PCF.Program.Division.Result.html#1401" class="Bound"
+      >Nj</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" href="LTC-PCF.Program.Division.Result.html#1404" class="Bound"
+      >i&lt;j</a
+      ><a name="1407"
+      > </a
+      ><a name="1408" class="Symbol"
+      >=</a
+      ><a name="1409"
+      > </a
+      ><a name="1410" class="Symbol"
+      >_</a
+      ><a name="1411"
+      > </a
+      ><a name="1412" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" href="LTC-PCF.Program.Division.Result.html#1398" class="Bound"
+      >Ni</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" href="LTC-PCF.Program.Division.Result.html#1404" class="Bound"
+      >i&lt;j</a
+      ><a name="1422"
+      > </a
+      ><a name="1423" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" href="LTC-PCF.Program.Division.Result.html#913" class="Function"
+      >div-x&lt;y-helper</a
+      ><a name="1439"
+      > </a
+      ><a name="1440" href="LTC-PCF.Program.Division.Result.html#1398" class="Bound"
+      >Ni</a
+      ><a name="1442"
+      > </a
+      ><a name="1443" href="LTC-PCF.Program.Division.Result.html#1401" class="Bound"
+      >Nj</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" href="LTC-PCF.Program.Division.Result.html#1404" class="Bound"
+      >i&lt;j</a
+      ><a name="1449"
+      >
+
+</a
+      ><a name="1451" class="Comment"
+      >-- The division result is correct when the dividend is greater or equal</a
+      ><a name="1522"
+      >
+</a
+      ><a name="1523" class="Comment"
+      >-- than the divisor.</a
+      ><a name="1543"
+      >
+</a
+      ><a name="1544" class="Comment"
+      >--</a
+      ><a name="1546"
+      >
+</a
+      ><a name="1547" class="Comment"
+      >-- Using the inductive hypothesis ih we know that</a
+      ><a name="1596"
+      >
+</a
+      ><a name="1597" class="Comment"
+      >--</a
+      ><a name="1599"
+      >
+</a
+      ><a name="1600" class="Comment"
+      >-- i &#8760; j = j * (div (i &#8760; j) j) + r.</a
+      ><a name="1635"
+      >
+
+</a
+      ><a name="1637" class="Comment"
+      >-- From that we get</a
+      ><a name="1656"
+      >
+</a
+      ><a name="1657" class="Comment"
+      >--</a
+      ><a name="1659"
+      >
+</a
+      ><a name="1660" class="Comment"
+      >-- i = j * (succ (div (i &#8760; j) j)) + r, and we know</a
+      ><a name="1710"
+      >
+</a
+      ><a name="1711" class="Comment"
+      >--</a
+      ><a name="1713"
+      >
+</a
+      ><a name="1714" class="Comment"
+      >-- div i j = succ (div (i &#8760; j) j) therefore we get</a
+      ><a name="1764"
+      >
+</a
+      ><a name="1765" class="Comment"
+      >--</a
+      ><a name="1767"
+      >
+</a
+      ><a name="1768" class="Comment"
+      >-- i = j * div i j + r.</a
+      ><a name="1791"
+      >
+</a
+      ><a name="1792" class="Keyword"
+      >postulate</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" href="LTC-PCF.Program.Division.Result.html#1802" class="Postulate"
+      >helper</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Symbol"
+      >:</a
+      ><a name="1810"
+      > </a
+      ><a name="1811" class="Symbol"
+      >&#8704;</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" class="Symbol"
+      >{</a
+      ><a name="1814" href="LTC-PCF.Program.Division.Result.html#1814" class="Bound"
+      >i</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="LTC-PCF.Program.Division.Result.html#1818" class="Bound"
+      >r</a
+      ><a name="1819" class="Symbol"
+      >}</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" class="Symbol"
+      >&#8594;</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="LTC-PCF.Program.Division.Result.html#1814" class="Bound"
+      >i</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" class="Symbol"
+      >&#8594;</a
+      ><a name="1828"
+      > </a
+      ><a name="1829" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1830"
+      > </a
+      ><a name="1831" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" class="Symbol"
+      >&#8594;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1836"
+      > </a
+      ><a name="1837" href="LTC-PCF.Program.Division.Result.html#1818" class="Bound"
+      >r</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" class="Symbol"
+      >&#8594;</a
+      ><a name="1840"
+      >
+                   </a
+      ><a name="1860" href="LTC-PCF.Program.Division.Result.html#1814" class="Bound"
+      >i</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" class="Symbol"
+      >(</a
+      ><a name="1877" href="LTC-PCF.Program.Division.Result.html#1814" class="Bound"
+      >i</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1880"
+      > </a
+      ><a name="1881" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1882" class="Symbol"
+      >)</a
+      ><a name="1883"
+      > </a
+      ><a name="1884" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1887"
+      > </a
+      ><a name="1888" href="LTC-PCF.Program.Division.Result.html#1818" class="Bound"
+      >r</a
+      ><a name="1889"
+      > </a
+      ><a name="1890" class="Symbol"
+      >&#8594;</a
+      ><a name="1891"
+      >
+                   </a
+      ><a name="1911" href="LTC-PCF.Program.Division.Result.html#1814" class="Bound"
+      >i</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1914"
+      > </a
+      ><a name="1915" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1916"
+      > </a
+      ><a name="1917" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1924"
+      > </a
+      ><a name="1925" class="Symbol"
+      >(</a
+      ><a name="1926" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" class="Symbol"
+      >(</a
+      ><a name="1931" href="LTC-PCF.Program.Division.Result.html#1814" class="Bound"
+      >i</a
+      ><a name="1932"
+      > </a
+      ><a name="1933" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1934"
+      > </a
+      ><a name="1935" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1936" class="Symbol"
+      >)</a
+      ><a name="1937"
+      > </a
+      ><a name="1938" href="LTC-PCF.Program.Division.Result.html#1816" class="Bound"
+      >j</a
+      ><a name="1939" class="Symbol"
+      >)</a
+      ><a name="1940"
+      > </a
+      ><a name="1941" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="1942"
+      > </a
+      ><a name="1943" href="LTC-PCF.Program.Division.Result.html#1818" class="Bound"
+      >r</a
+      ><a name="1944"
+      >
+
+</a
+      ><a name="1946" href="LTC-PCF.Program.Division.Result.html#1946" class="Function"
+      >div-x&#8814;y-helper</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" class="Symbol"
+      >:</a
+      ><a name="1962"
+      > </a
+      ><a name="1963" class="Symbol"
+      >&#8704;</a
+      ><a name="1964"
+      > </a
+      ><a name="1965" class="Symbol"
+      >{</a
+      ><a name="1966" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="1967"
+      > </a
+      ><a name="1968" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" href="LTC-PCF.Program.Division.Result.html#1970" class="Bound"
+      >r</a
+      ><a name="1971" class="Symbol"
+      >}</a
+      ><a name="1972"
+      > </a
+      ><a name="1973" class="Symbol"
+      >&#8594;</a
+      ><a name="1974"
+      > </a
+      ><a name="1975" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1976"
+      > </a
+      ><a name="1977" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="1978"
+      > </a
+      ><a name="1979" class="Symbol"
+      >&#8594;</a
+      ><a name="1980"
+      > </a
+      ><a name="1981" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1982"
+      > </a
+      ><a name="1983" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="1984"
+      > </a
+      ><a name="1985" class="Symbol"
+      >&#8594;</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="1988"
+      > </a
+      ><a name="1989" href="LTC-PCF.Program.Division.Result.html#1970" class="Bound"
+      >r</a
+      ><a name="1990"
+      > </a
+      ><a name="1991" class="Symbol"
+      >&#8594;</a
+      ><a name="1992"
+      >
+                 </a
+      ><a name="2010" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="2011"
+      > </a
+      ><a name="2012" href="LTC-PCF.Data.Nat.Inequalities.html#1038" class="Function Operator"
+      >&#8814;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" class="Symbol"
+      >&#8594;</a
+      ><a name="2017"
+      >
+                 </a
+      ><a name="2035" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="2036"
+      > </a
+      ><a name="2037" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2042"
+      > </a
+      ><a name="2043" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2044"
+      > </a
+      ><a name="2045" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2046"
+      > </a
+      ><a name="2047" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2050"
+      > </a
+      ><a name="2051" class="Symbol"
+      >(</a
+      ><a name="2052" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="2053"
+      > </a
+      ><a name="2054" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2055"
+      > </a
+      ><a name="2056" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2057" class="Symbol"
+      >)</a
+      ><a name="2058"
+      > </a
+      ><a name="2059" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2060"
+      > </a
+      ><a name="2061" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" href="LTC-PCF.Program.Division.Result.html#1970" class="Bound"
+      >r</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" class="Symbol"
+      >&#8594;</a
+      ><a name="2066"
+      >
+                 </a
+      ><a name="2084" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="2085"
+      > </a
+      ><a name="2086" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2089"
+      > </a
+      ><a name="2090" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" href="LTC-PCF.Program.Division.Result.html#1966" class="Bound"
+      >i</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" href="LTC-PCF.Program.Division.Result.html#1968" class="Bound"
+      >j</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" href="LTC-PCF.Program.Division.Result.html#1970" class="Bound"
+      >r</a
+      ><a name="2103"
+      >
+</a
+      ><a name="2104" href="LTC-PCF.Program.Division.Result.html#1946" class="Function"
+      >div-x&#8814;y-helper</a
+      ><a name="2118"
+      > </a
+      ><a name="2119" class="Symbol"
+      >{</a
+      ><a name="2120" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2121" class="Symbol"
+      >}</a
+      ><a name="2122"
+      > </a
+      ><a name="2123" class="Symbol"
+      >{</a
+      ><a name="2124" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2125" class="Symbol"
+      >}</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" class="Symbol"
+      >{</a
+      ><a name="2128" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2129" class="Symbol"
+      >}</a
+      ><a name="2130"
+      > </a
+      ><a name="2131" href="LTC-PCF.Program.Division.Result.html#2131" class="Bound"
+      >Ni</a
+      ><a name="2133"
+      > </a
+      ><a name="2134" href="LTC-PCF.Program.Division.Result.html#2134" class="Bound"
+      >Nj</a
+      ><a name="2136"
+      > </a
+      ><a name="2137" href="LTC-PCF.Program.Division.Result.html#2137" class="Bound"
+      >Nr</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" href="LTC-PCF.Program.Division.Result.html#2140" class="Bound"
+      >i&#8814;j</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" href="LTC-PCF.Program.Division.Result.html#2144" class="Bound"
+      >helperH</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" class="Symbol"
+      >=</a
+      ><a name="2153"
+      >
+  </a
+      ><a name="2156" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2157"
+      >                             </a
+      ><a name="2186" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2188"
+      > </a
+      ><a name="2189" href="LTC-PCF.Program.Division.Result.html#1802" class="Postulate"
+      >helper</a
+      ><a name="2195"
+      > </a
+      ><a name="2196" href="LTC-PCF.Program.Division.Result.html#2131" class="Bound"
+      >Ni</a
+      ><a name="2198"
+      > </a
+      ><a name="2199" href="LTC-PCF.Program.Division.Result.html#2134" class="Bound"
+      >Nj</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="LTC-PCF.Program.Division.Result.html#2137" class="Bound"
+      >Nr</a
+      ><a name="2204"
+      > </a
+      ><a name="2205" href="LTC-PCF.Program.Division.Result.html#2144" class="Bound"
+      >helperH</a
+      ><a name="2212"
+      > </a
+      ><a name="2213" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2214"
+      >
+  </a
+      ><a name="2217" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2218"
+      > </a
+      ><a name="2219" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2220"
+      > </a
+      ><a name="2221" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2226"
+      > </a
+      ><a name="2227" class="Symbol"
+      >(</a
+      ><a name="2228" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2231"
+      > </a
+      ><a name="2232" class="Symbol"
+      >(</a
+      ><a name="2233" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2234"
+      > </a
+      ><a name="2235" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2236"
+      > </a
+      ><a name="2237" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2238" class="Symbol"
+      >)</a
+      ><a name="2239"
+      > </a
+      ><a name="2240" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2241" class="Symbol"
+      >)</a
+      ><a name="2242"
+      > </a
+      ><a name="2243" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2244"
+      > </a
+      ><a name="2245" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2246"
+      > </a
+      ><a name="2247" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2249"
+      > </a
+      ><a name="2250" href="LTC-PCF.Program.Division.Result.html#2300" class="Function"
+      >prf</a
+      ><a name="2253"
+      > </a
+      ><a name="2254" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2255"
+      >
+  </a
+      ><a name="2258" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2259"
+      > </a
+      ><a name="2260" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2265"
+      > </a
+      ><a name="2266" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2267"
+      > </a
+      ><a name="2268" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2269"
+      > </a
+      ><a name="2270" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2271"
+      > </a
+      ><a name="2272" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2273"
+      >               </a
+      ><a name="2288" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="2289"
+      >
+  </a
+      ><a name="2292" class="Keyword"
+      >where</a
+      ><a name="2297"
+      >
+  </a
+      ><a name="2300" href="LTC-PCF.Program.Division.Result.html#2300" class="Function"
+      >prf</a
+      ><a name="2303"
+      > </a
+      ><a name="2304" class="Symbol"
+      >:</a
+      ><a name="2305"
+      > </a
+      ><a name="2306" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2307"
+      > </a
+      ><a name="2308" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2309"
+      > </a
+      ><a name="2310" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="2315"
+      > </a
+      ><a name="2316" class="Symbol"
+      >(</a
+      ><a name="2317" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2320"
+      > </a
+      ><a name="2321" class="Symbol"
+      >(</a
+      ><a name="2322" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2323"
+      > </a
+      ><a name="2324" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2325"
+      > </a
+      ><a name="2326" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2327" class="Symbol"
+      >)</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2330" class="Symbol"
+      >)</a
+      ><a name="2331"
+      > </a
+      ><a name="2332" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2333"
+      > </a
+      ><a name="2334" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2335"
+      > </a
+      ><a name="2336" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2337"
+      > </a
+      ><a name="2338" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2339"
+      > </a
+      ><a name="2340" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2341"
+      > </a
+      ><a name="2342" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2345"
+      > </a
+      ><a name="2346" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2347"
+      > </a
+      ><a name="2348" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2349"
+      > </a
+      ><a name="2350" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2351"
+      > </a
+      ><a name="2352" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2353"
+      >
+  </a
+      ><a name="2356" href="LTC-PCF.Program.Division.Result.html#2300" class="Function"
+      >prf</a
+      ><a name="2359"
+      > </a
+      ><a name="2360" class="Symbol"
+      >=</a
+      ><a name="2361"
+      > </a
+      ><a name="2362" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2367"
+      > </a
+      ><a name="2368" class="Symbol"
+      >(&#955;</a
+      ><a name="2370"
+      > </a
+      ><a name="2371" href="LTC-PCF.Program.Division.Result.html#2371" class="Bound"
+      >x</a
+      ><a name="2372"
+      > </a
+      ><a name="2373" class="Symbol"
+      >&#8594;</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2376"
+      > </a
+      ><a name="2377" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" href="LTC-PCF.Program.Division.Result.html#2371" class="Bound"
+      >x</a
+      ><a name="2380"
+      > </a
+      ><a name="2381" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2382"
+      > </a
+      ><a name="2383" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2394"
+      > </a
+      ><a name="2395" href="LTC-PCF.Program.Division.Result.html#2120" class="Bound"
+      >i</a
+      ><a name="2396"
+      > </a
+      ><a name="2397" href="LTC-PCF.Program.Division.Result.html#2124" class="Bound"
+      >j</a
+      ><a name="2398"
+      > </a
+      ><a name="2399" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2400"
+      > </a
+      ><a name="2401" href="LTC-PCF.Program.Division.Result.html#2128" class="Bound"
+      >r</a
+      ><a name="2402" class="Symbol"
+      >)</a
+      ><a name="2403"
+      >
+              </a
+      ><a name="2418" class="Symbol"
+      >(</a
+      ><a name="2419" href="LTC-PCF.Program.Division.ConversionRules.html#5403" class="Function"
+      >div-x&#8814;y</a
+      ><a name="2426"
+      > </a
+      ><a name="2427" href="LTC-PCF.Program.Division.Result.html#2140" class="Bound"
+      >i&#8814;j</a
+      ><a name="2430" class="Symbol"
+      >)</a
+      ><a name="2431"
+      >
+              </a
+      ><a name="2446" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2450"
+      >
+
+</a
+      ><a name="2452" href="LTC-PCF.Program.Division.Result.html#2452" class="Function"
+      >div-x&#8814;y-resultCorrect</a
+      ><a name="2473"
+      > </a
+      ><a name="2474" class="Symbol"
+      >:</a
+      ><a name="2475"
+      > </a
+      ><a name="2476" class="Symbol"
+      >&#8704;</a
+      ><a name="2477"
+      > </a
+      ><a name="2478" class="Symbol"
+      >{</a
+      ><a name="2479" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2482" class="Symbol"
+      >}</a
+      ><a name="2483"
+      > </a
+      ><a name="2484" class="Symbol"
+      >&#8594;</a
+      ><a name="2485"
+      > </a
+      ><a name="2486" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2487"
+      > </a
+      ><a name="2488" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2489"
+      > </a
+      ><a name="2490" class="Symbol"
+      >&#8594;</a
+      ><a name="2491"
+      > </a
+      ><a name="2492" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2495"
+      > </a
+      ><a name="2496" class="Symbol"
+      >&#8594;</a
+      ><a name="2497"
+      >
+                        </a
+      ><a name="2522" class="Symbol"
+      >(</a
+      ><a name="2523" href="LTC-PCF.Program.Division.Specification.html#659" class="Function"
+      >divSpec</a
+      ><a name="2530"
+      > </a
+      ><a name="2531" class="Symbol"
+      >(</a
+      ><a name="2532" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2537" class="Symbol"
+      >)</a
+      ><a name="2538"
+      > </a
+      ><a name="2539" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2540"
+      > </a
+      ><a name="2541" class="Symbol"
+      >(</a
+      ><a name="2542" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2545"
+      > </a
+      ><a name="2546" class="Symbol"
+      >(</a
+      ><a name="2547" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2548"
+      > </a
+      ><a name="2549" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2550"
+      > </a
+      ><a name="2551" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2552" class="Symbol"
+      >)</a
+      ><a name="2553"
+      > </a
+      ><a name="2554" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2555" class="Symbol"
+      >))</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" class="Symbol"
+      >&#8594;</a
+      ><a name="2559"
+      >
+                        </a
+      ><a name="2584" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2585"
+      > </a
+      ><a name="2586" href="LTC-PCF.Data.Nat.Inequalities.html#1038" class="Function Operator"
+      >&#8814;</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2589"
+      > </a
+      ><a name="2590" class="Symbol"
+      >&#8594;</a
+      ><a name="2591"
+      >
+                        </a
+      ><a name="2616" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2618"
+      > </a
+      ><a name="2619" href="LTC-PCF.Program.Division.Result.html#2619" class="Bound"
+      >r</a
+      ><a name="2620"
+      > </a
+      ><a name="2621" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2622"
+      > </a
+      ><a name="2623" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2624"
+      > </a
+      ><a name="2625" href="LTC-PCF.Program.Division.Result.html#2619" class="Bound"
+      >r</a
+      ><a name="2626"
+      > </a
+      ><a name="2627" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2628"
+      > </a
+      ><a name="2629" href="LTC-PCF.Program.Division.Result.html#2619" class="Bound"
+      >r</a
+      ><a name="2630"
+      > </a
+      ><a name="2631" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="2632"
+      > </a
+      ><a name="2633" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2634"
+      > </a
+      ><a name="2635" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2636"
+      > </a
+      ><a name="2637" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2638"
+      > </a
+      ><a name="2639" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2640"
+      > </a
+      ><a name="2641" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2642"
+      > </a
+      ><a name="2643" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2644"
+      > </a
+      ><a name="2645" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2648"
+      > </a
+      ><a name="2649" href="LTC-PCF.Program.Division.Result.html#2479" class="Bound"
+      >i</a
+      ><a name="2650"
+      > </a
+      ><a name="2651" href="LTC-PCF.Program.Division.Result.html#2481" class="Bound"
+      >j</a
+      ><a name="2652"
+      > </a
+      ><a name="2653" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2654"
+      > </a
+      ><a name="2655" href="LTC-PCF.Program.Division.Result.html#2619" class="Bound"
+      >r</a
+      ><a name="2656"
+      >
+</a
+      ><a name="2657" href="LTC-PCF.Program.Division.Result.html#2452" class="Function"
+      >div-x&#8814;y-resultCorrect</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" class="Symbol"
+      >{</a
+      ><a name="2680" href="LTC-PCF.Program.Division.Result.html#2680" class="Bound"
+      >i</a
+      ><a name="2681" class="Symbol"
+      >}</a
+      ><a name="2682"
+      > </a
+      ><a name="2683" class="Symbol"
+      >{</a
+      ><a name="2684" href="LTC-PCF.Program.Division.Result.html#2684" class="Bound"
+      >j</a
+      ><a name="2685" class="Symbol"
+      >}</a
+      ><a name="2686"
+      > </a
+      ><a name="2687" href="LTC-PCF.Program.Division.Result.html#2687" class="Bound"
+      >Ni</a
+      ><a name="2689"
+      > </a
+      ><a name="2690" href="LTC-PCF.Program.Division.Result.html#2690" class="Bound"
+      >Nj</a
+      ><a name="2692"
+      > </a
+      ><a name="2693" class="Symbol"
+      >(</a
+      ><a name="2694" href="LTC-PCF.Program.Division.Result.html#2694" class="Bound"
+      >h&#8321;</a
+      ><a name="2696"
+      > </a
+      ><a name="2697" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2698"
+      > </a
+      ><a name="2699" href="LTC-PCF.Program.Division.Result.html#2699" class="Bound"
+      >r</a
+      ><a name="2700"
+      > </a
+      ><a name="2701" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2702"
+      > </a
+      ><a name="2703" href="LTC-PCF.Program.Division.Result.html#2703" class="Bound"
+      >r-correct</a
+      ><a name="2712" class="Symbol"
+      >)</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" href="LTC-PCF.Program.Division.Result.html#2714" class="Bound"
+      >i&#8814;j</a
+      ><a name="2717"
+      > </a
+      ><a name="2718" class="Symbol"
+      >=</a
+      ><a name="2719"
+      >
+  </a
+      ><a name="2722" href="LTC-PCF.Program.Division.Result.html#2699" class="Bound"
+      >r</a
+      ><a name="2723"
+      > </a
+      ><a name="2724" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2725"
+      > </a
+      ><a name="2726" href="LTC-PCF.Program.Division.Result.html#2783" class="Function"
+      >Nr</a
+      ><a name="2728"
+      > </a
+      ><a name="2729" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2730"
+      > </a
+      ><a name="2731" href="LTC-PCF.Program.Division.Result.html#2820" class="Function"
+      >r&lt;j</a
+      ><a name="2734"
+      > </a
+      ><a name="2735" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2736"
+      > </a
+      ><a name="2737" href="LTC-PCF.Program.Division.Result.html#1946" class="Function"
+      >div-x&#8814;y-helper</a
+      ><a name="2751"
+      > </a
+      ><a name="2752" href="LTC-PCF.Program.Division.Result.html#2687" class="Bound"
+      >Ni</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" href="LTC-PCF.Program.Division.Result.html#2690" class="Bound"
+      >Nj</a
+      ><a name="2757"
+      > </a
+      ><a name="2758" href="LTC-PCF.Program.Division.Result.html#2783" class="Function"
+      >Nr</a
+      ><a name="2760"
+      > </a
+      ><a name="2761" href="LTC-PCF.Program.Division.Result.html#2714" class="Bound"
+      >i&#8814;j</a
+      ><a name="2764"
+      > </a
+      ><a name="2765" href="LTC-PCF.Program.Division.Result.html#2871" class="Function"
+      >helperH</a
+      ><a name="2772"
+      >
+  </a
+      ><a name="2775" class="Keyword"
+      >where</a
+      ><a name="2780"
+      >
+  </a
+      ><a name="2783" href="LTC-PCF.Program.Division.Result.html#2783" class="Function"
+      >Nr</a
+      ><a name="2785"
+      > </a
+      ><a name="2786" class="Symbol"
+      >:</a
+      ><a name="2787"
+      > </a
+      ><a name="2788" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="2789"
+      > </a
+      ><a name="2790" href="LTC-PCF.Program.Division.Result.html#2699" class="Bound"
+      >r</a
+      ><a name="2791"
+      >
+  </a
+      ><a name="2794" href="LTC-PCF.Program.Division.Result.html#2783" class="Function"
+      >Nr</a
+      ><a name="2796"
+      > </a
+      ><a name="2797" class="Symbol"
+      >=</a
+      ><a name="2798"
+      > </a
+      ><a name="2799" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" href="LTC-PCF.Program.Division.Result.html#2703" class="Bound"
+      >r-correct</a
+      ><a name="2816"
+      >
+
+  </a
+      ><a name="2820" href="LTC-PCF.Program.Division.Result.html#2820" class="Function"
+      >r&lt;j</a
+      ><a name="2823"
+      > </a
+      ><a name="2824" class="Symbol"
+      >:</a
+      ><a name="2825"
+      > </a
+      ><a name="2826" href="LTC-PCF.Program.Division.Result.html#2699" class="Bound"
+      >r</a
+      ><a name="2827"
+      > </a
+      ><a name="2828" href="LTC-PCF.Data.Nat.Inequalities.html#997" class="Function Operator"
+      >&lt;</a
+      ><a name="2829"
+      > </a
+      ><a name="2830" href="LTC-PCF.Program.Division.Result.html#2684" class="Bound"
+      >j</a
+      ><a name="2831"
+      >
+  </a
+      ><a name="2834" href="LTC-PCF.Program.Division.Result.html#2820" class="Function"
+      >r&lt;j</a
+      ><a name="2837"
+      > </a
+      ><a name="2838" class="Symbol"
+      >=</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" class="Symbol"
+      >(</a
+      ><a name="2849" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="2856"
+      > </a
+      ><a name="2857" href="LTC-PCF.Program.Division.Result.html#2703" class="Bound"
+      >r-correct</a
+      ><a name="2866" class="Symbol"
+      >)</a
+      ><a name="2867"
+      >
+
+  </a
+      ><a name="2871" href="LTC-PCF.Program.Division.Result.html#2871" class="Function"
+      >helperH</a
+      ><a name="2878"
+      > </a
+      ><a name="2879" class="Symbol"
+      >:</a
+      ><a name="2880"
+      > </a
+      ><a name="2881" href="LTC-PCF.Program.Division.Result.html#2680" class="Bound"
+      >i</a
+      ><a name="2882"
+      > </a
+      ><a name="2883" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2884"
+      > </a
+      ><a name="2885" href="LTC-PCF.Program.Division.Result.html#2684" class="Bound"
+      >j</a
+      ><a name="2886"
+      > </a
+      ><a name="2887" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2888"
+      > </a
+      ><a name="2889" href="LTC-PCF.Program.Division.Result.html#2684" class="Bound"
+      >j</a
+      ><a name="2890"
+      > </a
+      ><a name="2891" href="LTC-PCF.Data.Nat.html#881" class="Function Operator"
+      >*</a
+      ><a name="2892"
+      > </a
+      ><a name="2893" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="2896"
+      > </a
+      ><a name="2897" class="Symbol"
+      >(</a
+      ><a name="2898" href="LTC-PCF.Program.Division.Result.html#2680" class="Bound"
+      >i</a
+      ><a name="2899"
+      > </a
+      ><a name="2900" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="2901"
+      > </a
+      ><a name="2902" href="LTC-PCF.Program.Division.Result.html#2684" class="Bound"
+      >j</a
+      ><a name="2903" class="Symbol"
+      >)</a
+      ><a name="2904"
+      > </a
+      ><a name="2905" href="LTC-PCF.Program.Division.Result.html#2684" class="Bound"
+      >j</a
+      ><a name="2906"
+      > </a
+      ><a name="2907" href="LTC-PCF.Data.Nat.html#657" class="Function Operator"
+      >+</a
+      ><a name="2908"
+      > </a
+      ><a name="2909" href="LTC-PCF.Program.Division.Result.html#2699" class="Bound"
+      >r</a
+      ><a name="2910"
+      >
+  </a
+      ><a name="2913" href="LTC-PCF.Program.Division.Result.html#2871" class="Function"
+      >helperH</a
+      ><a name="2920"
+      > </a
+      ><a name="2921" class="Symbol"
+      >=</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="2930"
+      > </a
+      ><a name="2931" class="Symbol"
+      >(</a
+      ><a name="2932" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="2939"
+      > </a
+      ><a name="2940" href="LTC-PCF.Program.Division.Result.html#2703" class="Bound"
+      >r-correct</a
+      ><a name="2949" class="Symbol"
+      >)</a
+      ><a name="2950"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

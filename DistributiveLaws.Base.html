@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.Base</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws base</a
+      ><a name="105"
+      >
+</a
+      ><a name="106" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="184"
+      >
+
+</a
+      ><a name="186" class="Symbol"
+      >{-#</a
+      ><a name="189"
+      > </a
+      ><a name="190" class="Keyword"
+      >OPTIONS</a
+      ><a name="197"
+      > --exact-split              </a
+      ><a name="225" class="Symbol"
+      >#-}</a
+      ><a name="228"
+      >
+</a
+      ><a name="229" class="Symbol"
+      >{-#</a
+      ><a name="232"
+      > </a
+      ><a name="233" class="Keyword"
+      >OPTIONS</a
+      ><a name="240"
+      > --no-sized-types           </a
+      ><a name="268" class="Symbol"
+      >#-}</a
+      ><a name="271"
+      >
+</a
+      ><a name="272" class="Symbol"
+      >{-#</a
+      ><a name="275"
+      > </a
+      ><a name="276" class="Keyword"
+      >OPTIONS</a
+      ><a name="283"
+      > --no-universe-polymorphism </a
+      ><a name="311" class="Symbol"
+      >#-}</a
+      ><a name="314"
+      >
+</a
+      ><a name="315" class="Symbol"
+      >{-#</a
+      ><a name="318"
+      > </a
+      ><a name="319" class="Keyword"
+      >OPTIONS</a
+      ><a name="326"
+      > --without-K                </a
+      ><a name="354" class="Symbol"
+      >#-}</a
+      ><a name="357"
+      >
+
+</a
+      ><a name="359" class="Keyword"
+      >module</a
+      ><a name="365"
+      > </a
+      ><a name="366" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="387"
+      > </a
+      ><a name="388" class="Keyword"
+      >where</a
+      ><a name="393"
+      >
+
+</a
+      ><a name="395" class="Keyword"
+      >infixl</a
+      ><a name="401"
+      > </a
+      ><a name="402" class="Number"
+      >7</a
+      ><a name="403"
+      > _&#183;_
+
+</a
+      ><a name="409" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="487"
+      >
+</a
+      ><a name="488" class="Comment"
+      >-- First-order logic with equality.</a
+      ><a name="523"
+      >
+</a
+      ><a name="524" class="Comment"
+      >--</a
+      ><a name="526"
+      >
+</a
+      ><a name="527" class="Comment"
+      >-- NB. This is an equational theory, so we do not import the logical</a
+      ><a name="595"
+      >
+</a
+      ><a name="596" class="Comment"
+      >-- constants.</a
+      ><a name="609"
+      >
+</a
+      ><a name="610" class="Keyword"
+      >open</a
+      ><a name="614"
+      > </a
+      ><a name="615" class="Keyword"
+      >import</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="Common.FOL.FOL-Eq.html#1" class="Module"
+      >Common.FOL.FOL-Eq</a
+      ><a name="639"
+      > </a
+      ><a name="640" class="Keyword"
+      >public</a
+      ><a name="646"
+      > </a
+      ><a name="647" class="Keyword"
+      >using</a
+      ><a name="652"
+      > </a
+      ><a name="653" class="Symbol"
+      >(</a
+      ><a name="654"
+      > _&#8801;_ </a
+      ><a name="659" class="Symbol"
+      >;</a
+      ><a name="660"
+      > D </a
+      ><a name="663" class="Symbol"
+      >;</a
+      ><a name="664"
+      > refl </a
+      ><a name="670" class="Symbol"
+      >;</a
+      ><a name="671"
+      > subst </a
+      ><a name="678" class="Symbol"
+      >;</a
+      ><a name="679"
+      > sym </a
+      ><a name="684" class="Symbol"
+      >)</a
+      ><a name="685"
+      >
+
+</a
+      ><a name="687" class="Comment"
+      >-- Distributive laws axioms</a
+      ><a name="714"
+      >
+
+</a
+      ><a name="716" class="Keyword"
+      >postulate</a
+      ><a name="725"
+      >
+  </a
+      ><a name="728" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >_&#183;_</a
+      ><a name="731"
+      > </a
+      ><a name="732" class="Symbol"
+      >:</a
+      ><a name="733"
+      > </a
+      ><a name="734" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="735"
+      > </a
+      ><a name="736" class="Symbol"
+      >&#8594;</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="739"
+      > </a
+      ><a name="740" class="Symbol"
+      >&#8594;</a
+      ><a name="741"
+      > </a
+      ><a name="742" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="743"
+      >  </a
+      ><a name="745" class="Comment"
+      >-- The binary operation.</a
+      ><a name="769"
+      >
+
+  </a
+      ><a name="773" href="DistributiveLaws.Base.html#773" class="Postulate"
+      >leftDistributive</a
+      ><a name="789"
+      >  </a
+      ><a name="791" class="Symbol"
+      >:</a
+      ><a name="792"
+      > </a
+      ><a name="793" class="Symbol"
+      >&#8704;</a
+      ><a name="794"
+      > </a
+      ><a name="795" href="DistributiveLaws.Base.html#795" class="Bound"
+      >x</a
+      ><a name="796"
+      > </a
+      ><a name="797" href="DistributiveLaws.Base.html#797" class="Bound"
+      >y</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="DistributiveLaws.Base.html#799" class="Bound"
+      >z</a
+      ><a name="800"
+      > </a
+      ><a name="801" class="Symbol"
+      >&#8594;</a
+      ><a name="802"
+      > </a
+      ><a name="803" href="DistributiveLaws.Base.html#795" class="Bound"
+      >x</a
+      ><a name="804"
+      > </a
+      ><a name="805" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="806"
+      > </a
+      ><a name="807" class="Symbol"
+      >(</a
+      ><a name="808" href="DistributiveLaws.Base.html#797" class="Bound"
+      >y</a
+      ><a name="809"
+      > </a
+      ><a name="810" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="811"
+      > </a
+      ><a name="812" href="DistributiveLaws.Base.html#799" class="Bound"
+      >z</a
+      ><a name="813" class="Symbol"
+      >)</a
+      ><a name="814"
+      > </a
+      ><a name="815" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="816"
+      > </a
+      ><a name="817" class="Symbol"
+      >(</a
+      ><a name="818" href="DistributiveLaws.Base.html#795" class="Bound"
+      >x</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="DistributiveLaws.Base.html#797" class="Bound"
+      >y</a
+      ><a name="823" class="Symbol"
+      >)</a
+      ><a name="824"
+      > </a
+      ><a name="825" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="826"
+      > </a
+      ><a name="827" class="Symbol"
+      >(</a
+      ><a name="828" href="DistributiveLaws.Base.html#795" class="Bound"
+      >x</a
+      ><a name="829"
+      > </a
+      ><a name="830" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="831"
+      > </a
+      ><a name="832" href="DistributiveLaws.Base.html#799" class="Bound"
+      >z</a
+      ><a name="833" class="Symbol"
+      >)</a
+      ><a name="834"
+      >
+  </a
+      ><a name="837" href="DistributiveLaws.Base.html#837" class="Postulate"
+      >rightDistributive</a
+      ><a name="854"
+      > </a
+      ><a name="855" class="Symbol"
+      >:</a
+      ><a name="856"
+      > </a
+      ><a name="857" class="Symbol"
+      >&#8704;</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="DistributiveLaws.Base.html#859" class="Bound"
+      >x</a
+      ><a name="860"
+      > </a
+      ><a name="861" href="DistributiveLaws.Base.html#861" class="Bound"
+      >y</a
+      ><a name="862"
+      > </a
+      ><a name="863" href="DistributiveLaws.Base.html#863" class="Bound"
+      >z</a
+      ><a name="864"
+      > </a
+      ><a name="865" class="Symbol"
+      >&#8594;</a
+      ><a name="866"
+      > </a
+      ><a name="867" class="Symbol"
+      >(</a
+      ><a name="868" href="DistributiveLaws.Base.html#859" class="Bound"
+      >x</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="871"
+      > </a
+      ><a name="872" href="DistributiveLaws.Base.html#861" class="Bound"
+      >y</a
+      ><a name="873" class="Symbol"
+      >)</a
+      ><a name="874"
+      > </a
+      ><a name="875" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="DistributiveLaws.Base.html#863" class="Bound"
+      >z</a
+      ><a name="878"
+      > </a
+      ><a name="879" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Symbol"
+      >(</a
+      ><a name="882" href="DistributiveLaws.Base.html#859" class="Bound"
+      >x</a
+      ><a name="883"
+      > </a
+      ><a name="884" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="885"
+      > </a
+      ><a name="886" href="DistributiveLaws.Base.html#863" class="Bound"
+      >z</a
+      ><a name="887" class="Symbol"
+      >)</a
+      ><a name="888"
+      > </a
+      ><a name="889" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="890"
+      > </a
+      ><a name="891" class="Symbol"
+      >(</a
+      ><a name="892" href="DistributiveLaws.Base.html#861" class="Bound"
+      >y</a
+      ><a name="893"
+      > </a
+      ><a name="894" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="895"
+      > </a
+      ><a name="896" href="DistributiveLaws.Base.html#863" class="Bound"
+      >z</a
+      ><a name="897" class="Symbol"
+      >)</a
+      ><a name="898"
+      >
+</a
+      ><a name="899" class="Symbol"
+      >{-#</a
+      ><a name="902"
+      > </a
+      ><a name="903" class="Keyword"
+      >ATP</a
+      ><a name="906"
+      > axioms </a
+      ><a name="914" href="DistributiveLaws.Base.html#773" class="Postulate"
+      >leftDistributive</a
+      ><a name="930"
+      > </a
+      ><a name="931" href="DistributiveLaws.Base.html#837" class="Postulate"
+      >rightDistributive</a
+      ><a name="948"
+      > </a
+      ><a name="949" class="Symbol"
+      >#-}</a
+      ><a name="952"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

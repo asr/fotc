@@ -1,0 +1,1011 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Inductive.Base</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Inductive Peano arithmetic base</a
+      ><a name="114"
+      >
+</a
+      ><a name="115" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="193"
+      >
+
+</a
+      ><a name="195" class="Symbol"
+      >{-#</a
+      ><a name="198"
+      > </a
+      ><a name="199" class="Keyword"
+      >OPTIONS</a
+      ><a name="206"
+      > --exact-split              </a
+      ><a name="234" class="Symbol"
+      >#-}</a
+      ><a name="237"
+      >
+</a
+      ><a name="238" class="Symbol"
+      >{-#</a
+      ><a name="241"
+      > </a
+      ><a name="242" class="Keyword"
+      >OPTIONS</a
+      ><a name="249"
+      > --no-sized-types           </a
+      ><a name="277" class="Symbol"
+      >#-}</a
+      ><a name="280"
+      >
+</a
+      ><a name="281" class="Symbol"
+      >{-#</a
+      ><a name="284"
+      > </a
+      ><a name="285" class="Keyword"
+      >OPTIONS</a
+      ><a name="292"
+      > --no-universe-polymorphism </a
+      ><a name="320" class="Symbol"
+      >#-}</a
+      ><a name="323"
+      >
+</a
+      ><a name="324" class="Symbol"
+      >{-#</a
+      ><a name="327"
+      > </a
+      ><a name="328" class="Keyword"
+      >OPTIONS</a
+      ><a name="335"
+      > --without-K                </a
+      ><a name="363" class="Symbol"
+      >#-}</a
+      ><a name="366"
+      >
+
+</a
+      ><a name="368" class="Keyword"
+      >module</a
+      ><a name="374"
+      > </a
+      ><a name="375" href="PA.Inductive.Base.html#1" class="Module"
+      >PA.Inductive.Base</a
+      ><a name="392"
+      > </a
+      ><a name="393" class="Keyword"
+      >where</a
+      ><a name="398"
+      >
+
+</a
+      ><a name="400" class="Keyword"
+      >infixl</a
+      ><a name="406"
+      > </a
+      ><a name="407" class="Number"
+      >7</a
+      ><a name="408"
+      > _*_
+</a
+      ><a name="413" class="Keyword"
+      >infixl</a
+      ><a name="419"
+      > </a
+      ><a name="420" class="Number"
+      >6</a
+      ><a name="421"
+      > _+_
+
+</a
+      ><a name="427" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="505"
+      >
+</a
+      ><a name="506" class="Comment"
+      >-- PA universe</a
+      ><a name="520"
+      >
+</a
+      ><a name="521" class="Keyword"
+      >open</a
+      ><a name="525"
+      > </a
+      ><a name="526" class="Keyword"
+      >import</a
+      ><a name="532"
+      > </a
+      ><a name="533" href="PA.Inductive.Base.Core.html#1" class="Module"
+      >PA.Inductive.Base.Core</a
+      ><a name="555"
+      > </a
+      ><a name="556" class="Keyword"
+      >public</a
+      ><a name="562"
+      >
+
+</a
+      ><a name="564" class="Comment"
+      >-- First-order logic (without equality)</a
+      ><a name="603"
+      >
+</a
+      ><a name="604" class="Comment"
+      >--</a
+      ><a name="606"
+      >
+</a
+      ><a name="607" class="Keyword"
+      >open</a
+      ><a name="611"
+      > </a
+      ><a name="612" class="Keyword"
+      >import</a
+      ><a name="618"
+      > </a
+      ><a name="619" href="Common.FOL.FOL.html#1" class="Module"
+      >Common.FOL.FOL</a
+      ><a name="633"
+      > </a
+      ><a name="634" class="Keyword"
+      >public</a
+      ><a name="640"
+      > </a
+      ><a name="641" class="Keyword"
+      >hiding</a
+      ><a name="647"
+      > </a
+      ><a name="648" class="Symbol"
+      >(</a
+      ><a name="649"
+      > _,_ </a
+      ><a name="654" class="Symbol"
+      >;</a
+      ><a name="655"
+      > &#8707; </a
+      ><a name="658" class="Symbol"
+      >)</a
+      ><a name="659"
+      >
+</a
+      ><a name="660" class="Comment"
+      >-- 2012-04-24. Agda bug? Why it is necessary to use the modifier</a
+      ><a name="724"
+      >
+</a
+      ><a name="725" class="Comment"
+      >-- @using@ in the following importation?</a
+      ><a name="765"
+      >
+</a
+      ><a name="766" class="Keyword"
+      >open</a
+      ><a name="770"
+      > </a
+      ><a name="771" class="Keyword"
+      >import</a
+      ><a name="777"
+      > </a
+      ><a name="778" href="PA.Inductive.Existential.html#1" class="Module"
+      >PA.Inductive.Existential</a
+      ><a name="802"
+      > </a
+      ><a name="803" class="Keyword"
+      >public</a
+      ><a name="809"
+      > </a
+      ><a name="810" class="Keyword"
+      >using</a
+      ><a name="815"
+      > </a
+      ><a name="816" class="Symbol"
+      >(</a
+      ><a name="817"
+      > _,_ </a
+      ><a name="822" class="Symbol"
+      >;</a
+      ><a name="823"
+      > &#8707; </a
+      ><a name="826" class="Symbol"
+      >)</a
+      ><a name="827"
+      >
+
+</a
+      ><a name="829" class="Comment"
+      >-- The induction principle on the PA universe</a
+      ><a name="874"
+      >
+</a
+      ><a name="875" href="PA.Inductive.Base.html#875" class="Function"
+      >&#8469;-ind</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Symbol"
+      >:</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Symbol"
+      >(</a
+      ><a name="884" href="PA.Inductive.Base.html#884" class="Bound"
+      >A</a
+      ><a name="885"
+      > </a
+      ><a name="886" class="Symbol"
+      >:</a
+      ><a name="887"
+      > </a
+      ><a name="888" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="889"
+      > </a
+      ><a name="890" class="Symbol"
+      >&#8594;</a
+      ><a name="891"
+      > </a
+      ><a name="892" class="PrimitiveType"
+      >Set</a
+      ><a name="895" class="Symbol"
+      >)</a
+      ><a name="896"
+      > </a
+      ><a name="897" class="Symbol"
+      >&#8594;</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="PA.Inductive.Base.html#884" class="Bound"
+      >A</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="905"
+      > </a
+      ><a name="906" class="Symbol"
+      >&#8594;</a
+      ><a name="907"
+      > </a
+      ><a name="908" class="Symbol"
+      >(&#8704;</a
+      ><a name="910"
+      > </a
+      ><a name="911" href="PA.Inductive.Base.html#911" class="Bound"
+      >n</a
+      ><a name="912"
+      > </a
+      ><a name="913" class="Symbol"
+      >&#8594;</a
+      ><a name="914"
+      > </a
+      ><a name="915" href="PA.Inductive.Base.html#884" class="Bound"
+      >A</a
+      ><a name="916"
+      > </a
+      ><a name="917" href="PA.Inductive.Base.html#911" class="Bound"
+      >n</a
+      ><a name="918"
+      > </a
+      ><a name="919" class="Symbol"
+      >&#8594;</a
+      ><a name="920"
+      > </a
+      ><a name="921" href="PA.Inductive.Base.html#884" class="Bound"
+      >A</a
+      ><a name="922"
+      > </a
+      ><a name="923" class="Symbol"
+      >(</a
+      ><a name="924" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="928"
+      > </a
+      ><a name="929" href="PA.Inductive.Base.html#911" class="Bound"
+      >n</a
+      ><a name="930" class="Symbol"
+      >))</a
+      ><a name="932"
+      > </a
+      ><a name="933" class="Symbol"
+      >&#8594;</a
+      ><a name="934"
+      > </a
+      ><a name="935" class="Symbol"
+      >&#8704;</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="PA.Inductive.Base.html#937" class="Bound"
+      >n</a
+      ><a name="938"
+      > </a
+      ><a name="939" class="Symbol"
+      >&#8594;</a
+      ><a name="940"
+      > </a
+      ><a name="941" href="PA.Inductive.Base.html#884" class="Bound"
+      >A</a
+      ><a name="942"
+      > </a
+      ><a name="943" href="PA.Inductive.Base.html#937" class="Bound"
+      >n</a
+      ><a name="944"
+      >
+</a
+      ><a name="945" href="PA.Inductive.Base.html#875" class="Function"
+      >&#8469;-ind</a
+      ><a name="950"
+      > </a
+      ><a name="951" href="PA.Inductive.Base.html#951" class="Bound"
+      >A</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="PA.Inductive.Base.html#953" class="Bound"
+      >A0</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="PA.Inductive.Base.html#956" class="Bound"
+      >h</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="962"
+      >     </a
+      ><a name="967" class="Symbol"
+      >=</a
+      ><a name="968"
+      > </a
+      ><a name="969" href="PA.Inductive.Base.html#953" class="Bound"
+      >A0</a
+      ><a name="971"
+      >
+</a
+      ><a name="972" href="PA.Inductive.Base.html#875" class="Function"
+      >&#8469;-ind</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="PA.Inductive.Base.html#978" class="Bound"
+      >A</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="PA.Inductive.Base.html#980" class="Bound"
+      >A0</a
+      ><a name="982"
+      > </a
+      ><a name="983" href="PA.Inductive.Base.html#983" class="Bound"
+      >h</a
+      ><a name="984"
+      > </a
+      ><a name="985" class="Symbol"
+      >(</a
+      ><a name="986" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="PA.Inductive.Base.html#991" class="Bound"
+      >n</a
+      ><a name="992" class="Symbol"
+      >)</a
+      ><a name="993"
+      > </a
+      ><a name="994" class="Symbol"
+      >=</a
+      ><a name="995"
+      > </a
+      ><a name="996" href="PA.Inductive.Base.html#983" class="Bound"
+      >h</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="PA.Inductive.Base.html#991" class="Bound"
+      >n</a
+      ><a name="999"
+      > </a
+      ><a name="1000" class="Symbol"
+      >(</a
+      ><a name="1001" href="PA.Inductive.Base.html#875" class="Function"
+      >&#8469;-ind</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" href="PA.Inductive.Base.html#978" class="Bound"
+      >A</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="PA.Inductive.Base.html#980" class="Bound"
+      >A0</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" href="PA.Inductive.Base.html#983" class="Bound"
+      >h</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="PA.Inductive.Base.html#991" class="Bound"
+      >n</a
+      ><a name="1015" class="Symbol"
+      >)</a
+      ><a name="1016"
+      >
+
+</a
+      ><a name="1018" class="Comment"
+      >-- The identity type on the PA universe</a
+      ><a name="1057"
+      >
+</a
+      ><a name="1058" class="Keyword"
+      >open</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" class="Keyword"
+      >import</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#1" class="Module"
+      >PA.Inductive.Relation.Binary.PropositionalEquality</a
+      ><a name="1120"
+      > </a
+      ><a name="1121" class="Keyword"
+      >public</a
+      ><a name="1127"
+      >
+
+</a
+      ><a name="1129" class="Comment"
+      >-- PA primitive recursive functions</a
+      ><a name="1164"
+      >
+</a
+      ><a name="1165" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >_+_</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" class="Symbol"
+      >:</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" class="Symbol"
+      >&#8594;</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" class="Symbol"
+      >&#8594;</a
+      ><a name="1178"
+      > </a
+      ><a name="1179" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1180"
+      >
+</a
+      ><a name="1181" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="1185"
+      >   </a
+      ><a name="1188" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" href="PA.Inductive.Base.html#1190" class="Bound"
+      >n</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" class="Symbol"
+      >=</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" href="PA.Inductive.Base.html#1190" class="Bound"
+      >n</a
+      ><a name="1195"
+      >
+</a
+      ><a name="1196" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="PA.Inductive.Base.html#1201" class="Bound"
+      >m</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="PA.Inductive.Base.html#1205" class="Bound"
+      >n</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" class="Symbol"
+      >=</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" class="Symbol"
+      >(</a
+      ><a name="1215" href="PA.Inductive.Base.html#1201" class="Bound"
+      >m</a
+      ><a name="1216"
+      > </a
+      ><a name="1217" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="PA.Inductive.Base.html#1205" class="Bound"
+      >n</a
+      ><a name="1220" class="Symbol"
+      >)</a
+      ><a name="1221"
+      >
+
+</a
+      ><a name="1223" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >_*_</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" class="Symbol"
+      >:</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" class="Symbol"
+      >&#8594;</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" class="Symbol"
+      >&#8594;</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" href="PA.Inductive.Base.Core.html#511" class="Datatype"
+      >&#8469;</a
+      ><a name="1238"
+      >
+</a
+      ><a name="1239" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="1243"
+      >   </a
+      ><a name="1246" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >*</a
+      ><a name="1247"
+      > </a
+      ><a name="1248" href="PA.Inductive.Base.html#1248" class="Bound"
+      >n</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" class="Symbol"
+      >=</a
+      ><a name="1251"
+      > </a
+      ><a name="1252" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="1256"
+      >
+</a
+      ><a name="1257" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" href="PA.Inductive.Base.html#1262" class="Bound"
+      >m</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >*</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" href="PA.Inductive.Base.html#1266" class="Bound"
+      >n</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" class="Symbol"
+      >=</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" href="PA.Inductive.Base.html#1266" class="Bound"
+      >n</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="PA.Inductive.Base.html#1262" class="Bound"
+      >m</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >*</a
+      ><a name="1277"
+      > </a
+      ><a name="1278" href="PA.Inductive.Base.html#1266" class="Bound"
+      >n</a
+      ><a name="1279"
+      >
+
+</a
+      ><a name="1281" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1359"
+      >
+</a
+      ><a name="1360" class="Comment"
+      >-- ATPs helper</a
+      ><a name="1374"
+      >
+</a
+      ><a name="1375" class="Comment"
+      >-- We don't traslate the body of functions, only the types. Therefore</a
+      ><a name="1444"
+      >
+</a
+      ><a name="1445" class="Comment"
+      >-- we need to feed the ATPs with the functions' equations.</a
+      ><a name="1503"
+      >
+
+</a
+      ><a name="1505" class="Comment"
+      >-- Addition axioms</a
+      ><a name="1523"
+      >
+</a
+      ><a name="1524" href="PA.Inductive.Base.html#1524" class="Function"
+      >+-0x</a
+      ><a name="1528"
+      > </a
+      ><a name="1529" class="Symbol"
+      >:</a
+      ><a name="1530"
+      > </a
+      ><a name="1531" class="Symbol"
+      >&#8704;</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" href="PA.Inductive.Base.html#1533" class="Bound"
+      >n</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" class="Symbol"
+      >&#8594;</a
+      ><a name="1536"
+      > </a
+      ><a name="1537" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1543"
+      > </a
+      ><a name="1544" href="PA.Inductive.Base.html#1533" class="Bound"
+      >n</a
+      ><a name="1545"
+      > </a
+      ><a name="1546" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1547"
+      > </a
+      ><a name="1548" href="PA.Inductive.Base.html#1533" class="Bound"
+      >n</a
+      ><a name="1549"
+      >
+</a
+      ><a name="1550" href="PA.Inductive.Base.html#1524" class="Function"
+      >+-0x</a
+      ><a name="1554"
+      > </a
+      ><a name="1555" href="PA.Inductive.Base.html#1555" class="Bound"
+      >n</a
+      ><a name="1556"
+      > </a
+      ><a name="1557" class="Symbol"
+      >=</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1563"
+      >
+</a
+      ><a name="1564" class="Comment"
+      >-- {-# ATP hint +-0x #-}</a
+      ><a name="1588"
+      >
+
+</a
+      ><a name="1590" href="PA.Inductive.Base.html#1590" class="Function"
+      >+-Sx</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" class="Symbol"
+      >:</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" class="Symbol"
+      >&#8704;</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" href="PA.Inductive.Base.html#1599" class="Bound"
+      >m</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="PA.Inductive.Base.html#1601" class="Bound"
+      >n</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" class="Symbol"
+      >&#8594;</a
+      ><a name="1604"
+      > </a
+      ><a name="1605" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="1609"
+      > </a
+      ><a name="1610" href="PA.Inductive.Base.html#1599" class="Bound"
+      >m</a
+      ><a name="1611"
+      > </a
+      ><a name="1612" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1613"
+      > </a
+      ><a name="1614" href="PA.Inductive.Base.html#1601" class="Bound"
+      >n</a
+      ><a name="1615"
+      > </a
+      ><a name="1616" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1617"
+      > </a
+      ><a name="1618" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="1622"
+      > </a
+      ><a name="1623" class="Symbol"
+      >(</a
+      ><a name="1624" href="PA.Inductive.Base.html#1599" class="Bound"
+      >m</a
+      ><a name="1625"
+      > </a
+      ><a name="1626" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1627"
+      > </a
+      ><a name="1628" href="PA.Inductive.Base.html#1601" class="Bound"
+      >n</a
+      ><a name="1629" class="Symbol"
+      >)</a
+      ><a name="1630"
+      >
+</a
+      ><a name="1631" href="PA.Inductive.Base.html#1590" class="Function"
+      >+-Sx</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="PA.Inductive.Base.html#1636" class="Bound"
+      >m</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="PA.Inductive.Base.html#1638" class="Bound"
+      >n</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" class="Symbol"
+      >=</a
+      ><a name="1641"
+      > </a
+      ><a name="1642" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1646"
+      >
+</a
+      ><a name="1647" class="Symbol"
+      >{-#</a
+      ><a name="1650"
+      > </a
+      ><a name="1651" class="Keyword"
+      >ATP</a
+      ><a name="1654"
+      > hint </a
+      ><a name="1660" href="PA.Inductive.Base.html#1590" class="Function"
+      >+-Sx</a
+      ><a name="1664"
+      > </a
+      ><a name="1665" class="Symbol"
+      >#-}</a
+      ><a name="1668"
+      >
+
+</a
+      ><a name="1670" class="Comment"
+      >-- Multiplication axioms</a
+      ><a name="1694"
+      >
+</a
+      ><a name="1695" href="PA.Inductive.Base.html#1695" class="Function"
+      >*-0x</a
+      ><a name="1699"
+      > </a
+      ><a name="1700" class="Symbol"
+      >:</a
+      ><a name="1701"
+      > </a
+      ><a name="1702" class="Symbol"
+      >&#8704;</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="PA.Inductive.Base.html#1704" class="Bound"
+      >n</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" class="Symbol"
+      >&#8594;</a
+      ><a name="1707"
+      > </a
+      ><a name="1708" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >*</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" href="PA.Inductive.Base.html#1704" class="Bound"
+      >n</a
+      ><a name="1716"
+      > </a
+      ><a name="1717" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1718"
+      > </a
+      ><a name="1719" href="PA.Inductive.Base.Core.html#527" class="InductiveConstructor"
+      >zero</a
+      ><a name="1723"
+      >
+</a
+      ><a name="1724" href="PA.Inductive.Base.html#1695" class="Function"
+      >*-0x</a
+      ><a name="1728"
+      > </a
+      ><a name="1729" href="PA.Inductive.Base.html#1729" class="Bound"
+      >n</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" class="Symbol"
+      >=</a
+      ><a name="1732"
+      > </a
+      ><a name="1733" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1737"
+      >
+</a
+      ><a name="1738" class="Comment"
+      >-- {-# ATP hint *-0x #-}</a
+      ><a name="1762"
+      >
+
+</a
+      ><a name="1764" href="PA.Inductive.Base.html#1764" class="Function"
+      >*-Sx</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" class="Symbol"
+      >:</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" class="Symbol"
+      >&#8704;</a
+      ><a name="1772"
+      > </a
+      ><a name="1773" href="PA.Inductive.Base.html#1773" class="Bound"
+      >m</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" href="PA.Inductive.Base.html#1775" class="Bound"
+      >n</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >&#8594;</a
+      ><a name="1778"
+      > </a
+      ><a name="1779" href="PA.Inductive.Base.Core.html#542" class="InductiveConstructor"
+      >succ</a
+      ><a name="1783"
+      > </a
+      ><a name="1784" href="PA.Inductive.Base.html#1773" class="Bound"
+      >m</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >*</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" href="PA.Inductive.Base.html#1775" class="Bound"
+      >n</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" href="PA.Inductive.Base.html#1775" class="Bound"
+      >n</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="PA.Inductive.Base.html#1165" class="Function Operator"
+      >+</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" href="PA.Inductive.Base.html#1773" class="Bound"
+      >m</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" href="PA.Inductive.Base.html#1223" class="Function Operator"
+      >*</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="PA.Inductive.Base.html#1775" class="Bound"
+      >n</a
+      ><a name="1801"
+      >
+</a
+      ><a name="1802" href="PA.Inductive.Base.html#1764" class="Function"
+      >*-Sx</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="PA.Inductive.Base.html#1807" class="Bound"
+      >m</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" href="PA.Inductive.Base.html#1809" class="Bound"
+      >n</a
+      ><a name="1810"
+      > </a
+      ><a name="1811" class="Symbol"
+      >=</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="1817"
+      >
+</a
+      ><a name="1818" class="Comment"
+      >-- {-# ATP hint *-Sx #-}</a
+      ><a name="1842"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

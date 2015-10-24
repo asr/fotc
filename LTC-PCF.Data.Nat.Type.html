@@ -1,0 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Data.Nat.Type</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The LTC-PCF natural numbers type</a
+      ><a name="115"
+      >
+</a
+      ><a name="116" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="194"
+      >
+
+</a
+      ><a name="196" class="Symbol"
+      >{-#</a
+      ><a name="199"
+      > </a
+      ><a name="200" class="Keyword"
+      >OPTIONS</a
+      ><a name="207"
+      > --exact-split              </a
+      ><a name="235" class="Symbol"
+      >#-}</a
+      ><a name="238"
+      >
+</a
+      ><a name="239" class="Symbol"
+      >{-#</a
+      ><a name="242"
+      > </a
+      ><a name="243" class="Keyword"
+      >OPTIONS</a
+      ><a name="250"
+      > --no-sized-types           </a
+      ><a name="278" class="Symbol"
+      >#-}</a
+      ><a name="281"
+      >
+</a
+      ><a name="282" class="Symbol"
+      >{-#</a
+      ><a name="285"
+      > </a
+      ><a name="286" class="Keyword"
+      >OPTIONS</a
+      ><a name="293"
+      > --no-universe-polymorphism </a
+      ><a name="321" class="Symbol"
+      >#-}</a
+      ><a name="324"
+      >
+</a
+      ><a name="325" class="Symbol"
+      >{-#</a
+      ><a name="328"
+      > </a
+      ><a name="329" class="Keyword"
+      >OPTIONS</a
+      ><a name="336"
+      > --without-K                </a
+      ><a name="364" class="Symbol"
+      >#-}</a
+      ><a name="367"
+      >
+
+</a
+      ><a name="369" class="Keyword"
+      >module</a
+      ><a name="375"
+      > </a
+      ><a name="376" href="LTC-PCF.Data.Nat.Type.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Type</a
+      ><a name="397"
+      > </a
+      ><a name="398" class="Keyword"
+      >where</a
+      ><a name="403"
+      >
+
+</a
+      ><a name="405" class="Keyword"
+      >open</a
+      ><a name="409"
+      > </a
+      ><a name="410" class="Keyword"
+      >import</a
+      ><a name="416"
+      > </a
+      ><a name="417" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="429"
+      >
+
+</a
+      ><a name="431" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="509"
+      >
+</a
+      ><a name="510" class="Comment"
+      >-- The inductive predicate 'N' represents the type of the natural</a
+      ><a name="575"
+      >
+</a
+      ><a name="576" class="Comment"
+      >-- numbers. They are a subset of 'D'.</a
+      ><a name="613"
+      >
+
+</a
+      ><a name="615" class="Comment"
+      >-- The LTC-PCF natural numbers type (inductive predicate for total</a
+      ><a name="681"
+      >
+</a
+      ><a name="682" class="Comment"
+      >-- natural numbers).</a
+      ><a name="702"
+      >
+</a
+      ><a name="703" class="Keyword"
+      >data</a
+      ><a name="707"
+      > </a
+      ><a name="708" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="709"
+      > </a
+      ><a name="710" class="Symbol"
+      >:</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="713"
+      > </a
+      ><a name="714" class="Symbol"
+      >&#8594;</a
+      ><a name="715"
+      > </a
+      ><a name="716" class="PrimitiveType"
+      >Set</a
+      ><a name="719"
+      > </a
+      ><a name="720" class="Keyword"
+      >where</a
+      ><a name="725"
+      >
+  </a
+      ><a name="728" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="733"
+      > </a
+      ><a name="734" class="Symbol"
+      >:</a
+      ><a name="735"
+      >               </a
+      ><a name="750" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="751"
+      > </a
+      ><a name="752" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="756"
+      >
+  </a
+      ><a name="759" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="764"
+      > </a
+      ><a name="765" class="Symbol"
+      >:</a
+      ><a name="766"
+      > </a
+      ><a name="767" class="Symbol"
+      >&#8704;</a
+      ><a name="768"
+      > </a
+      ><a name="769" class="Symbol"
+      >{</a
+      ><a name="770" href="LTC-PCF.Data.Nat.Type.html#770" class="Bound"
+      >n</a
+      ><a name="771" class="Symbol"
+      >}</a
+      ><a name="772"
+      > </a
+      ><a name="773" class="Symbol"
+      >&#8594;</a
+      ><a name="774"
+      > </a
+      ><a name="775" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="776"
+      > </a
+      ><a name="777" href="LTC-PCF.Data.Nat.Type.html#770" class="Bound"
+      >n</a
+      ><a name="778"
+      > </a
+      ><a name="779" class="Symbol"
+      >&#8594;</a
+      ><a name="780"
+      > </a
+      ><a name="781" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="782"
+      > </a
+      ><a name="783" class="Symbol"
+      >(</a
+      ><a name="784" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="LTC-PCF.Data.Nat.Type.html#770" class="Bound"
+      >n</a
+      ><a name="791" class="Symbol"
+      >)</a
+      ><a name="792"
+      >
+
+</a
+      ><a name="794" class="Comment"
+      >-- Induction principle for N (elimination rule).</a
+      ><a name="842"
+      >
+</a
+      ><a name="843" href="LTC-PCF.Data.Nat.Type.html#843" class="Function"
+      >N-ind</a
+      ><a name="848"
+      > </a
+      ><a name="849" class="Symbol"
+      >:</a
+      ><a name="850"
+      > </a
+      ><a name="851" class="Symbol"
+      >(</a
+      ><a name="852" href="LTC-PCF.Data.Nat.Type.html#852" class="Bound"
+      >A</a
+      ><a name="853"
+      > </a
+      ><a name="854" class="Symbol"
+      >:</a
+      ><a name="855"
+      > </a
+      ><a name="856" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="857"
+      > </a
+      ><a name="858" class="Symbol"
+      >&#8594;</a
+      ><a name="859"
+      > </a
+      ><a name="860" class="PrimitiveType"
+      >Set</a
+      ><a name="863" class="Symbol"
+      >)</a
+      ><a name="864"
+      > </a
+      ><a name="865" class="Symbol"
+      >&#8594;</a
+      ><a name="866"
+      >
+       </a
+      ><a name="874" href="LTC-PCF.Data.Nat.Type.html#852" class="Bound"
+      >A</a
+      ><a name="875"
+      > </a
+      ><a name="876" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Symbol"
+      >&#8594;</a
+      ><a name="882"
+      >
+       </a
+      ><a name="890" class="Symbol"
+      >(&#8704;</a
+      ><a name="892"
+      > </a
+      ><a name="893" class="Symbol"
+      >{</a
+      ><a name="894" href="LTC-PCF.Data.Nat.Type.html#894" class="Bound"
+      >n</a
+      ><a name="895" class="Symbol"
+      >}</a
+      ><a name="896"
+      > </a
+      ><a name="897" class="Symbol"
+      >&#8594;</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="LTC-PCF.Data.Nat.Type.html#852" class="Bound"
+      >A</a
+      ><a name="900"
+      > </a
+      ><a name="901" href="LTC-PCF.Data.Nat.Type.html#894" class="Bound"
+      >n</a
+      ><a name="902"
+      > </a
+      ><a name="903" class="Symbol"
+      >&#8594;</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="LTC-PCF.Data.Nat.Type.html#852" class="Bound"
+      >A</a
+      ><a name="906"
+      > </a
+      ><a name="907" class="Symbol"
+      >(</a
+      ><a name="908" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="LTC-PCF.Data.Nat.Type.html#894" class="Bound"
+      >n</a
+      ><a name="915" class="Symbol"
+      >))</a
+      ><a name="917"
+      > </a
+      ><a name="918" class="Symbol"
+      >&#8594;</a
+      ><a name="919"
+      >
+       </a
+      ><a name="927" class="Symbol"
+      >&#8704;</a
+      ><a name="928"
+      > </a
+      ><a name="929" class="Symbol"
+      >{</a
+      ><a name="930" href="LTC-PCF.Data.Nat.Type.html#930" class="Bound"
+      >n</a
+      ><a name="931" class="Symbol"
+      >}</a
+      ><a name="932"
+      > </a
+      ><a name="933" class="Symbol"
+      >&#8594;</a
+      ><a name="934"
+      > </a
+      ><a name="935" href="LTC-PCF.Data.Nat.Type.html#708" class="Datatype"
+      >N</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="LTC-PCF.Data.Nat.Type.html#930" class="Bound"
+      >n</a
+      ><a name="938"
+      > </a
+      ><a name="939" class="Symbol"
+      >&#8594;</a
+      ><a name="940"
+      > </a
+      ><a name="941" href="LTC-PCF.Data.Nat.Type.html#852" class="Bound"
+      >A</a
+      ><a name="942"
+      > </a
+      ><a name="943" href="LTC-PCF.Data.Nat.Type.html#930" class="Bound"
+      >n</a
+      ><a name="944"
+      >
+</a
+      ><a name="945" href="LTC-PCF.Data.Nat.Type.html#843" class="Function"
+      >N-ind</a
+      ><a name="950"
+      > </a
+      ><a name="951" href="LTC-PCF.Data.Nat.Type.html#951" class="Bound"
+      >A</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="LTC-PCF.Data.Nat.Type.html#953" class="Bound"
+      >A0</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="LTC-PCF.Data.Nat.Type.html#956" class="Bound"
+      >h</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="LTC-PCF.Data.Nat.Type.html#728" class="InductiveConstructor"
+      >nzero</a
+      ><a name="963"
+      >      </a
+      ><a name="969" class="Symbol"
+      >=</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="LTC-PCF.Data.Nat.Type.html#953" class="Bound"
+      >A0</a
+      ><a name="973"
+      >
+</a
+      ><a name="974" href="LTC-PCF.Data.Nat.Type.html#843" class="Function"
+      >N-ind</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="LTC-PCF.Data.Nat.Type.html#980" class="Bound"
+      >A</a
+      ><a name="981"
+      > </a
+      ><a name="982" href="LTC-PCF.Data.Nat.Type.html#982" class="Bound"
+      >A0</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="LTC-PCF.Data.Nat.Type.html#985" class="Bound"
+      >h</a
+      ><a name="986"
+      > </a
+      ><a name="987" class="Symbol"
+      >(</a
+      ><a name="988" href="LTC-PCF.Data.Nat.Type.html#759" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="993"
+      > </a
+      ><a name="994" href="LTC-PCF.Data.Nat.Type.html#994" class="Bound"
+      >Nn</a
+      ><a name="996" class="Symbol"
+      >)</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Symbol"
+      >=</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="LTC-PCF.Data.Nat.Type.html#985" class="Bound"
+      >h</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" class="Symbol"
+      >(</a
+      ><a name="1003" href="LTC-PCF.Data.Nat.Type.html#843" class="Function"
+      >N-ind</a
+      ><a name="1008"
+      > </a
+      ><a name="1009" href="LTC-PCF.Data.Nat.Type.html#980" class="Bound"
+      >A</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" href="LTC-PCF.Data.Nat.Type.html#982" class="Bound"
+      >A0</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="LTC-PCF.Data.Nat.Type.html#985" class="Bound"
+      >h</a
+      ><a name="1015"
+      > </a
+      ><a name="1016" href="LTC-PCF.Data.Nat.Type.html#994" class="Bound"
+      >Nn</a
+      ><a name="1018" class="Symbol"
+      >)</a
+      ><a name="1019"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

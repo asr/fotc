@@ -1,0 +1,3775 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.ABP.ABP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The alternating bit protocol (ABP)</a
+      ><a name="117"
+      >
+</a
+      ><a name="118" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="196"
+      >
+
+</a
+      ><a name="198" class="Symbol"
+      >{-#</a
+      ><a name="201"
+      > </a
+      ><a name="202" class="Keyword"
+      >OPTIONS</a
+      ><a name="209"
+      > --exact-split              </a
+      ><a name="237" class="Symbol"
+      >#-}</a
+      ><a name="240"
+      >
+</a
+      ><a name="241" class="Symbol"
+      >{-#</a
+      ><a name="244"
+      > </a
+      ><a name="245" class="Keyword"
+      >OPTIONS</a
+      ><a name="252"
+      > --no-sized-types           </a
+      ><a name="280" class="Symbol"
+      >#-}</a
+      ><a name="283"
+      >
+</a
+      ><a name="284" class="Symbol"
+      >{-#</a
+      ><a name="287"
+      > </a
+      ><a name="288" class="Keyword"
+      >OPTIONS</a
+      ><a name="295"
+      > --no-universe-polymorphism </a
+      ><a name="323" class="Symbol"
+      >#-}</a
+      ><a name="326"
+      >
+</a
+      ><a name="327" class="Symbol"
+      >{-#</a
+      ><a name="330"
+      > </a
+      ><a name="331" class="Keyword"
+      >OPTIONS</a
+      ><a name="338"
+      > --without-K                </a
+      ><a name="366" class="Symbol"
+      >#-}</a
+      ><a name="369"
+      >
+
+</a
+      ><a name="371" class="Comment"
+      >-- This module define the ABP following the presentation in Dybjer and</a
+      ><a name="441"
+      >
+</a
+      ><a name="442" class="Comment"
+      >-- Sander (1989).</a
+      ><a name="459"
+      >
+
+</a
+      ><a name="461" class="Keyword"
+      >module</a
+      ><a name="467"
+      > </a
+      ><a name="468" href="FOTC.Program.ABP.ABP.html#1" class="Module"
+      >FOTC.Program.ABP.ABP</a
+      ><a name="488"
+      > </a
+      ><a name="489" class="Keyword"
+      >where</a
+      ><a name="494"
+      >
+
+</a
+      ><a name="496" class="Keyword"
+      >open</a
+      ><a name="500"
+      > </a
+      ><a name="501" class="Keyword"
+      >import</a
+      ><a name="507"
+      > </a
+      ><a name="508" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="517"
+      >
+</a
+      ><a name="518" class="Keyword"
+      >open</a
+      ><a name="522"
+      > </a
+      ><a name="523" class="Keyword"
+      >import</a
+      ><a name="529"
+      > </a
+      ><a name="530" href="FOTC.Base.Loop.html#1" class="Module"
+      >FOTC.Base.Loop</a
+      ><a name="544"
+      >
+</a
+      ><a name="545" class="Keyword"
+      >open</a
+      ><a name="549"
+      > </a
+      ><a name="550" class="Keyword"
+      >import</a
+      ><a name="556"
+      > </a
+      ><a name="557" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="571"
+      >
+</a
+      ><a name="572" class="Keyword"
+      >open</a
+      ><a name="576"
+      > </a
+      ><a name="577" class="Keyword"
+      >import</a
+      ><a name="583"
+      > </a
+      ><a name="584" href="FOTC.Data.Bool.html#1" class="Module"
+      >FOTC.Data.Bool</a
+      ><a name="598"
+      >
+</a
+      ><a name="599" class="Keyword"
+      >open</a
+      ><a name="603"
+      > </a
+      ><a name="604" class="Keyword"
+      >import</a
+      ><a name="610"
+      > </a
+      ><a name="611" href="FOTC.Data.Stream.Type.html#1" class="Module"
+      >FOTC.Data.Stream.Type</a
+      ><a name="632"
+      >
+</a
+      ><a name="633" class="Keyword"
+      >open</a
+      ><a name="637"
+      > </a
+      ><a name="638" class="Keyword"
+      >import</a
+      ><a name="644"
+      > </a
+      ><a name="645" href="FOTC.Program.ABP.Fair.Type.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.Type</a
+      ><a name="671"
+      >
+</a
+      ><a name="672" class="Keyword"
+      >open</a
+      ><a name="676"
+      > </a
+      ><a name="677" class="Keyword"
+      >import</a
+      ><a name="683"
+      > </a
+      ><a name="684" href="FOTC.Program.ABP.Terms.html#1" class="Module"
+      >FOTC.Program.ABP.Terms</a
+      ><a name="706"
+      >
+
+</a
+      ><a name="708" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="786"
+      >
+</a
+      ><a name="787" class="Comment"
+      >-- ABP equations</a
+      ><a name="803"
+      >
+
+</a
+      ><a name="805" class="Keyword"
+      >postulate</a
+      ><a name="814"
+      >
+  </a
+      ><a name="817" href="FOTC.Program.ABP.ABP.html#817" class="Postulate"
+      >send</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="825"
+      > </a
+      ><a name="826" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="829"
+      > </a
+      ><a name="830" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="837"
+      > </a
+      ><a name="838" class="Symbol"
+      >:</a
+      ><a name="839"
+      > </a
+      ><a name="840" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="841"
+      > </a
+      ><a name="842" class="Symbol"
+      >&#8594;</a
+      ><a name="843"
+      > </a
+      ><a name="844" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="845"
+      >
+  </a
+      ><a name="848" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="853"
+      >                </a
+      ><a name="869" class="Symbol"
+      >:</a
+      ><a name="870"
+      > </a
+      ><a name="871" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="872"
+      > </a
+      ><a name="873" class="Symbol"
+      >&#8594;</a
+      ><a name="874"
+      > </a
+      ><a name="875" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="876"
+      > </a
+      ><a name="877" class="Symbol"
+      >&#8594;</a
+      ><a name="878"
+      > </a
+      ><a name="879" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="880"
+      > </a
+      ><a name="881" class="Symbol"
+      >&#8594;</a
+      ><a name="882"
+      > </a
+      ><a name="883" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="Symbol"
+      >&#8594;</a
+      ><a name="886"
+      > </a
+      ><a name="887" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="888"
+      >
+
+</a
+      ><a name="890" class="Keyword"
+      >postulate</a
+      ><a name="899"
+      > </a
+      ><a name="900" href="FOTC.Program.ABP.ABP.html#900" class="Postulate"
+      >send-eq</a
+      ><a name="907"
+      > </a
+      ><a name="908" class="Symbol"
+      >:</a
+      ><a name="909"
+      > </a
+      ><a name="910" class="Symbol"
+      >&#8704;</a
+      ><a name="911"
+      > </a
+      ><a name="912" href="FOTC.Program.ABP.ABP.html#912" class="Bound"
+      >b</a
+      ><a name="913"
+      > </a
+      ><a name="914" href="FOTC.Program.ABP.ABP.html#914" class="Bound"
+      >i</a
+      ><a name="915"
+      > </a
+      ><a name="916" href="FOTC.Program.ABP.ABP.html#916" class="Bound"
+      >is</a
+      ><a name="918"
+      > </a
+      ><a name="919" href="FOTC.Program.ABP.ABP.html#919" class="Bound"
+      >ds</a
+      ><a name="921"
+      > </a
+      ><a name="922" class="Symbol"
+      >&#8594;</a
+      ><a name="923"
+      >
+                    </a
+      ><a name="944" href="FOTC.Program.ABP.ABP.html#817" class="Postulate"
+      >send</a
+      ><a name="948"
+      > </a
+      ><a name="949" href="FOTC.Program.ABP.ABP.html#912" class="Bound"
+      >b</a
+      ><a name="950"
+      > </a
+      ><a name="951" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="952"
+      > </a
+      ><a name="953" class="Symbol"
+      >(</a
+      ><a name="954" href="FOTC.Program.ABP.ABP.html#914" class="Bound"
+      >i</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="FOTC.Program.ABP.ABP.html#916" class="Bound"
+      >is</a
+      ><a name="960" class="Symbol"
+      >)</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="963"
+      > </a
+      ><a name="964" href="FOTC.Program.ABP.ABP.html#919" class="Bound"
+      >ds</a
+      ><a name="966"
+      > </a
+      ><a name="967" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="968"
+      > </a
+      ><a name="969" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="FOTC.Program.ABP.ABP.html#914" class="Bound"
+      >i</a
+      ><a name="972"
+      > </a
+      ><a name="973" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="FOTC.Program.ABP.ABP.html#912" class="Bound"
+      >b</a
+      ><a name="976"
+      > </a
+      ><a name="977" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="978"
+      > </a
+      ><a name="979" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="986"
+      > </a
+      ><a name="987" href="FOTC.Program.ABP.ABP.html#912" class="Bound"
+      >b</a
+      ><a name="988"
+      > </a
+      ><a name="989" href="FOTC.Program.ABP.ABP.html#914" class="Bound"
+      >i</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="FOTC.Program.ABP.ABP.html#916" class="Bound"
+      >is</a
+      ><a name="993"
+      > </a
+      ><a name="994" href="FOTC.Program.ABP.ABP.html#919" class="Bound"
+      >ds</a
+      ><a name="996"
+      >
+</a
+      ><a name="997" class="Symbol"
+      >{-#</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" class="Keyword"
+      >ATP</a
+      ><a name="1004"
+      > axioms </a
+      ><a name="1012" href="FOTC.Program.ABP.ABP.html#900" class="Postulate"
+      >send-eq</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" class="Symbol"
+      >#-}</a
+      ><a name="1023"
+      >
+
+</a
+      ><a name="1025" class="Keyword"
+      >postulate</a
+      ><a name="1034"
+      >
+  </a
+      ><a name="1037" href="FOTC.Program.ABP.ABP.html#1037" class="Postulate"
+      >await-ok&#8801;</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" class="Symbol"
+      >:</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" class="Symbol"
+      >&#8704;</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" href="FOTC.Program.ABP.ABP.html#1051" class="Bound"
+      >b</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" href="FOTC.Program.ABP.ABP.html#1053" class="Bound"
+      >b'</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" href="FOTC.Program.ABP.ABP.html#1056" class="Bound"
+      >i</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="FOTC.Program.ABP.ABP.html#1058" class="Bound"
+      >is</a
+      ><a name="1060"
+      > </a
+      ><a name="1061" href="FOTC.Program.ABP.ABP.html#1061" class="Bound"
+      >ds</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" class="Symbol"
+      >&#8594;</a
+      ><a name="1065"
+      >
+              </a
+      ><a name="1080" href="FOTC.Program.ABP.ABP.html#1051" class="Bound"
+      >b</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" href="FOTC.Program.ABP.ABP.html#1053" class="Bound"
+      >b'</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" class="Symbol"
+      >&#8594;</a
+      ><a name="1088"
+      >
+              </a
+      ><a name="1103" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="FOTC.Program.ABP.ABP.html#1051" class="Bound"
+      >b</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="FOTC.Program.ABP.ABP.html#1056" class="Bound"
+      >i</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" href="FOTC.Program.ABP.ABP.html#1058" class="Bound"
+      >is</a
+      ><a name="1115"
+      > </a
+      ><a name="1116" class="Symbol"
+      >(</a
+      ><a name="1117" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="FOTC.Program.ABP.ABP.html#1053" class="Bound"
+      >b'</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="FOTC.Program.ABP.ABP.html#1061" class="Bound"
+      >ds</a
+      ><a name="1127" class="Symbol"
+      >)</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1130"
+      > </a
+      ><a name="1131" href="FOTC.Program.ABP.ABP.html#817" class="Postulate"
+      >send</a
+      ><a name="1135"
+      > </a
+      ><a name="1136" class="Symbol"
+      >(</a
+      ><a name="1137" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" href="FOTC.Program.ABP.ABP.html#1051" class="Bound"
+      >b</a
+      ><a name="1142" class="Symbol"
+      >)</a
+      ><a name="1143"
+      > </a
+      ><a name="1144" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="FOTC.Program.ABP.ABP.html#1058" class="Bound"
+      >is</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="FOTC.Program.ABP.ABP.html#1061" class="Bound"
+      >ds</a
+      ><a name="1153"
+      >
+
+  </a
+      ><a name="1157" href="FOTC.Program.ABP.ABP.html#1157" class="Postulate"
+      >await-ok&#8802;</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" class="Symbol"
+      >:</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" class="Symbol"
+      >&#8704;</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="FOTC.Program.ABP.ABP.html#1171" class="Bound"
+      >b</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" href="FOTC.Program.ABP.ABP.html#1173" class="Bound"
+      >b'</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" href="FOTC.Program.ABP.ABP.html#1176" class="Bound"
+      >i</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOTC.Program.ABP.ABP.html#1178" class="Bound"
+      >is</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" href="FOTC.Program.ABP.ABP.html#1181" class="Bound"
+      >ds</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" class="Symbol"
+      >&#8594;</a
+      ><a name="1185"
+      >
+              </a
+      ><a name="1200" href="FOTC.Program.ABP.ABP.html#1171" class="Bound"
+      >b</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="FOTC.Program.ABP.ABP.html#1173" class="Bound"
+      >b'</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" class="Symbol"
+      >&#8594;</a
+      ><a name="1208"
+      >
+              </a
+      ><a name="1223" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="FOTC.Program.ABP.ABP.html#1171" class="Bound"
+      >b</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOTC.Program.ABP.ABP.html#1176" class="Bound"
+      >i</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" href="FOTC.Program.ABP.ABP.html#1178" class="Bound"
+      >is</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" class="Symbol"
+      >(</a
+      ><a name="1237" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="FOTC.Program.ABP.ABP.html#1173" class="Bound"
+      >b'</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOTC.Program.ABP.ABP.html#1181" class="Bound"
+      >ds</a
+      ><a name="1247" class="Symbol"
+      >)</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" href="FOTC.Program.ABP.ABP.html#1176" class="Bound"
+      >i</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="FOTC.Program.ABP.ABP.html#1171" class="Bound"
+      >b</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" href="FOTC.Program.ABP.ABP.html#1171" class="Bound"
+      >b</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="FOTC.Program.ABP.ABP.html#1176" class="Bound"
+      >i</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" href="FOTC.Program.ABP.ABP.html#1178" class="Bound"
+      >is</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" href="FOTC.Program.ABP.ABP.html#1181" class="Bound"
+      >ds</a
+      ><a name="1278"
+      >
+
+  </a
+      ><a name="1282" href="FOTC.Program.ABP.ABP.html#1282" class="Postulate"
+      >await-error</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" class="Symbol"
+      >:</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" class="Symbol"
+      >&#8704;</a
+      ><a name="1297"
+      > </a
+      ><a name="1298" href="FOTC.Program.ABP.ABP.html#1298" class="Bound"
+      >b</a
+      ><a name="1299"
+      > </a
+      ><a name="1300" href="FOTC.Program.ABP.ABP.html#1300" class="Bound"
+      >i</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" href="FOTC.Program.ABP.ABP.html#1302" class="Bound"
+      >is</a
+      ><a name="1304"
+      > </a
+      ><a name="1305" href="FOTC.Program.ABP.ABP.html#1305" class="Bound"
+      >ds</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" class="Symbol"
+      >&#8594;</a
+      ><a name="1309"
+      >
+                </a
+      ><a name="1326" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="1331"
+      > </a
+      ><a name="1332" href="FOTC.Program.ABP.ABP.html#1298" class="Bound"
+      >b</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" href="FOTC.Program.ABP.ABP.html#1300" class="Bound"
+      >i</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" href="FOTC.Program.ABP.ABP.html#1302" class="Bound"
+      >is</a
+      ><a name="1338"
+      > </a
+      ><a name="1339" class="Symbol"
+      >(</a
+      ><a name="1340" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="FOTC.Program.ABP.ABP.html#1305" class="Bound"
+      >ds</a
+      ><a name="1350" class="Symbol"
+      >)</a
+      ><a name="1351"
+      > </a
+      ><a name="1352" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="FOTC.Program.ABP.ABP.html#1300" class="Bound"
+      >i</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="1359"
+      > </a
+      ><a name="1360" href="FOTC.Program.ABP.ABP.html#1298" class="Bound"
+      >b</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" href="FOTC.Program.ABP.ABP.html#1298" class="Bound"
+      >b</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="FOTC.Program.ABP.ABP.html#1300" class="Bound"
+      >i</a
+      ><a name="1375"
+      > </a
+      ><a name="1376" href="FOTC.Program.ABP.ABP.html#1302" class="Bound"
+      >is</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" href="FOTC.Program.ABP.ABP.html#1305" class="Bound"
+      >ds</a
+      ><a name="1381"
+      >
+</a
+      ><a name="1382" class="Symbol"
+      >{-#</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" class="Keyword"
+      >ATP</a
+      ><a name="1389"
+      > axioms </a
+      ><a name="1397" href="FOTC.Program.ABP.ABP.html#1037" class="Postulate"
+      >await-ok&#8801;</a
+      ><a name="1406"
+      > </a
+      ><a name="1407" href="FOTC.Program.ABP.ABP.html#1157" class="Postulate"
+      >await-ok&#8802;</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" href="FOTC.Program.ABP.ABP.html#1282" class="Postulate"
+      >await-error</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" class="Symbol"
+      >#-}</a
+      ><a name="1432"
+      >
+
+</a
+      ><a name="1434" class="Keyword"
+      >postulate</a
+      ><a name="1443"
+      >
+  </a
+      ><a name="1446" href="FOTC.Program.ABP.ABP.html#1446" class="Postulate"
+      >ack-ok&#8801;</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" class="Symbol"
+      >:</a
+      ><a name="1455"
+      > </a
+      ><a name="1456" class="Symbol"
+      >&#8704;</a
+      ><a name="1457"
+      > </a
+      ><a name="1458" href="FOTC.Program.ABP.ABP.html#1458" class="Bound"
+      >b</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="FOTC.Program.ABP.ABP.html#1460" class="Bound"
+      >b'</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" href="FOTC.Program.ABP.ABP.html#1463" class="Bound"
+      >i</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" href="FOTC.Program.ABP.ABP.html#1465" class="Bound"
+      >bs</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" class="Symbol"
+      >&#8594;</a
+      ><a name="1469"
+      >
+            </a
+      ><a name="1482" href="FOTC.Program.ABP.ABP.html#1458" class="Bound"
+      >b</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1485"
+      > </a
+      ><a name="1486" href="FOTC.Program.ABP.ABP.html#1460" class="Bound"
+      >b'</a
+      ><a name="1488"
+      > </a
+      ><a name="1489" class="Symbol"
+      >&#8594;</a
+      ><a name="1490"
+      >
+            </a
+      ><a name="1503" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" href="FOTC.Program.ABP.ABP.html#1458" class="Bound"
+      >b</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" class="Symbol"
+      >(</a
+      ><a name="1512" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" href="FOTC.Program.ABP.ABP.html#1463" class="Bound"
+      >i</a
+      ><a name="1518"
+      > </a
+      ><a name="1519" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="FOTC.Program.ABP.ABP.html#1460" class="Bound"
+      >b'</a
+      ><a name="1523"
+      > </a
+      ><a name="1524" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" href="FOTC.Program.ABP.ABP.html#1465" class="Bound"
+      >bs</a
+      ><a name="1530" class="Symbol"
+      >)</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1533"
+      > </a
+      ><a name="1534" href="FOTC.Program.ABP.ABP.html#1458" class="Bound"
+      >b</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" class="Symbol"
+      >(</a
+      ><a name="1543" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" href="FOTC.Program.ABP.ABP.html#1458" class="Bound"
+      >b</a
+      ><a name="1548" class="Symbol"
+      >)</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1551"
+      > </a
+      ><a name="1552" href="FOTC.Program.ABP.ABP.html#1465" class="Bound"
+      >bs</a
+      ><a name="1554"
+      >
+
+  </a
+      ><a name="1558" href="FOTC.Program.ABP.ABP.html#1558" class="Postulate"
+      >ack-ok&#8802;</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" class="Symbol"
+      >:</a
+      ><a name="1567"
+      > </a
+      ><a name="1568" class="Symbol"
+      >&#8704;</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" href="FOTC.Program.ABP.ABP.html#1570" class="Bound"
+      >b</a
+      ><a name="1571"
+      > </a
+      ><a name="1572" href="FOTC.Program.ABP.ABP.html#1572" class="Bound"
+      >b'</a
+      ><a name="1574"
+      > </a
+      ><a name="1575" href="FOTC.Program.ABP.ABP.html#1575" class="Bound"
+      >i</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" href="FOTC.Program.ABP.ABP.html#1577" class="Bound"
+      >bs</a
+      ><a name="1579"
+      > </a
+      ><a name="1580" class="Symbol"
+      >&#8594;</a
+      ><a name="1581"
+      >
+            </a
+      ><a name="1594" href="FOTC.Program.ABP.ABP.html#1570" class="Bound"
+      >b</a
+      ><a name="1595"
+      > </a
+      ><a name="1596" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="1597"
+      > </a
+      ><a name="1598" href="FOTC.Program.ABP.ABP.html#1572" class="Bound"
+      >b'</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" class="Symbol"
+      >&#8594;</a
+      ><a name="1602"
+      >
+            </a
+      ><a name="1615" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1618"
+      > </a
+      ><a name="1619" href="FOTC.Program.ABP.ABP.html#1570" class="Bound"
+      >b</a
+      ><a name="1620"
+      > </a
+      ><a name="1621" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1622"
+      > </a
+      ><a name="1623" class="Symbol"
+      >(</a
+      ><a name="1624" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="1626"
+      > </a
+      ><a name="1627" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="1628"
+      > </a
+      ><a name="1629" href="FOTC.Program.ABP.ABP.html#1575" class="Bound"
+      >i</a
+      ><a name="1630"
+      > </a
+      ><a name="1631" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="1632"
+      > </a
+      ><a name="1633" href="FOTC.Program.ABP.ABP.html#1572" class="Bound"
+      >b'</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" href="FOTC.Program.ABP.ABP.html#1577" class="Bound"
+      >bs</a
+      ><a name="1642" class="Symbol"
+      >)</a
+      ><a name="1643"
+      > </a
+      ><a name="1644" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="1649"
+      > </a
+      ><a name="1650" href="FOTC.Program.ABP.ABP.html#1570" class="Bound"
+      >b</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1657"
+      > </a
+      ><a name="1658" href="FOTC.Program.ABP.ABP.html#1570" class="Bound"
+      >b</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="FOTC.Program.ABP.ABP.html#1577" class="Bound"
+      >bs</a
+      ><a name="1664"
+      >
+
+  </a
+      ><a name="1668" href="FOTC.Program.ABP.ABP.html#1668" class="Postulate"
+      >ack-error</a
+      ><a name="1677"
+      > </a
+      ><a name="1678" class="Symbol"
+      >:</a
+      ><a name="1679"
+      > </a
+      ><a name="1680" class="Symbol"
+      >&#8704;</a
+      ><a name="1681"
+      > </a
+      ><a name="1682" href="FOTC.Program.ABP.ABP.html#1682" class="Bound"
+      >b</a
+      ><a name="1683"
+      > </a
+      ><a name="1684" href="FOTC.Program.ABP.ABP.html#1684" class="Bound"
+      >bs</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" class="Symbol"
+      >&#8594;</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="FOTC.Program.ABP.ABP.html#1682" class="Bound"
+      >b</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" class="Symbol"
+      >(</a
+      ><a name="1698" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" href="FOTC.Program.ABP.ABP.html#1684" class="Bound"
+      >bs</a
+      ><a name="1708" class="Symbol"
+      >)</a
+      ><a name="1709"
+      > </a
+      ><a name="1710" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1711"
+      > </a
+      ><a name="1712" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" href="FOTC.Program.ABP.ABP.html#1682" class="Bound"
+      >b</a
+      ><a name="1717"
+      > </a
+      ><a name="1718" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1719"
+      > </a
+      ><a name="1720" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1723"
+      > </a
+      ><a name="1724" href="FOTC.Program.ABP.ABP.html#1682" class="Bound"
+      >b</a
+      ><a name="1725"
+      > </a
+      ><a name="1726" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1727"
+      > </a
+      ><a name="1728" href="FOTC.Program.ABP.ABP.html#1684" class="Bound"
+      >bs</a
+      ><a name="1730"
+      >
+</a
+      ><a name="1731" class="Symbol"
+      >{-#</a
+      ><a name="1734"
+      > </a
+      ><a name="1735" class="Keyword"
+      >ATP</a
+      ><a name="1738"
+      > axioms </a
+      ><a name="1746" href="FOTC.Program.ABP.ABP.html#1446" class="Postulate"
+      >ack-ok&#8801;</a
+      ><a name="1753"
+      > </a
+      ><a name="1754" href="FOTC.Program.ABP.ABP.html#1558" class="Postulate"
+      >ack-ok&#8802;</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" href="FOTC.Program.ABP.ABP.html#1668" class="Postulate"
+      >ack-error</a
+      ><a name="1771"
+      > </a
+      ><a name="1772" class="Symbol"
+      >#-}</a
+      ><a name="1775"
+      >
+
+</a
+      ><a name="1777" class="Keyword"
+      >postulate</a
+      ><a name="1786"
+      >
+  </a
+      ><a name="1789" href="FOTC.Program.ABP.ABP.html#1789" class="Postulate"
+      >out-ok&#8801;</a
+      ><a name="1796"
+      > </a
+      ><a name="1797" class="Symbol"
+      >:</a
+      ><a name="1798"
+      > </a
+      ><a name="1799" class="Symbol"
+      >&#8704;</a
+      ><a name="1800"
+      > </a
+      ><a name="1801" href="FOTC.Program.ABP.ABP.html#1801" class="Bound"
+      >b</a
+      ><a name="1802"
+      > </a
+      ><a name="1803" href="FOTC.Program.ABP.ABP.html#1803" class="Bound"
+      >b'</a
+      ><a name="1805"
+      > </a
+      ><a name="1806" href="FOTC.Program.ABP.ABP.html#1806" class="Bound"
+      >i</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="FOTC.Program.ABP.ABP.html#1808" class="Bound"
+      >bs</a
+      ><a name="1810"
+      > </a
+      ><a name="1811" class="Symbol"
+      >&#8594;</a
+      ><a name="1812"
+      >
+            </a
+      ><a name="1825" href="FOTC.Program.ABP.ABP.html#1801" class="Bound"
+      >b</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1828"
+      > </a
+      ><a name="1829" href="FOTC.Program.ABP.ABP.html#1803" class="Bound"
+      >b'</a
+      ><a name="1831"
+      > </a
+      ><a name="1832" class="Symbol"
+      >&#8594;</a
+      ><a name="1833"
+      >
+            </a
+      ><a name="1846" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="1849"
+      > </a
+      ><a name="1850" href="FOTC.Program.ABP.ABP.html#1801" class="Bound"
+      >b</a
+      ><a name="1851"
+      > </a
+      ><a name="1852" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1853"
+      > </a
+      ><a name="1854" class="Symbol"
+      >(</a
+      ><a name="1855" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="1857"
+      > </a
+      ><a name="1858" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" href="FOTC.Program.ABP.ABP.html#1806" class="Bound"
+      >i</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" href="FOTC.Program.ABP.ABP.html#1803" class="Bound"
+      >b'</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="1868"
+      > </a
+      ><a name="1869" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" href="FOTC.Program.ABP.ABP.html#1808" class="Bound"
+      >bs</a
+      ><a name="1873" class="Symbol"
+      >)</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="FOTC.Program.ABP.ABP.html#1806" class="Bound"
+      >i</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1880"
+      > </a
+      ><a name="1881" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="1884"
+      > </a
+      ><a name="1885" class="Symbol"
+      >(</a
+      ><a name="1886" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="1889"
+      > </a
+      ><a name="1890" href="FOTC.Program.ABP.ABP.html#1801" class="Bound"
+      >b</a
+      ><a name="1891" class="Symbol"
+      >)</a
+      ><a name="1892"
+      > </a
+      ><a name="1893" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" href="FOTC.Program.ABP.ABP.html#1808" class="Bound"
+      >bs</a
+      ><a name="1897"
+      >
+
+  </a
+      ><a name="1901" href="FOTC.Program.ABP.ABP.html#1901" class="Postulate"
+      >out-ok&#8802;</a
+      ><a name="1908"
+      > </a
+      ><a name="1909" class="Symbol"
+      >:</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" class="Symbol"
+      >&#8704;</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" href="FOTC.Program.ABP.ABP.html#1913" class="Bound"
+      >b</a
+      ><a name="1914"
+      > </a
+      ><a name="1915" href="FOTC.Program.ABP.ABP.html#1915" class="Bound"
+      >b'</a
+      ><a name="1917"
+      > </a
+      ><a name="1918" href="FOTC.Program.ABP.ABP.html#1918" class="Bound"
+      >i</a
+      ><a name="1919"
+      > </a
+      ><a name="1920" href="FOTC.Program.ABP.ABP.html#1920" class="Bound"
+      >bs</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" class="Symbol"
+      >&#8594;</a
+      ><a name="1924"
+      >
+            </a
+      ><a name="1937" href="FOTC.Program.ABP.ABP.html#1913" class="Bound"
+      >b</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" href="Common.DefinitionsATP.html#618" class="Function Operator"
+      >&#8802;</a
+      ><a name="1940"
+      > </a
+      ><a name="1941" href="FOTC.Program.ABP.ABP.html#1915" class="Bound"
+      >b'</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" class="Symbol"
+      >&#8594;</a
+      ><a name="1945"
+      >
+            </a
+      ><a name="1958" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="1961"
+      > </a
+      ><a name="1962" href="FOTC.Program.ABP.ABP.html#1913" class="Bound"
+      >b</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" class="Symbol"
+      >(</a
+      ><a name="1967" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="1971"
+      > </a
+      ><a name="1972" href="FOTC.Program.ABP.ABP.html#1918" class="Bound"
+      >i</a
+      ><a name="1973"
+      > </a
+      ><a name="1974" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="1975"
+      > </a
+      ><a name="1976" href="FOTC.Program.ABP.ABP.html#1915" class="Bound"
+      >b'</a
+      ><a name="1978"
+      > </a
+      ><a name="1979" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="1980"
+      > </a
+      ><a name="1981" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1982"
+      > </a
+      ><a name="1983" href="FOTC.Program.ABP.ABP.html#1920" class="Bound"
+      >bs</a
+      ><a name="1985" class="Symbol"
+      >)</a
+      ><a name="1986"
+      > </a
+      ><a name="1987" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1988"
+      > </a
+      ><a name="1989" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="1992"
+      > </a
+      ><a name="1993" href="FOTC.Program.ABP.ABP.html#1913" class="Bound"
+      >b</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1996"
+      > </a
+      ><a name="1997" href="FOTC.Program.ABP.ABP.html#1920" class="Bound"
+      >bs</a
+      ><a name="1999"
+      >
+
+  </a
+      ><a name="2003" href="FOTC.Program.ABP.ABP.html#2003" class="Postulate"
+      >out-error</a
+      ><a name="2012"
+      > </a
+      ><a name="2013" class="Symbol"
+      >:</a
+      ><a name="2014"
+      > </a
+      ><a name="2015" class="Symbol"
+      >&#8704;</a
+      ><a name="2016"
+      > </a
+      ><a name="2017" href="FOTC.Program.ABP.ABP.html#2017" class="Bound"
+      >b</a
+      ><a name="2018"
+      > </a
+      ><a name="2019" href="FOTC.Program.ABP.ABP.html#2019" class="Bound"
+      >bs</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" class="Symbol"
+      >&#8594;</a
+      ><a name="2023"
+      > </a
+      ><a name="2024" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="2027"
+      > </a
+      ><a name="2028" href="FOTC.Program.ABP.ABP.html#2017" class="Bound"
+      >b</a
+      ><a name="2029"
+      > </a
+      ><a name="2030" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2031"
+      > </a
+      ><a name="2032" class="Symbol"
+      >(</a
+      ><a name="2033" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" href="FOTC.Program.ABP.ABP.html#2019" class="Bound"
+      >bs</a
+      ><a name="2043" class="Symbol"
+      >)</a
+      ><a name="2044"
+      > </a
+      ><a name="2045" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2046"
+      > </a
+      ><a name="2047" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="2050"
+      > </a
+      ><a name="2051" href="FOTC.Program.ABP.ABP.html#2017" class="Bound"
+      >b</a
+      ><a name="2052"
+      > </a
+      ><a name="2053" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2054"
+      > </a
+      ><a name="2055" href="FOTC.Program.ABP.ABP.html#2019" class="Bound"
+      >bs</a
+      ><a name="2057"
+      >
+</a
+      ><a name="2058" class="Symbol"
+      >{-#</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" class="Keyword"
+      >ATP</a
+      ><a name="2065"
+      > axioms </a
+      ><a name="2073" href="FOTC.Program.ABP.ABP.html#1789" class="Postulate"
+      >out-ok&#8801;</a
+      ><a name="2080"
+      > </a
+      ><a name="2081" href="FOTC.Program.ABP.ABP.html#1901" class="Postulate"
+      >out-ok&#8802;</a
+      ><a name="2088"
+      > </a
+      ><a name="2089" href="FOTC.Program.ABP.ABP.html#2003" class="Postulate"
+      >out-error</a
+      ><a name="2098"
+      > </a
+      ><a name="2099" class="Symbol"
+      >#-}</a
+      ><a name="2102"
+      >
+
+</a
+      ><a name="2104" class="Keyword"
+      >postulate</a
+      ><a name="2113"
+      >
+  </a
+      ><a name="2116" href="FOTC.Program.ABP.ABP.html#2116" class="Postulate"
+      >corrupt-T</a
+      ><a name="2125"
+      > </a
+      ><a name="2126" class="Symbol"
+      >:</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" class="Symbol"
+      >&#8704;</a
+      ><a name="2129"
+      > </a
+      ><a name="2130" href="FOTC.Program.ABP.ABP.html#2130" class="Bound"
+      >os</a
+      ><a name="2132"
+      > </a
+      ><a name="2133" href="FOTC.Program.ABP.ABP.html#2133" class="Bound"
+      >x</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" href="FOTC.Program.ABP.ABP.html#2135" class="Bound"
+      >xs</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" class="Symbol"
+      >&#8594;</a
+      ><a name="2139"
+      >
+              </a
+      ><a name="2154" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="2161"
+      > </a
+      ><a name="2162" class="Symbol"
+      >(</a
+      ><a name="2163" href="FOTC.Program.ABP.Terms.html#659" class="Function"
+      >T</a
+      ><a name="2164"
+      > </a
+      ><a name="2165" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2166"
+      > </a
+      ><a name="2167" href="FOTC.Program.ABP.ABP.html#2130" class="Bound"
+      >os</a
+      ><a name="2169" class="Symbol"
+      >)</a
+      ><a name="2170"
+      > </a
+      ><a name="2171" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2172"
+      > </a
+      ><a name="2173" class="Symbol"
+      >(</a
+      ><a name="2174" href="FOTC.Program.ABP.ABP.html#2133" class="Bound"
+      >x</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2177"
+      > </a
+      ><a name="2178" href="FOTC.Program.ABP.ABP.html#2135" class="Bound"
+      >xs</a
+      ><a name="2180" class="Symbol"
+      >)</a
+      ><a name="2181"
+      > </a
+      ><a name="2182" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2183"
+      > </a
+      ><a name="2184" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" href="FOTC.Program.ABP.ABP.html#2133" class="Bound"
+      >x</a
+      ><a name="2188"
+      > </a
+      ><a name="2189" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2190"
+      > </a
+      ><a name="2191" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="2198"
+      > </a
+      ><a name="2199" href="FOTC.Program.ABP.ABP.html#2130" class="Bound"
+      >os</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2203"
+      > </a
+      ><a name="2204" href="FOTC.Program.ABP.ABP.html#2135" class="Bound"
+      >xs</a
+      ><a name="2206"
+      >
+  </a
+      ><a name="2209" href="FOTC.Program.ABP.ABP.html#2209" class="Postulate"
+      >corrupt-F</a
+      ><a name="2218"
+      > </a
+      ><a name="2219" class="Symbol"
+      >:</a
+      ><a name="2220"
+      > </a
+      ><a name="2221" class="Symbol"
+      >&#8704;</a
+      ><a name="2222"
+      > </a
+      ><a name="2223" href="FOTC.Program.ABP.ABP.html#2223" class="Bound"
+      >os</a
+      ><a name="2225"
+      > </a
+      ><a name="2226" href="FOTC.Program.ABP.ABP.html#2226" class="Bound"
+      >x</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" href="FOTC.Program.ABP.ABP.html#2228" class="Bound"
+      >xs</a
+      ><a name="2230"
+      > </a
+      ><a name="2231" class="Symbol"
+      >&#8594;</a
+      ><a name="2232"
+      >
+              </a
+      ><a name="2247" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="2254"
+      > </a
+      ><a name="2255" class="Symbol"
+      >(</a
+      ><a name="2256" href="FOTC.Program.ABP.Terms.html#657" class="Function"
+      >F</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2259"
+      > </a
+      ><a name="2260" href="FOTC.Program.ABP.ABP.html#2223" class="Bound"
+      >os</a
+      ><a name="2262" class="Symbol"
+      >)</a
+      ><a name="2263"
+      > </a
+      ><a name="2264" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2265"
+      > </a
+      ><a name="2266" class="Symbol"
+      >(</a
+      ><a name="2267" href="FOTC.Program.ABP.ABP.html#2226" class="Bound"
+      >x</a
+      ><a name="2268"
+      > </a
+      ><a name="2269" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2270"
+      > </a
+      ><a name="2271" href="FOTC.Program.ABP.ABP.html#2228" class="Bound"
+      >xs</a
+      ><a name="2273" class="Symbol"
+      >)</a
+      ><a name="2274"
+      > </a
+      ><a name="2275" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2276"
+      > </a
+      ><a name="2277" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="2282"
+      > </a
+      ><a name="2283" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2284"
+      > </a
+      ><a name="2285" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" href="FOTC.Program.ABP.ABP.html#2223" class="Bound"
+      >os</a
+      ><a name="2295"
+      > </a
+      ><a name="2296" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2297"
+      > </a
+      ><a name="2298" href="FOTC.Program.ABP.ABP.html#2228" class="Bound"
+      >xs</a
+      ><a name="2300"
+      >
+</a
+      ><a name="2301" class="Symbol"
+      >{-#</a
+      ><a name="2304"
+      > </a
+      ><a name="2305" class="Keyword"
+      >ATP</a
+      ><a name="2308"
+      > axioms </a
+      ><a name="2316" href="FOTC.Program.ABP.ABP.html#2116" class="Postulate"
+      >corrupt-T</a
+      ><a name="2325"
+      > </a
+      ><a name="2326" href="FOTC.Program.ABP.ABP.html#2209" class="Postulate"
+      >corrupt-F</a
+      ><a name="2335"
+      > </a
+      ><a name="2336" class="Symbol"
+      >#-}</a
+      ><a name="2339"
+      >
+
+</a
+      ><a name="2341" class="Keyword"
+      >postulate</a
+      ><a name="2350"
+      > </a
+      ><a name="2351" href="FOTC.Program.ABP.ABP.html#2351" class="Postulate"
+      >has</a
+      ><a name="2354"
+      > </a
+      ><a name="2355" href="FOTC.Program.ABP.ABP.html#2355" class="Postulate"
+      >hbs</a
+      ><a name="2358"
+      > </a
+      ><a name="2359" href="FOTC.Program.ABP.ABP.html#2359" class="Postulate"
+      >hcs</a
+      ><a name="2362"
+      > </a
+      ><a name="2363" href="FOTC.Program.ABP.ABP.html#2363" class="Postulate"
+      >hds</a
+      ><a name="2366"
+      > </a
+      ><a name="2367" class="Symbol"
+      >:</a
+      ><a name="2368"
+      > </a
+      ><a name="2369" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2370"
+      > </a
+      ><a name="2371" class="Symbol"
+      >&#8594;</a
+      ><a name="2372"
+      > </a
+      ><a name="2373" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" class="Symbol"
+      >&#8594;</a
+      ><a name="2376"
+      > </a
+      ><a name="2377" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" class="Symbol"
+      >&#8594;</a
+      ><a name="2380"
+      > </a
+      ><a name="2381" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2382"
+      > </a
+      ><a name="2383" class="Symbol"
+      >&#8594;</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" class="Symbol"
+      >&#8594;</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" class="Symbol"
+      >&#8594;</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2394"
+      >
+
+</a
+      ><a name="2396" class="Keyword"
+      >postulate</a
+      ><a name="2405"
+      > </a
+      ><a name="2406" href="FOTC.Program.ABP.ABP.html#2406" class="Postulate"
+      >has-eq</a
+      ><a name="2412"
+      > </a
+      ><a name="2413" class="Symbol"
+      >:</a
+      ><a name="2414"
+      > </a
+      ><a name="2415" class="Symbol"
+      >&#8704;</a
+      ><a name="2416"
+      > </a
+      ><a name="2417" href="FOTC.Program.ABP.ABP.html#2417" class="Bound"
+      >f&#8321;</a
+      ><a name="2419"
+      > </a
+      ><a name="2420" href="FOTC.Program.ABP.ABP.html#2420" class="Bound"
+      >f&#8322;</a
+      ><a name="2422"
+      > </a
+      ><a name="2423" href="FOTC.Program.ABP.ABP.html#2423" class="Bound"
+      >f&#8323;</a
+      ><a name="2425"
+      > </a
+      ><a name="2426" href="FOTC.Program.ABP.ABP.html#2426" class="Bound"
+      >g&#8321;</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" href="FOTC.Program.ABP.ABP.html#2429" class="Bound"
+      >g&#8322;</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" href="FOTC.Program.ABP.ABP.html#2432" class="Bound"
+      >is</a
+      ><a name="2434"
+      > </a
+      ><a name="2435" class="Symbol"
+      >&#8594;</a
+      ><a name="2436"
+      >
+                   </a
+      ><a name="2456" href="FOTC.Program.ABP.ABP.html#2351" class="Postulate"
+      >has</a
+      ><a name="2459"
+      > </a
+      ><a name="2460" href="FOTC.Program.ABP.ABP.html#2417" class="Bound"
+      >f&#8321;</a
+      ><a name="2462"
+      > </a
+      ><a name="2463" href="FOTC.Program.ABP.ABP.html#2420" class="Bound"
+      >f&#8322;</a
+      ><a name="2465"
+      > </a
+      ><a name="2466" href="FOTC.Program.ABP.ABP.html#2423" class="Bound"
+      >f&#8323;</a
+      ><a name="2468"
+      > </a
+      ><a name="2469" href="FOTC.Program.ABP.ABP.html#2426" class="Bound"
+      >g&#8321;</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="FOTC.Program.ABP.ABP.html#2429" class="Bound"
+      >g&#8322;</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" href="FOTC.Program.ABP.ABP.html#2432" class="Bound"
+      >is</a
+      ><a name="2477"
+      > </a
+      ><a name="2478" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2479"
+      > </a
+      ><a name="2480" href="FOTC.Program.ABP.ABP.html#2417" class="Bound"
+      >f&#8321;</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2484"
+      > </a
+      ><a name="2485" href="FOTC.Program.ABP.ABP.html#2432" class="Bound"
+      >is</a
+      ><a name="2487"
+      > </a
+      ><a name="2488" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2489"
+      > </a
+      ><a name="2490" class="Symbol"
+      >(</a
+      ><a name="2491" href="FOTC.Program.ABP.ABP.html#2363" class="Postulate"
+      >hds</a
+      ><a name="2494"
+      > </a
+      ><a name="2495" href="FOTC.Program.ABP.ABP.html#2417" class="Bound"
+      >f&#8321;</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" href="FOTC.Program.ABP.ABP.html#2420" class="Bound"
+      >f&#8322;</a
+      ><a name="2500"
+      > </a
+      ><a name="2501" href="FOTC.Program.ABP.ABP.html#2423" class="Bound"
+      >f&#8323;</a
+      ><a name="2503"
+      > </a
+      ><a name="2504" href="FOTC.Program.ABP.ABP.html#2426" class="Bound"
+      >g&#8321;</a
+      ><a name="2506"
+      > </a
+      ><a name="2507" href="FOTC.Program.ABP.ABP.html#2429" class="Bound"
+      >g&#8322;</a
+      ><a name="2509"
+      > </a
+      ><a name="2510" href="FOTC.Program.ABP.ABP.html#2432" class="Bound"
+      >is</a
+      ><a name="2512" class="Symbol"
+      >)</a
+      ><a name="2513"
+      >
+</a
+      ><a name="2514" class="Symbol"
+      >{-#</a
+      ><a name="2517"
+      > </a
+      ><a name="2518" class="Keyword"
+      >ATP</a
+      ><a name="2521"
+      > axioms </a
+      ><a name="2529" href="FOTC.Program.ABP.ABP.html#2406" class="Postulate"
+      >has-eq</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" class="Symbol"
+      >#-}</a
+      ><a name="2539"
+      >
+
+</a
+      ><a name="2541" class="Keyword"
+      >postulate</a
+      ><a name="2550"
+      > </a
+      ><a name="2551" href="FOTC.Program.ABP.ABP.html#2551" class="Postulate"
+      >hbs-eq</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" class="Symbol"
+      >:</a
+      ><a name="2559"
+      > </a
+      ><a name="2560" class="Symbol"
+      >&#8704;</a
+      ><a name="2561"
+      > </a
+      ><a name="2562" href="FOTC.Program.ABP.ABP.html#2562" class="Bound"
+      >f&#8321;</a
+      ><a name="2564"
+      > </a
+      ><a name="2565" href="FOTC.Program.ABP.ABP.html#2565" class="Bound"
+      >f&#8322;</a
+      ><a name="2567"
+      > </a
+      ><a name="2568" href="FOTC.Program.ABP.ABP.html#2568" class="Bound"
+      >f&#8323;</a
+      ><a name="2570"
+      > </a
+      ><a name="2571" href="FOTC.Program.ABP.ABP.html#2571" class="Bound"
+      >g&#8321;</a
+      ><a name="2573"
+      > </a
+      ><a name="2574" href="FOTC.Program.ABP.ABP.html#2574" class="Bound"
+      >g&#8322;</a
+      ><a name="2576"
+      > </a
+      ><a name="2577" href="FOTC.Program.ABP.ABP.html#2577" class="Bound"
+      >is</a
+      ><a name="2579"
+      > </a
+      ><a name="2580" class="Symbol"
+      >&#8594;</a
+      ><a name="2581"
+      >
+                   </a
+      ><a name="2601" href="FOTC.Program.ABP.ABP.html#2355" class="Postulate"
+      >hbs</a
+      ><a name="2604"
+      > </a
+      ><a name="2605" href="FOTC.Program.ABP.ABP.html#2562" class="Bound"
+      >f&#8321;</a
+      ><a name="2607"
+      > </a
+      ><a name="2608" href="FOTC.Program.ABP.ABP.html#2565" class="Bound"
+      >f&#8322;</a
+      ><a name="2610"
+      > </a
+      ><a name="2611" href="FOTC.Program.ABP.ABP.html#2568" class="Bound"
+      >f&#8323;</a
+      ><a name="2613"
+      > </a
+      ><a name="2614" href="FOTC.Program.ABP.ABP.html#2571" class="Bound"
+      >g&#8321;</a
+      ><a name="2616"
+      > </a
+      ><a name="2617" href="FOTC.Program.ABP.ABP.html#2574" class="Bound"
+      >g&#8322;</a
+      ><a name="2619"
+      > </a
+      ><a name="2620" href="FOTC.Program.ABP.ABP.html#2577" class="Bound"
+      >is</a
+      ><a name="2622"
+      > </a
+      ><a name="2623" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2624"
+      > </a
+      ><a name="2625" href="FOTC.Program.ABP.ABP.html#2571" class="Bound"
+      >g&#8321;</a
+      ><a name="2627"
+      > </a
+      ><a name="2628" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2629"
+      > </a
+      ><a name="2630" class="Symbol"
+      >(</a
+      ><a name="2631" href="FOTC.Program.ABP.ABP.html#2351" class="Postulate"
+      >has</a
+      ><a name="2634"
+      > </a
+      ><a name="2635" href="FOTC.Program.ABP.ABP.html#2562" class="Bound"
+      >f&#8321;</a
+      ><a name="2637"
+      > </a
+      ><a name="2638" href="FOTC.Program.ABP.ABP.html#2565" class="Bound"
+      >f&#8322;</a
+      ><a name="2640"
+      > </a
+      ><a name="2641" href="FOTC.Program.ABP.ABP.html#2568" class="Bound"
+      >f&#8323;</a
+      ><a name="2643"
+      > </a
+      ><a name="2644" href="FOTC.Program.ABP.ABP.html#2571" class="Bound"
+      >g&#8321;</a
+      ><a name="2646"
+      > </a
+      ><a name="2647" href="FOTC.Program.ABP.ABP.html#2574" class="Bound"
+      >g&#8322;</a
+      ><a name="2649"
+      > </a
+      ><a name="2650" href="FOTC.Program.ABP.ABP.html#2577" class="Bound"
+      >is</a
+      ><a name="2652" class="Symbol"
+      >)</a
+      ><a name="2653"
+      >
+</a
+      ><a name="2654" class="Symbol"
+      >{-#</a
+      ><a name="2657"
+      > </a
+      ><a name="2658" class="Keyword"
+      >ATP</a
+      ><a name="2661"
+      > axioms </a
+      ><a name="2669" href="FOTC.Program.ABP.ABP.html#2551" class="Postulate"
+      >hbs-eq</a
+      ><a name="2675"
+      > </a
+      ><a name="2676" class="Symbol"
+      >#-}</a
+      ><a name="2679"
+      >
+
+</a
+      ><a name="2681" class="Keyword"
+      >postulate</a
+      ><a name="2690"
+      > </a
+      ><a name="2691" href="FOTC.Program.ABP.ABP.html#2691" class="Postulate"
+      >hcs-eq</a
+      ><a name="2697"
+      > </a
+      ><a name="2698" class="Symbol"
+      >:</a
+      ><a name="2699"
+      > </a
+      ><a name="2700" class="Symbol"
+      >&#8704;</a
+      ><a name="2701"
+      > </a
+      ><a name="2702" href="FOTC.Program.ABP.ABP.html#2702" class="Bound"
+      >f&#8321;</a
+      ><a name="2704"
+      > </a
+      ><a name="2705" href="FOTC.Program.ABP.ABP.html#2705" class="Bound"
+      >f&#8322;</a
+      ><a name="2707"
+      > </a
+      ><a name="2708" href="FOTC.Program.ABP.ABP.html#2708" class="Bound"
+      >f&#8323;</a
+      ><a name="2710"
+      > </a
+      ><a name="2711" href="FOTC.Program.ABP.ABP.html#2711" class="Bound"
+      >g&#8321;</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" href="FOTC.Program.ABP.ABP.html#2714" class="Bound"
+      >g&#8322;</a
+      ><a name="2716"
+      > </a
+      ><a name="2717" href="FOTC.Program.ABP.ABP.html#2717" class="Bound"
+      >is</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" class="Symbol"
+      >&#8594;</a
+      ><a name="2721"
+      >
+                   </a
+      ><a name="2741" href="FOTC.Program.ABP.ABP.html#2359" class="Postulate"
+      >hcs</a
+      ><a name="2744"
+      > </a
+      ><a name="2745" href="FOTC.Program.ABP.ABP.html#2702" class="Bound"
+      >f&#8321;</a
+      ><a name="2747"
+      > </a
+      ><a name="2748" href="FOTC.Program.ABP.ABP.html#2705" class="Bound"
+      >f&#8322;</a
+      ><a name="2750"
+      > </a
+      ><a name="2751" href="FOTC.Program.ABP.ABP.html#2708" class="Bound"
+      >f&#8323;</a
+      ><a name="2753"
+      > </a
+      ><a name="2754" href="FOTC.Program.ABP.ABP.html#2711" class="Bound"
+      >g&#8321;</a
+      ><a name="2756"
+      > </a
+      ><a name="2757" href="FOTC.Program.ABP.ABP.html#2714" class="Bound"
+      >g&#8322;</a
+      ><a name="2759"
+      > </a
+      ><a name="2760" href="FOTC.Program.ABP.ABP.html#2717" class="Bound"
+      >is</a
+      ><a name="2762"
+      > </a
+      ><a name="2763" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2764"
+      > </a
+      ><a name="2765" href="FOTC.Program.ABP.ABP.html#2705" class="Bound"
+      >f&#8322;</a
+      ><a name="2767"
+      > </a
+      ><a name="2768" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2769"
+      > </a
+      ><a name="2770" class="Symbol"
+      >(</a
+      ><a name="2771" href="FOTC.Program.ABP.ABP.html#2355" class="Postulate"
+      >hbs</a
+      ><a name="2774"
+      > </a
+      ><a name="2775" href="FOTC.Program.ABP.ABP.html#2702" class="Bound"
+      >f&#8321;</a
+      ><a name="2777"
+      > </a
+      ><a name="2778" href="FOTC.Program.ABP.ABP.html#2705" class="Bound"
+      >f&#8322;</a
+      ><a name="2780"
+      > </a
+      ><a name="2781" href="FOTC.Program.ABP.ABP.html#2708" class="Bound"
+      >f&#8323;</a
+      ><a name="2783"
+      > </a
+      ><a name="2784" href="FOTC.Program.ABP.ABP.html#2711" class="Bound"
+      >g&#8321;</a
+      ><a name="2786"
+      > </a
+      ><a name="2787" href="FOTC.Program.ABP.ABP.html#2714" class="Bound"
+      >g&#8322;</a
+      ><a name="2789"
+      > </a
+      ><a name="2790" href="FOTC.Program.ABP.ABP.html#2717" class="Bound"
+      >is</a
+      ><a name="2792" class="Symbol"
+      >)</a
+      ><a name="2793"
+      >
+</a
+      ><a name="2794" class="Symbol"
+      >{-#</a
+      ><a name="2797"
+      > </a
+      ><a name="2798" class="Keyword"
+      >ATP</a
+      ><a name="2801"
+      > axioms </a
+      ><a name="2809" href="FOTC.Program.ABP.ABP.html#2691" class="Postulate"
+      >hcs-eq</a
+      ><a name="2815"
+      > </a
+      ><a name="2816" class="Symbol"
+      >#-}</a
+      ><a name="2819"
+      >
+
+</a
+      ><a name="2821" class="Keyword"
+      >postulate</a
+      ><a name="2830"
+      > </a
+      ><a name="2831" href="FOTC.Program.ABP.ABP.html#2831" class="Postulate"
+      >hds-eq</a
+      ><a name="2837"
+      > </a
+      ><a name="2838" class="Symbol"
+      >:</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" class="Symbol"
+      >&#8704;</a
+      ><a name="2841"
+      > </a
+      ><a name="2842" href="FOTC.Program.ABP.ABP.html#2842" class="Bound"
+      >f&#8321;</a
+      ><a name="2844"
+      > </a
+      ><a name="2845" href="FOTC.Program.ABP.ABP.html#2845" class="Bound"
+      >f&#8322;</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" href="FOTC.Program.ABP.ABP.html#2848" class="Bound"
+      >f&#8323;</a
+      ><a name="2850"
+      > </a
+      ><a name="2851" href="FOTC.Program.ABP.ABP.html#2851" class="Bound"
+      >g&#8321;</a
+      ><a name="2853"
+      > </a
+      ><a name="2854" href="FOTC.Program.ABP.ABP.html#2854" class="Bound"
+      >g&#8322;</a
+      ><a name="2856"
+      > </a
+      ><a name="2857" href="FOTC.Program.ABP.ABP.html#2857" class="Bound"
+      >is</a
+      ><a name="2859"
+      > </a
+      ><a name="2860" class="Symbol"
+      >&#8594;</a
+      ><a name="2861"
+      >
+                   </a
+      ><a name="2881" href="FOTC.Program.ABP.ABP.html#2363" class="Postulate"
+      >hds</a
+      ><a name="2884"
+      > </a
+      ><a name="2885" href="FOTC.Program.ABP.ABP.html#2842" class="Bound"
+      >f&#8321;</a
+      ><a name="2887"
+      > </a
+      ><a name="2888" href="FOTC.Program.ABP.ABP.html#2845" class="Bound"
+      >f&#8322;</a
+      ><a name="2890"
+      > </a
+      ><a name="2891" href="FOTC.Program.ABP.ABP.html#2848" class="Bound"
+      >f&#8323;</a
+      ><a name="2893"
+      > </a
+      ><a name="2894" href="FOTC.Program.ABP.ABP.html#2851" class="Bound"
+      >g&#8321;</a
+      ><a name="2896"
+      > </a
+      ><a name="2897" href="FOTC.Program.ABP.ABP.html#2854" class="Bound"
+      >g&#8322;</a
+      ><a name="2899"
+      > </a
+      ><a name="2900" href="FOTC.Program.ABP.ABP.html#2857" class="Bound"
+      >is</a
+      ><a name="2902"
+      > </a
+      ><a name="2903" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2904"
+      > </a
+      ><a name="2905" href="FOTC.Program.ABP.ABP.html#2854" class="Bound"
+      >g&#8322;</a
+      ><a name="2907"
+      > </a
+      ><a name="2908" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2909"
+      > </a
+      ><a name="2910" class="Symbol"
+      >(</a
+      ><a name="2911" href="FOTC.Program.ABP.ABP.html#2359" class="Postulate"
+      >hcs</a
+      ><a name="2914"
+      > </a
+      ><a name="2915" href="FOTC.Program.ABP.ABP.html#2842" class="Bound"
+      >f&#8321;</a
+      ><a name="2917"
+      > </a
+      ><a name="2918" href="FOTC.Program.ABP.ABP.html#2845" class="Bound"
+      >f&#8322;</a
+      ><a name="2920"
+      > </a
+      ><a name="2921" href="FOTC.Program.ABP.ABP.html#2848" class="Bound"
+      >f&#8323;</a
+      ><a name="2923"
+      > </a
+      ><a name="2924" href="FOTC.Program.ABP.ABP.html#2851" class="Bound"
+      >g&#8321;</a
+      ><a name="2926"
+      > </a
+      ><a name="2927" href="FOTC.Program.ABP.ABP.html#2854" class="Bound"
+      >g&#8322;</a
+      ><a name="2929"
+      > </a
+      ><a name="2930" href="FOTC.Program.ABP.ABP.html#2857" class="Bound"
+      >is</a
+      ><a name="2932" class="Symbol"
+      >)</a
+      ><a name="2933"
+      >
+</a
+      ><a name="2934" class="Symbol"
+      >{-#</a
+      ><a name="2937"
+      > </a
+      ><a name="2938" class="Keyword"
+      >ATP</a
+      ><a name="2941"
+      > axioms </a
+      ><a name="2949" href="FOTC.Program.ABP.ABP.html#2831" class="Postulate"
+      >hds-eq</a
+      ><a name="2955"
+      > </a
+      ><a name="2956" class="Symbol"
+      >#-}</a
+      ><a name="2959"
+      >
+
+</a
+      ><a name="2961" class="Keyword"
+      >postulate</a
+      ><a name="2970"
+      >
+  </a
+      ><a name="2973" href="FOTC.Program.ABP.ABP.html#2973" class="Postulate"
+      >transfer</a
+      ><a name="2981"
+      >    </a
+      ><a name="2985" class="Symbol"
+      >:</a
+      ><a name="2986"
+      > </a
+      ><a name="2987" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" class="Symbol"
+      >&#8594;</a
+      ><a name="2990"
+      > </a
+      ><a name="2991" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2992"
+      > </a
+      ><a name="2993" class="Symbol"
+      >&#8594;</a
+      ><a name="2994"
+      > </a
+      ><a name="2995" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2996"
+      > </a
+      ><a name="2997" class="Symbol"
+      >&#8594;</a
+      ><a name="2998"
+      > </a
+      ><a name="2999" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3000"
+      > </a
+      ><a name="3001" class="Symbol"
+      >&#8594;</a
+      ><a name="3002"
+      > </a
+      ><a name="3003" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3004"
+      > </a
+      ><a name="3005" class="Symbol"
+      >&#8594;</a
+      ><a name="3006"
+      > </a
+      ><a name="3007" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3008"
+      > </a
+      ><a name="3009" class="Symbol"
+      >&#8594;</a
+      ><a name="3010"
+      > </a
+      ><a name="3011" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3012"
+      >
+  </a
+      ><a name="3015" href="FOTC.Program.ABP.ABP.html#3015" class="Postulate"
+      >transfer-eq</a
+      ><a name="3026"
+      > </a
+      ><a name="3027" class="Symbol"
+      >:</a
+      ><a name="3028"
+      > </a
+      ><a name="3029" class="Symbol"
+      >&#8704;</a
+      ><a name="3030"
+      > </a
+      ><a name="3031" href="FOTC.Program.ABP.ABP.html#3031" class="Bound"
+      >f&#8321;</a
+      ><a name="3033"
+      > </a
+      ><a name="3034" href="FOTC.Program.ABP.ABP.html#3034" class="Bound"
+      >f&#8322;</a
+      ><a name="3036"
+      > </a
+      ><a name="3037" href="FOTC.Program.ABP.ABP.html#3037" class="Bound"
+      >f&#8323;</a
+      ><a name="3039"
+      > </a
+      ><a name="3040" href="FOTC.Program.ABP.ABP.html#3040" class="Bound"
+      >g&#8321;</a
+      ><a name="3042"
+      > </a
+      ><a name="3043" href="FOTC.Program.ABP.ABP.html#3043" class="Bound"
+      >g&#8322;</a
+      ><a name="3045"
+      > </a
+      ><a name="3046" href="FOTC.Program.ABP.ABP.html#3046" class="Bound"
+      >is</a
+      ><a name="3048"
+      > </a
+      ><a name="3049" class="Symbol"
+      >&#8594;</a
+      ><a name="3050"
+      >
+                </a
+      ><a name="3067" href="FOTC.Program.ABP.ABP.html#2973" class="Postulate"
+      >transfer</a
+      ><a name="3075"
+      > </a
+      ><a name="3076" href="FOTC.Program.ABP.ABP.html#3031" class="Bound"
+      >f&#8321;</a
+      ><a name="3078"
+      > </a
+      ><a name="3079" href="FOTC.Program.ABP.ABP.html#3034" class="Bound"
+      >f&#8322;</a
+      ><a name="3081"
+      > </a
+      ><a name="3082" href="FOTC.Program.ABP.ABP.html#3037" class="Bound"
+      >f&#8323;</a
+      ><a name="3084"
+      > </a
+      ><a name="3085" href="FOTC.Program.ABP.ABP.html#3040" class="Bound"
+      >g&#8321;</a
+      ><a name="3087"
+      > </a
+      ><a name="3088" href="FOTC.Program.ABP.ABP.html#3043" class="Bound"
+      >g&#8322;</a
+      ><a name="3090"
+      > </a
+      ><a name="3091" href="FOTC.Program.ABP.ABP.html#3046" class="Bound"
+      >is</a
+      ><a name="3093"
+      > </a
+      ><a name="3094" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3095"
+      > </a
+      ><a name="3096" href="FOTC.Program.ABP.ABP.html#3037" class="Bound"
+      >f&#8323;</a
+      ><a name="3098"
+      > </a
+      ><a name="3099" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3100"
+      > </a
+      ><a name="3101" class="Symbol"
+      >(</a
+      ><a name="3102" href="FOTC.Program.ABP.ABP.html#2355" class="Postulate"
+      >hbs</a
+      ><a name="3105"
+      > </a
+      ><a name="3106" href="FOTC.Program.ABP.ABP.html#3031" class="Bound"
+      >f&#8321;</a
+      ><a name="3108"
+      > </a
+      ><a name="3109" href="FOTC.Program.ABP.ABP.html#3034" class="Bound"
+      >f&#8322;</a
+      ><a name="3111"
+      > </a
+      ><a name="3112" href="FOTC.Program.ABP.ABP.html#3037" class="Bound"
+      >f&#8323;</a
+      ><a name="3114"
+      > </a
+      ><a name="3115" href="FOTC.Program.ABP.ABP.html#3040" class="Bound"
+      >g&#8321;</a
+      ><a name="3117"
+      > </a
+      ><a name="3118" href="FOTC.Program.ABP.ABP.html#3043" class="Bound"
+      >g&#8322;</a
+      ><a name="3120"
+      > </a
+      ><a name="3121" href="FOTC.Program.ABP.ABP.html#3046" class="Bound"
+      >is</a
+      ><a name="3123" class="Symbol"
+      >)</a
+      ><a name="3124"
+      >
+</a
+      ><a name="3125" class="Symbol"
+      >{-#</a
+      ><a name="3128"
+      > </a
+      ><a name="3129" class="Keyword"
+      >ATP</a
+      ><a name="3132"
+      > axioms </a
+      ><a name="3140" href="FOTC.Program.ABP.ABP.html#3015" class="Postulate"
+      >transfer-eq</a
+      ><a name="3151"
+      > </a
+      ><a name="3152" class="Symbol"
+      >#-}</a
+      ><a name="3155"
+      >
+
+</a
+      ><a name="3157" class="Keyword"
+      >postulate</a
+      ><a name="3166"
+      >
+  </a
+      ><a name="3169" href="FOTC.Program.ABP.ABP.html#3169" class="Postulate"
+      >abpTransfer</a
+      ><a name="3180"
+      > </a
+      ><a name="3181" class="Symbol"
+      >:</a
+      ><a name="3182"
+      > </a
+      ><a name="3183" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3184"
+      > </a
+      ><a name="3185" class="Symbol"
+      >&#8594;</a
+      ><a name="3186"
+      > </a
+      ><a name="3187" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3188"
+      > </a
+      ><a name="3189" class="Symbol"
+      >&#8594;</a
+      ><a name="3190"
+      > </a
+      ><a name="3191" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3192"
+      > </a
+      ><a name="3193" class="Symbol"
+      >&#8594;</a
+      ><a name="3194"
+      > </a
+      ><a name="3195" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3196"
+      > </a
+      ><a name="3197" class="Symbol"
+      >&#8594;</a
+      ><a name="3198"
+      > </a
+      ><a name="3199" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3200"
+      >
+  </a
+      ><a name="3203" href="FOTC.Program.ABP.ABP.html#3203" class="Postulate"
+      >abpTransfer-eq</a
+      ><a name="3217"
+      > </a
+      ><a name="3218" class="Symbol"
+      >:</a
+      ><a name="3219"
+      >
+    </a
+      ><a name="3224" class="Symbol"
+      >&#8704;</a
+      ><a name="3225"
+      > </a
+      ><a name="3226" href="FOTC.Program.ABP.ABP.html#3226" class="Bound"
+      >b</a
+      ><a name="3227"
+      > </a
+      ><a name="3228" href="FOTC.Program.ABP.ABP.html#3228" class="Bound"
+      >os&#8321;</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" href="FOTC.Program.ABP.ABP.html#3232" class="Bound"
+      >os&#8322;</a
+      ><a name="3235"
+      > </a
+      ><a name="3236" href="FOTC.Program.ABP.ABP.html#3236" class="Bound"
+      >is</a
+      ><a name="3238"
+      > </a
+      ><a name="3239" class="Symbol"
+      >&#8594;</a
+      ><a name="3240"
+      >
+      </a
+      ><a name="3247" href="FOTC.Program.ABP.ABP.html#3169" class="Postulate"
+      >abpTransfer</a
+      ><a name="3258"
+      > </a
+      ><a name="3259" href="FOTC.Program.ABP.ABP.html#3226" class="Bound"
+      >b</a
+      ><a name="3260"
+      > </a
+      ><a name="3261" href="FOTC.Program.ABP.ABP.html#3228" class="Bound"
+      >os&#8321;</a
+      ><a name="3264"
+      > </a
+      ><a name="3265" href="FOTC.Program.ABP.ABP.html#3232" class="Bound"
+      >os&#8322;</a
+      ><a name="3268"
+      > </a
+      ><a name="3269" href="FOTC.Program.ABP.ABP.html#3236" class="Bound"
+      >is</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3273"
+      >
+        </a
+      ><a name="3282" href="FOTC.Program.ABP.ABP.html#2973" class="Postulate"
+      >transfer</a
+      ><a name="3290"
+      > </a
+      ><a name="3291" class="Symbol"
+      >(</a
+      ><a name="3292" href="FOTC.Program.ABP.ABP.html#817" class="Postulate"
+      >send</a
+      ><a name="3296"
+      > </a
+      ><a name="3297" href="FOTC.Program.ABP.ABP.html#3226" class="Bound"
+      >b</a
+      ><a name="3298" class="Symbol"
+      >)</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" class="Symbol"
+      >(</a
+      ><a name="3301" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="3304"
+      > </a
+      ><a name="3305" href="FOTC.Program.ABP.ABP.html#3226" class="Bound"
+      >b</a
+      ><a name="3306" class="Symbol"
+      >)</a
+      ><a name="3307"
+      > </a
+      ><a name="3308" class="Symbol"
+      >(</a
+      ><a name="3309" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="3312"
+      > </a
+      ><a name="3313" href="FOTC.Program.ABP.ABP.html#3226" class="Bound"
+      >b</a
+      ><a name="3314" class="Symbol"
+      >)</a
+      ><a name="3315"
+      > </a
+      ><a name="3316" class="Symbol"
+      >(</a
+      ><a name="3317" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="3324"
+      > </a
+      ><a name="3325" href="FOTC.Program.ABP.ABP.html#3228" class="Bound"
+      >os&#8321;</a
+      ><a name="3328" class="Symbol"
+      >)</a
+      ><a name="3329"
+      > </a
+      ><a name="3330" class="Symbol"
+      >(</a
+      ><a name="3331" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="3338"
+      > </a
+      ><a name="3339" href="FOTC.Program.ABP.ABP.html#3232" class="Bound"
+      >os&#8322;</a
+      ><a name="3342" class="Symbol"
+      >)</a
+      ><a name="3343"
+      > </a
+      ><a name="3344" href="FOTC.Program.ABP.ABP.html#3236" class="Bound"
+      >is</a
+      ><a name="3346"
+      >
+</a
+      ><a name="3347" class="Symbol"
+      >{-#</a
+      ><a name="3350"
+      > </a
+      ><a name="3351" class="Keyword"
+      >ATP</a
+      ><a name="3354"
+      > axiom </a
+      ><a name="3361" href="FOTC.Program.ABP.ABP.html#3203" class="Postulate"
+      >abpTransfer-eq</a
+      ><a name="3375"
+      > </a
+      ><a name="3376" class="Symbol"
+      >#-}</a
+      ><a name="3379"
+      >
+
+</a
+      ><a name="3381" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3459"
+      >
+</a
+      ><a name="3460" class="Comment"
+      >-- ABP relations</a
+      ><a name="3476"
+      >
+
+</a
+      ><a name="3478" class="Comment"
+      >-- Start state for the ABP.</a
+      ><a name="3505"
+      >
+</a
+      ><a name="3506" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="3507"
+      > </a
+      ><a name="3508" class="Symbol"
+      >:</a
+      ><a name="3509"
+      > </a
+      ><a name="3510" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3511"
+      > </a
+      ><a name="3512" class="Symbol"
+      >&#8594;</a
+      ><a name="3513"
+      > </a
+      ><a name="3514" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3515"
+      > </a
+      ><a name="3516" class="Symbol"
+      >&#8594;</a
+      ><a name="3517"
+      > </a
+      ><a name="3518" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3519"
+      > </a
+      ><a name="3520" class="Symbol"
+      >&#8594;</a
+      ><a name="3521"
+      > </a
+      ><a name="3522" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3523"
+      > </a
+      ><a name="3524" class="Symbol"
+      >&#8594;</a
+      ><a name="3525"
+      > </a
+      ><a name="3526" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3527"
+      > </a
+      ><a name="3528" class="Symbol"
+      >&#8594;</a
+      ><a name="3529"
+      > </a
+      ><a name="3530" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3531"
+      > </a
+      ><a name="3532" class="Symbol"
+      >&#8594;</a
+      ><a name="3533"
+      > </a
+      ><a name="3534" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3535"
+      > </a
+      ><a name="3536" class="Symbol"
+      >&#8594;</a
+      ><a name="3537"
+      > </a
+      ><a name="3538" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3539"
+      > </a
+      ><a name="3540" class="Symbol"
+      >&#8594;</a
+      ><a name="3541"
+      > </a
+      ><a name="3542" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3543"
+      > </a
+      ><a name="3544" class="Symbol"
+      >&#8594;</a
+      ><a name="3545"
+      > </a
+      ><a name="3546" class="PrimitiveType"
+      >Set</a
+      ><a name="3549"
+      >
+</a
+      ><a name="3550" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="3551"
+      > </a
+      ><a name="3552" href="FOTC.Program.ABP.ABP.html#3552" class="Bound"
+      >b</a
+      ><a name="3553"
+      > </a
+      ><a name="3554" href="FOTC.Program.ABP.ABP.html#3554" class="Bound"
+      >is</a
+      ><a name="3556"
+      > </a
+      ><a name="3557" href="FOTC.Program.ABP.ABP.html#3557" class="Bound"
+      >os&#8321;</a
+      ><a name="3560"
+      > </a
+      ><a name="3561" href="FOTC.Program.ABP.ABP.html#3561" class="Bound"
+      >os&#8322;</a
+      ><a name="3564"
+      > </a
+      ><a name="3565" href="FOTC.Program.ABP.ABP.html#3565" class="Bound"
+      >as</a
+      ><a name="3567"
+      > </a
+      ><a name="3568" href="FOTC.Program.ABP.ABP.html#3568" class="Bound"
+      >bs</a
+      ><a name="3570"
+      > </a
+      ><a name="3571" href="FOTC.Program.ABP.ABP.html#3571" class="Bound"
+      >cs</a
+      ><a name="3573"
+      > </a
+      ><a name="3574" href="FOTC.Program.ABP.ABP.html#3574" class="Bound"
+      >ds</a
+      ><a name="3576"
+      > </a
+      ><a name="3577" href="FOTC.Program.ABP.ABP.html#3577" class="Bound"
+      >js</a
+      ><a name="3579"
+      > </a
+      ><a name="3580" class="Symbol"
+      >=</a
+      ><a name="3581"
+      >
+  </a
+      ><a name="3584" href="FOTC.Program.ABP.ABP.html#3565" class="Bound"
+      >as</a
+      ><a name="3586"
+      > </a
+      ><a name="3587" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3588"
+      > </a
+      ><a name="3589" href="FOTC.Program.ABP.ABP.html#817" class="Postulate"
+      >send</a
+      ><a name="3593"
+      > </a
+      ><a name="3594" href="FOTC.Program.ABP.ABP.html#3552" class="Bound"
+      >b</a
+      ><a name="3595"
+      > </a
+      ><a name="3596" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3597"
+      > </a
+      ><a name="3598" href="FOTC.Program.ABP.ABP.html#3554" class="Bound"
+      >is</a
+      ><a name="3600"
+      > </a
+      ><a name="3601" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3602"
+      > </a
+      ><a name="3603" href="FOTC.Program.ABP.ABP.html#3574" class="Bound"
+      >ds</a
+      ><a name="3605"
+      >
+  </a
+      ><a name="3608" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3609"
+      > </a
+      ><a name="3610" href="FOTC.Program.ABP.ABP.html#3568" class="Bound"
+      >bs</a
+      ><a name="3612"
+      > </a
+      ><a name="3613" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3614"
+      > </a
+      ><a name="3615" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="3622"
+      > </a
+      ><a name="3623" href="FOTC.Program.ABP.ABP.html#3557" class="Bound"
+      >os&#8321;</a
+      ><a name="3626"
+      > </a
+      ><a name="3627" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3628"
+      > </a
+      ><a name="3629" href="FOTC.Program.ABP.ABP.html#3565" class="Bound"
+      >as</a
+      ><a name="3631"
+      >
+  </a
+      ><a name="3634" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3635"
+      > </a
+      ><a name="3636" href="FOTC.Program.ABP.ABP.html#3571" class="Bound"
+      >cs</a
+      ><a name="3638"
+      > </a
+      ><a name="3639" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3640"
+      > </a
+      ><a name="3641" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="3644"
+      > </a
+      ><a name="3645" href="FOTC.Program.ABP.ABP.html#3552" class="Bound"
+      >b</a
+      ><a name="3646"
+      > </a
+      ><a name="3647" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3648"
+      > </a
+      ><a name="3649" href="FOTC.Program.ABP.ABP.html#3568" class="Bound"
+      >bs</a
+      ><a name="3651"
+      >
+  </a
+      ><a name="3654" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3655"
+      > </a
+      ><a name="3656" href="FOTC.Program.ABP.ABP.html#3574" class="Bound"
+      >ds</a
+      ><a name="3658"
+      > </a
+      ><a name="3659" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3660"
+      > </a
+      ><a name="3661" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="3668"
+      > </a
+      ><a name="3669" href="FOTC.Program.ABP.ABP.html#3561" class="Bound"
+      >os&#8322;</a
+      ><a name="3672"
+      > </a
+      ><a name="3673" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3674"
+      > </a
+      ><a name="3675" href="FOTC.Program.ABP.ABP.html#3571" class="Bound"
+      >cs</a
+      ><a name="3677"
+      >
+  </a
+      ><a name="3680" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3681"
+      > </a
+      ><a name="3682" href="FOTC.Program.ABP.ABP.html#3577" class="Bound"
+      >js</a
+      ><a name="3684"
+      > </a
+      ><a name="3685" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3686"
+      > </a
+      ><a name="3687" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="3690"
+      > </a
+      ><a name="3691" href="FOTC.Program.ABP.ABP.html#3552" class="Bound"
+      >b</a
+      ><a name="3692"
+      > </a
+      ><a name="3693" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3694"
+      > </a
+      ><a name="3695" href="FOTC.Program.ABP.ABP.html#3568" class="Bound"
+      >bs</a
+      ><a name="3697"
+      >
+</a
+      ><a name="3698" class="Symbol"
+      >{-#</a
+      ><a name="3701"
+      > </a
+      ><a name="3702" class="Keyword"
+      >ATP</a
+      ><a name="3705"
+      > definition </a
+      ><a name="3717" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="3718"
+      > </a
+      ><a name="3719" class="Symbol"
+      >#-}</a
+      ><a name="3722"
+      >
+
+</a
+      ><a name="3724" class="Comment"
+      >-- Auxiliary state for the ABP.</a
+      ><a name="3755"
+      >
+</a
+      ><a name="3756" href="FOTC.Program.ABP.ABP.html#3756" class="Function"
+      >S'</a
+      ><a name="3758"
+      > </a
+      ><a name="3759" class="Symbol"
+      >:</a
+      ><a name="3760"
+      > </a
+      ><a name="3761" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3762"
+      > </a
+      ><a name="3763" class="Symbol"
+      >&#8594;</a
+      ><a name="3764"
+      > </a
+      ><a name="3765" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3766"
+      > </a
+      ><a name="3767" class="Symbol"
+      >&#8594;</a
+      ><a name="3768"
+      > </a
+      ><a name="3769" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3770"
+      > </a
+      ><a name="3771" class="Symbol"
+      >&#8594;</a
+      ><a name="3772"
+      > </a
+      ><a name="3773" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3774"
+      > </a
+      ><a name="3775" class="Symbol"
+      >&#8594;</a
+      ><a name="3776"
+      > </a
+      ><a name="3777" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3778"
+      > </a
+      ><a name="3779" class="Symbol"
+      >&#8594;</a
+      ><a name="3780"
+      > </a
+      ><a name="3781" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3782"
+      > </a
+      ><a name="3783" class="Symbol"
+      >&#8594;</a
+      ><a name="3784"
+      > </a
+      ><a name="3785" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3786"
+      > </a
+      ><a name="3787" class="Symbol"
+      >&#8594;</a
+      ><a name="3788"
+      > </a
+      ><a name="3789" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3790"
+      > </a
+      ><a name="3791" class="Symbol"
+      >&#8594;</a
+      ><a name="3792"
+      > </a
+      ><a name="3793" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3794"
+      > </a
+      ><a name="3795" class="Symbol"
+      >&#8594;</a
+      ><a name="3796"
+      > </a
+      ><a name="3797" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="3798"
+      > </a
+      ><a name="3799" class="Symbol"
+      >&#8594;</a
+      ><a name="3800"
+      > </a
+      ><a name="3801" class="PrimitiveType"
+      >Set</a
+      ><a name="3804"
+      >
+</a
+      ><a name="3805" href="FOTC.Program.ABP.ABP.html#3756" class="Function"
+      >S'</a
+      ><a name="3807"
+      > </a
+      ><a name="3808" href="FOTC.Program.ABP.ABP.html#3808" class="Bound"
+      >b</a
+      ><a name="3809"
+      > </a
+      ><a name="3810" href="FOTC.Program.ABP.ABP.html#3810" class="Bound"
+      >i'</a
+      ><a name="3812"
+      > </a
+      ><a name="3813" href="FOTC.Program.ABP.ABP.html#3813" class="Bound"
+      >is'</a
+      ><a name="3816"
+      > </a
+      ><a name="3817" href="FOTC.Program.ABP.ABP.html#3817" class="Bound"
+      >os&#8321;'</a
+      ><a name="3821"
+      > </a
+      ><a name="3822" href="FOTC.Program.ABP.ABP.html#3822" class="Bound"
+      >os&#8322;'</a
+      ><a name="3826"
+      > </a
+      ><a name="3827" href="FOTC.Program.ABP.ABP.html#3827" class="Bound"
+      >as'</a
+      ><a name="3830"
+      > </a
+      ><a name="3831" href="FOTC.Program.ABP.ABP.html#3831" class="Bound"
+      >bs'</a
+      ><a name="3834"
+      > </a
+      ><a name="3835" href="FOTC.Program.ABP.ABP.html#3835" class="Bound"
+      >cs'</a
+      ><a name="3838"
+      > </a
+      ><a name="3839" href="FOTC.Program.ABP.ABP.html#3839" class="Bound"
+      >ds'</a
+      ><a name="3842"
+      > </a
+      ><a name="3843" href="FOTC.Program.ABP.ABP.html#3843" class="Bound"
+      >js'</a
+      ><a name="3846"
+      > </a
+      ><a name="3847" class="Symbol"
+      >=</a
+      ><a name="3848"
+      >
+  </a
+      ><a name="3851" href="FOTC.Program.ABP.ABP.html#3827" class="Bound"
+      >as'</a
+      ><a name="3854"
+      > </a
+      ><a name="3855" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3856"
+      > </a
+      ><a name="3857" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="3862"
+      > </a
+      ><a name="3863" href="FOTC.Program.ABP.ABP.html#3808" class="Bound"
+      >b</a
+      ><a name="3864"
+      > </a
+      ><a name="3865" href="FOTC.Program.ABP.ABP.html#3810" class="Bound"
+      >i'</a
+      ><a name="3867"
+      > </a
+      ><a name="3868" href="FOTC.Program.ABP.ABP.html#3813" class="Bound"
+      >is'</a
+      ><a name="3871"
+      > </a
+      ><a name="3872" href="FOTC.Program.ABP.ABP.html#3839" class="Bound"
+      >ds'</a
+      ><a name="3875"
+      >  </a
+      ><a name="3877" class="Comment"
+      >-- Typo in ds'.</a
+      ><a name="3892"
+      >
+  </a
+      ><a name="3895" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3896"
+      > </a
+      ><a name="3897" href="FOTC.Program.ABP.ABP.html#3831" class="Bound"
+      >bs'</a
+      ><a name="3900"
+      > </a
+      ><a name="3901" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3902"
+      > </a
+      ><a name="3903" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="3910"
+      > </a
+      ><a name="3911" href="FOTC.Program.ABP.ABP.html#3817" class="Bound"
+      >os&#8321;'</a
+      ><a name="3915"
+      > </a
+      ><a name="3916" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3917"
+      > </a
+      ><a name="3918" href="FOTC.Program.ABP.ABP.html#3827" class="Bound"
+      >as'</a
+      ><a name="3921"
+      >
+  </a
+      ><a name="3924" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3925"
+      > </a
+      ><a name="3926" href="FOTC.Program.ABP.ABP.html#3835" class="Bound"
+      >cs'</a
+      ><a name="3929"
+      > </a
+      ><a name="3930" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3931"
+      > </a
+      ><a name="3932" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="3935"
+      > </a
+      ><a name="3936" class="Symbol"
+      >(</a
+      ><a name="3937" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="3940"
+      > </a
+      ><a name="3941" href="FOTC.Program.ABP.ABP.html#3808" class="Bound"
+      >b</a
+      ><a name="3942" class="Symbol"
+      >)</a
+      ><a name="3943"
+      > </a
+      ><a name="3944" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3945"
+      > </a
+      ><a name="3946" href="FOTC.Program.ABP.ABP.html#3831" class="Bound"
+      >bs'</a
+      ><a name="3949"
+      >
+  </a
+      ><a name="3952" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3953"
+      > </a
+      ><a name="3954" href="FOTC.Program.ABP.ABP.html#3839" class="Bound"
+      >ds'</a
+      ><a name="3957"
+      > </a
+      ><a name="3958" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3959"
+      > </a
+      ><a name="3960" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="3967"
+      > </a
+      ><a name="3968" href="FOTC.Program.ABP.ABP.html#3822" class="Bound"
+      >os&#8322;'</a
+      ><a name="3972"
+      > </a
+      ><a name="3973" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3974"
+      > </a
+      ><a name="3975" class="Symbol"
+      >(</a
+      ><a name="3976" href="FOTC.Program.ABP.ABP.html#3808" class="Bound"
+      >b</a
+      ><a name="3977"
+      > </a
+      ><a name="3978" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3979"
+      > </a
+      ><a name="3980" href="FOTC.Program.ABP.ABP.html#3835" class="Bound"
+      >cs'</a
+      ><a name="3983" class="Symbol"
+      >)</a
+      ><a name="3984"
+      >
+  </a
+      ><a name="3987" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="3988"
+      > </a
+      ><a name="3989" href="FOTC.Program.ABP.ABP.html#3843" class="Bound"
+      >js'</a
+      ><a name="3992"
+      > </a
+      ><a name="3993" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3994"
+      > </a
+      ><a name="3995" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="3998"
+      > </a
+      ><a name="3999" class="Symbol"
+      >(</a
+      ><a name="4000" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="4003"
+      > </a
+      ><a name="4004" href="FOTC.Program.ABP.ABP.html#3808" class="Bound"
+      >b</a
+      ><a name="4005" class="Symbol"
+      >)</a
+      ><a name="4006"
+      > </a
+      ><a name="4007" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4008"
+      > </a
+      ><a name="4009" href="FOTC.Program.ABP.ABP.html#3831" class="Bound"
+      >bs'</a
+      ><a name="4012"
+      >
+</a
+      ><a name="4013" class="Symbol"
+      >{-#</a
+      ><a name="4016"
+      > </a
+      ><a name="4017" class="Keyword"
+      >ATP</a
+      ><a name="4020"
+      > definition </a
+      ><a name="4032" href="FOTC.Program.ABP.ABP.html#3756" class="Function"
+      >S'</a
+      ><a name="4034"
+      > </a
+      ><a name="4035" class="Symbol"
+      >#-}</a
+      ><a name="4038"
+      >
+
+</a
+      ><a name="4040" class="Comment"
+      >-- Auxiliary bisimulation.</a
+      ><a name="4066"
+      >
+</a
+      ><a name="4067" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="4068"
+      > </a
+      ><a name="4069" class="Symbol"
+      >:</a
+      ><a name="4070"
+      > </a
+      ><a name="4071" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="4072"
+      > </a
+      ><a name="4073" class="Symbol"
+      >&#8594;</a
+      ><a name="4074"
+      > </a
+      ><a name="4075" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="4076"
+      > </a
+      ><a name="4077" class="Symbol"
+      >&#8594;</a
+      ><a name="4078"
+      > </a
+      ><a name="4079" class="PrimitiveType"
+      >Set</a
+      ><a name="4082"
+      >
+</a
+      ><a name="4083" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="4084"
+      > </a
+      ><a name="4085" href="FOTC.Program.ABP.ABP.html#4085" class="Bound"
+      >is</a
+      ><a name="4087"
+      > </a
+      ><a name="4088" href="FOTC.Program.ABP.ABP.html#4088" class="Bound"
+      >js</a
+      ><a name="4090"
+      > </a
+      ><a name="4091" class="Symbol"
+      >=</a
+      ><a name="4092"
+      > </a
+      ><a name="4093" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4095"
+      > </a
+      ><a name="4096" href="FOTC.Program.ABP.ABP.html#4096" class="Bound"
+      >b</a
+      ><a name="4097"
+      > </a
+      ><a name="4098" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4099"
+      > </a
+      ><a name="4100" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4102"
+      > </a
+      ><a name="4103" href="FOTC.Program.ABP.ABP.html#4103" class="Bound"
+      >os&#8321;</a
+      ><a name="4106"
+      > </a
+      ><a name="4107" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4108"
+      > </a
+      ><a name="4109" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4111"
+      > </a
+      ><a name="4112" href="FOTC.Program.ABP.ABP.html#4112" class="Bound"
+      >os&#8322;</a
+      ><a name="4115"
+      > </a
+      ><a name="4116" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4117"
+      > </a
+      ><a name="4118" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4120"
+      > </a
+      ><a name="4121" href="FOTC.Program.ABP.ABP.html#4121" class="Bound"
+      >as</a
+      ><a name="4123"
+      > </a
+      ><a name="4124" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4125"
+      > </a
+      ><a name="4126" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4128"
+      > </a
+      ><a name="4129" href="FOTC.Program.ABP.ABP.html#4129" class="Bound"
+      >bs</a
+      ><a name="4131"
+      > </a
+      ><a name="4132" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4133"
+      > </a
+      ><a name="4134" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4136"
+      > </a
+      ><a name="4137" href="FOTC.Program.ABP.ABP.html#4137" class="Bound"
+      >cs</a
+      ><a name="4139"
+      > </a
+      ><a name="4140" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4141"
+      > </a
+      ><a name="4142" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="4144"
+      > </a
+      ><a name="4145" href="FOTC.Program.ABP.ABP.html#4145" class="Bound"
+      >ds</a
+      ><a name="4147"
+      > </a
+      ><a name="4148" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="4149"
+      >
+            </a
+      ><a name="4162" href="FOTC.Data.Stream.Type.html#821" class="Postulate"
+      >Stream</a
+      ><a name="4168"
+      > </a
+      ><a name="4169" href="FOTC.Program.ABP.ABP.html#4085" class="Bound"
+      >is</a
+      ><a name="4171"
+      >
+            </a
+      ><a name="4184" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="4185"
+      > </a
+      ><a name="4186" href="FOTC.Program.ABP.Terms.html#600" class="Function"
+      >Bit</a
+      ><a name="4189"
+      > </a
+      ><a name="4190" href="FOTC.Program.ABP.ABP.html#4096" class="Bound"
+      >b</a
+      ><a name="4191"
+      >
+            </a
+      ><a name="4204" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="4205"
+      > </a
+      ><a name="4206" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="4210"
+      > </a
+      ><a name="4211" href="FOTC.Program.ABP.ABP.html#4103" class="Bound"
+      >os&#8321;</a
+      ><a name="4214"
+      >
+            </a
+      ><a name="4227" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="4228"
+      > </a
+      ><a name="4229" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="4233"
+      > </a
+      ><a name="4234" href="FOTC.Program.ABP.ABP.html#4112" class="Bound"
+      >os&#8322;</a
+      ><a name="4237"
+      >
+            </a
+      ><a name="4250" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="4251"
+      > </a
+      ><a name="4252" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="4253"
+      > </a
+      ><a name="4254" href="FOTC.Program.ABP.ABP.html#4096" class="Bound"
+      >b</a
+      ><a name="4255"
+      > </a
+      ><a name="4256" href="FOTC.Program.ABP.ABP.html#4085" class="Bound"
+      >is</a
+      ><a name="4258"
+      > </a
+      ><a name="4259" href="FOTC.Program.ABP.ABP.html#4103" class="Bound"
+      >os&#8321;</a
+      ><a name="4262"
+      > </a
+      ><a name="4263" href="FOTC.Program.ABP.ABP.html#4112" class="Bound"
+      >os&#8322;</a
+      ><a name="4266"
+      > </a
+      ><a name="4267" href="FOTC.Program.ABP.ABP.html#4121" class="Bound"
+      >as</a
+      ><a name="4269"
+      > </a
+      ><a name="4270" href="FOTC.Program.ABP.ABP.html#4129" class="Bound"
+      >bs</a
+      ><a name="4272"
+      > </a
+      ><a name="4273" href="FOTC.Program.ABP.ABP.html#4137" class="Bound"
+      >cs</a
+      ><a name="4275"
+      > </a
+      ><a name="4276" href="FOTC.Program.ABP.ABP.html#4145" class="Bound"
+      >ds</a
+      ><a name="4278"
+      > </a
+      ><a name="4279" href="FOTC.Program.ABP.ABP.html#4088" class="Bound"
+      >js</a
+      ><a name="4281"
+      >
+</a
+      ><a name="4282" class="Symbol"
+      >{-#</a
+      ><a name="4285"
+      > </a
+      ><a name="4286" class="Keyword"
+      >ATP</a
+      ><a name="4289"
+      > definition </a
+      ><a name="4301" href="FOTC.Program.ABP.ABP.html#4067" class="Function"
+      >B</a
+      ><a name="4302"
+      > </a
+      ><a name="4303" class="Symbol"
+      >#-}</a
+      ><a name="4306"
+      >
+
+</a
+      ><a name="4308" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="4386"
+      >
+</a
+      ><a name="4387" class="Comment"
+      >-- References</a
+      ><a name="4400"
+      >
+</a
+      ><a name="4401" class="Comment"
+      >--</a
+      ><a name="4403"
+      >
+</a
+      ><a name="4404" class="Comment"
+      >-- Dybjer, Peter and Sander, Herbert P. (1989). A Functional</a
+      ><a name="4464"
+      >
+</a
+      ><a name="4465" class="Comment"
+      >-- Programming Approach to the Specification and Verification of</a
+      ><a name="4529"
+      >
+</a
+      ><a name="4530" class="Comment"
+      >-- Concurrent Systems. Formal Aspects of Computing 1, pp. 303&#8211;319.</a
+      ><a name="4596"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

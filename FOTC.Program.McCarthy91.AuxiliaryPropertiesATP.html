@@ -1,0 +1,2035 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.McCarthy91.AuxiliaryPropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Auxiliary properties of the McCarthy 91 function</a
+      ><a name="131"
+      >
+</a
+      ><a name="132" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="210"
+      >
+
+</a
+      ><a name="212" class="Symbol"
+      >{-#</a
+      ><a name="215"
+      > </a
+      ><a name="216" class="Keyword"
+      >OPTIONS</a
+      ><a name="223"
+      > --exact-split              </a
+      ><a name="251" class="Symbol"
+      >#-}</a
+      ><a name="254"
+      >
+</a
+      ><a name="255" class="Symbol"
+      >{-#</a
+      ><a name="258"
+      > </a
+      ><a name="259" class="Keyword"
+      >OPTIONS</a
+      ><a name="266"
+      > --no-sized-types           </a
+      ><a name="294" class="Symbol"
+      >#-}</a
+      ><a name="297"
+      >
+</a
+      ><a name="298" class="Symbol"
+      >{-#</a
+      ><a name="301"
+      > </a
+      ><a name="302" class="Keyword"
+      >OPTIONS</a
+      ><a name="309"
+      > --no-universe-polymorphism </a
+      ><a name="337" class="Symbol"
+      >#-}</a
+      ><a name="340"
+      >
+</a
+      ><a name="341" class="Symbol"
+      >{-#</a
+      ><a name="344"
+      > </a
+      ><a name="345" class="Keyword"
+      >OPTIONS</a
+      ><a name="352"
+      > --without-K                </a
+      ><a name="380" class="Symbol"
+      >#-}</a
+      ><a name="383"
+      >
+
+</a
+      ><a name="385" class="Keyword"
+      >module</a
+      ><a name="391"
+      > </a
+      ><a name="392" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.AuxiliaryPropertiesATP</a
+      ><a name="438"
+      > </a
+      ><a name="439" class="Keyword"
+      >where</a
+      ><a name="444"
+      >
+
+</a
+      ><a name="446" class="Keyword"
+      >open</a
+      ><a name="450"
+      > </a
+      ><a name="451" class="Keyword"
+      >import</a
+      ><a name="457"
+      > </a
+      ><a name="458" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="467"
+      >
+</a
+      ><a name="468" class="Keyword"
+      >open</a
+      ><a name="472"
+      > </a
+      ><a name="473" class="Keyword"
+      >import</a
+      ><a name="479"
+      > </a
+      ><a name="480" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="493"
+      >
+</a
+      ><a name="494" class="Keyword"
+      >open</a
+      ><a name="498"
+      > </a
+      ><a name="499" class="Keyword"
+      >import</a
+      ><a name="505"
+      > </a
+      ><a name="506" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="532"
+      >
+</a
+      ><a name="533" class="Keyword"
+      >open</a
+      ><a name="537"
+      > </a
+      ><a name="538" class="Keyword"
+      >import</a
+      ><a name="544"
+      > </a
+      ><a name="545" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="585"
+      > </a
+      ><a name="586" class="Keyword"
+      >using</a
+      ><a name="591"
+      > </a
+      ><a name="592" class="Symbol"
+      >(</a
+      ><a name="593"
+      > x&lt;y&#8594;y&#8804;z&#8594;x&lt;z </a
+      ><a name="606" class="Symbol"
+      >)</a
+      ><a name="607"
+      >
+</a
+      ><a name="608" class="Keyword"
+      >open</a
+      ><a name="612"
+      > </a
+      ><a name="613" class="Keyword"
+      >import</a
+      ><a name="619"
+      > </a
+      ><a name="620" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="647"
+      >
+  </a
+      ><a name="650" class="Keyword"
+      >using</a
+      ><a name="655"
+      > </a
+      ><a name="656" class="Symbol"
+      >(</a
+      ><a name="657"
+      > +-N
+        </a
+      ><a name="670" class="Symbol"
+      >;</a
+      ><a name="671"
+      > &#8760;-N
+        </a
+      ><a name="684" class="Symbol"
+      >)</a
+      ><a name="685"
+      >
+</a
+      ><a name="686" class="Keyword"
+      >open</a
+      ><a name="690"
+      > </a
+      ><a name="691" class="Keyword"
+      >import</a
+      ><a name="697"
+      > </a
+      ><a name="698" href="FOTC.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers</a
+      ><a name="724"
+      >
+</a
+      ><a name="725" class="Keyword"
+      >open</a
+      ><a name="729"
+      > </a
+      ><a name="730" class="Keyword"
+      >import</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP</a
+      ><a name="790"
+      >
+  </a
+      ><a name="793" class="Keyword"
+      >using</a
+      ><a name="798"
+      > </a
+      ><a name="799" class="Symbol"
+      >(</a
+      ><a name="800"
+      > x&lt;x+1 </a
+      ><a name="807" class="Symbol"
+      >)</a
+      ><a name="808"
+      >
+</a
+      ><a name="809" class="Keyword"
+      >open</a
+      ><a name="813"
+      > </a
+      ><a name="814" class="Keyword"
+      >import</a
+      ><a name="820"
+      > </a
+      ><a name="821" href="FOTC.Program.McCarthy91.ArithmeticATP.html#1" class="Module"
+      >FOTC.Program.McCarthy91.ArithmeticATP</a
+      ><a name="858"
+      >
+</a
+      ><a name="859" class="Keyword"
+      >open</a
+      ><a name="863"
+      > </a
+      ><a name="864" class="Keyword"
+      >import</a
+      ><a name="870"
+      > </a
+      ><a name="871" href="FOTC.Program.McCarthy91.McCarthy91.html#1" class="Module"
+      >FOTC.Program.McCarthy91.McCarthy91</a
+      ><a name="905"
+      >
+
+</a
+      ><a name="907" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="985"
+      >
+</a
+      ><a name="986" class="Comment"
+      >--- Auxiliary properties</a
+      ><a name="1010"
+      >
+
+</a
+      ><a name="1012" class="Keyword"
+      >postulate</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1022" class="Postulate"
+      >x&gt;100&#8594;x&lt;f&#8329;&#8321;-x+11</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" class="Symbol"
+      >:</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" class="Symbol"
+      >&#8704;</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" class="Symbol"
+      >{</a
+      ><a name="1044" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1044" class="Bound"
+      >n</a
+      ><a name="1045" class="Symbol"
+      >}</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" class="Symbol"
+      >&#8594;</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1044" class="Bound"
+      >n</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" class="Symbol"
+      >&#8594;</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1044" class="Bound"
+      >n</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" href="FOTC.Data.Nat.UnaryNumbers.html#2730" class="Function"
+      >100'</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" class="Symbol"
+      >&#8594;</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1044" class="Bound"
+      >n</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1069"
+      > </a
+      ><a name="1070" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1044" class="Bound"
+      >n</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1081"
+      >
+</a
+      ><a name="1082" class="Symbol"
+      >{-#</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" class="Keyword"
+      >ATP</a
+      ><a name="1089"
+      > prove </a
+      ><a name="1096" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1022" class="Postulate"
+      >x&gt;100&#8594;x&lt;f&#8329;&#8321;-x+11</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" href="FOTC.Data.Nat.PropertiesATP.html#818" class="Function"
+      >+-N</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1120"
+      > </a
+      ><a name="1121" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#19295" class="Function"
+      >x&lt;y&#8594;y&#8804;z&#8594;x&lt;z</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" href="FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP.html#762" class="Postulate"
+      >x&lt;x+1</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2958" class="Postulate"
+      >x+1&#8804;x&#8760;10+11</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="Symbol"
+      >#-}</a
+      ><a name="1154"
+      >
+
+</a
+      ><a name="1156" class="Comment"
+      >-- Case n &#8801; 100 can be proved automatically</a
+      ><a name="1199"
+      >
+</a
+      ><a name="1200" class="Keyword"
+      >postulate</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1210" class="Postulate"
+      >f&#8329;&#8321;-100</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" class="Symbol"
+      >:</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" href="FOTC.Data.Nat.UnaryNumbers.html#2730" class="Function"
+      >100'</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="1234"
+      >
+</a
+      ><a name="1235" class="Symbol"
+      >{-#</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" class="Keyword"
+      >ATP</a
+      ><a name="1242"
+      > prove </a
+      ><a name="1249" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1210" class="Postulate"
+      >f&#8329;&#8321;-100</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="FOTC.Program.McCarthy91.ArithmeticATP.html#1972" class="Postulate"
+      >100+11&gt;100</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" href="FOTC.Program.McCarthy91.ArithmeticATP.html#1930" class="Postulate"
+      >100+11&#8760;10&gt;100</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="FOTC.Program.McCarthy91.ArithmeticATP.html#1845" class="Postulate"
+      >101&#8801;100+11&#8760;10</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="FOTC.Program.McCarthy91.ArithmeticATP.html#1020" class="Postulate"
+      >91&#8801;100+11&#8760;10&#8760;10</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" class="Symbol"
+      >#-}</a
+      ><a name="1315"
+      >
+
+</a
+      ><a name="1317" class="Keyword"
+      >postulate</a
+      ><a name="1326"
+      >  </a
+      ><a name="1328" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1328" class="Postulate"
+      >f&#8329;&#8321;x+11&lt;f&#8329;&#8321;x+11</a
+      ><a name="1343"
+      > </a
+      ><a name="1344" class="Symbol"
+      >:</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" class="Symbol"
+      >&#8704;</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1348" class="Bound"
+      >n</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" class="Symbol"
+      >&#8594;</a
+      ><a name="1351"
+      >
+                             </a
+      ><a name="1381" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1348" class="Bound"
+      >n</a
+      ><a name="1382"
+      > </a
+      ><a name="1383" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="FOTC.Data.Nat.UnaryNumbers.html#2730" class="Function"
+      >100'</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" class="Symbol"
+      >&#8594;</a
+      ><a name="1391"
+      >
+                             </a
+      ><a name="1421" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" class="Symbol"
+      >(</a
+      ><a name="1426" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1348" class="Bound"
+      >n</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1433" class="Symbol"
+      >)</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1440"
+      > </a
+      ><a name="1441" class="Symbol"
+      >(</a
+      ><a name="1442" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" class="Symbol"
+      >(</a
+      ><a name="1447" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1348" class="Bound"
+      >n</a
+      ><a name="1448"
+      > </a
+      ><a name="1449" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1450"
+      > </a
+      ><a name="1451" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1454" class="Symbol"
+      >))</a
+      ><a name="1456"
+      > </a
+      ><a name="1457" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1458"
+      > </a
+      ><a name="1459" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1462"
+      > </a
+      ><a name="1463" class="Symbol"
+      >&#8594;</a
+      ><a name="1464"
+      >
+                             </a
+      ><a name="1494" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" class="Symbol"
+      >(</a
+      ><a name="1499" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1348" class="Bound"
+      >n</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1506" class="Symbol"
+      >)</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1513"
+      > </a
+      ><a name="1514" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1348" class="Bound"
+      >n</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1521"
+      >
+</a
+      ><a name="1522" class="Symbol"
+      >{-#</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" class="Keyword"
+      >ATP</a
+      ><a name="1529"
+      > prove </a
+      ><a name="1536" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1328" class="Postulate"
+      >f&#8329;&#8321;x+11&lt;f&#8329;&#8321;x+11</a
+      ><a name="1551"
+      > </a
+      ><a name="1552" class="Symbol"
+      >#-}</a
+      ><a name="1555"
+      >
+
+</a
+      ><a name="1557" class="Keyword"
+      >postulate</a
+      ><a name="1566"
+      > </a
+      ><a name="1567" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="1583"
+      > </a
+      ><a name="1584" class="Symbol"
+      >:</a
+      ><a name="1585"
+      > </a
+      ><a name="1586" class="Symbol"
+      >&#8704;</a
+      ><a name="1587"
+      > </a
+      ><a name="1588" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1588" class="Bound"
+      >m</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1590" class="Bound"
+      >n</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" class="Symbol"
+      >&#8594;</a
+      ><a name="1593"
+      >
+                             </a
+      ><a name="1623" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1588" class="Bound"
+      >m</a
+      ><a name="1624"
+      > </a
+      ><a name="1625" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="1626"
+      > </a
+      ><a name="1627" href="FOTC.Data.Nat.UnaryNumbers.html#2730" class="Function"
+      >100'</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" class="Symbol"
+      >&#8594;</a
+      ><a name="1633"
+      >
+                             </a
+      ><a name="1663" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1666"
+      > </a
+      ><a name="1667" class="Symbol"
+      >(</a
+      ><a name="1668" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1588" class="Bound"
+      >m</a
+      ><a name="1669"
+      > </a
+      ><a name="1670" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1671"
+      > </a
+      ><a name="1672" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1675" class="Symbol"
+      >)</a
+      ><a name="1676"
+      > </a
+      ><a name="1677" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1590" class="Bound"
+      >n</a
+      ><a name="1680"
+      > </a
+      ><a name="1681" class="Symbol"
+      >&#8594;</a
+      ><a name="1682"
+      >
+                             </a
+      ><a name="1712" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1590" class="Bound"
+      >n</a
+      ><a name="1717"
+      > </a
+      ><a name="1718" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1719"
+      > </a
+      ><a name="1720" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="1723"
+      > </a
+      ><a name="1724" class="Symbol"
+      >&#8594;</a
+      ><a name="1725"
+      >
+                             </a
+      ><a name="1755" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1588" class="Bound"
+      >m</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1762"
+      > </a
+      ><a name="1763" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="1766"
+      >
+</a
+      ><a name="1767" class="Symbol"
+      >{-#</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" class="Keyword"
+      >ATP</a
+      ><a name="1774"
+      > prove </a
+      ><a name="1781" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" class="Symbol"
+      >#-}</a
+      ><a name="1801"
+      >
+
+</a
+      ><a name="1803" class="Keyword"
+      >postulate</a
+      ><a name="1812"
+      >
+  </a
+      ><a name="1815" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1815" class="Postulate"
+      >f&#8329;&#8321;-110</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" class="Symbol"
+      >:</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1828"
+      > </a
+      ><a name="1829" class="Symbol"
+      >(</a
+      ><a name="1830" href="FOTC.Data.Nat.UnaryNumbers.html#2649" class="Function"
+      >99'</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1835"
+      > </a
+      ><a name="1836" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1839" class="Symbol"
+      >)</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" href="FOTC.Data.Nat.UnaryNumbers.html#2730" class="Function"
+      >100'</a
+      ><a name="1847"
+      >
+  </a
+      ><a name="1850" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1850" class="Postulate"
+      >f&#8329;&#8321;-109</a
+      ><a name="1857"
+      > </a
+      ><a name="1858" class="Symbol"
+      >:</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" class="Symbol"
+      >(</a
+      ><a name="1865" href="FOTC.Data.Nat.UnaryNumbers.html#2633" class="Function"
+      >98'</a
+      ><a name="1868"
+      > </a
+      ><a name="1869" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1870"
+      > </a
+      ><a name="1871" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1874" class="Symbol"
+      >)</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="FOTC.Data.Nat.UnaryNumbers.html#2649" class="Function"
+      >99'</a
+      ><a name="1881"
+      >
+  </a
+      ><a name="1884" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1884" class="Postulate"
+      >f&#8329;&#8321;-108</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" class="Symbol"
+      >:</a
+      ><a name="1893"
+      > </a
+      ><a name="1894" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" class="Symbol"
+      >(</a
+      ><a name="1899" href="FOTC.Data.Nat.UnaryNumbers.html#2617" class="Function"
+      >97'</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1904"
+      > </a
+      ><a name="1905" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1908" class="Symbol"
+      >)</a
+      ><a name="1909"
+      > </a
+      ><a name="1910" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" href="FOTC.Data.Nat.UnaryNumbers.html#2633" class="Function"
+      >98'</a
+      ><a name="1915"
+      >
+  </a
+      ><a name="1918" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1918" class="Postulate"
+      >f&#8329;&#8321;-107</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" class="Symbol"
+      >:</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" class="Symbol"
+      >(</a
+      ><a name="1933" href="FOTC.Data.Nat.UnaryNumbers.html#2601" class="Function"
+      >96'</a
+      ><a name="1936"
+      > </a
+      ><a name="1937" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1942" class="Symbol"
+      >)</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1945"
+      > </a
+      ><a name="1946" href="FOTC.Data.Nat.UnaryNumbers.html#2617" class="Function"
+      >97'</a
+      ><a name="1949"
+      >
+  </a
+      ><a name="1952" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1952" class="Postulate"
+      >f&#8329;&#8321;-106</a
+      ><a name="1959"
+      > </a
+      ><a name="1960" class="Symbol"
+      >:</a
+      ><a name="1961"
+      > </a
+      ><a name="1962" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1965"
+      > </a
+      ><a name="1966" class="Symbol"
+      >(</a
+      ><a name="1967" href="FOTC.Data.Nat.UnaryNumbers.html#2585" class="Function"
+      >95'</a
+      ><a name="1970"
+      > </a
+      ><a name="1971" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1972"
+      > </a
+      ><a name="1973" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="1976" class="Symbol"
+      >)</a
+      ><a name="1977"
+      > </a
+      ><a name="1978" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1979"
+      > </a
+      ><a name="1980" href="FOTC.Data.Nat.UnaryNumbers.html#2601" class="Function"
+      >96'</a
+      ><a name="1983"
+      >
+  </a
+      ><a name="1986" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1986" class="Postulate"
+      >f&#8329;&#8321;-105</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" class="Symbol"
+      >:</a
+      ><a name="1995"
+      > </a
+      ><a name="1996" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="1999"
+      > </a
+      ><a name="2000" class="Symbol"
+      >(</a
+      ><a name="2001" href="FOTC.Data.Nat.UnaryNumbers.html#2569" class="Function"
+      >94'</a
+      ><a name="2004"
+      > </a
+      ><a name="2005" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="2010" class="Symbol"
+      >)</a
+      ><a name="2011"
+      > </a
+      ><a name="2012" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="FOTC.Data.Nat.UnaryNumbers.html#2585" class="Function"
+      >95'</a
+      ><a name="2017"
+      >
+  </a
+      ><a name="2020" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2020" class="Postulate"
+      >f&#8329;&#8321;-104</a
+      ><a name="2027"
+      > </a
+      ><a name="2028" class="Symbol"
+      >:</a
+      ><a name="2029"
+      > </a
+      ><a name="2030" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2033"
+      > </a
+      ><a name="2034" class="Symbol"
+      >(</a
+      ><a name="2035" href="FOTC.Data.Nat.UnaryNumbers.html#2553" class="Function"
+      >93'</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="2044" class="Symbol"
+      >)</a
+      ><a name="2045"
+      > </a
+      ><a name="2046" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2047"
+      > </a
+      ><a name="2048" href="FOTC.Data.Nat.UnaryNumbers.html#2569" class="Function"
+      >94'</a
+      ><a name="2051"
+      >
+  </a
+      ><a name="2054" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2054" class="Postulate"
+      >f&#8329;&#8321;-103</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" class="Symbol"
+      >:</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2067"
+      > </a
+      ><a name="2068" class="Symbol"
+      >(</a
+      ><a name="2069" href="FOTC.Data.Nat.UnaryNumbers.html#2537" class="Function"
+      >92'</a
+      ><a name="2072"
+      > </a
+      ><a name="2073" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2074"
+      > </a
+      ><a name="2075" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="2078" class="Symbol"
+      >)</a
+      ><a name="2079"
+      > </a
+      ><a name="2080" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="FOTC.Data.Nat.UnaryNumbers.html#2553" class="Function"
+      >93'</a
+      ><a name="2085"
+      >
+  </a
+      ><a name="2088" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2088" class="Postulate"
+      >f&#8329;&#8321;-102</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" class="Symbol"
+      >:</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" class="Symbol"
+      >(</a
+      ><a name="2103" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="2112" class="Symbol"
+      >)</a
+      ><a name="2113"
+      > </a
+      ><a name="2114" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2115"
+      > </a
+      ><a name="2116" href="FOTC.Data.Nat.UnaryNumbers.html#2537" class="Function"
+      >92'</a
+      ><a name="2119"
+      >
+  </a
+      ><a name="2122" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2122" class="Postulate"
+      >f&#8329;&#8321;-101</a
+      ><a name="2129"
+      > </a
+      ><a name="2130" class="Symbol"
+      >:</a
+      ><a name="2131"
+      > </a
+      ><a name="2132" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2135"
+      > </a
+      ><a name="2136" class="Symbol"
+      >(</a
+      ><a name="2137" href="FOTC.Data.Nat.UnaryNumbers.html#2505" class="Function"
+      >90'</a
+      ><a name="2140"
+      > </a
+      ><a name="2141" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2142"
+      > </a
+      ><a name="2143" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="2146" class="Symbol"
+      >)</a
+      ><a name="2147"
+      > </a
+      ><a name="2148" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2153"
+      >
+</a
+      ><a name="2154" class="Symbol"
+      >{-#</a
+      ><a name="2157"
+      > </a
+      ><a name="2158" class="Keyword"
+      >ATP</a
+      ><a name="2161"
+      > prove </a
+      ><a name="2168" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1815" class="Postulate"
+      >f&#8329;&#8321;-110</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2111" class="Postulate"
+      >99+11&gt;100</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2196"
+      > </a
+      ><a name="2197" class="Symbol"
+      >#-}</a
+      ><a name="2200"
+      >
+</a
+      ><a name="2201" class="Symbol"
+      >{-#</a
+      ><a name="2204"
+      > </a
+      ><a name="2205" class="Keyword"
+      >ATP</a
+      ><a name="2208"
+      > prove </a
+      ><a name="2215" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1850" class="Postulate"
+      >f&#8329;&#8321;-109</a
+      ><a name="2222"
+      > </a
+      ><a name="2223" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2142" class="Postulate"
+      >98+11&gt;100</a
+      ><a name="2232"
+      > </a
+      ><a name="2233" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2243"
+      > </a
+      ><a name="2244" class="Symbol"
+      >#-}</a
+      ><a name="2247"
+      >
+</a
+      ><a name="2248" class="Symbol"
+      >{-#</a
+      ><a name="2251"
+      > </a
+      ><a name="2252" class="Keyword"
+      >ATP</a
+      ><a name="2255"
+      > prove </a
+      ><a name="2262" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1884" class="Postulate"
+      >f&#8329;&#8321;-108</a
+      ><a name="2269"
+      > </a
+      ><a name="2270" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2173" class="Postulate"
+      >97+11&gt;100</a
+      ><a name="2279"
+      > </a
+      ><a name="2280" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2290"
+      > </a
+      ><a name="2291" class="Symbol"
+      >#-}</a
+      ><a name="2294"
+      >
+</a
+      ><a name="2295" class="Symbol"
+      >{-#</a
+      ><a name="2298"
+      > </a
+      ><a name="2299" class="Keyword"
+      >ATP</a
+      ><a name="2302"
+      > prove </a
+      ><a name="2309" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1918" class="Postulate"
+      >f&#8329;&#8321;-107</a
+      ><a name="2316"
+      > </a
+      ><a name="2317" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2204" class="Postulate"
+      >96+11&gt;100</a
+      ><a name="2326"
+      > </a
+      ><a name="2327" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2337"
+      > </a
+      ><a name="2338" class="Symbol"
+      >#-}</a
+      ><a name="2341"
+      >
+</a
+      ><a name="2342" class="Symbol"
+      >{-#</a
+      ><a name="2345"
+      > </a
+      ><a name="2346" class="Keyword"
+      >ATP</a
+      ><a name="2349"
+      > prove </a
+      ><a name="2356" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1952" class="Postulate"
+      >f&#8329;&#8321;-106</a
+      ><a name="2363"
+      > </a
+      ><a name="2364" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2235" class="Postulate"
+      >95+11&gt;100</a
+      ><a name="2373"
+      > </a
+      ><a name="2374" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" class="Symbol"
+      >#-}</a
+      ><a name="2388"
+      >
+</a
+      ><a name="2389" class="Symbol"
+      >{-#</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" class="Keyword"
+      >ATP</a
+      ><a name="2396"
+      > prove </a
+      ><a name="2403" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1986" class="Postulate"
+      >f&#8329;&#8321;-105</a
+      ><a name="2410"
+      > </a
+      ><a name="2411" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2266" class="Postulate"
+      >94+11&gt;100</a
+      ><a name="2420"
+      > </a
+      ><a name="2421" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" class="Symbol"
+      >#-}</a
+      ><a name="2435"
+      >
+</a
+      ><a name="2436" class="Symbol"
+      >{-#</a
+      ><a name="2439"
+      > </a
+      ><a name="2440" class="Keyword"
+      >ATP</a
+      ><a name="2443"
+      > prove </a
+      ><a name="2450" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2020" class="Postulate"
+      >f&#8329;&#8321;-104</a
+      ><a name="2457"
+      > </a
+      ><a name="2458" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2297" class="Postulate"
+      >93+11&gt;100</a
+      ><a name="2467"
+      > </a
+      ><a name="2468" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2478"
+      > </a
+      ><a name="2479" class="Symbol"
+      >#-}</a
+      ><a name="2482"
+      >
+</a
+      ><a name="2483" class="Symbol"
+      >{-#</a
+      ><a name="2486"
+      > </a
+      ><a name="2487" class="Keyword"
+      >ATP</a
+      ><a name="2490"
+      > prove </a
+      ><a name="2497" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2054" class="Postulate"
+      >f&#8329;&#8321;-103</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2328" class="Postulate"
+      >92+11&gt;100</a
+      ><a name="2514"
+      > </a
+      ><a name="2515" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2525"
+      > </a
+      ><a name="2526" class="Symbol"
+      >#-}</a
+      ><a name="2529"
+      >
+</a
+      ><a name="2530" class="Symbol"
+      >{-#</a
+      ><a name="2533"
+      > </a
+      ><a name="2534" class="Keyword"
+      >ATP</a
+      ><a name="2537"
+      > prove </a
+      ><a name="2544" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2088" class="Postulate"
+      >f&#8329;&#8321;-102</a
+      ><a name="2551"
+      > </a
+      ><a name="2552" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2359" class="Postulate"
+      >91+11&gt;100</a
+      ><a name="2561"
+      > </a
+      ><a name="2562" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2572"
+      > </a
+      ><a name="2573" class="Symbol"
+      >#-}</a
+      ><a name="2576"
+      >
+</a
+      ><a name="2577" class="Symbol"
+      >{-#</a
+      ><a name="2580"
+      > </a
+      ><a name="2581" class="Keyword"
+      >ATP</a
+      ><a name="2584"
+      > prove </a
+      ><a name="2591" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2122" class="Postulate"
+      >f&#8329;&#8321;-101</a
+      ><a name="2598"
+      > </a
+      ><a name="2599" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2390" class="Postulate"
+      >90+11&gt;100</a
+      ><a name="2608"
+      > </a
+      ><a name="2609" href="FOTC.Program.McCarthy91.ArithmeticATP.html#2860" class="Function"
+      >x+11&#8760;10&#8801;Sx</a
+      ><a name="2619"
+      > </a
+      ><a name="2620" class="Symbol"
+      >#-}</a
+      ><a name="2623"
+      >
+
+</a
+      ><a name="2625" class="Keyword"
+      >postulate</a
+      ><a name="2634"
+      >
+  </a
+      ><a name="2637" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2637" class="Postulate"
+      >f&#8329;&#8321;-99</a
+      ><a name="2643"
+      > </a
+      ><a name="2644" class="Symbol"
+      >:</a
+      ><a name="2645"
+      > </a
+      ><a name="2646" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2649"
+      > </a
+      ><a name="2650" href="FOTC.Data.Nat.UnaryNumbers.html#2649" class="Function"
+      >99'</a
+      ><a name="2653"
+      > </a
+      ><a name="2654" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2655"
+      > </a
+      ><a name="2656" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2659"
+      >
+  </a
+      ><a name="2662" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2662" class="Postulate"
+      >f&#8329;&#8321;-98</a
+      ><a name="2668"
+      > </a
+      ><a name="2669" class="Symbol"
+      >:</a
+      ><a name="2670"
+      > </a
+      ><a name="2671" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2674"
+      > </a
+      ><a name="2675" href="FOTC.Data.Nat.UnaryNumbers.html#2633" class="Function"
+      >98'</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2680"
+      > </a
+      ><a name="2681" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2684"
+      >
+  </a
+      ><a name="2687" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2687" class="Postulate"
+      >f&#8329;&#8321;-97</a
+      ><a name="2693"
+      > </a
+      ><a name="2694" class="Symbol"
+      >:</a
+      ><a name="2695"
+      > </a
+      ><a name="2696" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2699"
+      > </a
+      ><a name="2700" href="FOTC.Data.Nat.UnaryNumbers.html#2617" class="Function"
+      >97'</a
+      ><a name="2703"
+      > </a
+      ><a name="2704" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2705"
+      > </a
+      ><a name="2706" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2709"
+      >
+  </a
+      ><a name="2712" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2712" class="Postulate"
+      >f&#8329;&#8321;-96</a
+      ><a name="2718"
+      > </a
+      ><a name="2719" class="Symbol"
+      >:</a
+      ><a name="2720"
+      > </a
+      ><a name="2721" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2724"
+      > </a
+      ><a name="2725" href="FOTC.Data.Nat.UnaryNumbers.html#2601" class="Function"
+      >96'</a
+      ><a name="2728"
+      > </a
+      ><a name="2729" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2730"
+      > </a
+      ><a name="2731" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2734"
+      >
+  </a
+      ><a name="2737" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2737" class="Postulate"
+      >f&#8329;&#8321;-95</a
+      ><a name="2743"
+      > </a
+      ><a name="2744" class="Symbol"
+      >:</a
+      ><a name="2745"
+      > </a
+      ><a name="2746" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2749"
+      > </a
+      ><a name="2750" href="FOTC.Data.Nat.UnaryNumbers.html#2585" class="Function"
+      >95'</a
+      ><a name="2753"
+      > </a
+      ><a name="2754" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2755"
+      > </a
+      ><a name="2756" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2759"
+      >
+  </a
+      ><a name="2762" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2762" class="Postulate"
+      >f&#8329;&#8321;-94</a
+      ><a name="2768"
+      > </a
+      ><a name="2769" class="Symbol"
+      >:</a
+      ><a name="2770"
+      > </a
+      ><a name="2771" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2774"
+      > </a
+      ><a name="2775" href="FOTC.Data.Nat.UnaryNumbers.html#2569" class="Function"
+      >94'</a
+      ><a name="2778"
+      > </a
+      ><a name="2779" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2780"
+      > </a
+      ><a name="2781" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2784"
+      >
+  </a
+      ><a name="2787" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2787" class="Postulate"
+      >f&#8329;&#8321;-93</a
+      ><a name="2793"
+      > </a
+      ><a name="2794" class="Symbol"
+      >:</a
+      ><a name="2795"
+      > </a
+      ><a name="2796" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2799"
+      > </a
+      ><a name="2800" href="FOTC.Data.Nat.UnaryNumbers.html#2553" class="Function"
+      >93'</a
+      ><a name="2803"
+      > </a
+      ><a name="2804" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2805"
+      > </a
+      ><a name="2806" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2809"
+      >
+  </a
+      ><a name="2812" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2812" class="Postulate"
+      >f&#8329;&#8321;-92</a
+      ><a name="2818"
+      > </a
+      ><a name="2819" class="Symbol"
+      >:</a
+      ><a name="2820"
+      > </a
+      ><a name="2821" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2824"
+      > </a
+      ><a name="2825" href="FOTC.Data.Nat.UnaryNumbers.html#2537" class="Function"
+      >92'</a
+      ><a name="2828"
+      > </a
+      ><a name="2829" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2830"
+      > </a
+      ><a name="2831" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2834"
+      >
+  </a
+      ><a name="2837" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2837" class="Postulate"
+      >f&#8329;&#8321;-91</a
+      ><a name="2843"
+      > </a
+      ><a name="2844" class="Symbol"
+      >:</a
+      ><a name="2845"
+      > </a
+      ><a name="2846" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2849"
+      > </a
+      ><a name="2850" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2853"
+      > </a
+      ><a name="2854" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2855"
+      > </a
+      ><a name="2856" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2859"
+      >
+  </a
+      ><a name="2862" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2862" class="Postulate"
+      >f&#8329;&#8321;-90</a
+      ><a name="2868"
+      > </a
+      ><a name="2869" class="Symbol"
+      >:</a
+      ><a name="2870"
+      > </a
+      ><a name="2871" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="2874"
+      > </a
+      ><a name="2875" href="FOTC.Data.Nat.UnaryNumbers.html#2505" class="Function"
+      >90'</a
+      ><a name="2878"
+      > </a
+      ><a name="2879" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2880"
+      > </a
+      ><a name="2881" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="2884"
+      >
+</a
+      ><a name="2885" class="Symbol"
+      >{-#</a
+      ><a name="2888"
+      > </a
+      ><a name="2889" class="Keyword"
+      >ATP</a
+      ><a name="2892"
+      > prove </a
+      ><a name="2899" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2637" class="Postulate"
+      >f&#8329;&#8321;-99</a
+      ><a name="2905"
+      > </a
+      ><a name="2906" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1815" class="Postulate"
+      >f&#8329;&#8321;-110</a
+      ><a name="2930"
+      > </a
+      ><a name="2931" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1210" class="Postulate"
+      >f&#8329;&#8321;-100</a
+      ><a name="2938"
+      > </a
+      ><a name="2939" class="Symbol"
+      >#-}</a
+      ><a name="2942"
+      >
+</a
+      ><a name="2943" class="Symbol"
+      >{-#</a
+      ><a name="2946"
+      > </a
+      ><a name="2947" class="Keyword"
+      >ATP</a
+      ><a name="2950"
+      > prove </a
+      ><a name="2957" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2662" class="Postulate"
+      >f&#8329;&#8321;-98</a
+      ><a name="2963"
+      > </a
+      ><a name="2964" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="2980"
+      > </a
+      ><a name="2981" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1850" class="Postulate"
+      >f&#8329;&#8321;-109</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2637" class="Postulate"
+      >f&#8329;&#8321;-99</a
+      ><a name="2995"
+      > </a
+      ><a name="2996" class="Symbol"
+      >#-}</a
+      ><a name="2999"
+      >
+</a
+      ><a name="3000" class="Symbol"
+      >{-#</a
+      ><a name="3003"
+      > </a
+      ><a name="3004" class="Keyword"
+      >ATP</a
+      ><a name="3007"
+      > prove </a
+      ><a name="3014" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2687" class="Postulate"
+      >f&#8329;&#8321;-97</a
+      ><a name="3020"
+      > </a
+      ><a name="3021" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3037"
+      > </a
+      ><a name="3038" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1884" class="Postulate"
+      >f&#8329;&#8321;-108</a
+      ><a name="3045"
+      > </a
+      ><a name="3046" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2662" class="Postulate"
+      >f&#8329;&#8321;-98</a
+      ><a name="3052"
+      > </a
+      ><a name="3053" class="Symbol"
+      >#-}</a
+      ><a name="3056"
+      >
+</a
+      ><a name="3057" class="Symbol"
+      >{-#</a
+      ><a name="3060"
+      > </a
+      ><a name="3061" class="Keyword"
+      >ATP</a
+      ><a name="3064"
+      > prove </a
+      ><a name="3071" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2712" class="Postulate"
+      >f&#8329;&#8321;-96</a
+      ><a name="3077"
+      > </a
+      ><a name="3078" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3094"
+      > </a
+      ><a name="3095" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1918" class="Postulate"
+      >f&#8329;&#8321;-107</a
+      ><a name="3102"
+      > </a
+      ><a name="3103" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2687" class="Postulate"
+      >f&#8329;&#8321;-97</a
+      ><a name="3109"
+      > </a
+      ><a name="3110" class="Symbol"
+      >#-}</a
+      ><a name="3113"
+      >
+</a
+      ><a name="3114" class="Symbol"
+      >{-#</a
+      ><a name="3117"
+      > </a
+      ><a name="3118" class="Keyword"
+      >ATP</a
+      ><a name="3121"
+      > prove </a
+      ><a name="3128" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2737" class="Postulate"
+      >f&#8329;&#8321;-95</a
+      ><a name="3134"
+      > </a
+      ><a name="3135" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3151"
+      > </a
+      ><a name="3152" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1952" class="Postulate"
+      >f&#8329;&#8321;-106</a
+      ><a name="3159"
+      > </a
+      ><a name="3160" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2712" class="Postulate"
+      >f&#8329;&#8321;-96</a
+      ><a name="3166"
+      > </a
+      ><a name="3167" class="Symbol"
+      >#-}</a
+      ><a name="3170"
+      >
+</a
+      ><a name="3171" class="Symbol"
+      >{-#</a
+      ><a name="3174"
+      > </a
+      ><a name="3175" class="Keyword"
+      >ATP</a
+      ><a name="3178"
+      > prove </a
+      ><a name="3185" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2762" class="Postulate"
+      >f&#8329;&#8321;-94</a
+      ><a name="3191"
+      > </a
+      ><a name="3192" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3208"
+      > </a
+      ><a name="3209" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1986" class="Postulate"
+      >f&#8329;&#8321;-105</a
+      ><a name="3216"
+      > </a
+      ><a name="3217" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2737" class="Postulate"
+      >f&#8329;&#8321;-95</a
+      ><a name="3223"
+      > </a
+      ><a name="3224" class="Symbol"
+      >#-}</a
+      ><a name="3227"
+      >
+</a
+      ><a name="3228" class="Symbol"
+      >{-#</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" class="Keyword"
+      >ATP</a
+      ><a name="3235"
+      > prove </a
+      ><a name="3242" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2787" class="Postulate"
+      >f&#8329;&#8321;-93</a
+      ><a name="3248"
+      > </a
+      ><a name="3249" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3265"
+      > </a
+      ><a name="3266" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2020" class="Postulate"
+      >f&#8329;&#8321;-104</a
+      ><a name="3273"
+      > </a
+      ><a name="3274" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2762" class="Postulate"
+      >f&#8329;&#8321;-94</a
+      ><a name="3280"
+      > </a
+      ><a name="3281" class="Symbol"
+      >#-}</a
+      ><a name="3284"
+      >
+</a
+      ><a name="3285" class="Symbol"
+      >{-#</a
+      ><a name="3288"
+      > </a
+      ><a name="3289" class="Keyword"
+      >ATP</a
+      ><a name="3292"
+      > prove </a
+      ><a name="3299" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2812" class="Postulate"
+      >f&#8329;&#8321;-92</a
+      ><a name="3305"
+      > </a
+      ><a name="3306" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3322"
+      > </a
+      ><a name="3323" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2054" class="Postulate"
+      >f&#8329;&#8321;-103</a
+      ><a name="3330"
+      > </a
+      ><a name="3331" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2787" class="Postulate"
+      >f&#8329;&#8321;-93</a
+      ><a name="3337"
+      > </a
+      ><a name="3338" class="Symbol"
+      >#-}</a
+      ><a name="3341"
+      >
+</a
+      ><a name="3342" class="Symbol"
+      >{-#</a
+      ><a name="3345"
+      > </a
+      ><a name="3346" class="Keyword"
+      >ATP</a
+      ><a name="3349"
+      > prove </a
+      ><a name="3356" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2837" class="Postulate"
+      >f&#8329;&#8321;-91</a
+      ><a name="3362"
+      > </a
+      ><a name="3363" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3379"
+      > </a
+      ><a name="3380" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2088" class="Postulate"
+      >f&#8329;&#8321;-102</a
+      ><a name="3387"
+      > </a
+      ><a name="3388" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2812" class="Postulate"
+      >f&#8329;&#8321;-92</a
+      ><a name="3394"
+      > </a
+      ><a name="3395" class="Symbol"
+      >#-}</a
+      ><a name="3398"
+      >
+</a
+      ><a name="3399" class="Symbol"
+      >{-#</a
+      ><a name="3402"
+      > </a
+      ><a name="3403" class="Keyword"
+      >ATP</a
+      ><a name="3406"
+      > prove </a
+      ><a name="3413" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2862" class="Postulate"
+      >f&#8329;&#8321;-90</a
+      ><a name="3419"
+      > </a
+      ><a name="3420" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#1567" class="Postulate"
+      >f&#8329;&#8321;-x&#8815;100-helper</a
+      ><a name="3436"
+      > </a
+      ><a name="3437" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2122" class="Postulate"
+      >f&#8329;&#8321;-101</a
+      ><a name="3444"
+      > </a
+      ><a name="3445" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#2837" class="Postulate"
+      >f&#8329;&#8321;-91</a
+      ><a name="3451"
+      > </a
+      ><a name="3452" class="Symbol"
+      >#-}</a
+      ><a name="3455"
+      >
+
+</a
+      ><a name="3457" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3457" class="Function"
+      >f&#8329;&#8321;-x&#8801;y</a
+      ><a name="3464"
+      > </a
+      ><a name="3465" class="Symbol"
+      >:</a
+      ><a name="3466"
+      > </a
+      ><a name="3467" class="Symbol"
+      >&#8704;</a
+      ><a name="3468"
+      > </a
+      ><a name="3469" class="Symbol"
+      >{</a
+      ><a name="3470" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3470" class="Bound"
+      >m</a
+      ><a name="3471"
+      > </a
+      ><a name="3472" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3472" class="Bound"
+      >n</a
+      ><a name="3473"
+      > </a
+      ><a name="3474" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3474" class="Bound"
+      >o</a
+      ><a name="3475" class="Symbol"
+      >}</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" class="Symbol"
+      >&#8594;</a
+      ><a name="3478"
+      > </a
+      ><a name="3479" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="3482"
+      > </a
+      ><a name="3483" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3470" class="Bound"
+      >m</a
+      ><a name="3484"
+      > </a
+      ><a name="3485" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3486"
+      > </a
+      ><a name="3487" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3472" class="Bound"
+      >n</a
+      ><a name="3488"
+      > </a
+      ><a name="3489" class="Symbol"
+      >&#8594;</a
+      ><a name="3490"
+      > </a
+      ><a name="3491" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3474" class="Bound"
+      >o</a
+      ><a name="3492"
+      > </a
+      ><a name="3493" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3494"
+      > </a
+      ><a name="3495" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3470" class="Bound"
+      >m</a
+      ><a name="3496"
+      > </a
+      ><a name="3497" class="Symbol"
+      >&#8594;</a
+      ><a name="3498"
+      > </a
+      ><a name="3499" href="FOTC.Program.McCarthy91.McCarthy91.html#691" class="Postulate"
+      >f&#8329;&#8321;</a
+      ><a name="3502"
+      > </a
+      ><a name="3503" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3474" class="Bound"
+      >o</a
+      ><a name="3504"
+      > </a
+      ><a name="3505" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3506"
+      > </a
+      ><a name="3507" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3472" class="Bound"
+      >n</a
+      ><a name="3508"
+      >
+</a
+      ><a name="3509" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3457" class="Function"
+      >f&#8329;&#8321;-x&#8801;y</a
+      ><a name="3516"
+      > </a
+      ><a name="3517" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3517" class="Bound"
+      >h</a
+      ><a name="3518"
+      > </a
+      ><a name="3519" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3523"
+      > </a
+      ><a name="3524" class="Symbol"
+      >=</a
+      ><a name="3525"
+      > </a
+      ><a name="3526" href="FOTC.Program.McCarthy91.AuxiliaryPropertiesATP.html#3517" class="Bound"
+      >h</a
+      ><a name="3527"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

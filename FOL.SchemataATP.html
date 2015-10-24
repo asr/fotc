@@ -1,0 +1,2043 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOL.SchemataATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Examples of translation of logical schemata</a
+      ><a name="126"
+      >
+</a
+      ><a name="127" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="205"
+      >
+
+</a
+      ><a name="207" class="Symbol"
+      >{-#</a
+      ><a name="210"
+      > </a
+      ><a name="211" class="Keyword"
+      >OPTIONS</a
+      ><a name="218"
+      > --exact-split              </a
+      ><a name="246" class="Symbol"
+      >#-}</a
+      ><a name="249"
+      >
+</a
+      ><a name="250" class="Symbol"
+      >{-#</a
+      ><a name="253"
+      > </a
+      ><a name="254" class="Keyword"
+      >OPTIONS</a
+      ><a name="261"
+      > --no-sized-types           </a
+      ><a name="289" class="Symbol"
+      >#-}</a
+      ><a name="292"
+      >
+</a
+      ><a name="293" class="Symbol"
+      >{-#</a
+      ><a name="296"
+      > </a
+      ><a name="297" class="Keyword"
+      >OPTIONS</a
+      ><a name="304"
+      > --no-universe-polymorphism </a
+      ><a name="332" class="Symbol"
+      >#-}</a
+      ><a name="335"
+      >
+</a
+      ><a name="336" class="Symbol"
+      >{-#</a
+      ><a name="339"
+      > </a
+      ><a name="340" class="Keyword"
+      >OPTIONS</a
+      ><a name="347"
+      > --without-K                </a
+      ><a name="375" class="Symbol"
+      >#-}</a
+      ><a name="378"
+      >
+
+</a
+      ><a name="380" class="Keyword"
+      >module</a
+      ><a name="386"
+      > </a
+      ><a name="387" href="FOL.SchemataATP.html#1" class="Module"
+      >FOL.SchemataATP</a
+      ><a name="402"
+      > </a
+      ><a name="403" class="Keyword"
+      >where</a
+      ><a name="408"
+      >
+
+</a
+      ><a name="410" class="Keyword"
+      >open</a
+      ><a name="414"
+      > </a
+      ><a name="415" class="Keyword"
+      >import</a
+      ><a name="421"
+      > </a
+      ><a name="422" href="FOL.Base.html#1" class="Module"
+      >FOL.Base</a
+      ><a name="430"
+      >
+
+</a
+      ><a name="432" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="510"
+      >
+
+</a
+      ><a name="512" class="Keyword"
+      >postulate</a
+      ><a name="521"
+      > </a
+      ><a name="522" href="FOL.SchemataATP.html#522" class="Postulate Operator"
+      >_&#8801;_</a
+      ><a name="525"
+      > </a
+      ><a name="526" class="Symbol"
+      >:</a
+      ><a name="527"
+      > </a
+      ><a name="528" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="529"
+      > </a
+      ><a name="530" class="Symbol"
+      >&#8594;</a
+      ><a name="531"
+      > </a
+      ><a name="532" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="533"
+      > </a
+      ><a name="534" class="Symbol"
+      >&#8594;</a
+      ><a name="535"
+      > </a
+      ><a name="536" class="PrimitiveType"
+      >Set</a
+      ><a name="539"
+      >
+
+</a
+      ><a name="541" class="Keyword"
+      >module</a
+      ><a name="547"
+      > </a
+      ><a name="548" href="FOL.SchemataATP.html#548" class="Module"
+      >NonSchemas</a
+      ><a name="558"
+      > </a
+      ><a name="559" class="Keyword"
+      >where</a
+      ><a name="564"
+      >
+
+  </a
+      ><a name="568" class="Keyword"
+      >postulate</a
+      ><a name="577"
+      >
+    </a
+      ><a name="582" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="583"
+      > </a
+      ><a name="584" href="FOL.SchemataATP.html#584" class="Postulate"
+      >B</a
+      ><a name="585"
+      > </a
+      ><a name="586" href="FOL.SchemataATP.html#586" class="Postulate"
+      >C</a
+      ><a name="587"
+      >    </a
+      ><a name="591" class="Symbol"
+      >:</a
+      ><a name="592"
+      > </a
+      ><a name="593" class="PrimitiveType"
+      >Set</a
+      ><a name="596"
+      >
+    </a
+      ><a name="601" href="FOL.SchemataATP.html#601" class="Postulate"
+      >A&#185;</a
+      ><a name="603"
+      >       </a
+      ><a name="610" class="Symbol"
+      >:</a
+      ><a name="611"
+      > </a
+      ><a name="612" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="613"
+      > </a
+      ><a name="614" class="Symbol"
+      >&#8594;</a
+      ><a name="615"
+      > </a
+      ><a name="616" class="PrimitiveType"
+      >Set</a
+      ><a name="619"
+      >
+    </a
+      ><a name="624" href="FOL.SchemataATP.html#624" class="Postulate"
+      >A&#178;</a
+      ><a name="626"
+      > </a
+      ><a name="627" href="FOL.SchemataATP.html#627" class="Postulate"
+      >B&#178;</a
+      ><a name="629"
+      >    </a
+      ><a name="633" class="Symbol"
+      >:</a
+      ><a name="634"
+      > </a
+      ><a name="635" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="636"
+      > </a
+      ><a name="637" class="Symbol"
+      >&#8594;</a
+      ><a name="638"
+      > </a
+      ><a name="639" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="640"
+      > </a
+      ><a name="641" class="Symbol"
+      >&#8594;</a
+      ><a name="642"
+      > </a
+      ><a name="643" class="PrimitiveType"
+      >Set</a
+      ><a name="646"
+      >
+    </a
+      ><a name="651" href="FOL.SchemataATP.html#651" class="Postulate"
+      >A&#179;</a
+      ><a name="653"
+      > </a
+      ><a name="654" href="FOL.SchemataATP.html#654" class="Postulate"
+      >B&#179;</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="FOL.SchemataATP.html#657" class="Postulate"
+      >C&#179;</a
+      ><a name="659"
+      > </a
+      ><a name="660" class="Symbol"
+      >:</a
+      ><a name="661"
+      > </a
+      ><a name="662" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Symbol"
+      >&#8594;</a
+      ><a name="665"
+      > </a
+      ><a name="666" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="667"
+      > </a
+      ><a name="668" class="Symbol"
+      >&#8594;</a
+      ><a name="669"
+      > </a
+      ><a name="670" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="671"
+      > </a
+      ><a name="672" class="Symbol"
+      >&#8594;</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="PrimitiveType"
+      >Set</a
+      ><a name="677"
+      >
+
+  </a
+      ><a name="681" class="Keyword"
+      >postulate</a
+      ><a name="690"
+      > </a
+      ><a name="691" href="FOL.SchemataATP.html#691" class="Postulate"
+      >id</a
+      ><a name="693"
+      > </a
+      ><a name="694" class="Symbol"
+      >:</a
+      ><a name="695"
+      > </a
+      ><a name="696" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="697"
+      > </a
+      ><a name="698" class="Symbol"
+      >&#8594;</a
+      ><a name="699"
+      > </a
+      ><a name="700" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="701"
+      >
+  </a
+      ><a name="704" class="Symbol"
+      >{-#</a
+      ><a name="707"
+      > </a
+      ><a name="708" class="Keyword"
+      >ATP</a
+      ><a name="711"
+      > prove </a
+      ><a name="718" href="FOL.SchemataATP.html#691" class="Postulate"
+      >id</a
+      ><a name="720"
+      > </a
+      ><a name="721" class="Symbol"
+      >#-}</a
+      ><a name="724"
+      >
+
+  </a
+      ><a name="728" class="Keyword"
+      >postulate</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="FOL.SchemataATP.html#738" class="Postulate"
+      >id&#185;</a
+      ><a name="741"
+      > </a
+      ><a name="742" class="Symbol"
+      >:</a
+      ><a name="743"
+      > </a
+      ><a name="744" class="Symbol"
+      >&#8704;</a
+      ><a name="745"
+      > </a
+      ><a name="746" class="Symbol"
+      >{</a
+      ><a name="747" href="FOL.SchemataATP.html#747" class="Bound"
+      >x</a
+      ><a name="748" class="Symbol"
+      >}</a
+      ><a name="749"
+      > </a
+      ><a name="750" class="Symbol"
+      >&#8594;</a
+      ><a name="751"
+      > </a
+      ><a name="752" href="FOL.SchemataATP.html#601" class="Postulate"
+      >A&#185;</a
+      ><a name="754"
+      > </a
+      ><a name="755" href="FOL.SchemataATP.html#747" class="Bound"
+      >x</a
+      ><a name="756"
+      > </a
+      ><a name="757" class="Symbol"
+      >&#8594;</a
+      ><a name="758"
+      > </a
+      ><a name="759" href="FOL.SchemataATP.html#601" class="Postulate"
+      >A&#185;</a
+      ><a name="761"
+      > </a
+      ><a name="762" href="FOL.SchemataATP.html#747" class="Bound"
+      >x</a
+      ><a name="763"
+      >
+  </a
+      ><a name="766" class="Symbol"
+      >{-#</a
+      ><a name="769"
+      > </a
+      ><a name="770" class="Keyword"
+      >ATP</a
+      ><a name="773"
+      > prove </a
+      ><a name="780" href="FOL.SchemataATP.html#738" class="Postulate"
+      >id&#185;</a
+      ><a name="783"
+      > </a
+      ><a name="784" class="Symbol"
+      >#-}</a
+      ><a name="787"
+      >
+
+  </a
+      ><a name="791" class="Keyword"
+      >postulate</a
+      ><a name="800"
+      > </a
+      ><a name="801" href="FOL.SchemataATP.html#801" class="Postulate"
+      >id&#178;</a
+      ><a name="804"
+      > </a
+      ><a name="805" class="Symbol"
+      >:</a
+      ><a name="806"
+      > </a
+      ><a name="807" class="Symbol"
+      >&#8704;</a
+      ><a name="808"
+      > </a
+      ><a name="809" class="Symbol"
+      >{</a
+      ><a name="810" href="FOL.SchemataATP.html#810" class="Bound"
+      >x</a
+      ><a name="811"
+      > </a
+      ><a name="812" href="FOL.SchemataATP.html#812" class="Bound"
+      >y</a
+      ><a name="813" class="Symbol"
+      >}</a
+      ><a name="814"
+      > </a
+      ><a name="815" class="Symbol"
+      >&#8594;</a
+      ><a name="816"
+      > </a
+      ><a name="817" href="FOL.SchemataATP.html#624" class="Postulate"
+      >A&#178;</a
+      ><a name="819"
+      > </a
+      ><a name="820" href="FOL.SchemataATP.html#810" class="Bound"
+      >x</a
+      ><a name="821"
+      > </a
+      ><a name="822" href="FOL.SchemataATP.html#812" class="Bound"
+      >y</a
+      ><a name="823"
+      > </a
+      ><a name="824" class="Symbol"
+      >&#8594;</a
+      ><a name="825"
+      > </a
+      ><a name="826" href="FOL.SchemataATP.html#624" class="Postulate"
+      >A&#178;</a
+      ><a name="828"
+      > </a
+      ><a name="829" href="FOL.SchemataATP.html#810" class="Bound"
+      >x</a
+      ><a name="830"
+      > </a
+      ><a name="831" href="FOL.SchemataATP.html#812" class="Bound"
+      >y</a
+      ><a name="832"
+      >
+  </a
+      ><a name="835" class="Symbol"
+      >{-#</a
+      ><a name="838"
+      > </a
+      ><a name="839" class="Keyword"
+      >ATP</a
+      ><a name="842"
+      > prove </a
+      ><a name="849" href="FOL.SchemataATP.html#801" class="Postulate"
+      >id&#178;</a
+      ><a name="852"
+      > </a
+      ><a name="853" class="Symbol"
+      >#-}</a
+      ><a name="856"
+      >
+
+  </a
+      ><a name="860" class="Keyword"
+      >postulate</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="FOL.SchemataATP.html#870" class="Postulate"
+      >&#8744;-comm</a
+      ><a name="876"
+      > </a
+      ><a name="877" class="Symbol"
+      >:</a
+      ><a name="878"
+      > </a
+      ><a name="879" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="882"
+      > </a
+      ><a name="883" href="FOL.SchemataATP.html#584" class="Postulate"
+      >B</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="Symbol"
+      >&#8594;</a
+      ><a name="886"
+      > </a
+      ><a name="887" href="FOL.SchemataATP.html#584" class="Postulate"
+      >B</a
+      ><a name="888"
+      > </a
+      ><a name="889" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="890"
+      > </a
+      ><a name="891" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="892"
+      >
+  </a
+      ><a name="895" class="Symbol"
+      >{-#</a
+      ><a name="898"
+      > </a
+      ><a name="899" class="Keyword"
+      >ATP</a
+      ><a name="902"
+      > prove </a
+      ><a name="909" href="FOL.SchemataATP.html#870" class="Postulate"
+      >&#8744;-comm</a
+      ><a name="915"
+      > </a
+      ><a name="916" class="Symbol"
+      >#-}</a
+      ><a name="919"
+      >
+
+  </a
+      ><a name="923" class="Keyword"
+      >postulate</a
+      ><a name="932"
+      > </a
+      ><a name="933" href="FOL.SchemataATP.html#933" class="Postulate"
+      >&#8744;-comm&#178;</a
+      ><a name="940"
+      > </a
+      ><a name="941" class="Symbol"
+      >:</a
+      ><a name="942"
+      > </a
+      ><a name="943" class="Symbol"
+      >&#8704;</a
+      ><a name="944"
+      > </a
+      ><a name="945" class="Symbol"
+      >{</a
+      ><a name="946" href="FOL.SchemataATP.html#946" class="Bound"
+      >x</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="FOL.SchemataATP.html#948" class="Bound"
+      >y</a
+      ><a name="949" class="Symbol"
+      >}</a
+      ><a name="950"
+      > </a
+      ><a name="951" class="Symbol"
+      >&#8594;</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="FOL.SchemataATP.html#624" class="Postulate"
+      >A&#178;</a
+      ><a name="955"
+      > </a
+      ><a name="956" href="FOL.SchemataATP.html#946" class="Bound"
+      >x</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="FOL.SchemataATP.html#948" class="Bound"
+      >y</a
+      ><a name="959"
+      > </a
+      ><a name="960" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="961"
+      > </a
+      ><a name="962" href="FOL.SchemataATP.html#627" class="Postulate"
+      >B&#178;</a
+      ><a name="964"
+      > </a
+      ><a name="965" href="FOL.SchemataATP.html#946" class="Bound"
+      >x</a
+      ><a name="966"
+      > </a
+      ><a name="967" href="FOL.SchemataATP.html#948" class="Bound"
+      >y</a
+      ><a name="968"
+      > </a
+      ><a name="969" class="Symbol"
+      >&#8594;</a
+      ><a name="970"
+      > </a
+      ><a name="971" href="FOL.SchemataATP.html#627" class="Postulate"
+      >B&#178;</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="FOL.SchemataATP.html#946" class="Bound"
+      >x</a
+      ><a name="975"
+      > </a
+      ><a name="976" href="FOL.SchemataATP.html#948" class="Bound"
+      >y</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="979"
+      > </a
+      ><a name="980" href="FOL.SchemataATP.html#624" class="Postulate"
+      >A&#178;</a
+      ><a name="982"
+      > </a
+      ><a name="983" href="FOL.SchemataATP.html#946" class="Bound"
+      >x</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="FOL.SchemataATP.html#948" class="Bound"
+      >y</a
+      ><a name="986"
+      >
+  </a
+      ><a name="989" class="Symbol"
+      >{-#</a
+      ><a name="992"
+      > </a
+      ><a name="993" class="Keyword"
+      >ATP</a
+      ><a name="996"
+      > prove </a
+      ><a name="1003" href="FOL.SchemataATP.html#933" class="Postulate"
+      >&#8744;-comm&#178;</a
+      ><a name="1010"
+      > </a
+      ><a name="1011" class="Symbol"
+      >#-}</a
+      ><a name="1014"
+      >
+
+  </a
+      ><a name="1018" class="Keyword"
+      >postulate</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" href="FOL.SchemataATP.html#1028" class="Postulate"
+      >&#8743;&#8744;-dist</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" class="Symbol"
+      >:</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" class="Symbol"
+      >(</a
+      ><a name="1043" href="FOL.SchemataATP.html#584" class="Postulate"
+      >B</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="FOL.SchemataATP.html#586" class="Postulate"
+      >C</a
+      ><a name="1048" class="Symbol"
+      >)</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="1053"
+      > </a
+      ><a name="1054" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" href="FOL.SchemataATP.html#584" class="Postulate"
+      >B</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOL.SchemataATP.html#582" class="Postulate"
+      >A</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" href="FOL.SchemataATP.html#586" class="Postulate"
+      >C</a
+      ><a name="1065"
+      >
+  </a
+      ><a name="1068" class="Symbol"
+      >{-#</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" class="Keyword"
+      >ATP</a
+      ><a name="1075"
+      > prove </a
+      ><a name="1082" href="FOL.SchemataATP.html#1028" class="Postulate"
+      >&#8743;&#8744;-dist</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" class="Symbol"
+      >#-}</a
+      ><a name="1093"
+      >
+
+  </a
+      ><a name="1097" class="Keyword"
+      >postulate</a
+      ><a name="1106"
+      >
+    </a
+      ><a name="1111" href="FOL.SchemataATP.html#1111" class="Postulate"
+      >&#8743;&#8744;-dist&#179;</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" class="Symbol"
+      >:</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" class="Symbol"
+      >&#8704;</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" class="Symbol"
+      >{</a
+      ><a name="1125" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1130" class="Symbol"
+      >}</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" class="Symbol"
+      >&#8594;</a
+      ><a name="1133"
+      >
+               </a
+      ><a name="1149" class="Symbol"
+      >(</a
+      ><a name="1150" href="FOL.SchemataATP.html#651" class="Postulate"
+      >A&#179;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" class="Symbol"
+      >(</a
+      ><a name="1162" href="FOL.SchemataATP.html#654" class="Postulate"
+      >B&#179;</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" href="FOL.SchemataATP.html#657" class="Postulate"
+      >C&#179;</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1181" class="Symbol"
+      >))</a
+      ><a name="1183"
+      > </a
+      ><a name="1184" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1185"
+      >
+               </a
+      ><a name="1201" class="Symbol"
+      >(</a
+      ><a name="1202" href="FOL.SchemataATP.html#651" class="Postulate"
+      >A&#179;</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1212"
+      > </a
+      ><a name="1213" href="FOL.SchemataATP.html#654" class="Postulate"
+      >B&#179;</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1223"
+      > </a
+      ><a name="1224" href="FOL.SchemataATP.html#651" class="Postulate"
+      >A&#179;</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="FOL.SchemataATP.html#657" class="Postulate"
+      >C&#179;</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOL.SchemataATP.html#1125" class="Bound"
+      >x</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="FOL.SchemataATP.html#1127" class="Bound"
+      >y</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" href="FOL.SchemataATP.html#1129" class="Bound"
+      >z</a
+      ><a name="1243" class="Symbol"
+      >)</a
+      ><a name="1244"
+      >
+  </a
+      ><a name="1247" class="Symbol"
+      >{-#</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" class="Keyword"
+      >ATP</a
+      ><a name="1254"
+      > prove </a
+      ><a name="1261" href="FOL.SchemataATP.html#1111" class="Postulate"
+      >&#8743;&#8744;-dist&#179;</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" class="Symbol"
+      >#-}</a
+      ><a name="1273"
+      >
+
+</a
+      ><a name="1275" class="Keyword"
+      >module</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="FOL.SchemataATP.html#1282" class="Module"
+      >Schemas</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" class="Keyword"
+      >where</a
+      ><a name="1295"
+      >
+
+  </a
+      ><a name="1299" class="Keyword"
+      >postulate</a
+      ><a name="1308"
+      > </a
+      ><a name="1309" href="FOL.SchemataATP.html#1309" class="Postulate"
+      >id</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" class="Symbol"
+      >:</a
+      ><a name="1313"
+      > </a
+      ><a name="1314" class="Symbol"
+      >{</a
+      ><a name="1315" href="FOL.SchemataATP.html#1315" class="Bound"
+      >A</a
+      ><a name="1316"
+      > </a
+      ><a name="1317" class="Symbol"
+      >:</a
+      ><a name="1318"
+      > </a
+      ><a name="1319" class="PrimitiveType"
+      >Set</a
+      ><a name="1322" class="Symbol"
+      >}</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" class="Symbol"
+      >&#8594;</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" href="FOL.SchemataATP.html#1315" class="Bound"
+      >A</a
+      ><a name="1327"
+      > </a
+      ><a name="1328" class="Symbol"
+      >&#8594;</a
+      ><a name="1329"
+      > </a
+      ><a name="1330" href="FOL.SchemataATP.html#1315" class="Bound"
+      >A</a
+      ><a name="1331"
+      >
+  </a
+      ><a name="1334" class="Symbol"
+      >{-#</a
+      ><a name="1337"
+      > </a
+      ><a name="1338" class="Keyword"
+      >ATP</a
+      ><a name="1341"
+      > prove </a
+      ><a name="1348" href="FOL.SchemataATP.html#1309" class="Postulate"
+      >id</a
+      ><a name="1350"
+      > </a
+      ><a name="1351" class="Symbol"
+      >#-}</a
+      ><a name="1354"
+      >
+
+  </a
+      ><a name="1358" class="Keyword"
+      >postulate</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" href="FOL.SchemataATP.html#1368" class="Postulate"
+      >id&#185;</a
+      ><a name="1371"
+      > </a
+      ><a name="1372" class="Symbol"
+      >:</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" class="Symbol"
+      >{</a
+      ><a name="1375" href="FOL.SchemataATP.html#1375" class="Bound"
+      >A&#185;</a
+      ><a name="1377"
+      > </a
+      ><a name="1378" class="Symbol"
+      >:</a
+      ><a name="1379"
+      > </a
+      ><a name="1380" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" class="Symbol"
+      >&#8594;</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" class="PrimitiveType"
+      >Set</a
+      ><a name="1387" class="Symbol"
+      >}</a
+      ><a name="1388"
+      > </a
+      ><a name="1389" class="Symbol"
+      >&#8594;</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" class="Symbol"
+      >&#8704;</a
+      ><a name="1392"
+      > </a
+      ><a name="1393" class="Symbol"
+      >{</a
+      ><a name="1394" href="FOL.SchemataATP.html#1394" class="Bound"
+      >x</a
+      ><a name="1395" class="Symbol"
+      >}</a
+      ><a name="1396"
+      > </a
+      ><a name="1397" class="Symbol"
+      >&#8594;</a
+      ><a name="1398"
+      > </a
+      ><a name="1399" href="FOL.SchemataATP.html#1375" class="Bound"
+      >A&#185;</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" href="FOL.SchemataATP.html#1394" class="Bound"
+      >x</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" class="Symbol"
+      >&#8594;</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" href="FOL.SchemataATP.html#1375" class="Bound"
+      >A&#185;</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="FOL.SchemataATP.html#1394" class="Bound"
+      >x</a
+      ><a name="1410"
+      >
+  </a
+      ><a name="1413" class="Symbol"
+      >{-#</a
+      ><a name="1416"
+      > </a
+      ><a name="1417" class="Keyword"
+      >ATP</a
+      ><a name="1420"
+      > prove </a
+      ><a name="1427" href="FOL.SchemataATP.html#1368" class="Postulate"
+      >id&#185;</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" class="Symbol"
+      >#-}</a
+      ><a name="1434"
+      >
+
+  </a
+      ><a name="1438" class="Keyword"
+      >postulate</a
+      ><a name="1447"
+      > </a
+      ><a name="1448" href="FOL.SchemataATP.html#1448" class="Postulate"
+      >id&#178;</a
+      ><a name="1451"
+      > </a
+      ><a name="1452" class="Symbol"
+      >:</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" class="Symbol"
+      >{</a
+      ><a name="1455" href="FOL.SchemataATP.html#1455" class="Bound"
+      >A&#178;</a
+      ><a name="1457"
+      > </a
+      ><a name="1458" class="Symbol"
+      >:</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" class="Symbol"
+      >&#8594;</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Symbol"
+      >&#8594;</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" class="PrimitiveType"
+      >Set</a
+      ><a name="1471" class="Symbol"
+      >}</a
+      ><a name="1472"
+      > </a
+      ><a name="1473" class="Symbol"
+      >&#8594;</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" class="Symbol"
+      >&#8704;</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" class="Symbol"
+      >{</a
+      ><a name="1478" href="FOL.SchemataATP.html#1478" class="Bound"
+      >x</a
+      ><a name="1479"
+      > </a
+      ><a name="1480" href="FOL.SchemataATP.html#1480" class="Bound"
+      >y</a
+      ><a name="1481" class="Symbol"
+      >}</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" class="Symbol"
+      >&#8594;</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" href="FOL.SchemataATP.html#1455" class="Bound"
+      >A&#178;</a
+      ><a name="1487"
+      > </a
+      ><a name="1488" href="FOL.SchemataATP.html#1478" class="Bound"
+      >x</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" href="FOL.SchemataATP.html#1480" class="Bound"
+      >y</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" class="Symbol"
+      >&#8594;</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="FOL.SchemataATP.html#1455" class="Bound"
+      >A&#178;</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="FOL.SchemataATP.html#1478" class="Bound"
+      >x</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="FOL.SchemataATP.html#1480" class="Bound"
+      >y</a
+      ><a name="1500"
+      >
+  </a
+      ><a name="1503" class="Symbol"
+      >{-#</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" class="Keyword"
+      >ATP</a
+      ><a name="1510"
+      > prove </a
+      ><a name="1517" href="FOL.SchemataATP.html#1448" class="Postulate"
+      >id&#178;</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" class="Symbol"
+      >#-}</a
+      ><a name="1524"
+      >
+
+  </a
+      ><a name="1528" class="Keyword"
+      >postulate</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="FOL.SchemataATP.html#1538" class="Postulate"
+      >&#8744;-comm</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" class="Symbol"
+      >:</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" class="Symbol"
+      >{</a
+      ><a name="1548" href="FOL.SchemataATP.html#1548" class="Bound"
+      >A</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" href="FOL.SchemataATP.html#1550" class="Bound"
+      >B</a
+      ><a name="1551"
+      > </a
+      ><a name="1552" class="Symbol"
+      >:</a
+      ><a name="1553"
+      > </a
+      ><a name="1554" class="PrimitiveType"
+      >Set</a
+      ><a name="1557" class="Symbol"
+      >}</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" class="Symbol"
+      >&#8594;</a
+      ><a name="1560"
+      > </a
+      ><a name="1561" href="FOL.SchemataATP.html#1548" class="Bound"
+      >A</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1564"
+      > </a
+      ><a name="1565" href="FOL.SchemataATP.html#1550" class="Bound"
+      >B</a
+      ><a name="1566"
+      > </a
+      ><a name="1567" class="Symbol"
+      >&#8594;</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="FOL.SchemataATP.html#1548" class="Bound"
+      >A</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" href="FOL.SchemataATP.html#1550" class="Bound"
+      >B</a
+      ><a name="1574"
+      >
+  </a
+      ><a name="1577" class="Symbol"
+      >{-#</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" class="Keyword"
+      >ATP</a
+      ><a name="1584"
+      > prove </a
+      ><a name="1591" href="FOL.SchemataATP.html#1538" class="Postulate"
+      >&#8744;-comm</a
+      ><a name="1597"
+      > </a
+      ><a name="1598" class="Symbol"
+      >#-}</a
+      ><a name="1601"
+      >
+
+  </a
+      ><a name="1605" class="Keyword"
+      >postulate</a
+      ><a name="1614"
+      > </a
+      ><a name="1615" href="FOL.SchemataATP.html#1615" class="Postulate"
+      >&#8744;-comm&#178;</a
+      ><a name="1622"
+      > </a
+      ><a name="1623" class="Symbol"
+      >:</a
+      ><a name="1624"
+      > </a
+      ><a name="1625" class="Symbol"
+      >{</a
+      ><a name="1626" href="FOL.SchemataATP.html#1626" class="Bound"
+      >A&#178;</a
+      ><a name="1628"
+      > </a
+      ><a name="1629" href="FOL.SchemataATP.html#1629" class="Bound"
+      >B&#178;</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" class="Symbol"
+      >:</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" class="Symbol"
+      >&#8594;</a
+      ><a name="1637"
+      > </a
+      ><a name="1638" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" class="Symbol"
+      >&#8594;</a
+      ><a name="1641"
+      > </a
+      ><a name="1642" class="PrimitiveType"
+      >Set</a
+      ><a name="1645" class="Symbol"
+      >}</a
+      ><a name="1646"
+      > </a
+      ><a name="1647" class="Symbol"
+      >&#8594;</a
+      ><a name="1648"
+      > </a
+      ><a name="1649" class="Symbol"
+      >&#8704;</a
+      ><a name="1650"
+      > </a
+      ><a name="1651" class="Symbol"
+      >{</a
+      ><a name="1652" href="FOL.SchemataATP.html#1652" class="Bound"
+      >x</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="FOL.SchemataATP.html#1654" class="Bound"
+      >y</a
+      ><a name="1655" class="Symbol"
+      >}</a
+      ><a name="1656"
+      > </a
+      ><a name="1657" class="Symbol"
+      >&#8594;</a
+      ><a name="1658"
+      >
+                      </a
+      ><a name="1681" href="FOL.SchemataATP.html#1626" class="Bound"
+      >A&#178;</a
+      ><a name="1683"
+      > </a
+      ><a name="1684" href="FOL.SchemataATP.html#1652" class="Bound"
+      >x</a
+      ><a name="1685"
+      > </a
+      ><a name="1686" href="FOL.SchemataATP.html#1654" class="Bound"
+      >y</a
+      ><a name="1687"
+      > </a
+      ><a name="1688" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1689"
+      > </a
+      ><a name="1690" href="FOL.SchemataATP.html#1629" class="Bound"
+      >B&#178;</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="FOL.SchemataATP.html#1652" class="Bound"
+      >x</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="FOL.SchemataATP.html#1654" class="Bound"
+      >y</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" class="Symbol"
+      >&#8594;</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" href="FOL.SchemataATP.html#1629" class="Bound"
+      >B&#178;</a
+      ><a name="1701"
+      > </a
+      ><a name="1702" href="FOL.SchemataATP.html#1652" class="Bound"
+      >x</a
+      ><a name="1703"
+      > </a
+      ><a name="1704" href="FOL.SchemataATP.html#1654" class="Bound"
+      >y</a
+      ><a name="1705"
+      > </a
+      ><a name="1706" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1707"
+      > </a
+      ><a name="1708" href="FOL.SchemataATP.html#1626" class="Bound"
+      >A&#178;</a
+      ><a name="1710"
+      > </a
+      ><a name="1711" href="FOL.SchemataATP.html#1652" class="Bound"
+      >x</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" href="FOL.SchemataATP.html#1654" class="Bound"
+      >y</a
+      ><a name="1714"
+      >
+  </a
+      ><a name="1717" class="Symbol"
+      >{-#</a
+      ><a name="1720"
+      > </a
+      ><a name="1721" class="Keyword"
+      >ATP</a
+      ><a name="1724"
+      > prove </a
+      ><a name="1731" href="FOL.SchemataATP.html#1615" class="Postulate"
+      >&#8744;-comm&#178;</a
+      ><a name="1738"
+      > </a
+      ><a name="1739" class="Symbol"
+      >#-}</a
+      ><a name="1742"
+      >
+
+  </a
+      ><a name="1746" class="Keyword"
+      >postulate</a
+      ><a name="1755"
+      > </a
+      ><a name="1756" href="FOL.SchemataATP.html#1756" class="Postulate"
+      >&#8743;&#8744;-dist</a
+      ><a name="1763"
+      > </a
+      ><a name="1764" class="Symbol"
+      >:</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" class="Symbol"
+      >{</a
+      ><a name="1767" href="FOL.SchemataATP.html#1767" class="Bound"
+      >A</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" href="FOL.SchemataATP.html#1769" class="Bound"
+      >B</a
+      ><a name="1770"
+      > </a
+      ><a name="1771" href="FOL.SchemataATP.html#1771" class="Bound"
+      >C</a
+      ><a name="1772"
+      > </a
+      ><a name="1773" class="Symbol"
+      >:</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" class="PrimitiveType"
+      >Set</a
+      ><a name="1778" class="Symbol"
+      >}</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" class="Symbol"
+      >&#8594;</a
+      ><a name="1781"
+      > </a
+      ><a name="1782" href="FOL.SchemataATP.html#1767" class="Bound"
+      >A</a
+      ><a name="1783"
+      > </a
+      ><a name="1784" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" class="Symbol"
+      >(</a
+      ><a name="1787" href="FOL.SchemataATP.html#1769" class="Bound"
+      >B</a
+      ><a name="1788"
+      > </a
+      ><a name="1789" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1790"
+      > </a
+      ><a name="1791" href="FOL.SchemataATP.html#1771" class="Bound"
+      >C</a
+      ><a name="1792" class="Symbol"
+      >)</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" href="FOL.SchemataATP.html#1767" class="Bound"
+      >A</a
+      ><a name="1797"
+      > </a
+      ><a name="1798" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="FOL.SchemataATP.html#1769" class="Bound"
+      >B</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" href="FOL.SchemataATP.html#1767" class="Bound"
+      >A</a
+      ><a name="1805"
+      > </a
+      ><a name="1806" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="FOL.SchemataATP.html#1771" class="Bound"
+      >C</a
+      ><a name="1809"
+      >
+  </a
+      ><a name="1812" class="Symbol"
+      >{-#</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" class="Keyword"
+      >ATP</a
+      ><a name="1819"
+      > prove </a
+      ><a name="1826" href="FOL.SchemataATP.html#1756" class="Postulate"
+      >&#8743;&#8744;-dist</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" class="Symbol"
+      >#-}</a
+      ><a name="1837"
+      >
+
+  </a
+      ><a name="1841" class="Keyword"
+      >postulate</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="FOL.SchemataATP.html#1851" class="Postulate"
+      >&#8743;&#8744;-dist&#179;</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" class="Symbol"
+      >:</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" class="Symbol"
+      >{</a
+      ><a name="1863" href="FOL.SchemataATP.html#1863" class="Bound"
+      >A&#179;</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" href="FOL.SchemataATP.html#1866" class="Bound"
+      >B&#179;</a
+      ><a name="1868"
+      > </a
+      ><a name="1869" href="FOL.SchemataATP.html#1869" class="Bound"
+      >C&#179;</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" class="Symbol"
+      >:</a
+      ><a name="1873"
+      > </a
+      ><a name="1874" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" class="Symbol"
+      >&#8594;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" class="Symbol"
+      >&#8594;</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1883"
+      > </a
+      ><a name="1884" class="Symbol"
+      >&#8594;</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" class="PrimitiveType"
+      >Set</a
+      ><a name="1889" class="Symbol"
+      >}</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" class="Symbol"
+      >&#8594;</a
+      ><a name="1892"
+      > </a
+      ><a name="1893" class="Symbol"
+      >&#8704;</a
+      ><a name="1894"
+      > </a
+      ><a name="1895" class="Symbol"
+      >{</a
+      ><a name="1896" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="1901" class="Symbol"
+      >}</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" class="Symbol"
+      >&#8594;</a
+      ><a name="1904"
+      >
+                       </a
+      ><a name="1928" class="Symbol"
+      >(</a
+      ><a name="1929" href="FOL.SchemataATP.html#1863" class="Bound"
+      >A&#179;</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="1933"
+      > </a
+      ><a name="1934" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="1935"
+      > </a
+      ><a name="1936" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="1937"
+      > </a
+      ><a name="1938" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1939"
+      > </a
+      ><a name="1940" class="Symbol"
+      >(</a
+      ><a name="1941" href="FOL.SchemataATP.html#1866" class="Bound"
+      >B&#179;</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="1945"
+      > </a
+      ><a name="1946" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="1947"
+      > </a
+      ><a name="1948" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="1949"
+      > </a
+      ><a name="1950" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" href="FOL.SchemataATP.html#1869" class="Bound"
+      >C&#179;</a
+      ><a name="1954"
+      > </a
+      ><a name="1955" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="1956"
+      > </a
+      ><a name="1957" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="1960" class="Symbol"
+      >))</a
+      ><a name="1962"
+      > </a
+      ><a name="1963" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="1964"
+      >
+                       </a
+      ><a name="1988" class="Symbol"
+      >(</a
+      ><a name="1989" href="FOL.SchemataATP.html#1863" class="Bound"
+      >A&#179;</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="1995"
+      > </a
+      ><a name="1996" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="1997"
+      > </a
+      ><a name="1998" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1999"
+      > </a
+      ><a name="2000" href="FOL.SchemataATP.html#1866" class="Bound"
+      >B&#179;</a
+      ><a name="2002"
+      > </a
+      ><a name="2003" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="2004"
+      > </a
+      ><a name="2005" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="2008"
+      > </a
+      ><a name="2009" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2010"
+      > </a
+      ><a name="2011" href="FOL.SchemataATP.html#1863" class="Bound"
+      >A&#179;</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" href="FOL.SchemataATP.html#1869" class="Bound"
+      >C&#179;</a
+      ><a name="2024"
+      > </a
+      ><a name="2025" href="FOL.SchemataATP.html#1896" class="Bound"
+      >x</a
+      ><a name="2026"
+      > </a
+      ><a name="2027" href="FOL.SchemataATP.html#1898" class="Bound"
+      >y</a
+      ><a name="2028"
+      > </a
+      ><a name="2029" href="FOL.SchemataATP.html#1900" class="Bound"
+      >z</a
+      ><a name="2030" class="Symbol"
+      >)</a
+      ><a name="2031"
+      >
+  </a
+      ><a name="2034" class="Symbol"
+      >{-#</a
+      ><a name="2037"
+      > </a
+      ><a name="2038" class="Keyword"
+      >ATP</a
+      ><a name="2041"
+      > prove </a
+      ><a name="2048" href="FOL.SchemataATP.html#1851" class="Postulate"
+      >&#8743;&#8744;-dist&#179;</a
+      ><a name="2056"
+      > </a
+      ><a name="2057" class="Symbol"
+      >#-}</a
+      ><a name="2060"
+      >
+
+</a
+      ><a name="2062" class="Keyword"
+      >module</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" href="FOL.SchemataATP.html#2069" class="Module"
+      >SchemaInstances</a
+      ><a name="2084"
+      > </a
+      ><a name="2085" class="Keyword"
+      >where</a
+      ><a name="2090"
+      >
+
+  </a
+      ><a name="2094" class="Comment"
+      >-- A schema</a
+      ><a name="2105"
+      >
+  </a
+      ><a name="2108" class="Comment"
+      >-- Current translation: &#8704; p q x. app(p,x) &#8594; app(q,x).</a
+      ><a name="2161"
+      >
+  </a
+      ><a name="2164" class="Keyword"
+      >postulate</a
+      ><a name="2173"
+      > </a
+      ><a name="2174" href="FOL.SchemataATP.html#2174" class="Postulate"
+      >schema</a
+      ><a name="2180"
+      > </a
+      ><a name="2181" class="Symbol"
+      >:</a
+      ><a name="2182"
+      > </a
+      ><a name="2183" class="Symbol"
+      >(</a
+      ><a name="2184" href="FOL.SchemataATP.html#2184" class="Bound"
+      >A</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" href="FOL.SchemataATP.html#2186" class="Bound"
+      >B</a
+      ><a name="2187"
+      > </a
+      ><a name="2188" class="Symbol"
+      >:</a
+      ><a name="2189"
+      > </a
+      ><a name="2190" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2191"
+      > </a
+      ><a name="2192" class="Symbol"
+      >&#8594;</a
+      ><a name="2193"
+      > </a
+      ><a name="2194" class="PrimitiveType"
+      >Set</a
+      ><a name="2197" class="Symbol"
+      >)</a
+      ><a name="2198"
+      > </a
+      ><a name="2199" class="Symbol"
+      >&#8594;</a
+      ><a name="2200"
+      > </a
+      ><a name="2201" class="Symbol"
+      >&#8704;</a
+      ><a name="2202"
+      > </a
+      ><a name="2203" class="Symbol"
+      >{</a
+      ><a name="2204" href="FOL.SchemataATP.html#2204" class="Bound"
+      >x</a
+      ><a name="2205" class="Symbol"
+      >}</a
+      ><a name="2206"
+      > </a
+      ><a name="2207" class="Symbol"
+      >&#8594;</a
+      ><a name="2208"
+      > </a
+      ><a name="2209" href="FOL.SchemataATP.html#2184" class="Bound"
+      >A</a
+      ><a name="2210"
+      > </a
+      ><a name="2211" href="FOL.SchemataATP.html#2204" class="Bound"
+      >x</a
+      ><a name="2212"
+      > </a
+      ><a name="2213" class="Symbol"
+      >&#8594;</a
+      ><a name="2214"
+      > </a
+      ><a name="2215" href="FOL.SchemataATP.html#2186" class="Bound"
+      >B</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" href="FOL.SchemataATP.html#2204" class="Bound"
+      >x</a
+      ><a name="2218"
+      >
+
+  </a
+      ><a name="2222" class="Comment"
+      >-- Using the current translation, the ATPs can prove an instance of</a
+      ><a name="2289"
+      >
+  </a
+      ><a name="2292" class="Comment"
+      >-- the schema.</a
+      ><a name="2306"
+      >
+  </a
+      ><a name="2309" class="Keyword"
+      >postulate</a
+      ><a name="2318"
+      >
+    </a
+      ><a name="2323" href="FOL.SchemataATP.html#2323" class="Postulate"
+      >d</a
+      ><a name="2324"
+      >         </a
+      ><a name="2333" class="Symbol"
+      >:</a
+      ><a name="2334"
+      > </a
+      ><a name="2335" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2336"
+      >
+    </a
+      ><a name="2341" href="FOL.SchemataATP.html#2341" class="Postulate"
+      >A</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" href="FOL.SchemataATP.html#2343" class="Postulate"
+      >B</a
+      ><a name="2344"
+      >       </a
+      ><a name="2351" class="Symbol"
+      >:</a
+      ><a name="2352"
+      > </a
+      ><a name="2353" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2354"
+      > </a
+      ><a name="2355" class="Symbol"
+      >&#8594;</a
+      ><a name="2356"
+      > </a
+      ><a name="2357" class="PrimitiveType"
+      >Set</a
+      ><a name="2360"
+      >
+    </a
+      ><a name="2365" href="FOL.SchemataATP.html#2365" class="Postulate"
+      >instanceC</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" class="Symbol"
+      >:</a
+      ><a name="2376"
+      > </a
+      ><a name="2377" href="FOL.SchemataATP.html#2341" class="Postulate"
+      >A</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" href="FOL.SchemataATP.html#2323" class="Postulate"
+      >d</a
+      ><a name="2380"
+      > </a
+      ><a name="2381" class="Symbol"
+      >&#8594;</a
+      ><a name="2382"
+      > </a
+      ><a name="2383" href="FOL.SchemataATP.html#2343" class="Postulate"
+      >B</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" href="FOL.SchemataATP.html#2323" class="Postulate"
+      >d</a
+      ><a name="2386"
+      >
+  </a
+      ><a name="2389" class="Symbol"
+      >{-#</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" class="Keyword"
+      >ATP</a
+      ><a name="2396"
+      > prove </a
+      ><a name="2403" href="FOL.SchemataATP.html#2365" class="Postulate"
+      >instanceC</a
+      ><a name="2412"
+      > </a
+      ><a name="2413" href="FOL.SchemataATP.html#2174" class="Postulate"
+      >schema</a
+      ><a name="2419"
+      > </a
+      ><a name="2420" class="Symbol"
+      >#-}</a
+      ><a name="2423"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

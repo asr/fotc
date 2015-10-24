@@ -1,0 +1,1486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.Induction.Acc.WF-ATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Well-founded induction on the natural numbers</a
+      ><a name="128"
+      >
+</a
+      ><a name="129" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="207"
+      >
+
+</a
+      ><a name="209" class="Symbol"
+      >{-#</a
+      ><a name="212"
+      > </a
+      ><a name="213" class="Keyword"
+      >OPTIONS</a
+      ><a name="220"
+      > --exact-split              </a
+      ><a name="248" class="Symbol"
+      >#-}</a
+      ><a name="251"
+      >
+</a
+      ><a name="252" class="Symbol"
+      >{-#</a
+      ><a name="255"
+      > </a
+      ><a name="256" class="Keyword"
+      >OPTIONS</a
+      ><a name="263"
+      > --no-sized-types           </a
+      ><a name="291" class="Symbol"
+      >#-}</a
+      ><a name="294"
+      >
+</a
+      ><a name="295" class="Symbol"
+      >{-#</a
+      ><a name="298"
+      > </a
+      ><a name="299" class="Keyword"
+      >OPTIONS</a
+      ><a name="306"
+      > --no-universe-polymorphism </a
+      ><a name="334" class="Symbol"
+      >#-}</a
+      ><a name="337"
+      >
+</a
+      ><a name="338" class="Symbol"
+      >{-#</a
+      ><a name="341"
+      > </a
+      ><a name="342" class="Keyword"
+      >OPTIONS</a
+      ><a name="349"
+      > --without-K                </a
+      ><a name="377" class="Symbol"
+      >#-}</a
+      ><a name="380"
+      >
+
+</a
+      ><a name="382" class="Comment"
+      >-- N.B This module does not contain combined proofs, but it imports</a
+      ><a name="449"
+      >
+</a
+      ><a name="450" class="Comment"
+      >-- modules which contain combined proofs.</a
+      ><a name="491"
+      >
+
+</a
+      ><a name="493" class="Keyword"
+      >module</a
+      ><a name="499"
+      > </a
+      ><a name="500" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.Acc.WF-ATP</a
+      ><a name="534"
+      > </a
+      ><a name="535" class="Keyword"
+      >where</a
+      ><a name="540"
+      >
+
+</a
+      ><a name="542" class="Keyword"
+      >open</a
+      ><a name="546"
+      > </a
+      ><a name="547" class="Keyword"
+      >import</a
+      ><a name="553"
+      > </a
+      ><a name="554" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="563"
+      >
+</a
+      ><a name="564" class="Keyword"
+      >open</a
+      ><a name="568"
+      > </a
+      ><a name="569" class="Keyword"
+      >import</a
+      ><a name="575"
+      > </a
+      ><a name="576" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="602"
+      >
+</a
+      ><a name="603" class="Keyword"
+      >open</a
+      ><a name="607"
+      > </a
+      ><a name="608" class="Keyword"
+      >import</a
+      ><a name="614"
+      > </a
+      ><a name="615" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="666"
+      >
+</a
+      ><a name="667" class="Keyword"
+      >open</a
+      ><a name="671"
+      > </a
+      ><a name="672" class="Keyword"
+      >import</a
+      ><a name="678"
+      > </a
+      ><a name="679" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="719"
+      >
+</a
+      ><a name="720" class="Keyword"
+      >open</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Keyword"
+      >import</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="750"
+      >
+</a
+      ><a name="751" class="Keyword"
+      >open</a
+      ><a name="755"
+      > </a
+      ><a name="756" class="Keyword"
+      >import</a
+      ><a name="762"
+      > </a
+      ><a name="763" href="FOTC.Induction.WF.html#1" class="Module"
+      >FOTC.Induction.WF</a
+      ><a name="780"
+      >
+
+</a
+      ><a name="782" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="860"
+      >
+</a
+      ><a name="861" class="Comment"
+      >-- The relation _&lt;_ is well-founded.</a
+      ><a name="897"
+      >
+</a
+      ><a name="898" class="Keyword"
+      >module</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#905" class="Module"
+      >&lt;-WF</a
+      ><a name="909"
+      > </a
+      ><a name="910" class="Keyword"
+      >where</a
+      ><a name="915"
+      >
+  </a
+      ><a name="918" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#918" class="Function"
+      >&lt;-wf</a
+      ><a name="922"
+      > </a
+      ><a name="923" class="Symbol"
+      >:</a
+      ><a name="924"
+      > </a
+      ><a name="925" href="FOTC.Induction.WF.html#1292" class="Function"
+      >WellFounded</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="940"
+      >
+  </a
+      ><a name="943" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#918" class="Function"
+      >&lt;-wf</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#948" class="Bound"
+      >Nn</a
+      ><a name="950"
+      > </a
+      ><a name="951" class="Symbol"
+      >=</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="956"
+      > </a
+      ><a name="957" class="Symbol"
+      >(</a
+      ><a name="958" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1116" class="Function"
+      >helper</a
+      ><a name="964"
+      > </a
+      ><a name="965" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#948" class="Bound"
+      >Nn</a
+      ><a name="967" class="Symbol"
+      >)</a
+      ><a name="968"
+      >
+    </a
+      ><a name="973" class="Keyword"
+      >where</a
+      ><a name="978"
+      >
+    </a
+      ><a name="983" class="Comment"
+      >-- N.B. The helper function is the same that the function used by</a
+      ><a name="1048"
+      >
+    </a
+      ><a name="1053" class="Comment"
+      >-- FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP.</a
+      ><a name="1111"
+      >
+    </a
+      ><a name="1116" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1116" class="Function"
+      >helper</a
+      ><a name="1122"
+      > </a
+      ><a name="1123" class="Symbol"
+      >:</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" class="Symbol"
+      >&#8704;</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" class="Symbol"
+      >{</a
+      ><a name="1128" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1128" class="Bound"
+      >n</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1130" class="Bound"
+      >m</a
+      ><a name="1131" class="Symbol"
+      >}</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >&#8594;</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1128" class="Bound"
+      >n</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" class="Symbol"
+      >&#8594;</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1130" class="Bound"
+      >m</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" class="Symbol"
+      >&#8594;</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1130" class="Bound"
+      >m</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1128" class="Bound"
+      >n</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" class="Symbol"
+      >&#8594;</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" href="FOTC.Induction.WF.html#816" class="Datatype"
+      >Acc</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="1164"
+      > </a
+      ><a name="1165" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1130" class="Bound"
+      >m</a
+      ><a name="1166"
+      >
+    </a
+      ><a name="1171" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1116" class="Function"
+      >helper</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1183"
+      >     </a
+      ><a name="1188" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1188" class="Bound"
+      >Nm</a
+      ><a name="1190"
+      >    </a
+      ><a name="1194" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1194" class="Bound"
+      >m&lt;0</a
+      ><a name="1197"
+      >  </a
+      ><a name="1199" class="Symbol"
+      >=</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" class="Symbol"
+      >(</a
+      ><a name="1209" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="1214"
+      > </a
+      ><a name="1215" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1188" class="Bound"
+      >Nm</a
+      ><a name="1217"
+      > </a
+      ><a name="1218" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1194" class="Bound"
+      >m&lt;0</a
+      ><a name="1221" class="Symbol"
+      >)</a
+      ><a name="1222"
+      >
+    </a
+      ><a name="1227" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1116" class="Function"
+      >helper</a
+      ><a name="1233"
+      > </a
+      ><a name="1234" class="Symbol"
+      >(</a
+      ><a name="1235" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" class="Symbol"
+      >_)</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1250" class="Bound"
+      >0&lt;Sn</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" class="Symbol"
+      >=</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" class="Symbol"
+      >(&#955;</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1264" class="Bound"
+      >Nm'</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1268" class="Bound"
+      >m'&lt;0</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" class="Symbol"
+      >&#8594;</a
+      ><a name="1274"
+      > </a
+      ><a name="1275" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" class="Symbol"
+      >(</a
+      ><a name="1283" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="1288"
+      > </a
+      ><a name="1289" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1264" class="Bound"
+      >Nm'</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1268" class="Bound"
+      >m'&lt;0</a
+      ><a name="1297" class="Symbol"
+      >))</a
+      ><a name="1299"
+      >
+    </a
+      ><a name="1304" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1116" class="Function"
+      >helper</a
+      ><a name="1310"
+      > </a
+      ><a name="1311" class="Symbol"
+      >(</a
+      ><a name="1312" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" class="Symbol"
+      >{</a
+      ><a name="1319" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1319" class="Bound"
+      >n</a
+      ><a name="1320" class="Symbol"
+      >}</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1322" class="Bound"
+      >Nn</a
+      ><a name="1324" class="Symbol"
+      >)</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Symbol"
+      >(</a
+      ><a name="1327" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" class="Symbol"
+      >{</a
+      ><a name="1334" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1334" class="Bound"
+      >m</a
+      ><a name="1335" class="Symbol"
+      >}</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1337" class="Bound"
+      >Nm</a
+      ><a name="1339" class="Symbol"
+      >)</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1341" class="Bound"
+      >Sm&lt;Sn</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" class="Symbol"
+      >=</a
+      ><a name="1348"
+      >
+      </a
+      ><a name="1355" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" class="Symbol"
+      >(&#955;</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" class="Symbol"
+      >{</a
+      ><a name="1363" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1363" class="Bound"
+      >m'</a
+      ><a name="1365" class="Symbol"
+      >}</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1367" class="Bound"
+      >Nm'</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1371" class="Bound"
+      >m'&lt;Sm</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" class="Symbol"
+      >&#8594;</a
+      ><a name="1378"
+      >
+             </a
+      ><a name="1392" class="Keyword"
+      >let</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1396" class="Bound"
+      >m&lt;n</a
+      ><a name="1399"
+      > </a
+      ><a name="1400" class="Symbol"
+      >:</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1334" class="Bound"
+      >m</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1319" class="Bound"
+      >n</a
+      ><a name="1407"
+      >
+                 </a
+      ><a name="1425" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1396" class="Bound"
+      >m&lt;n</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" class="Symbol"
+      >=</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1911" class="Postulate"
+      >Sx&lt;Sy&#8594;x&lt;y</a
+      ><a name="1440"
+      > </a
+      ><a name="1441" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1341" class="Bound"
+      >Sm&lt;Sn</a
+      ><a name="1446"
+      >
+
+                 </a
+      ><a name="1465" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1465" class="Bound"
+      >m'&lt;n</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" class="Symbol"
+      >:</a
+      ><a name="1471"
+      > </a
+      ><a name="1472" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1363" class="Bound"
+      >m'</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1319" class="Bound"
+      >n</a
+      ><a name="1478"
+      >
+                 </a
+      ><a name="1496" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1465" class="Bound"
+      >m'&lt;n</a
+      ><a name="1500"
+      > </a
+      ><a name="1501" class="Symbol"
+      >=</a
+      ><a name="1502"
+      > </a
+      ><a name="1503" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" class="Symbol"
+      >(&#955;</a
+      ><a name="1510"
+      > </a
+      ><a name="1511" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1511" class="Bound"
+      >m'&lt;m</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" class="Symbol"
+      >&#8594;</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#10127" class="Function"
+      >&lt;-trans</a
+      ><a name="1525"
+      > </a
+      ><a name="1526" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1367" class="Bound"
+      >Nm'</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1337" class="Bound"
+      >Nm</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1322" class="Bound"
+      >Nn</a
+      ><a name="1535"
+      > </a
+      ><a name="1536" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1511" class="Bound"
+      >m'&lt;m</a
+      ><a name="1540"
+      > </a
+      ><a name="1541" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1396" class="Bound"
+      >m&lt;n</a
+      ><a name="1544" class="Symbol"
+      >)</a
+      ><a name="1545"
+      >
+                             </a
+      ><a name="1575" class="Symbol"
+      >(&#955;</a
+      ><a name="1577"
+      > </a
+      ><a name="1578" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1578" class="Bound"
+      >m'&#8801;m</a
+      ><a name="1582"
+      > </a
+      ><a name="1583" class="Symbol"
+      >&#8594;</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#17996" class="Postulate"
+      >x&#8801;y&#8594;y&lt;z&#8594;x&lt;z</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1578" class="Bound"
+      >m'&#8801;m</a
+      ><a name="1601"
+      > </a
+      ><a name="1602" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1396" class="Bound"
+      >m&lt;n</a
+      ><a name="1605" class="Symbol"
+      >)</a
+      ><a name="1606"
+      >
+                             </a
+      ><a name="1636" class="Symbol"
+      >(</a
+      ><a name="1637" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#17273" class="Function"
+      >x&lt;Sy&#8594;x&lt;y&#8744;x&#8801;y</a
+      ><a name="1649"
+      > </a
+      ><a name="1650" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1367" class="Bound"
+      >Nm'</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1337" class="Bound"
+      >Nm</a
+      ><a name="1656"
+      > </a
+      ><a name="1657" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1371" class="Bound"
+      >m'&lt;Sm</a
+      ><a name="1662" class="Symbol"
+      >)</a
+      ><a name="1663"
+      >
+
+             </a
+      ><a name="1678" class="Keyword"
+      >in</a
+      ><a name="1680"
+      >  </a
+      ><a name="1682" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1116" class="Function"
+      >helper</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1322" class="Bound"
+      >Nn</a
+      ><a name="1691"
+      > </a
+      ><a name="1692" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1367" class="Bound"
+      >Nm'</a
+      ><a name="1695"
+      > </a
+      ><a name="1696" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1465" class="Bound"
+      >m'&lt;n</a
+      ><a name="1700"
+      >
+          </a
+      ><a name="1711" class="Symbol"
+      >)</a
+      ><a name="1712"
+      >
+
+  </a
+      ><a name="1716" class="Comment"
+      >-- Well-founded induction on the natural numbers.</a
+      ><a name="1765"
+      >
+  </a
+      ><a name="1768" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1768" class="Function"
+      >&lt;-wfind</a
+      ><a name="1775"
+      > </a
+      ><a name="1776" class="Symbol"
+      >:</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" class="Symbol"
+      >(</a
+      ><a name="1779" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1779" class="Bound"
+      >A</a
+      ><a name="1780"
+      > </a
+      ><a name="1781" class="Symbol"
+      >:</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1784"
+      > </a
+      ><a name="1785" class="Symbol"
+      >&#8594;</a
+      ><a name="1786"
+      > </a
+      ><a name="1787" class="PrimitiveType"
+      >Set</a
+      ><a name="1790" class="Symbol"
+      >)</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" class="Symbol"
+      >&#8594;</a
+      ><a name="1793"
+      >
+            </a
+      ><a name="1806" class="Symbol"
+      >(&#8704;</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Symbol"
+      >{</a
+      ><a name="1810" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1810" class="Bound"
+      >n</a
+      ><a name="1811" class="Symbol"
+      >}</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" class="Symbol"
+      >&#8594;</a
+      ><a name="1814"
+      > </a
+      ><a name="1815" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1816"
+      > </a
+      ><a name="1817" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1810" class="Bound"
+      >n</a
+      ><a name="1818"
+      > </a
+      ><a name="1819" class="Symbol"
+      >&#8594;</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" class="Symbol"
+      >(&#8704;</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" class="Symbol"
+      >{</a
+      ><a name="1825" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1825" class="Bound"
+      >m</a
+      ><a name="1826" class="Symbol"
+      >}</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" class="Symbol"
+      >&#8594;</a
+      ><a name="1829"
+      > </a
+      ><a name="1830" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1831"
+      > </a
+      ><a name="1832" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1825" class="Bound"
+      >m</a
+      ><a name="1833"
+      > </a
+      ><a name="1834" class="Symbol"
+      >&#8594;</a
+      ><a name="1835"
+      > </a
+      ><a name="1836" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1825" class="Bound"
+      >m</a
+      ><a name="1837"
+      > </a
+      ><a name="1838" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1839"
+      > </a
+      ><a name="1840" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1810" class="Bound"
+      >n</a
+      ><a name="1841"
+      > </a
+      ><a name="1842" class="Symbol"
+      >&#8594;</a
+      ><a name="1843"
+      > </a
+      ><a name="1844" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1779" class="Bound"
+      >A</a
+      ><a name="1845"
+      > </a
+      ><a name="1846" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1825" class="Bound"
+      >m</a
+      ><a name="1847" class="Symbol"
+      >)</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" class="Symbol"
+      >&#8594;</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1779" class="Bound"
+      >A</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1810" class="Bound"
+      >n</a
+      ><a name="1854" class="Symbol"
+      >)</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" class="Symbol"
+      >&#8594;</a
+      ><a name="1857"
+      >
+            </a
+      ><a name="1870" class="Symbol"
+      >&#8704;</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" class="Symbol"
+      >{</a
+      ><a name="1873" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1873" class="Bound"
+      >n</a
+      ><a name="1874" class="Symbol"
+      >}</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" class="Symbol"
+      >&#8594;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1873" class="Bound"
+      >n</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" class="Symbol"
+      >&#8594;</a
+      ><a name="1883"
+      > </a
+      ><a name="1884" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1779" class="Bound"
+      >A</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1873" class="Bound"
+      >n</a
+      ><a name="1887"
+      >
+  </a
+      ><a name="1890" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1768" class="Function"
+      >&lt;-wfind</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#1898" class="Bound"
+      >A</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" class="Symbol"
+      >=</a
+      ><a name="1901"
+      > </a
+      ><a name="1902" href="FOTC.Induction.WF.html#1391" class="Function"
+      >WellFoundedInduction</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#918" class="Function"
+      >&lt;-wf</a
+      ><a name="1927"
+      >
+
+</a
+      ><a name="1929" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2007"
+      >
+</a
+      ><a name="2008" class="Comment"
+      >-- The relation _&lt;_ is well-founded (a different proof).</a
+      ><a name="2064"
+      >
+</a
+      ><a name="2065" class="Keyword"
+      >module</a
+      ><a name="2071"
+      > </a
+      ><a name="2072" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2072" class="Module"
+      >&lt;-WF'</a
+      ><a name="2077"
+      > </a
+      ><a name="2078" class="Keyword"
+      >where</a
+      ><a name="2083"
+      >
+
+  </a
+      ><a name="2087" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2087" class="Function"
+      >&lt;-wf</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" class="Symbol"
+      >:</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="FOTC.Induction.WF.html#1292" class="Function"
+      >WellFounded</a
+      ><a name="2105"
+      > </a
+      ><a name="2106" class="Symbol"
+      >{</a
+      ><a name="2107" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2108" class="Symbol"
+      >}</a
+      ><a name="2109"
+      > </a
+      ><a name="2110" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="2113"
+      >
+  </a
+      ><a name="2116" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2087" class="Function"
+      >&lt;-wf</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2126"
+      >      </a
+      ><a name="2132" class="Symbol"
+      >=</a
+      ><a name="2133"
+      > </a
+      ><a name="2134" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" class="Symbol"
+      >(&#955;</a
+      ><a name="2140"
+      > </a
+      ><a name="2141" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2141" class="Bound"
+      >Nm</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2144" class="Bound"
+      >m&lt;0</a
+      ><a name="2147"
+      > </a
+      ><a name="2148" class="Symbol"
+      >&#8594;</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2156"
+      > </a
+      ><a name="2157" class="Symbol"
+      >(</a
+      ><a name="2158" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="2163"
+      > </a
+      ><a name="2164" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2141" class="Bound"
+      >Nm</a
+      ><a name="2166"
+      > </a
+      ><a name="2167" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2144" class="Bound"
+      >m&lt;0</a
+      ><a name="2170" class="Symbol"
+      >))</a
+      ><a name="2172"
+      >
+  </a
+      ><a name="2175" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2087" class="Function"
+      >&lt;-wf</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" class="Symbol"
+      >(</a
+      ><a name="2181" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2187" class="Bound"
+      >Nn</a
+      ><a name="2189" class="Symbol"
+      >)</a
+      ><a name="2190"
+      > </a
+      ><a name="2191" class="Symbol"
+      >=</a
+      ><a name="2192"
+      > </a
+      ><a name="2193" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="2196"
+      > </a
+      ><a name="2197" class="Symbol"
+      >(&#955;</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2200" class="Bound"
+      >Nm</a
+      ><a name="2202"
+      > </a
+      ><a name="2203" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2203" class="Bound"
+      >m&lt;Sn</a
+      ><a name="2207"
+      > </a
+      ><a name="2208" class="Symbol"
+      >&#8594;</a
+      ><a name="2209"
+      > </a
+      ><a name="2210" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2312" class="Function"
+      >helper</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2200" class="Bound"
+      >Nm</a
+      ><a name="2219"
+      > </a
+      ><a name="2220" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2187" class="Bound"
+      >Nn</a
+      ><a name="2222"
+      > </a
+      ><a name="2223" class="Symbol"
+      >(</a
+      ><a name="2224" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2087" class="Function"
+      >&lt;-wf</a
+      ><a name="2228"
+      > </a
+      ><a name="2229" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2187" class="Bound"
+      >Nn</a
+      ><a name="2231" class="Symbol"
+      >)</a
+      ><a name="2232"
+      >
+                                          </a
+      ><a name="2275" class="Symbol"
+      >(</a
+      ><a name="2276" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#6870" class="Function"
+      >x&lt;Sy&#8594;x&#8804;y</a
+      ><a name="2284"
+      > </a
+      ><a name="2285" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2200" class="Bound"
+      >Nm</a
+      ><a name="2287"
+      > </a
+      ><a name="2288" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2187" class="Bound"
+      >Nn</a
+      ><a name="2290"
+      > </a
+      ><a name="2291" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2203" class="Bound"
+      >m&lt;Sn</a
+      ><a name="2295" class="Symbol"
+      >))</a
+      ><a name="2297"
+      >
+    </a
+      ><a name="2302" class="Keyword"
+      >where</a
+      ><a name="2307"
+      >
+    </a
+      ><a name="2312" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2312" class="Function"
+      >helper</a
+      ><a name="2318"
+      > </a
+      ><a name="2319" class="Symbol"
+      >:</a
+      ><a name="2320"
+      > </a
+      ><a name="2321" class="Symbol"
+      >&#8704;</a
+      ><a name="2322"
+      > </a
+      ><a name="2323" class="Symbol"
+      >{</a
+      ><a name="2324" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2324" class="Bound"
+      >n</a
+      ><a name="2325"
+      > </a
+      ><a name="2326" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2326" class="Bound"
+      >m</a
+      ><a name="2327" class="Symbol"
+      >}</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" class="Symbol"
+      >&#8594;</a
+      ><a name="2330"
+      > </a
+      ><a name="2331" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2332"
+      > </a
+      ><a name="2333" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2324" class="Bound"
+      >n</a
+      ><a name="2334"
+      > </a
+      ><a name="2335" class="Symbol"
+      >&#8594;</a
+      ><a name="2336"
+      > </a
+      ><a name="2337" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2338"
+      > </a
+      ><a name="2339" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2326" class="Bound"
+      >m</a
+      ><a name="2340"
+      > </a
+      ><a name="2341" class="Symbol"
+      >&#8594;</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" href="FOTC.Induction.WF.html#816" class="Datatype"
+      >Acc</a
+      ><a name="2346"
+      > </a
+      ><a name="2347" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2348"
+      > </a
+      ><a name="2349" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="2352"
+      > </a
+      ><a name="2353" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2326" class="Bound"
+      >m</a
+      ><a name="2354"
+      > </a
+      ><a name="2355" class="Symbol"
+      >&#8594;</a
+      ><a name="2356"
+      > </a
+      ><a name="2357" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2324" class="Bound"
+      >n</a
+      ><a name="2358"
+      > </a
+      ><a name="2359" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="2360"
+      > </a
+      ><a name="2361" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2326" class="Bound"
+      >m</a
+      ><a name="2362"
+      > </a
+      ><a name="2363" class="Symbol"
+      >&#8594;</a
+      ><a name="2364"
+      > </a
+      ><a name="2365" href="FOTC.Induction.WF.html#816" class="Datatype"
+      >Acc</a
+      ><a name="2368"
+      > </a
+      ><a name="2369" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2370"
+      > </a
+      ><a name="2371" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2324" class="Bound"
+      >n</a
+      ><a name="2376"
+      >
+    </a
+      ><a name="2381" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2312" class="Function"
+      >helper</a
+      ><a name="2387"
+      > </a
+      ><a name="2388" class="Symbol"
+      >{</a
+      ><a name="2389" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2389" class="Bound"
+      >n</a
+      ><a name="2390" class="Symbol"
+      >}</a
+      ><a name="2391"
+      > </a
+      ><a name="2392" class="Symbol"
+      >{</a
+      ><a name="2393" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2393" class="Bound"
+      >m</a
+      ><a name="2394" class="Symbol"
+      >}</a
+      ><a name="2395"
+      > </a
+      ><a name="2396" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2396" class="Bound"
+      >Nn</a
+      ><a name="2398"
+      > </a
+      ><a name="2399" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2399" class="Bound"
+      >Nm</a
+      ><a name="2401"
+      > </a
+      ><a name="2402" class="Symbol"
+      >(</a
+      ><a name="2403" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="2406"
+      > </a
+      ><a name="2407" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2407" class="Bound"
+      >h</a
+      ><a name="2408" class="Symbol"
+      >)</a
+      ><a name="2409"
+      > </a
+      ><a name="2410" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2410" class="Bound"
+      >n&#8804;m</a
+      ><a name="2413"
+      > </a
+      ><a name="2414" class="Symbol"
+      >=</a
+      ><a name="2415"
+      > </a
+      ><a name="2416" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="2420"
+      > </a
+      ><a name="2421" class="Symbol"
+      >(&#955;</a
+      ><a name="2423"
+      > </a
+      ><a name="2424" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2424" class="Bound"
+      >n&lt;m</a
+      ><a name="2427"
+      > </a
+      ><a name="2428" class="Symbol"
+      >&#8594;</a
+      ><a name="2429"
+      > </a
+      ><a name="2430" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2407" class="Bound"
+      >h</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2396" class="Bound"
+      >Nn</a
+      ><a name="2434"
+      > </a
+      ><a name="2435" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2424" class="Bound"
+      >n&lt;m</a
+      ><a name="2438" class="Symbol"
+      >)</a
+      ><a name="2439"
+      >
+                                            </a
+      ><a name="2484" class="Symbol"
+      >(&#955;</a
+      ><a name="2486"
+      > </a
+      ><a name="2487" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2487" class="Bound"
+      >n&#8801;m</a
+      ><a name="2490"
+      > </a
+      ><a name="2491" class="Symbol"
+      >&#8594;</a
+      ><a name="2492"
+      > </a
+      ><a name="2493" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2606" class="Function"
+      >helper&#8321;</a
+      ><a name="2500"
+      > </a
+      ><a name="2501" class="Symbol"
+      >(</a
+      ><a name="2502" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="2505"
+      > </a
+      ><a name="2506" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2487" class="Bound"
+      >n&#8801;m</a
+      ><a name="2509" class="Symbol"
+      >)</a
+      ><a name="2510"
+      > </a
+      ><a name="2511" class="Symbol"
+      >(</a
+      ><a name="2512" href="FOTC.Induction.WF.html#873" class="InductiveConstructor"
+      >acc</a
+      ><a name="2515"
+      > </a
+      ><a name="2516" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2407" class="Bound"
+      >h</a
+      ><a name="2517" class="Symbol"
+      >))</a
+      ><a name="2519"
+      >
+                                            </a
+      ><a name="2564" class="Symbol"
+      >(</a
+      ><a name="2565" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#17811" class="Function"
+      >x&#8804;y&#8594;x&lt;y&#8744;x&#8801;y</a
+      ><a name="2576"
+      > </a
+      ><a name="2577" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2396" class="Bound"
+      >Nn</a
+      ><a name="2579"
+      > </a
+      ><a name="2580" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2399" class="Bound"
+      >Nm</a
+      ><a name="2582"
+      > </a
+      ><a name="2583" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2410" class="Bound"
+      >n&#8804;m</a
+      ><a name="2586" class="Symbol"
+      >)</a
+      ><a name="2587"
+      >
+      </a
+      ><a name="2594" class="Keyword"
+      >where</a
+      ><a name="2599"
+      >
+      </a
+      ><a name="2606" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2606" class="Function"
+      >helper&#8321;</a
+      ><a name="2613"
+      > </a
+      ><a name="2614" class="Symbol"
+      >:</a
+      ><a name="2615"
+      > </a
+      ><a name="2616" class="Symbol"
+      >&#8704;</a
+      ><a name="2617"
+      > </a
+      ><a name="2618" class="Symbol"
+      >{</a
+      ><a name="2619" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2619" class="Bound"
+      >a</a
+      ><a name="2620"
+      > </a
+      ><a name="2621" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2621" class="Bound"
+      >b</a
+      ><a name="2622" class="Symbol"
+      >}</a
+      ><a name="2623"
+      > </a
+      ><a name="2624" class="Symbol"
+      >&#8594;</a
+      ><a name="2625"
+      > </a
+      ><a name="2626" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2619" class="Bound"
+      >a</a
+      ><a name="2627"
+      > </a
+      ><a name="2628" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2629"
+      > </a
+      ><a name="2630" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2621" class="Bound"
+      >b</a
+      ><a name="2631"
+      > </a
+      ><a name="2632" class="Symbol"
+      >&#8594;</a
+      ><a name="2633"
+      > </a
+      ><a name="2634" href="FOTC.Induction.WF.html#816" class="Datatype"
+      >Acc</a
+      ><a name="2637"
+      > </a
+      ><a name="2638" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2639"
+      > </a
+      ><a name="2640" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="2643"
+      > </a
+      ><a name="2644" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2619" class="Bound"
+      >a</a
+      ><a name="2645"
+      > </a
+      ><a name="2646" class="Symbol"
+      >&#8594;</a
+      ><a name="2647"
+      > </a
+      ><a name="2648" href="FOTC.Induction.WF.html#816" class="Datatype"
+      >Acc</a
+      ><a name="2651"
+      > </a
+      ><a name="2652" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2653"
+      > </a
+      ><a name="2654" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >_&lt;_</a
+      ><a name="2657"
+      > </a
+      ><a name="2658" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2621" class="Bound"
+      >b</a
+      ><a name="2659"
+      >
+      </a
+      ><a name="2666" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2606" class="Function"
+      >helper&#8321;</a
+      ><a name="2673"
+      > </a
+      ><a name="2674" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2678"
+      > </a
+      ><a name="2679" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2679" class="Bound"
+      >h</a
+      ><a name="2680"
+      > </a
+      ><a name="2681" class="Symbol"
+      >=</a
+      ><a name="2682"
+      > </a
+      ><a name="2683" href="FOTC.Data.Nat.Induction.Acc.WF-ATP.html#2679" class="Bound"
+      >h</a
+      ><a name="2684"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

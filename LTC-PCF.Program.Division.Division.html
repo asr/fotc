@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >LTC-PCF.Program.Division.Division</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Division program</a
+      ><a name="99"
+      >
+</a
+      ><a name="100" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="178"
+      >
+
+</a
+      ><a name="180" class="Symbol"
+      >{-#</a
+      ><a name="183"
+      > </a
+      ><a name="184" class="Keyword"
+      >OPTIONS</a
+      ><a name="191"
+      > --exact-split              </a
+      ><a name="219" class="Symbol"
+      >#-}</a
+      ><a name="222"
+      >
+</a
+      ><a name="223" class="Symbol"
+      >{-#</a
+      ><a name="226"
+      > </a
+      ><a name="227" class="Keyword"
+      >OPTIONS</a
+      ><a name="234"
+      > --no-sized-types           </a
+      ><a name="262" class="Symbol"
+      >#-}</a
+      ><a name="265"
+      >
+</a
+      ><a name="266" class="Symbol"
+      >{-#</a
+      ><a name="269"
+      > </a
+      ><a name="270" class="Keyword"
+      >OPTIONS</a
+      ><a name="277"
+      > --no-universe-polymorphism </a
+      ><a name="305" class="Symbol"
+      >#-}</a
+      ><a name="308"
+      >
+</a
+      ><a name="309" class="Symbol"
+      >{-#</a
+      ><a name="312"
+      > </a
+      ><a name="313" class="Keyword"
+      >OPTIONS</a
+      ><a name="320"
+      > --without-K                </a
+      ><a name="348" class="Symbol"
+      >#-}</a
+      ><a name="351"
+      >
+
+</a
+      ><a name="353" class="Comment"
+      >-- This module define a division program using repeated subtraction</a
+      ><a name="420"
+      >
+</a
+      ><a name="421" class="Comment"
+      >-- (Dybjer 1985).</a
+      ><a name="438"
+      >
+
+</a
+      ><a name="440" class="Comment"
+      >-- Peter Dybjer. Program verification in a logical theory of</a
+      ><a name="500"
+      >
+</a
+      ><a name="501" class="Comment"
+      >-- constructions. In Jean-Pierre Jouannaud, editor. Functional</a
+      ><a name="563"
+      >
+</a
+      ><a name="564" class="Comment"
+      >-- Programming Languages and Computer Architecture, volume 201 of</a
+      ><a name="629"
+      >
+</a
+      ><a name="630" class="Comment"
+      >-- LNCS, 1985, pages 334-349. Appears in revised form as Programming</a
+      ><a name="698"
+      >
+</a
+      ><a name="699" class="Comment"
+      >-- Methodology Group Report 26, June 1986.</a
+      ><a name="741"
+      >
+
+</a
+      ><a name="743" class="Keyword"
+      >module</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="LTC-PCF.Program.Division.Division.html#1" class="Module"
+      >LTC-PCF.Program.Division.Division</a
+      ><a name="783"
+      > </a
+      ><a name="784" class="Keyword"
+      >where</a
+      ><a name="789"
+      >
+
+</a
+      ><a name="791" class="Keyword"
+      >open</a
+      ><a name="795"
+      > </a
+      ><a name="796" class="Keyword"
+      >import</a
+      ><a name="802"
+      > </a
+      ><a name="803" href="LTC-PCF.Base.html#1" class="Module"
+      >LTC-PCF.Base</a
+      ><a name="815"
+      >
+</a
+      ><a name="816" class="Keyword"
+      >open</a
+      ><a name="820"
+      > </a
+      ><a name="821" class="Keyword"
+      >import</a
+      ><a name="827"
+      > </a
+      ><a name="828" href="LTC-PCF.Data.Nat.html#1" class="Module"
+      >LTC-PCF.Data.Nat</a
+      ><a name="844"
+      >
+</a
+      ><a name="845" class="Keyword"
+      >open</a
+      ><a name="849"
+      > </a
+      ><a name="850" class="Keyword"
+      >import</a
+      ><a name="856"
+      > </a
+      ><a name="857" href="LTC-PCF.Data.Nat.Inequalities.html#1" class="Module"
+      >LTC-PCF.Data.Nat.Inequalities</a
+      ><a name="886"
+      >
+
+</a
+      ><a name="888" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="966"
+      >
+
+</a
+      ><a name="968" href="LTC-PCF.Program.Division.Division.html#968" class="Function"
+      >divh</a
+      ><a name="972"
+      > </a
+      ><a name="973" class="Symbol"
+      >:</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="976"
+      > </a
+      ><a name="977" class="Symbol"
+      >&#8594;</a
+      ><a name="978"
+      > </a
+      ><a name="979" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="980"
+      >
+</a
+      ><a name="981" href="LTC-PCF.Program.Division.Division.html#968" class="Function"
+      >divh</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="LTC-PCF.Program.Division.Division.html#986" class="Bound"
+      >g</a
+      ><a name="987"
+      > </a
+      ><a name="988" class="Symbol"
+      >=</a
+      ><a name="989"
+      > </a
+      ><a name="990" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="993"
+      > </a
+      ><a name="994" class="Symbol"
+      >(&#955;</a
+      ><a name="996"
+      > </a
+      ><a name="997" href="LTC-PCF.Program.Division.Division.html#997" class="Bound"
+      >i</a
+      ><a name="998"
+      > </a
+      ><a name="999" class="Symbol"
+      >&#8594;</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" href="LTC-PCF.Base.html#1359" class="Postulate"
+      >lam</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" class="Symbol"
+      >(&#955;</a
+      ><a name="1007"
+      > </a
+      ><a name="1008" href="LTC-PCF.Program.Division.Division.html#1008" class="Bound"
+      >j</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" class="Symbol"
+      >&#8594;</a
+      ><a name="1011"
+      >
+             </a
+      ><a name="1025" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >if</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" class="Symbol"
+      >(</a
+      ><a name="1029" href="LTC-PCF.Data.Nat.Inequalities.html#760" class="Function"
+      >lt</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="LTC-PCF.Program.Division.Division.html#997" class="Bound"
+      >i</a
+      ><a name="1033"
+      > </a
+      ><a name="1034" href="LTC-PCF.Program.Division.Division.html#1008" class="Bound"
+      >j</a
+      ><a name="1035" class="Symbol"
+      >)</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >then</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="LTC-PCF.Base.html#1564" class="Postulate"
+      >zero</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="LTC-PCF.Base.html#1807" class="Function Operator"
+      >else</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >(</a
+      ><a name="1053" href="LTC-PCF.Base.html#1880" class="Function"
+      >succ&#8321;</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" class="Symbol"
+      >(</a
+      ><a name="1060" href="LTC-PCF.Program.Division.Division.html#986" class="Bound"
+      >g</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" class="Symbol"
+      >(</a
+      ><a name="1065" href="LTC-PCF.Program.Division.Division.html#997" class="Bound"
+      >i</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="LTC-PCF.Data.Nat.html#768" class="Function Operator"
+      >&#8760;</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" href="LTC-PCF.Program.Division.Division.html#1008" class="Bound"
+      >j</a
+      ><a name="1070" class="Symbol"
+      >)</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="LTC-PCF.Program.Division.Division.html#1008" class="Bound"
+      >j</a
+      ><a name="1075" class="Symbol"
+      >))))</a
+      ><a name="1079"
+      >
+
+</a
+      ><a name="1081" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" class="Symbol"
+      >:</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" class="Symbol"
+      >&#8594;</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" class="Symbol"
+      >&#8594;</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1096"
+      >
+</a
+      ><a name="1097" href="LTC-PCF.Program.Division.Division.html#1081" class="Function"
+      >div</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" href="LTC-PCF.Program.Division.Division.html#1101" class="Bound"
+      >i</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="LTC-PCF.Program.Division.Division.html#1103" class="Bound"
+      >j</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" class="Symbol"
+      >=</a
+      ><a name="1106"
+      > </a
+      ><a name="1107" href="LTC-PCF.Base.html#1424" class="Postulate"
+      >fix</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="LTC-PCF.Program.Division.Division.html#968" class="Function"
+      >divh</a
+      ><a name="1115"
+      > </a
+      ><a name="1116" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" href="LTC-PCF.Program.Division.Division.html#1101" class="Bound"
+      >i</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="LTC-PCF.Base.html#1296" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" href="LTC-PCF.Program.Division.Division.html#1103" class="Bound"
+      >j</a
+      ><a name="1123"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

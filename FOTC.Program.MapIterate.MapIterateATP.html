@@ -1,0 +1,732 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.MapIterate.MapIterateATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The map-iterate property: A property using co-induction</a
+      ><a name="138"
+      >
+</a
+      ><a name="139" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="217"
+      >
+
+</a
+      ><a name="219" class="Symbol"
+      >{-#</a
+      ><a name="222"
+      > </a
+      ><a name="223" class="Keyword"
+      >OPTIONS</a
+      ><a name="230"
+      > --exact-split              </a
+      ><a name="258" class="Symbol"
+      >#-}</a
+      ><a name="261"
+      >
+</a
+      ><a name="262" class="Symbol"
+      >{-#</a
+      ><a name="265"
+      > </a
+      ><a name="266" class="Keyword"
+      >OPTIONS</a
+      ><a name="273"
+      > --no-sized-types           </a
+      ><a name="301" class="Symbol"
+      >#-}</a
+      ><a name="304"
+      >
+</a
+      ><a name="305" class="Symbol"
+      >{-#</a
+      ><a name="308"
+      > </a
+      ><a name="309" class="Keyword"
+      >OPTIONS</a
+      ><a name="316"
+      > --no-universe-polymorphism </a
+      ><a name="344" class="Symbol"
+      >#-}</a
+      ><a name="347"
+      >
+</a
+      ><a name="348" class="Symbol"
+      >{-#</a
+      ><a name="351"
+      > </a
+      ><a name="352" class="Keyword"
+      >OPTIONS</a
+      ><a name="359"
+      > --without-K                </a
+      ><a name="387" class="Symbol"
+      >#-}</a
+      ><a name="390"
+      >
+
+</a
+      ><a name="392" class="Comment"
+      >-- The map-iterate property (Gibbons and Hutton, 2005):</a
+      ><a name="447"
+      >
+</a
+      ><a name="448" class="Comment"
+      >-- map f (iterate f x) = iterate f (f &#183; x)</a
+      ><a name="490"
+      >
+
+</a
+      ><a name="492" class="Keyword"
+      >module</a
+      ><a name="498"
+      > </a
+      ><a name="499" href="FOTC.Program.MapIterate.MapIterateATP.html#1" class="Module"
+      >FOTC.Program.MapIterate.MapIterateATP</a
+      ><a name="536"
+      > </a
+      ><a name="537" class="Keyword"
+      >where</a
+      ><a name="542"
+      >
+
+</a
+      ><a name="544" class="Keyword"
+      >open</a
+      ><a name="548"
+      > </a
+      ><a name="549" class="Keyword"
+      >import</a
+      ><a name="555"
+      > </a
+      ><a name="556" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="565"
+      >
+</a
+      ><a name="566" class="Keyword"
+      >open</a
+      ><a name="570"
+      > </a
+      ><a name="571" class="Keyword"
+      >import</a
+      ><a name="577"
+      > </a
+      ><a name="578" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="592"
+      >
+</a
+      ><a name="593" class="Keyword"
+      >open</a
+      ><a name="597"
+      > </a
+      ><a name="598" class="Keyword"
+      >import</a
+      ><a name="604"
+      > </a
+      ><a name="605" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="619"
+      >
+</a
+      ><a name="620" class="Keyword"
+      >open</a
+      ><a name="624"
+      > </a
+      ><a name="625" class="Keyword"
+      >import</a
+      ><a name="631"
+      > </a
+      ><a name="632" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1" class="Module"
+      >FOTC.Relation.Binary.Bisimilarity.Type</a
+      ><a name="670"
+      >
+
+</a
+      ><a name="672" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="750"
+      >
+</a
+      ><a name="751" class="Comment"
+      >-- The map-iterate property.</a
+      ><a name="779"
+      >
+</a
+      ><a name="780" href="FOTC.Program.MapIterate.MapIterateATP.html#780" class="Function"
+      >&#8776;-map-iterate</a
+      ><a name="793"
+      > </a
+      ><a name="794" class="Symbol"
+      >:</a
+      ><a name="795"
+      > </a
+      ><a name="796" class="Symbol"
+      >&#8704;</a
+      ><a name="797"
+      > </a
+      ><a name="798" href="FOTC.Program.MapIterate.MapIterateATP.html#798" class="Bound"
+      >f</a
+      ><a name="799"
+      > </a
+      ><a name="800" href="FOTC.Program.MapIterate.MapIterateATP.html#800" class="Bound"
+      >x</a
+      ><a name="801"
+      > </a
+      ><a name="802" class="Symbol"
+      >&#8594;</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="807"
+      > </a
+      ><a name="808" href="FOTC.Program.MapIterate.MapIterateATP.html#798" class="Bound"
+      >f</a
+      ><a name="809"
+      > </a
+      ><a name="810" class="Symbol"
+      >(</a
+      ><a name="811" href="FOTC.Data.List.html#1918" class="Postulate"
+      >iterate</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="FOTC.Program.MapIterate.MapIterateATP.html#798" class="Bound"
+      >f</a
+      ><a name="820"
+      > </a
+      ><a name="821" href="FOTC.Program.MapIterate.MapIterateATP.html#800" class="Bound"
+      >x</a
+      ><a name="822" class="Symbol"
+      >)</a
+      ><a name="823"
+      > </a
+      ><a name="824" href="FOTC.Relation.Binary.Bisimilarity.Type.html#813" class="Postulate Operator"
+      >&#8776;</a
+      ><a name="825"
+      > </a
+      ><a name="826" href="FOTC.Data.List.html#1918" class="Postulate"
+      >iterate</a
+      ><a name="833"
+      > </a
+      ><a name="834" href="FOTC.Program.MapIterate.MapIterateATP.html#798" class="Bound"
+      >f</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Symbol"
+      >(</a
+      ><a name="837" href="FOTC.Program.MapIterate.MapIterateATP.html#798" class="Bound"
+      >f</a
+      ><a name="838"
+      > </a
+      ><a name="839" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="840"
+      > </a
+      ><a name="841" href="FOTC.Program.MapIterate.MapIterateATP.html#800" class="Bound"
+      >x</a
+      ><a name="842" class="Symbol"
+      >)</a
+      ><a name="843"
+      >
+</a
+      ><a name="844" href="FOTC.Program.MapIterate.MapIterateATP.html#780" class="Function"
+      >&#8776;-map-iterate</a
+      ><a name="857"
+      > </a
+      ><a name="858" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="859"
+      > </a
+      ><a name="860" href="FOTC.Program.MapIterate.MapIterateATP.html#860" class="Bound"
+      >x</a
+      ><a name="861"
+      > </a
+      ><a name="862" class="Symbol"
+      >=</a
+      ><a name="863"
+      > </a
+      ><a name="864" href="FOTC.Relation.Binary.Bisimilarity.Type.html#1444" class="Postulate"
+      >&#8776;-coind</a
+      ><a name="871"
+      > </a
+      ><a name="872" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="873"
+      > </a
+      ><a name="874" href="FOTC.Program.MapIterate.MapIterateATP.html#1084" class="Postulate"
+      >h&#8321;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="FOTC.Program.MapIterate.MapIterateATP.html#1226" class="Postulate"
+      >h&#8322;</a
+      ><a name="879"
+      >
+  </a
+      ><a name="882" class="Keyword"
+      >where</a
+      ><a name="887"
+      >
+  </a
+      ><a name="890" class="Comment"
+      >-- Based on the relation used by (Gim&#233;nez and Cast&#233;ran, 2007).</a
+      ><a name="952"
+      >
+  </a
+      ><a name="955" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="956"
+      > </a
+      ><a name="957" class="Symbol"
+      >:</a
+      ><a name="958"
+      > </a
+      ><a name="959" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="960"
+      > </a
+      ><a name="961" class="Symbol"
+      >&#8594;</a
+      ><a name="962"
+      > </a
+      ><a name="963" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="964"
+      > </a
+      ><a name="965" class="Symbol"
+      >&#8594;</a
+      ><a name="966"
+      > </a
+      ><a name="967" class="PrimitiveType"
+      >Set</a
+      ><a name="970"
+      >
+  </a
+      ><a name="973" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="FOTC.Program.MapIterate.MapIterateATP.html#975" class="Bound"
+      >xs</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="FOTC.Program.MapIterate.MapIterateATP.html#978" class="Bound"
+      >ys</a
+      ><a name="980"
+      > </a
+      ><a name="981" class="Symbol"
+      >=</a
+      ><a name="982"
+      > </a
+      ><a name="983" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="985"
+      > </a
+      ><a name="986" href="FOTC.Program.MapIterate.MapIterateATP.html#986" class="Bound"
+      >y</a
+      ><a name="987"
+      > </a
+      ><a name="988" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="989"
+      > </a
+      ><a name="990" href="FOTC.Program.MapIterate.MapIterateATP.html#975" class="Bound"
+      >xs</a
+      ><a name="992"
+      > </a
+      ><a name="993" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="994"
+      > </a
+      ><a name="995" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="998"
+      > </a
+      ><a name="999" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" class="Symbol"
+      >(</a
+      ><a name="1002" href="FOTC.Data.List.html#1918" class="Postulate"
+      >iterate</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" href="FOTC.Program.MapIterate.MapIterateATP.html#986" class="Bound"
+      >y</a
+      ><a name="1013" class="Symbol"
+      >)</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="FOTC.Program.MapIterate.MapIterateATP.html#978" class="Bound"
+      >ys</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" href="FOTC.Data.List.html#1918" class="Postulate"
+      >iterate</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" class="Symbol"
+      >(</a
+      ><a name="1033" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="FOTC.Program.MapIterate.MapIterateATP.html#986" class="Bound"
+      >y</a
+      ><a name="1038" class="Symbol"
+      >)</a
+      ><a name="1039"
+      >
+  </a
+      ><a name="1042" class="Symbol"
+      >{-#</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" class="Keyword"
+      >ATP</a
+      ><a name="1049"
+      > definition </a
+      ><a name="1061" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" class="Symbol"
+      >#-}</a
+      ><a name="1066"
+      >
+
+  </a
+      ><a name="1070" class="Keyword"
+      >postulate</a
+      ><a name="1079"
+      >
+    </a
+      ><a name="1084" href="FOTC.Program.MapIterate.MapIterateATP.html#1084" class="Postulate"
+      >h&#8321;</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" class="Symbol"
+      >:</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" class="Symbol"
+      >&#8704;</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" class="Symbol"
+      >{</a
+      ><a name="1092" href="FOTC.Program.MapIterate.MapIterateATP.html#1092" class="Bound"
+      >xs</a
+      ><a name="1094" class="Symbol"
+      >}</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" class="Symbol"
+      >{</a
+      ><a name="1097" href="FOTC.Program.MapIterate.MapIterateATP.html#1097" class="Bound"
+      >ys</a
+      ><a name="1099" class="Symbol"
+      >}</a
+      ><a name="1100"
+      > </a
+      ><a name="1101" class="Symbol"
+      >&#8594;</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="FOTC.Program.MapIterate.MapIterateATP.html#1092" class="Bound"
+      >xs</a
+      ><a name="1107"
+      > </a
+      ><a name="1108" href="FOTC.Program.MapIterate.MapIterateATP.html#1097" class="Bound"
+      >ys</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" class="Symbol"
+      >&#8594;</a
+      ><a name="1112"
+      >
+         </a
+      ><a name="1122" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="FOTC.Program.MapIterate.MapIterateATP.html#1125" class="Bound"
+      >x'</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" href="FOTC.Program.MapIterate.MapIterateATP.html#1133" class="Bound"
+      >xs'</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1141"
+      > </a
+      ><a name="1142" href="FOTC.Program.MapIterate.MapIterateATP.html#1142" class="Bound"
+      >ys'</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1147"
+      > </a
+      ><a name="1148" href="FOTC.Program.MapIterate.MapIterateATP.html#1092" class="Bound"
+      >xs</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" href="FOTC.Program.MapIterate.MapIterateATP.html#1125" class="Bound"
+      >x'</a
+      ><a name="1155"
+      > </a
+      ><a name="1156" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" href="FOTC.Program.MapIterate.MapIterateATP.html#1133" class="Bound"
+      >xs'</a
+      ><a name="1161"
+      > </a
+      ><a name="1162" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="FOTC.Program.MapIterate.MapIterateATP.html#1097" class="Bound"
+      >ys</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="FOTC.Program.MapIterate.MapIterateATP.html#1125" class="Bound"
+      >x'</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1173"
+      > </a
+      ><a name="1174" href="FOTC.Program.MapIterate.MapIterateATP.html#1142" class="Bound"
+      >ys'</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="FOTC.Program.MapIterate.MapIterateATP.html#1133" class="Bound"
+      >xs'</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="FOTC.Program.MapIterate.MapIterateATP.html#1142" class="Bound"
+      >ys'</a
+      ><a name="1189"
+      >
+  </a
+      ><a name="1192" class="Symbol"
+      >{-#</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" class="Keyword"
+      >ATP</a
+      ><a name="1199"
+      > prove </a
+      ><a name="1206" href="FOTC.Program.MapIterate.MapIterateATP.html#1084" class="Postulate"
+      >h&#8321;</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" class="Symbol"
+      >#-}</a
+      ><a name="1212"
+      >
+
+  </a
+      ><a name="1216" class="Keyword"
+      >postulate</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" href="FOTC.Program.MapIterate.MapIterateATP.html#1226" class="Postulate"
+      >h&#8322;</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" class="Symbol"
+      >:</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" href="FOTC.Program.MapIterate.MapIterateATP.html#955" class="Function"
+      >B</a
+      ><a name="1232"
+      > </a
+      ><a name="1233" class="Symbol"
+      >(</a
+      ><a name="1234" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" class="Symbol"
+      >(</a
+      ><a name="1241" href="FOTC.Data.List.html#1918" class="Postulate"
+      >iterate</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" href="FOTC.Program.MapIterate.MapIterateATP.html#860" class="Bound"
+      >x</a
+      ><a name="1252" class="Symbol"
+      >))</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" class="Symbol"
+      >(</a
+      ><a name="1256" href="FOTC.Data.List.html#1918" class="Postulate"
+      >iterate</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" class="Symbol"
+      >(</a
+      ><a name="1267" href="FOTC.Program.MapIterate.MapIterateATP.html#858" class="Bound"
+      >f</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="FOTC.Program.MapIterate.MapIterateATP.html#860" class="Bound"
+      >x</a
+      ><a name="1272" class="Symbol"
+      >))</a
+      ><a name="1274"
+      >
+  </a
+      ><a name="1277" class="Symbol"
+      >{-#</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" class="Keyword"
+      >ATP</a
+      ><a name="1284"
+      > prove </a
+      ><a name="1291" href="FOTC.Program.MapIterate.MapIterateATP.html#1226" class="Postulate"
+      >h&#8322;</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" class="Symbol"
+      >#-}</a
+      ><a name="1297"
+      >
+
+</a
+      ><a name="1299" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1377"
+      >
+</a
+      ><a name="1378" class="Comment"
+      >-- References</a
+      ><a name="1391"
+      >
+</a
+      ><a name="1392" class="Comment"
+      >--</a
+      ><a name="1394"
+      >
+</a
+      ><a name="1395" class="Comment"
+      >-- Gim&#233;nez, Eduardo and Caster&#225;n, Pierre (2007). A Tutorial on</a
+      ><a name="1457"
+      >
+</a
+      ><a name="1458" class="Comment"
+      >-- [Co-]Inductive Types in Coq.</a
+      ><a name="1489"
+      >
+</a
+      ><a name="1490" class="Comment"
+      >--</a
+      ><a name="1492"
+      >
+</a
+      ><a name="1493" class="Comment"
+      >-- Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for</a
+      ><a name="1556"
+      >
+</a
+      ><a name="1557" class="Comment"
+      >-- Corecursive Programs. Fundamenta Informaticae XX, pp. 1&#8211;14.</a
+      ><a name="1619"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

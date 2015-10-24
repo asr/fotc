@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Common.DefinitionsI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Common definitions</a
+      ><a name="101"
+      >
+</a
+      ><a name="102" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="180"
+      >
+
+</a
+      ><a name="182" class="Symbol"
+      >{-#</a
+      ><a name="185"
+      > </a
+      ><a name="186" class="Keyword"
+      >OPTIONS</a
+      ><a name="193"
+      > --exact-split              </a
+      ><a name="221" class="Symbol"
+      >#-}</a
+      ><a name="224"
+      >
+</a
+      ><a name="225" class="Symbol"
+      >{-#</a
+      ><a name="228"
+      > </a
+      ><a name="229" class="Keyword"
+      >OPTIONS</a
+      ><a name="236"
+      > --no-sized-types           </a
+      ><a name="264" class="Symbol"
+      >#-}</a
+      ><a name="267"
+      >
+</a
+      ><a name="268" class="Symbol"
+      >{-#</a
+      ><a name="271"
+      > </a
+      ><a name="272" class="Keyword"
+      >OPTIONS</a
+      ><a name="279"
+      > --no-universe-polymorphism </a
+      ><a name="307" class="Symbol"
+      >#-}</a
+      ><a name="310"
+      >
+</a
+      ><a name="311" class="Symbol"
+      >{-#</a
+      ><a name="314"
+      > </a
+      ><a name="315" class="Keyword"
+      >OPTIONS</a
+      ><a name="322"
+      > --without-K                </a
+      ><a name="350" class="Symbol"
+      >#-}</a
+      ><a name="353"
+      >
+
+</a
+      ><a name="355" class="Keyword"
+      >module</a
+      ><a name="361"
+      > </a
+      ><a name="362" href="Common.DefinitionsI.html#1" class="Module"
+      >Common.DefinitionsI</a
+      ><a name="381"
+      > </a
+      ><a name="382" class="Keyword"
+      >where</a
+      ><a name="387"
+      >
+
+</a
+      ><a name="389" class="Keyword"
+      >open</a
+      ><a name="393"
+      > </a
+      ><a name="394" class="Keyword"
+      >import</a
+      ><a name="400"
+      > </a
+      ><a name="401" href="Common.FOL.FOL.html#1" class="Module"
+      >Common.FOL.FOL</a
+      ><a name="415"
+      > </a
+      ><a name="416" class="Keyword"
+      >using</a
+      ><a name="421"
+      > </a
+      ><a name="422" class="Symbol"
+      >(</a
+      ><a name="423"
+      > &#172;_ </a
+      ><a name="427" class="Symbol"
+      >;</a
+      ><a name="428"
+      > D </a
+      ><a name="431" class="Symbol"
+      >)</a
+      ><a name="432"
+      >
+</a
+      ><a name="433" class="Keyword"
+      >open</a
+      ><a name="437"
+      > </a
+      ><a name="438" class="Keyword"
+      >import</a
+      ><a name="444"
+      > </a
+      ><a name="445" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1" class="Module"
+      >Common.FOL.Relation.Binary.PropositionalEquality</a
+      ><a name="493"
+      > </a
+      ><a name="494" class="Keyword"
+      >using</a
+      ><a name="499"
+      > </a
+      ><a name="500" class="Symbol"
+      >(</a
+      ><a name="501"
+      > _&#8801;_ </a
+      ><a name="506" class="Symbol"
+      >)</a
+      ><a name="507"
+      >
+
+</a
+      ><a name="509" class="Comment"
+      >-- We add 3 to the fixities of the Agda standard library&#160;0.8.1 (see</a
+      ><a name="576"
+      >
+</a
+      ><a name="577" class="Comment"
+      >-- Relation/Binary/Core.agda).</a
+      ><a name="607"
+      >
+</a
+      ><a name="608" class="Keyword"
+      >infix</a
+      ><a name="613"
+      > </a
+      ><a name="614" class="Number"
+      >7</a
+      ><a name="615"
+      > _&#8802;_
+
+</a
+      ><a name="621" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="699"
+      >
+</a
+      ><a name="700" class="Comment"
+      >-- Inequality.</a
+      ><a name="714"
+      >
+</a
+      ><a name="715" href="Common.DefinitionsI.html#715" class="Function Operator"
+      >_&#8802;_</a
+      ><a name="718"
+      > </a
+      ><a name="719" class="Symbol"
+      >:</a
+      ><a name="720"
+      > </a
+      ><a name="721" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="Symbol"
+      >&#8594;</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="726"
+      > </a
+      ><a name="727" class="Symbol"
+      >&#8594;</a
+      ><a name="728"
+      > </a
+      ><a name="729" class="PrimitiveType"
+      >Set</a
+      ><a name="732"
+      >
+</a
+      ><a name="733" href="Common.DefinitionsI.html#733" class="Bound"
+      >x</a
+      ><a name="734"
+      > </a
+      ><a name="735" href="Common.DefinitionsI.html#715" class="Function Operator"
+      >&#8802;</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="Common.DefinitionsI.html#737" class="Bound"
+      >y</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >=</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="742"
+      > </a
+      ><a name="743" href="Common.DefinitionsI.html#733" class="Bound"
+      >x</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="746"
+      > </a
+      ><a name="747" href="Common.DefinitionsI.html#737" class="Bound"
+      >y</a
+      ><a name="748"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

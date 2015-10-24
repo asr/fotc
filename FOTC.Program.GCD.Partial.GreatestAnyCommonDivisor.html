@@ -1,0 +1,571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >---------------------------------------------------------------------------</a
+      ><a name="76"
+      >
+</a
+      ><a name="77" class="Comment"
+      >-- The gcd is greatest that any common divisor</a
+      ><a name="123"
+      >
+</a
+      ><a name="124" class="Comment"
+      >---------------------------------------------------------------------------</a
+      ><a name="199"
+      >
+
+</a
+      ><a name="201" class="Symbol"
+      >{-#</a
+      ><a name="204"
+      > </a
+      ><a name="205" class="Keyword"
+      >OPTIONS</a
+      ><a name="212"
+      > --exact-split              </a
+      ><a name="240" class="Symbol"
+      >#-}</a
+      ><a name="243"
+      >
+</a
+      ><a name="244" class="Symbol"
+      >{-#</a
+      ><a name="247"
+      > </a
+      ><a name="248" class="Keyword"
+      >OPTIONS</a
+      ><a name="255"
+      > --no-sized-types           </a
+      ><a name="283" class="Symbol"
+      >#-}</a
+      ><a name="286"
+      >
+</a
+      ><a name="287" class="Symbol"
+      >{-#</a
+      ><a name="290"
+      > </a
+      ><a name="291" class="Keyword"
+      >OPTIONS</a
+      ><a name="298"
+      > --no-universe-polymorphism </a
+      ><a name="326" class="Symbol"
+      >#-}</a
+      ><a name="329"
+      >
+</a
+      ><a name="330" class="Symbol"
+      >{-#</a
+      ><a name="333"
+      > </a
+      ><a name="334" class="Keyword"
+      >OPTIONS</a
+      ><a name="341"
+      > --without-K                </a
+      ><a name="369" class="Symbol"
+      >#-}</a
+      ><a name="372"
+      >
+
+</a
+      ><a name="374" class="Keyword"
+      >open</a
+      ><a name="378"
+      > </a
+      ><a name="379" class="Keyword"
+      >import</a
+      ><a name="385"
+      > </a
+      ><a name="386" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="395"
+      >
+</a
+      ><a name="396" class="Keyword"
+      >open</a
+      ><a name="400"
+      > </a
+      ><a name="401" class="Keyword"
+      >import</a
+      ><a name="407"
+      > </a
+      ><a name="408" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="426"
+      >
+</a
+      ><a name="427" class="Keyword"
+      >open</a
+      ><a name="431"
+      > </a
+      ><a name="432" class="Keyword"
+      >import</a
+      ><a name="438"
+      > </a
+      ><a name="439" href="FOTC.Data.Nat.Divisibility.NotBy0.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0</a
+      ><a name="472"
+      >
+</a
+      ><a name="473" class="Keyword"
+      >open</a
+      ><a name="477"
+      > </a
+      ><a name="478" class="Keyword"
+      >import</a
+      ><a name="484"
+      > </a
+      ><a name="485" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="511"
+      >
+
+</a
+      ><a name="513" class="Keyword"
+      >module</a
+      ><a name="519"
+      > </a
+      ><a name="520" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor</a
+      ><a name="569"
+      >
+  </a
+      ><a name="572" class="Symbol"
+      >(</a
+      ><a name="573" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#573" class="Bound"
+      >x&#8739;Sy&#8594;x&#8804;Sy</a
+      ><a name="582"
+      > </a
+      ><a name="583" class="Symbol"
+      >:</a
+      ><a name="584"
+      > </a
+      ><a name="585" class="Symbol"
+      >&#8704;</a
+      ><a name="586"
+      > </a
+      ><a name="587" class="Symbol"
+      >{</a
+      ><a name="588" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#588" class="Bound"
+      >m</a
+      ><a name="589"
+      > </a
+      ><a name="590" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#590" class="Bound"
+      >n</a
+      ><a name="591" class="Symbol"
+      >}</a
+      ><a name="592"
+      > </a
+      ><a name="593" class="Symbol"
+      >&#8594;</a
+      ><a name="594"
+      > </a
+      ><a name="595" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="596"
+      > </a
+      ><a name="597" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#588" class="Bound"
+      >m</a
+      ><a name="598"
+      > </a
+      ><a name="599" class="Symbol"
+      >&#8594;</a
+      ><a name="600"
+      > </a
+      ><a name="601" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="602"
+      > </a
+      ><a name="603" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#590" class="Bound"
+      >n</a
+      ><a name="604"
+      > </a
+      ><a name="605" class="Symbol"
+      >&#8594;</a
+      ><a name="606"
+      > </a
+      ><a name="607" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#588" class="Bound"
+      >m</a
+      ><a name="608"
+      > </a
+      ><a name="609" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="610"
+      > </a
+      ><a name="611" class="Symbol"
+      >(</a
+      ><a name="612" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="617"
+      > </a
+      ><a name="618" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#590" class="Bound"
+      >n</a
+      ><a name="619" class="Symbol"
+      >)</a
+      ><a name="620"
+      > </a
+      ><a name="621" class="Symbol"
+      >&#8594;</a
+      ><a name="622"
+      > </a
+      ><a name="623" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#588" class="Bound"
+      >m</a
+      ><a name="624"
+      > </a
+      ><a name="625" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="626"
+      > </a
+      ><a name="627" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="632"
+      > </a
+      ><a name="633" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#590" class="Bound"
+      >n</a
+      ><a name="634" class="Symbol"
+      >)</a
+      ><a name="635"
+      >
+  </a
+      ><a name="638" class="Symbol"
+      >(</a
+      ><a name="639" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#639" class="Bound"
+      >0&#8740;x</a
+      ><a name="642"
+      >       </a
+      ><a name="649" class="Symbol"
+      >:</a
+      ><a name="650"
+      > </a
+      ><a name="651" class="Symbol"
+      >&#8704;</a
+      ><a name="652"
+      > </a
+      ><a name="653" class="Symbol"
+      >{</a
+      ><a name="654" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#654" class="Bound"
+      >n</a
+      ><a name="655" class="Symbol"
+      >}</a
+      ><a name="656"
+      > </a
+      ><a name="657" class="Symbol"
+      >&#8594;</a
+      ><a name="658"
+      > </a
+      ><a name="659" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="660"
+      > </a
+      ><a name="661" class="Symbol"
+      >(</a
+      ><a name="662" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="668"
+      > </a
+      ><a name="669" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#654" class="Bound"
+      >n</a
+      ><a name="670" class="Symbol"
+      >))</a
+      ><a name="672"
+      >
+  </a
+      ><a name="675" class="Keyword"
+      >where</a
+      ><a name="680"
+      >
+
+</a
+      ><a name="682" class="Keyword"
+      >open</a
+      ><a name="686"
+      > </a
+      ><a name="687" class="Keyword"
+      >import</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="FOTC.Program.GCD.Partial.Definitions.html#1" class="Module"
+      >FOTC.Program.GCD.Partial.Definitions</a
+      ><a name="730"
+      >
+
+</a
+      ><a name="732" class="Comment"
+      >---------------------------------------------------------------------------</a
+      ><a name="807"
+      >
+</a
+      ><a name="808" class="Comment"
+      >-- Knowing that gcd is a common divisor of m and n and that any other</a
+      ><a name="877"
+      >
+</a
+      ><a name="878" class="Comment"
+      >-- common divisor of m and n divides it, we can prove that gcd is the</a
+      ><a name="947"
+      >
+</a
+      ><a name="948" class="Comment"
+      >-- largest common divisor.</a
+      ><a name="974"
+      >
+
+</a
+      ><a name="976" class="Comment"
+      >-- It requires the totality of gcd, ie. N gcd.</a
+      ><a name="1022"
+      >
+</a
+      ><a name="1023" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1023" class="Function"
+      >gcdGACD</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" class="Symbol"
+      >:</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" class="Symbol"
+      >&#8704;</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" class="Symbol"
+      >{</a
+      ><a name="1036" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1036" class="Bound"
+      >m</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1038" class="Bound"
+      >n</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1040" class="Bound"
+      >gcd</a
+      ><a name="1043" class="Symbol"
+      >}</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" class="Symbol"
+      >&#8594;</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1040" class="Bound"
+      >gcd</a
+      ><a name="1052"
+      > </a
+      ><a name="1053" class="Symbol"
+      >&#8594;</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" href="FOTC.Program.GCD.Partial.Definitions.html#661" class="Function"
+      >CD</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1036" class="Bound"
+      >m</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1038" class="Bound"
+      >n</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1040" class="Bound"
+      >gcd</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" class="Symbol"
+      >&#8594;</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" href="FOTC.Program.GCD.Partial.Definitions.html#774" class="Function"
+      >Divisible</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1036" class="Bound"
+      >m</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1038" class="Bound"
+      >n</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1040" class="Bound"
+      >gcd</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" class="Symbol"
+      >&#8594;</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" href="FOTC.Program.GCD.Partial.Definitions.html#928" class="Function"
+      >GACD</a
+      ><a name="1092"
+      > </a
+      ><a name="1093" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1036" class="Bound"
+      >m</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1038" class="Bound"
+      >n</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1040" class="Bound"
+      >gcd</a
+      ><a name="1100"
+      >
+</a
+      ><a name="1101" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1023" class="Function"
+      >gcdGACD</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1114"
+      >             </a
+      ><a name="1127" class="Symbol"
+      >(</a
+      ><a name="1128" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1128" class="Bound"
+      >0&#8739;m</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1133"
+      > </a
+      ><a name="1134" class="Symbol"
+      >_)</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" class="Symbol"
+      >=</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >(</a
+      ><a name="1147" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#639" class="Bound"
+      >0&#8740;x</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1128" class="Bound"
+      >0&#8739;m</a
+      ><a name="1154" class="Symbol"
+      >)</a
+      ><a name="1155"
+      >
+</a
+      ><a name="1156" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1023" class="Function"
+      >gcdGACD</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" class="Symbol"
+      >(</a
+      ><a name="1165" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" class="Symbol"
+      >{</a
+      ><a name="1172" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1172" class="Bound"
+      >gcd</a
+      ><a name="1175" class="Symbol"
+      >}</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1177" class="Bound"
+      >Ngcd</a
+      ><a name="1181" class="Symbol"
+      >)</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" class="Symbol"
+      >_</a
+      ><a name="1184"
+      >        </a
+      ><a name="1192" class="Symbol"
+      >=</a
+      ><a name="1193"
+      >
+  </a
+      ><a name="1196" class="Symbol"
+      >&#955;</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1198" class="Bound"
+      >Divisible-mnSgcd</a
+      ><a name="1214"
+      > </a
+      ><a name="1215" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1215" class="Bound"
+      >c</a
+      ><a name="1216"
+      > </a
+      ><a name="1217" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1217" class="Bound"
+      >Nc</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1220" class="Bound"
+      >CDmnc</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" class="Symbol"
+      >&#8594;</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#573" class="Bound"
+      >x&#8739;Sy&#8594;x&#8804;Sy</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1217" class="Bound"
+      >Nc</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1177" class="Bound"
+      >Ngcd</a
+      ><a name="1245"
+      >
+                     </a
+      ><a name="1267" class="Symbol"
+      >(</a
+      ><a name="1268" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1198" class="Bound"
+      >Divisible-mnSgcd</a
+      ><a name="1284"
+      > </a
+      ><a name="1285" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1215" class="Bound"
+      >c</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1217" class="Bound"
+      >Nc</a
+      ><a name="1289"
+      > </a
+      ><a name="1290" href="FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor.html#1220" class="Bound"
+      >CDmnc</a
+      ><a name="1295" class="Symbol"
+      >)</a
+      ><a name="1296"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

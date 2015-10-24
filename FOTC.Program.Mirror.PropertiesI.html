@@ -1,0 +1,3747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Mirror.PropertiesI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties of the mirror function</a
+      ><a name="116"
+      >
+</a
+      ><a name="117" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="195"
+      >
+
+</a
+      ><a name="197" class="Symbol"
+      >{-#</a
+      ><a name="200"
+      > </a
+      ><a name="201" class="Keyword"
+      >OPTIONS</a
+      ><a name="208"
+      > --exact-split              </a
+      ><a name="236" class="Symbol"
+      >#-}</a
+      ><a name="239"
+      >
+</a
+      ><a name="240" class="Symbol"
+      >{-#</a
+      ><a name="243"
+      > </a
+      ><a name="244" class="Keyword"
+      >OPTIONS</a
+      ><a name="251"
+      > --no-sized-types           </a
+      ><a name="279" class="Symbol"
+      >#-}</a
+      ><a name="282"
+      >
+</a
+      ><a name="283" class="Symbol"
+      >{-#</a
+      ><a name="286"
+      > </a
+      ><a name="287" class="Keyword"
+      >OPTIONS</a
+      ><a name="294"
+      > --no-universe-polymorphism </a
+      ><a name="322" class="Symbol"
+      >#-}</a
+      ><a name="325"
+      >
+</a
+      ><a name="326" class="Symbol"
+      >{-#</a
+      ><a name="329"
+      > </a
+      ><a name="330" class="Keyword"
+      >OPTIONS</a
+      ><a name="337"
+      > --without-K                </a
+      ><a name="365" class="Symbol"
+      >#-}</a
+      ><a name="368"
+      >
+
+</a
+      ><a name="370" class="Keyword"
+      >module</a
+      ><a name="376"
+      > </a
+      ><a name="377" href="FOTC.Program.Mirror.PropertiesI.html#1" class="Module"
+      >FOTC.Program.Mirror.PropertiesI</a
+      ><a name="408"
+      > </a
+      ><a name="409" class="Keyword"
+      >where</a
+      ><a name="414"
+      >
+
+</a
+      ><a name="416" class="Keyword"
+      >open</a
+      ><a name="420"
+      > </a
+      ><a name="421" class="Keyword"
+      >import</a
+      ><a name="427"
+      > </a
+      ><a name="428" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="466"
+      >
+
+</a
+      ><a name="468" class="Keyword"
+      >open</a
+      ><a name="472"
+      > </a
+      ><a name="473" class="Keyword"
+      >import</a
+      ><a name="479"
+      > </a
+      ><a name="480" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="489"
+      >
+</a
+      ><a name="490" class="Keyword"
+      >open</a
+      ><a name="494"
+      > </a
+      ><a name="495" class="Keyword"
+      >import</a
+      ><a name="501"
+      > </a
+      ><a name="502" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="516"
+      >
+</a
+      ><a name="517" class="Keyword"
+      >open</a
+      ><a name="521"
+      > </a
+      ><a name="522" class="Keyword"
+      >import</a
+      ><a name="528"
+      > </a
+      ><a name="529" href="FOTC.Base.List.PropertiesI.html#1" class="Module"
+      >FOTC.Base.List.PropertiesI</a
+      ><a name="555"
+      >
+</a
+      ><a name="556" class="Keyword"
+      >open</a
+      ><a name="560"
+      > </a
+      ><a name="561" class="Keyword"
+      >import</a
+      ><a name="567"
+      > </a
+      ><a name="568" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="582"
+      >
+</a
+      ><a name="583" class="Keyword"
+      >open</a
+      ><a name="587"
+      > </a
+      ><a name="588" class="Keyword"
+      >import</a
+      ><a name="594"
+      > </a
+      ><a name="595" href="FOTC.Data.List.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.PropertiesI</a
+      ><a name="621"
+      >
+</a
+      ><a name="622" class="Keyword"
+      >open</a
+      ><a name="626"
+      > </a
+      ><a name="627" class="Keyword"
+      >import</a
+      ><a name="633"
+      > </a
+      ><a name="634" href="FOTC.Program.Mirror.Type.html#1" class="Module"
+      >FOTC.Program.Mirror.Type</a
+      ><a name="658"
+      >
+</a
+      ><a name="659" class="Keyword"
+      >open</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Keyword"
+      >import</a
+      ><a name="670"
+      > </a
+      ><a name="671" href="FOTC.Program.Mirror.Forest.PropertiesI.html#1" class="Module"
+      >FOTC.Program.Mirror.Forest.PropertiesI</a
+      ><a name="709"
+      > </a
+      ><a name="710" class="Symbol"
+      >as</a
+      ><a name="712"
+      > </a
+      ><a name="713" class="Module"
+      >ForestP</a
+      ><a name="720"
+      >
+</a
+      ><a name="721" class="Keyword"
+      >open</a
+      ><a name="725"
+      > </a
+      ><a name="726" class="Keyword"
+      >import</a
+      ><a name="732"
+      > </a
+      ><a name="733" href="FOTC.Program.Mirror.Forest.TotalityI.html#1" class="Module"
+      >FOTC.Program.Mirror.Forest.TotalityI</a
+      ><a name="769"
+      >
+</a
+      ><a name="770" class="Keyword"
+      >open</a
+      ><a name="774"
+      > </a
+      ><a name="775" class="Keyword"
+      >import</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="FOTC.Program.Mirror.Mirror.html#1" class="Module"
+      >FOTC.Program.Mirror.Mirror</a
+      ><a name="808"
+      >
+</a
+      ><a name="809" class="Keyword"
+      >open</a
+      ><a name="813"
+      > </a
+      ><a name="814" class="Keyword"
+      >import</a
+      ><a name="820"
+      > </a
+      ><a name="821" href="FOTC.Program.Mirror.Tree.TotalityI.html#1" class="Module"
+      >FOTC.Program.Mirror.Tree.TotalityI</a
+      ><a name="855"
+      >
+
+</a
+      ><a name="857" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="935"
+      >
+
+</a
+      ><a name="937" href="FOTC.Program.Mirror.PropertiesI.html#937" class="Function"
+      >mirror-involutive</a
+      ><a name="954"
+      > </a
+      ><a name="955" class="Symbol"
+      >:</a
+      ><a name="956"
+      > </a
+      ><a name="957" class="Symbol"
+      >&#8704;</a
+      ><a name="958"
+      > </a
+      ><a name="959" class="Symbol"
+      >{</a
+      ><a name="960" href="FOTC.Program.Mirror.PropertiesI.html#960" class="Bound"
+      >t</a
+      ><a name="961" class="Symbol"
+      >}</a
+      ><a name="962"
+      > </a
+      ><a name="963" class="Symbol"
+      >&#8594;</a
+      ><a name="964"
+      > </a
+      ><a name="965" href="FOTC.Program.Mirror.Type.html#720" class="Datatype"
+      >Tree</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="FOTC.Program.Mirror.PropertiesI.html#960" class="Bound"
+      >t</a
+      ><a name="971"
+      > </a
+      ><a name="972" class="Symbol"
+      >&#8594;</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="980"
+      > </a
+      ><a name="981" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="982"
+      > </a
+      ><a name="983" class="Symbol"
+      >(</a
+      ><a name="984" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="990"
+      > </a
+      ><a name="991" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="992"
+      > </a
+      ><a name="993" href="FOTC.Program.Mirror.PropertiesI.html#960" class="Bound"
+      >t</a
+      ><a name="994" class="Symbol"
+      >)</a
+      ><a name="995"
+      > </a
+      ><a name="996" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="997"
+      > </a
+      ><a name="998" href="FOTC.Program.Mirror.PropertiesI.html#960" class="Bound"
+      >t</a
+      ><a name="999"
+      >
+</a
+      ><a name="1000" href="FOTC.Program.Mirror.PropertiesI.html#1000" class="Function"
+      >helper</a
+      ><a name="1006"
+      >            </a
+      ><a name="1018" class="Symbol"
+      >:</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" class="Symbol"
+      >&#8704;</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" class="Symbol"
+      >{</a
+      ><a name="1023" href="FOTC.Program.Mirror.PropertiesI.html#1023" class="Bound"
+      >ts</a
+      ><a name="1025" class="Symbol"
+      >}</a
+      ><a name="1026"
+      > </a
+      ><a name="1027" class="Symbol"
+      >&#8594;</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" href="FOTC.Program.Mirror.PropertiesI.html#1023" class="Bound"
+      >ts</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" class="Symbol"
+      >&#8594;</a
+      ><a name="1040"
+      >
+                    </a
+      ><a name="1061" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" class="Symbol"
+      >(</a
+      ><a name="1070" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" class="Symbol"
+      >(</a
+      ><a name="1082" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" class="Symbol"
+      >(</a
+      ><a name="1091" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" href="FOTC.Program.Mirror.PropertiesI.html#1023" class="Bound"
+      >ts</a
+      ><a name="1104" class="Symbol"
+      >)))</a
+      ><a name="1107"
+      > </a
+      ><a name="1108" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1109"
+      > </a
+      ><a name="1110" href="FOTC.Program.Mirror.PropertiesI.html#1023" class="Bound"
+      >ts</a
+      ><a name="1112"
+      >
+
+</a
+      ><a name="1114" href="FOTC.Program.Mirror.PropertiesI.html#937" class="Function"
+      >mirror-involutive</a
+      ><a name="1131"
+      > </a
+      ><a name="1132" class="Symbol"
+      >(</a
+      ><a name="1133" href="FOTC.Program.Mirror.Type.html#907" class="InductiveConstructor"
+      >tree</a
+      ><a name="1137"
+      > </a
+      ><a name="1138" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1139"
+      > </a
+      ><a name="1140" href="FOTC.Program.Mirror.Type.html#782" class="InductiveConstructor"
+      >fnil</a
+      ><a name="1144" class="Symbol"
+      >)</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >=</a
+      ><a name="1147"
+      >
+  </a
+      ><a name="1150" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1158"
+      > </a
+      ><a name="1159" class="Symbol"
+      >(</a
+      ><a name="1160" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1166"
+      > </a
+      ><a name="1167" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" class="Symbol"
+      >(</a
+      ><a name="1170" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1174"
+      > </a
+      ><a name="1175" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1176"
+      > </a
+      ><a name="1177" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1179" class="Symbol"
+      >))</a
+      ><a name="1181"
+      >
+    </a
+      ><a name="1186" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" class="Symbol"
+      >(&#955;</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="FOTC.Program.Mirror.PropertiesI.html#1198" class="Bound"
+      >x</a
+      ><a name="1199"
+      > </a
+      ><a name="1200" class="Symbol"
+      >&#8594;</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1210"
+      > </a
+      ><a name="1211" class="Symbol"
+      >(</a
+      ><a name="1212" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1218"
+      > </a
+      ><a name="1219" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" class="Symbol"
+      >(</a
+      ><a name="1222" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1226"
+      > </a
+      ><a name="1227" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1228"
+      > </a
+      ><a name="1229" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1231" class="Symbol"
+      >))</a
+      ><a name="1233"
+      > </a
+      ><a name="1234" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" href="FOTC.Program.Mirror.PropertiesI.html#1198" class="Bound"
+      >x</a
+      ><a name="1246" class="Symbol"
+      >)</a
+      ><a name="1247"
+      >
+             </a
+      ><a name="1261" class="Symbol"
+      >(</a
+      ><a name="1262" href="FOTC.Program.Mirror.Mirror.html#655" class="Postulate"
+      >mirror-eq</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1276" class="Symbol"
+      >)</a
+      ><a name="1277"
+      >
+             </a
+      ><a name="1291" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1295"
+      >
+    </a
+      ><a name="1300" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1301"
+      >
+  </a
+      ><a name="1304" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1310"
+      > </a
+      ><a name="1311" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1312"
+      > </a
+      ><a name="1313" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" class="Symbol"
+      >(</a
+      ><a name="1321" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" class="Symbol"
+      >(</a
+      ><a name="1330" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1340"
+      > </a
+      ><a name="1341" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1343" class="Symbol"
+      >))</a
+      ><a name="1345"
+      >
+    </a
+      ><a name="1350" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1352"
+      > </a
+      ><a name="1353" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" class="Symbol"
+      >(&#955;</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" href="FOTC.Program.Mirror.PropertiesI.html#1362" class="Bound"
+      >x</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" class="Symbol"
+      >&#8594;</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1379"
+      > </a
+      ><a name="1380" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" class="Symbol"
+      >(</a
+      ><a name="1383" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" class="Symbol"
+      >(</a
+      ><a name="1392" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1402"
+      > </a
+      ><a name="1403" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1405" class="Symbol"
+      >))</a
+      ><a name="1407"
+      > </a
+      ><a name="1408" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1409"
+      >
+                    </a
+      ><a name="1430" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1443"
+      > </a
+      ><a name="1444" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" class="Symbol"
+      >(</a
+      ><a name="1447" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" href="FOTC.Program.Mirror.PropertiesI.html#1362" class="Bound"
+      >x</a
+      ><a name="1456" class="Symbol"
+      >))</a
+      ><a name="1458"
+      >
+             </a
+      ><a name="1472" class="Symbol"
+      >(</a
+      ><a name="1473" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="1479"
+      > </a
+      ><a name="1480" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1486" class="Symbol"
+      >)</a
+      ><a name="1487"
+      >
+             </a
+      ><a name="1501" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1505"
+      >
+    </a
+      ><a name="1510" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1511"
+      >
+  </a
+      ><a name="1514" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" class="Symbol"
+      >(</a
+      ><a name="1531" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1538"
+      > </a
+      ><a name="1539" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1541" class="Symbol"
+      >)</a
+      ><a name="1542"
+      >
+    </a
+      ><a name="1547" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1555"
+      > </a
+      ><a name="1556" class="Symbol"
+      >(&#955;</a
+      ><a name="1558"
+      > </a
+      ><a name="1559" href="FOTC.Program.Mirror.PropertiesI.html#1559" class="Bound"
+      >x</a
+      ><a name="1560"
+      > </a
+      ><a name="1561" class="Symbol"
+      >&#8594;</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1569"
+      > </a
+      ><a name="1570" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1571"
+      > </a
+      ><a name="1572" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" class="Symbol"
+      >(</a
+      ><a name="1580" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1587"
+      > </a
+      ><a name="1588" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1590" class="Symbol"
+      >)</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1593"
+      > </a
+      ><a name="1594" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1607"
+      > </a
+      ><a name="1608" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1609"
+      > </a
+      ><a name="1610" href="FOTC.Program.Mirror.PropertiesI.html#1559" class="Bound"
+      >x</a
+      ><a name="1611" class="Symbol"
+      >)</a
+      ><a name="1612"
+      >
+             </a
+      ><a name="1626" class="Symbol"
+      >(</a
+      ><a name="1627" href="FOTC.Data.List.html#1125" class="Postulate"
+      >rev-[]</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1636" class="Symbol"
+      >)</a
+      ><a name="1637"
+      >
+             </a
+      ><a name="1651" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1655"
+      >
+    </a
+      ><a name="1660" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1661"
+      >
+  </a
+      ><a name="1664" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1672"
+      > </a
+      ><a name="1673" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1677"
+      > </a
+      ><a name="1678" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1679"
+      > </a
+      ><a name="1680" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1682"
+      >
+    </a
+      ><a name="1687" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1689"
+      > </a
+      ><a name="1690" href="FOTC.Program.Mirror.Mirror.html#655" class="Postulate"
+      >mirror-eq</a
+      ><a name="1699"
+      > </a
+      ><a name="1700" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1701"
+      > </a
+      ><a name="1702" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1704"
+      > </a
+      ><a name="1705" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1706"
+      >
+  </a
+      ><a name="1709" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1713"
+      > </a
+      ><a name="1714" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" class="Symbol"
+      >(</a
+      ><a name="1717" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1724"
+      > </a
+      ><a name="1725" class="Symbol"
+      >(</a
+      ><a name="1726" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1729"
+      > </a
+      ><a name="1730" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1736"
+      > </a
+      ><a name="1737" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1739" class="Symbol"
+      >))</a
+      ><a name="1741"
+      >
+    </a
+      ><a name="1746" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" class="Symbol"
+      >(&#955;</a
+      ><a name="1757"
+      > </a
+      ><a name="1758" href="FOTC.Program.Mirror.PropertiesI.html#1758" class="Bound"
+      >x</a
+      ><a name="1759"
+      > </a
+      ><a name="1760" class="Symbol"
+      >&#8594;</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" class="Symbol"
+      >(</a
+      ><a name="1770" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" class="Symbol"
+      >(</a
+      ><a name="1779" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1792" class="Symbol"
+      >))</a
+      ><a name="1794"
+      > </a
+      ><a name="1795" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1796"
+      >
+                    </a
+      ><a name="1817" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" class="Symbol"
+      >(</a
+      ><a name="1825" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" href="FOTC.Program.Mirror.PropertiesI.html#1758" class="Bound"
+      >x</a
+      ><a name="1834" class="Symbol"
+      >))</a
+      ><a name="1836"
+      >
+             </a
+      ><a name="1850" class="Symbol"
+      >(</a
+      ><a name="1851" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="1857"
+      > </a
+      ><a name="1858" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="1864" class="Symbol"
+      >)</a
+      ><a name="1865"
+      >
+             </a
+      ><a name="1879" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1883"
+      >
+    </a
+      ><a name="1888" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1889"
+      >
+  </a
+      ><a name="1892" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1896"
+      > </a
+      ><a name="1897" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1898"
+      > </a
+      ><a name="1899" class="Symbol"
+      >(</a
+      ><a name="1900" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1907"
+      > </a
+      ><a name="1908" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1910" class="Symbol"
+      >)</a
+      ><a name="1911"
+      >
+    </a
+      ><a name="1916" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="1924"
+      > </a
+      ><a name="1925" class="Symbol"
+      >(&#955;</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" href="FOTC.Program.Mirror.PropertiesI.html#1928" class="Bound"
+      >x</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" class="Symbol"
+      >&#8594;</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1936"
+      > </a
+      ><a name="1937" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1938"
+      > </a
+      ><a name="1939" class="Symbol"
+      >(</a
+      ><a name="1940" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="1947"
+      > </a
+      ><a name="1948" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1950" class="Symbol"
+      >)</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" href="FOTC.Program.Mirror.PropertiesI.html#1928" class="Bound"
+      >x</a
+      ><a name="1962" class="Symbol"
+      >)</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" class="Symbol"
+      >(</a
+      ><a name="1965" href="FOTC.Data.List.html#1125" class="Postulate"
+      >rev-[]</a
+      ><a name="1971"
+      > </a
+      ><a name="1972" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1974" class="Symbol"
+      >)</a
+      ><a name="1975"
+      > </a
+      ><a name="1976" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1980"
+      > </a
+      ><a name="1981" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1982"
+      >
+  </a
+      ><a name="1985" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="1989"
+      > </a
+      ><a name="1990" href="FOTC.Program.Mirror.PropertiesI.html#1138" class="Bound"
+      >d</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="1996"
+      >
+
+</a
+      ><a name="1998" href="FOTC.Program.Mirror.PropertiesI.html#937" class="Function"
+      >mirror-involutive</a
+      ><a name="2015"
+      > </a
+      ><a name="2016" class="Symbol"
+      >(</a
+      ><a name="2017" href="FOTC.Program.Mirror.Type.html#907" class="InductiveConstructor"
+      >tree</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2023"
+      > </a
+      ><a name="2024" class="Symbol"
+      >(</a
+      ><a name="2025" href="FOTC.Program.Mirror.Type.html#802" class="InductiveConstructor"
+      >fcons</a
+      ><a name="2030"
+      > </a
+      ><a name="2031" class="Symbol"
+      >{</a
+      ><a name="2032" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2033" class="Symbol"
+      >}</a
+      ><a name="2034"
+      > </a
+      ><a name="2035" class="Symbol"
+      >{</a
+      ><a name="2036" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2038" class="Symbol"
+      >}</a
+      ><a name="2039"
+      > </a
+      ><a name="2040" href="FOTC.Program.Mirror.PropertiesI.html#2040" class="Bound"
+      >Tt</a
+      ><a name="2042"
+      > </a
+      ><a name="2043" href="FOTC.Program.Mirror.PropertiesI.html#2043" class="Bound"
+      >Fts</a
+      ><a name="2046" class="Symbol"
+      >))</a
+      ><a name="2048"
+      > </a
+      ><a name="2049" class="Symbol"
+      >=</a
+      ><a name="2050"
+      >
+  </a
+      ><a name="2053" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" class="Symbol"
+      >(</a
+      ><a name="2063" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2069"
+      > </a
+      ><a name="2070" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2071"
+      > </a
+      ><a name="2072" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2076"
+      > </a
+      ><a name="2077" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2078"
+      > </a
+      ><a name="2079" class="Symbol"
+      >(</a
+      ><a name="2080" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2086" class="Symbol"
+      >))</a
+      ><a name="2088"
+      >
+    </a
+      ><a name="2093" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" class="Symbol"
+      >(&#955;</a
+      ><a name="2104"
+      > </a
+      ><a name="2105" href="FOTC.Program.Mirror.PropertiesI.html#2105" class="Bound"
+      >x</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" class="Symbol"
+      >&#8594;</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2115"
+      > </a
+      ><a name="2116" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2117"
+      > </a
+      ><a name="2118" class="Symbol"
+      >(</a
+      ><a name="2119" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2125"
+      > </a
+      ><a name="2126" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2132"
+      > </a
+      ><a name="2133" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" class="Symbol"
+      >(</a
+      ><a name="2136" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2142" class="Symbol"
+      >))</a
+      ><a name="2144"
+      > </a
+      ><a name="2145" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2146"
+      > </a
+      ><a name="2147" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2155"
+      > </a
+      ><a name="2156" href="FOTC.Program.Mirror.PropertiesI.html#2105" class="Bound"
+      >x</a
+      ><a name="2157" class="Symbol"
+      >)</a
+      ><a name="2158"
+      >
+             </a
+      ><a name="2172" class="Symbol"
+      >(</a
+      ><a name="2173" href="FOTC.Program.Mirror.Mirror.html#655" class="Postulate"
+      >mirror-eq</a
+      ><a name="2182"
+      > </a
+      ><a name="2183" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2184"
+      > </a
+      ><a name="2185" class="Symbol"
+      >(</a
+      ><a name="2186" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2187"
+      > </a
+      ><a name="2188" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2189"
+      > </a
+      ><a name="2190" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2192" class="Symbol"
+      >))</a
+      ><a name="2194"
+      >
+             </a
+      ><a name="2208" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2212"
+      >
+    </a
+      ><a name="2217" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2218"
+      >
+  </a
+      ><a name="2221" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2229"
+      > </a
+      ><a name="2230" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2234"
+      > </a
+      ><a name="2235" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2236"
+      > </a
+      ><a name="2237" class="Symbol"
+      >(</a
+      ><a name="2238" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2245"
+      > </a
+      ><a name="2246" class="Symbol"
+      >(</a
+      ><a name="2247" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2250"
+      > </a
+      ><a name="2251" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" class="Symbol"
+      >(</a
+      ><a name="2259" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2260"
+      > </a
+      ><a name="2261" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2262"
+      > </a
+      ><a name="2263" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2265" class="Symbol"
+      >)))</a
+      ><a name="2268"
+      >
+    </a
+      ><a name="2273" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2275"
+      > </a
+      ><a name="2276" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2281"
+      > </a
+      ><a name="2282" class="Symbol"
+      >(&#955;</a
+      ><a name="2284"
+      > </a
+      ><a name="2285" href="FOTC.Program.Mirror.PropertiesI.html#2285" class="Bound"
+      >x</a
+      ><a name="2286"
+      > </a
+      ><a name="2287" class="Symbol"
+      >&#8594;</a
+      ><a name="2288"
+      > </a
+      ><a name="2289" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2295"
+      > </a
+      ><a name="2296" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2297"
+      > </a
+      ><a name="2298" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2302"
+      > </a
+      ><a name="2303" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2304"
+      > </a
+      ><a name="2305" class="Symbol"
+      >(</a
+      ><a name="2306" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2313"
+      > </a
+      ><a name="2314" class="Symbol"
+      >(</a
+      ><a name="2315" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2318"
+      > </a
+      ><a name="2319" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2325"
+      > </a
+      ><a name="2326" class="Symbol"
+      >(</a
+      ><a name="2327" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2330"
+      > </a
+      ><a name="2331" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2333" class="Symbol"
+      >)))</a
+      ><a name="2336"
+      > </a
+      ><a name="2337" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2338"
+      > </a
+      ><a name="2339" href="FOTC.Program.Mirror.PropertiesI.html#2285" class="Bound"
+      >x</a
+      ><a name="2340" class="Symbol"
+      >)</a
+      ><a name="2341"
+      >
+             </a
+      ><a name="2355" class="Symbol"
+      >(</a
+      ><a name="2356" href="FOTC.Program.Mirror.Mirror.html#655" class="Postulate"
+      >mirror-eq</a
+      ><a name="2365"
+      > </a
+      ><a name="2366" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2367"
+      > </a
+      ><a name="2368" class="Symbol"
+      >(</a
+      ><a name="2369" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2376"
+      > </a
+      ><a name="2377" class="Symbol"
+      >(</a
+      ><a name="2378" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2381"
+      > </a
+      ><a name="2382" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" class="Symbol"
+      >(</a
+      ><a name="2390" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2391"
+      > </a
+      ><a name="2392" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2393"
+      > </a
+      ><a name="2394" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2396" class="Symbol"
+      >))))</a
+      ><a name="2400"
+      >
+             </a
+      ><a name="2414" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2418"
+      >
+    </a
+      ><a name="2423" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2424"
+      >
+  </a
+      ><a name="2427" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2433"
+      > </a
+      ><a name="2434" class="Symbol"
+      >(</a
+      ><a name="2435" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2442"
+      > </a
+      ><a name="2443" class="Symbol"
+      >(</a
+      ><a name="2444" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2447"
+      > </a
+      ><a name="2448" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2454"
+      > </a
+      ><a name="2455" class="Symbol"
+      >(</a
+      ><a name="2456" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2463"
+      > </a
+      ><a name="2464" class="Symbol"
+      >(</a
+      ><a name="2465" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2468"
+      > </a
+      ><a name="2469" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2475"
+      > </a
+      ><a name="2476" class="Symbol"
+      >(</a
+      ><a name="2477" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2478"
+      > </a
+      ><a name="2479" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2480"
+      > </a
+      ><a name="2481" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2483" class="Symbol"
+      >)))))</a
+      ><a name="2488"
+      >
+    </a
+      ><a name="2493" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2495"
+      > </a
+      ><a name="2496" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="2501"
+      > </a
+      ><a name="2502" class="Symbol"
+      >(&#955;</a
+      ><a name="2504"
+      > </a
+      ><a name="2505" href="FOTC.Program.Mirror.PropertiesI.html#2505" class="Bound"
+      >x</a
+      ><a name="2506"
+      > </a
+      ><a name="2507" class="Symbol"
+      >&#8594;</a
+      ><a name="2508"
+      > </a
+      ><a name="2509" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2513"
+      > </a
+      ><a name="2514" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2515"
+      > </a
+      ><a name="2516" class="Symbol"
+      >(</a
+      ><a name="2517" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2524"
+      > </a
+      ><a name="2525" class="Symbol"
+      >(</a
+      ><a name="2526" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2529"
+      > </a
+      ><a name="2530" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2536"
+      > </a
+      ><a name="2537" class="Symbol"
+      >(</a
+      ><a name="2538" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2545"
+      > </a
+      ><a name="2546" class="Symbol"
+      >(</a
+      ><a name="2547" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2550"
+      > </a
+      ><a name="2551" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" class="Symbol"
+      >(</a
+      ><a name="2559" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2560"
+      > </a
+      ><a name="2561" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2562"
+      > </a
+      ><a name="2563" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2565" class="Symbol"
+      >)))))</a
+      ><a name="2570"
+      > </a
+      ><a name="2571" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2572"
+      >
+                    </a
+      ><a name="2593" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2597"
+      > </a
+      ><a name="2598" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2599"
+      > </a
+      ><a name="2600" href="FOTC.Program.Mirror.PropertiesI.html#2505" class="Bound"
+      >x</a
+      ><a name="2601" class="Symbol"
+      >)</a
+      ><a name="2602"
+      >
+             </a
+      ><a name="2616" class="Symbol"
+      >(</a
+      ><a name="2617" href="FOTC.Program.Mirror.PropertiesI.html#1000" class="Function"
+      >helper</a
+      ><a name="2623"
+      > </a
+      ><a name="2624" class="Symbol"
+      >(</a
+      ><a name="2625" href="FOTC.Program.Mirror.Type.html#802" class="InductiveConstructor"
+      >fcons</a
+      ><a name="2630"
+      > </a
+      ><a name="2631" href="FOTC.Program.Mirror.PropertiesI.html#2040" class="Bound"
+      >Tt</a
+      ><a name="2633"
+      > </a
+      ><a name="2634" href="FOTC.Program.Mirror.PropertiesI.html#2043" class="Bound"
+      >Fts</a
+      ><a name="2637" class="Symbol"
+      >))</a
+      ><a name="2639"
+      >
+             </a
+      ><a name="2653" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2657"
+      >
+    </a
+      ><a name="2662" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2663"
+      >
+  </a
+      ><a name="2666" href="FOTC.Program.Mirror.Type.html#594" class="Postulate"
+      >node</a
+      ><a name="2670"
+      > </a
+      ><a name="2671" href="FOTC.Program.Mirror.PropertiesI.html#2022" class="Bound"
+      >d</a
+      ><a name="2672"
+      > </a
+      ><a name="2673" class="Symbol"
+      >(</a
+      ><a name="2674" href="FOTC.Program.Mirror.PropertiesI.html#2032" class="Bound"
+      >t</a
+      ><a name="2675"
+      > </a
+      ><a name="2676" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="2677"
+      > </a
+      ><a name="2678" href="FOTC.Program.Mirror.PropertiesI.html#2036" class="Bound"
+      >ts</a
+      ><a name="2680" class="Symbol"
+      >)</a
+      ><a name="2681"
+      > </a
+      ><a name="2682" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="2683"
+      >
+
+</a
+      ><a name="2685" href="FOTC.Program.Mirror.PropertiesI.html#1000" class="Function"
+      >helper</a
+      ><a name="2691"
+      > </a
+      ><a name="2692" href="FOTC.Program.Mirror.Type.html#782" class="InductiveConstructor"
+      >fnil</a
+      ><a name="2696"
+      > </a
+      ><a name="2697" class="Symbol"
+      >=</a
+      ><a name="2698"
+      >
+  </a
+      ><a name="2701" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2708"
+      > </a
+      ><a name="2709" class="Symbol"
+      >(</a
+      ><a name="2710" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2720"
+      > </a
+      ><a name="2721" class="Symbol"
+      >(</a
+      ><a name="2722" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2729"
+      > </a
+      ><a name="2730" class="Symbol"
+      >(</a
+      ><a name="2731" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2734"
+      > </a
+      ><a name="2735" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2741"
+      > </a
+      ><a name="2742" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2744" class="Symbol"
+      >)))</a
+      ><a name="2747"
+      >
+    </a
+      ><a name="2752" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2754"
+      > </a
+      ><a name="2755" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="2766"
+      > </a
+      ><a name="2767" class="Symbol"
+      >(</a
+      ><a name="2768" href="FOTC.Data.List.PropertiesI.html#1133" class="Function"
+      >mapCong&#8322;</a
+      ><a name="2776"
+      > </a
+      ><a name="2777" class="Symbol"
+      >(</a
+      ><a name="2778" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="2789"
+      > </a
+      ><a name="2790" class="Symbol"
+      >(</a
+      ><a name="2791" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="2797"
+      > </a
+      ><a name="2798" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2804" class="Symbol"
+      >)))</a
+      ><a name="2807"
+      > </a
+      ><a name="2808" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2809"
+      >
+  </a
+      ><a name="2812" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" class="Symbol"
+      >(</a
+      ><a name="2821" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2824"
+      > </a
+      ><a name="2825" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2831"
+      > </a
+      ><a name="2832" class="Symbol"
+      >(</a
+      ><a name="2833" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2840"
+      > </a
+      ><a name="2841" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2843" class="Symbol"
+      >))</a
+      ><a name="2845"
+      >
+    </a
+      ><a name="2850" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2852"
+      > </a
+      ><a name="2853" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="2864"
+      > </a
+      ><a name="2865" class="Symbol"
+      >(</a
+      ><a name="2866" href="FOTC.Data.List.PropertiesI.html#1133" class="Function"
+      >mapCong&#8322;</a
+      ><a name="2874"
+      > </a
+      ><a name="2875" class="Symbol"
+      >(</a
+      ><a name="2876" href="FOTC.Data.List.html#1125" class="Postulate"
+      >rev-[]</a
+      ><a name="2882"
+      > </a
+      ><a name="2883" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2885" class="Symbol"
+      >))</a
+      ><a name="2887"
+      > </a
+      ><a name="2888" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2889"
+      >
+  </a
+      ><a name="2892" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2899"
+      > </a
+      ><a name="2900" class="Symbol"
+      >(</a
+      ><a name="2901" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="2904"
+      > </a
+      ><a name="2905" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2911"
+      > </a
+      ><a name="2912" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2914" class="Symbol"
+      >)</a
+      ><a name="2915"
+      >
+    </a
+      ><a name="2920" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="2934"
+      > </a
+      ><a name="2935" class="Symbol"
+      >(</a
+      ><a name="2936" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="2942"
+      > </a
+      ><a name="2943" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="2949" class="Symbol"
+      >)</a
+      ><a name="2950"
+      > </a
+      ><a name="2951" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2952"
+      >
+  </a
+      ><a name="2955" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="2962"
+      > </a
+      ><a name="2963" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2965"
+      >
+    </a
+      ><a name="2970" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="2972"
+      > </a
+      ><a name="2973" href="FOTC.Data.List.html#1125" class="Postulate"
+      >rev-[]</a
+      ><a name="2979"
+      > </a
+      ><a name="2980" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2982"
+      > </a
+      ><a name="2983" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="2984"
+      >
+  </a
+      ><a name="2987" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="2989"
+      > </a
+      ><a name="2990" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="2991"
+      >
+
+</a
+      ><a name="2993" href="FOTC.Program.Mirror.PropertiesI.html#1000" class="Function"
+      >helper</a
+      ><a name="2999"
+      > </a
+      ><a name="3000" class="Symbol"
+      >(</a
+      ><a name="3001" href="FOTC.Program.Mirror.Type.html#802" class="InductiveConstructor"
+      >fcons</a
+      ><a name="3006"
+      > </a
+      ><a name="3007" class="Symbol"
+      >{</a
+      ><a name="3008" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3009" class="Symbol"
+      >}</a
+      ><a name="3010"
+      > </a
+      ><a name="3011" class="Symbol"
+      >{</a
+      ><a name="3012" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3014" class="Symbol"
+      >}</a
+      ><a name="3015"
+      > </a
+      ><a name="3016" href="FOTC.Program.Mirror.PropertiesI.html#3016" class="Bound"
+      >Tt</a
+      ><a name="3018"
+      > </a
+      ><a name="3019" href="FOTC.Program.Mirror.PropertiesI.html#3019" class="Bound"
+      >Fts</a
+      ><a name="3022" class="Symbol"
+      >)</a
+      ><a name="3023"
+      > </a
+      ><a name="3024" class="Symbol"
+      >=</a
+      ><a name="3025"
+      >
+  </a
+      ><a name="3028" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3035"
+      > </a
+      ><a name="3036" class="Symbol"
+      >(</a
+      ><a name="3037" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3040"
+      > </a
+      ><a name="3041" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3047"
+      > </a
+      ><a name="3048" class="Symbol"
+      >(</a
+      ><a name="3049" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3056"
+      > </a
+      ><a name="3057" class="Symbol"
+      >(</a
+      ><a name="3058" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3061"
+      > </a
+      ><a name="3062" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3068"
+      > </a
+      ><a name="3069" class="Symbol"
+      >(</a
+      ><a name="3070" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3071"
+      > </a
+      ><a name="3072" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3073"
+      > </a
+      ><a name="3074" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3076" class="Symbol"
+      >))))</a
+      ><a name="3080"
+      >
+    </a
+      ><a name="3085" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="3087"
+      > </a
+      ><a name="3088" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="3099"
+      > </a
+      ><a name="3100" class="Symbol"
+      >(</a
+      ><a name="3101" href="FOTC.Data.List.PropertiesI.html#1133" class="Function"
+      >mapCong&#8322;</a
+      ><a name="3109"
+      > </a
+      ><a name="3110" class="Symbol"
+      >(</a
+      ><a name="3111" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="3122"
+      > </a
+      ><a name="3123" class="Symbol"
+      >(</a
+      ><a name="3124" href="FOTC.Data.List.html#1005" class="Postulate"
+      >map-&#8759;</a
+      ><a name="3129"
+      > </a
+      ><a name="3130" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3136"
+      > </a
+      ><a name="3137" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3138"
+      > </a
+      ><a name="3139" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3141" class="Symbol"
+      >)))</a
+      ><a name="3144"
+      > </a
+      ><a name="3145" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="3146"
+      >
+  </a
+      ><a name="3149" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3156"
+      > </a
+      ><a name="3157" class="Symbol"
+      >(</a
+      ><a name="3158" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3161"
+      > </a
+      ><a name="3162" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3168"
+      > </a
+      ><a name="3169" class="Symbol"
+      >(</a
+      ><a name="3170" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3177"
+      > </a
+      ><a name="3178" class="Symbol"
+      >(</a
+      ><a name="3179" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3185"
+      > </a
+      ><a name="3186" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3187"
+      > </a
+      ><a name="3188" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3189"
+      > </a
+      ><a name="3190" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3191"
+      > </a
+      ><a name="3192" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3195"
+      > </a
+      ><a name="3196" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3202"
+      > </a
+      ><a name="3203" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3205" class="Symbol"
+      >)))</a
+      ><a name="3208"
+      >
+    </a
+      ><a name="3213" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="3215"
+      > </a
+      ><a name="3216" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="3227"
+      > </a
+      ><a name="3228" class="Symbol"
+      >(</a
+      ><a name="3229" href="FOTC.Data.List.PropertiesI.html#1133" class="Function"
+      >mapCong&#8322;</a
+      ><a name="3237"
+      >
+                     </a
+      ><a name="3259" class="Symbol"
+      >(</a
+      ><a name="3260" href="FOTC.Program.Mirror.Forest.PropertiesI.html#4870" class="Function"
+      >ForestP.reverse-&#8759;</a
+      ><a name="3277"
+      > </a
+      ><a name="3278" class="Symbol"
+      >(</a
+      ><a name="3279" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="3290"
+      > </a
+      ><a name="3291" href="FOTC.Program.Mirror.PropertiesI.html#3016" class="Bound"
+      >Tt</a
+      ><a name="3293" class="Symbol"
+      >)</a
+      ><a name="3294"
+      >
+                                        </a
+      ><a name="3335" class="Symbol"
+      >(</a
+      ><a name="3336" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="3346"
+      > </a
+      ><a name="3347" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3353"
+      > </a
+      ><a name="3354" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="3365"
+      > </a
+      ><a name="3366" href="FOTC.Program.Mirror.PropertiesI.html#3019" class="Bound"
+      >Fts</a
+      ><a name="3369" class="Symbol"
+      >)))</a
+      ><a name="3372"
+      >
+    </a
+      ><a name="3377" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="3378"
+      >
+  </a
+      ><a name="3381" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3388"
+      > </a
+      ><a name="3389" class="Symbol"
+      >(</a
+      ><a name="3390" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3393"
+      > </a
+      ><a name="3394" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3400"
+      > </a
+      ><a name="3401" class="Symbol"
+      >(</a
+      ><a name="3402" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3409"
+      > </a
+      ><a name="3410" class="Symbol"
+      >(</a
+      ><a name="3411" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3414"
+      > </a
+      ><a name="3415" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3421"
+      > </a
+      ><a name="3422" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3424" class="Symbol"
+      >)</a
+      ><a name="3425"
+      > </a
+      ><a name="3426" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="3428"
+      > </a
+      ><a name="3429" class="Symbol"
+      >(</a
+      ><a name="3430" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3436"
+      > </a
+      ><a name="3437" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3438"
+      > </a
+      ><a name="3439" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3440"
+      > </a
+      ><a name="3441" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3442"
+      > </a
+      ><a name="3443" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="3445" class="Symbol"
+      >)))</a
+      ><a name="3448"
+      >
+    </a
+      ><a name="3453" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="3455"
+      > </a
+      ><a name="3456" href="FOTC.Data.List.PropertiesI.html#1370" class="Function"
+      >reverseCong</a
+      ><a name="3467"
+      > </a
+      ><a name="3468" class="Symbol"
+      >(</a
+      ><a name="3469" href="FOTC.Program.Mirror.Forest.PropertiesI.html#1786" class="Function"
+      >ForestP.map-++</a
+      ><a name="3483"
+      >
+                     </a
+      ><a name="3505" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3511"
+      >
+                     </a
+      ><a name="3533" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="3544"
+      >
+                       </a
+      ><a name="3568" class="Symbol"
+      >(</a
+      ><a name="3569" href="FOTC.Program.Mirror.Forest.TotalityI.html#1394" class="Function"
+      >reverse-Forest</a
+      ><a name="3583"
+      > </a
+      ><a name="3584" class="Symbol"
+      >(</a
+      ><a name="3585" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="3595"
+      > </a
+      ><a name="3596" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3602"
+      > </a
+      ><a name="3603" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="3614"
+      > </a
+      ><a name="3615" href="FOTC.Program.Mirror.PropertiesI.html#3019" class="Bound"
+      >Fts</a
+      ><a name="3618" class="Symbol"
+      >))</a
+      ><a name="3620"
+      >
+                       </a
+      ><a name="3644" class="Symbol"
+      >(</a
+      ><a name="3645" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3651"
+      > </a
+      ><a name="3652" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3653"
+      > </a
+      ><a name="3654" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3655"
+      > </a
+      ><a name="3656" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3657"
+      > </a
+      ><a name="3658" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="3660" class="Symbol"
+      >))</a
+      ><a name="3662"
+      > </a
+      ><a name="3663" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="3664"
+      >
+
+
+  </a
+      ><a name="3669" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3676"
+      > </a
+      ><a name="3677" class="Symbol"
+      >(</a
+      ><a name="3678" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3681"
+      > </a
+      ><a name="3682" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3688"
+      > </a
+      ><a name="3689" class="Symbol"
+      >(</a
+      ><a name="3690" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3697"
+      > </a
+      ><a name="3698" class="Symbol"
+      >(</a
+      ><a name="3699" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3702"
+      > </a
+      ><a name="3703" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3709"
+      > </a
+      ><a name="3710" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3712" class="Symbol"
+      >))</a
+      ><a name="3714"
+      > </a
+      ><a name="3715" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="3717"
+      >
+          </a
+      ><a name="3728" class="Symbol"
+      >(</a
+      ><a name="3729" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3732"
+      > </a
+      ><a name="3733" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3739"
+      > </a
+      ><a name="3740" class="Symbol"
+      >(</a
+      ><a name="3741" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3747"
+      > </a
+      ><a name="3748" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3749"
+      > </a
+      ><a name="3750" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3751"
+      > </a
+      ><a name="3752" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3753"
+      > </a
+      ><a name="3754" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="3756" class="Symbol"
+      >)))</a
+      ><a name="3759"
+      >
+    </a
+      ><a name="3764" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="3766"
+      > </a
+      ><a name="3767" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="3772"
+      > </a
+      ><a name="3773" class="Symbol"
+      >(&#955;</a
+      ><a name="3775"
+      > </a
+      ><a name="3776" href="FOTC.Program.Mirror.PropertiesI.html#3776" class="Bound"
+      >x</a
+      ><a name="3777"
+      > </a
+      ><a name="3778" class="Symbol"
+      >&#8594;</a
+      ><a name="3779"
+      > </a
+      ><a name="3780" class="Symbol"
+      >(</a
+      ><a name="3781" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3788"
+      > </a
+      ><a name="3789" class="Symbol"
+      >(</a
+      ><a name="3790" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3793"
+      > </a
+      ><a name="3794" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3800"
+      > </a
+      ><a name="3801" class="Symbol"
+      >(</a
+      ><a name="3802" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="3809"
+      > </a
+      ><a name="3810" class="Symbol"
+      >(</a
+      ><a name="3811" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3814"
+      > </a
+      ><a name="3815" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3821"
+      > </a
+      ><a name="3822" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="3824" class="Symbol"
+      >))</a
+      ><a name="3826"
+      > </a
+      ><a name="3827" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="3829"
+      >
+                                         </a
+      ><a name="3871" class="Symbol"
+      >(</a
+      ><a name="3872" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="3875"
+      > </a
+      ><a name="3876" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3882"
+      > </a
+      ><a name="3883" class="Symbol"
+      >(</a
+      ><a name="3884" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3890"
+      > </a
+      ><a name="3891" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3892"
+      > </a
+      ><a name="3893" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="3894"
+      > </a
+      ><a name="3895" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3896"
+      > </a
+      ><a name="3897" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="3899" class="Symbol"
+      >))))</a
+      ><a name="3903"
+      > </a
+      ><a name="3904" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3905"
+      > </a
+      ><a name="3906" href="FOTC.Program.Mirror.PropertiesI.html#3776" class="Bound"
+      >x</a
+      ><a name="3907" class="Symbol"
+      >)</a
+      ><a name="3908"
+      >
+             </a
+      ><a name="3922" class="Symbol"
+      >(</a
+      ><a name="3923" href="FOTC.Program.Mirror.Forest.PropertiesI.html#3416" class="Function"
+      >ForestP.reverse-++</a
+      ><a name="3941"
+      >
+               </a
+      ><a name="3957" class="Symbol"
+      >(</a
+      ><a name="3958" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="3968"
+      > </a
+      ><a name="3969" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="3975"
+      > </a
+      ><a name="3976" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="3987"
+      >
+                           </a
+      ><a name="4015" class="Symbol"
+      >(</a
+      ><a name="4016" href="FOTC.Program.Mirror.Forest.TotalityI.html#1394" class="Function"
+      >reverse-Forest</a
+      ><a name="4030"
+      >
+                           </a
+      ><a name="4058" class="Symbol"
+      >(</a
+      ><a name="4059" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="4069"
+      > </a
+      ><a name="4070" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4076"
+      > </a
+      ><a name="4077" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="4088"
+      > </a
+      ><a name="4089" href="FOTC.Program.Mirror.PropertiesI.html#3019" class="Bound"
+      >Fts</a
+      ><a name="4092" class="Symbol"
+      >)))</a
+      ><a name="4095"
+      >
+               </a
+      ><a name="4111" class="Symbol"
+      >(</a
+      ><a name="4112" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="4122"
+      > </a
+      ><a name="4123" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4129"
+      > </a
+      ><a name="4130" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="4141"
+      >
+                           </a
+      ><a name="4169" class="Symbol"
+      >(</a
+      ><a name="4170" href="FOTC.Program.Mirror.Type.html#802" class="InductiveConstructor"
+      >fcons</a
+      ><a name="4175"
+      > </a
+      ><a name="4176" class="Symbol"
+      >(</a
+      ><a name="4177" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="4188"
+      > </a
+      ><a name="4189" href="FOTC.Program.Mirror.PropertiesI.html#3016" class="Bound"
+      >Tt</a
+      ><a name="4191" class="Symbol"
+      >)</a
+      ><a name="4192"
+      > </a
+      ><a name="4193" href="FOTC.Program.Mirror.Type.html#782" class="InductiveConstructor"
+      >fnil</a
+      ><a name="4197" class="Symbol"
+      >)))</a
+      ><a name="4200"
+      >
+             </a
+      ><a name="4214" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="4218"
+      >
+    </a
+      ><a name="4223" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="4224"
+      >
+  </a
+      ><a name="4227" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4234"
+      > </a
+      ><a name="4235" class="Symbol"
+      >(</a
+      ><a name="4236" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="4239"
+      > </a
+      ><a name="4240" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4246"
+      > </a
+      ><a name="4247" class="Symbol"
+      >(</a
+      ><a name="4248" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4254"
+      > </a
+      ><a name="4255" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4256"
+      > </a
+      ><a name="4257" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4258"
+      > </a
+      ><a name="4259" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4260"
+      > </a
+      ><a name="4261" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4263" class="Symbol"
+      >))</a
+      ><a name="4265"
+      > </a
+      ><a name="4266" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4268"
+      >
+  </a
+      ><a name="4271" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4278"
+      > </a
+      ><a name="4279" class="Symbol"
+      >(</a
+      ><a name="4280" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="4283"
+      > </a
+      ><a name="4284" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4290"
+      > </a
+      ><a name="4291" class="Symbol"
+      >(</a
+      ><a name="4292" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4299"
+      > </a
+      ><a name="4300" class="Symbol"
+      >(</a
+      ><a name="4301" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="4304"
+      > </a
+      ><a name="4305" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4311"
+      > </a
+      ><a name="4312" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="4314" class="Symbol"
+      >)))</a
+      ><a name="4317"
+      >
+    </a
+      ><a name="4322" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="4324"
+      > </a
+      ><a name="4325" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4330"
+      > </a
+      ><a name="4331" class="Symbol"
+      >(&#955;</a
+      ><a name="4333"
+      > </a
+      ><a name="4334" href="FOTC.Program.Mirror.PropertiesI.html#4334" class="Bound"
+      >x</a
+      ><a name="4335"
+      > </a
+      ><a name="4336" class="Symbol"
+      >&#8594;</a
+      ><a name="4337"
+      > </a
+      ><a name="4338" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4345"
+      > </a
+      ><a name="4346" class="Symbol"
+      >(</a
+      ><a name="4347" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="4350"
+      > </a
+      ><a name="4351" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4357"
+      > </a
+      ><a name="4358" class="Symbol"
+      >(</a
+      ><a name="4359" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4365"
+      > </a
+      ><a name="4366" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4367"
+      > </a
+      ><a name="4368" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4369"
+      > </a
+      ><a name="4370" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4371"
+      > </a
+      ><a name="4372" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4374" class="Symbol"
+      >))</a
+      ><a name="4376"
+      > </a
+      ><a name="4377" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4379"
+      > </a
+      ><a name="4380" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4382"
+      > </a
+      ><a name="4383" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4384"
+      >
+                    </a
+      ><a name="4405" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4412"
+      > </a
+      ><a name="4413" href="FOTC.Program.Mirror.PropertiesI.html#4334" class="Bound"
+      >x</a
+      ><a name="4414"
+      > </a
+      ><a name="4415" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4417"
+      > </a
+      ><a name="4418" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4420" class="Symbol"
+      >)</a
+      ><a name="4421"
+      >
+             </a
+      ><a name="4435" class="Symbol"
+      >(</a
+      ><a name="4436" href="FOTC.Data.List.html#1005" class="Postulate"
+      >map-&#8759;</a
+      ><a name="4441"
+      > </a
+      ><a name="4442" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4448"
+      > </a
+      ><a name="4449" class="Symbol"
+      >(</a
+      ><a name="4450" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4456"
+      > </a
+      ><a name="4457" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4458"
+      > </a
+      ><a name="4459" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4460" class="Symbol"
+      >)</a
+      ><a name="4461"
+      > </a
+      ><a name="4462" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4464" class="Symbol"
+      >)</a
+      ><a name="4465"
+      >
+             </a
+      ><a name="4479" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="4483"
+      >
+    </a
+      ><a name="4488" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="4489"
+      >
+  </a
+      ><a name="4492" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4499"
+      > </a
+      ><a name="4500" class="Symbol"
+      >(</a
+      ><a name="4501" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4507"
+      > </a
+      ><a name="4508" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4509"
+      > </a
+      ><a name="4510" class="Symbol"
+      >(</a
+      ><a name="4511" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4517"
+      > </a
+      ><a name="4518" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4519"
+      > </a
+      ><a name="4520" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4521" class="Symbol"
+      >)</a
+      ><a name="4522"
+      > </a
+      ><a name="4523" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4524"
+      > </a
+      ><a name="4525" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="4528"
+      > </a
+      ><a name="4529" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4535"
+      > </a
+      ><a name="4536" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4538" class="Symbol"
+      >)</a
+      ><a name="4539"
+      > </a
+      ><a name="4540" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4542"
+      > </a
+      ><a name="4543" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4545"
+      >
+    </a
+      ><a name="4550" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="4552"
+      > </a
+      ><a name="4553" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4558"
+      > </a
+      ><a name="4559" class="Symbol"
+      >(&#955;</a
+      ><a name="4561"
+      > </a
+      ><a name="4562" href="FOTC.Program.Mirror.PropertiesI.html#4562" class="Bound"
+      >x</a
+      ><a name="4563"
+      > </a
+      ><a name="4564" class="Symbol"
+      >&#8594;</a
+      ><a name="4565"
+      > </a
+      ><a name="4566" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4573"
+      > </a
+      ><a name="4574" class="Symbol"
+      >(</a
+      ><a name="4575" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4581"
+      > </a
+      ><a name="4582" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4583"
+      > </a
+      ><a name="4584" class="Symbol"
+      >(</a
+      ><a name="4585" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4591"
+      > </a
+      ><a name="4592" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4593"
+      > </a
+      ><a name="4594" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4595" class="Symbol"
+      >)</a
+      ><a name="4596"
+      > </a
+      ><a name="4597" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4598"
+      > </a
+      ><a name="4599" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="4602"
+      > </a
+      ><a name="4603" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4609"
+      > </a
+      ><a name="4610" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4612" class="Symbol"
+      >)</a
+      ><a name="4613"
+      > </a
+      ><a name="4614" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4616"
+      > </a
+      ><a name="4617" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4619"
+      > </a
+      ><a name="4620" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4621"
+      >
+                    </a
+      ><a name="4642" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4649"
+      > </a
+      ><a name="4650" class="Symbol"
+      >(</a
+      ><a name="4651" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4657"
+      > </a
+      ><a name="4658" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4659"
+      > </a
+      ><a name="4660" class="Symbol"
+      >(</a
+      ><a name="4661" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4667"
+      > </a
+      ><a name="4668" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4669"
+      > </a
+      ><a name="4670" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4671" class="Symbol"
+      >)</a
+      ><a name="4672"
+      > </a
+      ><a name="4673" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4674"
+      > </a
+      ><a name="4675" href="FOTC.Program.Mirror.PropertiesI.html#4562" class="Bound"
+      >x</a
+      ><a name="4676" class="Symbol"
+      >)</a
+      ><a name="4677"
+      > </a
+      ><a name="4678" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4680"
+      > </a
+      ><a name="4681" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4683" class="Symbol"
+      >)</a
+      ><a name="4684"
+      >
+             </a
+      ><a name="4698" class="Symbol"
+      >(</a
+      ><a name="4699" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="4705"
+      > </a
+      ><a name="4706" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4712" class="Symbol"
+      >)</a
+      ><a name="4713"
+      >
+             </a
+      ><a name="4727" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="4731"
+      >
+    </a
+      ><a name="4736" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="4737"
+      >
+  </a
+      ><a name="4740" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="4747"
+      > </a
+      ><a name="4748" class="Symbol"
+      >(</a
+      ><a name="4749" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4755"
+      > </a
+      ><a name="4756" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4757"
+      > </a
+      ><a name="4758" class="Symbol"
+      >(</a
+      ><a name="4759" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4765"
+      > </a
+      ><a name="4766" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4767"
+      > </a
+      ><a name="4768" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4769" class="Symbol"
+      >)</a
+      ><a name="4770"
+      > </a
+      ><a name="4771" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4772"
+      > </a
+      ><a name="4773" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4775" class="Symbol"
+      >)</a
+      ><a name="4776"
+      > </a
+      ><a name="4777" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4779"
+      > </a
+      ><a name="4780" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4782"
+      >
+    </a
+      ><a name="4787" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="4789"
+      > </a
+      ><a name="4790" href="FOTC.Data.List.PropertiesI.html#963" class="Function"
+      >++-leftCong</a
+      ><a name="4801"
+      > </a
+      ><a name="4802" class="Symbol"
+      >(</a
+      ><a name="4803" href="FOTC.Data.List.PropertiesI.html#6524" class="Function"
+      >reverse-[x]&#8801;[x]</a
+      ><a name="4818"
+      > </a
+      ><a name="4819" class="Symbol"
+      >(</a
+      ><a name="4820" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4826"
+      > </a
+      ><a name="4827" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4828"
+      > </a
+      ><a name="4829" class="Symbol"
+      >(</a
+      ><a name="4830" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4836"
+      > </a
+      ><a name="4837" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4838"
+      > </a
+      ><a name="4839" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4840" class="Symbol"
+      >)))</a
+      ><a name="4843"
+      > </a
+      ><a name="4844" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="4845"
+      >
+  </a
+      ><a name="4848" class="Symbol"
+      >(</a
+      ><a name="4849" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4855"
+      > </a
+      ><a name="4856" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4857"
+      > </a
+      ><a name="4858" class="Symbol"
+      >(</a
+      ><a name="4859" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4865"
+      > </a
+      ><a name="4866" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4867"
+      > </a
+      ><a name="4868" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4869" class="Symbol"
+      >)</a
+      ><a name="4870"
+      > </a
+      ><a name="4871" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4872"
+      > </a
+      ><a name="4873" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4875" class="Symbol"
+      >)</a
+      ><a name="4876"
+      > </a
+      ><a name="4877" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4879"
+      > </a
+      ><a name="4880" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4882"
+      >
+    </a
+      ><a name="4887" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="4889"
+      > </a
+      ><a name="4890" href="FOTC.Data.List.html#822" class="Postulate"
+      >++-&#8759;</a
+      ><a name="4894"
+      > </a
+      ><a name="4895" class="Symbol"
+      >(</a
+      ><a name="4896" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4902"
+      > </a
+      ><a name="4903" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4904"
+      > </a
+      ><a name="4905" class="Symbol"
+      >(</a
+      ><a name="4906" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4912"
+      > </a
+      ><a name="4913" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4914"
+      > </a
+      ><a name="4915" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4916" class="Symbol"
+      >))</a
+      ><a name="4918"
+      > </a
+      ><a name="4919" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4921"
+      > </a
+      ><a name="4922" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4924"
+      > </a
+      ><a name="4925" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="4926"
+      >
+  </a
+      ><a name="4929" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4935"
+      > </a
+      ><a name="4936" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4937"
+      > </a
+      ><a name="4938" class="Symbol"
+      >(</a
+      ><a name="4939" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4945"
+      > </a
+      ><a name="4946" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4947"
+      > </a
+      ><a name="4948" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="4949" class="Symbol"
+      >)</a
+      ><a name="4950"
+      > </a
+      ><a name="4951" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4952"
+      > </a
+      ><a name="4953" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="4955"
+      > </a
+      ><a name="4956" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="4958"
+      > </a
+      ><a name="4959" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="4961"
+      >
+    </a
+      ><a name="4966" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="4968"
+      > </a
+      ><a name="4969" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="4974"
+      > </a
+      ><a name="4975" class="Symbol"
+      >(&#955;</a
+      ><a name="4977"
+      > </a
+      ><a name="4978" href="FOTC.Program.Mirror.PropertiesI.html#4978" class="Bound"
+      >x</a
+      ><a name="4979"
+      > </a
+      ><a name="4980" class="Symbol"
+      >&#8594;</a
+      ><a name="4981"
+      > </a
+      ><a name="4982" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4988"
+      > </a
+      ><a name="4989" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4990"
+      > </a
+      ><a name="4991" class="Symbol"
+      >(</a
+      ><a name="4992" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="4998"
+      > </a
+      ><a name="4999" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5000"
+      > </a
+      ><a name="5001" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="5002" class="Symbol"
+      >)</a
+      ><a name="5003"
+      > </a
+      ><a name="5004" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="5005"
+      > </a
+      ><a name="5006" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="5008"
+      > </a
+      ><a name="5009" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="5011"
+      > </a
+      ><a name="5012" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="5014"
+      > </a
+      ><a name="5015" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5016"
+      >
+                    </a
+      ><a name="5037" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5043"
+      > </a
+      ><a name="5044" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5045"
+      > </a
+      ><a name="5046" class="Symbol"
+      >(</a
+      ><a name="5047" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5053"
+      > </a
+      ><a name="5054" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5055"
+      > </a
+      ><a name="5056" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="5057" class="Symbol"
+      >)</a
+      ><a name="5058"
+      > </a
+      ><a name="5059" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="5060"
+      > </a
+      ><a name="5061" href="FOTC.Program.Mirror.PropertiesI.html#4978" class="Bound"
+      >x</a
+      ><a name="5062" class="Symbol"
+      >)</a
+      ><a name="5063"
+      >
+             </a
+      ><a name="5077" class="Symbol"
+      >(</a
+      ><a name="5078" href="FOTC.Data.List.PropertiesI.html#4751" class="Function"
+      >++-leftIdentity</a
+      ><a name="5093"
+      > </a
+      ><a name="5094" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="5096" class="Symbol"
+      >)</a
+      ><a name="5097"
+      >
+             </a
+      ><a name="5111" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="5115"
+      >
+    </a
+      ><a name="5120" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="5121"
+      >
+  </a
+      ><a name="5124" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5130"
+      > </a
+      ><a name="5131" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5132"
+      > </a
+      ><a name="5133" class="Symbol"
+      >(</a
+      ><a name="5134" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5140"
+      > </a
+      ><a name="5141" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="5142"
+      > </a
+      ><a name="5143" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="5144" class="Symbol"
+      >)</a
+      ><a name="5145"
+      > </a
+      ><a name="5146" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="5147"
+      > </a
+      ><a name="5148" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="5155"
+      > </a
+      ><a name="5156" class="Symbol"
+      >(</a
+      ><a name="5157" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="5160"
+      > </a
+      ><a name="5161" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5167"
+      > </a
+      ><a name="5168" class="Symbol"
+      >(</a
+      ><a name="5169" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="5176"
+      > </a
+      ><a name="5177" class="Symbol"
+      >(</a
+      ><a name="5178" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="5181"
+      > </a
+      ><a name="5182" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5188"
+      > </a
+      ><a name="5189" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="5191" class="Symbol"
+      >)))</a
+      ><a name="5194"
+      >
+    </a
+      ><a name="5199" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="5201"
+      > </a
+      ><a name="5202" href="FOTC.Base.List.PropertiesI.html#611" class="Function"
+      >&#8759;-leftCong</a
+      ><a name="5212"
+      > </a
+      ><a name="5213" class="Symbol"
+      >(</a
+      ><a name="5214" href="FOTC.Program.Mirror.PropertiesI.html#937" class="Function"
+      >mirror-involutive</a
+      ><a name="5231"
+      > </a
+      ><a name="5232" href="FOTC.Program.Mirror.PropertiesI.html#3016" class="Bound"
+      >Tt</a
+      ><a name="5234" class="Symbol"
+      >)</a
+      ><a name="5235"
+      > </a
+      ><a name="5236" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="5237"
+      >
+  </a
+      ><a name="5240" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="5241"
+      > </a
+      ><a name="5242" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="5243"
+      > </a
+      ><a name="5244" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="5251"
+      > </a
+      ><a name="5252" class="Symbol"
+      >(</a
+      ><a name="5253" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="5256"
+      > </a
+      ><a name="5257" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5263"
+      > </a
+      ><a name="5264" class="Symbol"
+      >(</a
+      ><a name="5265" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="5272"
+      > </a
+      ><a name="5273" class="Symbol"
+      >(</a
+      ><a name="5274" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="5277"
+      > </a
+      ><a name="5278" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5284"
+      > </a
+      ><a name="5285" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="5287" class="Symbol"
+      >)))</a
+      ><a name="5290"
+      >
+    </a
+      ><a name="5295" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="5297"
+      > </a
+      ><a name="5298" href="FOTC.Base.List.PropertiesI.html#685" class="Function"
+      >&#8759;-rightCong</a
+      ><a name="5309"
+      > </a
+      ><a name="5310" class="Symbol"
+      >(</a
+      ><a name="5311" href="FOTC.Program.Mirror.PropertiesI.html#1000" class="Function"
+      >helper</a
+      ><a name="5317"
+      > </a
+      ><a name="5318" href="FOTC.Program.Mirror.PropertiesI.html#3019" class="Bound"
+      >Fts</a
+      ><a name="5321" class="Symbol"
+      >)</a
+      ><a name="5322"
+      > </a
+      ><a name="5323" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="5324"
+      >
+  </a
+      ><a name="5327" href="FOTC.Program.Mirror.PropertiesI.html#3008" class="Bound"
+      >t</a
+      ><a name="5328"
+      > </a
+      ><a name="5329" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="5330"
+      > </a
+      ><a name="5331" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="5333"
+      > </a
+      ><a name="5334" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="5335"
+      >
+  </a
+      ><a name="5338" class="Keyword"
+      >where</a
+      ><a name="5343"
+      >
+  </a
+      ><a name="5346" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="5348"
+      > </a
+      ><a name="5349" class="Symbol"
+      >:</a
+      ><a name="5350"
+      > </a
+      ><a name="5351" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="5352"
+      >
+  </a
+      ><a name="5355" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="5357"
+      > </a
+      ><a name="5358" class="Symbol"
+      >=</a
+      ><a name="5359"
+      > </a
+      ><a name="5360" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="5367"
+      > </a
+      ><a name="5368" class="Symbol"
+      >(</a
+      ><a name="5369" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="5372"
+      > </a
+      ><a name="5373" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5379"
+      > </a
+      ><a name="5380" class="Symbol"
+      >(</a
+      ><a name="5381" href="FOTC.Data.List.html#1257" class="Function"
+      >reverse</a
+      ><a name="5388"
+      > </a
+      ><a name="5389" class="Symbol"
+      >(</a
+      ><a name="5390" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="5393"
+      > </a
+      ><a name="5394" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5400"
+      > </a
+      ><a name="5401" href="FOTC.Program.Mirror.PropertiesI.html#3012" class="Bound"
+      >ts</a
+      ><a name="5403" class="Symbol"
+      >)))</a
+      ><a name="5406"
+      >
+
+  </a
+      ><a name="5410" href="FOTC.Program.Mirror.PropertiesI.html#5410" class="Function"
+      >Fn&#8321;</a
+      ><a name="5413"
+      > </a
+      ><a name="5414" class="Symbol"
+      >:</a
+      ><a name="5415"
+      > </a
+      ><a name="5416" href="FOTC.Program.Mirror.Type.html#654" class="Datatype"
+      >Forest</a
+      ><a name="5422"
+      > </a
+      ><a name="5423" href="FOTC.Program.Mirror.PropertiesI.html#5346" class="Function"
+      >n&#8321;</a
+      ><a name="5425"
+      >
+  </a
+      ><a name="5428" href="FOTC.Program.Mirror.PropertiesI.html#5410" class="Function"
+      >Fn&#8321;</a
+      ><a name="5431"
+      > </a
+      ><a name="5432" class="Symbol"
+      >=</a
+      ><a name="5433"
+      > </a
+      ><a name="5434" href="FOTC.Program.Mirror.Forest.TotalityI.html#1138" class="Function"
+      >rev-Forest</a
+      ><a name="5444"
+      >
+          </a
+      ><a name="5455" class="Symbol"
+      >(</a
+      ><a name="5456" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="5466"
+      > </a
+      ><a name="5467" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5473"
+      > </a
+      ><a name="5474" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="5485"
+      >
+                      </a
+      ><a name="5508" class="Symbol"
+      >(</a
+      ><a name="5509" href="FOTC.Program.Mirror.Forest.TotalityI.html#1394" class="Function"
+      >reverse-Forest</a
+      ><a name="5523"
+      > </a
+      ><a name="5524" class="Symbol"
+      >(</a
+      ><a name="5525" href="FOTC.Program.Mirror.Forest.TotalityI.html#834" class="Function"
+      >map-Forest</a
+      ><a name="5535"
+      > </a
+      ><a name="5536" href="FOTC.Program.Mirror.Mirror.html#639" class="Postulate"
+      >mirror</a
+      ><a name="5542"
+      > </a
+      ><a name="5543" href="FOTC.Program.Mirror.Tree.TotalityI.html#696" class="Function"
+      >mirror-Tree</a
+      ><a name="5554"
+      > </a
+      ><a name="5555" href="FOTC.Program.Mirror.PropertiesI.html#3019" class="Bound"
+      >Fts</a
+      ><a name="5558" class="Symbol"
+      >)))</a
+      ><a name="5561"
+      >
+          </a
+      ><a name="5572" href="FOTC.Program.Mirror.Type.html#782" class="InductiveConstructor"
+      >fnil</a
+      ><a name="5576"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

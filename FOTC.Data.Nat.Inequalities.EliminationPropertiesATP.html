@@ -1,0 +1,2070 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Elimination properties for the inequalities</a
+      ><a name="126"
+      >
+</a
+      ><a name="127" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="205"
+      >
+
+</a
+      ><a name="207" class="Symbol"
+      >{-#</a
+      ><a name="210"
+      > </a
+      ><a name="211" class="Keyword"
+      >OPTIONS</a
+      ><a name="218"
+      > --exact-split              </a
+      ><a name="246" class="Symbol"
+      >#-}</a
+      ><a name="249"
+      >
+</a
+      ><a name="250" class="Symbol"
+      >{-#</a
+      ><a name="253"
+      > </a
+      ><a name="254" class="Keyword"
+      >OPTIONS</a
+      ><a name="261"
+      > --no-sized-types           </a
+      ><a name="289" class="Symbol"
+      >#-}</a
+      ><a name="292"
+      >
+</a
+      ><a name="293" class="Symbol"
+      >{-#</a
+      ><a name="296"
+      > </a
+      ><a name="297" class="Keyword"
+      >OPTIONS</a
+      ><a name="304"
+      > --no-universe-polymorphism </a
+      ><a name="332" class="Symbol"
+      >#-}</a
+      ><a name="335"
+      >
+</a
+      ><a name="336" class="Symbol"
+      >{-#</a
+      ><a name="339"
+      > </a
+      ><a name="340" class="Keyword"
+      >OPTIONS</a
+      ><a name="347"
+      > --without-K                </a
+      ><a name="375" class="Symbol"
+      >#-}</a
+      ><a name="378"
+      >
+
+</a
+      ><a name="380" class="Keyword"
+      >module</a
+      ><a name="386"
+      > </a
+      ><a name="387" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="438"
+      > </a
+      ><a name="439" class="Keyword"
+      >where</a
+      ><a name="444"
+      >
+
+</a
+      ><a name="446" class="Keyword"
+      >open</a
+      ><a name="450"
+      > </a
+      ><a name="451" class="Keyword"
+      >import</a
+      ><a name="457"
+      > </a
+      ><a name="458" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="467"
+      >
+</a
+      ><a name="468" class="Keyword"
+      >open</a
+      ><a name="472"
+      > </a
+      ><a name="473" class="Keyword"
+      >import</a
+      ><a name="479"
+      > </a
+      ><a name="480" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="493"
+      >
+</a
+      ><a name="494" class="Keyword"
+      >open</a
+      ><a name="498"
+      > </a
+      ><a name="499" class="Keyword"
+      >import</a
+      ><a name="505"
+      > </a
+      ><a name="506" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="532"
+      >
+
+</a
+      ><a name="534" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="612"
+      >
+
+</a
+      ><a name="614" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#614" class="Function"
+      >0&lt;0&#8594;&#8869;</a
+      ><a name="619"
+      > </a
+      ><a name="620" class="Symbol"
+      >:</a
+      ><a name="621"
+      > </a
+      ><a name="622" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="623"
+      > </a
+      ><a name="624" class="Symbol"
+      >(</a
+      ><a name="625" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="629"
+      > </a
+      ><a name="630" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="631"
+      > </a
+      ><a name="632" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="636" class="Symbol"
+      >)</a
+      ><a name="637"
+      >
+</a
+      ><a name="638" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#614" class="Function"
+      >0&lt;0&#8594;&#8869;</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#644" class="Bound"
+      >h</a
+      ><a name="645"
+      > </a
+      ><a name="646" class="Symbol"
+      >=</a
+      ><a name="647"
+      > </a
+      ><a name="648" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#670" class="Postulate"
+      >prf</a
+      ><a name="651"
+      >
+  </a
+      ><a name="654" class="Keyword"
+      >where</a
+      ><a name="659"
+      > </a
+      ><a name="660" class="Keyword"
+      >postulate</a
+      ><a name="669"
+      > </a
+      ><a name="670" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#670" class="Postulate"
+      >prf</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="Symbol"
+      >:</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="677"
+      >
+        </a
+      ><a name="686" class="Symbol"
+      >{-#</a
+      ><a name="689"
+      > </a
+      ><a name="690" class="Keyword"
+      >ATP</a
+      ><a name="693"
+      > prove </a
+      ><a name="700" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#670" class="Postulate"
+      >prf</a
+      ><a name="703"
+      > </a
+      ><a name="704" class="Symbol"
+      >#-}</a
+      ><a name="707"
+      >
+
+</a
+      ><a name="709" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="714"
+      > </a
+      ><a name="715" class="Symbol"
+      >:</a
+      ><a name="716"
+      > </a
+      ><a name="717" class="Symbol"
+      >&#8704;</a
+      ><a name="718"
+      > </a
+      ><a name="719" class="Symbol"
+      >{</a
+      ><a name="720" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#720" class="Bound"
+      >n</a
+      ><a name="721" class="Symbol"
+      >}</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="Symbol"
+      >&#8594;</a
+      ><a name="724"
+      > </a
+      ><a name="725" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#720" class="Bound"
+      >n</a
+      ><a name="728"
+      > </a
+      ><a name="729" class="Symbol"
+      >&#8594;</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="732"
+      > </a
+      ><a name="733" class="Symbol"
+      >(</a
+      ><a name="734" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#720" class="Bound"
+      >n</a
+      ><a name="735"
+      > </a
+      ><a name="736" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="742" class="Symbol"
+      >)</a
+      ><a name="743"
+      >
+</a
+      ><a name="744" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#756" class="Bound"
+      >h</a
+      ><a name="757"
+      > </a
+      ><a name="758" class="Symbol"
+      >=</a
+      ><a name="759"
+      > </a
+      ><a name="760" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#782" class="Postulate"
+      >prf</a
+      ><a name="763"
+      >
+  </a
+      ><a name="766" class="Keyword"
+      >where</a
+      ><a name="771"
+      > </a
+      ><a name="772" class="Keyword"
+      >postulate</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#782" class="Postulate"
+      >prf</a
+      ><a name="785"
+      > </a
+      ><a name="786" class="Symbol"
+      >:</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="789"
+      >
+        </a
+      ><a name="798" class="Symbol"
+      >{-#</a
+      ><a name="801"
+      > </a
+      ><a name="802" class="Keyword"
+      >ATP</a
+      ><a name="805"
+      > prove </a
+      ><a name="812" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#782" class="Postulate"
+      >prf</a
+      ><a name="815"
+      > </a
+      ><a name="816" class="Symbol"
+      >#-}</a
+      ><a name="819"
+      >
+</a
+      ><a name="820" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="825"
+      > </a
+      ><a name="826" class="Symbol"
+      >(</a
+      ><a name="827" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="832"
+      > </a
+      ><a name="833" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#833" class="Bound"
+      >Nn</a
+      ><a name="835" class="Symbol"
+      >)</a
+      ><a name="836"
+      > </a
+      ><a name="837" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#837" class="Bound"
+      >h</a
+      ><a name="838"
+      > </a
+      ><a name="839" class="Symbol"
+      >=</a
+      ><a name="840"
+      > </a
+      ><a name="841" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#863" class="Postulate"
+      >prf</a
+      ><a name="844"
+      >
+  </a
+      ><a name="847" class="Keyword"
+      >where</a
+      ><a name="852"
+      > </a
+      ><a name="853" class="Keyword"
+      >postulate</a
+      ><a name="862"
+      > </a
+      ><a name="863" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#863" class="Postulate"
+      >prf</a
+      ><a name="866"
+      > </a
+      ><a name="867" class="Symbol"
+      >:</a
+      ><a name="868"
+      > </a
+      ><a name="869" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="870"
+      >
+        </a
+      ><a name="879" class="Symbol"
+      >{-#</a
+      ><a name="882"
+      > </a
+      ><a name="883" class="Keyword"
+      >ATP</a
+      ><a name="886"
+      > prove </a
+      ><a name="893" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#863" class="Postulate"
+      >prf</a
+      ><a name="896"
+      > </a
+      ><a name="897" class="Symbol"
+      >#-}</a
+      ><a name="900"
+      >
+
+</a
+      ><a name="902" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#902" class="Function"
+      >x&lt;x&#8594;&#8869;</a
+      ><a name="907"
+      > </a
+      ><a name="908" class="Symbol"
+      >:</a
+      ><a name="909"
+      > </a
+      ><a name="910" class="Symbol"
+      >&#8704;</a
+      ><a name="911"
+      > </a
+      ><a name="912" class="Symbol"
+      >{</a
+      ><a name="913" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#913" class="Bound"
+      >n</a
+      ><a name="914" class="Symbol"
+      >}</a
+      ><a name="915"
+      > </a
+      ><a name="916" class="Symbol"
+      >&#8594;</a
+      ><a name="917"
+      > </a
+      ><a name="918" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="919"
+      > </a
+      ><a name="920" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#913" class="Bound"
+      >n</a
+      ><a name="921"
+      > </a
+      ><a name="922" class="Symbol"
+      >&#8594;</a
+      ><a name="923"
+      > </a
+      ><a name="924" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >(</a
+      ><a name="927" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#913" class="Bound"
+      >n</a
+      ><a name="928"
+      > </a
+      ><a name="929" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="930"
+      > </a
+      ><a name="931" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#913" class="Bound"
+      >n</a
+      ><a name="932" class="Symbol"
+      >)</a
+      ><a name="933"
+      >
+</a
+      ><a name="934" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#902" class="Function"
+      >x&lt;x&#8594;&#8869;</a
+      ><a name="939"
+      > </a
+      ><a name="940" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#946" class="Bound"
+      >h</a
+      ><a name="947"
+      > </a
+      ><a name="948" class="Symbol"
+      >=</a
+      ><a name="949"
+      > </a
+      ><a name="950" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#972" class="Postulate"
+      >prf</a
+      ><a name="953"
+      >
+  </a
+      ><a name="956" class="Keyword"
+      >where</a
+      ><a name="961"
+      > </a
+      ><a name="962" class="Keyword"
+      >postulate</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#972" class="Postulate"
+      >prf</a
+      ><a name="975"
+      > </a
+      ><a name="976" class="Symbol"
+      >:</a
+      ><a name="977"
+      > </a
+      ><a name="978" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="979"
+      >
+        </a
+      ><a name="988" class="Symbol"
+      >{-#</a
+      ><a name="991"
+      > </a
+      ><a name="992" class="Keyword"
+      >ATP</a
+      ><a name="995"
+      > prove </a
+      ><a name="1002" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#972" class="Postulate"
+      >prf</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" class="Symbol"
+      >#-}</a
+      ><a name="1009"
+      >
+</a
+      ><a name="1010" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#902" class="Function"
+      >x&lt;x&#8594;&#8869;</a
+      ><a name="1015"
+      > </a
+      ><a name="1016" class="Symbol"
+      >(</a
+      ><a name="1017" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" class="Symbol"
+      >{</a
+      ><a name="1024" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1024" class="Bound"
+      >n</a
+      ><a name="1025" class="Symbol"
+      >}</a
+      ><a name="1026"
+      > </a
+      ><a name="1027" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1027" class="Bound"
+      >Nn</a
+      ><a name="1029" class="Symbol"
+      >)</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1031" class="Bound"
+      >h</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" class="Symbol"
+      >=</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1068" class="Postulate"
+      >prf</a
+      ><a name="1038"
+      > </a
+      ><a name="1039" class="Symbol"
+      >(</a
+      ><a name="1040" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#902" class="Function"
+      >x&lt;x&#8594;&#8869;</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1027" class="Bound"
+      >Nn</a
+      ><a name="1048" class="Symbol"
+      >)</a
+      ><a name="1049"
+      >
+  </a
+      ><a name="1052" class="Keyword"
+      >where</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" class="Keyword"
+      >postulate</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1068" class="Postulate"
+      >prf</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" class="Symbol"
+      >:</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1075"
+      > </a
+      ><a name="1076" class="Symbol"
+      >(</a
+      ><a name="1077" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1024" class="Bound"
+      >n</a
+      ><a name="1078"
+      > </a
+      ><a name="1079" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1080"
+      > </a
+      ><a name="1081" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1024" class="Bound"
+      >n</a
+      ><a name="1082" class="Symbol"
+      >)</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" class="Symbol"
+      >&#8594;</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1087"
+      >
+        </a
+      ><a name="1096" class="Symbol"
+      >{-#</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" class="Keyword"
+      >ATP</a
+      ><a name="1103"
+      > prove </a
+      ><a name="1110" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1068" class="Postulate"
+      >prf</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" class="Symbol"
+      >#-}</a
+      ><a name="1117"
+      >
+
+</a
+      ><a name="1119" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" class="Symbol"
+      >:</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" class="Symbol"
+      >&#8704;</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" class="Symbol"
+      >{</a
+      ><a name="1130" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1130" class="Bound"
+      >n</a
+      ><a name="1131" class="Symbol"
+      >}</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" class="Symbol"
+      >&#8594;</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1136"
+      > </a
+      ><a name="1137" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1130" class="Bound"
+      >n</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" class="Symbol"
+      >&#8594;</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" class="Symbol"
+      >(</a
+      ><a name="1144" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1130" class="Bound"
+      >n</a
+      ><a name="1152" class="Symbol"
+      >)</a
+      ><a name="1153"
+      >
+</a
+      ><a name="1154" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="1159"
+      > </a
+      ><a name="1160" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1166" class="Bound"
+      >h</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >=</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1192" class="Postulate"
+      >prf</a
+      ><a name="1173"
+      >
+  </a
+      ><a name="1176" class="Keyword"
+      >where</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" class="Keyword"
+      >postulate</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1192" class="Postulate"
+      >prf</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" class="Symbol"
+      >:</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1199"
+      >
+        </a
+      ><a name="1208" class="Symbol"
+      >{-#</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" class="Keyword"
+      >ATP</a
+      ><a name="1215"
+      > prove </a
+      ><a name="1222" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1192" class="Postulate"
+      >prf</a
+      ><a name="1225"
+      > </a
+      ><a name="1226" class="Symbol"
+      >#-}</a
+      ><a name="1229"
+      >
+</a
+      ><a name="1230" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="1235"
+      > </a
+      ><a name="1236" class="Symbol"
+      >(</a
+      ><a name="1237" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1242"
+      > </a
+      ><a name="1243" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1243" class="Bound"
+      >Nn</a
+      ><a name="1245" class="Symbol"
+      >)</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1247" class="Bound"
+      >h</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" class="Symbol"
+      >=</a
+      ><a name="1250"
+      > </a
+      ><a name="1251" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1273" class="Postulate"
+      >prf</a
+      ><a name="1254"
+      >
+  </a
+      ><a name="1257" class="Keyword"
+      >where</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" class="Keyword"
+      >postulate</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1273" class="Postulate"
+      >prf</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" class="Symbol"
+      >:</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1280"
+      >
+        </a
+      ><a name="1289" class="Symbol"
+      >{-#</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" class="Keyword"
+      >ATP</a
+      ><a name="1296"
+      > prove </a
+      ><a name="1303" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1273" class="Postulate"
+      >prf</a
+      ><a name="1306"
+      > </a
+      ><a name="1307" class="Symbol"
+      >#-}</a
+      ><a name="1310"
+      >
+
+</a
+      ><a name="1312" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1312" class="Function"
+      >S&#8804;0&#8594;&#8869;</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" class="Symbol"
+      >:</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" class="Symbol"
+      >&#8704;</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" class="Symbol"
+      >{</a
+      ><a name="1323" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1323" class="Bound"
+      >n</a
+      ><a name="1324" class="Symbol"
+      >}</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" class="Symbol"
+      >&#8594;</a
+      ><a name="1327"
+      > </a
+      ><a name="1328" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1329"
+      > </a
+      ><a name="1330" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1323" class="Bound"
+      >n</a
+      ><a name="1331"
+      > </a
+      ><a name="1332" class="Symbol"
+      >&#8594;</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" class="Symbol"
+      >(</a
+      ><a name="1337" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1342"
+      > </a
+      ><a name="1343" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1323" class="Bound"
+      >n</a
+      ><a name="1344"
+      > </a
+      ><a name="1345" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1351" class="Symbol"
+      >)</a
+      ><a name="1352"
+      >
+</a
+      ><a name="1353" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1312" class="Function"
+      >S&#8804;0&#8594;&#8869;</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1365" class="Bound"
+      >h</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" class="Symbol"
+      >=</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1391" class="Postulate"
+      >prf</a
+      ><a name="1372"
+      >
+  </a
+      ><a name="1375" class="Keyword"
+      >where</a
+      ><a name="1380"
+      > </a
+      ><a name="1381" class="Keyword"
+      >postulate</a
+      ><a name="1390"
+      > </a
+      ><a name="1391" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1391" class="Postulate"
+      >prf</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" class="Symbol"
+      >:</a
+      ><a name="1396"
+      > </a
+      ><a name="1397" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1398"
+      >
+        </a
+      ><a name="1407" class="Symbol"
+      >{-#</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" class="Keyword"
+      >ATP</a
+      ><a name="1414"
+      > prove </a
+      ><a name="1421" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1391" class="Postulate"
+      >prf</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" class="Symbol"
+      >#-}</a
+      ><a name="1428"
+      >
+</a
+      ><a name="1429" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1312" class="Function"
+      >S&#8804;0&#8594;&#8869;</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" class="Symbol"
+      >(</a
+      ><a name="1436" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1441"
+      > </a
+      ><a name="1442" class="Symbol"
+      >{</a
+      ><a name="1443" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1443" class="Bound"
+      >n</a
+      ><a name="1444" class="Symbol"
+      >}</a
+      ><a name="1445"
+      > </a
+      ><a name="1446" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1446" class="Bound"
+      >Nn</a
+      ><a name="1448" class="Symbol"
+      >)</a
+      ><a name="1449"
+      > </a
+      ><a name="1450" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1450" class="Bound"
+      >h</a
+      ><a name="1451"
+      > </a
+      ><a name="1452" class="Symbol"
+      >=</a
+      ><a name="1453"
+      > </a
+      ><a name="1454" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1476" class="Postulate"
+      >prf</a
+      ><a name="1457"
+      >
+  </a
+      ><a name="1460" class="Keyword"
+      >where</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Keyword"
+      >postulate</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1476" class="Postulate"
+      >prf</a
+      ><a name="1479"
+      > </a
+      ><a name="1480" class="Symbol"
+      >:</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1483"
+      >
+        </a
+      ><a name="1492" class="Symbol"
+      >{-#</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" class="Keyword"
+      >ATP</a
+      ><a name="1499"
+      > prove </a
+      ><a name="1506" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1476" class="Postulate"
+      >prf</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" class="Symbol"
+      >#-}</a
+      ><a name="1513"
+      >
+
+</a
+      ><a name="1515" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1515" class="Function"
+      >0&#8805;S&#8594;&#8869;</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" class="Symbol"
+      >:</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" class="Symbol"
+      >&#8704;</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" class="Symbol"
+      >{</a
+      ><a name="1526" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1526" class="Bound"
+      >n</a
+      ><a name="1527" class="Symbol"
+      >}</a
+      ><a name="1528"
+      > </a
+      ><a name="1529" class="Symbol"
+      >&#8594;</a
+      ><a name="1530"
+      > </a
+      ><a name="1531" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1526" class="Bound"
+      >n</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" class="Symbol"
+      >&#8594;</a
+      ><a name="1536"
+      > </a
+      ><a name="1537" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1538"
+      > </a
+      ><a name="1539" class="Symbol"
+      >(</a
+      ><a name="1540" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" href="FOTC.Data.Nat.Inequalities.html#1541" class="Function Operator"
+      >&#8805;</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1552"
+      > </a
+      ><a name="1553" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1526" class="Bound"
+      >n</a
+      ><a name="1554" class="Symbol"
+      >)</a
+      ><a name="1555"
+      >
+</a
+      ><a name="1556" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1515" class="Function"
+      >0&#8805;S&#8594;&#8869;</a
+      ><a name="1561"
+      > </a
+      ><a name="1562" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1562" class="Bound"
+      >Nn</a
+      ><a name="1564"
+      > </a
+      ><a name="1565" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1565" class="Bound"
+      >h</a
+      ><a name="1566"
+      > </a
+      ><a name="1567" class="Symbol"
+      >=</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1591" class="Postulate"
+      >prf</a
+      ><a name="1572"
+      >
+  </a
+      ><a name="1575" class="Keyword"
+      >where</a
+      ><a name="1580"
+      > </a
+      ><a name="1581" class="Keyword"
+      >postulate</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1591" class="Postulate"
+      >prf</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" class="Symbol"
+      >:</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1598"
+      >
+        </a
+      ><a name="1607" class="Symbol"
+      >{-#</a
+      ><a name="1610"
+      > </a
+      ><a name="1611" class="Keyword"
+      >ATP</a
+      ><a name="1614"
+      > prove </a
+      ><a name="1621" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1591" class="Postulate"
+      >prf</a
+      ><a name="1624"
+      > </a
+      ><a name="1625" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1312" class="Function"
+      >S&#8804;0&#8594;&#8869;</a
+      ><a name="1630"
+      > </a
+      ><a name="1631" class="Symbol"
+      >#-}</a
+      ><a name="1634"
+      >
+
+</a
+      ><a name="1636" class="Keyword"
+      >postulate</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1646" class="Postulate"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" class="Symbol"
+      >:</a
+      ><a name="1653"
+      > </a
+      ><a name="1654" class="Symbol"
+      >&#8704;</a
+      ><a name="1655"
+      > </a
+      ><a name="1656" class="Symbol"
+      >{</a
+      ><a name="1657" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1657" class="Bound"
+      >n</a
+      ><a name="1658" class="Symbol"
+      >}</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" class="Symbol"
+      >&#8594;</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1663"
+      > </a
+      ><a name="1664" class="Symbol"
+      >(</a
+      ><a name="1665" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1657" class="Bound"
+      >n</a
+      ><a name="1672"
+      > </a
+      ><a name="1673" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="1674"
+      > </a
+      ><a name="1675" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1679" class="Symbol"
+      >)</a
+      ><a name="1680"
+      >
+</a
+      ><a name="1681" class="Symbol"
+      >{-#</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" class="Keyword"
+      >ATP</a
+      ><a name="1688"
+      > prove </a
+      ><a name="1695" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1646" class="Postulate"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="1700"
+      > </a
+      ><a name="1701" class="Symbol"
+      >#-}</a
+      ><a name="1704"
+      >
+
+</a
+      ><a name="1706" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1706" class="Function"
+      >x&lt;y&#8594;y&lt;x&#8594;&#8869;</a
+      ><a name="1715"
+      > </a
+      ><a name="1716" class="Symbol"
+      >:</a
+      ><a name="1717"
+      > </a
+      ><a name="1718" class="Symbol"
+      >&#8704;</a
+      ><a name="1719"
+      > </a
+      ><a name="1720" class="Symbol"
+      >{</a
+      ><a name="1721" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1721" class="Bound"
+      >m</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1723" class="Bound"
+      >n</a
+      ><a name="1724" class="Symbol"
+      >}</a
+      ><a name="1725"
+      > </a
+      ><a name="1726" class="Symbol"
+      >&#8594;</a
+      ><a name="1727"
+      > </a
+      ><a name="1728" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1729"
+      > </a
+      ><a name="1730" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1721" class="Bound"
+      >m</a
+      ><a name="1731"
+      > </a
+      ><a name="1732" class="Symbol"
+      >&#8594;</a
+      ><a name="1733"
+      > </a
+      ><a name="1734" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1735"
+      > </a
+      ><a name="1736" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1723" class="Bound"
+      >n</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" class="Symbol"
+      >&#8594;</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1721" class="Bound"
+      >m</a
+      ><a name="1741"
+      > </a
+      ><a name="1742" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1743"
+      > </a
+      ><a name="1744" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1723" class="Bound"
+      >n</a
+      ><a name="1745"
+      > </a
+      ><a name="1746" class="Symbol"
+      >&#8594;</a
+      ><a name="1747"
+      > </a
+      ><a name="1748" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1749"
+      > </a
+      ><a name="1750" class="Symbol"
+      >(</a
+      ><a name="1751" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1723" class="Bound"
+      >n</a
+      ><a name="1752"
+      > </a
+      ><a name="1753" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1721" class="Bound"
+      >m</a
+      ><a name="1756" class="Symbol"
+      >)</a
+      ><a name="1757"
+      >
+</a
+      ><a name="1758" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1706" class="Function"
+      >x&lt;y&#8594;y&lt;x&#8594;&#8869;</a
+      ><a name="1767"
+      > </a
+      ><a name="1768" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1773"
+      > </a
+      ><a name="1774" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1774" class="Bound"
+      >Nn</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1777" class="Bound"
+      >h&#8321;</a
+      ><a name="1779"
+      > </a
+      ><a name="1780" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1780" class="Bound"
+      >h&#8322;</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" class="Symbol"
+      >=</a
+      ><a name="1784"
+      > </a
+      ><a name="1785" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1807" class="Postulate"
+      >prf</a
+      ><a name="1788"
+      >
+  </a
+      ><a name="1791" class="Keyword"
+      >where</a
+      ><a name="1796"
+      > </a
+      ><a name="1797" class="Keyword"
+      >postulate</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1807" class="Postulate"
+      >prf</a
+      ><a name="1810"
+      > </a
+      ><a name="1811" class="Symbol"
+      >:</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1814"
+      >
+        </a
+      ><a name="1823" class="Symbol"
+      >{-#</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" class="Keyword"
+      >ATP</a
+      ><a name="1830"
+      > prove </a
+      ><a name="1837" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1807" class="Postulate"
+      >prf</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" class="Symbol"
+      >#-}</a
+      ><a name="1850"
+      >
+</a
+      ><a name="1851" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1706" class="Function"
+      >x&lt;y&#8594;y&lt;x&#8594;&#8869;</a
+      ><a name="1860"
+      > </a
+      ><a name="1861" class="Symbol"
+      >(</a
+      ><a name="1862" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1867"
+      > </a
+      ><a name="1868" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1868" class="Bound"
+      >Nm</a
+      ><a name="1870" class="Symbol"
+      >)</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1878" class="Bound"
+      >h&#8321;</a
+      ><a name="1880"
+      > </a
+      ><a name="1881" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1881" class="Bound"
+      >h&#8322;</a
+      ><a name="1883"
+      > </a
+      ><a name="1884" class="Symbol"
+      >=</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1908" class="Postulate"
+      >prf</a
+      ><a name="1889"
+      >
+  </a
+      ><a name="1892" class="Keyword"
+      >where</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" class="Keyword"
+      >postulate</a
+      ><a name="1907"
+      > </a
+      ><a name="1908" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1908" class="Postulate"
+      >prf</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" class="Symbol"
+      >:</a
+      ><a name="1913"
+      > </a
+      ><a name="1914" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="1915"
+      >
+        </a
+      ><a name="1924" class="Symbol"
+      >{-#</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" class="Keyword"
+      >ATP</a
+      ><a name="1931"
+      > prove </a
+      ><a name="1938" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1908" class="Postulate"
+      >prf</a
+      ><a name="1941"
+      > </a
+      ><a name="1942" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="1947"
+      > </a
+      ><a name="1948" class="Symbol"
+      >#-}</a
+      ><a name="1951"
+      >
+</a
+      ><a name="1952" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1706" class="Function"
+      >x&lt;y&#8594;y&lt;x&#8594;&#8869;</a
+      ><a name="1961"
+      > </a
+      ><a name="1962" class="Symbol"
+      >(</a
+      ><a name="1963" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1968"
+      > </a
+      ><a name="1969" class="Symbol"
+      >{</a
+      ><a name="1970" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1970" class="Bound"
+      >m</a
+      ><a name="1971" class="Symbol"
+      >}</a
+      ><a name="1972"
+      > </a
+      ><a name="1973" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1973" class="Bound"
+      >Nm</a
+      ><a name="1975" class="Symbol"
+      >)</a
+      ><a name="1976"
+      > </a
+      ><a name="1977" class="Symbol"
+      >(</a
+      ><a name="1978" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1983"
+      > </a
+      ><a name="1984" class="Symbol"
+      >{</a
+      ><a name="1985" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1985" class="Bound"
+      >n</a
+      ><a name="1986" class="Symbol"
+      >}</a
+      ><a name="1987"
+      > </a
+      ><a name="1988" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1988" class="Bound"
+      >Nn</a
+      ><a name="1990" class="Symbol"
+      >)</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1992" class="Bound"
+      >h&#8321;</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1995" class="Bound"
+      >h&#8322;</a
+      ><a name="1997"
+      > </a
+      ><a name="1998" class="Symbol"
+      >=</a
+      ><a name="1999"
+      > </a
+      ><a name="2000" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2095" class="Postulate"
+      >prf</a
+      ><a name="2003"
+      > </a
+      ><a name="2004" class="Symbol"
+      >(</a
+      ><a name="2005" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1706" class="Function"
+      >x&lt;y&#8594;y&lt;x&#8594;&#8869;</a
+      ><a name="2014"
+      > </a
+      ><a name="2015" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1973" class="Bound"
+      >Nm</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1988" class="Bound"
+      >Nn</a
+      ><a name="2020"
+      > </a
+      ><a name="2021" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2046" class="Postulate"
+      >m&lt;n</a
+      ><a name="2024" class="Symbol"
+      >)</a
+      ><a name="2025"
+      >
+  </a
+      ><a name="2028" class="Keyword"
+      >where</a
+      ><a name="2033"
+      >
+  </a
+      ><a name="2036" class="Keyword"
+      >postulate</a
+      ><a name="2045"
+      > </a
+      ><a name="2046" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2046" class="Postulate"
+      >m&lt;n</a
+      ><a name="2049"
+      > </a
+      ><a name="2050" class="Symbol"
+      >:</a
+      ><a name="2051"
+      > </a
+      ><a name="2052" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1970" class="Bound"
+      >m</a
+      ><a name="2053"
+      > </a
+      ><a name="2054" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="2055"
+      > </a
+      ><a name="2056" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1985" class="Bound"
+      >n</a
+      ><a name="2057"
+      >
+  </a
+      ><a name="2060" class="Symbol"
+      >{-#</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" class="Keyword"
+      >ATP</a
+      ><a name="2067"
+      > prove </a
+      ><a name="2074" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2046" class="Postulate"
+      >m&lt;n</a
+      ><a name="2077"
+      > </a
+      ><a name="2078" class="Symbol"
+      >#-}</a
+      ><a name="2081"
+      >
+
+  </a
+      ><a name="2085" class="Keyword"
+      >postulate</a
+      ><a name="2094"
+      > </a
+      ><a name="2095" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2095" class="Postulate"
+      >prf</a
+      ><a name="2098"
+      > </a
+      ><a name="2099" class="Symbol"
+      >:</a
+      ><a name="2100"
+      > </a
+      ><a name="2101" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2102"
+      > </a
+      ><a name="2103" class="Symbol"
+      >(</a
+      ><a name="2104" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1985" class="Bound"
+      >n</a
+      ><a name="2105"
+      > </a
+      ><a name="2106" href="FOTC.Data.Nat.Inequalities.html#1128" class="Function Operator"
+      >&lt;</a
+      ><a name="2107"
+      > </a
+      ><a name="2108" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1970" class="Bound"
+      >m</a
+      ><a name="2109" class="Symbol"
+      >)</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" class="Symbol"
+      >&#8594;</a
+      ><a name="2112"
+      > </a
+      ><a name="2113" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2114"
+      >
+  </a
+      ><a name="2117" class="Symbol"
+      >{-#</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" class="Keyword"
+      >ATP</a
+      ><a name="2124"
+      > prove </a
+      ><a name="2131" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2095" class="Postulate"
+      >prf</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" class="Symbol"
+      >#-}</a
+      ><a name="2138"
+      >
+
+</a
+      ><a name="2140" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2140" class="Function"
+      >x&gt;y&#8594;x&#8804;y&#8594;&#8869;</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" class="Symbol"
+      >:</a
+      ><a name="2151"
+      > </a
+      ><a name="2152" class="Symbol"
+      >&#8704;</a
+      ><a name="2153"
+      > </a
+      ><a name="2154" class="Symbol"
+      >{</a
+      ><a name="2155" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2155" class="Bound"
+      >m</a
+      ><a name="2156"
+      > </a
+      ><a name="2157" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2157" class="Bound"
+      >n</a
+      ><a name="2158" class="Symbol"
+      >}</a
+      ><a name="2159"
+      > </a
+      ><a name="2160" class="Symbol"
+      >&#8594;</a
+      ><a name="2161"
+      > </a
+      ><a name="2162" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2163"
+      > </a
+      ><a name="2164" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2155" class="Bound"
+      >m</a
+      ><a name="2165"
+      > </a
+      ><a name="2166" class="Symbol"
+      >&#8594;</a
+      ><a name="2167"
+      > </a
+      ><a name="2168" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2169"
+      > </a
+      ><a name="2170" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2157" class="Bound"
+      >n</a
+      ><a name="2171"
+      > </a
+      ><a name="2172" class="Symbol"
+      >&#8594;</a
+      ><a name="2173"
+      > </a
+      ><a name="2174" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2155" class="Bound"
+      >m</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2177"
+      > </a
+      ><a name="2178" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2157" class="Bound"
+      >n</a
+      ><a name="2179"
+      > </a
+      ><a name="2180" class="Symbol"
+      >&#8594;</a
+      ><a name="2181"
+      > </a
+      ><a name="2182" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2183"
+      > </a
+      ><a name="2184" class="Symbol"
+      >(</a
+      ><a name="2185" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2155" class="Bound"
+      >m</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="2188"
+      > </a
+      ><a name="2189" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2157" class="Bound"
+      >n</a
+      ><a name="2190" class="Symbol"
+      >)</a
+      ><a name="2191"
+      >
+</a
+      ><a name="2192" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2140" class="Function"
+      >x&gt;y&#8594;x&#8804;y&#8594;&#8869;</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2207"
+      > </a
+      ><a name="2208" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2208" class="Bound"
+      >Nn</a
+      ><a name="2210"
+      > </a
+      ><a name="2211" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2211" class="Bound"
+      >h&#8321;</a
+      ><a name="2213"
+      > </a
+      ><a name="2214" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2214" class="Bound"
+      >h&#8322;</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" class="Symbol"
+      >=</a
+      ><a name="2218"
+      > </a
+      ><a name="2219" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2241" class="Postulate"
+      >prf</a
+      ><a name="2222"
+      >
+  </a
+      ><a name="2225" class="Keyword"
+      >where</a
+      ><a name="2230"
+      > </a
+      ><a name="2231" class="Keyword"
+      >postulate</a
+      ><a name="2240"
+      > </a
+      ><a name="2241" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2241" class="Postulate"
+      >prf</a
+      ><a name="2244"
+      > </a
+      ><a name="2245" class="Symbol"
+      >:</a
+      ><a name="2246"
+      > </a
+      ><a name="2247" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2248"
+      >
+        </a
+      ><a name="2257" class="Symbol"
+      >{-#</a
+      ><a name="2260"
+      > </a
+      ><a name="2261" class="Keyword"
+      >ATP</a
+      ><a name="2264"
+      > prove </a
+      ><a name="2271" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2241" class="Postulate"
+      >prf</a
+      ><a name="2274"
+      > </a
+      ><a name="2275" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="2280"
+      > </a
+      ><a name="2281" class="Symbol"
+      >#-}</a
+      ><a name="2284"
+      >
+</a
+      ><a name="2285" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2140" class="Function"
+      >x&gt;y&#8594;x&#8804;y&#8594;&#8869;</a
+      ><a name="2294"
+      > </a
+      ><a name="2295" class="Symbol"
+      >(</a
+      ><a name="2296" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2301"
+      > </a
+      ><a name="2302" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2302" class="Bound"
+      >Nm</a
+      ><a name="2304" class="Symbol"
+      >)</a
+      ><a name="2305"
+      > </a
+      ><a name="2306" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2311"
+      > </a
+      ><a name="2312" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2312" class="Bound"
+      >h&#8321;</a
+      ><a name="2314"
+      > </a
+      ><a name="2315" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2315" class="Bound"
+      >h&#8322;</a
+      ><a name="2317"
+      > </a
+      ><a name="2318" class="Symbol"
+      >=</a
+      ><a name="2319"
+      > </a
+      ><a name="2320" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2342" class="Postulate"
+      >prf</a
+      ><a name="2323"
+      >
+  </a
+      ><a name="2326" class="Keyword"
+      >where</a
+      ><a name="2331"
+      > </a
+      ><a name="2332" class="Keyword"
+      >postulate</a
+      ><a name="2341"
+      > </a
+      ><a name="2342" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2342" class="Postulate"
+      >prf</a
+      ><a name="2345"
+      > </a
+      ><a name="2346" class="Symbol"
+      >:</a
+      ><a name="2347"
+      > </a
+      ><a name="2348" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2349"
+      >
+        </a
+      ><a name="2358" class="Symbol"
+      >{-#</a
+      ><a name="2361"
+      > </a
+      ><a name="2362" class="Keyword"
+      >ATP</a
+      ><a name="2365"
+      > prove </a
+      ><a name="2372" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2342" class="Postulate"
+      >prf</a
+      ><a name="2375"
+      > </a
+      ><a name="2376" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#709" class="Function"
+      >x&lt;0&#8594;&#8869;</a
+      ><a name="2381"
+      > </a
+      ><a name="2382" class="Symbol"
+      >#-}</a
+      ><a name="2385"
+      >
+</a
+      ><a name="2386" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2140" class="Function"
+      >x&gt;y&#8594;x&#8804;y&#8594;&#8869;</a
+      ><a name="2395"
+      > </a
+      ><a name="2396" class="Symbol"
+      >(</a
+      ><a name="2397" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2402"
+      > </a
+      ><a name="2403" class="Symbol"
+      >{</a
+      ><a name="2404" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2404" class="Bound"
+      >m</a
+      ><a name="2405" class="Symbol"
+      >}</a
+      ><a name="2406"
+      > </a
+      ><a name="2407" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2407" class="Bound"
+      >Nm</a
+      ><a name="2409" class="Symbol"
+      >)</a
+      ><a name="2410"
+      > </a
+      ><a name="2411" class="Symbol"
+      >(</a
+      ><a name="2412" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2417"
+      > </a
+      ><a name="2418" class="Symbol"
+      >{</a
+      ><a name="2419" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2419" class="Bound"
+      >n</a
+      ><a name="2420" class="Symbol"
+      >}</a
+      ><a name="2421"
+      > </a
+      ><a name="2422" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2422" class="Bound"
+      >Nn</a
+      ><a name="2424" class="Symbol"
+      >)</a
+      ><a name="2425"
+      > </a
+      ><a name="2426" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2426" class="Bound"
+      >h&#8321;</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2429" class="Bound"
+      >h&#8322;</a
+      ><a name="2431"
+      > </a
+      ><a name="2432" class="Symbol"
+      >=</a
+      ><a name="2433"
+      > </a
+      ><a name="2434" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2529" class="Postulate"
+      >prf</a
+      ><a name="2437"
+      > </a
+      ><a name="2438" class="Symbol"
+      >(</a
+      ><a name="2439" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2140" class="Function"
+      >x&gt;y&#8594;x&#8804;y&#8594;&#8869;</a
+      ><a name="2448"
+      > </a
+      ><a name="2449" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2407" class="Bound"
+      >Nm</a
+      ><a name="2451"
+      > </a
+      ><a name="2452" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2422" class="Bound"
+      >Nn</a
+      ><a name="2454"
+      > </a
+      ><a name="2455" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2480" class="Postulate"
+      >m&gt;n</a
+      ><a name="2458" class="Symbol"
+      >)</a
+      ><a name="2459"
+      >
+  </a
+      ><a name="2462" class="Keyword"
+      >where</a
+      ><a name="2467"
+      >
+  </a
+      ><a name="2470" class="Keyword"
+      >postulate</a
+      ><a name="2479"
+      > </a
+      ><a name="2480" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2480" class="Postulate"
+      >m&gt;n</a
+      ><a name="2483"
+      > </a
+      ><a name="2484" class="Symbol"
+      >:</a
+      ><a name="2485"
+      > </a
+      ><a name="2486" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2404" class="Bound"
+      >m</a
+      ><a name="2487"
+      > </a
+      ><a name="2488" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2489"
+      > </a
+      ><a name="2490" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2419" class="Bound"
+      >n</a
+      ><a name="2491"
+      >
+  </a
+      ><a name="2494" class="Symbol"
+      >{-#</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" class="Keyword"
+      >ATP</a
+      ><a name="2501"
+      > prove </a
+      ><a name="2508" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2480" class="Postulate"
+      >m&gt;n</a
+      ><a name="2511"
+      > </a
+      ><a name="2512" class="Symbol"
+      >#-}</a
+      ><a name="2515"
+      >
+
+  </a
+      ><a name="2519" class="Keyword"
+      >postulate</a
+      ><a name="2528"
+      > </a
+      ><a name="2529" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2529" class="Postulate"
+      >prf</a
+      ><a name="2532"
+      > </a
+      ><a name="2533" class="Symbol"
+      >:</a
+      ><a name="2534"
+      > </a
+      ><a name="2535" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2536"
+      > </a
+      ><a name="2537" class="Symbol"
+      >(</a
+      ><a name="2538" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2404" class="Bound"
+      >m</a
+      ><a name="2539"
+      > </a
+      ><a name="2540" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="2541"
+      > </a
+      ><a name="2542" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2419" class="Bound"
+      >n</a
+      ><a name="2543" class="Symbol"
+      >)</a
+      ><a name="2544"
+      > </a
+      ><a name="2545" class="Symbol"
+      >&#8594;</a
+      ><a name="2546"
+      > </a
+      ><a name="2547" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2548"
+      >
+  </a
+      ><a name="2551" class="Symbol"
+      >{-#</a
+      ><a name="2554"
+      > </a
+      ><a name="2555" class="Keyword"
+      >ATP</a
+      ><a name="2558"
+      > prove </a
+      ><a name="2565" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#2529" class="Postulate"
+      >prf</a
+      ><a name="2568"
+      > </a
+      ><a name="2569" class="Symbol"
+      >#-}</a
+      ><a name="2572"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

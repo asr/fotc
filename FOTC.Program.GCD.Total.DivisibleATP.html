@@ -1,0 +1,3710 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.GCD.Total.DivisibleATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The gcd is divisible by any common divisor</a
+      ><a name="125"
+      >
+</a
+      ><a name="126" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="204"
+      >
+
+</a
+      ><a name="206" class="Symbol"
+      >{-#</a
+      ><a name="209"
+      > </a
+      ><a name="210" class="Keyword"
+      >OPTIONS</a
+      ><a name="217"
+      > --exact-split              </a
+      ><a name="245" class="Symbol"
+      >#-}</a
+      ><a name="248"
+      >
+</a
+      ><a name="249" class="Symbol"
+      >{-#</a
+      ><a name="252"
+      > </a
+      ><a name="253" class="Keyword"
+      >OPTIONS</a
+      ><a name="260"
+      > --no-sized-types           </a
+      ><a name="288" class="Symbol"
+      >#-}</a
+      ><a name="291"
+      >
+</a
+      ><a name="292" class="Symbol"
+      >{-#</a
+      ><a name="295"
+      > </a
+      ><a name="296" class="Keyword"
+      >OPTIONS</a
+      ><a name="303"
+      > --no-universe-polymorphism </a
+      ><a name="331" class="Symbol"
+      >#-}</a
+      ><a name="334"
+      >
+</a
+      ><a name="335" class="Symbol"
+      >{-#</a
+      ><a name="338"
+      > </a
+      ><a name="339" class="Keyword"
+      >OPTIONS</a
+      ><a name="346"
+      > --without-K                </a
+      ><a name="374" class="Symbol"
+      >#-}</a
+      ><a name="377"
+      >
+
+</a
+      ><a name="379" class="Keyword"
+      >module</a
+      ><a name="385"
+      > </a
+      ><a name="386" href="FOTC.Program.GCD.Total.DivisibleATP.html#1" class="Module"
+      >FOTC.Program.GCD.Total.DivisibleATP</a
+      ><a name="421"
+      > </a
+      ><a name="422" class="Keyword"
+      >where</a
+      ><a name="427"
+      >
+
+</a
+      ><a name="429" class="Keyword"
+      >open</a
+      ><a name="433"
+      > </a
+      ><a name="434" class="Keyword"
+      >import</a
+      ><a name="440"
+      > </a
+      ><a name="441" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="450"
+      >
+</a
+      ><a name="451" class="Keyword"
+      >open</a
+      ><a name="455"
+      > </a
+      ><a name="456" class="Keyword"
+      >import</a
+      ><a name="462"
+      > </a
+      ><a name="463" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="476"
+      >
+</a
+      ><a name="477" class="Keyword"
+      >open</a
+      ><a name="481"
+      > </a
+      ><a name="482" class="Keyword"
+      >import</a
+      ><a name="488"
+      > </a
+      ><a name="489" href="FOTC.Data.Nat.Divisibility.By0.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.By0</a
+      ><a name="519"
+      >
+</a
+      ><a name="520" class="Keyword"
+      >open</a
+      ><a name="524"
+      > </a
+      ><a name="525" class="Keyword"
+      >import</a
+      ><a name="531"
+      > </a
+      ><a name="532" href="FOTC.Data.Nat.Divisibility.By0.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.By0.PropertiesATP</a
+      ><a name="576"
+      >
+</a
+      ><a name="577" class="Keyword"
+      >open</a
+      ><a name="581"
+      > </a
+      ><a name="582" class="Keyword"
+      >import</a
+      ><a name="588"
+      > </a
+      ><a name="589" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicATP.html#1" class="Module"
+      >FOTC.Data.Nat.Induction.NonAcc.LexicographicATP</a
+      ><a name="636"
+      >
+</a
+      ><a name="637" class="Keyword"
+      >open</a
+      ><a name="641"
+      > </a
+      ><a name="642" class="Keyword"
+      >import</a
+      ><a name="648"
+      > </a
+      ><a name="649" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="675"
+      >
+</a
+      ><a name="676" class="Keyword"
+      >open</a
+      ><a name="680"
+      > </a
+      ><a name="681" class="Keyword"
+      >import</a
+      ><a name="687"
+      > </a
+      ><a name="688" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.EliminationPropertiesATP</a
+      ><a name="739"
+      >
+</a
+      ><a name="740" class="Keyword"
+      >open</a
+      ><a name="744"
+      > </a
+      ><a name="745" class="Keyword"
+      >import</a
+      ><a name="751"
+      > </a
+      ><a name="752" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="792"
+      >
+</a
+      ><a name="793" class="Keyword"
+      >open</a
+      ><a name="797"
+      > </a
+      ><a name="798" class="Keyword"
+      >import</a
+      ><a name="804"
+      > </a
+      ><a name="805" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="832"
+      >
+</a
+      ><a name="833" class="Keyword"
+      >open</a
+      ><a name="837"
+      > </a
+      ><a name="838" class="Keyword"
+      >import</a
+      ><a name="844"
+      > </a
+      ><a name="845" href="FOTC.Program.GCD.Total.Definitions.html#1" class="Module"
+      >FOTC.Program.GCD.Total.Definitions</a
+      ><a name="879"
+      >
+</a
+      ><a name="880" class="Keyword"
+      >open</a
+      ><a name="884"
+      > </a
+      ><a name="885" class="Keyword"
+      >import</a
+      ><a name="891"
+      > </a
+      ><a name="892" href="FOTC.Program.GCD.Total.GCD.html#1" class="Module"
+      >FOTC.Program.GCD.Total.GCD</a
+      ><a name="918"
+      >
+
+</a
+      ><a name="920" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="998"
+      >
+</a
+      ><a name="999" class="Comment"
+      >-- The gcd 0 0 is Divisible.</a
+      ><a name="1027"
+      >
+</a
+      ><a name="1028" class="Keyword"
+      >postulate</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOTC.Program.GCD.Total.DivisibleATP.html#1038" class="Postulate"
+      >gcd-00-Divisible</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" class="Symbol"
+      >:</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" class="Symbol"
+      >(</a
+      ><a name="1078" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1091" class="Symbol"
+      >)</a
+      ><a name="1092"
+      >
+</a
+      ><a name="1093" class="Symbol"
+      >{-#</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" class="Keyword"
+      >ATP</a
+      ><a name="1100"
+      > prove </a
+      ><a name="1107" href="FOTC.Program.GCD.Total.DivisibleATP.html#1038" class="Postulate"
+      >gcd-00-Divisible</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" class="Symbol"
+      >#-}</a
+      ><a name="1127"
+      >
+
+</a
+      ><a name="1129" class="Comment"
+      >-- The gcd 0 (succ n) is Divisible.</a
+      ><a name="1164"
+      >
+</a
+      ><a name="1165" class="Keyword"
+      >postulate</a
+      ><a name="1174"
+      >
+  </a
+      ><a name="1177" href="FOTC.Program.GCD.Total.DivisibleATP.html#1177" class="Postulate"
+      >gcd-0S-Divisible</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" class="Symbol"
+      >:</a
+      ><a name="1195"
+      > </a
+      ><a name="1196" class="Symbol"
+      >&#8704;</a
+      ><a name="1197"
+      > </a
+      ><a name="1198" class="Symbol"
+      >{</a
+      ><a name="1199" href="FOTC.Program.GCD.Total.DivisibleATP.html#1199" class="Bound"
+      >n</a
+      ><a name="1200" class="Symbol"
+      >}</a
+      ><a name="1201"
+      > </a
+      ><a name="1202" class="Symbol"
+      >&#8594;</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1205"
+      > </a
+      ><a name="1206" href="FOTC.Program.GCD.Total.DivisibleATP.html#1199" class="Bound"
+      >n</a
+      ><a name="1207"
+      > </a
+      ><a name="1208" class="Symbol"
+      >&#8594;</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="1219"
+      > </a
+      ><a name="1220" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" class="Symbol"
+      >(</a
+      ><a name="1226" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" href="FOTC.Program.GCD.Total.DivisibleATP.html#1199" class="Bound"
+      >n</a
+      ><a name="1233" class="Symbol"
+      >)</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" class="Symbol"
+      >(</a
+      ><a name="1236" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" class="Symbol"
+      >(</a
+      ><a name="1246" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1251"
+      > </a
+      ><a name="1252" href="FOTC.Program.GCD.Total.DivisibleATP.html#1199" class="Bound"
+      >n</a
+      ><a name="1253" class="Symbol"
+      >))</a
+      ><a name="1255"
+      >
+</a
+      ><a name="1256" class="Symbol"
+      >{-#</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" class="Keyword"
+      >ATP</a
+      ><a name="1263"
+      > prove </a
+      ><a name="1270" href="FOTC.Program.GCD.Total.DivisibleATP.html#1177" class="Postulate"
+      >gcd-0S-Divisible</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" class="Symbol"
+      >#-}</a
+      ><a name="1290"
+      >
+
+</a
+      ><a name="1292" class="Keyword"
+      >postulate</a
+      ><a name="1301"
+      >
+  </a
+      ><a name="1304" href="FOTC.Program.GCD.Total.DivisibleATP.html#1304" class="Postulate"
+      >gcd-S0-Divisible</a
+      ><a name="1320"
+      > </a
+      ><a name="1321" class="Symbol"
+      >:</a
+      ><a name="1322"
+      > </a
+      ><a name="1323" class="Symbol"
+      >&#8704;</a
+      ><a name="1324"
+      > </a
+      ><a name="1325" class="Symbol"
+      >{</a
+      ><a name="1326" href="FOTC.Program.GCD.Total.DivisibleATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1327" class="Symbol"
+      >}</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" class="Symbol"
+      >&#8594;</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1332"
+      > </a
+      ><a name="1333" href="FOTC.Program.GCD.Total.DivisibleATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1334"
+      > </a
+      ><a name="1335" class="Symbol"
+      >&#8594;</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="1346"
+      > </a
+      ><a name="1347" class="Symbol"
+      >(</a
+      ><a name="1348" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1353"
+      > </a
+      ><a name="1354" href="FOTC.Program.GCD.Total.DivisibleATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1355" class="Symbol"
+      >)</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1361"
+      > </a
+      ><a name="1362" class="Symbol"
+      >(</a
+      ><a name="1363" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" class="Symbol"
+      >(</a
+      ><a name="1368" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" href="FOTC.Program.GCD.Total.DivisibleATP.html#1326" class="Bound"
+      >n</a
+      ><a name="1375" class="Symbol"
+      >)</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1381" class="Symbol"
+      >)</a
+      ><a name="1382"
+      >
+</a
+      ><a name="1383" class="Symbol"
+      >{-#</a
+      ><a name="1386"
+      > </a
+      ><a name="1387" class="Keyword"
+      >ATP</a
+      ><a name="1390"
+      > prove </a
+      ><a name="1397" href="FOTC.Program.GCD.Total.DivisibleATP.html#1304" class="Postulate"
+      >gcd-S0-Divisible</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" class="Symbol"
+      >#-}</a
+      ><a name="1417"
+      >
+
+</a
+      ><a name="1419" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1497"
+      >
+</a
+      ><a name="1498" class="Comment"
+      >-- The gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &gt; succ&#8321; n is Divisible.</a
+      ><a name="1565"
+      >
+</a
+      ><a name="1566" class="Comment"
+      >-- For the proof using the ATP we added the helper hypothesis</a
+      ><a name="1627"
+      >
+</a
+      ><a name="1628" class="Comment"
+      >-- c | succ&#8321; m &#8594; c | succ&#8321; c &#8594; c | succ&#8321; m &#8760; succ&#8321; n.</a
+      ><a name="1681"
+      >
+</a
+      ><a name="1682" class="Keyword"
+      >postulate</a
+      ><a name="1691"
+      >
+  </a
+      ><a name="1694" href="FOTC.Program.GCD.Total.DivisibleATP.html#1694" class="Postulate"
+      >gcd-S&gt;S-Divisible-ah</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" class="Symbol"
+      >:</a
+      ><a name="1716"
+      >
+    </a
+      ><a name="1721" class="Symbol"
+      >&#8704;</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" class="Symbol"
+      >{</a
+      ><a name="1724" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1725"
+      > </a
+      ><a name="1726" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1727" class="Symbol"
+      >}</a
+      ><a name="1728"
+      > </a
+      ><a name="1729" class="Symbol"
+      >&#8594;</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1732"
+      > </a
+      ><a name="1733" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1734"
+      > </a
+      ><a name="1735" class="Symbol"
+      >&#8594;</a
+      ><a name="1736"
+      > </a
+      ><a name="1737" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1738"
+      > </a
+      ><a name="1739" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1740"
+      > </a
+      ><a name="1741" class="Symbol"
+      >&#8594;</a
+      ><a name="1742"
+      >
+    </a
+      ><a name="1747" class="Symbol"
+      >(</a
+      ><a name="1748" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="1757"
+      > </a
+      ><a name="1758" class="Symbol"
+      >(</a
+      ><a name="1759" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1764"
+      > </a
+      ><a name="1765" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1776" class="Symbol"
+      >)</a
+      ><a name="1777"
+      > </a
+      ><a name="1778" class="Symbol"
+      >(</a
+      ><a name="1779" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1784"
+      > </a
+      ><a name="1785" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1786" class="Symbol"
+      >)</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" class="Symbol"
+      >(</a
+      ><a name="1789" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="1792"
+      > </a
+      ><a name="1793" class="Symbol"
+      >(</a
+      ><a name="1794" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1801"
+      > </a
+      ><a name="1802" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1811" class="Symbol"
+      >)</a
+      ><a name="1812"
+      > </a
+      ><a name="1813" class="Symbol"
+      >(</a
+      ><a name="1814" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1821" class="Symbol"
+      >)))</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" class="Symbol"
+      >&#8594;</a
+      ><a name="1826"
+      >
+    </a
+      ><a name="1831" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1836"
+      > </a
+      ><a name="1837" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1846"
+      > </a
+      ><a name="1847" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" class="Symbol"
+      >&#8594;</a
+      ><a name="1850"
+      >
+    </a
+      ><a name="1855" class="Symbol"
+      >&#8704;</a
+      ><a name="1856"
+      > </a
+      ><a name="1857" href="FOTC.Program.GCD.Total.DivisibleATP.html#1857" class="Bound"
+      >c</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" class="Symbol"
+      >&#8594;</a
+      ><a name="1860"
+      > </a
+      ><a name="1861" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1862"
+      > </a
+      ><a name="1863" href="FOTC.Program.GCD.Total.DivisibleATP.html#1857" class="Bound"
+      >c</a
+      ><a name="1864"
+      > </a
+      ><a name="1865" class="Symbol"
+      >&#8594;</a
+      ><a name="1866"
+      > </a
+      ><a name="1867" href="FOTC.Program.GCD.Total.Definitions.html#656" class="Function"
+      >CD</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" class="Symbol"
+      >(</a
+      ><a name="1871" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1878" class="Symbol"
+      >)</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" class="Symbol"
+      >(</a
+      ><a name="1881" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1886"
+      > </a
+      ><a name="1887" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1888" class="Symbol"
+      >)</a
+      ><a name="1889"
+      > </a
+      ><a name="1890" href="FOTC.Program.GCD.Total.DivisibleATP.html#1857" class="Bound"
+      >c</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" class="Symbol"
+      >&#8594;</a
+      ><a name="1893"
+      >
+    </a
+      ><a name="1898" class="Symbol"
+      >(</a
+      ><a name="1899" href="FOTC.Program.GCD.Total.DivisibleATP.html#1857" class="Bound"
+      >c</a
+      ><a name="1900"
+      > </a
+      ><a name="1901" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >&#8739;</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1908"
+      > </a
+      ><a name="1909" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1910"
+      > </a
+      ><a name="1911" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1912"
+      > </a
+      ><a name="1913" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1920" class="Symbol"
+      >)</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" class="Symbol"
+      >&#8594;</a
+      ><a name="1923"
+      >
+    </a
+      ><a name="1928" href="FOTC.Program.GCD.Total.DivisibleATP.html#1857" class="Bound"
+      >c</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >&#8739;</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="1935"
+      > </a
+      ><a name="1936" class="Symbol"
+      >(</a
+      ><a name="1937" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1942"
+      > </a
+      ><a name="1943" href="FOTC.Program.GCD.Total.DivisibleATP.html#1724" class="Bound"
+      >m</a
+      ><a name="1944" class="Symbol"
+      >)</a
+      ><a name="1945"
+      > </a
+      ><a name="1946" class="Symbol"
+      >(</a
+      ><a name="1947" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1952"
+      > </a
+      ><a name="1953" href="FOTC.Program.GCD.Total.DivisibleATP.html#1726" class="Bound"
+      >n</a
+      ><a name="1954" class="Symbol"
+      >)</a
+      ><a name="1955"
+      >
+</a
+      ><a name="1956" class="Symbol"
+      >{-#</a
+      ><a name="1959"
+      > </a
+      ><a name="1960" class="Keyword"
+      >ATP</a
+      ><a name="1963"
+      > prove </a
+      ><a name="1970" href="FOTC.Program.GCD.Total.DivisibleATP.html#1694" class="Postulate"
+      >gcd-S&gt;S-Divisible-ah</a
+      ><a name="1990"
+      > </a
+      ><a name="1991" class="Symbol"
+      >#-}</a
+      ><a name="1994"
+      >
+
+</a
+      ><a name="1996" href="FOTC.Program.GCD.Total.DivisibleATP.html#1996" class="Function"
+      >gcd-S&gt;S-Divisible</a
+      ><a name="2013"
+      > </a
+      ><a name="2014" class="Symbol"
+      >:</a
+      ><a name="2015"
+      >
+  </a
+      ><a name="2018" class="Symbol"
+      >&#8704;</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" class="Symbol"
+      >{</a
+      ><a name="2021" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2022"
+      > </a
+      ><a name="2023" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2024" class="Symbol"
+      >}</a
+      ><a name="2025"
+      > </a
+      ><a name="2026" class="Symbol"
+      >&#8594;</a
+      ><a name="2027"
+      > </a
+      ><a name="2028" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2029"
+      > </a
+      ><a name="2030" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2031"
+      > </a
+      ><a name="2032" class="Symbol"
+      >&#8594;</a
+      ><a name="2033"
+      > </a
+      ><a name="2034" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2035"
+      > </a
+      ><a name="2036" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2037"
+      > </a
+      ><a name="2038" class="Symbol"
+      >&#8594;</a
+      ><a name="2039"
+      >
+  </a
+      ><a name="2042" class="Symbol"
+      >(</a
+      ><a name="2043" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="2052"
+      > </a
+      ><a name="2053" class="Symbol"
+      >(</a
+      ><a name="2054" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2063"
+      > </a
+      ><a name="2064" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2069"
+      > </a
+      ><a name="2070" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2071" class="Symbol"
+      >)</a
+      ><a name="2072"
+      > </a
+      ><a name="2073" class="Symbol"
+      >(</a
+      ><a name="2074" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2079"
+      > </a
+      ><a name="2080" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2081" class="Symbol"
+      >)</a
+      ><a name="2082"
+      > </a
+      ><a name="2083" class="Symbol"
+      >(</a
+      ><a name="2084" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="2087"
+      > </a
+      ><a name="2088" class="Symbol"
+      >(</a
+      ><a name="2089" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2094"
+      > </a
+      ><a name="2095" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2096"
+      > </a
+      ><a name="2097" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2098"
+      > </a
+      ><a name="2099" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2104"
+      > </a
+      ><a name="2105" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2106" class="Symbol"
+      >)</a
+      ><a name="2107"
+      > </a
+      ><a name="2108" class="Symbol"
+      >(</a
+      ><a name="2109" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2114"
+      > </a
+      ><a name="2115" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2116" class="Symbol"
+      >)))</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" class="Symbol"
+      >&#8594;</a
+      ><a name="2121"
+      >
+  </a
+      ><a name="2124" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2129"
+      > </a
+      ><a name="2130" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2131"
+      > </a
+      ><a name="2132" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="2133"
+      > </a
+      ><a name="2134" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2141"
+      > </a
+      ><a name="2142" class="Symbol"
+      >&#8594;</a
+      ><a name="2143"
+      >
+  </a
+      ><a name="2146" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="2155"
+      > </a
+      ><a name="2156" class="Symbol"
+      >(</a
+      ><a name="2157" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2162"
+      > </a
+      ><a name="2163" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2164" class="Symbol"
+      >)</a
+      ><a name="2165"
+      > </a
+      ><a name="2166" class="Symbol"
+      >(</a
+      ><a name="2167" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2172"
+      > </a
+      ><a name="2173" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2174" class="Symbol"
+      >)</a
+      ><a name="2175"
+      > </a
+      ><a name="2176" class="Symbol"
+      >(</a
+      ><a name="2177" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="2180"
+      > </a
+      ><a name="2181" class="Symbol"
+      >(</a
+      ><a name="2182" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2187"
+      > </a
+      ><a name="2188" href="FOTC.Program.GCD.Total.DivisibleATP.html#2021" class="Bound"
+      >m</a
+      ><a name="2189" class="Symbol"
+      >)</a
+      ><a name="2190"
+      > </a
+      ><a name="2191" class="Symbol"
+      >(</a
+      ><a name="2192" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" href="FOTC.Program.GCD.Total.DivisibleATP.html#2023" class="Bound"
+      >n</a
+      ><a name="2199" class="Symbol"
+      >))</a
+      ><a name="2201"
+      >
+</a
+      ><a name="2202" href="FOTC.Program.GCD.Total.DivisibleATP.html#1996" class="Function"
+      >gcd-S&gt;S-Divisible</a
+      ><a name="2219"
+      > </a
+      ><a name="2220" class="Symbol"
+      >{</a
+      ><a name="2221" href="FOTC.Program.GCD.Total.DivisibleATP.html#2221" class="Bound"
+      >m</a
+      ><a name="2222" class="Symbol"
+      >}</a
+      ><a name="2223"
+      > </a
+      ><a name="2224" class="Symbol"
+      >{</a
+      ><a name="2225" href="FOTC.Program.GCD.Total.DivisibleATP.html#2225" class="Bound"
+      >n</a
+      ><a name="2226" class="Symbol"
+      >}</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" href="FOTC.Program.GCD.Total.DivisibleATP.html#2228" class="Bound"
+      >Nm</a
+      ><a name="2230"
+      > </a
+      ><a name="2231" href="FOTC.Program.GCD.Total.DivisibleATP.html#2231" class="Bound"
+      >Nn</a
+      ><a name="2233"
+      > </a
+      ><a name="2234" href="FOTC.Program.GCD.Total.DivisibleATP.html#2234" class="Bound"
+      >acc</a
+      ><a name="2237"
+      > </a
+      ><a name="2238" href="FOTC.Program.GCD.Total.DivisibleATP.html#2238" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="2243"
+      > </a
+      ><a name="2244" href="FOTC.Program.GCD.Total.DivisibleATP.html#2244" class="Bound"
+      >c</a
+      ><a name="2245"
+      > </a
+      ><a name="2246" href="FOTC.Program.GCD.Total.DivisibleATP.html#2246" class="Bound"
+      >Nc</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" class="Symbol"
+      >(</a
+      ><a name="2250" href="FOTC.Program.GCD.Total.DivisibleATP.html#2250" class="Bound"
+      >c&#8739;Sm</a
+      ><a name="2254"
+      > </a
+      ><a name="2255" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2256"
+      > </a
+      ><a name="2257" href="FOTC.Program.GCD.Total.DivisibleATP.html#2257" class="Bound"
+      >c&#8739;Sn</a
+      ><a name="2261" class="Symbol"
+      >)</a
+      ><a name="2262"
+      > </a
+      ><a name="2263" class="Symbol"
+      >=</a
+      ><a name="2264"
+      >
+    </a
+      ><a name="2269" href="FOTC.Program.GCD.Total.DivisibleATP.html#1694" class="Postulate"
+      >gcd-S&gt;S-Divisible-ah</a
+      ><a name="2289"
+      > </a
+      ><a name="2290" href="FOTC.Program.GCD.Total.DivisibleATP.html#2228" class="Bound"
+      >Nm</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" href="FOTC.Program.GCD.Total.DivisibleATP.html#2231" class="Bound"
+      >Nn</a
+      ><a name="2295"
+      > </a
+      ><a name="2296" href="FOTC.Program.GCD.Total.DivisibleATP.html#2234" class="Bound"
+      >acc</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" href="FOTC.Program.GCD.Total.DivisibleATP.html#2238" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="2305"
+      > </a
+      ><a name="2306" href="FOTC.Program.GCD.Total.DivisibleATP.html#2244" class="Bound"
+      >c</a
+      ><a name="2307"
+      > </a
+      ><a name="2308" href="FOTC.Program.GCD.Total.DivisibleATP.html#2246" class="Bound"
+      >Nc</a
+      ><a name="2310"
+      > </a
+      ><a name="2311" class="Symbol"
+      >(</a
+      ><a name="2312" href="FOTC.Program.GCD.Total.DivisibleATP.html#2250" class="Bound"
+      >c&#8739;Sm</a
+      ><a name="2316"
+      > </a
+      ><a name="2317" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2318"
+      > </a
+      ><a name="2319" href="FOTC.Program.GCD.Total.DivisibleATP.html#2257" class="Bound"
+      >c&#8739;Sn</a
+      ><a name="2323" class="Symbol"
+      >)</a
+      ><a name="2324"
+      >
+                         </a
+      ><a name="2350" class="Symbol"
+      >(</a
+      ><a name="2351" href="FOTC.Data.Nat.Divisibility.By0.PropertiesATP.html#1320" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="2364"
+      > </a
+      ><a name="2365" href="FOTC.Program.GCD.Total.DivisibleATP.html#2246" class="Bound"
+      >Nc</a
+      ><a name="2367"
+      > </a
+      ><a name="2368" class="Symbol"
+      >(</a
+      ><a name="2369" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" href="FOTC.Program.GCD.Total.DivisibleATP.html#2228" class="Bound"
+      >Nm</a
+      ><a name="2377" class="Symbol"
+      >)</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" class="Symbol"
+      >(</a
+      ><a name="2380" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2385"
+      > </a
+      ><a name="2386" href="FOTC.Program.GCD.Total.DivisibleATP.html#2231" class="Bound"
+      >Nn</a
+      ><a name="2388" class="Symbol"
+      >)</a
+      ><a name="2389"
+      > </a
+      ><a name="2390" href="FOTC.Program.GCD.Total.DivisibleATP.html#2250" class="Bound"
+      >c&#8739;Sm</a
+      ><a name="2394"
+      > </a
+      ><a name="2395" href="FOTC.Program.GCD.Total.DivisibleATP.html#2257" class="Bound"
+      >c&#8739;Sn</a
+      ><a name="2399" class="Symbol"
+      >)</a
+      ><a name="2400"
+      >
+
+</a
+      ><a name="2402" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2480"
+      >
+</a
+      ><a name="2481" class="Comment"
+      >-- The gcd (succ&#8321; m) (succ&#8321; n) when succ&#8321; m &#8815; succ&#8321; n is Divisible.</a
+      ><a name="2548"
+      >
+</a
+      ><a name="2549" class="Comment"
+      >-- For the proof using the ATP we added the helper hypothesis</a
+      ><a name="2610"
+      >
+</a
+      ><a name="2611" class="Comment"
+      >-- c | succ&#8321; n &#8594; c | succ&#8321; m &#8594; c | succ&#8321; n &#8760; succ&#8321; m.</a
+      ><a name="2664"
+      >
+</a
+      ><a name="2665" class="Keyword"
+      >postulate</a
+      ><a name="2674"
+      >
+  </a
+      ><a name="2677" href="FOTC.Program.GCD.Total.DivisibleATP.html#2677" class="Postulate"
+      >gcd-S&#8815;S-Divisible-ah</a
+      ><a name="2697"
+      > </a
+      ><a name="2698" class="Symbol"
+      >:</a
+      ><a name="2699"
+      >
+    </a
+      ><a name="2704" class="Symbol"
+      >&#8704;</a
+      ><a name="2705"
+      > </a
+      ><a name="2706" class="Symbol"
+      >{</a
+      ><a name="2707" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2708"
+      > </a
+      ><a name="2709" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2710" class="Symbol"
+      >}</a
+      ><a name="2711"
+      > </a
+      ><a name="2712" class="Symbol"
+      >&#8594;</a
+      ><a name="2713"
+      > </a
+      ><a name="2714" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2715"
+      > </a
+      ><a name="2716" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2717"
+      > </a
+      ><a name="2718" class="Symbol"
+      >&#8594;</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2723"
+      > </a
+      ><a name="2724" class="Symbol"
+      >&#8594;</a
+      ><a name="2725"
+      >
+    </a
+      ><a name="2730" class="Symbol"
+      >(</a
+      ><a name="2731" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="2740"
+      > </a
+      ><a name="2741" class="Symbol"
+      >(</a
+      ><a name="2742" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2747"
+      > </a
+      ><a name="2748" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2749" class="Symbol"
+      >)</a
+      ><a name="2750"
+      > </a
+      ><a name="2751" class="Symbol"
+      >(</a
+      ><a name="2752" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2757"
+      > </a
+      ><a name="2758" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2759"
+      > </a
+      ><a name="2760" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2761"
+      > </a
+      ><a name="2762" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2767"
+      > </a
+      ><a name="2768" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2769" class="Symbol"
+      >)</a
+      ><a name="2770"
+      > </a
+      ><a name="2771" class="Symbol"
+      >(</a
+      ><a name="2772" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="2775"
+      > </a
+      ><a name="2776" class="Symbol"
+      >(</a
+      ><a name="2777" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2782"
+      > </a
+      ><a name="2783" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2784" class="Symbol"
+      >)</a
+      ><a name="2785"
+      > </a
+      ><a name="2786" class="Symbol"
+      >(</a
+      ><a name="2787" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2792"
+      > </a
+      ><a name="2793" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2794"
+      > </a
+      ><a name="2795" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2796"
+      > </a
+      ><a name="2797" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2802"
+      > </a
+      ><a name="2803" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2804" class="Symbol"
+      >)))</a
+      ><a name="2807"
+      > </a
+      ><a name="2808" class="Symbol"
+      >&#8594;</a
+      ><a name="2809"
+      >
+    </a
+      ><a name="2814" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2821"
+      > </a
+      ><a name="2822" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="2823"
+      > </a
+      ><a name="2824" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2829"
+      > </a
+      ><a name="2830" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2831"
+      > </a
+      ><a name="2832" class="Symbol"
+      >&#8594;</a
+      ><a name="2833"
+      >
+    </a
+      ><a name="2838" class="Symbol"
+      >&#8704;</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" href="FOTC.Program.GCD.Total.DivisibleATP.html#2840" class="Bound"
+      >c</a
+      ><a name="2841"
+      > </a
+      ><a name="2842" class="Symbol"
+      >&#8594;</a
+      ><a name="2843"
+      > </a
+      ><a name="2844" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2845"
+      > </a
+      ><a name="2846" href="FOTC.Program.GCD.Total.DivisibleATP.html#2840" class="Bound"
+      >c</a
+      ><a name="2847"
+      > </a
+      ><a name="2848" class="Symbol"
+      >&#8594;</a
+      ><a name="2849"
+      > </a
+      ><a name="2850" href="FOTC.Program.GCD.Total.Definitions.html#656" class="Function"
+      >CD</a
+      ><a name="2852"
+      > </a
+      ><a name="2853" class="Symbol"
+      >(</a
+      ><a name="2854" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2859"
+      > </a
+      ><a name="2860" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2861" class="Symbol"
+      >)</a
+      ><a name="2862"
+      > </a
+      ><a name="2863" class="Symbol"
+      >(</a
+      ><a name="2864" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2869"
+      > </a
+      ><a name="2870" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2871" class="Symbol"
+      >)</a
+      ><a name="2872"
+      > </a
+      ><a name="2873" href="FOTC.Program.GCD.Total.DivisibleATP.html#2840" class="Bound"
+      >c</a
+      ><a name="2874"
+      > </a
+      ><a name="2875" class="Symbol"
+      >&#8594;</a
+      ><a name="2876"
+      >
+    </a
+      ><a name="2881" class="Symbol"
+      >(</a
+      ><a name="2882" href="FOTC.Program.GCD.Total.DivisibleATP.html#2840" class="Bound"
+      >c</a
+      ><a name="2883"
+      > </a
+      ><a name="2884" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >&#8739;</a
+      ><a name="2885"
+      > </a
+      ><a name="2886" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2891"
+      > </a
+      ><a name="2892" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2893"
+      > </a
+      ><a name="2894" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="2895"
+      > </a
+      ><a name="2896" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2901"
+      > </a
+      ><a name="2902" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2903" class="Symbol"
+      >)</a
+      ><a name="2904"
+      > </a
+      ><a name="2905" class="Symbol"
+      >&#8594;</a
+      ><a name="2906"
+      >
+    </a
+      ><a name="2911" href="FOTC.Program.GCD.Total.DivisibleATP.html#2840" class="Bound"
+      >c</a
+      ><a name="2912"
+      > </a
+      ><a name="2913" href="FOTC.Data.Nat.Divisibility.By0.html#1074" class="Function Operator"
+      >&#8739;</a
+      ><a name="2914"
+      > </a
+      ><a name="2915" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="2918"
+      > </a
+      ><a name="2919" class="Symbol"
+      >(</a
+      ><a name="2920" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2925"
+      > </a
+      ><a name="2926" href="FOTC.Program.GCD.Total.DivisibleATP.html#2707" class="Bound"
+      >m</a
+      ><a name="2927" class="Symbol"
+      >)</a
+      ><a name="2928"
+      > </a
+      ><a name="2929" class="Symbol"
+      >(</a
+      ><a name="2930" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2935"
+      > </a
+      ><a name="2936" href="FOTC.Program.GCD.Total.DivisibleATP.html#2709" class="Bound"
+      >n</a
+      ><a name="2937" class="Symbol"
+      >)</a
+      ><a name="2938"
+      >
+</a
+      ><a name="2939" class="Symbol"
+      >{-#</a
+      ><a name="2942"
+      > </a
+      ><a name="2943" class="Keyword"
+      >ATP</a
+      ><a name="2946"
+      > prove </a
+      ><a name="2953" href="FOTC.Program.GCD.Total.DivisibleATP.html#2677" class="Postulate"
+      >gcd-S&#8815;S-Divisible-ah</a
+      ><a name="2973"
+      > </a
+      ><a name="2974" class="Symbol"
+      >#-}</a
+      ><a name="2977"
+      >
+
+</a
+      ><a name="2979" href="FOTC.Program.GCD.Total.DivisibleATP.html#2979" class="Function"
+      >gcd-S&#8815;S-Divisible</a
+      ><a name="2996"
+      > </a
+      ><a name="2997" class="Symbol"
+      >:</a
+      ><a name="2998"
+      >
+  </a
+      ><a name="3001" class="Symbol"
+      >&#8704;</a
+      ><a name="3002"
+      > </a
+      ><a name="3003" class="Symbol"
+      >{</a
+      ><a name="3004" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3005"
+      > </a
+      ><a name="3006" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3007" class="Symbol"
+      >}</a
+      ><a name="3008"
+      > </a
+      ><a name="3009" class="Symbol"
+      >&#8594;</a
+      ><a name="3010"
+      > </a
+      ><a name="3011" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3012"
+      > </a
+      ><a name="3013" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3014"
+      > </a
+      ><a name="3015" class="Symbol"
+      >&#8594;</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3018"
+      > </a
+      ><a name="3019" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3020"
+      > </a
+      ><a name="3021" class="Symbol"
+      >&#8594;</a
+      ><a name="3022"
+      >
+  </a
+      ><a name="3025" class="Symbol"
+      >(</a
+      ><a name="3026" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="3035"
+      > </a
+      ><a name="3036" class="Symbol"
+      >(</a
+      ><a name="3037" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3042"
+      > </a
+      ><a name="3043" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3044" class="Symbol"
+      >)</a
+      ><a name="3045"
+      > </a
+      ><a name="3046" class="Symbol"
+      >(</a
+      ><a name="3047" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3052"
+      > </a
+      ><a name="3053" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3054"
+      > </a
+      ><a name="3055" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3056"
+      > </a
+      ><a name="3057" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3062"
+      > </a
+      ><a name="3063" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3064" class="Symbol"
+      >)</a
+      ><a name="3065"
+      > </a
+      ><a name="3066" class="Symbol"
+      >(</a
+      ><a name="3067" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="3070"
+      > </a
+      ><a name="3071" class="Symbol"
+      >(</a
+      ><a name="3072" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3077"
+      > </a
+      ><a name="3078" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3079" class="Symbol"
+      >)</a
+      ><a name="3080"
+      > </a
+      ><a name="3081" class="Symbol"
+      >(</a
+      ><a name="3082" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3087"
+      > </a
+      ><a name="3088" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3089"
+      > </a
+      ><a name="3090" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3091"
+      > </a
+      ><a name="3092" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3097"
+      > </a
+      ><a name="3098" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3099" class="Symbol"
+      >)))</a
+      ><a name="3102"
+      > </a
+      ><a name="3103" class="Symbol"
+      >&#8594;</a
+      ><a name="3104"
+      >
+  </a
+      ><a name="3107" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3112"
+      > </a
+      ><a name="3113" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3114"
+      > </a
+      ><a name="3115" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="3116"
+      > </a
+      ><a name="3117" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3122"
+      > </a
+      ><a name="3123" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3124"
+      > </a
+      ><a name="3125" class="Symbol"
+      >&#8594;</a
+      ><a name="3126"
+      >
+  </a
+      ><a name="3129" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="3138"
+      > </a
+      ><a name="3139" class="Symbol"
+      >(</a
+      ><a name="3140" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3145"
+      > </a
+      ><a name="3146" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3147" class="Symbol"
+      >)</a
+      ><a name="3148"
+      > </a
+      ><a name="3149" class="Symbol"
+      >(</a
+      ><a name="3150" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3155"
+      > </a
+      ><a name="3156" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3157" class="Symbol"
+      >)</a
+      ><a name="3158"
+      > </a
+      ><a name="3159" class="Symbol"
+      >(</a
+      ><a name="3160" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="3163"
+      > </a
+      ><a name="3164" class="Symbol"
+      >(</a
+      ><a name="3165" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3170"
+      > </a
+      ><a name="3171" href="FOTC.Program.GCD.Total.DivisibleATP.html#3004" class="Bound"
+      >m</a
+      ><a name="3172" class="Symbol"
+      >)</a
+      ><a name="3173"
+      > </a
+      ><a name="3174" class="Symbol"
+      >(</a
+      ><a name="3175" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3180"
+      > </a
+      ><a name="3181" href="FOTC.Program.GCD.Total.DivisibleATP.html#3006" class="Bound"
+      >n</a
+      ><a name="3182" class="Symbol"
+      >))</a
+      ><a name="3184"
+      >
+</a
+      ><a name="3185" href="FOTC.Program.GCD.Total.DivisibleATP.html#2979" class="Function"
+      >gcd-S&#8815;S-Divisible</a
+      ><a name="3202"
+      > </a
+      ><a name="3203" class="Symbol"
+      >{</a
+      ><a name="3204" href="FOTC.Program.GCD.Total.DivisibleATP.html#3204" class="Bound"
+      >m</a
+      ><a name="3205" class="Symbol"
+      >}</a
+      ><a name="3206"
+      > </a
+      ><a name="3207" class="Symbol"
+      >{</a
+      ><a name="3208" href="FOTC.Program.GCD.Total.DivisibleATP.html#3208" class="Bound"
+      >n</a
+      ><a name="3209" class="Symbol"
+      >}</a
+      ><a name="3210"
+      > </a
+      ><a name="3211" href="FOTC.Program.GCD.Total.DivisibleATP.html#3211" class="Bound"
+      >Nm</a
+      ><a name="3213"
+      > </a
+      ><a name="3214" href="FOTC.Program.GCD.Total.DivisibleATP.html#3214" class="Bound"
+      >Nn</a
+      ><a name="3216"
+      > </a
+      ><a name="3217" href="FOTC.Program.GCD.Total.DivisibleATP.html#3217" class="Bound"
+      >acc</a
+      ><a name="3220"
+      > </a
+      ><a name="3221" href="FOTC.Program.GCD.Total.DivisibleATP.html#3221" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="3226"
+      > </a
+      ><a name="3227" href="FOTC.Program.GCD.Total.DivisibleATP.html#3227" class="Bound"
+      >c</a
+      ><a name="3228"
+      > </a
+      ><a name="3229" href="FOTC.Program.GCD.Total.DivisibleATP.html#3229" class="Bound"
+      >Nc</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" class="Symbol"
+      >(</a
+      ><a name="3233" href="FOTC.Program.GCD.Total.DivisibleATP.html#3233" class="Bound"
+      >c&#8739;Sm</a
+      ><a name="3237"
+      > </a
+      ><a name="3238" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3239"
+      > </a
+      ><a name="3240" href="FOTC.Program.GCD.Total.DivisibleATP.html#3240" class="Bound"
+      >c&#8739;Sn</a
+      ><a name="3244" class="Symbol"
+      >)</a
+      ><a name="3245"
+      > </a
+      ><a name="3246" class="Symbol"
+      >=</a
+      ><a name="3247"
+      >
+    </a
+      ><a name="3252" href="FOTC.Program.GCD.Total.DivisibleATP.html#2677" class="Postulate"
+      >gcd-S&#8815;S-Divisible-ah</a
+      ><a name="3272"
+      > </a
+      ><a name="3273" href="FOTC.Program.GCD.Total.DivisibleATP.html#3211" class="Bound"
+      >Nm</a
+      ><a name="3275"
+      > </a
+      ><a name="3276" href="FOTC.Program.GCD.Total.DivisibleATP.html#3214" class="Bound"
+      >Nn</a
+      ><a name="3278"
+      > </a
+      ><a name="3279" href="FOTC.Program.GCD.Total.DivisibleATP.html#3217" class="Bound"
+      >acc</a
+      ><a name="3282"
+      > </a
+      ><a name="3283" href="FOTC.Program.GCD.Total.DivisibleATP.html#3221" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="3288"
+      > </a
+      ><a name="3289" href="FOTC.Program.GCD.Total.DivisibleATP.html#3227" class="Bound"
+      >c</a
+      ><a name="3290"
+      > </a
+      ><a name="3291" href="FOTC.Program.GCD.Total.DivisibleATP.html#3229" class="Bound"
+      >Nc</a
+      ><a name="3293"
+      > </a
+      ><a name="3294" class="Symbol"
+      >(</a
+      ><a name="3295" href="FOTC.Program.GCD.Total.DivisibleATP.html#3233" class="Bound"
+      >c&#8739;Sm</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3301"
+      > </a
+      ><a name="3302" href="FOTC.Program.GCD.Total.DivisibleATP.html#3240" class="Bound"
+      >c&#8739;Sn</a
+      ><a name="3306" class="Symbol"
+      >)</a
+      ><a name="3307"
+      >
+                         </a
+      ><a name="3333" class="Symbol"
+      >(</a
+      ><a name="3334" href="FOTC.Data.Nat.Divisibility.By0.PropertiesATP.html#1320" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="3347"
+      > </a
+      ><a name="3348" href="FOTC.Program.GCD.Total.DivisibleATP.html#3229" class="Bound"
+      >Nc</a
+      ><a name="3350"
+      > </a
+      ><a name="3351" class="Symbol"
+      >(</a
+      ><a name="3352" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3357"
+      > </a
+      ><a name="3358" href="FOTC.Program.GCD.Total.DivisibleATP.html#3214" class="Bound"
+      >Nn</a
+      ><a name="3360" class="Symbol"
+      >)</a
+      ><a name="3361"
+      > </a
+      ><a name="3362" class="Symbol"
+      >(</a
+      ><a name="3363" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3368"
+      > </a
+      ><a name="3369" href="FOTC.Program.GCD.Total.DivisibleATP.html#3211" class="Bound"
+      >Nm</a
+      ><a name="3371" class="Symbol"
+      >)</a
+      ><a name="3372"
+      > </a
+      ><a name="3373" href="FOTC.Program.GCD.Total.DivisibleATP.html#3240" class="Bound"
+      >c&#8739;Sn</a
+      ><a name="3377"
+      > </a
+      ><a name="3378" href="FOTC.Program.GCD.Total.DivisibleATP.html#3233" class="Bound"
+      >c&#8739;Sm</a
+      ><a name="3382" class="Symbol"
+      >)</a
+      ><a name="3383"
+      >
+
+</a
+      ><a name="3385" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3463"
+      >
+</a
+      ><a name="3464" class="Comment"
+      >-- The gcd m n when m &gt; n is Divisible.</a
+      ><a name="3503"
+      >
+</a
+      ><a name="3504" href="FOTC.Program.GCD.Total.DivisibleATP.html#3504" class="Function"
+      >gcd-x&gt;y-Divisible</a
+      ><a name="3521"
+      > </a
+      ><a name="3522" class="Symbol"
+      >:</a
+      ><a name="3523"
+      >
+  </a
+      ><a name="3526" class="Symbol"
+      >&#8704;</a
+      ><a name="3527"
+      > </a
+      ><a name="3528" class="Symbol"
+      >{</a
+      ><a name="3529" href="FOTC.Program.GCD.Total.DivisibleATP.html#3529" class="Bound"
+      >m</a
+      ><a name="3530"
+      > </a
+      ><a name="3531" href="FOTC.Program.GCD.Total.DivisibleATP.html#3531" class="Bound"
+      >n</a
+      ><a name="3532" class="Symbol"
+      >}</a
+      ><a name="3533"
+      > </a
+      ><a name="3534" class="Symbol"
+      >&#8594;</a
+      ><a name="3535"
+      > </a
+      ><a name="3536" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3537"
+      > </a
+      ><a name="3538" href="FOTC.Program.GCD.Total.DivisibleATP.html#3529" class="Bound"
+      >m</a
+      ><a name="3539"
+      > </a
+      ><a name="3540" class="Symbol"
+      >&#8594;</a
+      ><a name="3541"
+      > </a
+      ><a name="3542" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3543"
+      > </a
+      ><a name="3544" href="FOTC.Program.GCD.Total.DivisibleATP.html#3531" class="Bound"
+      >n</a
+      ><a name="3545"
+      > </a
+      ><a name="3546" class="Symbol"
+      >&#8594;</a
+      ><a name="3547"
+      >
+  </a
+      ><a name="3550" class="Symbol"
+      >(&#8704;</a
+      ><a name="3552"
+      > </a
+      ><a name="3553" class="Symbol"
+      >{</a
+      ><a name="3554" href="FOTC.Program.GCD.Total.DivisibleATP.html#3554" class="Bound"
+      >o</a
+      ><a name="3555"
+      > </a
+      ><a name="3556" href="FOTC.Program.GCD.Total.DivisibleATP.html#3556" class="Bound"
+      >p</a
+      ><a name="3557" class="Symbol"
+      >}</a
+      ><a name="3558"
+      > </a
+      ><a name="3559" class="Symbol"
+      >&#8594;</a
+      ><a name="3560"
+      > </a
+      ><a name="3561" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3562"
+      > </a
+      ><a name="3563" href="FOTC.Program.GCD.Total.DivisibleATP.html#3554" class="Bound"
+      >o</a
+      ><a name="3564"
+      > </a
+      ><a name="3565" class="Symbol"
+      >&#8594;</a
+      ><a name="3566"
+      > </a
+      ><a name="3567" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="3568"
+      > </a
+      ><a name="3569" href="FOTC.Program.GCD.Total.DivisibleATP.html#3556" class="Bound"
+      >p</a
+      ><a name="3570"
+      > </a
+      ><a name="3571" class="Symbol"
+      >&#8594;</a
+      ><a name="3572"
+      > </a
+      ><a name="3573" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="3577"
+      > </a
+      ><a name="3578" href="FOTC.Program.GCD.Total.DivisibleATP.html#3554" class="Bound"
+      >o</a
+      ><a name="3579"
+      > </a
+      ><a name="3580" href="FOTC.Program.GCD.Total.DivisibleATP.html#3556" class="Bound"
+      >p</a
+      ><a name="3581"
+      > </a
+      ><a name="3582" href="FOTC.Program.GCD.Total.DivisibleATP.html#3529" class="Bound"
+      >m</a
+      ><a name="3583"
+      > </a
+      ><a name="3584" href="FOTC.Program.GCD.Total.DivisibleATP.html#3531" class="Bound"
+      >n</a
+      ><a name="3585"
+      > </a
+      ><a name="3586" class="Symbol"
+      >&#8594;</a
+      ><a name="3587"
+      > </a
+      ><a name="3588" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="3597"
+      > </a
+      ><a name="3598" href="FOTC.Program.GCD.Total.DivisibleATP.html#3554" class="Bound"
+      >o</a
+      ><a name="3599"
+      > </a
+      ><a name="3600" href="FOTC.Program.GCD.Total.DivisibleATP.html#3556" class="Bound"
+      >p</a
+      ><a name="3601"
+      > </a
+      ><a name="3602" class="Symbol"
+      >(</a
+      ><a name="3603" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="3606"
+      > </a
+      ><a name="3607" href="FOTC.Program.GCD.Total.DivisibleATP.html#3554" class="Bound"
+      >o</a
+      ><a name="3608"
+      > </a
+      ><a name="3609" href="FOTC.Program.GCD.Total.DivisibleATP.html#3556" class="Bound"
+      >p</a
+      ><a name="3610" class="Symbol"
+      >))</a
+      ><a name="3612"
+      > </a
+      ><a name="3613" class="Symbol"
+      >&#8594;</a
+      ><a name="3614"
+      >
+  </a
+      ><a name="3617" href="FOTC.Program.GCD.Total.DivisibleATP.html#3529" class="Bound"
+      >m</a
+      ><a name="3618"
+      > </a
+      ><a name="3619" href="FOTC.Data.Nat.Inequalities.html#1265" class="Function Operator"
+      >&gt;</a
+      ><a name="3620"
+      > </a
+      ><a name="3621" href="FOTC.Program.GCD.Total.DivisibleATP.html#3531" class="Bound"
+      >n</a
+      ><a name="3622"
+      > </a
+      ><a name="3623" class="Symbol"
+      >&#8594;</a
+      ><a name="3624"
+      >
+  </a
+      ><a name="3627" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="3636"
+      > </a
+      ><a name="3637" href="FOTC.Program.GCD.Total.DivisibleATP.html#3529" class="Bound"
+      >m</a
+      ><a name="3638"
+      > </a
+      ><a name="3639" href="FOTC.Program.GCD.Total.DivisibleATP.html#3531" class="Bound"
+      >n</a
+      ><a name="3640"
+      > </a
+      ><a name="3641" class="Symbol"
+      >(</a
+      ><a name="3642" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="3645"
+      > </a
+      ><a name="3646" href="FOTC.Program.GCD.Total.DivisibleATP.html#3529" class="Bound"
+      >m</a
+      ><a name="3647"
+      > </a
+      ><a name="3648" href="FOTC.Program.GCD.Total.DivisibleATP.html#3531" class="Bound"
+      >n</a
+      ><a name="3649" class="Symbol"
+      >)</a
+      ><a name="3650"
+      >
+</a
+      ><a name="3651" href="FOTC.Program.GCD.Total.DivisibleATP.html#3504" class="Function"
+      >gcd-x&gt;y-Divisible</a
+      ><a name="3668"
+      > </a
+      ><a name="3669" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3674"
+      > </a
+      ><a name="3675" href="FOTC.Program.GCD.Total.DivisibleATP.html#3675" class="Bound"
+      >Nn</a
+      ><a name="3677"
+      > </a
+      ><a name="3678" class="Symbol"
+      >_</a
+      ><a name="3679"
+      > </a
+      ><a name="3680" href="FOTC.Program.GCD.Total.DivisibleATP.html#3680" class="Bound"
+      >0&gt;n</a
+      ><a name="3683"
+      > </a
+      ><a name="3684" class="Symbol"
+      >_</a
+      ><a name="3685"
+      > </a
+      ><a name="3686" class="Symbol"
+      >_</a
+      ><a name="3687"
+      > </a
+      ><a name="3688" class="Symbol"
+      >=</a
+      ><a name="3689"
+      > </a
+      ><a name="3690" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3696"
+      > </a
+      ><a name="3697" class="Symbol"
+      >(</a
+      ><a name="3698" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1119" class="Function"
+      >0&gt;x&#8594;&#8869;</a
+      ><a name="3703"
+      > </a
+      ><a name="3704" href="FOTC.Program.GCD.Total.DivisibleATP.html#3675" class="Bound"
+      >Nn</a
+      ><a name="3706"
+      > </a
+      ><a name="3707" href="FOTC.Program.GCD.Total.DivisibleATP.html#3680" class="Bound"
+      >0&gt;n</a
+      ><a name="3710" class="Symbol"
+      >)</a
+      ><a name="3711"
+      >
+</a
+      ><a name="3712" href="FOTC.Program.GCD.Total.DivisibleATP.html#3504" class="Function"
+      >gcd-x&gt;y-Divisible</a
+      ><a name="3729"
+      > </a
+      ><a name="3730" class="Symbol"
+      >(</a
+      ><a name="3731" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3736"
+      > </a
+      ><a name="3737" href="FOTC.Program.GCD.Total.DivisibleATP.html#3737" class="Bound"
+      >Nm</a
+      ><a name="3739" class="Symbol"
+      >)</a
+      ><a name="3740"
+      > </a
+      ><a name="3741" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3746"
+      > </a
+      ><a name="3747" class="Symbol"
+      >_</a
+      ><a name="3748"
+      > </a
+      ><a name="3749" class="Symbol"
+      >_</a
+      ><a name="3750"
+      > </a
+      ><a name="3751" href="FOTC.Program.GCD.Total.DivisibleATP.html#3751" class="Bound"
+      >c</a
+      ><a name="3752"
+      > </a
+      ><a name="3753" href="FOTC.Program.GCD.Total.DivisibleATP.html#3753" class="Bound"
+      >Nc</a
+      ><a name="3755"
+      > </a
+      ><a name="3756" class="Symbol"
+      >=</a
+      ><a name="3757"
+      > </a
+      ><a name="3758" href="FOTC.Program.GCD.Total.DivisibleATP.html#1304" class="Postulate"
+      >gcd-S0-Divisible</a
+      ><a name="3774"
+      > </a
+      ><a name="3775" href="FOTC.Program.GCD.Total.DivisibleATP.html#3737" class="Bound"
+      >Nm</a
+      ><a name="3777"
+      > </a
+      ><a name="3778" href="FOTC.Program.GCD.Total.DivisibleATP.html#3751" class="Bound"
+      >c</a
+      ><a name="3779"
+      > </a
+      ><a name="3780" href="FOTC.Program.GCD.Total.DivisibleATP.html#3753" class="Bound"
+      >Nc</a
+      ><a name="3782"
+      >
+</a
+      ><a name="3783" href="FOTC.Program.GCD.Total.DivisibleATP.html#3504" class="Function"
+      >gcd-x&gt;y-Divisible</a
+      ><a name="3800"
+      > </a
+      ><a name="3801" class="Symbol"
+      >(</a
+      ><a name="3802" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3807"
+      > </a
+      ><a name="3808" class="Symbol"
+      >{</a
+      ><a name="3809" href="FOTC.Program.GCD.Total.DivisibleATP.html#3809" class="Bound"
+      >m</a
+      ><a name="3810" class="Symbol"
+      >}</a
+      ><a name="3811"
+      > </a
+      ><a name="3812" href="FOTC.Program.GCD.Total.DivisibleATP.html#3812" class="Bound"
+      >Nm</a
+      ><a name="3814" class="Symbol"
+      >)</a
+      ><a name="3815"
+      > </a
+      ><a name="3816" class="Symbol"
+      >(</a
+      ><a name="3817" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3822"
+      > </a
+      ><a name="3823" class="Symbol"
+      >{</a
+      ><a name="3824" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="3825" class="Symbol"
+      >}</a
+      ><a name="3826"
+      > </a
+      ><a name="3827" href="FOTC.Program.GCD.Total.DivisibleATP.html#3827" class="Bound"
+      >Nn</a
+      ><a name="3829" class="Symbol"
+      >)</a
+      ><a name="3830"
+      > </a
+      ><a name="3831" href="FOTC.Program.GCD.Total.DivisibleATP.html#3831" class="Bound"
+      >ah</a
+      ><a name="3833"
+      > </a
+      ><a name="3834" href="FOTC.Program.GCD.Total.DivisibleATP.html#3834" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3839"
+      > </a
+      ><a name="3840" href="FOTC.Program.GCD.Total.DivisibleATP.html#3840" class="Bound"
+      >c</a
+      ><a name="3841"
+      > </a
+      ><a name="3842" href="FOTC.Program.GCD.Total.DivisibleATP.html#3842" class="Bound"
+      >Nc</a
+      ><a name="3844"
+      > </a
+      ><a name="3845" class="Symbol"
+      >=</a
+      ><a name="3846"
+      >
+  </a
+      ><a name="3849" href="FOTC.Program.GCD.Total.DivisibleATP.html#1996" class="Function"
+      >gcd-S&gt;S-Divisible</a
+      ><a name="3866"
+      > </a
+      ><a name="3867" href="FOTC.Program.GCD.Total.DivisibleATP.html#3812" class="Bound"
+      >Nm</a
+      ><a name="3869"
+      > </a
+      ><a name="3870" href="FOTC.Program.GCD.Total.DivisibleATP.html#3827" class="Bound"
+      >Nn</a
+      ><a name="3872"
+      > </a
+      ><a name="3873" href="FOTC.Program.GCD.Total.DivisibleATP.html#3924" class="Function"
+      >ih</a
+      ><a name="3875"
+      > </a
+      ><a name="3876" href="FOTC.Program.GCD.Total.DivisibleATP.html#3834" class="Bound"
+      >Sm&gt;Sn</a
+      ><a name="3881"
+      > </a
+      ><a name="3882" href="FOTC.Program.GCD.Total.DivisibleATP.html#3840" class="Bound"
+      >c</a
+      ><a name="3883"
+      > </a
+      ><a name="3884" href="FOTC.Program.GCD.Total.DivisibleATP.html#3842" class="Bound"
+      >Nc</a
+      ><a name="3886"
+      >
+  </a
+      ><a name="3889" class="Keyword"
+      >where</a
+      ><a name="3894"
+      >
+  </a
+      ><a name="3897" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="3921"
+      >
+  </a
+      ><a name="3924" href="FOTC.Program.GCD.Total.DivisibleATP.html#3924" class="Function"
+      >ih</a
+      ><a name="3926"
+      > </a
+      ><a name="3927" class="Symbol"
+      >:</a
+      ><a name="3928"
+      > </a
+      ><a name="3929" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="3938"
+      > </a
+      ><a name="3939" class="Symbol"
+      >(</a
+      ><a name="3940" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3945"
+      > </a
+      ><a name="3946" href="FOTC.Program.GCD.Total.DivisibleATP.html#3809" class="Bound"
+      >m</a
+      ><a name="3947"
+      > </a
+      ><a name="3948" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3949"
+      > </a
+      ><a name="3950" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3955"
+      > </a
+      ><a name="3956" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="3957" class="Symbol"
+      >)</a
+      ><a name="3958"
+      > </a
+      ><a name="3959" class="Symbol"
+      >(</a
+      ><a name="3960" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3965"
+      > </a
+      ><a name="3966" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="3967" class="Symbol"
+      >)</a
+      ><a name="3968"
+      > </a
+      ><a name="3969" class="Symbol"
+      >(</a
+      ><a name="3970" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="3973"
+      > </a
+      ><a name="3974" class="Symbol"
+      >(</a
+      ><a name="3975" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3980"
+      > </a
+      ><a name="3981" href="FOTC.Program.GCD.Total.DivisibleATP.html#3809" class="Bound"
+      >m</a
+      ><a name="3982"
+      > </a
+      ><a name="3983" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="3984"
+      > </a
+      ><a name="3985" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3990"
+      > </a
+      ><a name="3991" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="3992" class="Symbol"
+      >)</a
+      ><a name="3993"
+      > </a
+      ><a name="3994" class="Symbol"
+      >(</a
+      ><a name="3995" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4000"
+      > </a
+      ><a name="4001" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="4002" class="Symbol"
+      >))</a
+      ><a name="4004"
+      >
+  </a
+      ><a name="4007" href="FOTC.Program.GCD.Total.DivisibleATP.html#3924" class="Function"
+      >ih</a
+      ><a name="4009"
+      > </a
+      ><a name="4010" class="Symbol"
+      >=</a
+      ><a name="4011"
+      > </a
+      ><a name="4012" href="FOTC.Program.GCD.Total.DivisibleATP.html#3831" class="Bound"
+      >ah</a
+      ><a name="4014"
+      > </a
+      ><a name="4015" class="Symbol"
+      >{</a
+      ><a name="4016" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4021"
+      > </a
+      ><a name="4022" href="FOTC.Program.GCD.Total.DivisibleATP.html#3809" class="Bound"
+      >m</a
+      ><a name="4023"
+      > </a
+      ><a name="4024" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4025"
+      > </a
+      ><a name="4026" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4031"
+      > </a
+      ><a name="4032" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="4033" class="Symbol"
+      >}</a
+      ><a name="4034"
+      >
+          </a
+      ><a name="4045" class="Symbol"
+      >{</a
+      ><a name="4046" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4051"
+      > </a
+      ><a name="4052" href="FOTC.Program.GCD.Total.DivisibleATP.html#3824" class="Bound"
+      >n</a
+      ><a name="4053" class="Symbol"
+      >}</a
+      ><a name="4054"
+      >
+          </a
+      ><a name="4065" class="Symbol"
+      >(</a
+      ><a name="4066" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="4069"
+      > </a
+      ><a name="4070" class="Symbol"
+      >(</a
+      ><a name="4071" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4076"
+      > </a
+      ><a name="4077" href="FOTC.Program.GCD.Total.DivisibleATP.html#3812" class="Bound"
+      >Nm</a
+      ><a name="4079" class="Symbol"
+      >)</a
+      ><a name="4080"
+      > </a
+      ><a name="4081" class="Symbol"
+      >(</a
+      ><a name="4082" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4087"
+      > </a
+      ><a name="4088" href="FOTC.Program.GCD.Total.DivisibleATP.html#3827" class="Bound"
+      >Nn</a
+      ><a name="4090" class="Symbol"
+      >))</a
+      ><a name="4092"
+      >
+          </a
+      ><a name="4103" class="Symbol"
+      >(</a
+      ><a name="4104" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4109"
+      > </a
+      ><a name="4110" href="FOTC.Program.GCD.Total.DivisibleATP.html#3827" class="Bound"
+      >Nn</a
+      ><a name="4112" class="Symbol"
+      >)</a
+      ><a name="4113"
+      >
+          </a
+      ><a name="4124" class="Symbol"
+      >(</a
+      ><a name="4125" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#22349" class="Function"
+      >[Sx&#8760;Sy,Sy]&lt;[Sx,Sy]</a
+      ><a name="4143"
+      > </a
+      ><a name="4144" href="FOTC.Program.GCD.Total.DivisibleATP.html#3812" class="Bound"
+      >Nm</a
+      ><a name="4146"
+      > </a
+      ><a name="4147" href="FOTC.Program.GCD.Total.DivisibleATP.html#3827" class="Bound"
+      >Nn</a
+      ><a name="4149" class="Symbol"
+      >)</a
+      ><a name="4150"
+      >
+
+</a
+      ><a name="4152" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="4230"
+      >
+</a
+      ><a name="4231" class="Comment"
+      >-- The gcd m n when m &#8815; n is Divisible.</a
+      ><a name="4270"
+      >
+</a
+      ><a name="4271" href="FOTC.Program.GCD.Total.DivisibleATP.html#4271" class="Function"
+      >gcd-x&#8815;y-Divisible</a
+      ><a name="4288"
+      > </a
+      ><a name="4289" class="Symbol"
+      >:</a
+      ><a name="4290"
+      >
+  </a
+      ><a name="4293" class="Symbol"
+      >&#8704;</a
+      ><a name="4294"
+      > </a
+      ><a name="4295" class="Symbol"
+      >{</a
+      ><a name="4296" href="FOTC.Program.GCD.Total.DivisibleATP.html#4296" class="Bound"
+      >m</a
+      ><a name="4297"
+      > </a
+      ><a name="4298" href="FOTC.Program.GCD.Total.DivisibleATP.html#4298" class="Bound"
+      >n</a
+      ><a name="4299" class="Symbol"
+      >}</a
+      ><a name="4300"
+      > </a
+      ><a name="4301" class="Symbol"
+      >&#8594;</a
+      ><a name="4302"
+      > </a
+      ><a name="4303" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4304"
+      > </a
+      ><a name="4305" href="FOTC.Program.GCD.Total.DivisibleATP.html#4296" class="Bound"
+      >m</a
+      ><a name="4306"
+      > </a
+      ><a name="4307" class="Symbol"
+      >&#8594;</a
+      ><a name="4308"
+      > </a
+      ><a name="4309" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4310"
+      > </a
+      ><a name="4311" href="FOTC.Program.GCD.Total.DivisibleATP.html#4298" class="Bound"
+      >n</a
+      ><a name="4312"
+      > </a
+      ><a name="4313" class="Symbol"
+      >&#8594;</a
+      ><a name="4314"
+      >
+  </a
+      ><a name="4317" class="Symbol"
+      >(&#8704;</a
+      ><a name="4319"
+      > </a
+      ><a name="4320" class="Symbol"
+      >{</a
+      ><a name="4321" href="FOTC.Program.GCD.Total.DivisibleATP.html#4321" class="Bound"
+      >o</a
+      ><a name="4322"
+      > </a
+      ><a name="4323" href="FOTC.Program.GCD.Total.DivisibleATP.html#4323" class="Bound"
+      >p</a
+      ><a name="4324" class="Symbol"
+      >}</a
+      ><a name="4325"
+      > </a
+      ><a name="4326" class="Symbol"
+      >&#8594;</a
+      ><a name="4327"
+      > </a
+      ><a name="4328" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4329"
+      > </a
+      ><a name="4330" href="FOTC.Program.GCD.Total.DivisibleATP.html#4321" class="Bound"
+      >o</a
+      ><a name="4331"
+      > </a
+      ><a name="4332" class="Symbol"
+      >&#8594;</a
+      ><a name="4333"
+      > </a
+      ><a name="4334" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="4335"
+      > </a
+      ><a name="4336" href="FOTC.Program.GCD.Total.DivisibleATP.html#4323" class="Bound"
+      >p</a
+      ><a name="4337"
+      > </a
+      ><a name="4338" class="Symbol"
+      >&#8594;</a
+      ><a name="4339"
+      > </a
+      ><a name="4340" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="4344"
+      > </a
+      ><a name="4345" href="FOTC.Program.GCD.Total.DivisibleATP.html#4321" class="Bound"
+      >o</a
+      ><a name="4346"
+      > </a
+      ><a name="4347" href="FOTC.Program.GCD.Total.DivisibleATP.html#4323" class="Bound"
+      >p</a
+      ><a name="4348"
+      > </a
+      ><a name="4349" href="FOTC.Program.GCD.Total.DivisibleATP.html#4296" class="Bound"
+      >m</a
+      ><a name="4350"
+      > </a
+      ><a name="4351" href="FOTC.Program.GCD.Total.DivisibleATP.html#4298" class="Bound"
+      >n</a
+      ><a name="4352"
+      > </a
+      ><a name="4353" class="Symbol"
+      >&#8594;</a
+      ><a name="4354"
+      > </a
+      ><a name="4355" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="4364"
+      > </a
+      ><a name="4365" href="FOTC.Program.GCD.Total.DivisibleATP.html#4321" class="Bound"
+      >o</a
+      ><a name="4366"
+      > </a
+      ><a name="4367" href="FOTC.Program.GCD.Total.DivisibleATP.html#4323" class="Bound"
+      >p</a
+      ><a name="4368"
+      > </a
+      ><a name="4369" class="Symbol"
+      >(</a
+      ><a name="4370" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="4373"
+      > </a
+      ><a name="4374" href="FOTC.Program.GCD.Total.DivisibleATP.html#4321" class="Bound"
+      >o</a
+      ><a name="4375"
+      > </a
+      ><a name="4376" href="FOTC.Program.GCD.Total.DivisibleATP.html#4323" class="Bound"
+      >p</a
+      ><a name="4377" class="Symbol"
+      >))</a
+      ><a name="4379"
+      > </a
+      ><a name="4380" class="Symbol"
+      >&#8594;</a
+      ><a name="4381"
+      >
+  </a
+      ><a name="4384" href="FOTC.Program.GCD.Total.DivisibleATP.html#4296" class="Bound"
+      >m</a
+      ><a name="4385"
+      > </a
+      ><a name="4386" href="FOTC.Data.Nat.Inequalities.html#1333" class="Function Operator"
+      >&#8815;</a
+      ><a name="4387"
+      > </a
+      ><a name="4388" href="FOTC.Program.GCD.Total.DivisibleATP.html#4298" class="Bound"
+      >n</a
+      ><a name="4389"
+      > </a
+      ><a name="4390" class="Symbol"
+      >&#8594;</a
+      ><a name="4391"
+      >
+  </a
+      ><a name="4394" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="4403"
+      > </a
+      ><a name="4404" href="FOTC.Program.GCD.Total.DivisibleATP.html#4296" class="Bound"
+      >m</a
+      ><a name="4405"
+      > </a
+      ><a name="4406" href="FOTC.Program.GCD.Total.DivisibleATP.html#4298" class="Bound"
+      >n</a
+      ><a name="4407"
+      > </a
+      ><a name="4408" class="Symbol"
+      >(</a
+      ><a name="4409" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="4412"
+      > </a
+      ><a name="4413" href="FOTC.Program.GCD.Total.DivisibleATP.html#4296" class="Bound"
+      >m</a
+      ><a name="4414"
+      > </a
+      ><a name="4415" href="FOTC.Program.GCD.Total.DivisibleATP.html#4298" class="Bound"
+      >n</a
+      ><a name="4416" class="Symbol"
+      >)</a
+      ><a name="4417"
+      >
+</a
+      ><a name="4418" href="FOTC.Program.GCD.Total.DivisibleATP.html#4271" class="Function"
+      >gcd-x&#8815;y-Divisible</a
+      ><a name="4435"
+      > </a
+      ><a name="4436" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="4441"
+      > </a
+      ><a name="4442" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="4447"
+      > </a
+      ><a name="4448" class="Symbol"
+      >_</a
+      ><a name="4449"
+      > </a
+      ><a name="4450" class="Symbol"
+      >_</a
+      ><a name="4451"
+      > </a
+      ><a name="4452" href="FOTC.Program.GCD.Total.DivisibleATP.html#4452" class="Bound"
+      >c</a
+      ><a name="4453"
+      > </a
+      ><a name="4454" href="FOTC.Program.GCD.Total.DivisibleATP.html#4454" class="Bound"
+      >Nc</a
+      ><a name="4456"
+      > </a
+      ><a name="4457" class="Symbol"
+      >=</a
+      ><a name="4458"
+      > </a
+      ><a name="4459" href="FOTC.Program.GCD.Total.DivisibleATP.html#1038" class="Postulate"
+      >gcd-00-Divisible</a
+      ><a name="4475"
+      > </a
+      ><a name="4476" href="FOTC.Program.GCD.Total.DivisibleATP.html#4452" class="Bound"
+      >c</a
+      ><a name="4477"
+      > </a
+      ><a name="4478" href="FOTC.Program.GCD.Total.DivisibleATP.html#4454" class="Bound"
+      >Nc</a
+      ><a name="4480"
+      >
+</a
+      ><a name="4481" href="FOTC.Program.GCD.Total.DivisibleATP.html#4271" class="Function"
+      >gcd-x&#8815;y-Divisible</a
+      ><a name="4498"
+      > </a
+      ><a name="4499" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="4504"
+      > </a
+      ><a name="4505" class="Symbol"
+      >(</a
+      ><a name="4506" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4511"
+      > </a
+      ><a name="4512" href="FOTC.Program.GCD.Total.DivisibleATP.html#4512" class="Bound"
+      >Nn</a
+      ><a name="4514" class="Symbol"
+      >)</a
+      ><a name="4515"
+      > </a
+      ><a name="4516" class="Symbol"
+      >_</a
+      ><a name="4517"
+      > </a
+      ><a name="4518" class="Symbol"
+      >_</a
+      ><a name="4519"
+      > </a
+      ><a name="4520" href="FOTC.Program.GCD.Total.DivisibleATP.html#4520" class="Bound"
+      >c</a
+      ><a name="4521"
+      > </a
+      ><a name="4522" href="FOTC.Program.GCD.Total.DivisibleATP.html#4522" class="Bound"
+      >Nc</a
+      ><a name="4524"
+      > </a
+      ><a name="4525" class="Symbol"
+      >=</a
+      ><a name="4526"
+      > </a
+      ><a name="4527" href="FOTC.Program.GCD.Total.DivisibleATP.html#1177" class="Postulate"
+      >gcd-0S-Divisible</a
+      ><a name="4543"
+      > </a
+      ><a name="4544" href="FOTC.Program.GCD.Total.DivisibleATP.html#4512" class="Bound"
+      >Nn</a
+      ><a name="4546"
+      > </a
+      ><a name="4547" href="FOTC.Program.GCD.Total.DivisibleATP.html#4520" class="Bound"
+      >c</a
+      ><a name="4548"
+      > </a
+      ><a name="4549" href="FOTC.Program.GCD.Total.DivisibleATP.html#4522" class="Bound"
+      >Nc</a
+      ><a name="4551"
+      >
+</a
+      ><a name="4552" href="FOTC.Program.GCD.Total.DivisibleATP.html#4271" class="Function"
+      >gcd-x&#8815;y-Divisible</a
+      ><a name="4569"
+      > </a
+      ><a name="4570" class="Symbol"
+      >(</a
+      ><a name="4571" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4576"
+      > </a
+      ><a name="4577" class="Symbol"
+      >_)</a
+      ><a name="4579"
+      > </a
+      ><a name="4580" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="4585"
+      > </a
+      ><a name="4586" class="Symbol"
+      >_</a
+      ><a name="4587"
+      > </a
+      ><a name="4588" href="FOTC.Program.GCD.Total.DivisibleATP.html#4588" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="4592"
+      > </a
+      ><a name="4593" class="Symbol"
+      >_</a
+      ><a name="4594"
+      > </a
+      ><a name="4595" class="Symbol"
+      >_</a
+      ><a name="4596"
+      > </a
+      ><a name="4597" class="Symbol"
+      >=</a
+      ><a name="4598"
+      > </a
+      ><a name="4599" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="4605"
+      > </a
+      ><a name="4606" class="Symbol"
+      >(</a
+      ><a name="4607" href="FOTC.Data.Nat.Inequalities.EliminationPropertiesATP.html#1646" class="Postulate"
+      >S&#8815;0&#8594;&#8869;</a
+      ><a name="4612"
+      > </a
+      ><a name="4613" href="FOTC.Program.GCD.Total.DivisibleATP.html#4588" class="Bound"
+      >Sm&#8815;0</a
+      ><a name="4617" class="Symbol"
+      >)</a
+      ><a name="4618"
+      >
+</a
+      ><a name="4619" href="FOTC.Program.GCD.Total.DivisibleATP.html#4271" class="Function"
+      >gcd-x&#8815;y-Divisible</a
+      ><a name="4636"
+      > </a
+      ><a name="4637" class="Symbol"
+      >(</a
+      ><a name="4638" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4643"
+      > </a
+      ><a name="4644" class="Symbol"
+      >{</a
+      ><a name="4645" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4646" class="Symbol"
+      >}</a
+      ><a name="4647"
+      > </a
+      ><a name="4648" href="FOTC.Program.GCD.Total.DivisibleATP.html#4648" class="Bound"
+      >Nm</a
+      ><a name="4650" class="Symbol"
+      >)</a
+      ><a name="4651"
+      > </a
+      ><a name="4652" class="Symbol"
+      >(</a
+      ><a name="4653" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4658"
+      > </a
+      ><a name="4659" class="Symbol"
+      >{</a
+      ><a name="4660" href="FOTC.Program.GCD.Total.DivisibleATP.html#4660" class="Bound"
+      >n</a
+      ><a name="4661" class="Symbol"
+      >}</a
+      ><a name="4662"
+      > </a
+      ><a name="4663" href="FOTC.Program.GCD.Total.DivisibleATP.html#4663" class="Bound"
+      >Nn</a
+      ><a name="4665" class="Symbol"
+      >)</a
+      ><a name="4666"
+      > </a
+      ><a name="4667" href="FOTC.Program.GCD.Total.DivisibleATP.html#4667" class="Bound"
+      >ah</a
+      ><a name="4669"
+      > </a
+      ><a name="4670" href="FOTC.Program.GCD.Total.DivisibleATP.html#4670" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="4675"
+      > </a
+      ><a name="4676" href="FOTC.Program.GCD.Total.DivisibleATP.html#4676" class="Bound"
+      >c</a
+      ><a name="4677"
+      > </a
+      ><a name="4678" href="FOTC.Program.GCD.Total.DivisibleATP.html#4678" class="Bound"
+      >Nc</a
+      ><a name="4680"
+      > </a
+      ><a name="4681" class="Symbol"
+      >=</a
+      ><a name="4682"
+      >
+  </a
+      ><a name="4685" href="FOTC.Program.GCD.Total.DivisibleATP.html#2979" class="Function"
+      >gcd-S&#8815;S-Divisible</a
+      ><a name="4702"
+      > </a
+      ><a name="4703" href="FOTC.Program.GCD.Total.DivisibleATP.html#4648" class="Bound"
+      >Nm</a
+      ><a name="4705"
+      > </a
+      ><a name="4706" href="FOTC.Program.GCD.Total.DivisibleATP.html#4663" class="Bound"
+      >Nn</a
+      ><a name="4708"
+      > </a
+      ><a name="4709" href="FOTC.Program.GCD.Total.DivisibleATP.html#4760" class="Function"
+      >ih</a
+      ><a name="4711"
+      > </a
+      ><a name="4712" href="FOTC.Program.GCD.Total.DivisibleATP.html#4670" class="Bound"
+      >Sm&#8815;Sn</a
+      ><a name="4717"
+      > </a
+      ><a name="4718" href="FOTC.Program.GCD.Total.DivisibleATP.html#4676" class="Bound"
+      >c</a
+      ><a name="4719"
+      > </a
+      ><a name="4720" href="FOTC.Program.GCD.Total.DivisibleATP.html#4678" class="Bound"
+      >Nc</a
+      ><a name="4722"
+      >
+  </a
+      ><a name="4725" class="Keyword"
+      >where</a
+      ><a name="4730"
+      >
+  </a
+      ><a name="4733" class="Comment"
+      >-- Inductive hypothesis.</a
+      ><a name="4757"
+      >
+  </a
+      ><a name="4760" href="FOTC.Program.GCD.Total.DivisibleATP.html#4760" class="Function"
+      >ih</a
+      ><a name="4762"
+      > </a
+      ><a name="4763" class="Symbol"
+      >:</a
+      ><a name="4764"
+      > </a
+      ><a name="4765" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="4774"
+      > </a
+      ><a name="4775" class="Symbol"
+      >(</a
+      ><a name="4776" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4781"
+      > </a
+      ><a name="4782" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4783" class="Symbol"
+      >)</a
+      ><a name="4784"
+      > </a
+      ><a name="4785" class="Symbol"
+      >(</a
+      ><a name="4786" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4791"
+      > </a
+      ><a name="4792" href="FOTC.Program.GCD.Total.DivisibleATP.html#4660" class="Bound"
+      >n</a
+      ><a name="4793"
+      > </a
+      ><a name="4794" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4795"
+      > </a
+      ><a name="4796" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4801"
+      > </a
+      ><a name="4802" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4803" class="Symbol"
+      >)</a
+      ><a name="4804"
+      > </a
+      ><a name="4805" class="Symbol"
+      >(</a
+      ><a name="4806" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="4809"
+      > </a
+      ><a name="4810" class="Symbol"
+      >(</a
+      ><a name="4811" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4816"
+      > </a
+      ><a name="4817" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4818" class="Symbol"
+      >)</a
+      ><a name="4819"
+      > </a
+      ><a name="4820" class="Symbol"
+      >(</a
+      ><a name="4821" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4826"
+      > </a
+      ><a name="4827" href="FOTC.Program.GCD.Total.DivisibleATP.html#4660" class="Bound"
+      >n</a
+      ><a name="4828"
+      > </a
+      ><a name="4829" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4830"
+      > </a
+      ><a name="4831" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4836"
+      > </a
+      ><a name="4837" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4838" class="Symbol"
+      >))</a
+      ><a name="4840"
+      >
+  </a
+      ><a name="4843" href="FOTC.Program.GCD.Total.DivisibleATP.html#4760" class="Function"
+      >ih</a
+      ><a name="4845"
+      > </a
+      ><a name="4846" class="Symbol"
+      >=</a
+      ><a name="4847"
+      > </a
+      ><a name="4848" href="FOTC.Program.GCD.Total.DivisibleATP.html#4667" class="Bound"
+      >ah</a
+      ><a name="4850"
+      > </a
+      ><a name="4851" class="Symbol"
+      >{</a
+      ><a name="4852" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4857"
+      > </a
+      ><a name="4858" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4859" class="Symbol"
+      >}</a
+      ><a name="4860"
+      >
+          </a
+      ><a name="4871" class="Symbol"
+      >{</a
+      ><a name="4872" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4877"
+      > </a
+      ><a name="4878" href="FOTC.Program.GCD.Total.DivisibleATP.html#4660" class="Bound"
+      >n</a
+      ><a name="4879"
+      > </a
+      ><a name="4880" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="4881"
+      > </a
+      ><a name="4882" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="4887"
+      > </a
+      ><a name="4888" href="FOTC.Program.GCD.Total.DivisibleATP.html#4645" class="Bound"
+      >m</a
+      ><a name="4889" class="Symbol"
+      >}</a
+      ><a name="4890"
+      >
+          </a
+      ><a name="4901" class="Symbol"
+      >(</a
+      ><a name="4902" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4907"
+      > </a
+      ><a name="4908" href="FOTC.Program.GCD.Total.DivisibleATP.html#4648" class="Bound"
+      >Nm</a
+      ><a name="4910" class="Symbol"
+      >)</a
+      ><a name="4911"
+      >
+          </a
+      ><a name="4922" class="Symbol"
+      >(</a
+      ><a name="4923" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="4926"
+      > </a
+      ><a name="4927" class="Symbol"
+      >(</a
+      ><a name="4928" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4933"
+      > </a
+      ><a name="4934" href="FOTC.Program.GCD.Total.DivisibleATP.html#4663" class="Bound"
+      >Nn</a
+      ><a name="4936" class="Symbol"
+      >)</a
+      ><a name="4937"
+      > </a
+      ><a name="4938" class="Symbol"
+      >(</a
+      ><a name="4939" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="4944"
+      > </a
+      ><a name="4945" href="FOTC.Program.GCD.Total.DivisibleATP.html#4648" class="Bound"
+      >Nm</a
+      ><a name="4947" class="Symbol"
+      >))</a
+      ><a name="4949"
+      >
+          </a
+      ><a name="4960" class="Symbol"
+      >(</a
+      ><a name="4961" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#22628" class="Function"
+      >[Sx,Sy&#8760;Sx]&lt;[Sx,Sy]</a
+      ><a name="4979"
+      > </a
+      ><a name="4980" href="FOTC.Program.GCD.Total.DivisibleATP.html#4648" class="Bound"
+      >Nm</a
+      ><a name="4982"
+      > </a
+      ><a name="4983" href="FOTC.Program.GCD.Total.DivisibleATP.html#4663" class="Bound"
+      >Nn</a
+      ><a name="4985" class="Symbol"
+      >)</a
+      ><a name="4986"
+      >
+
+</a
+      ><a name="4988" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="5066"
+      >
+</a
+      ><a name="5067" class="Comment"
+      >-- The gcd is Divisible.</a
+      ><a name="5091"
+      >
+</a
+      ><a name="5092" href="FOTC.Program.GCD.Total.DivisibleATP.html#5092" class="Function"
+      >gcdDivisible</a
+      ><a name="5104"
+      > </a
+      ><a name="5105" class="Symbol"
+      >:</a
+      ><a name="5106"
+      > </a
+      ><a name="5107" class="Symbol"
+      >&#8704;</a
+      ><a name="5108"
+      > </a
+      ><a name="5109" class="Symbol"
+      >{</a
+      ><a name="5110" href="FOTC.Program.GCD.Total.DivisibleATP.html#5110" class="Bound"
+      >m</a
+      ><a name="5111"
+      > </a
+      ><a name="5112" href="FOTC.Program.GCD.Total.DivisibleATP.html#5112" class="Bound"
+      >n</a
+      ><a name="5113" class="Symbol"
+      >}</a
+      ><a name="5114"
+      > </a
+      ><a name="5115" class="Symbol"
+      >&#8594;</a
+      ><a name="5116"
+      > </a
+      ><a name="5117" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5118"
+      > </a
+      ><a name="5119" href="FOTC.Program.GCD.Total.DivisibleATP.html#5110" class="Bound"
+      >m</a
+      ><a name="5120"
+      > </a
+      ><a name="5121" class="Symbol"
+      >&#8594;</a
+      ><a name="5122"
+      > </a
+      ><a name="5123" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5124"
+      > </a
+      ><a name="5125" href="FOTC.Program.GCD.Total.DivisibleATP.html#5112" class="Bound"
+      >n</a
+      ><a name="5126"
+      > </a
+      ><a name="5127" class="Symbol"
+      >&#8594;</a
+      ><a name="5128"
+      > </a
+      ><a name="5129" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="5138"
+      > </a
+      ><a name="5139" href="FOTC.Program.GCD.Total.DivisibleATP.html#5110" class="Bound"
+      >m</a
+      ><a name="5140"
+      > </a
+      ><a name="5141" href="FOTC.Program.GCD.Total.DivisibleATP.html#5112" class="Bound"
+      >n</a
+      ><a name="5142"
+      > </a
+      ><a name="5143" class="Symbol"
+      >(</a
+      ><a name="5144" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="5147"
+      > </a
+      ><a name="5148" href="FOTC.Program.GCD.Total.DivisibleATP.html#5110" class="Bound"
+      >m</a
+      ><a name="5149"
+      > </a
+      ><a name="5150" href="FOTC.Program.GCD.Total.DivisibleATP.html#5112" class="Bound"
+      >n</a
+      ><a name="5151" class="Symbol"
+      >)</a
+      ><a name="5152"
+      >
+</a
+      ><a name="5153" href="FOTC.Program.GCD.Total.DivisibleATP.html#5092" class="Function"
+      >gcdDivisible</a
+      ><a name="5165"
+      > </a
+      ><a name="5166" class="Symbol"
+      >=</a
+      ><a name="5167"
+      > </a
+      ><a name="5168" href="FOTC.Data.Nat.Induction.NonAcc.LexicographicATP.html#868" class="Function"
+      >Lexi-wfind</a
+      ><a name="5178"
+      > </a
+      ><a name="5179" href="FOTC.Program.GCD.Total.DivisibleATP.html#5193" class="Function"
+      >A</a
+      ><a name="5180"
+      > </a
+      ><a name="5181" href="FOTC.Program.GCD.Total.DivisibleATP.html#5246" class="Function"
+      >h</a
+      ><a name="5182"
+      >
+  </a
+      ><a name="5185" class="Keyword"
+      >where</a
+      ><a name="5190"
+      >
+  </a
+      ><a name="5193" href="FOTC.Program.GCD.Total.DivisibleATP.html#5193" class="Function"
+      >A</a
+      ><a name="5194"
+      > </a
+      ><a name="5195" class="Symbol"
+      >:</a
+      ><a name="5196"
+      > </a
+      ><a name="5197" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="5198"
+      > </a
+      ><a name="5199" class="Symbol"
+      >&#8594;</a
+      ><a name="5200"
+      > </a
+      ><a name="5201" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="5202"
+      > </a
+      ><a name="5203" class="Symbol"
+      >&#8594;</a
+      ><a name="5204"
+      > </a
+      ><a name="5205" class="PrimitiveType"
+      >Set</a
+      ><a name="5208"
+      >
+  </a
+      ><a name="5211" href="FOTC.Program.GCD.Total.DivisibleATP.html#5193" class="Function"
+      >A</a
+      ><a name="5212"
+      > </a
+      ><a name="5213" href="FOTC.Program.GCD.Total.DivisibleATP.html#5213" class="Bound"
+      >i</a
+      ><a name="5214"
+      > </a
+      ><a name="5215" href="FOTC.Program.GCD.Total.DivisibleATP.html#5215" class="Bound"
+      >j</a
+      ><a name="5216"
+      > </a
+      ><a name="5217" class="Symbol"
+      >=</a
+      ><a name="5218"
+      > </a
+      ><a name="5219" href="FOTC.Program.GCD.Total.Definitions.html#769" class="Function"
+      >Divisible</a
+      ><a name="5228"
+      > </a
+      ><a name="5229" href="FOTC.Program.GCD.Total.DivisibleATP.html#5213" class="Bound"
+      >i</a
+      ><a name="5230"
+      > </a
+      ><a name="5231" href="FOTC.Program.GCD.Total.DivisibleATP.html#5215" class="Bound"
+      >j</a
+      ><a name="5232"
+      > </a
+      ><a name="5233" class="Symbol"
+      >(</a
+      ><a name="5234" href="FOTC.Program.GCD.Total.GCD.html#696" class="Postulate"
+      >gcd</a
+      ><a name="5237"
+      > </a
+      ><a name="5238" href="FOTC.Program.GCD.Total.DivisibleATP.html#5213" class="Bound"
+      >i</a
+      ><a name="5239"
+      > </a
+      ><a name="5240" href="FOTC.Program.GCD.Total.DivisibleATP.html#5215" class="Bound"
+      >j</a
+      ><a name="5241" class="Symbol"
+      >)</a
+      ><a name="5242"
+      >
+
+  </a
+      ><a name="5246" href="FOTC.Program.GCD.Total.DivisibleATP.html#5246" class="Function"
+      >h</a
+      ><a name="5247"
+      > </a
+      ><a name="5248" class="Symbol"
+      >:</a
+      ><a name="5249"
+      > </a
+      ><a name="5250" class="Symbol"
+      >&#8704;</a
+      ><a name="5251"
+      > </a
+      ><a name="5252" class="Symbol"
+      >{</a
+      ><a name="5253" href="FOTC.Program.GCD.Total.DivisibleATP.html#5253" class="Bound"
+      >i</a
+      ><a name="5254"
+      > </a
+      ><a name="5255" href="FOTC.Program.GCD.Total.DivisibleATP.html#5255" class="Bound"
+      >j</a
+      ><a name="5256" class="Symbol"
+      >}</a
+      ><a name="5257"
+      > </a
+      ><a name="5258" class="Symbol"
+      >&#8594;</a
+      ><a name="5259"
+      > </a
+      ><a name="5260" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5261"
+      > </a
+      ><a name="5262" href="FOTC.Program.GCD.Total.DivisibleATP.html#5253" class="Bound"
+      >i</a
+      ><a name="5263"
+      > </a
+      ><a name="5264" class="Symbol"
+      >&#8594;</a
+      ><a name="5265"
+      > </a
+      ><a name="5266" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5267"
+      > </a
+      ><a name="5268" href="FOTC.Program.GCD.Total.DivisibleATP.html#5255" class="Bound"
+      >j</a
+      ><a name="5269"
+      > </a
+      ><a name="5270" class="Symbol"
+      >&#8594;</a
+      ><a name="5271"
+      > </a
+      ><a name="5272" class="Symbol"
+      >(&#8704;</a
+      ><a name="5274"
+      > </a
+      ><a name="5275" class="Symbol"
+      >{</a
+      ><a name="5276" href="FOTC.Program.GCD.Total.DivisibleATP.html#5276" class="Bound"
+      >k</a
+      ><a name="5277"
+      > </a
+      ><a name="5278" href="FOTC.Program.GCD.Total.DivisibleATP.html#5278" class="Bound"
+      >l</a
+      ><a name="5279" class="Symbol"
+      >}</a
+      ><a name="5280"
+      > </a
+      ><a name="5281" class="Symbol"
+      >&#8594;</a
+      ><a name="5282"
+      > </a
+      ><a name="5283" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5284"
+      > </a
+      ><a name="5285" href="FOTC.Program.GCD.Total.DivisibleATP.html#5276" class="Bound"
+      >k</a
+      ><a name="5286"
+      > </a
+      ><a name="5287" class="Symbol"
+      >&#8594;</a
+      ><a name="5288"
+      > </a
+      ><a name="5289" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="5290"
+      > </a
+      ><a name="5291" href="FOTC.Program.GCD.Total.DivisibleATP.html#5278" class="Bound"
+      >l</a
+      ><a name="5292"
+      > </a
+      ><a name="5293" class="Symbol"
+      >&#8594;</a
+      ><a name="5294"
+      > </a
+      ><a name="5295" href="FOTC.Data.Nat.Inequalities.html#1787" class="Function"
+      >Lexi</a
+      ><a name="5299"
+      > </a
+      ><a name="5300" href="FOTC.Program.GCD.Total.DivisibleATP.html#5276" class="Bound"
+      >k</a
+      ><a name="5301"
+      > </a
+      ><a name="5302" href="FOTC.Program.GCD.Total.DivisibleATP.html#5278" class="Bound"
+      >l</a
+      ><a name="5303"
+      > </a
+      ><a name="5304" href="FOTC.Program.GCD.Total.DivisibleATP.html#5253" class="Bound"
+      >i</a
+      ><a name="5305"
+      > </a
+      ><a name="5306" href="FOTC.Program.GCD.Total.DivisibleATP.html#5255" class="Bound"
+      >j</a
+      ><a name="5307"
+      > </a
+      ><a name="5308" class="Symbol"
+      >&#8594;</a
+      ><a name="5309"
+      > </a
+      ><a name="5310" href="FOTC.Program.GCD.Total.DivisibleATP.html#5193" class="Function"
+      >A</a
+      ><a name="5311"
+      > </a
+      ><a name="5312" href="FOTC.Program.GCD.Total.DivisibleATP.html#5276" class="Bound"
+      >k</a
+      ><a name="5313"
+      > </a
+      ><a name="5314" href="FOTC.Program.GCD.Total.DivisibleATP.html#5278" class="Bound"
+      >l</a
+      ><a name="5315" class="Symbol"
+      >)</a
+      ><a name="5316"
+      > </a
+      ><a name="5317" class="Symbol"
+      >&#8594;</a
+      ><a name="5318"
+      >
+      </a
+      ><a name="5325" href="FOTC.Program.GCD.Total.DivisibleATP.html#5193" class="Function"
+      >A</a
+      ><a name="5326"
+      > </a
+      ><a name="5327" href="FOTC.Program.GCD.Total.DivisibleATP.html#5253" class="Bound"
+      >i</a
+      ><a name="5328"
+      > </a
+      ><a name="5329" href="FOTC.Program.GCD.Total.DivisibleATP.html#5255" class="Bound"
+      >j</a
+      ><a name="5330"
+      >
+  </a
+      ><a name="5333" href="FOTC.Program.GCD.Total.DivisibleATP.html#5246" class="Function"
+      >h</a
+      ><a name="5334"
+      > </a
+      ><a name="5335" href="FOTC.Program.GCD.Total.DivisibleATP.html#5335" class="Bound"
+      >Ni</a
+      ><a name="5337"
+      > </a
+      ><a name="5338" href="FOTC.Program.GCD.Total.DivisibleATP.html#5338" class="Bound"
+      >Nj</a
+      ><a name="5340"
+      > </a
+      ><a name="5341" href="FOTC.Program.GCD.Total.DivisibleATP.html#5341" class="Bound"
+      >ah</a
+      ><a name="5343"
+      > </a
+      ><a name="5344" class="Symbol"
+      >=</a
+      ><a name="5345"
+      > </a
+      ><a name="5346" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="5350"
+      > </a
+      ><a name="5351" class="Symbol"
+      >(</a
+      ><a name="5352" href="FOTC.Program.GCD.Total.DivisibleATP.html#3504" class="Function"
+      >gcd-x&gt;y-Divisible</a
+      ><a name="5369"
+      > </a
+      ><a name="5370" href="FOTC.Program.GCD.Total.DivisibleATP.html#5335" class="Bound"
+      >Ni</a
+      ><a name="5372"
+      > </a
+      ><a name="5373" href="FOTC.Program.GCD.Total.DivisibleATP.html#5338" class="Bound"
+      >Nj</a
+      ><a name="5375"
+      > </a
+      ><a name="5376" href="FOTC.Program.GCD.Total.DivisibleATP.html#5341" class="Bound"
+      >ah</a
+      ><a name="5378" class="Symbol"
+      >)</a
+      ><a name="5379"
+      >
+                    </a
+      ><a name="5400" class="Symbol"
+      >(</a
+      ><a name="5401" href="FOTC.Program.GCD.Total.DivisibleATP.html#4271" class="Function"
+      >gcd-x&#8815;y-Divisible</a
+      ><a name="5418"
+      > </a
+      ><a name="5419" href="FOTC.Program.GCD.Total.DivisibleATP.html#5335" class="Bound"
+      >Ni</a
+      ><a name="5421"
+      > </a
+      ><a name="5422" href="FOTC.Program.GCD.Total.DivisibleATP.html#5338" class="Bound"
+      >Nj</a
+      ><a name="5424"
+      > </a
+      ><a name="5425" href="FOTC.Program.GCD.Total.DivisibleATP.html#5341" class="Bound"
+      >ah</a
+      ><a name="5427" class="Symbol"
+      >)</a
+      ><a name="5428"
+      >
+                    </a
+      ><a name="5449" class="Symbol"
+      >(</a
+      ><a name="5450" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#9658" class="Function"
+      >x&gt;y&#8744;x&#8815;y</a
+      ><a name="5457"
+      > </a
+      ><a name="5458" href="FOTC.Program.GCD.Total.DivisibleATP.html#5335" class="Bound"
+      >Ni</a
+      ><a name="5460"
+      > </a
+      ><a name="5461" href="FOTC.Program.GCD.Total.DivisibleATP.html#5338" class="Bound"
+      >Nj</a
+      ><a name="5463" class="Symbol"
+      >)</a
+      ><a name="5464"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

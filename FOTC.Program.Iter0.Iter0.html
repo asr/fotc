@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Iter0.Iter0</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- A partial function: iter&#8320;</a
+      ><a name="108"
+      >
+</a
+      ><a name="109" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="187"
+      >
+
+</a
+      ><a name="189" class="Symbol"
+      >{-#</a
+      ><a name="192"
+      > </a
+      ><a name="193" class="Keyword"
+      >OPTIONS</a
+      ><a name="200"
+      > --exact-split              </a
+      ><a name="228" class="Symbol"
+      >#-}</a
+      ><a name="231"
+      >
+</a
+      ><a name="232" class="Symbol"
+      >{-#</a
+      ><a name="235"
+      > </a
+      ><a name="236" class="Keyword"
+      >OPTIONS</a
+      ><a name="243"
+      > --no-sized-types           </a
+      ><a name="271" class="Symbol"
+      >#-}</a
+      ><a name="274"
+      >
+</a
+      ><a name="275" class="Symbol"
+      >{-#</a
+      ><a name="278"
+      > </a
+      ><a name="279" class="Keyword"
+      >OPTIONS</a
+      ><a name="286"
+      > --no-universe-polymorphism </a
+      ><a name="314" class="Symbol"
+      >#-}</a
+      ><a name="317"
+      >
+</a
+      ><a name="318" class="Symbol"
+      >{-#</a
+      ><a name="321"
+      > </a
+      ><a name="322" class="Keyword"
+      >OPTIONS</a
+      ><a name="329"
+      > --without-K                </a
+      ><a name="357" class="Symbol"
+      >#-}</a
+      ><a name="360"
+      >
+
+</a
+      ><a name="362" class="Keyword"
+      >module</a
+      ><a name="368"
+      > </a
+      ><a name="369" href="FOTC.Program.Iter0.Iter0.html#1" class="Module"
+      >FOTC.Program.Iter0.Iter0</a
+      ><a name="393"
+      > </a
+      ><a name="394" class="Keyword"
+      >where</a
+      ><a name="399"
+      >
+
+</a
+      ><a name="401" class="Keyword"
+      >open</a
+      ><a name="405"
+      > </a
+      ><a name="406" class="Keyword"
+      >import</a
+      ><a name="412"
+      > </a
+      ><a name="413" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="422"
+      >
+</a
+      ><a name="423" class="Keyword"
+      >open</a
+      ><a name="427"
+      > </a
+      ><a name="428" class="Keyword"
+      >import</a
+      ><a name="434"
+      > </a
+      ><a name="435" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="449"
+      >
+
+</a
+      ><a name="451" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="529"
+      >
+
+</a
+      ><a name="531" class="Keyword"
+      >postulate</a
+      ><a name="540"
+      >
+  </a
+      ><a name="543" href="FOTC.Program.Iter0.Iter0.html#543" class="Postulate"
+      >iter&#8320;</a
+      ><a name="548"
+      >    </a
+      ><a name="552" class="Symbol"
+      >:</a
+      ><a name="553"
+      > </a
+      ><a name="554" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="555"
+      > </a
+      ><a name="556" class="Symbol"
+      >&#8594;</a
+      ><a name="557"
+      > </a
+      ><a name="558" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="559"
+      > </a
+      ><a name="560" class="Symbol"
+      >&#8594;</a
+      ><a name="561"
+      > </a
+      ><a name="562" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="563"
+      >
+  </a
+      ><a name="566" href="FOTC.Program.Iter0.Iter0.html#566" class="Postulate"
+      >iter&#8320;-eq</a
+      ><a name="574"
+      > </a
+      ><a name="575" class="Symbol"
+      >:</a
+      ><a name="576"
+      > </a
+      ><a name="577" class="Symbol"
+      >&#8704;</a
+      ><a name="578"
+      > </a
+      ><a name="579" href="FOTC.Program.Iter0.Iter0.html#579" class="Bound"
+      >f</a
+      ><a name="580"
+      > </a
+      ><a name="581" href="FOTC.Program.Iter0.Iter0.html#581" class="Bound"
+      >n</a
+      ><a name="582"
+      > </a
+      ><a name="583" class="Symbol"
+      >&#8594;</a
+      ><a name="584"
+      > </a
+      ><a name="585" href="FOTC.Program.Iter0.Iter0.html#543" class="Postulate"
+      >iter&#8320;</a
+      ><a name="590"
+      > </a
+      ><a name="591" href="FOTC.Program.Iter0.Iter0.html#579" class="Bound"
+      >f</a
+      ><a name="592"
+      > </a
+      ><a name="593" href="FOTC.Program.Iter0.Iter0.html#581" class="Bound"
+      >n</a
+      ><a name="594"
+      > </a
+      ><a name="595" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="596"
+      >
+             </a
+      ><a name="610" class="Symbol"
+      >(</a
+      ><a name="611" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="613"
+      > </a
+      ><a name="614" class="Symbol"
+      >(</a
+      ><a name="615" href="FOTC.Base.html#2000" class="Function"
+      >iszero&#8321;</a
+      ><a name="622"
+      > </a
+      ><a name="623" href="FOTC.Program.Iter0.Iter0.html#581" class="Bound"
+      >n</a
+      ><a name="624" class="Symbol"
+      >)</a
+      ><a name="625"
+      > </a
+      ><a name="626" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="633"
+      > </a
+      ><a name="634" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="638"
+      > </a
+      ><a name="639" class="Symbol"
+      >(</a
+      ><a name="640" href="FOTC.Program.Iter0.Iter0.html#581" class="Bound"
+      >n</a
+      ><a name="641"
+      > </a
+      ><a name="642" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="FOTC.Program.Iter0.Iter0.html#543" class="Postulate"
+      >iter&#8320;</a
+      ><a name="649"
+      > </a
+      ><a name="650" href="FOTC.Program.Iter0.Iter0.html#579" class="Bound"
+      >f</a
+      ><a name="651"
+      > </a
+      ><a name="652" class="Symbol"
+      >(</a
+      ><a name="653" href="FOTC.Program.Iter0.Iter0.html#579" class="Bound"
+      >f</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="FOTC.Program.Iter0.Iter0.html#581" class="Bound"
+      >n</a
+      ><a name="658" class="Symbol"
+      >)))</a
+      ><a name="661"
+      >
+</a
+      ><a name="662" class="Symbol"
+      >{-#</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Keyword"
+      >ATP</a
+      ><a name="669"
+      > axiom </a
+      ><a name="676" href="FOTC.Program.Iter0.Iter0.html#566" class="Postulate"
+      >iter&#8320;-eq</a
+      ><a name="684"
+      > </a
+      ><a name="685" class="Symbol"
+      >#-}</a
+      ><a name="688"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Conat</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Co-inductive natural numbers</a
+      ><a name="111"
+      >
+</a
+      ><a name="112" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="190"
+      >
+
+</a
+      ><a name="192" class="Symbol"
+      >{-#</a
+      ><a name="195"
+      > </a
+      ><a name="196" class="Keyword"
+      >OPTIONS</a
+      ><a name="203"
+      > --exact-split              </a
+      ><a name="231" class="Symbol"
+      >#-}</a
+      ><a name="234"
+      >
+</a
+      ><a name="235" class="Symbol"
+      >{-#</a
+      ><a name="238"
+      > </a
+      ><a name="239" class="Keyword"
+      >OPTIONS</a
+      ><a name="246"
+      > --no-sized-types           </a
+      ><a name="274" class="Symbol"
+      >#-}</a
+      ><a name="277"
+      >
+</a
+      ><a name="278" class="Symbol"
+      >{-#</a
+      ><a name="281"
+      > </a
+      ><a name="282" class="Keyword"
+      >OPTIONS</a
+      ><a name="289"
+      > --no-universe-polymorphism </a
+      ><a name="317" class="Symbol"
+      >#-}</a
+      ><a name="320"
+      >
+</a
+      ><a name="321" class="Symbol"
+      >{-#</a
+      ><a name="324"
+      > </a
+      ><a name="325" class="Keyword"
+      >OPTIONS</a
+      ><a name="332"
+      > --without-K                </a
+      ><a name="360" class="Symbol"
+      >#-}</a
+      ><a name="363"
+      >
+
+</a
+      ><a name="365" class="Keyword"
+      >module</a
+      ><a name="371"
+      > </a
+      ><a name="372" href="FOTC.Data.Conat.html#1" class="Module"
+      >FOTC.Data.Conat</a
+      ><a name="387"
+      > </a
+      ><a name="388" class="Keyword"
+      >where</a
+      ><a name="393"
+      >
+
+</a
+      ><a name="395" class="Keyword"
+      >open</a
+      ><a name="399"
+      > </a
+      ><a name="400" class="Keyword"
+      >import</a
+      ><a name="406"
+      > </a
+      ><a name="407" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="416"
+      >
+</a
+      ><a name="417" class="Keyword"
+      >open</a
+      ><a name="421"
+      > </a
+      ><a name="422" class="Keyword"
+      >import</a
+      ><a name="428"
+      > </a
+      ><a name="429" href="FOTC.Data.Conat.Type.html#1" class="Module"
+      >FOTC.Data.Conat.Type</a
+      ><a name="449"
+      > </a
+      ><a name="450" class="Keyword"
+      >public</a
+      ><a name="456"
+      >
+
+</a
+      ><a name="458" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="536"
+      >
+
+</a
+      ><a name="538" class="Keyword"
+      >postulate</a
+      ><a name="547"
+      >
+  </a
+      ><a name="550" href="FOTC.Data.Conat.html#550" class="Postulate"
+      >&#8734;</a
+      ><a name="551"
+      >    </a
+      ><a name="555" class="Symbol"
+      >:</a
+      ><a name="556"
+      > </a
+      ><a name="557" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="558"
+      >
+  </a
+      ><a name="561" href="FOTC.Data.Conat.html#561" class="Postulate"
+      >&#8734;-eq</a
+      ><a name="565"
+      > </a
+      ><a name="566" class="Symbol"
+      >:</a
+      ><a name="567"
+      > </a
+      ><a name="568" href="FOTC.Data.Conat.html#550" class="Postulate"
+      >&#8734;</a
+      ><a name="569"
+      > </a
+      ><a name="570" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="571"
+      > </a
+      ><a name="572" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="577"
+      > </a
+      ><a name="578" href="FOTC.Data.Conat.html#550" class="Postulate"
+      >&#8734;</a
+      ><a name="579"
+      >
+</a
+      ><a name="580" class="Symbol"
+      >{-#</a
+      ><a name="583"
+      > </a
+      ><a name="584" class="Keyword"
+      >ATP</a
+      ><a name="587"
+      > axiom </a
+      ><a name="594" href="FOTC.Data.Conat.html#561" class="Postulate"
+      >&#8734;-eq</a
+      ><a name="598"
+      > </a
+      ><a name="599" class="Symbol"
+      >#-}</a
+      ><a name="602"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

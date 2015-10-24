@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Well-founded induction on the relation LTC</a
+      ><a name="125"
+      >
+</a
+      ><a name="126" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="204"
+      >
+
+</a
+      ><a name="206" class="Symbol"
+      >{-#</a
+      ><a name="209"
+      > </a
+      ><a name="210" class="Keyword"
+      >OPTIONS</a
+      ><a name="217"
+      > --exact-split              </a
+      ><a name="245" class="Symbol"
+      >#-}</a
+      ><a name="248"
+      >
+</a
+      ><a name="249" class="Symbol"
+      >{-#</a
+      ><a name="252"
+      > </a
+      ><a name="253" class="Keyword"
+      >OPTIONS</a
+      ><a name="260"
+      > --no-sized-types           </a
+      ><a name="288" class="Symbol"
+      >#-}</a
+      ><a name="291"
+      >
+</a
+      ><a name="292" class="Symbol"
+      >{-#</a
+      ><a name="295"
+      > </a
+      ><a name="296" class="Keyword"
+      >OPTIONS</a
+      ><a name="303"
+      > --no-universe-polymorphism </a
+      ><a name="331" class="Symbol"
+      >#-}</a
+      ><a name="334"
+      >
+</a
+      ><a name="335" class="Symbol"
+      >{-#</a
+      ><a name="338"
+      > </a
+      ><a name="339" class="Keyword"
+      >OPTIONS</a
+      ><a name="346"
+      > --without-K                </a
+      ><a name="374" class="Symbol"
+      >#-}</a
+      ><a name="377"
+      >
+
+</a
+      ><a name="379" class="Keyword"
+      >module</a
+      ><a name="385"
+      > </a
+      ><a name="386" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I</a
+      ><a name="439"
+      > </a
+      ><a name="440" class="Keyword"
+      >where</a
+      ><a name="445"
+      >
+
+</a
+      ><a name="447" class="Keyword"
+      >open</a
+      ><a name="451"
+      > </a
+      ><a name="452" class="Keyword"
+      >import</a
+      ><a name="458"
+      > </a
+      ><a name="459" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="468"
+      >
+</a
+      ><a name="469" class="Keyword"
+      >open</a
+      ><a name="473"
+      > </a
+      ><a name="474" class="Keyword"
+      >import</a
+      ><a name="480"
+      > </a
+      ><a name="481" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="495"
+      >
+</a
+      ><a name="496" class="Keyword"
+      >open</a
+      ><a name="500"
+      > </a
+      ><a name="501" class="Keyword"
+      >import</a
+      ><a name="507"
+      > </a
+      ><a name="508" href="FOTC.Data.List.WF-Relation.LT-Cons.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons</a
+      ><a name="542"
+      >
+</a
+      ><a name="543" class="Keyword"
+      >open</a
+      ><a name="547"
+      > </a
+      ><a name="548" class="Keyword"
+      >import</a
+      ><a name="554"
+      > </a
+      ><a name="555" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI</a
+      ><a name="601"
+      >
+</a
+      ><a name="602" class="Keyword"
+      >open</a
+      ><a name="606"
+      > </a
+      ><a name="607" class="Keyword"
+      >import</a
+      ><a name="613"
+      > </a
+      ><a name="614" href="FOTC.Data.List.WF-Relation.LT-Length.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Length</a
+      ><a name="650"
+      >
+</a
+      ><a name="651" class="Keyword"
+      >open</a
+      ><a name="655"
+      > </a
+      ><a name="656" class="Keyword"
+      >import</a
+      ><a name="662"
+      > </a
+      ><a name="663" href="FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I.html#1" class="Module"
+      >FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I</a
+      ><a name="718"
+      >
+</a
+      ><a name="719" class="Keyword"
+      >open</a
+      ><a name="723"
+      > </a
+      ><a name="724" class="Keyword"
+      >import</a
+      ><a name="730"
+      > </a
+      ><a name="731" href="FOTC.Induction.WF.html#1" class="Module"
+      >FOTC.Induction.WF</a
+      ><a name="748"
+      >
+
+</a
+      ><a name="750" class="Comment"
+      >-- Parametrized modules</a
+      ><a name="773"
+      >
+</a
+      ><a name="774" class="Keyword"
+      >open</a
+      ><a name="778"
+      > </a
+      ><a name="779" class="Keyword"
+      >module</a
+      ><a name="785"
+      > </a
+      ><a name="786" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#786" class="Module"
+      >S</a
+      ><a name="787"
+      > </a
+      ><a name="788" class="Symbol"
+      >=</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="FOTC.Induction.WF.html#526" class="Module"
+      >FOTC.</a
+      ><a name="795" href="FOTC.Induction.WF.html#531" class="Module"
+      >Induction.</a
+      ><a name="805" href="FOTC.Induction.WF.html#541" class="Module"
+      >WF.</a
+      ><a name="808" href="FOTC.Induction.WF.html#1708" class="Module"
+      >Subrelation</a
+      ><a name="819"
+      > </a
+      ><a name="820" class="Symbol"
+      >{</a
+      ><a name="821" href="FOTC.Data.List.Type.html#641" class="Datatype"
+      >List</a
+      ><a name="825" class="Symbol"
+      >}</a
+      ><a name="826"
+      > </a
+      ><a name="827" class="Symbol"
+      >{</a
+      ><a name="828" href="FOTC.Data.List.WF-Relation.LT-Cons.html#630" class="Function"
+      >LTC</a
+      ><a name="831" class="Symbol"
+      >}</a
+      ><a name="832"
+      > </a
+      ><a name="833" href="FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI.html#746" class="Function"
+      >LTC&#8594;LTL</a
+      ><a name="840"
+      >
+
+</a
+      ><a name="842" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="920"
+      >
+</a
+      ><a name="921" class="Comment"
+      >-- The relation LTL is well-founded (using the subrelation combinator).</a
+      ><a name="992"
+      >
+</a
+      ><a name="993" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#993" class="Function"
+      >LTC-wf</a
+      ><a name="999"
+      > </a
+      ><a name="1000" class="Symbol"
+      >:</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="FOTC.Induction.WF.html#1292" class="Function"
+      >WellFounded</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" href="FOTC.Data.List.WF-Relation.LT-Cons.html#630" class="Function"
+      >LTC</a
+      ><a name="1017"
+      >
+</a
+      ><a name="1018" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#993" class="Function"
+      >LTC-wf</a
+      ><a name="1024"
+      > </a
+      ><a name="1025" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1025" class="Bound"
+      >Lxs</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" class="Symbol"
+      >=</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" href="FOTC.Induction.WF.html#1987" class="Function"
+      >well-founded</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I.html#1095" class="Function"
+      >LTL-wf</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1025" class="Bound"
+      >Lxs</a
+      ><a name="1054"
+      >
+
+</a
+      ><a name="1056" class="Comment"
+      >-- Well-founded induction on the relation LTC.</a
+      ><a name="1102"
+      >
+</a
+      ><a name="1103" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1103" class="Function"
+      >LTC-wfind</a
+      ><a name="1112"
+      > </a
+      ><a name="1113" class="Symbol"
+      >:</a
+      ><a name="1114"
+      > </a
+      ><a name="1115" class="Symbol"
+      >(</a
+      ><a name="1116" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1116" class="Bound"
+      >A</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >:</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" class="Symbol"
+      >&#8594;</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" class="PrimitiveType"
+      >Set</a
+      ><a name="1127" class="Symbol"
+      >)</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" class="Symbol"
+      >&#8594;</a
+      ><a name="1130"
+      >
+            </a
+      ><a name="1143" class="Symbol"
+      >(&#8704;</a
+      ><a name="1145"
+      > </a
+      ><a name="1146" class="Symbol"
+      >{</a
+      ><a name="1147" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1147" class="Bound"
+      >xs</a
+      ><a name="1149" class="Symbol"
+      >}</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" class="Symbol"
+      >&#8594;</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" href="FOTC.Data.List.Type.html#641" class="Datatype"
+      >List</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1147" class="Bound"
+      >xs</a
+      ><a name="1160"
+      > </a
+      ><a name="1161" class="Symbol"
+      >&#8594;</a
+      ><a name="1162"
+      > </a
+      ><a name="1163" class="Symbol"
+      >(&#8704;</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" class="Symbol"
+      >{</a
+      ><a name="1167" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1167" class="Bound"
+      >ys</a
+      ><a name="1169" class="Symbol"
+      >}</a
+      ><a name="1170"
+      > </a
+      ><a name="1171" class="Symbol"
+      >&#8594;</a
+      ><a name="1172"
+      > </a
+      ><a name="1173" href="FOTC.Data.List.Type.html#641" class="Datatype"
+      >List</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1167" class="Bound"
+      >ys</a
+      ><a name="1180"
+      > </a
+      ><a name="1181" class="Symbol"
+      >&#8594;</a
+      ><a name="1182"
+      > </a
+      ><a name="1183" href="FOTC.Data.List.WF-Relation.LT-Cons.html#630" class="Function"
+      >LTC</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1167" class="Bound"
+      >ys</a
+      ><a name="1189"
+      > </a
+      ><a name="1190" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1147" class="Bound"
+      >xs</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" class="Symbol"
+      >&#8594;</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1116" class="Bound"
+      >A</a
+      ><a name="1196"
+      > </a
+      ><a name="1197" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1167" class="Bound"
+      >ys</a
+      ><a name="1199" class="Symbol"
+      >)</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" class="Symbol"
+      >&#8594;</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1116" class="Bound"
+      >A</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1147" class="Bound"
+      >xs</a
+      ><a name="1207" class="Symbol"
+      >)</a
+      ><a name="1208"
+      > </a
+      ><a name="1209" class="Symbol"
+      >&#8594;</a
+      ><a name="1210"
+      >
+            </a
+      ><a name="1223" class="Symbol"
+      >&#8704;</a
+      ><a name="1224"
+      > </a
+      ><a name="1225" class="Symbol"
+      >{</a
+      ><a name="1226" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1226" class="Bound"
+      >xs</a
+      ><a name="1228" class="Symbol"
+      >}</a
+      ><a name="1229"
+      > </a
+      ><a name="1230" class="Symbol"
+      >&#8594;</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" href="FOTC.Data.List.Type.html#641" class="Datatype"
+      >List</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1226" class="Bound"
+      >xs</a
+      ><a name="1239"
+      > </a
+      ><a name="1240" class="Symbol"
+      >&#8594;</a
+      ><a name="1241"
+      > </a
+      ><a name="1242" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1116" class="Bound"
+      >A</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1226" class="Bound"
+      >xs</a
+      ><a name="1246"
+      >
+</a
+      ><a name="1247" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1103" class="Function"
+      >LTC-wfind</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#1257" class="Bound"
+      >A</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" class="Symbol"
+      >=</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" href="FOTC.Induction.WF.html#1391" class="Function"
+      >WellFoundedInduction</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I.html#993" class="Function"
+      >LTC-wf</a
+      ><a name="1288"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

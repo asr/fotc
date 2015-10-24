@@ -1,0 +1,2261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties of the divisibility relation</a
+      ><a name="122"
+      >
+</a
+      ><a name="123" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="201"
+      >
+
+</a
+      ><a name="203" class="Symbol"
+      >{-#</a
+      ><a name="206"
+      > </a
+      ><a name="207" class="Keyword"
+      >OPTIONS</a
+      ><a name="214"
+      > --exact-split              </a
+      ><a name="242" class="Symbol"
+      >#-}</a
+      ><a name="245"
+      >
+</a
+      ><a name="246" class="Symbol"
+      >{-#</a
+      ><a name="249"
+      > </a
+      ><a name="250" class="Keyword"
+      >OPTIONS</a
+      ><a name="257"
+      > --no-sized-types           </a
+      ><a name="285" class="Symbol"
+      >#-}</a
+      ><a name="288"
+      >
+</a
+      ><a name="289" class="Symbol"
+      >{-#</a
+      ><a name="292"
+      > </a
+      ><a name="293" class="Keyword"
+      >OPTIONS</a
+      ><a name="300"
+      > --no-universe-polymorphism </a
+      ><a name="328" class="Symbol"
+      >#-}</a
+      ><a name="331"
+      >
+</a
+      ><a name="332" class="Symbol"
+      >{-#</a
+      ><a name="335"
+      > </a
+      ><a name="336" class="Keyword"
+      >OPTIONS</a
+      ><a name="343"
+      > --without-K                </a
+      ><a name="371" class="Symbol"
+      >#-}</a
+      ><a name="374"
+      >
+
+</a
+      ><a name="376" class="Keyword"
+      >module</a
+      ><a name="382"
+      > </a
+      ><a name="383" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP</a
+      ><a name="430"
+      > </a
+      ><a name="431" class="Keyword"
+      >where</a
+      ><a name="436"
+      >
+
+</a
+      ><a name="438" class="Keyword"
+      >open</a
+      ><a name="442"
+      > </a
+      ><a name="443" class="Keyword"
+      >import</a
+      ><a name="449"
+      > </a
+      ><a name="450" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="459"
+      >
+</a
+      ><a name="460" class="Keyword"
+      >open</a
+      ><a name="464"
+      > </a
+      ><a name="465" class="Keyword"
+      >import</a
+      ><a name="471"
+      > </a
+      ><a name="472" href="FOTC.Base.PropertiesATP.html#1" class="Module"
+      >FOTC.Base.PropertiesATP</a
+      ><a name="495"
+      >
+</a
+      ><a name="496" class="Keyword"
+      >open</a
+      ><a name="500"
+      > </a
+      ><a name="501" class="Keyword"
+      >import</a
+      ><a name="507"
+      > </a
+      ><a name="508" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="521"
+      >
+</a
+      ><a name="522" class="Keyword"
+      >open</a
+      ><a name="526"
+      > </a
+      ><a name="527" class="Keyword"
+      >import</a
+      ><a name="533"
+      > </a
+      ><a name="534" href="FOTC.Data.Nat.Divisibility.NotBy0.html#1" class="Module"
+      >FOTC.Data.Nat.Divisibility.NotBy0</a
+      ><a name="567"
+      >
+</a
+      ><a name="568" class="Keyword"
+      >open</a
+      ><a name="572"
+      > </a
+      ><a name="573" class="Keyword"
+      >import</a
+      ><a name="579"
+      > </a
+      ><a name="580" href="FOTC.Data.Nat.Inequalities.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities</a
+      ><a name="606"
+      >
+</a
+      ><a name="607" class="Keyword"
+      >open</a
+      ><a name="611"
+      > </a
+      ><a name="612" class="Keyword"
+      >import</a
+      ><a name="618"
+      > </a
+      ><a name="619" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.Inequalities.PropertiesATP</a
+      ><a name="659"
+      >
+</a
+      ><a name="660" class="Keyword"
+      >open</a
+      ><a name="664"
+      > </a
+      ><a name="665" class="Keyword"
+      >import</a
+      ><a name="671"
+      > </a
+      ><a name="672" href="FOTC.Data.Nat.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesATP</a
+      ><a name="699"
+      >
+
+</a
+      ><a name="701" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="779"
+      >
+</a
+      ><a name="780" class="Comment"
+      >-- Any positive number divides 0.</a
+      ><a name="813"
+      >
+</a
+      ><a name="814" class="Keyword"
+      >postulate</a
+      ><a name="823"
+      > </a
+      ><a name="824" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#824" class="Postulate"
+      >S&#8739;0</a
+      ><a name="827"
+      > </a
+      ><a name="828" class="Symbol"
+      >:</a
+      ><a name="829"
+      > </a
+      ><a name="830" class="Symbol"
+      >&#8704;</a
+      ><a name="831"
+      > </a
+      ><a name="832" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#832" class="Bound"
+      >n</a
+      ><a name="833"
+      > </a
+      ><a name="834" class="Symbol"
+      >&#8594;</a
+      ><a name="835"
+      > </a
+      ><a name="836" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#832" class="Bound"
+      >n</a
+      ><a name="843"
+      > </a
+      ><a name="844" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="845"
+      > </a
+      ><a name="846" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="850"
+      >
+</a
+      ><a name="851" class="Symbol"
+      >{-#</a
+      ><a name="854"
+      > </a
+      ><a name="855" class="Keyword"
+      >ATP</a
+      ><a name="858"
+      > prove </a
+      ><a name="865" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#824" class="Postulate"
+      >S&#8739;0</a
+      ><a name="868"
+      > </a
+      ><a name="869" class="Symbol"
+      >#-}</a
+      ><a name="872"
+      >
+
+</a
+      ><a name="874" class="Comment"
+      >-- 0 doesn't divide any number.</a
+      ><a name="905"
+      >
+</a
+      ><a name="906" class="Keyword"
+      >postulate</a
+      ><a name="915"
+      > </a
+      ><a name="916" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#916" class="Postulate"
+      >0&#8740;x</a
+      ><a name="919"
+      > </a
+      ><a name="920" class="Symbol"
+      >:</a
+      ><a name="921"
+      > </a
+      ><a name="922" class="Symbol"
+      >&#8704;</a
+      ><a name="923"
+      > </a
+      ><a name="924" class="Symbol"
+      >{</a
+      ><a name="925" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#925" class="Bound"
+      >n</a
+      ><a name="926" class="Symbol"
+      >}</a
+      ><a name="927"
+      > </a
+      ><a name="928" class="Symbol"
+      >&#8594;</a
+      ><a name="929"
+      > </a
+      ><a name="930" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="931"
+      > </a
+      ><a name="932" class="Symbol"
+      >(</a
+      ><a name="933" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="937"
+      > </a
+      ><a name="938" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="939"
+      > </a
+      ><a name="940" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#925" class="Bound"
+      >n</a
+      ><a name="941" class="Symbol"
+      >)</a
+      ><a name="942"
+      >
+</a
+      ><a name="943" class="Symbol"
+      >{-#</a
+      ><a name="946"
+      > </a
+      ><a name="947" class="Keyword"
+      >ATP</a
+      ><a name="950"
+      > prove </a
+      ><a name="957" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#916" class="Postulate"
+      >0&#8740;x</a
+      ><a name="960"
+      > </a
+      ><a name="961" class="Symbol"
+      >#-}</a
+      ><a name="964"
+      >
+
+</a
+      ><a name="966" class="Comment"
+      >-- The divisibility relation is reflexive for positive numbers.</a
+      ><a name="1029"
+      >
+</a
+      ><a name="1030" class="Comment"
+      >--</a
+      ><a name="1032"
+      >
+</a
+      ><a name="1033" class="Comment"
+      >-- For the proof using the ATPs we added the helper hypothesis</a
+      ><a name="1095"
+      >
+</a
+      ><a name="1096" class="Comment"
+      >--</a
+      ><a name="1098"
+      >
+</a
+      ><a name="1099" class="Comment"
+      >-- N (succ zero).</a
+      ><a name="1116"
+      >
+</a
+      ><a name="1117" class="Keyword"
+      >postulate</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1127" class="Postulate"
+      >&#8739;-refl-S-ah</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" class="Symbol"
+      >:</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" class="Symbol"
+      >&#8704;</a
+      ><a name="1142"
+      > </a
+      ><a name="1143" class="Symbol"
+      >{</a
+      ><a name="1144" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1144" class="Bound"
+      >n</a
+      ><a name="1145" class="Symbol"
+      >}</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" class="Symbol"
+      >&#8594;</a
+      ><a name="1148"
+      > </a
+      ><a name="1149" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1150"
+      > </a
+      ><a name="1151" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1144" class="Bound"
+      >n</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" class="Symbol"
+      >&#8594;</a
+      ><a name="1154"
+      > </a
+      ><a name="1155" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1156"
+      > </a
+      ><a name="1157" class="Symbol"
+      >(</a
+      ><a name="1158" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1168" class="Symbol"
+      >)</a
+      ><a name="1169"
+      > </a
+      ><a name="1170" class="Symbol"
+      >&#8594;</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1177"
+      > </a
+      ><a name="1178" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1144" class="Bound"
+      >n</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1187"
+      > </a
+      ><a name="1188" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1144" class="Bound"
+      >n</a
+      ><a name="1189"
+      >
+</a
+      ><a name="1190" class="Symbol"
+      >{-#</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" class="Keyword"
+      >ATP</a
+      ><a name="1197"
+      > prove </a
+      ><a name="1204" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1127" class="Postulate"
+      >&#8739;-refl-S-ah</a
+      ><a name="1215"
+      > </a
+      ><a name="1216" href="FOTC.Data.Nat.PropertiesATP.html#6028" class="Postulate"
+      >*-leftIdentity</a
+      ><a name="1230"
+      > </a
+      ><a name="1231" class="Symbol"
+      >#-}</a
+      ><a name="1234"
+      >
+
+</a
+      ><a name="1236" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1236" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" class="Symbol"
+      >:</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" class="Symbol"
+      >&#8704;</a
+      ><a name="1248"
+      > </a
+      ><a name="1249" class="Symbol"
+      >{</a
+      ><a name="1250" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1250" class="Bound"
+      >n</a
+      ><a name="1251" class="Symbol"
+      >}</a
+      ><a name="1252"
+      > </a
+      ><a name="1253" class="Symbol"
+      >&#8594;</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1250" class="Bound"
+      >n</a
+      ><a name="1258"
+      > </a
+      ><a name="1259" class="Symbol"
+      >&#8594;</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1266"
+      > </a
+      ><a name="1267" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1250" class="Bound"
+      >n</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1270"
+      > </a
+      ><a name="1271" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1250" class="Bound"
+      >n</a
+      ><a name="1278"
+      >
+</a
+      ><a name="1279" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1236" class="Function"
+      >&#8739;-refl-S</a
+      ><a name="1287"
+      > </a
+      ><a name="1288" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1288" class="Bound"
+      >Nn</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" class="Symbol"
+      >=</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1127" class="Postulate"
+      >&#8739;-refl-S-ah</a
+      ><a name="1304"
+      > </a
+      ><a name="1305" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1288" class="Bound"
+      >Nn</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" class="Symbol"
+      >(</a
+      ><a name="1309" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1314"
+      > </a
+      ><a name="1315" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1320" class="Symbol"
+      >)</a
+      ><a name="1321"
+      >
+
+</a
+      ><a name="1323" class="Comment"
+      >-- If x divides y and z then x divides y &#8760; z.</a
+      ><a name="1368"
+      >
+</a
+      ><a name="1369" class="Keyword"
+      >postulate</a
+      ><a name="1378"
+      >
+  </a
+      ><a name="1381" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1381" class="Postulate"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z-helper</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" class="Symbol"
+      >:</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" class="Symbol"
+      >&#8704;</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" class="Symbol"
+      >{</a
+      ><a name="1407" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1407" class="Bound"
+      >m</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1409" class="Bound"
+      >n</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1411" class="Bound"
+      >o</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1413" class="Bound"
+      >k</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1415" class="Bound"
+      >k'</a
+      ><a name="1417" class="Symbol"
+      >}</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" class="Symbol"
+      >&#8594;</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1422"
+      > </a
+      ><a name="1423" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1407" class="Bound"
+      >m</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" class="Symbol"
+      >&#8594;</a
+      ><a name="1426"
+      > </a
+      ><a name="1427" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1413" class="Bound"
+      >k</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" class="Symbol"
+      >&#8594;</a
+      ><a name="1432"
+      > </a
+      ><a name="1433" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1415" class="Bound"
+      >k'</a
+      ><a name="1437"
+      > </a
+      ><a name="1438" class="Symbol"
+      >&#8594;</a
+      ><a name="1439"
+      >
+                         </a
+      ><a name="1465" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1409" class="Bound"
+      >n</a
+      ><a name="1466"
+      > </a
+      ><a name="1467" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1468"
+      > </a
+      ><a name="1469" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1413" class="Bound"
+      >k</a
+      ><a name="1470"
+      > </a
+      ><a name="1471" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="1472"
+      > </a
+      ><a name="1473" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1407" class="Bound"
+      >m</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" class="Symbol"
+      >&#8594;</a
+      ><a name="1482"
+      >
+                         </a
+      ><a name="1508" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1411" class="Bound"
+      >o</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1511"
+      > </a
+      ><a name="1512" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1415" class="Bound"
+      >k'</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="1516"
+      > </a
+      ><a name="1517" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1407" class="Bound"
+      >m</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" class="Symbol"
+      >&#8594;</a
+      ><a name="1526"
+      >
+                         </a
+      ><a name="1552" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1409" class="Bound"
+      >n</a
+      ><a name="1553"
+      > </a
+      ><a name="1554" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1555"
+      > </a
+      ><a name="1556" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1411" class="Bound"
+      >o</a
+      ><a name="1557"
+      > </a
+      ><a name="1558" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1559"
+      > </a
+      ><a name="1560" class="Symbol"
+      >(</a
+      ><a name="1561" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1413" class="Bound"
+      >k</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1564"
+      > </a
+      ><a name="1565" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1415" class="Bound"
+      >k'</a
+      ><a name="1567" class="Symbol"
+      >)</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1407" class="Bound"
+      >m</a
+      ><a name="1578"
+      >
+</a
+      ><a name="1579" class="Symbol"
+      >{-#</a
+      ><a name="1582"
+      > </a
+      ><a name="1583" class="Keyword"
+      >ATP</a
+      ><a name="1586"
+      > prove </a
+      ><a name="1593" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1381" class="Postulate"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z-helper</a
+      ><a name="1613"
+      > </a
+      ><a name="1614" href="FOTC.Data.Nat.PropertiesATP.html#7536" class="Function"
+      >*&#8760;-leftDistributive</a
+      ><a name="1633"
+      > </a
+      ><a name="1634" class="Symbol"
+      >#-}</a
+      ><a name="1637"
+      >
+
+</a
+      ><a name="1639" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1639" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="1652"
+      > </a
+      ><a name="1653" class="Symbol"
+      >:</a
+      ><a name="1654"
+      > </a
+      ><a name="1655" class="Symbol"
+      >&#8704;</a
+      ><a name="1656"
+      > </a
+      ><a name="1657" class="Symbol"
+      >{</a
+      ><a name="1658" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1658" class="Bound"
+      >m</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1660" class="Bound"
+      >n</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1662" class="Bound"
+      >o</a
+      ><a name="1663" class="Symbol"
+      >}</a
+      ><a name="1664"
+      > </a
+      ><a name="1665" class="Symbol"
+      >&#8594;</a
+      ><a name="1666"
+      > </a
+      ><a name="1667" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1668"
+      > </a
+      ><a name="1669" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1658" class="Bound"
+      >m</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" class="Symbol"
+      >&#8594;</a
+      ><a name="1672"
+      > </a
+      ><a name="1673" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1674"
+      > </a
+      ><a name="1675" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1660" class="Bound"
+      >n</a
+      ><a name="1676"
+      > </a
+      ><a name="1677" class="Symbol"
+      >&#8594;</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1680"
+      > </a
+      ><a name="1681" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1662" class="Bound"
+      >o</a
+      ><a name="1682"
+      > </a
+      ><a name="1683" class="Symbol"
+      >&#8594;</a
+      ><a name="1684"
+      > </a
+      ><a name="1685" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1658" class="Bound"
+      >m</a
+      ><a name="1686"
+      > </a
+      ><a name="1687" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1688"
+      > </a
+      ><a name="1689" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1660" class="Bound"
+      >n</a
+      ><a name="1690"
+      > </a
+      ><a name="1691" class="Symbol"
+      >&#8594;</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1658" class="Bound"
+      >m</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1662" class="Bound"
+      >o</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" class="Symbol"
+      >&#8594;</a
+      ><a name="1700"
+      > </a
+      ><a name="1701" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1658" class="Bound"
+      >m</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="1704"
+      > </a
+      ><a name="1705" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1660" class="Bound"
+      >n</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1662" class="Bound"
+      >o</a
+      ><a name="1710"
+      >
+</a
+      ><a name="1711" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1639" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="1724"
+      > </a
+      ><a name="1725" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" class="Symbol"
+      >_</a
+      ><a name="1732"
+      > </a
+      ><a name="1733" class="Symbol"
+      >_</a
+      ><a name="1734"
+      > </a
+      ><a name="1735" class="Symbol"
+      >(</a
+      ><a name="1736" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1736" class="Bound"
+      >0&#8802;0</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1741"
+      > </a
+      ><a name="1742" class="Symbol"
+      >_)</a
+      ><a name="1744"
+      > </a
+      ><a name="1745" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1745" class="Bound"
+      >m&#8739;o</a
+      ><a name="1748"
+      > </a
+      ><a name="1749" class="Symbol"
+      >=</a
+      ><a name="1750"
+      > </a
+      ><a name="1751" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1757"
+      > </a
+      ><a name="1758" class="Symbol"
+      >(</a
+      ><a name="1759" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1736" class="Bound"
+      >0&#8802;0</a
+      ><a name="1762"
+      > </a
+      ><a name="1763" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="1767" class="Symbol"
+      >)</a
+      ><a name="1768"
+      >
+</a
+      ><a name="1769" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1639" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z</a
+      ><a name="1782"
+      > </a
+      ><a name="1783" class="Symbol"
+      >(</a
+      ><a name="1784" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1790" class="Bound"
+      >Nm</a
+      ><a name="1792" class="Symbol"
+      >)</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1794" class="Bound"
+      >Nn</a
+      ><a name="1796"
+      > </a
+      ><a name="1797" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1797" class="Bound"
+      >No</a
+      ><a name="1799"
+      >
+              </a
+      ><a name="1814" class="Symbol"
+      >(_</a
+      ><a name="1816"
+      > </a
+      ><a name="1817" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1818"
+      > </a
+      ><a name="1819" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1819" class="Bound"
+      >k</a
+      ><a name="1820"
+      > </a
+      ><a name="1821" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1823" class="Bound"
+      >Nk</a
+      ><a name="1825"
+      > </a
+      ><a name="1826" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1827"
+      > </a
+      ><a name="1828" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1828" class="Bound"
+      >h&#8321;</a
+      ><a name="1830" class="Symbol"
+      >)</a
+      ><a name="1831"
+      >
+              </a
+      ><a name="1846" class="Symbol"
+      >(_</a
+      ><a name="1848"
+      > </a
+      ><a name="1849" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1850"
+      > </a
+      ><a name="1851" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1851" class="Bound"
+      >k'</a
+      ><a name="1853"
+      > </a
+      ><a name="1854" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1856" class="Bound"
+      >Nk'</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1862" class="Bound"
+      >h&#8322;</a
+      ><a name="1864" class="Symbol"
+      >)</a
+      ><a name="1865"
+      > </a
+      ><a name="1866" class="Symbol"
+      >=</a
+      ><a name="1867"
+      >
+  </a
+      ><a name="1870" class="Symbol"
+      >(&#955;</a
+      ><a name="1872"
+      > </a
+      ><a name="1873" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1873" class="Bound"
+      >S&#8801;0</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" class="Symbol"
+      >&#8594;</a
+      ><a name="1878"
+      > </a
+      ><a name="1879" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" class="Symbol"
+      >(</a
+      ><a name="1887" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="1890"
+      > </a
+      ><a name="1891" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1873" class="Bound"
+      >S&#8801;0</a
+      ><a name="1894" class="Symbol"
+      >))</a
+      ><a name="1896"
+      >
+  </a
+      ><a name="1899" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1900"
+      > </a
+      ><a name="1901" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1819" class="Bound"
+      >k</a
+      ><a name="1902"
+      > </a
+      ><a name="1903" href="FOTC.Data.Nat.html#731" class="Postulate Operator"
+      >&#8760;</a
+      ><a name="1904"
+      > </a
+      ><a name="1905" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1851" class="Bound"
+      >k'</a
+      ><a name="1907"
+      > </a
+      ><a name="1908" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1909"
+      > </a
+      ><a name="1910" href="FOTC.Data.Nat.PropertiesATP.html#1081" class="Function"
+      >&#8760;-N</a
+      ><a name="1913"
+      > </a
+      ><a name="1914" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1823" class="Bound"
+      >Nk</a
+      ><a name="1916"
+      > </a
+      ><a name="1917" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1856" class="Bound"
+      >Nk'</a
+      ><a name="1920"
+      > </a
+      ><a name="1921" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1381" class="Postulate"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y&#8760;z-helper</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1790" class="Bound"
+      >Nm</a
+      ><a name="1946"
+      > </a
+      ><a name="1947" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1823" class="Bound"
+      >Nk</a
+      ><a name="1949"
+      > </a
+      ><a name="1950" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1856" class="Bound"
+      >Nk'</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1828" class="Bound"
+      >h&#8321;</a
+      ><a name="1956"
+      > </a
+      ><a name="1957" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#1862" class="Bound"
+      >h&#8322;</a
+      ><a name="1959"
+      >
+
+</a
+      ><a name="1961" class="Comment"
+      >-- If x divides y and z then x divides y + z.</a
+      ><a name="2006"
+      >
+</a
+      ><a name="2007" class="Keyword"
+      >postulate</a
+      ><a name="2016"
+      >
+  </a
+      ><a name="2019" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2019" class="Postulate"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z-helper</a
+      ><a name="2039"
+      > </a
+      ><a name="2040" class="Symbol"
+      >:</a
+      ><a name="2041"
+      > </a
+      ><a name="2042" class="Symbol"
+      >&#8704;</a
+      ><a name="2043"
+      > </a
+      ><a name="2044" class="Symbol"
+      >{</a
+      ><a name="2045" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2045" class="Bound"
+      >m</a
+      ><a name="2046"
+      > </a
+      ><a name="2047" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2047" class="Bound"
+      >n</a
+      ><a name="2048"
+      > </a
+      ><a name="2049" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2049" class="Bound"
+      >o</a
+      ><a name="2050"
+      > </a
+      ><a name="2051" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2051" class="Bound"
+      >k</a
+      ><a name="2052"
+      > </a
+      ><a name="2053" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2053" class="Bound"
+      >k'</a
+      ><a name="2055" class="Symbol"
+      >}</a
+      ><a name="2056"
+      > </a
+      ><a name="2057" class="Symbol"
+      >&#8594;</a
+      ><a name="2058"
+      > </a
+      ><a name="2059" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2060"
+      > </a
+      ><a name="2061" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2045" class="Bound"
+      >m</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" class="Symbol"
+      >&#8594;</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2051" class="Bound"
+      >k</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" class="Symbol"
+      >&#8594;</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2072"
+      > </a
+      ><a name="2073" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2053" class="Bound"
+      >k'</a
+      ><a name="2075"
+      > </a
+      ><a name="2076" class="Symbol"
+      >&#8594;</a
+      ><a name="2077"
+      >
+                         </a
+      ><a name="2103" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2047" class="Bound"
+      >n</a
+      ><a name="2104"
+      > </a
+      ><a name="2105" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2051" class="Bound"
+      >k</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2116"
+      > </a
+      ><a name="2117" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2045" class="Bound"
+      >m</a
+      ><a name="2118"
+      > </a
+      ><a name="2119" class="Symbol"
+      >&#8594;</a
+      ><a name="2120"
+      >
+                         </a
+      ><a name="2146" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2049" class="Bound"
+      >o</a
+      ><a name="2147"
+      > </a
+      ><a name="2148" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2053" class="Bound"
+      >k'</a
+      ><a name="2152"
+      > </a
+      ><a name="2153" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="2154"
+      > </a
+      ><a name="2155" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2160"
+      > </a
+      ><a name="2161" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2045" class="Bound"
+      >m</a
+      ><a name="2162"
+      > </a
+      ><a name="2163" class="Symbol"
+      >&#8594;</a
+      ><a name="2164"
+      >
+                         </a
+      ><a name="2190" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2047" class="Bound"
+      >n</a
+      ><a name="2191"
+      > </a
+      ><a name="2192" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2193"
+      > </a
+      ><a name="2194" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2049" class="Bound"
+      >o</a
+      ><a name="2195"
+      > </a
+      ><a name="2196" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2197"
+      > </a
+      ><a name="2198" class="Symbol"
+      >(</a
+      ><a name="2199" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2051" class="Bound"
+      >k</a
+      ><a name="2200"
+      > </a
+      ><a name="2201" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2202"
+      > </a
+      ><a name="2203" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2053" class="Bound"
+      >k'</a
+      ><a name="2205" class="Symbol"
+      >)</a
+      ><a name="2206"
+      > </a
+      ><a name="2207" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="2208"
+      > </a
+      ><a name="2209" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2214"
+      > </a
+      ><a name="2215" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2045" class="Bound"
+      >m</a
+      ><a name="2216"
+      >
+</a
+      ><a name="2217" class="Symbol"
+      >{-#</a
+      ><a name="2220"
+      > </a
+      ><a name="2221" class="Keyword"
+      >ATP</a
+      ><a name="2224"
+      > prove </a
+      ><a name="2231" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2019" class="Postulate"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z-helper</a
+      ><a name="2251"
+      > </a
+      ><a name="2252" href="FOTC.Data.Nat.PropertiesATP.html#8448" class="Function"
+      >*+-leftDistributive</a
+      ><a name="2271"
+      > </a
+      ><a name="2272" class="Symbol"
+      >#-}</a
+      ><a name="2275"
+      >
+
+</a
+      ><a name="2277" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2277" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="2290"
+      > </a
+      ><a name="2291" class="Symbol"
+      >:</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" class="Symbol"
+      >&#8704;</a
+      ><a name="2294"
+      > </a
+      ><a name="2295" class="Symbol"
+      >{</a
+      ><a name="2296" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2296" class="Bound"
+      >m</a
+      ><a name="2297"
+      > </a
+      ><a name="2298" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2298" class="Bound"
+      >n</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2300" class="Bound"
+      >o</a
+      ><a name="2301" class="Symbol"
+      >}</a
+      ><a name="2302"
+      > </a
+      ><a name="2303" class="Symbol"
+      >&#8594;</a
+      ><a name="2304"
+      > </a
+      ><a name="2305" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2306"
+      > </a
+      ><a name="2307" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2296" class="Bound"
+      >m</a
+      ><a name="2308"
+      > </a
+      ><a name="2309" class="Symbol"
+      >&#8594;</a
+      ><a name="2310"
+      > </a
+      ><a name="2311" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2312"
+      > </a
+      ><a name="2313" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2298" class="Bound"
+      >n</a
+      ><a name="2314"
+      > </a
+      ><a name="2315" class="Symbol"
+      >&#8594;</a
+      ><a name="2316"
+      > </a
+      ><a name="2317" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2318"
+      > </a
+      ><a name="2319" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2300" class="Bound"
+      >o</a
+      ><a name="2320"
+      > </a
+      ><a name="2321" class="Symbol"
+      >&#8594;</a
+      ><a name="2322"
+      > </a
+      ><a name="2323" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2296" class="Bound"
+      >m</a
+      ><a name="2324"
+      > </a
+      ><a name="2325" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2326"
+      > </a
+      ><a name="2327" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2298" class="Bound"
+      >n</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" class="Symbol"
+      >&#8594;</a
+      ><a name="2330"
+      > </a
+      ><a name="2331" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2296" class="Bound"
+      >m</a
+      ><a name="2332"
+      > </a
+      ><a name="2333" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2334"
+      > </a
+      ><a name="2335" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2300" class="Bound"
+      >o</a
+      ><a name="2336"
+      > </a
+      ><a name="2337" class="Symbol"
+      >&#8594;</a
+      ><a name="2338"
+      > </a
+      ><a name="2339" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2296" class="Bound"
+      >m</a
+      ><a name="2340"
+      > </a
+      ><a name="2341" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2298" class="Bound"
+      >n</a
+      ><a name="2344"
+      > </a
+      ><a name="2345" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2346"
+      > </a
+      ><a name="2347" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2300" class="Bound"
+      >o</a
+      ><a name="2348"
+      >
+</a
+      ><a name="2349" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2277" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="2362"
+      > </a
+      ><a name="2363" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="2368"
+      >      </a
+      ><a name="2374" class="Symbol"
+      >_</a
+      ><a name="2375"
+      >  </a
+      ><a name="2377" class="Symbol"
+      >_</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" class="Symbol"
+      >(</a
+      ><a name="2380" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2380" class="Bound"
+      >0&#8802;0</a
+      ><a name="2383"
+      > </a
+      ><a name="2384" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2385"
+      > </a
+      ><a name="2386" class="Symbol"
+      >_)</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2389" class="Bound"
+      >m&#8739;o</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" class="Symbol"
+      >=</a
+      ><a name="2394"
+      > </a
+      ><a name="2395" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2401"
+      > </a
+      ><a name="2402" class="Symbol"
+      >(</a
+      ><a name="2403" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2380" class="Bound"
+      >0&#8802;0</a
+      ><a name="2406"
+      > </a
+      ><a name="2407" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2411" class="Symbol"
+      >)</a
+      ><a name="2412"
+      >
+</a
+      ><a name="2413" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2277" class="Function"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z</a
+      ><a name="2426"
+      > </a
+      ><a name="2427" class="Symbol"
+      >(</a
+      ><a name="2428" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="2433"
+      > </a
+      ><a name="2434" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2434" class="Bound"
+      >Nm</a
+      ><a name="2436" class="Symbol"
+      >)</a
+      ><a name="2437"
+      > </a
+      ><a name="2438" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2438" class="Bound"
+      >Nn</a
+      ><a name="2440"
+      > </a
+      ><a name="2441" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2441" class="Bound"
+      >No</a
+      ><a name="2443"
+      >
+              </a
+      ><a name="2458" class="Symbol"
+      >(_</a
+      ><a name="2460"
+      > </a
+      ><a name="2461" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2462"
+      > </a
+      ><a name="2463" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2463" class="Bound"
+      >k</a
+      ><a name="2464"
+      > </a
+      ><a name="2465" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2466"
+      > </a
+      ><a name="2467" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2467" class="Bound"
+      >Nk</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2472" class="Bound"
+      >h&#8321;</a
+      ><a name="2474" class="Symbol"
+      >)</a
+      ><a name="2475"
+      >
+              </a
+      ><a name="2490" class="Symbol"
+      >(_</a
+      ><a name="2492"
+      > </a
+      ><a name="2493" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2494"
+      > </a
+      ><a name="2495" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2495" class="Bound"
+      >k'</a
+      ><a name="2497"
+      > </a
+      ><a name="2498" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2499"
+      > </a
+      ><a name="2500" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2500" class="Bound"
+      >Nk'</a
+      ><a name="2503"
+      > </a
+      ><a name="2504" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2505"
+      > </a
+      ><a name="2506" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2506" class="Bound"
+      >h&#8322;</a
+      ><a name="2508" class="Symbol"
+      >)</a
+      ><a name="2509"
+      > </a
+      ><a name="2510" class="Symbol"
+      >=</a
+      ><a name="2511"
+      >
+  </a
+      ><a name="2514" class="Symbol"
+      >(&#955;</a
+      ><a name="2516"
+      > </a
+      ><a name="2517" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2517" class="Bound"
+      >S&#8801;0</a
+      ><a name="2520"
+      > </a
+      ><a name="2521" class="Symbol"
+      >&#8594;</a
+      ><a name="2522"
+      > </a
+      ><a name="2523" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2529"
+      > </a
+      ><a name="2530" class="Symbol"
+      >(</a
+      ><a name="2531" href="FOTC.Base.PropertiesATP.html#732" class="Postulate"
+      >S&#8802;0</a
+      ><a name="2534"
+      > </a
+      ><a name="2535" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2517" class="Bound"
+      >S&#8801;0</a
+      ><a name="2538" class="Symbol"
+      >))</a
+      ><a name="2540"
+      >
+  </a
+      ><a name="2543" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2544"
+      > </a
+      ><a name="2545" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2463" class="Bound"
+      >k</a
+      ><a name="2546"
+      > </a
+      ><a name="2547" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2548"
+      > </a
+      ><a name="2549" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2495" class="Bound"
+      >k'</a
+      ><a name="2551"
+      > </a
+      ><a name="2552" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2553"
+      > </a
+      ><a name="2554" href="FOTC.Data.Nat.PropertiesATP.html#818" class="Function"
+      >+-N</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2467" class="Bound"
+      >Nk</a
+      ><a name="2560"
+      > </a
+      ><a name="2561" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2500" class="Bound"
+      >Nk'</a
+      ><a name="2564"
+      > </a
+      ><a name="2565" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="2566"
+      > </a
+      ><a name="2567" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2019" class="Postulate"
+      >x&#8739;y&#8594;x&#8739;z&#8594;x&#8739;y+z-helper</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2434" class="Bound"
+      >Nm</a
+      ><a name="2590"
+      > </a
+      ><a name="2591" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2467" class="Bound"
+      >Nk</a
+      ><a name="2593"
+      > </a
+      ><a name="2594" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2500" class="Bound"
+      >Nk'</a
+      ><a name="2597"
+      > </a
+      ><a name="2598" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2472" class="Bound"
+      >h&#8321;</a
+      ><a name="2600"
+      > </a
+      ><a name="2601" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2506" class="Bound"
+      >h&#8322;</a
+      ><a name="2603"
+      >
+
+</a
+      ><a name="2605" class="Comment"
+      >-- If x divides y and y is positive, then x &#8804; y.</a
+      ><a name="2653"
+      >
+</a
+      ><a name="2654" class="Keyword"
+      >postulate</a
+      ><a name="2663"
+      > </a
+      ><a name="2664" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2664" class="Postulate"
+      >x&#8739;S&#8594;x&#8804;S-ah&#8321;</a
+      ><a name="2675"
+      > </a
+      ><a name="2676" class="Symbol"
+      >:</a
+      ><a name="2677"
+      > </a
+      ><a name="2678" class="Symbol"
+      >&#8704;</a
+      ><a name="2679"
+      > </a
+      ><a name="2680" class="Symbol"
+      >{</a
+      ><a name="2681" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2681" class="Bound"
+      >m</a
+      ><a name="2682"
+      > </a
+      ><a name="2683" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2683" class="Bound"
+      >n</a
+      ><a name="2684" class="Symbol"
+      >}</a
+      ><a name="2685"
+      > </a
+      ><a name="2686" class="Symbol"
+      >&#8594;</a
+      ><a name="2687"
+      > </a
+      ><a name="2688" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2693"
+      > </a
+      ><a name="2694" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2683" class="Bound"
+      >n</a
+      ><a name="2695"
+      > </a
+      ><a name="2696" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2697"
+      > </a
+      ><a name="2698" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2702"
+      > </a
+      ><a name="2703" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="2704"
+      > </a
+      ><a name="2705" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2710"
+      > </a
+      ><a name="2711" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2681" class="Bound"
+      >m</a
+      ><a name="2712"
+      > </a
+      ><a name="2713" class="Symbol"
+      >&#8594;</a
+      ><a name="2714"
+      > </a
+      ><a name="2715" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2716"
+      >
+</a
+      ><a name="2717" class="Symbol"
+      >{-#</a
+      ><a name="2720"
+      > </a
+      ><a name="2721" class="Keyword"
+      >ATP</a
+      ><a name="2724"
+      > prove </a
+      ><a name="2731" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2664" class="Postulate"
+      >x&#8739;S&#8594;x&#8804;S-ah&#8321;</a
+      ><a name="2742"
+      > </a
+      ><a name="2743" class="Symbol"
+      >#-}</a
+      ><a name="2746"
+      >
+
+</a
+      ><a name="2748" class="Comment"
+      >-- Nice proof by the ATP.</a
+      ><a name="2773"
+      >
+</a
+      ><a name="2774" class="Keyword"
+      >postulate</a
+      ><a name="2783"
+      > </a
+      ><a name="2784" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2784" class="Postulate"
+      >x&#8739;S&#8594;x&#8804;S-ah&#8322;</a
+      ><a name="2795"
+      > </a
+      ><a name="2796" class="Symbol"
+      >:</a
+      ><a name="2797"
+      > </a
+      ><a name="2798" class="Symbol"
+      >&#8704;</a
+      ><a name="2799"
+      > </a
+      ><a name="2800" class="Symbol"
+      >{</a
+      ><a name="2801" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2801" class="Bound"
+      >m</a
+      ><a name="2802"
+      > </a
+      ><a name="2803" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2803" class="Bound"
+      >n</a
+      ><a name="2804"
+      > </a
+      ><a name="2805" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2805" class="Bound"
+      >o</a
+      ><a name="2806" class="Symbol"
+      >}</a
+      ><a name="2807"
+      > </a
+      ><a name="2808" class="Symbol"
+      >&#8594;</a
+      ><a name="2809"
+      > </a
+      ><a name="2810" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2811"
+      > </a
+      ><a name="2812" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2801" class="Bound"
+      >m</a
+      ><a name="2813"
+      > </a
+      ><a name="2814" class="Symbol"
+      >&#8594;</a
+      ><a name="2815"
+      > </a
+      ><a name="2816" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2817"
+      > </a
+      ><a name="2818" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2803" class="Bound"
+      >n</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" class="Symbol"
+      >&#8594;</a
+      ><a name="2821"
+      > </a
+      ><a name="2822" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2823"
+      > </a
+      ><a name="2824" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2805" class="Bound"
+      >o</a
+      ><a name="2825"
+      > </a
+      ><a name="2826" class="Symbol"
+      >&#8594;</a
+      ><a name="2827"
+      >
+                        </a
+      ><a name="2852" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2857"
+      > </a
+      ><a name="2858" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2803" class="Bound"
+      >n</a
+      ><a name="2859"
+      > </a
+      ><a name="2860" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2861"
+      > </a
+      ><a name="2862" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2867"
+      > </a
+      ><a name="2868" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2805" class="Bound"
+      >o</a
+      ><a name="2869"
+      > </a
+      ><a name="2870" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="2871"
+      > </a
+      ><a name="2872" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2877"
+      > </a
+      ><a name="2878" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2801" class="Bound"
+      >m</a
+      ><a name="2879"
+      > </a
+      ><a name="2880" class="Symbol"
+      >&#8594;</a
+      ><a name="2881"
+      >
+                        </a
+      ><a name="2906" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2911"
+      > </a
+      ><a name="2912" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2801" class="Bound"
+      >m</a
+      ><a name="2913"
+      > </a
+      ><a name="2914" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="2915"
+      > </a
+      ><a name="2916" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2921"
+      > </a
+      ><a name="2922" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2803" class="Bound"
+      >n</a
+      ><a name="2923"
+      >
+</a
+      ><a name="2924" class="Symbol"
+      >{-#</a
+      ><a name="2927"
+      > </a
+      ><a name="2928" class="Keyword"
+      >ATP</a
+      ><a name="2931"
+      > prove </a
+      ><a name="2938" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2784" class="Postulate"
+      >x&#8739;S&#8594;x&#8804;S-ah&#8322;</a
+      ><a name="2949"
+      > </a
+      ><a name="2950" href="FOTC.Data.Nat.Inequalities.PropertiesATP.html#11846" class="Function"
+      >x&#8804;x+y</a
+      ><a name="2955"
+      > </a
+      ><a name="2956" href="FOTC.Data.Nat.PropertiesATP.html#1343" class="Function"
+      >*-N</a
+      ><a name="2959"
+      > </a
+      ><a name="2960" class="Symbol"
+      >#-}</a
+      ><a name="2963"
+      >
+
+</a
+      ><a name="2965" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2965" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="2972"
+      > </a
+      ><a name="2973" class="Symbol"
+      >:</a
+      ><a name="2974"
+      > </a
+      ><a name="2975" class="Symbol"
+      >&#8704;</a
+      ><a name="2976"
+      > </a
+      ><a name="2977" class="Symbol"
+      >{</a
+      ><a name="2978" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2978" class="Bound"
+      >m</a
+      ><a name="2979"
+      > </a
+      ><a name="2980" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2980" class="Bound"
+      >n</a
+      ><a name="2981" class="Symbol"
+      >}</a
+      ><a name="2982"
+      > </a
+      ><a name="2983" class="Symbol"
+      >&#8594;</a
+      ><a name="2984"
+      > </a
+      ><a name="2985" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2986"
+      > </a
+      ><a name="2987" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2978" class="Bound"
+      >m</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" class="Symbol"
+      >&#8594;</a
+      ><a name="2990"
+      > </a
+      ><a name="2991" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2992"
+      > </a
+      ><a name="2993" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2980" class="Bound"
+      >n</a
+      ><a name="2994"
+      > </a
+      ><a name="2995" class="Symbol"
+      >&#8594;</a
+      ><a name="2996"
+      > </a
+      ><a name="2997" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2978" class="Bound"
+      >m</a
+      ><a name="2998"
+      > </a
+      ><a name="2999" href="FOTC.Data.Nat.Divisibility.NotBy0.html#942" class="Function Operator"
+      >&#8739;</a
+      ><a name="3000"
+      > </a
+      ><a name="3001" class="Symbol"
+      >(</a
+      ><a name="3002" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3007"
+      > </a
+      ><a name="3008" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2980" class="Bound"
+      >n</a
+      ><a name="3009" class="Symbol"
+      >)</a
+      ><a name="3010"
+      > </a
+      ><a name="3011" class="Symbol"
+      >&#8594;</a
+      ><a name="3012"
+      > </a
+      ><a name="3013" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2978" class="Bound"
+      >m</a
+      ><a name="3014"
+      > </a
+      ><a name="3015" href="FOTC.Data.Nat.Inequalities.html#1402" class="Function Operator"
+      >&#8804;</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="3022"
+      > </a
+      ><a name="3023" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2980" class="Bound"
+      >n</a
+      ><a name="3024"
+      >
+</a
+      ><a name="3025" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2965" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3032"
+      >  </a
+      ><a name="3034" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3039"
+      > </a
+      ><a name="3040" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3040" class="Bound"
+      >Nn</a
+      ><a name="3042"
+      > </a
+      ><a name="3043" class="Symbol"
+      >(</a
+      ><a name="3044" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3044" class="Bound"
+      >0&#8802;0</a
+      ><a name="3047"
+      > </a
+      ><a name="3048" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3049"
+      > </a
+      ><a name="3050" class="Symbol"
+      >_)</a
+      ><a name="3052"
+      > </a
+      ><a name="3053" class="Symbol"
+      >=</a
+      ><a name="3054"
+      > </a
+      ><a name="3055" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3061"
+      > </a
+      ><a name="3062" class="Symbol"
+      >(</a
+      ><a name="3063" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3044" class="Bound"
+      >0&#8802;0</a
+      ><a name="3066"
+      > </a
+      ><a name="3067" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="3071" class="Symbol"
+      >)</a
+      ><a name="3072"
+      >
+</a
+      ><a name="3073" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2965" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3080"
+      > </a
+      ><a name="3081" class="Symbol"
+      >(</a
+      ><a name="3082" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3087"
+      > </a
+      ><a name="3088" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3088" class="Bound"
+      >Nm</a
+      ><a name="3090" class="Symbol"
+      >)</a
+      ><a name="3091"
+      > </a
+      ><a name="3092" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3092" class="Bound"
+      >Nn</a
+      ><a name="3094"
+      > </a
+      ><a name="3095" class="Symbol"
+      >(_</a
+      ><a name="3097"
+      > </a
+      ><a name="3098" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3099"
+      > </a
+      ><a name="3100" class="DottedPattern Symbol"
+      >.</a
+      ><a name="3101" href="FOTC.Base.html#1289" class="DottedPattern Postulate"
+      >zero</a
+      ><a name="3105"
+      > </a
+      ><a name="3106" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3107"
+      > </a
+      ><a name="3108" href="FOTC.Data.Nat.Type.html#669" class="InductiveConstructor"
+      >nzero</a
+      ><a name="3113"
+      > </a
+      ><a name="3114" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3115"
+      > </a
+      ><a name="3116" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3116" class="Bound"
+      >Sn&#8801;0*Sm</a
+      ><a name="3123" class="Symbol"
+      >)</a
+      ><a name="3124"
+      > </a
+      ><a name="3125" class="Symbol"
+      >=</a
+      ><a name="3126"
+      > </a
+      ><a name="3127" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="3133"
+      > </a
+      ><a name="3134" class="Symbol"
+      >(</a
+      ><a name="3135" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2664" class="Postulate"
+      >x&#8739;S&#8594;x&#8804;S-ah&#8321;</a
+      ><a name="3146"
+      > </a
+      ><a name="3147" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3116" class="Bound"
+      >Sn&#8801;0*Sm</a
+      ><a name="3154" class="Symbol"
+      >)</a
+      ><a name="3155"
+      >
+</a
+      ><a name="3156" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2965" class="Function"
+      >x&#8739;S&#8594;x&#8804;S</a
+      ><a name="3163"
+      > </a
+      ><a name="3164" class="Symbol"
+      >(</a
+      ><a name="3165" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3170"
+      > </a
+      ><a name="3171" class="Symbol"
+      >{</a
+      ><a name="3172" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3172" class="Bound"
+      >m</a
+      ><a name="3173" class="Symbol"
+      >}</a
+      ><a name="3174"
+      > </a
+      ><a name="3175" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3175" class="Bound"
+      >Nm</a
+      ><a name="3177" class="Symbol"
+      >)</a
+      ><a name="3178"
+      > </a
+      ><a name="3179" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3179" class="Bound"
+      >Nn</a
+      ><a name="3181"
+      > </a
+      ><a name="3182" class="Symbol"
+      >(_</a
+      ><a name="3184"
+      > </a
+      ><a name="3185" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3186"
+      > </a
+      ><a name="3187" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="3189" href="FOTC.Base.html#1856" class="DottedPattern Function"
+      >succ&#8321;</a
+      ><a name="3194"
+      > </a
+      ><a name="3195" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3207" class="DottedPattern Bound"
+      >k</a
+      ><a name="3196" class="DottedPattern Symbol"
+      >)</a
+      ><a name="3197"
+      > </a
+      ><a name="3198" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3199"
+      > </a
+      ><a name="3200" href="FOTC.Data.Nat.Type.html#686" class="InductiveConstructor"
+      >nsucc</a
+      ><a name="3205"
+      > </a
+      ><a name="3206" class="Symbol"
+      >{</a
+      ><a name="3207" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3207" class="Bound"
+      >k</a
+      ><a name="3208" class="Symbol"
+      >}</a
+      ><a name="3209"
+      > </a
+      ><a name="3210" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3210" class="Bound"
+      >Nk</a
+      ><a name="3212"
+      > </a
+      ><a name="3213" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="3214"
+      > </a
+      ><a name="3215" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3215" class="Bound"
+      >Sn&#8801;Sk*Sm</a
+      ><a name="3223" class="Symbol"
+      >)</a
+      ><a name="3224"
+      > </a
+      ><a name="3225" class="Symbol"
+      >=</a
+      ><a name="3226"
+      >
+  </a
+      ><a name="3229" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#2784" class="Postulate"
+      >x&#8739;S&#8594;x&#8804;S-ah&#8322;</a
+      ><a name="3240"
+      > </a
+      ><a name="3241" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3175" class="Bound"
+      >Nm</a
+      ><a name="3243"
+      > </a
+      ><a name="3244" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3179" class="Bound"
+      >Nn</a
+      ><a name="3246"
+      > </a
+      ><a name="3247" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3210" class="Bound"
+      >Nk</a
+      ><a name="3249"
+      > </a
+      ><a name="3250" href="FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP.html#3215" class="Bound"
+      >Sn&#8801;Sk*Sm</a
+      ><a name="3258"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

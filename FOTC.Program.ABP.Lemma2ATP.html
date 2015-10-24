@@ -1,0 +1,4064 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.ABP.Lemma2ATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- ABP Lemma 2</a
+      ><a name="94"
+      >
+</a
+      ><a name="95" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="173"
+      >
+
+</a
+      ><a name="175" class="Symbol"
+      >{-#</a
+      ><a name="178"
+      > </a
+      ><a name="179" class="Keyword"
+      >OPTIONS</a
+      ><a name="186"
+      > --exact-split              </a
+      ><a name="214" class="Symbol"
+      >#-}</a
+      ><a name="217"
+      >
+</a
+      ><a name="218" class="Symbol"
+      >{-#</a
+      ><a name="221"
+      > </a
+      ><a name="222" class="Keyword"
+      >OPTIONS</a
+      ><a name="229"
+      > --no-sized-types           </a
+      ><a name="257" class="Symbol"
+      >#-}</a
+      ><a name="260"
+      >
+</a
+      ><a name="261" class="Symbol"
+      >{-#</a
+      ><a name="264"
+      > </a
+      ><a name="265" class="Keyword"
+      >OPTIONS</a
+      ><a name="272"
+      > --no-universe-polymorphism </a
+      ><a name="300" class="Symbol"
+      >#-}</a
+      ><a name="303"
+      >
+</a
+      ><a name="304" class="Symbol"
+      >{-#</a
+      ><a name="307"
+      > </a
+      ><a name="308" class="Keyword"
+      >OPTIONS</a
+      ><a name="315"
+      > --without-K                </a
+      ><a name="343" class="Symbol"
+      >#-}</a
+      ><a name="346"
+      >
+
+</a
+      ><a name="348" class="Comment"
+      >-- From Dybjer and Sander's paper: The second lemma states that given</a
+      ><a name="417"
+      >
+</a
+      ><a name="418" class="Comment"
+      >-- a state of the latter kind (see Lemma 1) we will arrive at a new</a
+      ><a name="485"
+      >
+</a
+      ><a name="486" class="Comment"
+      >-- start state, which is identical to the old start state except that</a
+      ><a name="555"
+      >
+</a
+      ><a name="556" class="Comment"
+      >-- the bit has alternated and the first item in the input stream has</a
+      ><a name="624"
+      >
+</a
+      ><a name="625" class="Comment"
+      >-- been removed.</a
+      ><a name="641"
+      >
+
+</a
+      ><a name="643" class="Keyword"
+      >module</a
+      ><a name="649"
+      > </a
+      ><a name="650" href="FOTC.Program.ABP.Lemma2ATP.html#1" class="Module"
+      >FOTC.Program.ABP.Lemma2ATP</a
+      ><a name="676"
+      > </a
+      ><a name="677" class="Keyword"
+      >where</a
+      ><a name="682"
+      >
+
+</a
+      ><a name="684" class="Keyword"
+      >open</a
+      ><a name="688"
+      > </a
+      ><a name="689" class="Keyword"
+      >import</a
+      ><a name="695"
+      > </a
+      ><a name="696" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="705"
+      >
+</a
+      ><a name="706" class="Keyword"
+      >open</a
+      ><a name="710"
+      > </a
+      ><a name="711" class="Keyword"
+      >import</a
+      ><a name="717"
+      > </a
+      ><a name="718" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="732"
+      >
+</a
+      ><a name="733" class="Keyword"
+      >open</a
+      ><a name="737"
+      > </a
+      ><a name="738" class="Keyword"
+      >import</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="FOTC.Base.Loop.html#1" class="Module"
+      >FOTC.Base.Loop</a
+      ><a name="759"
+      >
+</a
+      ><a name="760" class="Keyword"
+      >open</a
+      ><a name="764"
+      > </a
+      ><a name="765" class="Keyword"
+      >import</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="FOTC.Data.Bool.html#1" class="Module"
+      >FOTC.Data.Bool</a
+      ><a name="786"
+      >
+</a
+      ><a name="787" class="Keyword"
+      >open</a
+      ><a name="791"
+      > </a
+      ><a name="792" class="Keyword"
+      >import</a
+      ><a name="798"
+      > </a
+      ><a name="799" href="FOTC.Data.Bool.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Bool.PropertiesATP</a
+      ><a name="827"
+      >
+  </a
+      ><a name="830" class="Keyword"
+      >using</a
+      ><a name="835"
+      > </a
+      ><a name="836" class="Symbol"
+      >(</a
+      ><a name="837"
+      > not-x&#8802;x
+        </a
+      ><a name="854" class="Symbol"
+      >;</a
+      ><a name="855"
+      > not-involutive
+        </a
+      ><a name="879" class="Symbol"
+      >)</a
+      ><a name="880"
+      >
+</a
+      ><a name="881" class="Keyword"
+      >open</a
+      ><a name="885"
+      > </a
+      ><a name="886" class="Keyword"
+      >import</a
+      ><a name="892"
+      > </a
+      ><a name="893" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="907"
+      >
+</a
+      ><a name="908" class="Keyword"
+      >open</a
+      ><a name="912"
+      > </a
+      ><a name="913" class="Keyword"
+      >import</a
+      ><a name="919"
+      > </a
+      ><a name="920" href="FOTC.Program.ABP.ABP.html#1" class="Module"
+      >FOTC.Program.ABP.ABP</a
+      ><a name="940"
+      >
+</a
+      ><a name="941" class="Keyword"
+      >open</a
+      ><a name="945"
+      > </a
+      ><a name="946" class="Keyword"
+      >import</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="FOTC.Program.ABP.Fair.Type.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.Type</a
+      ><a name="979"
+      >
+</a
+      ><a name="980" class="Keyword"
+      >open</a
+      ><a name="984"
+      > </a
+      ><a name="985" class="Keyword"
+      >import</a
+      ><a name="991"
+      > </a
+      ><a name="992" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1" class="Module"
+      >FOTC.Program.ABP.Fair.PropertiesATP</a
+      ><a name="1027"
+      >
+</a
+      ><a name="1028" class="Keyword"
+      >open</a
+      ><a name="1032"
+      > </a
+      ><a name="1033" class="Keyword"
+      >import</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="FOTC.Program.ABP.Terms.html#1" class="Module"
+      >FOTC.Program.ABP.Terms</a
+      ><a name="1062"
+      >
+
+</a
+      ><a name="1064" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1142"
+      >
+</a
+      ><a name="1143" class="Comment"
+      >-- 30 November 2013. If we don't have the following definitions</a
+      ><a name="1206"
+      >
+</a
+      ><a name="1207" class="Comment"
+      >-- outside the where clause, the ATPs cannot prove the theorems.</a
+      ><a name="1271"
+      >
+
+</a
+      ><a name="1273" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="1276"
+      > </a
+      ><a name="1277" class="Symbol"
+      >:</a
+      ><a name="1278"
+      > </a
+      ><a name="1279" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1280"
+      > </a
+      ><a name="1281" class="Symbol"
+      >&#8594;</a
+      ><a name="1282"
+      > </a
+      ><a name="1283" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1284"
+      > </a
+      ><a name="1285" class="Symbol"
+      >&#8594;</a
+      ><a name="1286"
+      > </a
+      ><a name="1287" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1288"
+      >
+</a
+      ><a name="1289" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="1292"
+      > </a
+      ><a name="1293" href="FOTC.Program.ABP.Lemma2ATP.html#1293" class="Bound"
+      >cs'</a
+      ><a name="1296"
+      > </a
+      ><a name="1297" href="FOTC.Program.ABP.Lemma2ATP.html#1297" class="Bound"
+      >os&#8322;^</a
+      ><a name="1301"
+      > </a
+      ><a name="1302" class="Symbol"
+      >=</a
+      ><a name="1303"
+      > </a
+      ><a name="1304" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="1311"
+      > </a
+      ><a name="1312" href="FOTC.Program.ABP.Lemma2ATP.html#1297" class="Bound"
+      >os&#8322;^</a
+      ><a name="1316"
+      > </a
+      ><a name="1317" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1318"
+      > </a
+      ><a name="1319" href="FOTC.Program.ABP.Lemma2ATP.html#1293" class="Bound"
+      >cs'</a
+      ><a name="1322"
+      >
+</a
+      ><a name="1323" class="Symbol"
+      >{-#</a
+      ><a name="1326"
+      > </a
+      ><a name="1327" class="Keyword"
+      >ATP</a
+      ><a name="1330"
+      > definition </a
+      ><a name="1342" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="1345"
+      > </a
+      ><a name="1346" class="Symbol"
+      >#-}</a
+      ><a name="1349"
+      >
+
+</a
+      ><a name="1351" href="FOTC.Program.ABP.Lemma2ATP.html#1351" class="Function"
+      >as^</a
+      ><a name="1354"
+      > </a
+      ><a name="1355" class="Symbol"
+      >:</a
+      ><a name="1356"
+      > </a
+      ><a name="1357" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1358"
+      > </a
+      ><a name="1359" class="Symbol"
+      >&#8594;</a
+      ><a name="1360"
+      > </a
+      ><a name="1361" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1362"
+      > </a
+      ><a name="1363" class="Symbol"
+      >&#8594;</a
+      ><a name="1364"
+      > </a
+      ><a name="1365" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1366"
+      > </a
+      ><a name="1367" class="Symbol"
+      >&#8594;</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" class="Symbol"
+      >&#8594;</a
+      ><a name="1372"
+      > </a
+      ><a name="1373" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" class="Symbol"
+      >&#8594;</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1378"
+      >
+</a
+      ><a name="1379" href="FOTC.Program.ABP.Lemma2ATP.html#1351" class="Function"
+      >as^</a
+      ><a name="1382"
+      > </a
+      ><a name="1383" href="FOTC.Program.ABP.Lemma2ATP.html#1383" class="Bound"
+      >b</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="FOTC.Program.ABP.Lemma2ATP.html#1385" class="Bound"
+      >i'</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" href="FOTC.Program.ABP.Lemma2ATP.html#1388" class="Bound"
+      >is'</a
+      ><a name="1391"
+      > </a
+      ><a name="1392" href="FOTC.Program.ABP.Lemma2ATP.html#1392" class="Bound"
+      >cs'</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="FOTC.Program.ABP.Lemma2ATP.html#1396" class="Bound"
+      >os&#8322;^</a
+      ><a name="1400"
+      > </a
+      ><a name="1401" class="Symbol"
+      >=</a
+      ><a name="1402"
+      > </a
+      ><a name="1403" href="FOTC.Program.ABP.ABP.html#848" class="Postulate"
+      >await</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="FOTC.Program.ABP.Lemma2ATP.html#1383" class="Bound"
+      >b</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="FOTC.Program.ABP.Lemma2ATP.html#1385" class="Bound"
+      >i'</a
+      ><a name="1413"
+      > </a
+      ><a name="1414" href="FOTC.Program.ABP.Lemma2ATP.html#1388" class="Bound"
+      >is'</a
+      ><a name="1417"
+      > </a
+      ><a name="1418" class="Symbol"
+      >(</a
+      ><a name="1419" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="1422"
+      > </a
+      ><a name="1423" href="FOTC.Program.ABP.Lemma2ATP.html#1392" class="Bound"
+      >cs'</a
+      ><a name="1426"
+      > </a
+      ><a name="1427" href="FOTC.Program.ABP.Lemma2ATP.html#1396" class="Bound"
+      >os&#8322;^</a
+      ><a name="1431" class="Symbol"
+      >)</a
+      ><a name="1432"
+      >
+</a
+      ><a name="1433" class="Symbol"
+      >{-#</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" class="Keyword"
+      >ATP</a
+      ><a name="1440"
+      > definition </a
+      ><a name="1452" href="FOTC.Program.ABP.Lemma2ATP.html#1351" class="Function"
+      >as^</a
+      ><a name="1455"
+      > </a
+      ><a name="1456" class="Symbol"
+      >#-}</a
+      ><a name="1459"
+      >
+
+</a
+      ><a name="1461" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="1464"
+      > </a
+      ><a name="1465" class="Symbol"
+      >:</a
+      ><a name="1466"
+      > </a
+      ><a name="1467" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1468"
+      > </a
+      ><a name="1469" class="Symbol"
+      >&#8594;</a
+      ><a name="1470"
+      > </a
+      ><a name="1471" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1472"
+      > </a
+      ><a name="1473" class="Symbol"
+      >&#8594;</a
+      ><a name="1474"
+      > </a
+      ><a name="1475" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" class="Symbol"
+      >&#8594;</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1480"
+      > </a
+      ><a name="1481" class="Symbol"
+      >&#8594;</a
+      ><a name="1482"
+      > </a
+      ><a name="1483" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" class="Symbol"
+      >&#8594;</a
+      ><a name="1486"
+      > </a
+      ><a name="1487" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1488"
+      > </a
+      ><a name="1489" class="Symbol"
+      >&#8594;</a
+      ><a name="1490"
+      > </a
+      ><a name="1491" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1492"
+      >
+</a
+      ><a name="1493" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="FOTC.Program.ABP.Lemma2ATP.html#1497" class="Bound"
+      >b</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="FOTC.Program.ABP.Lemma2ATP.html#1499" class="Bound"
+      >i'</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="FOTC.Program.ABP.Lemma2ATP.html#1502" class="Bound"
+      >is'</a
+      ><a name="1505"
+      > </a
+      ><a name="1506" href="FOTC.Program.ABP.Lemma2ATP.html#1506" class="Bound"
+      >cs'</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" href="FOTC.Program.ABP.Lemma2ATP.html#1510" class="Bound"
+      >os&#8321;^</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" href="FOTC.Program.ABP.Lemma2ATP.html#1515" class="Bound"
+      >os&#8322;^</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" class="Symbol"
+      >=</a
+      ><a name="1521"
+      > </a
+      ><a name="1522" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="FOTC.Program.ABP.Lemma2ATP.html#1510" class="Bound"
+      >os&#8321;^</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1536"
+      > </a
+      ><a name="1537" href="FOTC.Program.ABP.Lemma2ATP.html#1351" class="Function"
+      >as^</a
+      ><a name="1540"
+      > </a
+      ><a name="1541" href="FOTC.Program.ABP.Lemma2ATP.html#1497" class="Bound"
+      >b</a
+      ><a name="1542"
+      > </a
+      ><a name="1543" href="FOTC.Program.ABP.Lemma2ATP.html#1499" class="Bound"
+      >i'</a
+      ><a name="1545"
+      > </a
+      ><a name="1546" href="FOTC.Program.ABP.Lemma2ATP.html#1502" class="Bound"
+      >is'</a
+      ><a name="1549"
+      > </a
+      ><a name="1550" href="FOTC.Program.ABP.Lemma2ATP.html#1506" class="Bound"
+      >cs'</a
+      ><a name="1553"
+      > </a
+      ><a name="1554" href="FOTC.Program.ABP.Lemma2ATP.html#1515" class="Bound"
+      >os&#8322;^</a
+      ><a name="1558"
+      >
+</a
+      ><a name="1559" class="Symbol"
+      >{-#</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" class="Keyword"
+      >ATP</a
+      ><a name="1566"
+      > definition </a
+      ><a name="1578" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="1581"
+      > </a
+      ><a name="1582" class="Symbol"
+      >#-}</a
+      ><a name="1585"
+      >
+
+</a
+      ><a name="1587" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="1590"
+      > </a
+      ><a name="1591" class="Symbol"
+      >:</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" class="Symbol"
+      >&#8594;</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" class="Symbol"
+      >&#8594;</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" class="Symbol"
+      >&#8594;</a
+      ><a name="1604"
+      > </a
+      ><a name="1605" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1606"
+      > </a
+      ><a name="1607" class="Symbol"
+      >&#8594;</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1610"
+      > </a
+      ><a name="1611" class="Symbol"
+      >&#8594;</a
+      ><a name="1612"
+      > </a
+      ><a name="1613" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1614"
+      > </a
+      ><a name="1615" class="Symbol"
+      >&#8594;</a
+      ><a name="1616"
+      > </a
+      ><a name="1617" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1618"
+      >
+</a
+      ><a name="1619" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="1622"
+      > </a
+      ><a name="1623" href="FOTC.Program.ABP.Lemma2ATP.html#1623" class="Bound"
+      >b</a
+      ><a name="1624"
+      > </a
+      ><a name="1625" href="FOTC.Program.ABP.Lemma2ATP.html#1625" class="Bound"
+      >i'</a
+      ><a name="1627"
+      > </a
+      ><a name="1628" href="FOTC.Program.ABP.Lemma2ATP.html#1628" class="Bound"
+      >is'</a
+      ><a name="1631"
+      > </a
+      ><a name="1632" href="FOTC.Program.ABP.Lemma2ATP.html#1632" class="Bound"
+      >cs'</a
+      ><a name="1635"
+      > </a
+      ><a name="1636" href="FOTC.Program.ABP.Lemma2ATP.html#1636" class="Bound"
+      >os&#8321;^</a
+      ><a name="1640"
+      > </a
+      ><a name="1641" href="FOTC.Program.ABP.Lemma2ATP.html#1641" class="Bound"
+      >os&#8322;^</a
+      ><a name="1645"
+      > </a
+      ><a name="1646" class="Symbol"
+      >=</a
+      ><a name="1647"
+      > </a
+      ><a name="1648" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="1651"
+      > </a
+      ><a name="1652" class="Symbol"
+      >(</a
+      ><a name="1653" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="1656"
+      > </a
+      ><a name="1657" href="FOTC.Program.ABP.Lemma2ATP.html#1623" class="Bound"
+      >b</a
+      ><a name="1658" class="Symbol"
+      >)</a
+      ><a name="1659"
+      > </a
+      ><a name="1660" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1661"
+      > </a
+      ><a name="1662" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="1665"
+      > </a
+      ><a name="1666" href="FOTC.Program.ABP.Lemma2ATP.html#1623" class="Bound"
+      >b</a
+      ><a name="1667"
+      > </a
+      ><a name="1668" href="FOTC.Program.ABP.Lemma2ATP.html#1625" class="Bound"
+      >i'</a
+      ><a name="1670"
+      > </a
+      ><a name="1671" href="FOTC.Program.ABP.Lemma2ATP.html#1628" class="Bound"
+      >is'</a
+      ><a name="1674"
+      > </a
+      ><a name="1675" href="FOTC.Program.ABP.Lemma2ATP.html#1632" class="Bound"
+      >cs'</a
+      ><a name="1678"
+      > </a
+      ><a name="1679" href="FOTC.Program.ABP.Lemma2ATP.html#1636" class="Bound"
+      >os&#8321;^</a
+      ><a name="1683"
+      > </a
+      ><a name="1684" href="FOTC.Program.ABP.Lemma2ATP.html#1641" class="Bound"
+      >os&#8322;^</a
+      ><a name="1688"
+      >
+</a
+      ><a name="1689" class="Symbol"
+      >{-#</a
+      ><a name="1692"
+      > </a
+      ><a name="1693" class="Keyword"
+      >ATP</a
+      ><a name="1696"
+      > definition </a
+      ><a name="1708" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="1711"
+      > </a
+      ><a name="1712" class="Symbol"
+      >#-}</a
+      ><a name="1715"
+      >
+
+</a
+      ><a name="1717" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="1721"
+      > </a
+      ><a name="1722" class="Symbol"
+      >:</a
+      ><a name="1723"
+      > </a
+      ><a name="1724" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1725"
+      > </a
+      ><a name="1726" class="Symbol"
+      >&#8594;</a
+      ><a name="1727"
+      > </a
+      ><a name="1728" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1729"
+      >
+</a
+      ><a name="1730" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="1734"
+      > </a
+      ><a name="1735" href="FOTC.Program.ABP.Lemma2ATP.html#1735" class="Bound"
+      >os&#8321;'</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" class="Symbol"
+      >=</a
+      ><a name="1741"
+      > </a
+      ><a name="1742" href="FOTC.Base.List.html#790" class="Function"
+      >tail&#8321;</a
+      ><a name="1747"
+      > </a
+      ><a name="1748" href="FOTC.Program.ABP.Lemma2ATP.html#1735" class="Bound"
+      >os&#8321;'</a
+      ><a name="1752"
+      >
+</a
+      ><a name="1753" class="Symbol"
+      >{-#</a
+      ><a name="1756"
+      > </a
+      ><a name="1757" class="Keyword"
+      >ATP</a
+      ><a name="1760"
+      > definition </a
+      ><a name="1772" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" class="Symbol"
+      >#-}</a
+      ><a name="1780"
+      >
+
+</a
+      ><a name="1782" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="1786"
+      > </a
+      ><a name="1787" class="Symbol"
+      >:</a
+      ><a name="1788"
+      > </a
+      ><a name="1789" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1790"
+      > </a
+      ><a name="1791" class="Symbol"
+      >&#8594;</a
+      ><a name="1792"
+      > </a
+      ><a name="1793" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1794"
+      > </a
+      ><a name="1795" class="Symbol"
+      >&#8594;</a
+      ><a name="1796"
+      > </a
+      ><a name="1797" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1798"
+      >
+</a
+      ><a name="1799" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" href="FOTC.Program.ABP.Lemma2ATP.html#1804" class="Bound"
+      >ft&#8322;</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="FOTC.Program.ABP.Lemma2ATP.html#1808" class="Bound"
+      >os&#8322;''</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" class="Symbol"
+      >=</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="FOTC.Program.ABP.Lemma2ATP.html#1804" class="Bound"
+      >ft&#8322;</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="1822"
+      > </a
+      ><a name="1823" href="FOTC.Program.ABP.Lemma2ATP.html#1808" class="Bound"
+      >os&#8322;''</a
+      ><a name="1828"
+      >
+</a
+      ><a name="1829" class="Symbol"
+      >{-#</a
+      ><a name="1832"
+      > </a
+      ><a name="1833" class="Keyword"
+      >ATP</a
+      ><a name="1836"
+      > definition </a
+      ><a name="1848" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="1852"
+      > </a
+      ><a name="1853" class="Symbol"
+      >#-}</a
+      ><a name="1856"
+      >
+
+</a
+      ><a name="1858" class="Comment"
+      >-- Helper function for Lemma 2.</a
+      ><a name="1889"
+      >
+</a
+      ><a name="1890" href="FOTC.Program.ABP.Lemma2ATP.html#1890" class="Function"
+      >helper&#8322;</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" class="Symbol"
+      >:</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" class="Symbol"
+      >&#8704;</a
+      ><a name="1901"
+      > </a
+      ><a name="1902" class="Symbol"
+      >{</a
+      ><a name="1903" href="FOTC.Program.ABP.Lemma2ATP.html#1903" class="Bound"
+      >b</a
+      ><a name="1904"
+      > </a
+      ><a name="1905" href="FOTC.Program.ABP.Lemma2ATP.html#1905" class="Bound"
+      >i'</a
+      ><a name="1907"
+      > </a
+      ><a name="1908" href="FOTC.Program.ABP.Lemma2ATP.html#1908" class="Bound"
+      >is'</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" href="FOTC.Program.ABP.Lemma2ATP.html#1912" class="Bound"
+      >os&#8321;'</a
+      ><a name="1916"
+      > </a
+      ><a name="1917" href="FOTC.Program.ABP.Lemma2ATP.html#1917" class="Bound"
+      >os&#8322;'</a
+      ><a name="1921"
+      > </a
+      ><a name="1922" href="FOTC.Program.ABP.Lemma2ATP.html#1922" class="Bound"
+      >as'</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" href="FOTC.Program.ABP.Lemma2ATP.html#1926" class="Bound"
+      >bs'</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" href="FOTC.Program.ABP.Lemma2ATP.html#1930" class="Bound"
+      >cs'</a
+      ><a name="1933"
+      > </a
+      ><a name="1934" href="FOTC.Program.ABP.Lemma2ATP.html#1934" class="Bound"
+      >ds'</a
+      ><a name="1937"
+      > </a
+      ><a name="1938" href="FOTC.Program.ABP.Lemma2ATP.html#1938" class="Bound"
+      >js'</a
+      ><a name="1941" class="Symbol"
+      >}</a
+      ><a name="1942"
+      > </a
+      ><a name="1943" class="Symbol"
+      >&#8594;</a
+      ><a name="1944"
+      >
+          </a
+      ><a name="1955" href="FOTC.Program.ABP.Terms.html#600" class="Function"
+      >Bit</a
+      ><a name="1958"
+      > </a
+      ><a name="1959" href="FOTC.Program.ABP.Lemma2ATP.html#1903" class="Bound"
+      >b</a
+      ><a name="1960"
+      > </a
+      ><a name="1961" class="Symbol"
+      >&#8594;</a
+      ><a name="1962"
+      >
+          </a
+      ><a name="1973" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="1977"
+      > </a
+      ><a name="1978" href="FOTC.Program.ABP.Lemma2ATP.html#1912" class="Bound"
+      >os&#8321;'</a
+      ><a name="1982"
+      > </a
+      ><a name="1983" class="Symbol"
+      >&#8594;</a
+      ><a name="1984"
+      >
+          </a
+      ><a name="1995" href="FOTC.Program.ABP.ABP.html#3756" class="Function"
+      >S'</a
+      ><a name="1997"
+      > </a
+      ><a name="1998" href="FOTC.Program.ABP.Lemma2ATP.html#1903" class="Bound"
+      >b</a
+      ><a name="1999"
+      > </a
+      ><a name="2000" href="FOTC.Program.ABP.Lemma2ATP.html#1905" class="Bound"
+      >i'</a
+      ><a name="2002"
+      > </a
+      ><a name="2003" href="FOTC.Program.ABP.Lemma2ATP.html#1908" class="Bound"
+      >is'</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="FOTC.Program.ABP.Lemma2ATP.html#1912" class="Bound"
+      >os&#8321;'</a
+      ><a name="2011"
+      > </a
+      ><a name="2012" href="FOTC.Program.ABP.Lemma2ATP.html#1917" class="Bound"
+      >os&#8322;'</a
+      ><a name="2016"
+      > </a
+      ><a name="2017" href="FOTC.Program.ABP.Lemma2ATP.html#1922" class="Bound"
+      >as'</a
+      ><a name="2020"
+      > </a
+      ><a name="2021" href="FOTC.Program.ABP.Lemma2ATP.html#1926" class="Bound"
+      >bs'</a
+      ><a name="2024"
+      > </a
+      ><a name="2025" href="FOTC.Program.ABP.Lemma2ATP.html#1930" class="Bound"
+      >cs'</a
+      ><a name="2028"
+      > </a
+      ><a name="2029" href="FOTC.Program.ABP.Lemma2ATP.html#1934" class="Bound"
+      >ds'</a
+      ><a name="2032"
+      > </a
+      ><a name="2033" href="FOTC.Program.ABP.Lemma2ATP.html#1938" class="Bound"
+      >js'</a
+      ><a name="2036"
+      > </a
+      ><a name="2037" class="Symbol"
+      >&#8594;</a
+      ><a name="2038"
+      >
+          </a
+      ><a name="2049" class="Symbol"
+      >&#8704;</a
+      ><a name="2050"
+      > </a
+      ><a name="2051" href="FOTC.Program.ABP.Lemma2ATP.html#2051" class="Bound"
+      >ft&#8322;</a
+      ><a name="2054"
+      > </a
+      ><a name="2055" href="FOTC.Program.ABP.Lemma2ATP.html#2055" class="Bound"
+      >os&#8322;''</a
+      ><a name="2060"
+      > </a
+      ><a name="2061" class="Symbol"
+      >&#8594;</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="2066"
+      > </a
+      ><a name="2067" href="FOTC.Program.ABP.Lemma2ATP.html#2051" class="Bound"
+      >ft&#8322;</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" class="Symbol"
+      >&#8594;</a
+      ><a name="2072"
+      > </a
+      ><a name="2073" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="2077"
+      > </a
+      ><a name="2078" href="FOTC.Program.ABP.Lemma2ATP.html#2055" class="Bound"
+      >os&#8322;''</a
+      ><a name="2083"
+      > </a
+      ><a name="2084" class="Symbol"
+      >&#8594;</a
+      ><a name="2085"
+      > </a
+      ><a name="2086" href="FOTC.Program.ABP.Lemma2ATP.html#1917" class="Bound"
+      >os&#8322;'</a
+      ><a name="2090"
+      > </a
+      ><a name="2091" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2092"
+      > </a
+      ><a name="2093" href="FOTC.Program.ABP.Lemma2ATP.html#2051" class="Bound"
+      >ft&#8322;</a
+      ><a name="2096"
+      > </a
+      ><a name="2097" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" href="FOTC.Program.ABP.Lemma2ATP.html#2055" class="Bound"
+      >os&#8322;''</a
+      ><a name="2105"
+      > </a
+      ><a name="2106" class="Symbol"
+      >&#8594;</a
+      ><a name="2107"
+      >
+          </a
+      ><a name="2118" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" href="FOTC.Program.ABP.Lemma2ATP.html#2121" class="Bound"
+      >os&#8321;''</a
+      ><a name="2126"
+      > </a
+      ><a name="2127" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2128"
+      > </a
+      ><a name="2129" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2131"
+      > </a
+      ><a name="2132" href="FOTC.Program.ABP.Lemma2ATP.html#2132" class="Bound"
+      >os&#8322;''</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2142"
+      > </a
+      ><a name="2143" href="FOTC.Program.ABP.Lemma2ATP.html#2143" class="Bound"
+      >as''</a
+      ><a name="2147"
+      > </a
+      ><a name="2148" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2149"
+      > </a
+      ><a name="2150" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2152"
+      > </a
+      ><a name="2153" href="FOTC.Program.ABP.Lemma2ATP.html#2153" class="Bound"
+      >bs''</a
+      ><a name="2157"
+      > </a
+      ><a name="2158" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2159"
+      > </a
+      ><a name="2160" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2162"
+      > </a
+      ><a name="2163" href="FOTC.Program.ABP.Lemma2ATP.html#2163" class="Bound"
+      >cs''</a
+      ><a name="2167"
+      > </a
+      ><a name="2168" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2169"
+      > </a
+      ><a name="2170" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2172"
+      > </a
+      ><a name="2173" href="FOTC.Program.ABP.Lemma2ATP.html#2173" class="Bound"
+      >ds''</a
+      ><a name="2177"
+      > </a
+      ><a name="2178" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2179"
+      >
+            </a
+      ><a name="2192" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="2196"
+      > </a
+      ><a name="2197" href="FOTC.Program.ABP.Lemma2ATP.html#2121" class="Bound"
+      >os&#8321;''</a
+      ><a name="2202"
+      >
+            </a
+      ><a name="2215" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2216"
+      > </a
+      ><a name="2217" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="2221"
+      > </a
+      ><a name="2222" href="FOTC.Program.ABP.Lemma2ATP.html#2132" class="Bound"
+      >os&#8322;''</a
+      ><a name="2227"
+      >
+            </a
+      ><a name="2240" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2241"
+      > </a
+      ><a name="2242" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="2243"
+      > </a
+      ><a name="2244" class="Symbol"
+      >(</a
+      ><a name="2245" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" href="FOTC.Program.ABP.Lemma2ATP.html#1903" class="Bound"
+      >b</a
+      ><a name="2250" class="Symbol"
+      >)</a
+      ><a name="2251"
+      > </a
+      ><a name="2252" href="FOTC.Program.ABP.Lemma2ATP.html#1908" class="Bound"
+      >is'</a
+      ><a name="2255"
+      > </a
+      ><a name="2256" href="FOTC.Program.ABP.Lemma2ATP.html#2121" class="Bound"
+      >os&#8321;''</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" href="FOTC.Program.ABP.Lemma2ATP.html#2132" class="Bound"
+      >os&#8322;''</a
+      ><a name="2267"
+      > </a
+      ><a name="2268" href="FOTC.Program.ABP.Lemma2ATP.html#2143" class="Bound"
+      >as''</a
+      ><a name="2272"
+      > </a
+      ><a name="2273" href="FOTC.Program.ABP.Lemma2ATP.html#2153" class="Bound"
+      >bs''</a
+      ><a name="2277"
+      > </a
+      ><a name="2278" href="FOTC.Program.ABP.Lemma2ATP.html#2163" class="Bound"
+      >cs''</a
+      ><a name="2282"
+      > </a
+      ><a name="2283" href="FOTC.Program.ABP.Lemma2ATP.html#2173" class="Bound"
+      >ds''</a
+      ><a name="2287"
+      > </a
+      ><a name="2288" href="FOTC.Program.ABP.Lemma2ATP.html#1938" class="Bound"
+      >js'</a
+      ><a name="2291"
+      >
+</a
+      ><a name="2292" href="FOTC.Program.ABP.Lemma2ATP.html#1890" class="Function"
+      >helper&#8322;</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" class="Symbol"
+      >{</a
+      ><a name="2301" href="FOTC.Program.ABP.Lemma2ATP.html#2301" class="Bound"
+      >b</a
+      ><a name="2302" class="Symbol"
+      >}</a
+      ><a name="2303"
+      > </a
+      ><a name="2304" class="Symbol"
+      >{</a
+      ><a name="2305" href="FOTC.Program.ABP.Lemma2ATP.html#2305" class="Bound"
+      >i'</a
+      ><a name="2307" class="Symbol"
+      >}</a
+      ><a name="2308"
+      > </a
+      ><a name="2309" class="Symbol"
+      >{</a
+      ><a name="2310" href="FOTC.Program.ABP.Lemma2ATP.html#2310" class="Bound"
+      >is'</a
+      ><a name="2313" class="Symbol"
+      >}</a
+      ><a name="2314"
+      > </a
+      ><a name="2315" class="Symbol"
+      >{</a
+      ><a name="2316" class="Argument"
+      >js'</a
+      ><a name="2319"
+      > </a
+      ><a name="2320" class="Symbol"
+      >=</a
+      ><a name="2321"
+      > </a
+      ><a name="2322" href="FOTC.Program.ABP.Lemma2ATP.html#2322" class="Bound"
+      >js'</a
+      ><a name="2325" class="Symbol"
+      >}</a
+      ><a name="2326"
+      > </a
+      ><a name="2327" href="FOTC.Program.ABP.Lemma2ATP.html#2327" class="Bound"
+      >Bb</a
+      ><a name="2329"
+      > </a
+      ><a name="2330" href="FOTC.Program.ABP.Lemma2ATP.html#2330" class="Bound"
+      >Fos&#8321;'</a
+      ><a name="2335"
+      > </a
+      ><a name="2336" href="FOTC.Program.ABP.Lemma2ATP.html#2336" class="Bound"
+      >s'</a
+      ><a name="2338"
+      >
+       </a
+      ><a name="2346" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="2348" href="FOTC.Program.ABP.Terms.html#659" class="DottedPattern Function"
+      >T</a
+      ><a name="2349"
+      > </a
+      ><a name="2350" href="FOTC.Base.List.html#639" class="DottedPattern Function Operator"
+      >&#8759;</a
+      ><a name="2351"
+      > </a
+      ><a name="2352" href="FOTC.Base.List.html#561" class="DottedPattern Postulate"
+      >[]</a
+      ><a name="2354" class="DottedPattern Symbol"
+      >)</a
+      ><a name="2355"
+      > </a
+      ><a name="2356" href="FOTC.Program.ABP.Lemma2ATP.html#2356" class="Bound"
+      >os&#8322;''</a
+      ><a name="2361"
+      > </a
+      ><a name="2362" href="FOTC.Program.ABP.Fair.Type.html#765" class="InductiveConstructor"
+      >f*tnil</a
+      ><a name="2368"
+      > </a
+      ><a name="2369" href="FOTC.Program.ABP.Lemma2ATP.html#2369" class="Bound"
+      >Fos&#8322;''</a
+      ><a name="2375"
+      > </a
+      ><a name="2376" href="FOTC.Program.ABP.Lemma2ATP.html#2376" class="Bound"
+      >os&#8322;'-eq</a
+      ><a name="2383"
+      > </a
+      ><a name="2384" class="Symbol"
+      >=</a
+      ><a name="2385"
+      > </a
+      ><a name="2386" href="FOTC.Program.ABP.Lemma2ATP.html#2414" class="Postulate"
+      >prf</a
+      ><a name="2389"
+      >
+  </a
+      ><a name="2392" class="Keyword"
+      >where</a
+      ><a name="2397"
+      >
+  </a
+      ><a name="2400" class="Keyword"
+      >postulate</a
+      ><a name="2409"
+      >
+    </a
+      ><a name="2414" href="FOTC.Program.ABP.Lemma2ATP.html#2414" class="Postulate"
+      >prf</a
+      ><a name="2417"
+      > </a
+      ><a name="2418" class="Symbol"
+      >:</a
+      ><a name="2419"
+      > </a
+      ><a name="2420" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2422"
+      > </a
+      ><a name="2423" href="FOTC.Program.ABP.Lemma2ATP.html#2423" class="Bound"
+      >os&#8321;''</a
+      ><a name="2428"
+      > </a
+      ><a name="2429" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2430"
+      > </a
+      ><a name="2431" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2433"
+      > </a
+      ><a name="2434" href="FOTC.Program.ABP.Lemma2ATP.html#2434" class="Bound"
+      >os&#8322;''</a
+      ><a name="2439"
+      > </a
+      ><a name="2440" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2441"
+      > </a
+      ><a name="2442" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2444"
+      > </a
+      ><a name="2445" href="FOTC.Program.ABP.Lemma2ATP.html#2445" class="Bound"
+      >as''</a
+      ><a name="2449"
+      > </a
+      ><a name="2450" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2451"
+      > </a
+      ><a name="2452" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2454"
+      > </a
+      ><a name="2455" href="FOTC.Program.ABP.Lemma2ATP.html#2455" class="Bound"
+      >bs''</a
+      ><a name="2459"
+      > </a
+      ><a name="2460" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2461"
+      > </a
+      ><a name="2462" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2464"
+      > </a
+      ><a name="2465" href="FOTC.Program.ABP.Lemma2ATP.html#2465" class="Bound"
+      >cs''</a
+      ><a name="2469"
+      > </a
+      ><a name="2470" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" href="FOTC.Program.ABP.Lemma2ATP.html#2475" class="Bound"
+      >ds''</a
+      ><a name="2479"
+      > </a
+      ><a name="2480" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="2481"
+      >
+          </a
+      ><a name="2492" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="2496"
+      > </a
+      ><a name="2497" href="FOTC.Program.ABP.Lemma2ATP.html#2423" class="Bound"
+      >os&#8321;''</a
+      ><a name="2502"
+      >
+          </a
+      ><a name="2513" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2514"
+      > </a
+      ><a name="2515" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="2519"
+      > </a
+      ><a name="2520" href="FOTC.Program.ABP.Lemma2ATP.html#2434" class="Bound"
+      >os&#8322;''</a
+      ><a name="2525"
+      >
+          </a
+      ><a name="2536" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2537"
+      > </a
+      ><a name="2538" href="FOTC.Program.ABP.Lemma2ATP.html#2445" class="Bound"
+      >as''</a
+      ><a name="2542"
+      > </a
+      ><a name="2543" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2544"
+      > </a
+      ><a name="2545" href="FOTC.Program.ABP.ABP.html#817" class="Postulate"
+      >send</a
+      ><a name="2549"
+      > </a
+      ><a name="2550" class="Symbol"
+      >(</a
+      ><a name="2551" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="2554"
+      > </a
+      ><a name="2555" href="FOTC.Program.ABP.Lemma2ATP.html#2301" class="Bound"
+      >b</a
+      ><a name="2556" class="Symbol"
+      >)</a
+      ><a name="2557"
+      > </a
+      ><a name="2558" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2559"
+      > </a
+      ><a name="2560" href="FOTC.Program.ABP.Lemma2ATP.html#2310" class="Bound"
+      >is'</a
+      ><a name="2563"
+      > </a
+      ><a name="2564" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2565"
+      > </a
+      ><a name="2566" href="FOTC.Program.ABP.Lemma2ATP.html#2475" class="Bound"
+      >ds''</a
+      ><a name="2570"
+      >
+          </a
+      ><a name="2581" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2582"
+      > </a
+      ><a name="2583" href="FOTC.Program.ABP.Lemma2ATP.html#2455" class="Bound"
+      >bs''</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2589"
+      > </a
+      ><a name="2590" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="2597"
+      > </a
+      ><a name="2598" href="FOTC.Program.ABP.Lemma2ATP.html#2423" class="Bound"
+      >os&#8321;''</a
+      ><a name="2603"
+      > </a
+      ><a name="2604" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2605"
+      > </a
+      ><a name="2606" href="FOTC.Program.ABP.Lemma2ATP.html#2445" class="Bound"
+      >as''</a
+      ><a name="2610"
+      >
+          </a
+      ><a name="2621" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2622"
+      > </a
+      ><a name="2623" href="FOTC.Program.ABP.Lemma2ATP.html#2465" class="Bound"
+      >cs''</a
+      ><a name="2627"
+      > </a
+      ><a name="2628" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2629"
+      > </a
+      ><a name="2630" href="FOTC.Program.ABP.ABP.html#822" class="Postulate"
+      >ack</a
+      ><a name="2633"
+      > </a
+      ><a name="2634" class="Symbol"
+      >(</a
+      ><a name="2635" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="2638"
+      > </a
+      ><a name="2639" href="FOTC.Program.ABP.Lemma2ATP.html#2301" class="Bound"
+      >b</a
+      ><a name="2640" class="Symbol"
+      >)</a
+      ><a name="2641"
+      > </a
+      ><a name="2642" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2643"
+      > </a
+      ><a name="2644" href="FOTC.Program.ABP.Lemma2ATP.html#2455" class="Bound"
+      >bs''</a
+      ><a name="2648"
+      >
+          </a
+      ><a name="2659" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2660"
+      > </a
+      ><a name="2661" href="FOTC.Program.ABP.Lemma2ATP.html#2475" class="Bound"
+      >ds''</a
+      ><a name="2665"
+      > </a
+      ><a name="2666" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2667"
+      > </a
+      ><a name="2668" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="2675"
+      > </a
+      ><a name="2676" href="FOTC.Program.ABP.Lemma2ATP.html#2434" class="Bound"
+      >os&#8322;''</a
+      ><a name="2681"
+      > </a
+      ><a name="2682" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2683"
+      > </a
+      ><a name="2684" href="FOTC.Program.ABP.Lemma2ATP.html#2465" class="Bound"
+      >cs''</a
+      ><a name="2688"
+      >
+          </a
+      ><a name="2699" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2700"
+      > </a
+      ><a name="2701" href="FOTC.Program.ABP.Lemma2ATP.html#2322" class="Bound"
+      >js'</a
+      ><a name="2704"
+      >  </a
+      ><a name="2706" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2707"
+      > </a
+      ><a name="2708" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="2711"
+      > </a
+      ><a name="2712" class="Symbol"
+      >(</a
+      ><a name="2713" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="2716"
+      > </a
+      ><a name="2717" href="FOTC.Program.ABP.Lemma2ATP.html#2301" class="Bound"
+      >b</a
+      ><a name="2718" class="Symbol"
+      >)</a
+      ><a name="2719"
+      > </a
+      ><a name="2720" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2721"
+      > </a
+      ><a name="2722" href="FOTC.Program.ABP.Lemma2ATP.html#2455" class="Bound"
+      >bs''</a
+      ><a name="2726"
+      >
+  </a
+      ><a name="2729" class="Symbol"
+      >{-#</a
+      ><a name="2732"
+      > </a
+      ><a name="2733" class="Keyword"
+      >ATP</a
+      ><a name="2736"
+      > prove </a
+      ><a name="2743" href="FOTC.Program.ABP.Lemma2ATP.html#2414" class="Postulate"
+      >prf</a
+      ><a name="2746"
+      > </a
+      ><a name="2747" class="Symbol"
+      >#-}</a
+      ><a name="2750"
+      >
+
+</a
+      ><a name="2752" href="FOTC.Program.ABP.Lemma2ATP.html#1890" class="Function"
+      >helper&#8322;</a
+      ><a name="2759"
+      > </a
+      ><a name="2760" class="Symbol"
+      >{</a
+      ><a name="2761" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="2762" class="Symbol"
+      >}</a
+      ><a name="2763"
+      > </a
+      ><a name="2764" class="Symbol"
+      >{</a
+      ><a name="2765" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="2767" class="Symbol"
+      >}</a
+      ><a name="2768"
+      > </a
+      ><a name="2769" class="Symbol"
+      >{</a
+      ><a name="2770" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="2773" class="Symbol"
+      >}</a
+      ><a name="2774"
+      > </a
+      ><a name="2775" class="Symbol"
+      >{</a
+      ><a name="2776" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="2780" class="Symbol"
+      >}</a
+      ><a name="2781"
+      > </a
+      ><a name="2782" class="Symbol"
+      >{</a
+      ><a name="2783" href="FOTC.Program.ABP.Lemma2ATP.html#2783" class="Bound"
+      >os&#8322;'</a
+      ><a name="2787" class="Symbol"
+      >}</a
+      ><a name="2788"
+      > </a
+      ><a name="2789" class="Symbol"
+      >{</a
+      ><a name="2790" href="FOTC.Program.ABP.Lemma2ATP.html#2790" class="Bound"
+      >as'</a
+      ><a name="2793" class="Symbol"
+      >}</a
+      ><a name="2794"
+      > </a
+      ><a name="2795" class="Symbol"
+      >{</a
+      ><a name="2796" href="FOTC.Program.ABP.Lemma2ATP.html#2796" class="Bound"
+      >bs'</a
+      ><a name="2799" class="Symbol"
+      >}</a
+      ><a name="2800"
+      > </a
+      ><a name="2801" class="Symbol"
+      >{</a
+      ><a name="2802" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="2805" class="Symbol"
+      >}</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" class="Symbol"
+      >{</a
+      ><a name="2808" href="FOTC.Program.ABP.Lemma2ATP.html#2808" class="Bound"
+      >ds'</a
+      ><a name="2811" class="Symbol"
+      >}</a
+      ><a name="2812"
+      > </a
+      ><a name="2813" class="Symbol"
+      >{</a
+      ><a name="2814" href="FOTC.Program.ABP.Lemma2ATP.html#2814" class="Bound"
+      >js'</a
+      ><a name="2817" class="Symbol"
+      >}</a
+      ><a name="2818"
+      >
+        </a
+      ><a name="2827" href="FOTC.Program.ABP.Lemma2ATP.html#2827" class="Bound"
+      >Bb</a
+      ><a name="2829"
+      > </a
+      ><a name="2830" href="FOTC.Program.ABP.Lemma2ATP.html#2830" class="Bound"
+      >Fos&#8321;'</a
+      ><a name="2835"
+      > </a
+      ><a name="2836" href="FOTC.Program.ABP.Lemma2ATP.html#2836" class="Bound"
+      >s'</a
+      ><a name="2838"
+      >
+        </a
+      ><a name="2847" class="DottedPattern Symbol"
+      >.(</a
+      ><a name="2849" href="FOTC.Program.ABP.Terms.html#657" class="DottedPattern Function"
+      >F</a
+      ><a name="2850"
+      > </a
+      ><a name="2851" href="FOTC.Base.List.html#639" class="DottedPattern Function Operator"
+      >&#8759;</a
+      ><a name="2852"
+      > </a
+      ><a name="2853" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="DottedPattern Bound"
+      >ft&#8322;</a
+      ><a name="2856" class="DottedPattern Symbol"
+      >)</a
+      ><a name="2857"
+      > </a
+      ><a name="2858" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="2863"
+      > </a
+      ><a name="2864" class="Symbol"
+      >(</a
+      ><a name="2865" href="FOTC.Program.ABP.Fair.Type.html#790" class="InductiveConstructor"
+      >f*tcons</a
+      ><a name="2872"
+      > </a
+      ><a name="2873" class="Symbol"
+      >{</a
+      ><a name="2874" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="2877" class="Symbol"
+      >}</a
+      ><a name="2878"
+      > </a
+      ><a name="2879" href="FOTC.Program.ABP.Lemma2ATP.html#2879" class="Bound"
+      >FTft&#8322;</a
+      ><a name="2884" class="Symbol"
+      >)</a
+      ><a name="2885"
+      > </a
+      ><a name="2886" href="FOTC.Program.ABP.Lemma2ATP.html#2886" class="Bound"
+      >Fos&#8322;''</a
+      ><a name="2892"
+      > </a
+      ><a name="2893" href="FOTC.Program.ABP.Lemma2ATP.html#2893" class="Bound"
+      >os&#8322;'-eq</a
+      ><a name="2900"
+      > </a
+      ><a name="2901" class="Symbol"
+      >=</a
+      ><a name="2902"
+      >
+        </a
+      ><a name="2911" href="FOTC.Program.ABP.Lemma2ATP.html#1890" class="Function"
+      >helper&#8322;</a
+      ><a name="2918"
+      > </a
+      ><a name="2919" href="FOTC.Program.ABP.Lemma2ATP.html#2827" class="Bound"
+      >Bb</a
+      ><a name="2921"
+      > </a
+      ><a name="2922" class="Symbol"
+      >(</a
+      ><a name="2923" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1572" class="Function"
+      >tail-Fair</a
+      ><a name="2932"
+      > </a
+      ><a name="2933" href="FOTC.Program.ABP.Lemma2ATP.html#2830" class="Bound"
+      >Fos&#8321;'</a
+      ><a name="2938" class="Symbol"
+      >)</a
+      ><a name="2939"
+      > </a
+      ><a name="2940" href="FOTC.Program.ABP.Lemma2ATP.html#4443" class="Function"
+      >ihS'</a
+      ><a name="2944"
+      > </a
+      ><a name="2945" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="2948"
+      > </a
+      ><a name="2949" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="2954"
+      > </a
+      ><a name="2955" href="FOTC.Program.ABP.Lemma2ATP.html#2879" class="Bound"
+      >FTft&#8322;</a
+      ><a name="2960"
+      > </a
+      ><a name="2961" href="FOTC.Program.ABP.Lemma2ATP.html#2886" class="Bound"
+      >Fos&#8322;''</a
+      ><a name="2967"
+      > </a
+      ><a name="2968" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="2972"
+      >
+  </a
+      ><a name="2975" class="Keyword"
+      >where</a
+      ><a name="2980"
+      >
+  </a
+      ><a name="2983" class="Keyword"
+      >postulate</a
+      ><a name="2992"
+      > </a
+      ><a name="2993" href="FOTC.Program.ABP.Lemma2ATP.html#2993" class="Postulate"
+      >os&#8322;'-eq-helper</a
+      ><a name="3007"
+      > </a
+      ><a name="3008" class="Symbol"
+      >:</a
+      ><a name="3009"
+      > </a
+      ><a name="3010" href="FOTC.Program.ABP.Lemma2ATP.html#2783" class="Bound"
+      >os&#8322;'</a
+      ><a name="3014"
+      > </a
+      ><a name="3015" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3016"
+      > </a
+      ><a name="3017" href="FOTC.Program.ABP.Terms.html#657" class="Function"
+      >F</a
+      ><a name="3018"
+      > </a
+      ><a name="3019" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3020"
+      > </a
+      ><a name="3021" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3025"
+      > </a
+      ><a name="3026" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3029"
+      > </a
+      ><a name="3030" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3035"
+      >
+  </a
+      ><a name="3038" class="Symbol"
+      >{-#</a
+      ><a name="3041"
+      > </a
+      ><a name="3042" class="Keyword"
+      >ATP</a
+      ><a name="3045"
+      > prove </a
+      ><a name="3052" href="FOTC.Program.ABP.Lemma2ATP.html#2993" class="Postulate"
+      >os&#8322;'-eq-helper</a
+      ><a name="3066"
+      > </a
+      ><a name="3067" class="Symbol"
+      >#-}</a
+      ><a name="3070"
+      >
+
+  </a
+      ><a name="3074" class="Keyword"
+      >postulate</a
+      ><a name="3083"
+      > </a
+      ><a name="3084" href="FOTC.Program.ABP.Lemma2ATP.html#3084" class="Postulate"
+      >ds'-eq</a
+      ><a name="3090"
+      > </a
+      ><a name="3091" class="Symbol"
+      >:</a
+      ><a name="3092"
+      > </a
+      ><a name="3093" href="FOTC.Program.ABP.Lemma2ATP.html#2808" class="Bound"
+      >ds'</a
+      ><a name="3096"
+      > </a
+      ><a name="3097" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3098"
+      > </a
+      ><a name="3099" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="3104"
+      > </a
+      ><a name="3105" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3106"
+      > </a
+      ><a name="3107" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="3110"
+      > </a
+      ><a name="3111" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3114"
+      > </a
+      ><a name="3115" class="Symbol"
+      >(</a
+      ><a name="3116" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3120"
+      > </a
+      ><a name="3121" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3124"
+      > </a
+      ><a name="3125" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3130" class="Symbol"
+      >)</a
+      ><a name="3131"
+      >
+  </a
+      ><a name="3134" class="Symbol"
+      >{-#</a
+      ><a name="3137"
+      > </a
+      ><a name="3138" class="Keyword"
+      >ATP</a
+      ><a name="3141"
+      > prove </a
+      ><a name="3148" href="FOTC.Program.ABP.Lemma2ATP.html#3084" class="Postulate"
+      >ds'-eq</a
+      ><a name="3154"
+      > </a
+      ><a name="3155" href="FOTC.Program.ABP.Lemma2ATP.html#2993" class="Postulate"
+      >os&#8322;'-eq-helper</a
+      ><a name="3169"
+      > </a
+      ><a name="3170" class="Symbol"
+      >#-}</a
+      ><a name="3173"
+      >
+
+  </a
+      ><a name="3177" class="Keyword"
+      >postulate</a
+      ><a name="3186"
+      > </a
+      ><a name="3187" href="FOTC.Program.ABP.Lemma2ATP.html#3187" class="Postulate"
+      >as'-eq</a
+      ><a name="3193"
+      > </a
+      ><a name="3194" class="Symbol"
+      >:</a
+      ><a name="3195"
+      > </a
+      ><a name="3196" href="FOTC.Program.ABP.Lemma2ATP.html#2790" class="Bound"
+      >as'</a
+      ><a name="3199"
+      > </a
+      ><a name="3200" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3201"
+      > </a
+      ><a name="3202" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="3203"
+      > </a
+      ><a name="3204" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3206"
+      > </a
+      ><a name="3207" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="3208"
+      > </a
+      ><a name="3209" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3210"
+      > </a
+      ><a name="3211" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="3212"
+      > </a
+      ><a name="3213" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3214"
+      > </a
+      ><a name="3215" href="FOTC.Program.ABP.Lemma2ATP.html#1351" class="Function"
+      >as^</a
+      ><a name="3218"
+      > </a
+      ><a name="3219" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3220"
+      > </a
+      ><a name="3221" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3223"
+      > </a
+      ><a name="3224" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3227"
+      > </a
+      ><a name="3228" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3231"
+      > </a
+      ><a name="3232" class="Symbol"
+      >(</a
+      ><a name="3233" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3237"
+      > </a
+      ><a name="3238" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3241"
+      > </a
+      ><a name="3242" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3247" class="Symbol"
+      >)</a
+      ><a name="3248"
+      >
+  </a
+      ><a name="3251" class="Symbol"
+      >{-#</a
+      ><a name="3254"
+      > </a
+      ><a name="3255" class="Keyword"
+      >ATP</a
+      ><a name="3258"
+      > prove </a
+      ><a name="3265" href="FOTC.Program.ABP.Lemma2ATP.html#3187" class="Postulate"
+      >as'-eq</a
+      ><a name="3271"
+      > </a
+      ><a name="3272" class="Symbol"
+      >#-}</a
+      ><a name="3275"
+      >
+
+  </a
+      ><a name="3279" class="Keyword"
+      >postulate</a
+      ><a name="3288"
+      >
+    </a
+      ><a name="3293" href="FOTC.Program.ABP.Lemma2ATP.html#3293" class="Postulate"
+      >bs'-eq</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" class="Symbol"
+      >:</a
+      ><a name="3301"
+      > </a
+      ><a name="3302" href="FOTC.Program.ABP.Lemma2ATP.html#2796" class="Bound"
+      >bs'</a
+      ><a name="3305"
+      > </a
+      ><a name="3306" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3307"
+      > </a
+      ><a name="3308" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="3310"
+      > </a
+      ><a name="3311" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="3312"
+      > </a
+      ><a name="3313" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3315"
+      > </a
+      ><a name="3316" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="3317"
+      > </a
+      ><a name="3318" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3319"
+      > </a
+      ><a name="3320" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="3321"
+      > </a
+      ><a name="3322" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3323"
+      > </a
+      ><a name="3324" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="3327"
+      > </a
+      ><a name="3328" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3329"
+      > </a
+      ><a name="3330" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3332"
+      > </a
+      ><a name="3333" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3336"
+      > </a
+      ><a name="3337" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3340"
+      > </a
+      ><a name="3341" class="Symbol"
+      >(</a
+      ><a name="3342" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3346"
+      > </a
+      ><a name="3347" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3351" class="Symbol"
+      >)</a
+      ><a name="3352"
+      > </a
+      ><a name="3353" class="Symbol"
+      >(</a
+      ><a name="3354" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3358"
+      > </a
+      ><a name="3359" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3362"
+      > </a
+      ><a name="3363" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3368" class="Symbol"
+      >)</a
+      ><a name="3369"
+      >
+               </a
+      ><a name="3385" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="3386"
+      > </a
+      ><a name="3387" href="FOTC.Program.ABP.Lemma2ATP.html#2796" class="Bound"
+      >bs'</a
+      ><a name="3390"
+      > </a
+      ><a name="3391" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3392"
+      > </a
+      ><a name="3393" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="3398"
+      > </a
+      ><a name="3399" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3400"
+      > </a
+      ><a name="3401" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="3404"
+      > </a
+      ><a name="3405" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3406"
+      > </a
+      ><a name="3407" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3409"
+      > </a
+      ><a name="3410" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3413"
+      > </a
+      ><a name="3414" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3417"
+      > </a
+      ><a name="3418" class="Symbol"
+      >(</a
+      ><a name="3419" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3423"
+      > </a
+      ><a name="3424" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3428" class="Symbol"
+      >)</a
+      ><a name="3429"
+      > </a
+      ><a name="3430" class="Symbol"
+      >(</a
+      ><a name="3431" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3435"
+      > </a
+      ><a name="3436" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3439"
+      > </a
+      ><a name="3440" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3445" class="Symbol"
+      >)</a
+      ><a name="3446"
+      >
+  </a
+      ><a name="3449" class="Symbol"
+      >{-#</a
+      ><a name="3452"
+      > </a
+      ><a name="3453" class="Keyword"
+      >ATP</a
+      ><a name="3456"
+      > prove </a
+      ><a name="3463" href="FOTC.Program.ABP.Lemma2ATP.html#3293" class="Postulate"
+      >bs'-eq</a
+      ><a name="3469"
+      > </a
+      ><a name="3470" href="FOTC.Program.ABP.Lemma2ATP.html#3187" class="Postulate"
+      >as'-eq</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" href="FOTC.Program.ABP.Fair.PropertiesATP.html#1167" class="Function"
+      >head-tail-Fair</a
+      ><a name="3491"
+      > </a
+      ><a name="3492" class="Symbol"
+      >#-}</a
+      ><a name="3495"
+      >
+
+  </a
+      ><a name="3499" class="Keyword"
+      >postulate</a
+      ><a name="3508"
+      >
+    </a
+      ><a name="3513" href="FOTC.Program.ABP.Lemma2ATP.html#3513" class="Postulate"
+      >cs'-eq-helper&#8321;</a
+      ><a name="3527"
+      > </a
+      ><a name="3528" class="Symbol"
+      >:</a
+      ><a name="3529"
+      >
+      </a
+      ><a name="3536" href="FOTC.Program.ABP.Lemma2ATP.html#2796" class="Bound"
+      >bs'</a
+      ><a name="3539"
+      > </a
+      ><a name="3540" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3541"
+      > </a
+      ><a name="3542" href="FOTC.Program.ABP.Terms.html#744" class="Postulate"
+      >ok</a
+      ><a name="3544"
+      > </a
+      ><a name="3545" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&lt;</a
+      ><a name="3546"
+      > </a
+      ><a name="3547" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3549"
+      > </a
+      ><a name="3550" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >,</a
+      ><a name="3551"
+      > </a
+      ><a name="3552" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3553"
+      > </a
+      ><a name="3554" href="FOTC.Program.ABP.Terms.html#724" class="Postulate Operator"
+      >&gt;</a
+      ><a name="3555"
+      > </a
+      ><a name="3556" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3557"
+      > </a
+      ><a name="3558" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="3561"
+      > </a
+      ><a name="3562" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3563"
+      > </a
+      ><a name="3564" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3566"
+      > </a
+      ><a name="3567" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3570"
+      > </a
+      ><a name="3571" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3574"
+      > </a
+      ><a name="3575" class="Symbol"
+      >(</a
+      ><a name="3576" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3580"
+      > </a
+      ><a name="3581" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3585" class="Symbol"
+      >)</a
+      ><a name="3586"
+      > </a
+      ><a name="3587" class="Symbol"
+      >(</a
+      ><a name="3588" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3592"
+      > </a
+      ><a name="3593" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3596"
+      > </a
+      ><a name="3597" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3602" class="Symbol"
+      >)</a
+      ><a name="3603"
+      > </a
+      ><a name="3604" class="Symbol"
+      >&#8594;</a
+      ><a name="3605"
+      >
+      </a
+      ><a name="3612" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3615"
+      > </a
+      ><a name="3616" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3617"
+      > </a
+      ><a name="3618" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3619"
+      > </a
+      ><a name="3620" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3621"
+      > </a
+      ><a name="3622" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="3625"
+      > </a
+      ><a name="3626" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3627"
+      > </a
+      ><a name="3628" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3630"
+      > </a
+      ><a name="3631" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3634"
+      > </a
+      ><a name="3635" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3638"
+      > </a
+      ><a name="3639" class="Symbol"
+      >(</a
+      ><a name="3640" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3644"
+      > </a
+      ><a name="3645" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3649" class="Symbol"
+      >)</a
+      ><a name="3650"
+      > </a
+      ><a name="3651" class="Symbol"
+      >(</a
+      ><a name="3652" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3656"
+      > </a
+      ><a name="3657" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3660"
+      > </a
+      ><a name="3661" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3666" class="Symbol"
+      >)</a
+      ><a name="3667"
+      >
+  </a
+      ><a name="3670" class="Symbol"
+      >{-#</a
+      ><a name="3673"
+      > </a
+      ><a name="3674" class="Keyword"
+      >ATP</a
+      ><a name="3677"
+      > prove </a
+      ><a name="3684" href="FOTC.Program.ABP.Lemma2ATP.html#3513" class="Postulate"
+      >cs'-eq-helper&#8321;</a
+      ><a name="3698"
+      > </a
+      ><a name="3699" href="FOTC.Data.Bool.PropertiesATP.html#4063" class="Function"
+      >not-x&#8802;x</a
+      ><a name="3706"
+      > </a
+      ><a name="3707" href="FOTC.Data.Bool.PropertiesATP.html#4184" class="Function"
+      >not-involutive</a
+      ><a name="3721"
+      > </a
+      ><a name="3722" class="Symbol"
+      >#-}</a
+      ><a name="3725"
+      >
+
+  </a
+      ><a name="3729" class="Keyword"
+      >postulate</a
+      ><a name="3738"
+      >
+    </a
+      ><a name="3743" href="FOTC.Program.ABP.Lemma2ATP.html#3743" class="Postulate"
+      >cs'-eq-helper&#8322;</a
+      ><a name="3757"
+      > </a
+      ><a name="3758" class="Symbol"
+      >:</a
+      ><a name="3759"
+      >
+      </a
+      ><a name="3766" href="FOTC.Program.ABP.Lemma2ATP.html#2796" class="Bound"
+      >bs'</a
+      ><a name="3769"
+      > </a
+      ><a name="3770" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3771"
+      > </a
+      ><a name="3772" href="FOTC.Base.Loop.html#510" class="Postulate"
+      >error</a
+      ><a name="3777"
+      > </a
+      ><a name="3778" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3779"
+      > </a
+      ><a name="3780" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="3783"
+      > </a
+      ><a name="3784" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3785"
+      > </a
+      ><a name="3786" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3788"
+      > </a
+      ><a name="3789" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3792"
+      > </a
+      ><a name="3793" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3796"
+      > </a
+      ><a name="3797" class="Symbol"
+      >(</a
+      ><a name="3798" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3802"
+      > </a
+      ><a name="3803" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3807" class="Symbol"
+      >)</a
+      ><a name="3808"
+      > </a
+      ><a name="3809" class="Symbol"
+      >(</a
+      ><a name="3810" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3814"
+      > </a
+      ><a name="3815" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3818"
+      > </a
+      ><a name="3819" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3824" class="Symbol"
+      >)</a
+      ><a name="3825"
+      > </a
+      ><a name="3826" class="Symbol"
+      >&#8594;</a
+      ><a name="3827"
+      >
+      </a
+      ><a name="3834" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3837"
+      > </a
+      ><a name="3838" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3839"
+      > </a
+      ><a name="3840" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3841"
+      > </a
+      ><a name="3842" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3843"
+      > </a
+      ><a name="3844" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="3847"
+      > </a
+      ><a name="3848" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3849"
+      > </a
+      ><a name="3850" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3852"
+      > </a
+      ><a name="3853" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3856"
+      > </a
+      ><a name="3857" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3860"
+      > </a
+      ><a name="3861" class="Symbol"
+      >(</a
+      ><a name="3862" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3866"
+      > </a
+      ><a name="3867" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3871" class="Symbol"
+      >)</a
+      ><a name="3872"
+      > </a
+      ><a name="3873" class="Symbol"
+      >(</a
+      ><a name="3874" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3878"
+      > </a
+      ><a name="3879" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="3882"
+      > </a
+      ><a name="3883" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="3888" class="Symbol"
+      >)</a
+      ><a name="3889"
+      >
+  </a
+      ><a name="3892" class="Symbol"
+      >{-#</a
+      ><a name="3895"
+      > </a
+      ><a name="3896" class="Keyword"
+      >ATP</a
+      ><a name="3899"
+      > prove </a
+      ><a name="3906" href="FOTC.Program.ABP.Lemma2ATP.html#3743" class="Postulate"
+      >cs'-eq-helper&#8322;</a
+      ><a name="3920"
+      > </a
+      ><a name="3921" href="FOTC.Data.Bool.PropertiesATP.html#4184" class="Function"
+      >not-involutive</a
+      ><a name="3935"
+      > </a
+      ><a name="3936" class="Symbol"
+      >#-}</a
+      ><a name="3939"
+      >
+
+  </a
+      ><a name="3943" href="FOTC.Program.ABP.Lemma2ATP.html#3943" class="Function"
+      >cs'-eq</a
+      ><a name="3949"
+      > </a
+      ><a name="3950" class="Symbol"
+      >:</a
+      ><a name="3951"
+      > </a
+      ><a name="3952" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3955"
+      > </a
+      ><a name="3956" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3957"
+      > </a
+      ><a name="3958" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3959"
+      > </a
+      ><a name="3960" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="3961"
+      > </a
+      ><a name="3962" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="3965"
+      > </a
+      ><a name="3966" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="3967"
+      > </a
+      ><a name="3968" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="3970"
+      > </a
+      ><a name="3971" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="3974"
+      > </a
+      ><a name="3975" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="3978"
+      > </a
+      ><a name="3979" class="Symbol"
+      >(</a
+      ><a name="3980" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="3984"
+      > </a
+      ><a name="3985" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="3989" class="Symbol"
+      >)</a
+      ><a name="3990"
+      > </a
+      ><a name="3991" class="Symbol"
+      >(</a
+      ><a name="3992" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="3996"
+      > </a
+      ><a name="3997" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4000"
+      > </a
+      ><a name="4001" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4006" class="Symbol"
+      >)</a
+      ><a name="4007"
+      >
+  </a
+      ><a name="4010" href="FOTC.Program.ABP.Lemma2ATP.html#3943" class="Function"
+      >cs'-eq</a
+      ><a name="4016"
+      > </a
+      ><a name="4017" class="Symbol"
+      >=</a
+      ><a name="4018"
+      > </a
+      ><a name="4019" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="4023"
+      > </a
+      ><a name="4024" href="FOTC.Program.ABP.Lemma2ATP.html#3513" class="Postulate"
+      >cs'-eq-helper&#8321;</a
+      ><a name="4038"
+      > </a
+      ><a name="4039" href="FOTC.Program.ABP.Lemma2ATP.html#3743" class="Postulate"
+      >cs'-eq-helper&#8322;</a
+      ><a name="4053"
+      > </a
+      ><a name="4054" href="FOTC.Program.ABP.Lemma2ATP.html#3293" class="Postulate"
+      >bs'-eq</a
+      ><a name="4060"
+      >
+
+  </a
+      ><a name="4064" class="Keyword"
+      >postulate</a
+      ><a name="4073"
+      >
+    </a
+      ><a name="4078" href="FOTC.Program.ABP.Lemma2ATP.html#4078" class="Postulate"
+      >js'-eq</a
+      ><a name="4084"
+      > </a
+      ><a name="4085" class="Symbol"
+      >:</a
+      ><a name="4086"
+      > </a
+      ><a name="4087" href="FOTC.Program.ABP.Lemma2ATP.html#2814" class="Bound"
+      >js'</a
+      ><a name="4090"
+      > </a
+      ><a name="4091" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4092"
+      > </a
+      ><a name="4093" href="FOTC.Program.ABP.ABP.html#826" class="Postulate"
+      >out</a
+      ><a name="4096"
+      > </a
+      ><a name="4097" class="Symbol"
+      >(</a
+      ><a name="4098" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="4101"
+      > </a
+      ><a name="4102" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4103" class="Symbol"
+      >)</a
+      ><a name="4104"
+      > </a
+      ><a name="4105" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4106"
+      > </a
+      ><a name="4107" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="4110"
+      > </a
+      ><a name="4111" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4112"
+      > </a
+      ><a name="4113" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="4115"
+      > </a
+      ><a name="4116" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="4119"
+      > </a
+      ><a name="4120" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4123"
+      > </a
+      ><a name="4124" class="Symbol"
+      >(</a
+      ><a name="4125" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="4129"
+      > </a
+      ><a name="4130" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="4134" class="Symbol"
+      >)</a
+      ><a name="4135"
+      > </a
+      ><a name="4136" class="Symbol"
+      >(</a
+      ><a name="4137" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4141"
+      > </a
+      ><a name="4142" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4145"
+      > </a
+      ><a name="4146" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4151" class="Symbol"
+      >)</a
+      ><a name="4152"
+      >
+  </a
+      ><a name="4155" class="Comment"
+      >-- TODO (21 November 2014). See Apia issue 16</a
+      ><a name="4200"
+      >
+  </a
+      ><a name="4203" class="Comment"
+      >-- {-# ATP prove js'-eq not-x&#8802;x bs'-eq #-}</a
+      ><a name="4245"
+      >
+
+  </a
+      ><a name="4249" class="Keyword"
+      >postulate</a
+      ><a name="4258"
+      >
+    </a
+      ><a name="4263" href="FOTC.Program.ABP.Lemma2ATP.html#4263" class="Postulate"
+      >ds^-eq</a
+      ><a name="4269"
+      > </a
+      ><a name="4270" class="Symbol"
+      >:</a
+      ><a name="4271"
+      > </a
+      ><a name="4272" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="4275"
+      > </a
+      ><a name="4276" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4279"
+      > </a
+      ><a name="4280" class="Symbol"
+      >(</a
+      ><a name="4281" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4285"
+      > </a
+      ><a name="4286" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4289"
+      > </a
+      ><a name="4290" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4295" class="Symbol"
+      >)</a
+      ><a name="4296"
+      > </a
+      ><a name="4297" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="4298"
+      >
+             </a
+      ><a name="4312" href="FOTC.Program.ABP.ABP.html#830" class="Postulate"
+      >corrupt</a
+      ><a name="4319"
+      > </a
+      ><a name="4320" class="Symbol"
+      >(</a
+      ><a name="4321" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4325"
+      > </a
+      ><a name="4326" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4329"
+      > </a
+      ><a name="4330" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4335" class="Symbol"
+      >)</a
+      ><a name="4336"
+      > </a
+      ><a name="4337" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="4338"
+      >
+               </a
+      ><a name="4354" class="Symbol"
+      >(</a
+      ><a name="4355" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4356"
+      > </a
+      ><a name="4357" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="4358"
+      > </a
+      ><a name="4359" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="4362"
+      > </a
+      ><a name="4363" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4364"
+      > </a
+      ><a name="4365" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="4367"
+      > </a
+      ><a name="4368" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="4371"
+      > </a
+      ><a name="4372" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4375"
+      > </a
+      ><a name="4376" class="Symbol"
+      >(</a
+      ><a name="4377" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="4381"
+      > </a
+      ><a name="4382" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="4386" class="Symbol"
+      >)</a
+      ><a name="4387"
+      > </a
+      ><a name="4388" class="Symbol"
+      >(</a
+      ><a name="4389" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4393"
+      > </a
+      ><a name="4394" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4397"
+      > </a
+      ><a name="4398" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4403" class="Symbol"
+      >))</a
+      ><a name="4405"
+      >
+  </a
+      ><a name="4408" class="Symbol"
+      >{-#</a
+      ><a name="4411"
+      > </a
+      ><a name="4412" class="Keyword"
+      >ATP</a
+      ><a name="4415"
+      > prove </a
+      ><a name="4422" href="FOTC.Program.ABP.Lemma2ATP.html#4263" class="Postulate"
+      >ds^-eq</a
+      ><a name="4428"
+      > </a
+      ><a name="4429" href="FOTC.Program.ABP.Lemma2ATP.html#3943" class="Function"
+      >cs'-eq</a
+      ><a name="4435"
+      > </a
+      ><a name="4436" class="Symbol"
+      >#-}</a
+      ><a name="4439"
+      >
+
+  </a
+      ><a name="4443" href="FOTC.Program.ABP.Lemma2ATP.html#4443" class="Function"
+      >ihS'</a
+      ><a name="4447"
+      > </a
+      ><a name="4448" class="Symbol"
+      >:</a
+      ><a name="4449"
+      > </a
+      ><a name="4450" href="FOTC.Program.ABP.ABP.html#3756" class="Function"
+      >S'</a
+      ><a name="4452"
+      > </a
+      ><a name="4453" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4454"
+      > </a
+      ><a name="4455" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="4457"
+      > </a
+      ><a name="4458" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="4461"
+      >
+            </a
+      ><a name="4474" class="Symbol"
+      >(</a
+      ><a name="4475" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="4479"
+      > </a
+      ><a name="4480" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="4484" class="Symbol"
+      >)</a
+      ><a name="4485"
+      >
+            </a
+      ><a name="4498" class="Symbol"
+      >(</a
+      ><a name="4499" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4503"
+      > </a
+      ><a name="4504" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4507"
+      > </a
+      ><a name="4508" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4513" class="Symbol"
+      >)</a
+      ><a name="4514"
+      >
+            </a
+      ><a name="4527" class="Symbol"
+      >(</a
+      ><a name="4528" href="FOTC.Program.ABP.Lemma2ATP.html#1351" class="Function"
+      >as^</a
+      ><a name="4531"
+      > </a
+      ><a name="4532" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4533"
+      > </a
+      ><a name="4534" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="4536"
+      > </a
+      ><a name="4537" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="4540"
+      > </a
+      ><a name="4541" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4544"
+      > </a
+      ><a name="4545" class="Symbol"
+      >(</a
+      ><a name="4546" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4550"
+      > </a
+      ><a name="4551" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4554"
+      > </a
+      ><a name="4555" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4560" class="Symbol"
+      >))</a
+      ><a name="4562"
+      >
+            </a
+      ><a name="4575" class="Symbol"
+      >(</a
+      ><a name="4576" href="FOTC.Program.ABP.Lemma2ATP.html#1461" class="Function"
+      >bs^</a
+      ><a name="4579"
+      > </a
+      ><a name="4580" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4581"
+      > </a
+      ><a name="4582" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="4584"
+      > </a
+      ><a name="4585" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="4588"
+      > </a
+      ><a name="4589" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4592"
+      > </a
+      ><a name="4593" class="Symbol"
+      >(</a
+      ><a name="4594" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="4598"
+      > </a
+      ><a name="4599" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="4603" class="Symbol"
+      >)</a
+      ><a name="4604"
+      > </a
+      ><a name="4605" class="Symbol"
+      >(</a
+      ><a name="4606" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4610"
+      > </a
+      ><a name="4611" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4614"
+      > </a
+      ><a name="4615" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4620" class="Symbol"
+      >))</a
+      ><a name="4622"
+      >
+            </a
+      ><a name="4635" class="Symbol"
+      >(</a
+      ><a name="4636" href="FOTC.Program.ABP.Lemma2ATP.html#1587" class="Function"
+      >cs^</a
+      ><a name="4639"
+      > </a
+      ><a name="4640" href="FOTC.Program.ABP.Lemma2ATP.html#2761" class="Bound"
+      >b</a
+      ><a name="4641"
+      > </a
+      ><a name="4642" href="FOTC.Program.ABP.Lemma2ATP.html#2765" class="Bound"
+      >i'</a
+      ><a name="4644"
+      > </a
+      ><a name="4645" href="FOTC.Program.ABP.Lemma2ATP.html#2770" class="Bound"
+      >is'</a
+      ><a name="4648"
+      > </a
+      ><a name="4649" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4652"
+      > </a
+      ><a name="4653" class="Symbol"
+      >(</a
+      ><a name="4654" href="FOTC.Program.ABP.Lemma2ATP.html#1717" class="Function"
+      >os&#8321;^</a
+      ><a name="4658"
+      > </a
+      ><a name="4659" href="FOTC.Program.ABP.Lemma2ATP.html#2776" class="Bound"
+      >os&#8321;'</a
+      ><a name="4663" class="Symbol"
+      >)</a
+      ><a name="4664"
+      > </a
+      ><a name="4665" class="Symbol"
+      >(</a
+      ><a name="4666" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4670"
+      > </a
+      ><a name="4671" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4674"
+      > </a
+      ><a name="4675" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4680" class="Symbol"
+      >))</a
+      ><a name="4682"
+      >
+            </a
+      ><a name="4695" class="Symbol"
+      >(</a
+      ><a name="4696" href="FOTC.Program.ABP.Lemma2ATP.html#1273" class="Function"
+      >ds^</a
+      ><a name="4699"
+      > </a
+      ><a name="4700" href="FOTC.Program.ABP.Lemma2ATP.html#2802" class="Bound"
+      >cs'</a
+      ><a name="4703"
+      > </a
+      ><a name="4704" class="Symbol"
+      >(</a
+      ><a name="4705" href="FOTC.Program.ABP.Lemma2ATP.html#1782" class="Function"
+      >os&#8322;^</a
+      ><a name="4709"
+      > </a
+      ><a name="4710" href="FOTC.Program.ABP.Lemma2ATP.html#2874" class="Bound"
+      >ft&#8322;</a
+      ><a name="4713"
+      > </a
+      ><a name="4714" href="FOTC.Program.ABP.Lemma2ATP.html#2858" class="Bound"
+      >os&#8322;''</a
+      ><a name="4719" class="Symbol"
+      >))</a
+      ><a name="4721"
+      >
+            </a
+      ><a name="4734" href="FOTC.Program.ABP.Lemma2ATP.html#2814" class="Bound"
+      >js'</a
+      ><a name="4737"
+      >
+  </a
+      ><a name="4740" href="FOTC.Program.ABP.Lemma2ATP.html#4443" class="Function"
+      >ihS'</a
+      ><a name="4744"
+      > </a
+      ><a name="4745" class="Symbol"
+      >=</a
+      ><a name="4746"
+      > </a
+      ><a name="4747" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="4751"
+      > </a
+      ><a name="4752" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="4753"
+      > </a
+      ><a name="4754" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="4758"
+      > </a
+      ><a name="4759" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="4760"
+      > </a
+      ><a name="4761" href="Common.FOL.Relation.Binary.PropositionalEquality.html#697" class="InductiveConstructor"
+      >refl</a
+      ><a name="4765"
+      > </a
+      ><a name="4766" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="4767"
+      > </a
+      ><a name="4768" href="FOTC.Program.ABP.Lemma2ATP.html#4263" class="Postulate"
+      >ds^-eq</a
+      ><a name="4774"
+      > </a
+      ><a name="4775" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="4776"
+      > </a
+      ><a name="4777" href="FOTC.Program.ABP.Lemma2ATP.html#4078" class="Postulate"
+      >js'-eq</a
+      ><a name="4783"
+      >
+
+</a
+      ><a name="4785" class="Comment"
+      >-- From Dybjer and Sander's paper: From the assumption that</a
+      ><a name="4844"
+      >
+</a
+      ><a name="4845" class="Comment"
+      >-- os&#8322;'&#160;&#8712;&#160;Fair and hence by unfolding Fair, we conclude that there are</a
+      ><a name="4915"
+      >
+</a
+      ><a name="4916" class="Comment"
+      >-- ft&#8322;&#160;:&#160;F*T and os&#8322;''&#160;:&#160;Fair, such that os&#8322;'&#160;=&#160;ft&#8322;&#160;++&#160;os&#8322;''.</a
+      ><a name="4977"
+      >
+</a
+      ><a name="4978" class="Comment"
+      >--</a
+      ><a name="4980"
+      >
+</a
+      ><a name="4981" class="Comment"
+      >-- We proceed by induction on ft&#8322;&#160;:&#160;F*T using helper.</a
+      ><a name="5034"
+      >
+
+</a
+      ><a name="5036" href="FOTC.Program.ABP.Lemma2ATP.html#5036" class="Function"
+      >lemma&#8322;</a
+      ><a name="5042"
+      > </a
+      ><a name="5043" class="Symbol"
+      >:</a
+      ><a name="5044"
+      > </a
+      ><a name="5045" class="Symbol"
+      >&#8704;</a
+      ><a name="5046"
+      > </a
+      ><a name="5047" class="Symbol"
+      >{</a
+      ><a name="5048" href="FOTC.Program.ABP.Lemma2ATP.html#5048" class="Bound"
+      >b</a
+      ><a name="5049"
+      > </a
+      ><a name="5050" href="FOTC.Program.ABP.Lemma2ATP.html#5050" class="Bound"
+      >i'</a
+      ><a name="5052"
+      > </a
+      ><a name="5053" href="FOTC.Program.ABP.Lemma2ATP.html#5053" class="Bound"
+      >is'</a
+      ><a name="5056"
+      > </a
+      ><a name="5057" href="FOTC.Program.ABP.Lemma2ATP.html#5057" class="Bound"
+      >os&#8321;'</a
+      ><a name="5061"
+      > </a
+      ><a name="5062" href="FOTC.Program.ABP.Lemma2ATP.html#5062" class="Bound"
+      >os&#8322;'</a
+      ><a name="5066"
+      > </a
+      ><a name="5067" href="FOTC.Program.ABP.Lemma2ATP.html#5067" class="Bound"
+      >as'</a
+      ><a name="5070"
+      > </a
+      ><a name="5071" href="FOTC.Program.ABP.Lemma2ATP.html#5071" class="Bound"
+      >bs'</a
+      ><a name="5074"
+      > </a
+      ><a name="5075" href="FOTC.Program.ABP.Lemma2ATP.html#5075" class="Bound"
+      >cs'</a
+      ><a name="5078"
+      > </a
+      ><a name="5079" href="FOTC.Program.ABP.Lemma2ATP.html#5079" class="Bound"
+      >ds'</a
+      ><a name="5082"
+      > </a
+      ><a name="5083" href="FOTC.Program.ABP.Lemma2ATP.html#5083" class="Bound"
+      >js'</a
+      ><a name="5086" class="Symbol"
+      >}</a
+      ><a name="5087"
+      > </a
+      ><a name="5088" class="Symbol"
+      >&#8594;</a
+      ><a name="5089"
+      >
+         </a
+      ><a name="5099" href="FOTC.Program.ABP.Terms.html#600" class="Function"
+      >Bit</a
+      ><a name="5102"
+      > </a
+      ><a name="5103" href="FOTC.Program.ABP.Lemma2ATP.html#5048" class="Bound"
+      >b</a
+      ><a name="5104"
+      > </a
+      ><a name="5105" class="Symbol"
+      >&#8594;</a
+      ><a name="5106"
+      >
+         </a
+      ><a name="5116" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5120"
+      > </a
+      ><a name="5121" href="FOTC.Program.ABP.Lemma2ATP.html#5057" class="Bound"
+      >os&#8321;'</a
+      ><a name="5125"
+      > </a
+      ><a name="5126" class="Symbol"
+      >&#8594;</a
+      ><a name="5127"
+      >
+         </a
+      ><a name="5137" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5141"
+      > </a
+      ><a name="5142" href="FOTC.Program.ABP.Lemma2ATP.html#5062" class="Bound"
+      >os&#8322;'</a
+      ><a name="5146"
+      > </a
+      ><a name="5147" class="Symbol"
+      >&#8594;</a
+      ><a name="5148"
+      >
+         </a
+      ><a name="5158" href="FOTC.Program.ABP.ABP.html#3756" class="Function"
+      >S'</a
+      ><a name="5160"
+      > </a
+      ><a name="5161" href="FOTC.Program.ABP.Lemma2ATP.html#5048" class="Bound"
+      >b</a
+      ><a name="5162"
+      > </a
+      ><a name="5163" href="FOTC.Program.ABP.Lemma2ATP.html#5050" class="Bound"
+      >i'</a
+      ><a name="5165"
+      > </a
+      ><a name="5166" href="FOTC.Program.ABP.Lemma2ATP.html#5053" class="Bound"
+      >is'</a
+      ><a name="5169"
+      > </a
+      ><a name="5170" href="FOTC.Program.ABP.Lemma2ATP.html#5057" class="Bound"
+      >os&#8321;'</a
+      ><a name="5174"
+      > </a
+      ><a name="5175" href="FOTC.Program.ABP.Lemma2ATP.html#5062" class="Bound"
+      >os&#8322;'</a
+      ><a name="5179"
+      > </a
+      ><a name="5180" href="FOTC.Program.ABP.Lemma2ATP.html#5067" class="Bound"
+      >as'</a
+      ><a name="5183"
+      > </a
+      ><a name="5184" href="FOTC.Program.ABP.Lemma2ATP.html#5071" class="Bound"
+      >bs'</a
+      ><a name="5187"
+      > </a
+      ><a name="5188" href="FOTC.Program.ABP.Lemma2ATP.html#5075" class="Bound"
+      >cs'</a
+      ><a name="5191"
+      > </a
+      ><a name="5192" href="FOTC.Program.ABP.Lemma2ATP.html#5079" class="Bound"
+      >ds'</a
+      ><a name="5195"
+      > </a
+      ><a name="5196" href="FOTC.Program.ABP.Lemma2ATP.html#5083" class="Bound"
+      >js'</a
+      ><a name="5199"
+      > </a
+      ><a name="5200" class="Symbol"
+      >&#8594;</a
+      ><a name="5201"
+      >
+         </a
+      ><a name="5211" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5213"
+      > </a
+      ><a name="5214" href="FOTC.Program.ABP.Lemma2ATP.html#5214" class="Bound"
+      >os&#8321;''</a
+      ><a name="5219"
+      > </a
+      ><a name="5220" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5221"
+      > </a
+      ><a name="5222" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5224"
+      > </a
+      ><a name="5225" href="FOTC.Program.ABP.Lemma2ATP.html#5225" class="Bound"
+      >os&#8322;''</a
+      ><a name="5230"
+      > </a
+      ><a name="5231" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5232"
+      > </a
+      ><a name="5233" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5235"
+      > </a
+      ><a name="5236" href="FOTC.Program.ABP.Lemma2ATP.html#5236" class="Bound"
+      >as''</a
+      ><a name="5240"
+      > </a
+      ><a name="5241" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5242"
+      > </a
+      ><a name="5243" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5245"
+      > </a
+      ><a name="5246" href="FOTC.Program.ABP.Lemma2ATP.html#5246" class="Bound"
+      >bs''</a
+      ><a name="5250"
+      > </a
+      ><a name="5251" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5252"
+      > </a
+      ><a name="5253" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5255"
+      > </a
+      ><a name="5256" href="FOTC.Program.ABP.Lemma2ATP.html#5256" class="Bound"
+      >cs''</a
+      ><a name="5260"
+      > </a
+      ><a name="5261" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5262"
+      > </a
+      ><a name="5263" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5265"
+      > </a
+      ><a name="5266" href="FOTC.Program.ABP.Lemma2ATP.html#5266" class="Bound"
+      >ds''</a
+      ><a name="5270"
+      > </a
+      ><a name="5271" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5272"
+      >
+           </a
+      ><a name="5284" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5288"
+      > </a
+      ><a name="5289" href="FOTC.Program.ABP.Lemma2ATP.html#5214" class="Bound"
+      >os&#8321;''</a
+      ><a name="5294"
+      >
+           </a
+      ><a name="5306" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="5307"
+      > </a
+      ><a name="5308" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5312"
+      > </a
+      ><a name="5313" href="FOTC.Program.ABP.Lemma2ATP.html#5225" class="Bound"
+      >os&#8322;''</a
+      ><a name="5318"
+      >
+           </a
+      ><a name="5330" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="5331"
+      > </a
+      ><a name="5332" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="5333"
+      > </a
+      ><a name="5334" class="Symbol"
+      >(</a
+      ><a name="5335" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="5338"
+      > </a
+      ><a name="5339" href="FOTC.Program.ABP.Lemma2ATP.html#5048" class="Bound"
+      >b</a
+      ><a name="5340" class="Symbol"
+      >)</a
+      ><a name="5341"
+      > </a
+      ><a name="5342" href="FOTC.Program.ABP.Lemma2ATP.html#5053" class="Bound"
+      >is'</a
+      ><a name="5345"
+      > </a
+      ><a name="5346" href="FOTC.Program.ABP.Lemma2ATP.html#5214" class="Bound"
+      >os&#8321;''</a
+      ><a name="5351"
+      > </a
+      ><a name="5352" href="FOTC.Program.ABP.Lemma2ATP.html#5225" class="Bound"
+      >os&#8322;''</a
+      ><a name="5357"
+      > </a
+      ><a name="5358" href="FOTC.Program.ABP.Lemma2ATP.html#5236" class="Bound"
+      >as''</a
+      ><a name="5362"
+      > </a
+      ><a name="5363" href="FOTC.Program.ABP.Lemma2ATP.html#5246" class="Bound"
+      >bs''</a
+      ><a name="5367"
+      > </a
+      ><a name="5368" href="FOTC.Program.ABP.Lemma2ATP.html#5256" class="Bound"
+      >cs''</a
+      ><a name="5372"
+      > </a
+      ><a name="5373" href="FOTC.Program.ABP.Lemma2ATP.html#5266" class="Bound"
+      >ds''</a
+      ><a name="5377"
+      > </a
+      ><a name="5378" href="FOTC.Program.ABP.Lemma2ATP.html#5083" class="Bound"
+      >js'</a
+      ><a name="5381"
+      >
+</a
+      ><a name="5382" href="FOTC.Program.ABP.Lemma2ATP.html#5036" class="Function"
+      >lemma&#8322;</a
+      ><a name="5388"
+      > </a
+      ><a name="5389" class="Symbol"
+      >{</a
+      ><a name="5390" href="FOTC.Program.ABP.Lemma2ATP.html#5390" class="Bound"
+      >b</a
+      ><a name="5391" class="Symbol"
+      >}</a
+      ><a name="5392"
+      > </a
+      ><a name="5393" class="Symbol"
+      >{</a
+      ><a name="5394" class="Argument"
+      >is'</a
+      ><a name="5397"
+      > </a
+      ><a name="5398" class="Symbol"
+      >=</a
+      ><a name="5399"
+      > </a
+      ><a name="5400" href="FOTC.Program.ABP.Lemma2ATP.html#5400" class="Bound"
+      >is'</a
+      ><a name="5403" class="Symbol"
+      >}</a
+      ><a name="5404"
+      > </a
+      ><a name="5405" class="Symbol"
+      >{</a
+      ><a name="5406" class="Argument"
+      >os&#8322;'</a
+      ><a name="5410"
+      > </a
+      ><a name="5411" class="Symbol"
+      >=</a
+      ><a name="5412"
+      > </a
+      ><a name="5413" href="FOTC.Program.ABP.Lemma2ATP.html#5413" class="Bound"
+      >os&#8322;'</a
+      ><a name="5417" class="Symbol"
+      >}</a
+      ><a name="5418"
+      > </a
+      ><a name="5419" class="Symbol"
+      >{</a
+      ><a name="5420" class="Argument"
+      >js'</a
+      ><a name="5423"
+      > </a
+      ><a name="5424" class="Symbol"
+      >=</a
+      ><a name="5425"
+      > </a
+      ><a name="5426" href="FOTC.Program.ABP.Lemma2ATP.html#5426" class="Bound"
+      >js'</a
+      ><a name="5429" class="Symbol"
+      >}</a
+      ><a name="5430"
+      > </a
+      ><a name="5431" href="FOTC.Program.ABP.Lemma2ATP.html#5431" class="Bound"
+      >Bb</a
+      ><a name="5433"
+      > </a
+      ><a name="5434" href="FOTC.Program.ABP.Lemma2ATP.html#5434" class="Bound"
+      >Fos&#8321;'</a
+      ><a name="5439"
+      > </a
+      ><a name="5440" href="FOTC.Program.ABP.Lemma2ATP.html#5440" class="Bound"
+      >Fos&#8322;'</a
+      ><a name="5445"
+      > </a
+      ><a name="5446" href="FOTC.Program.ABP.Lemma2ATP.html#5446" class="Bound"
+      >s'</a
+      ><a name="5448"
+      > </a
+      ><a name="5449" class="Symbol"
+      >=</a
+      ><a name="5450"
+      >
+  </a
+      ><a name="5453" href="FOTC.Program.ABP.Lemma2ATP.html#5488" class="Function"
+      >helper&#8321;</a
+      ><a name="5460"
+      > </a
+      ><a name="5461" class="Symbol"
+      >(</a
+      ><a name="5462" href="FOTC.Program.ABP.Fair.Type.html#1135" class="Postulate"
+      >Fair-out</a
+      ><a name="5470"
+      > </a
+      ><a name="5471" href="FOTC.Program.ABP.Lemma2ATP.html#5440" class="Bound"
+      >Fos&#8322;'</a
+      ><a name="5476" class="Symbol"
+      >)</a
+      ><a name="5477"
+      >
+  </a
+      ><a name="5480" class="Keyword"
+      >where</a
+      ><a name="5485"
+      >
+  </a
+      ><a name="5488" href="FOTC.Program.ABP.Lemma2ATP.html#5488" class="Function"
+      >helper&#8321;</a
+      ><a name="5495"
+      > </a
+      ><a name="5496" class="Symbol"
+      >:</a
+      ><a name="5497"
+      > </a
+      ><a name="5498" class="Symbol"
+      >(</a
+      ><a name="5499" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5501"
+      > </a
+      ><a name="5502" href="FOTC.Program.ABP.Lemma2ATP.html#5502" class="Bound"
+      >ft&#8322;</a
+      ><a name="5505"
+      > </a
+      ><a name="5506" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5507"
+      > </a
+      ><a name="5508" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5510"
+      > </a
+      ><a name="5511" href="FOTC.Program.ABP.Lemma2ATP.html#5511" class="Bound"
+      >os&#8322;''</a
+      ><a name="5516"
+      > </a
+      ><a name="5517" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5518"
+      > </a
+      ><a name="5519" href="FOTC.Program.ABP.Fair.Type.html#743" class="Datatype"
+      >F*T</a
+      ><a name="5522"
+      > </a
+      ><a name="5523" href="FOTC.Program.ABP.Lemma2ATP.html#5502" class="Bound"
+      >ft&#8322;</a
+      ><a name="5526"
+      > </a
+      ><a name="5527" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="5528"
+      > </a
+      ><a name="5529" href="FOTC.Program.ABP.Lemma2ATP.html#5413" class="Bound"
+      >os&#8322;'</a
+      ><a name="5533"
+      > </a
+      ><a name="5534" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="5535"
+      > </a
+      ><a name="5536" href="FOTC.Program.ABP.Lemma2ATP.html#5502" class="Bound"
+      >ft&#8322;</a
+      ><a name="5539"
+      > </a
+      ><a name="5540" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="5542"
+      > </a
+      ><a name="5543" href="FOTC.Program.ABP.Lemma2ATP.html#5511" class="Bound"
+      >os&#8322;''</a
+      ><a name="5548"
+      > </a
+      ><a name="5549" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="5550"
+      > </a
+      ><a name="5551" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5555"
+      > </a
+      ><a name="5556" href="FOTC.Program.ABP.Lemma2ATP.html#5511" class="Bound"
+      >os&#8322;''</a
+      ><a name="5561" class="Symbol"
+      >)</a
+      ><a name="5562"
+      > </a
+      ><a name="5563" class="Symbol"
+      >&#8594;</a
+      ><a name="5564"
+      >
+            </a
+      ><a name="5577" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5579"
+      > </a
+      ><a name="5580" href="FOTC.Program.ABP.Lemma2ATP.html#5580" class="Bound"
+      >os&#8321;''</a
+      ><a name="5585"
+      > </a
+      ><a name="5586" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5587"
+      > </a
+      ><a name="5588" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5590"
+      > </a
+      ><a name="5591" href="FOTC.Program.ABP.Lemma2ATP.html#5591" class="Bound"
+      >os&#8322;''</a
+      ><a name="5596"
+      > </a
+      ><a name="5597" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5598"
+      > </a
+      ><a name="5599" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5601"
+      > </a
+      ><a name="5602" href="FOTC.Program.ABP.Lemma2ATP.html#5602" class="Bound"
+      >as''</a
+      ><a name="5606"
+      > </a
+      ><a name="5607" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5608"
+      > </a
+      ><a name="5609" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5611"
+      > </a
+      ><a name="5612" href="FOTC.Program.ABP.Lemma2ATP.html#5612" class="Bound"
+      >bs''</a
+      ><a name="5616"
+      > </a
+      ><a name="5617" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5618"
+      > </a
+      ><a name="5619" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5621"
+      > </a
+      ><a name="5622" href="FOTC.Program.ABP.Lemma2ATP.html#5622" class="Bound"
+      >cs''</a
+      ><a name="5626"
+      > </a
+      ><a name="5627" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5628"
+      > </a
+      ><a name="5629" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="5631"
+      > </a
+      ><a name="5632" href="FOTC.Program.ABP.Lemma2ATP.html#5632" class="Bound"
+      >ds''</a
+      ><a name="5636"
+      > </a
+      ><a name="5637" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="5638"
+      >
+              </a
+      ><a name="5653" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5657"
+      > </a
+      ><a name="5658" href="FOTC.Program.ABP.Lemma2ATP.html#5580" class="Bound"
+      >os&#8321;''</a
+      ><a name="5663"
+      >
+              </a
+      ><a name="5678" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="5679"
+      > </a
+      ><a name="5680" href="FOTC.Program.ABP.Fair.Type.html#1039" class="Postulate"
+      >Fair</a
+      ><a name="5684"
+      > </a
+      ><a name="5685" href="FOTC.Program.ABP.Lemma2ATP.html#5591" class="Bound"
+      >os&#8322;''</a
+      ><a name="5690"
+      >
+              </a
+      ><a name="5705" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="5706"
+      > </a
+      ><a name="5707" href="FOTC.Program.ABP.ABP.html#3506" class="Function"
+      >S</a
+      ><a name="5708"
+      > </a
+      ><a name="5709" class="Symbol"
+      >(</a
+      ><a name="5710" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="5713"
+      > </a
+      ><a name="5714" href="FOTC.Program.ABP.Lemma2ATP.html#5390" class="Bound"
+      >b</a
+      ><a name="5715" class="Symbol"
+      >)</a
+      ><a name="5716"
+      > </a
+      ><a name="5717" href="FOTC.Program.ABP.Lemma2ATP.html#5400" class="Bound"
+      >is'</a
+      ><a name="5720"
+      > </a
+      ><a name="5721" href="FOTC.Program.ABP.Lemma2ATP.html#5580" class="Bound"
+      >os&#8321;''</a
+      ><a name="5726"
+      > </a
+      ><a name="5727" href="FOTC.Program.ABP.Lemma2ATP.html#5591" class="Bound"
+      >os&#8322;''</a
+      ><a name="5732"
+      > </a
+      ><a name="5733" href="FOTC.Program.ABP.Lemma2ATP.html#5602" class="Bound"
+      >as''</a
+      ><a name="5737"
+      > </a
+      ><a name="5738" href="FOTC.Program.ABP.Lemma2ATP.html#5612" class="Bound"
+      >bs''</a
+      ><a name="5742"
+      > </a
+      ><a name="5743" href="FOTC.Program.ABP.Lemma2ATP.html#5622" class="Bound"
+      >cs''</a
+      ><a name="5747"
+      > </a
+      ><a name="5748" href="FOTC.Program.ABP.Lemma2ATP.html#5632" class="Bound"
+      >ds''</a
+      ><a name="5752"
+      > </a
+      ><a name="5753" href="FOTC.Program.ABP.Lemma2ATP.html#5426" class="Bound"
+      >js'</a
+      ><a name="5756"
+      >
+  </a
+      ><a name="5759" href="FOTC.Program.ABP.Lemma2ATP.html#5488" class="Function"
+      >helper&#8321;</a
+      ><a name="5766"
+      > </a
+      ><a name="5767" class="Symbol"
+      >(</a
+      ><a name="5768" href="FOTC.Program.ABP.Lemma2ATP.html#5768" class="Bound"
+      >ft&#8322;</a
+      ><a name="5771"
+      > </a
+      ><a name="5772" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="5773"
+      > </a
+      ><a name="5774" href="FOTC.Program.ABP.Lemma2ATP.html#5774" class="Bound"
+      >os&#8322;''</a
+      ><a name="5779"
+      > </a
+      ><a name="5780" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="5781"
+      > </a
+      ><a name="5782" href="FOTC.Program.ABP.Lemma2ATP.html#5782" class="Bound"
+      >FTft&#8322;</a
+      ><a name="5787"
+      > </a
+      ><a name="5788" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="5789"
+      > </a
+      ><a name="5790" href="FOTC.Program.ABP.Lemma2ATP.html#5790" class="Bound"
+      >os&#8322;'-eq</a
+      ><a name="5797"
+      > </a
+      ><a name="5798" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="5799"
+      > </a
+      ><a name="5800" href="FOTC.Program.ABP.Lemma2ATP.html#5800" class="Bound"
+      >Fos&#8322;''</a
+      ><a name="5806" class="Symbol"
+      >)</a
+      ><a name="5807"
+      > </a
+      ><a name="5808" class="Symbol"
+      >=</a
+      ><a name="5809"
+      >
+    </a
+      ><a name="5814" href="FOTC.Program.ABP.Lemma2ATP.html#1890" class="Function"
+      >helper&#8322;</a
+      ><a name="5821"
+      > </a
+      ><a name="5822" href="FOTC.Program.ABP.Lemma2ATP.html#5431" class="Bound"
+      >Bb</a
+      ><a name="5824"
+      > </a
+      ><a name="5825" href="FOTC.Program.ABP.Lemma2ATP.html#5434" class="Bound"
+      >Fos&#8321;'</a
+      ><a name="5830"
+      > </a
+      ><a name="5831" href="FOTC.Program.ABP.Lemma2ATP.html#5446" class="Bound"
+      >s'</a
+      ><a name="5833"
+      > </a
+      ><a name="5834" href="FOTC.Program.ABP.Lemma2ATP.html#5768" class="Bound"
+      >ft&#8322;</a
+      ><a name="5837"
+      > </a
+      ><a name="5838" href="FOTC.Program.ABP.Lemma2ATP.html#5774" class="Bound"
+      >os&#8322;''</a
+      ><a name="5843"
+      > </a
+      ><a name="5844" href="FOTC.Program.ABP.Lemma2ATP.html#5782" class="Bound"
+      >FTft&#8322;</a
+      ><a name="5849"
+      > </a
+      ><a name="5850" href="FOTC.Program.ABP.Lemma2ATP.html#5800" class="Bound"
+      >Fos&#8322;''</a
+      ><a name="5856"
+      > </a
+      ><a name="5857" href="FOTC.Program.ABP.Lemma2ATP.html#5790" class="Bound"
+      >os&#8322;'-eq</a
+      ><a name="5864"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

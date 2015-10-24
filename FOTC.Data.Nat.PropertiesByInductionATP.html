@@ -1,0 +1,2317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.PropertiesByInductionATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Arithmetic properties (using induction on the FOTC natural numbers type)</a
+      ><a name="155"
+      >
+</a
+      ><a name="156" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="234"
+      >
+
+</a
+      ><a name="236" class="Symbol"
+      >{-#</a
+      ><a name="239"
+      > </a
+      ><a name="240" class="Keyword"
+      >OPTIONS</a
+      ><a name="247"
+      > --exact-split              </a
+      ><a name="275" class="Symbol"
+      >#-}</a
+      ><a name="278"
+      >
+</a
+      ><a name="279" class="Symbol"
+      >{-#</a
+      ><a name="282"
+      > </a
+      ><a name="283" class="Keyword"
+      >OPTIONS</a
+      ><a name="290"
+      > --no-sized-types           </a
+      ><a name="318" class="Symbol"
+      >#-}</a
+      ><a name="321"
+      >
+</a
+      ><a name="322" class="Symbol"
+      >{-#</a
+      ><a name="325"
+      > </a
+      ><a name="326" class="Keyword"
+      >OPTIONS</a
+      ><a name="333"
+      > --no-universe-polymorphism </a
+      ><a name="361" class="Symbol"
+      >#-}</a
+      ><a name="364"
+      >
+</a
+      ><a name="365" class="Symbol"
+      >{-#</a
+      ><a name="368"
+      > </a
+      ><a name="369" class="Keyword"
+      >OPTIONS</a
+      ><a name="376"
+      > --without-K                </a
+      ><a name="404" class="Symbol"
+      >#-}</a
+      ><a name="407"
+      >
+
+</a
+      ><a name="409" class="Comment"
+      >-- Usually our proofs use pattern matching instead of the induction</a
+      ><a name="476"
+      >
+</a
+      ><a name="477" class="Comment"
+      >-- principle associated with the FOTC natural numbers. The following</a
+      ><a name="545"
+      >
+</a
+      ><a name="546" class="Comment"
+      >-- examples show some proofs using it.</a
+      ><a name="584"
+      >
+
+</a
+      ><a name="586" class="Keyword"
+      >module</a
+      ><a name="592"
+      > </a
+      ><a name="593" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1" class="Module"
+      >FOTC.Data.Nat.PropertiesByInductionATP</a
+      ><a name="631"
+      > </a
+      ><a name="632" class="Keyword"
+      >where</a
+      ><a name="637"
+      >
+
+</a
+      ><a name="639" class="Keyword"
+      >open</a
+      ><a name="643"
+      > </a
+      ><a name="644" class="Keyword"
+      >import</a
+      ><a name="650"
+      > </a
+      ><a name="651" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="660"
+      >
+</a
+      ><a name="661" class="Keyword"
+      >open</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Keyword"
+      >import</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="686"
+      >
+
+</a
+      ><a name="688" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="766"
+      >
+
+</a
+      ><a name="768" href="FOTC.Data.Nat.PropertiesByInductionATP.html#768" class="Function"
+      >+-leftIdentity</a
+      ><a name="782"
+      > </a
+      ><a name="783" class="Symbol"
+      >:</a
+      ><a name="784"
+      > </a
+      ><a name="785" class="Symbol"
+      >&#8704;</a
+      ><a name="786"
+      > </a
+      ><a name="787" href="FOTC.Data.Nat.PropertiesByInductionATP.html#787" class="Bound"
+      >n</a
+      ><a name="788"
+      > </a
+      ><a name="789" class="Symbol"
+      >&#8594;</a
+      ><a name="790"
+      > </a
+      ><a name="791" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="795"
+      > </a
+      ><a name="796" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="797"
+      > </a
+      ><a name="798" href="FOTC.Data.Nat.PropertiesByInductionATP.html#787" class="Bound"
+      >n</a
+      ><a name="799"
+      > </a
+      ><a name="800" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="FOTC.Data.Nat.PropertiesByInductionATP.html#787" class="Bound"
+      >n</a
+      ><a name="803"
+      >
+</a
+      ><a name="804" href="FOTC.Data.Nat.PropertiesByInductionATP.html#768" class="Function"
+      >+-leftIdentity</a
+      ><a name="818"
+      > </a
+      ><a name="819" href="FOTC.Data.Nat.PropertiesByInductionATP.html#819" class="Bound"
+      >n</a
+      ><a name="820"
+      > </a
+      ><a name="821" class="Symbol"
+      >=</a
+      ><a name="822"
+      > </a
+      ><a name="823" href="FOTC.Data.Nat.html#613" class="Postulate"
+      >+-0x</a
+      ><a name="827"
+      > </a
+      ><a name="828" href="FOTC.Data.Nat.PropertiesByInductionATP.html#819" class="Bound"
+      >n</a
+      ><a name="829"
+      >
+
+</a
+      ><a name="831" href="FOTC.Data.Nat.PropertiesByInductionATP.html#831" class="Function"
+      >+-rightIdentity</a
+      ><a name="846"
+      > </a
+      ><a name="847" class="Symbol"
+      >:</a
+      ><a name="848"
+      > </a
+      ><a name="849" class="Symbol"
+      >&#8704;</a
+      ><a name="850"
+      > </a
+      ><a name="851" class="Symbol"
+      >{</a
+      ><a name="852" href="FOTC.Data.Nat.PropertiesByInductionATP.html#852" class="Bound"
+      >n</a
+      ><a name="853" class="Symbol"
+      >}</a
+      ><a name="854"
+      > </a
+      ><a name="855" class="Symbol"
+      >&#8594;</a
+      ><a name="856"
+      > </a
+      ><a name="857" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="858"
+      > </a
+      ><a name="859" href="FOTC.Data.Nat.PropertiesByInductionATP.html#852" class="Bound"
+      >n</a
+      ><a name="860"
+      > </a
+      ><a name="861" class="Symbol"
+      >&#8594;</a
+      ><a name="862"
+      > </a
+      ><a name="863" href="FOTC.Data.Nat.PropertiesByInductionATP.html#852" class="Bound"
+      >n</a
+      ><a name="864"
+      > </a
+      ><a name="865" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="866"
+      > </a
+      ><a name="867" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="871"
+      > </a
+      ><a name="872" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="873"
+      > </a
+      ><a name="874" href="FOTC.Data.Nat.PropertiesByInductionATP.html#852" class="Bound"
+      >n</a
+      ><a name="875"
+      >
+</a
+      ><a name="876" href="FOTC.Data.Nat.PropertiesByInductionATP.html#831" class="Function"
+      >+-rightIdentity</a
+      ><a name="891"
+      > </a
+      ><a name="892" href="FOTC.Data.Nat.PropertiesByInductionATP.html#892" class="Bound"
+      >Nn</a
+      ><a name="894"
+      > </a
+      ><a name="895" class="Symbol"
+      >=</a
+      ><a name="896"
+      > </a
+      ><a name="897" href="FOTC.Data.Nat.Type.html#776" class="Function"
+      >N-ind</a
+      ><a name="902"
+      > </a
+      ><a name="903" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="904"
+      > </a
+      ><a name="905" href="FOTC.Data.Nat.PropertiesByInductionATP.html#997" class="Postulate"
+      >A0</a
+      ><a name="907"
+      > </a
+      ><a name="908" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1045" class="Postulate"
+      >is</a
+      ><a name="910"
+      > </a
+      ><a name="911" href="FOTC.Data.Nat.PropertiesByInductionATP.html#892" class="Bound"
+      >Nn</a
+      ><a name="913"
+      >
+  </a
+      ><a name="916" class="Keyword"
+      >where</a
+      ><a name="921"
+      >
+  </a
+      ><a name="924" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >:</a
+      ><a name="927"
+      > </a
+      ><a name="928" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >&#8594;</a
+      ><a name="931"
+      > </a
+      ><a name="932" class="PrimitiveType"
+      >Set</a
+      ><a name="935"
+      >
+  </a
+      ><a name="938" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="939"
+      > </a
+      ><a name="940" href="FOTC.Data.Nat.PropertiesByInductionATP.html#940" class="Bound"
+      >i</a
+      ><a name="941"
+      > </a
+      ><a name="942" class="Symbol"
+      >=</a
+      ><a name="943"
+      > </a
+      ><a name="944" href="FOTC.Data.Nat.PropertiesByInductionATP.html#940" class="Bound"
+      >i</a
+      ><a name="945"
+      > </a
+      ><a name="946" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="952"
+      > </a
+      ><a name="953" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="954"
+      > </a
+      ><a name="955" href="FOTC.Data.Nat.PropertiesByInductionATP.html#940" class="Bound"
+      >i</a
+      ><a name="956"
+      >
+  </a
+      ><a name="959" class="Symbol"
+      >{-#</a
+      ><a name="962"
+      > </a
+      ><a name="963" class="Keyword"
+      >ATP</a
+      ><a name="966"
+      > definition </a
+      ><a name="978" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="979"
+      > </a
+      ><a name="980" class="Symbol"
+      >#-}</a
+      ><a name="983"
+      >
+
+  </a
+      ><a name="987" class="Keyword"
+      >postulate</a
+      ><a name="996"
+      > </a
+      ><a name="997" href="FOTC.Data.Nat.PropertiesByInductionATP.html#997" class="Postulate"
+      >A0</a
+      ><a name="999"
+      > </a
+      ><a name="1000" class="Symbol"
+      >:</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="1003"
+      > </a
+      ><a name="1004" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1008"
+      >
+  </a
+      ><a name="1011" class="Symbol"
+      >{-#</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" class="Keyword"
+      >ATP</a
+      ><a name="1018"
+      > prove </a
+      ><a name="1025" href="FOTC.Data.Nat.PropertiesByInductionATP.html#997" class="Postulate"
+      >A0</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" class="Symbol"
+      >#-}</a
+      ><a name="1031"
+      >
+
+  </a
+      ><a name="1035" class="Keyword"
+      >postulate</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1045" class="Postulate"
+      >is</a
+      ><a name="1047"
+      > </a
+      ><a name="1048" class="Symbol"
+      >:</a
+      ><a name="1049"
+      > </a
+      ><a name="1050" class="Symbol"
+      >&#8704;</a
+      ><a name="1051"
+      > </a
+      ><a name="1052" class="Symbol"
+      >{</a
+      ><a name="1053" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1053" class="Bound"
+      >i</a
+      ><a name="1054" class="Symbol"
+      >}</a
+      ><a name="1055"
+      > </a
+      ><a name="1056" class="Symbol"
+      >&#8594;</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1053" class="Bound"
+      >i</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" class="Symbol"
+      >&#8594;</a
+      ><a name="1063"
+      > </a
+      ><a name="1064" href="FOTC.Data.Nat.PropertiesByInductionATP.html#924" class="Function"
+      >A</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" class="Symbol"
+      >(</a
+      ><a name="1067" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1053" class="Bound"
+      >i</a
+      ><a name="1074" class="Symbol"
+      >)</a
+      ><a name="1075"
+      >
+  </a
+      ><a name="1078" class="Symbol"
+      >{-#</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" class="Keyword"
+      >ATP</a
+      ><a name="1085"
+      > prove </a
+      ><a name="1092" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1045" class="Postulate"
+      >is</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" class="Symbol"
+      >#-}</a
+      ><a name="1098"
+      >
+
+</a
+      ><a name="1100" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1100" class="Function"
+      >+-N</a
+      ><a name="1103"
+      > </a
+      ><a name="1104" class="Symbol"
+      >:</a
+      ><a name="1105"
+      > </a
+      ><a name="1106" class="Symbol"
+      >&#8704;</a
+      ><a name="1107"
+      > </a
+      ><a name="1108" class="Symbol"
+      >{</a
+      ><a name="1109" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1109" class="Bound"
+      >m</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1111" class="Bound"
+      >n</a
+      ><a name="1112" class="Symbol"
+      >}</a
+      ><a name="1113"
+      > </a
+      ><a name="1114" class="Symbol"
+      >&#8594;</a
+      ><a name="1115"
+      > </a
+      ><a name="1116" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1109" class="Bound"
+      >m</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" class="Symbol"
+      >&#8594;</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1123"
+      > </a
+      ><a name="1124" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1111" class="Bound"
+      >n</a
+      ><a name="1125"
+      > </a
+      ><a name="1126" class="Symbol"
+      >&#8594;</a
+      ><a name="1127"
+      > </a
+      ><a name="1128" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" class="Symbol"
+      >(</a
+      ><a name="1131" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1109" class="Bound"
+      >m</a
+      ><a name="1132"
+      > </a
+      ><a name="1133" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1134"
+      > </a
+      ><a name="1135" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1111" class="Bound"
+      >n</a
+      ><a name="1136" class="Symbol"
+      >)</a
+      ><a name="1137"
+      >
+</a
+      ><a name="1138" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1100" class="Function"
+      >+-N</a
+      ><a name="1141"
+      > </a
+      ><a name="1142" class="Symbol"
+      >{</a
+      ><a name="1143" class="Argument"
+      >n</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" class="Symbol"
+      >=</a
+      ><a name="1146"
+      > </a
+      ><a name="1147" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1147" class="Bound"
+      >n</a
+      ><a name="1148" class="Symbol"
+      >}</a
+      ><a name="1149"
+      > </a
+      ><a name="1150" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1150" class="Bound"
+      >Nm</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1153" class="Bound"
+      >Nn</a
+      ><a name="1155"
+      > </a
+      ><a name="1156" class="Symbol"
+      >=</a
+      ><a name="1157"
+      > </a
+      ><a name="1158" href="FOTC.Data.Nat.Type.html#776" class="Function"
+      >N-ind</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1165"
+      > </a
+      ><a name="1166" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1255" class="Postulate"
+      >A0</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1303" class="Postulate"
+      >is</a
+      ><a name="1171"
+      > </a
+      ><a name="1172" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1150" class="Bound"
+      >Nm</a
+      ><a name="1174"
+      >
+  </a
+      ><a name="1177" class="Keyword"
+      >where</a
+      ><a name="1182"
+      >
+  </a
+      ><a name="1185" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1186"
+      > </a
+      ><a name="1187" class="Symbol"
+      >:</a
+      ><a name="1188"
+      > </a
+      ><a name="1189" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" class="Symbol"
+      >&#8594;</a
+      ><a name="1192"
+      > </a
+      ><a name="1193" class="PrimitiveType"
+      >Set</a
+      ><a name="1196"
+      >
+  </a
+      ><a name="1199" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1201" class="Bound"
+      >i</a
+      ><a name="1202"
+      > </a
+      ><a name="1203" class="Symbol"
+      >=</a
+      ><a name="1204"
+      > </a
+      ><a name="1205" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1206"
+      > </a
+      ><a name="1207" class="Symbol"
+      >(</a
+      ><a name="1208" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1201" class="Bound"
+      >i</a
+      ><a name="1209"
+      > </a
+      ><a name="1210" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1211"
+      > </a
+      ><a name="1212" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1147" class="Bound"
+      >n</a
+      ><a name="1213" class="Symbol"
+      >)</a
+      ><a name="1214"
+      >
+  </a
+      ><a name="1217" class="Symbol"
+      >{-#</a
+      ><a name="1220"
+      > </a
+      ><a name="1221" class="Keyword"
+      >ATP</a
+      ><a name="1224"
+      > definition </a
+      ><a name="1236" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1237"
+      > </a
+      ><a name="1238" class="Symbol"
+      >#-}</a
+      ><a name="1241"
+      >
+
+  </a
+      ><a name="1245" class="Keyword"
+      >postulate</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1255" class="Postulate"
+      >A0</a
+      ><a name="1257"
+      > </a
+      ><a name="1258" class="Symbol"
+      >:</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1266"
+      >
+  </a
+      ><a name="1269" class="Symbol"
+      >{-#</a
+      ><a name="1272"
+      > </a
+      ><a name="1273" class="Keyword"
+      >ATP</a
+      ><a name="1276"
+      > prove </a
+      ><a name="1283" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1255" class="Postulate"
+      >A0</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" class="Symbol"
+      >#-}</a
+      ><a name="1289"
+      >
+
+  </a
+      ><a name="1293" class="Keyword"
+      >postulate</a
+      ><a name="1302"
+      > </a
+      ><a name="1303" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1303" class="Postulate"
+      >is</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" class="Symbol"
+      >:</a
+      ><a name="1307"
+      > </a
+      ><a name="1308" class="Symbol"
+      >&#8704;</a
+      ><a name="1309"
+      > </a
+      ><a name="1310" class="Symbol"
+      >{</a
+      ><a name="1311" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1311" class="Bound"
+      >i</a
+      ><a name="1312" class="Symbol"
+      >}</a
+      ><a name="1313"
+      > </a
+      ><a name="1314" class="Symbol"
+      >&#8594;</a
+      ><a name="1315"
+      > </a
+      ><a name="1316" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1317"
+      > </a
+      ><a name="1318" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1311" class="Bound"
+      >i</a
+      ><a name="1319"
+      > </a
+      ><a name="1320" class="Symbol"
+      >&#8594;</a
+      ><a name="1321"
+      > </a
+      ><a name="1322" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1185" class="Function"
+      >A</a
+      ><a name="1323"
+      > </a
+      ><a name="1324" class="Symbol"
+      >(</a
+      ><a name="1325" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1330"
+      > </a
+      ><a name="1331" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1311" class="Bound"
+      >i</a
+      ><a name="1332" class="Symbol"
+      >)</a
+      ><a name="1333"
+      >
+  </a
+      ><a name="1336" class="Symbol"
+      >{-#</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" class="Keyword"
+      >ATP</a
+      ><a name="1343"
+      > prove </a
+      ><a name="1350" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1303" class="Postulate"
+      >is</a
+      ><a name="1352"
+      > </a
+      ><a name="1353" class="Symbol"
+      >#-}</a
+      ><a name="1356"
+      >
+
+</a
+      ><a name="1358" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1358" class="Function"
+      >+-assoc</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" class="Symbol"
+      >:</a
+      ><a name="1367"
+      > </a
+      ><a name="1368" class="Symbol"
+      >&#8704;</a
+      ><a name="1369"
+      > </a
+      ><a name="1370" class="Symbol"
+      >{</a
+      ><a name="1371" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1371" class="Bound"
+      >m</a
+      ><a name="1372" class="Symbol"
+      >}</a
+      ><a name="1373"
+      > </a
+      ><a name="1374" class="Symbol"
+      >&#8594;</a
+      ><a name="1375"
+      > </a
+      ><a name="1376" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1377"
+      > </a
+      ><a name="1378" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1371" class="Bound"
+      >m</a
+      ><a name="1379"
+      > </a
+      ><a name="1380" class="Symbol"
+      >&#8594;</a
+      ><a name="1381"
+      > </a
+      ><a name="1382" class="Symbol"
+      >&#8704;</a
+      ><a name="1383"
+      > </a
+      ><a name="1384" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1384" class="Bound"
+      >n</a
+      ><a name="1385"
+      > </a
+      ><a name="1386" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1386" class="Bound"
+      >o</a
+      ><a name="1387"
+      > </a
+      ><a name="1388" class="Symbol"
+      >&#8594;</a
+      ><a name="1389"
+      > </a
+      ><a name="1390" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1371" class="Bound"
+      >m</a
+      ><a name="1391"
+      > </a
+      ><a name="1392" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1393"
+      > </a
+      ><a name="1394" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1384" class="Bound"
+      >n</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1397"
+      > </a
+      ><a name="1398" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1386" class="Bound"
+      >o</a
+      ><a name="1399"
+      > </a
+      ><a name="1400" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1401"
+      > </a
+      ><a name="1402" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1371" class="Bound"
+      >m</a
+      ><a name="1403"
+      > </a
+      ><a name="1404" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1405"
+      > </a
+      ><a name="1406" class="Symbol"
+      >(</a
+      ><a name="1407" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1384" class="Bound"
+      >n</a
+      ><a name="1408"
+      > </a
+      ><a name="1409" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1410"
+      > </a
+      ><a name="1411" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1386" class="Bound"
+      >o</a
+      ><a name="1412" class="Symbol"
+      >)</a
+      ><a name="1413"
+      >
+</a
+      ><a name="1414" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1358" class="Function"
+      >+-assoc</a
+      ><a name="1421"
+      > </a
+      ><a name="1422" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1422" class="Bound"
+      >Nm</a
+      ><a name="1424"
+      > </a
+      ><a name="1425" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1425" class="Bound"
+      >n</a
+      ><a name="1426"
+      > </a
+      ><a name="1427" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1427" class="Bound"
+      >o</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" class="Symbol"
+      >=</a
+      ><a name="1430"
+      > </a
+      ><a name="1431" href="FOTC.Data.Nat.Type.html#776" class="Function"
+      >N-ind</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1542" class="Postulate"
+      >A0</a
+      ><a name="1441"
+      > </a
+      ><a name="1442" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1590" class="Postulate"
+      >is</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1422" class="Bound"
+      >Nm</a
+      ><a name="1447"
+      >
+  </a
+      ><a name="1450" class="Keyword"
+      >where</a
+      ><a name="1455"
+      >
+  </a
+      ><a name="1458" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" class="Symbol"
+      >:</a
+      ><a name="1461"
+      > </a
+      ><a name="1462" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1463"
+      > </a
+      ><a name="1464" class="Symbol"
+      >&#8594;</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="PrimitiveType"
+      >Set</a
+      ><a name="1469"
+      >
+  </a
+      ><a name="1472" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1473"
+      > </a
+      ><a name="1474" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1474" class="Bound"
+      >i</a
+      ><a name="1475"
+      > </a
+      ><a name="1476" class="Symbol"
+      >=</a
+      ><a name="1477"
+      > </a
+      ><a name="1478" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1474" class="Bound"
+      >i</a
+      ><a name="1479"
+      > </a
+      ><a name="1480" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1425" class="Bound"
+      >n</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1485"
+      > </a
+      ><a name="1486" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1427" class="Bound"
+      >o</a
+      ><a name="1487"
+      > </a
+      ><a name="1488" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1474" class="Bound"
+      >i</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" class="Symbol"
+      >(</a
+      ><a name="1495" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1425" class="Bound"
+      >n</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1427" class="Bound"
+      >o</a
+      ><a name="1500" class="Symbol"
+      >)</a
+      ><a name="1501"
+      >
+  </a
+      ><a name="1504" class="Symbol"
+      >{-#</a
+      ><a name="1507"
+      > </a
+      ><a name="1508" class="Keyword"
+      >ATP</a
+      ><a name="1511"
+      > definition </a
+      ><a name="1523" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" class="Symbol"
+      >#-}</a
+      ><a name="1528"
+      >
+
+  </a
+      ><a name="1532" class="Keyword"
+      >postulate</a
+      ><a name="1541"
+      > </a
+      ><a name="1542" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1542" class="Postulate"
+      >A0</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" class="Symbol"
+      >:</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1548"
+      > </a
+      ><a name="1549" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1553"
+      >
+  </a
+      ><a name="1556" class="Symbol"
+      >{-#</a
+      ><a name="1559"
+      > </a
+      ><a name="1560" class="Keyword"
+      >ATP</a
+      ><a name="1563"
+      > prove </a
+      ><a name="1570" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1542" class="Postulate"
+      >A0</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" class="Symbol"
+      >#-}</a
+      ><a name="1576"
+      >
+
+  </a
+      ><a name="1580" class="Keyword"
+      >postulate</a
+      ><a name="1589"
+      > </a
+      ><a name="1590" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1590" class="Postulate"
+      >is</a
+      ><a name="1592"
+      > </a
+      ><a name="1593" class="Symbol"
+      >:</a
+      ><a name="1594"
+      > </a
+      ><a name="1595" class="Symbol"
+      >&#8704;</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" class="Symbol"
+      >{</a
+      ><a name="1598" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1598" class="Bound"
+      >i</a
+      ><a name="1599" class="Symbol"
+      >}</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" class="Symbol"
+      >&#8594;</a
+      ><a name="1602"
+      > </a
+      ><a name="1603" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1604"
+      > </a
+      ><a name="1605" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1598" class="Bound"
+      >i</a
+      ><a name="1606"
+      > </a
+      ><a name="1607" class="Symbol"
+      >&#8594;</a
+      ><a name="1608"
+      > </a
+      ><a name="1609" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1458" class="Function"
+      >A</a
+      ><a name="1610"
+      > </a
+      ><a name="1611" class="Symbol"
+      >(</a
+      ><a name="1612" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1617"
+      > </a
+      ><a name="1618" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1598" class="Bound"
+      >i</a
+      ><a name="1619" class="Symbol"
+      >)</a
+      ><a name="1620"
+      >
+  </a
+      ><a name="1623" class="Symbol"
+      >{-#</a
+      ><a name="1626"
+      > </a
+      ><a name="1627" class="Keyword"
+      >ATP</a
+      ><a name="1630"
+      > prove </a
+      ><a name="1637" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1590" class="Postulate"
+      >is</a
+      ><a name="1639"
+      > </a
+      ><a name="1640" class="Symbol"
+      >#-}</a
+      ><a name="1643"
+      >
+
+</a
+      ><a name="1645" class="Comment"
+      >-- A proof without use ATPs definitions.</a
+      ><a name="1685"
+      >
+</a
+      ><a name="1686" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1686" class="Function"
+      >+-assoc'</a
+      ><a name="1694"
+      > </a
+      ><a name="1695" class="Symbol"
+      >:</a
+      ><a name="1696"
+      > </a
+      ><a name="1697" class="Symbol"
+      >&#8704;</a
+      ><a name="1698"
+      > </a
+      ><a name="1699" class="Symbol"
+      >{</a
+      ><a name="1700" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1700" class="Bound"
+      >m</a
+      ><a name="1701" class="Symbol"
+      >}</a
+      ><a name="1702"
+      > </a
+      ><a name="1703" class="Symbol"
+      >&#8594;</a
+      ><a name="1704"
+      > </a
+      ><a name="1705" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1706"
+      > </a
+      ><a name="1707" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1700" class="Bound"
+      >m</a
+      ><a name="1708"
+      > </a
+      ><a name="1709" class="Symbol"
+      >&#8594;</a
+      ><a name="1710"
+      > </a
+      ><a name="1711" class="Symbol"
+      >&#8704;</a
+      ><a name="1712"
+      > </a
+      ><a name="1713" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1713" class="Bound"
+      >n</a
+      ><a name="1714"
+      > </a
+      ><a name="1715" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1715" class="Bound"
+      >o</a
+      ><a name="1716"
+      > </a
+      ><a name="1717" class="Symbol"
+      >&#8594;</a
+      ><a name="1718"
+      > </a
+      ><a name="1719" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1700" class="Bound"
+      >m</a
+      ><a name="1720"
+      > </a
+      ><a name="1721" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1722"
+      > </a
+      ><a name="1723" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1713" class="Bound"
+      >n</a
+      ><a name="1724"
+      > </a
+      ><a name="1725" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1726"
+      > </a
+      ><a name="1727" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1715" class="Bound"
+      >o</a
+      ><a name="1728"
+      > </a
+      ><a name="1729" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1730"
+      > </a
+      ><a name="1731" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1700" class="Bound"
+      >m</a
+      ><a name="1732"
+      > </a
+      ><a name="1733" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1734"
+      > </a
+      ><a name="1735" class="Symbol"
+      >(</a
+      ><a name="1736" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1713" class="Bound"
+      >n</a
+      ><a name="1737"
+      > </a
+      ><a name="1738" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1739"
+      > </a
+      ><a name="1740" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1715" class="Bound"
+      >o</a
+      ><a name="1741" class="Symbol"
+      >)</a
+      ><a name="1742"
+      >
+</a
+      ><a name="1743" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1686" class="Function"
+      >+-assoc'</a
+      ><a name="1751"
+      > </a
+      ><a name="1752" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1752" class="Bound"
+      >Nm</a
+      ><a name="1754"
+      > </a
+      ><a name="1755" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1756"
+      > </a
+      ><a name="1757" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1758"
+      > </a
+      ><a name="1759" class="Symbol"
+      >=</a
+      ><a name="1760"
+      > </a
+      ><a name="1761" href="FOTC.Data.Nat.Type.html#776" class="Function"
+      >N-ind</a
+      ><a name="1766"
+      > </a
+      ><a name="1767" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1788" class="Function"
+      >A</a
+      ><a name="1768"
+      > </a
+      ><a name="1769" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1845" class="Postulate"
+      >A0</a
+      ><a name="1771"
+      > </a
+      ><a name="1772" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1916" class="Postulate"
+      >is</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1752" class="Bound"
+      >Nm</a
+      ><a name="1777"
+      >
+  </a
+      ><a name="1780" class="Keyword"
+      >where</a
+      ><a name="1785"
+      >
+  </a
+      ><a name="1788" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1788" class="Function"
+      >A</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" class="Symbol"
+      >:</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1793"
+      > </a
+      ><a name="1794" class="Symbol"
+      >&#8594;</a
+      ><a name="1795"
+      > </a
+      ><a name="1796" class="PrimitiveType"
+      >Set</a
+      ><a name="1799"
+      >
+  </a
+      ><a name="1802" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1788" class="Function"
+      >A</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1804" class="Bound"
+      >i</a
+      ><a name="1805"
+      > </a
+      ><a name="1806" class="Symbol"
+      >=</a
+      ><a name="1807"
+      > </a
+      ><a name="1808" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1804" class="Bound"
+      >i</a
+      ><a name="1809"
+      > </a
+      ><a name="1810" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1811"
+      > </a
+      ><a name="1812" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1813"
+      > </a
+      ><a name="1814" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1819"
+      > </a
+      ><a name="1820" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1804" class="Bound"
+      >i</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1823"
+      > </a
+      ><a name="1824" class="Symbol"
+      >(</a
+      ><a name="1825" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1826"
+      > </a
+      ><a name="1827" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1828"
+      > </a
+      ><a name="1829" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1830" class="Symbol"
+      >)</a
+      ><a name="1831"
+      >
+
+  </a
+      ><a name="1835" class="Keyword"
+      >postulate</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1845" class="Postulate"
+      >A0</a
+      ><a name="1847"
+      > </a
+      ><a name="1848" class="Symbol"
+      >:</a
+      ><a name="1849"
+      > </a
+      ><a name="1850" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1854"
+      > </a
+      ><a name="1855" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1856"
+      > </a
+      ><a name="1857" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1858"
+      > </a
+      ><a name="1859" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1860"
+      > </a
+      ><a name="1861" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1862"
+      > </a
+      ><a name="1863" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1864"
+      > </a
+      ><a name="1865" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="1869"
+      > </a
+      ><a name="1870" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" class="Symbol"
+      >(</a
+      ><a name="1873" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1874"
+      > </a
+      ><a name="1875" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1876"
+      > </a
+      ><a name="1877" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1878" class="Symbol"
+      >)</a
+      ><a name="1879"
+      >
+  </a
+      ><a name="1882" class="Symbol"
+      >{-#</a
+      ><a name="1885"
+      > </a
+      ><a name="1886" class="Keyword"
+      >ATP</a
+      ><a name="1889"
+      > prove </a
+      ><a name="1896" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1845" class="Postulate"
+      >A0</a
+      ><a name="1898"
+      > </a
+      ><a name="1899" class="Symbol"
+      >#-}</a
+      ><a name="1902"
+      >
+
+  </a
+      ><a name="1906" class="Keyword"
+      >postulate</a
+      ><a name="1915"
+      > </a
+      ><a name="1916" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1916" class="Postulate"
+      >is</a
+      ><a name="1918"
+      > </a
+      ><a name="1919" class="Symbol"
+      >:</a
+      ><a name="1920"
+      > </a
+      ><a name="1921" class="Symbol"
+      >&#8704;</a
+      ><a name="1922"
+      > </a
+      ><a name="1923" class="Symbol"
+      >{</a
+      ><a name="1924" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1924" class="Bound"
+      >i</a
+      ><a name="1925" class="Symbol"
+      >}</a
+      ><a name="1926"
+      > </a
+      ><a name="1927" class="Symbol"
+      >&#8594;</a
+      ><a name="1928"
+      >
+                 </a
+      ><a name="1946" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1924" class="Bound"
+      >i</a
+      ><a name="1947"
+      > </a
+      ><a name="1948" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1949"
+      > </a
+      ><a name="1950" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1951"
+      > </a
+      ><a name="1952" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1953"
+      > </a
+      ><a name="1954" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1955"
+      > </a
+      ><a name="1956" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1957"
+      > </a
+      ><a name="1958" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1924" class="Bound"
+      >i</a
+      ><a name="1959"
+      > </a
+      ><a name="1960" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1961"
+      > </a
+      ><a name="1962" class="Symbol"
+      >(</a
+      ><a name="1963" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="1964"
+      > </a
+      ><a name="1965" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1966"
+      > </a
+      ><a name="1967" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="1968" class="Symbol"
+      >)</a
+      ><a name="1969"
+      > </a
+      ><a name="1970" class="Symbol"
+      >&#8594;</a
+      ><a name="1971"
+      >
+                 </a
+      ><a name="1989" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1994"
+      > </a
+      ><a name="1995" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1924" class="Bound"
+      >i</a
+      ><a name="1996"
+      > </a
+      ><a name="1997" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1998"
+      > </a
+      ><a name="1999" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="2000"
+      > </a
+      ><a name="2001" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2002"
+      > </a
+      ><a name="2003" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="2004"
+      > </a
+      ><a name="2005" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2006"
+      > </a
+      ><a name="2007" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2012"
+      > </a
+      ><a name="2013" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1924" class="Bound"
+      >i</a
+      ><a name="2014"
+      > </a
+      ><a name="2015" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2016"
+      > </a
+      ><a name="2017" class="Symbol"
+      >(</a
+      ><a name="2018" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1755" class="Bound"
+      >n</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2021"
+      > </a
+      ><a name="2022" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1757" class="Bound"
+      >o</a
+      ><a name="2023" class="Symbol"
+      >)</a
+      ><a name="2024"
+      >
+  </a
+      ><a name="2027" class="Symbol"
+      >{-#</a
+      ><a name="2030"
+      > </a
+      ><a name="2031" class="Keyword"
+      >ATP</a
+      ><a name="2034"
+      > prove </a
+      ><a name="2041" href="FOTC.Data.Nat.PropertiesByInductionATP.html#1916" class="Postulate"
+      >is</a
+      ><a name="2043"
+      > </a
+      ><a name="2044" class="Symbol"
+      >#-}</a
+      ><a name="2047"
+      >
+
+</a
+      ><a name="2049" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2049" class="Function"
+      >x+Sy&#8801;S[x+y]</a
+      ><a name="2060"
+      > </a
+      ><a name="2061" class="Symbol"
+      >:</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" class="Symbol"
+      >&#8704;</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" class="Symbol"
+      >{</a
+      ><a name="2066" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2066" class="Bound"
+      >m</a
+      ><a name="2067" class="Symbol"
+      >}</a
+      ><a name="2068"
+      > </a
+      ><a name="2069" class="Symbol"
+      >&#8594;</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2072"
+      > </a
+      ><a name="2073" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2066" class="Bound"
+      >m</a
+      ><a name="2074"
+      > </a
+      ><a name="2075" class="Symbol"
+      >&#8594;</a
+      ><a name="2076"
+      > </a
+      ><a name="2077" class="Symbol"
+      >&#8704;</a
+      ><a name="2078"
+      > </a
+      ><a name="2079" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2079" class="Bound"
+      >n</a
+      ><a name="2080"
+      > </a
+      ><a name="2081" class="Symbol"
+      >&#8594;</a
+      ><a name="2082"
+      > </a
+      ><a name="2083" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2066" class="Bound"
+      >m</a
+      ><a name="2084"
+      > </a
+      ><a name="2085" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2086"
+      > </a
+      ><a name="2087" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2092"
+      > </a
+      ><a name="2093" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2079" class="Bound"
+      >n</a
+      ><a name="2094"
+      > </a
+      ><a name="2095" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2096"
+      > </a
+      ><a name="2097" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2102"
+      > </a
+      ><a name="2103" class="Symbol"
+      >(</a
+      ><a name="2104" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2066" class="Bound"
+      >m</a
+      ><a name="2105"
+      > </a
+      ><a name="2106" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2107"
+      > </a
+      ><a name="2108" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2079" class="Bound"
+      >n</a
+      ><a name="2109" class="Symbol"
+      >)</a
+      ><a name="2110"
+      >
+</a
+      ><a name="2111" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2049" class="Function"
+      >x+Sy&#8801;S[x+y]</a
+      ><a name="2122"
+      > </a
+      ><a name="2123" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2123" class="Bound"
+      >Nm</a
+      ><a name="2125"
+      > </a
+      ><a name="2126" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2126" class="Bound"
+      >n</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" class="Symbol"
+      >=</a
+      ><a name="2129"
+      > </a
+      ><a name="2130" href="FOTC.Data.Nat.Type.html#776" class="Function"
+      >N-ind</a
+      ><a name="2135"
+      > </a
+      ><a name="2136" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2137"
+      > </a
+      ><a name="2138" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2245" class="Postulate"
+      >A0</a
+      ><a name="2140"
+      > </a
+      ><a name="2141" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2293" class="Postulate"
+      >is</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2123" class="Bound"
+      >Nm</a
+      ><a name="2146"
+      >
+  </a
+      ><a name="2149" class="Keyword"
+      >where</a
+      ><a name="2154"
+      >
+  </a
+      ><a name="2157" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2158"
+      > </a
+      ><a name="2159" class="Symbol"
+      >:</a
+      ><a name="2160"
+      > </a
+      ><a name="2161" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2162"
+      > </a
+      ><a name="2163" class="Symbol"
+      >&#8594;</a
+      ><a name="2164"
+      > </a
+      ><a name="2165" class="PrimitiveType"
+      >Set</a
+      ><a name="2168"
+      >
+  </a
+      ><a name="2171" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2172"
+      > </a
+      ><a name="2173" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2173" class="Bound"
+      >i</a
+      ><a name="2174"
+      > </a
+      ><a name="2175" class="Symbol"
+      >=</a
+      ><a name="2176"
+      > </a
+      ><a name="2177" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2173" class="Bound"
+      >i</a
+      ><a name="2178"
+      > </a
+      ><a name="2179" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2180"
+      > </a
+      ><a name="2181" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2186"
+      > </a
+      ><a name="2187" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2126" class="Bound"
+      >n</a
+      ><a name="2188"
+      > </a
+      ><a name="2189" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2190"
+      > </a
+      ><a name="2191" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2196"
+      > </a
+      ><a name="2197" class="Symbol"
+      >(</a
+      ><a name="2198" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2173" class="Bound"
+      >i</a
+      ><a name="2199"
+      > </a
+      ><a name="2200" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2201"
+      > </a
+      ><a name="2202" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2126" class="Bound"
+      >n</a
+      ><a name="2203" class="Symbol"
+      >)</a
+      ><a name="2204"
+      >
+  </a
+      ><a name="2207" class="Symbol"
+      >{-#</a
+      ><a name="2210"
+      > </a
+      ><a name="2211" class="Keyword"
+      >ATP</a
+      ><a name="2214"
+      > definition </a
+      ><a name="2226" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2227"
+      > </a
+      ><a name="2228" class="Symbol"
+      >#-}</a
+      ><a name="2231"
+      >
+
+  </a
+      ><a name="2235" class="Keyword"
+      >postulate</a
+      ><a name="2244"
+      > </a
+      ><a name="2245" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2245" class="Postulate"
+      >A0</a
+      ><a name="2247"
+      > </a
+      ><a name="2248" class="Symbol"
+      >:</a
+      ><a name="2249"
+      > </a
+      ><a name="2250" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2251"
+      > </a
+      ><a name="2252" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2256"
+      >
+  </a
+      ><a name="2259" class="Symbol"
+      >{-#</a
+      ><a name="2262"
+      > </a
+      ><a name="2263" class="Keyword"
+      >ATP</a
+      ><a name="2266"
+      > prove </a
+      ><a name="2273" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2245" class="Postulate"
+      >A0</a
+      ><a name="2275"
+      > </a
+      ><a name="2276" class="Symbol"
+      >#-}</a
+      ><a name="2279"
+      >
+
+  </a
+      ><a name="2283" class="Keyword"
+      >postulate</a
+      ><a name="2292"
+      > </a
+      ><a name="2293" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2293" class="Postulate"
+      >is</a
+      ><a name="2295"
+      > </a
+      ><a name="2296" class="Symbol"
+      >:</a
+      ><a name="2297"
+      > </a
+      ><a name="2298" class="Symbol"
+      >&#8704;</a
+      ><a name="2299"
+      > </a
+      ><a name="2300" class="Symbol"
+      >{</a
+      ><a name="2301" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2301" class="Bound"
+      >i</a
+      ><a name="2302" class="Symbol"
+      >}</a
+      ><a name="2303"
+      > </a
+      ><a name="2304" class="Symbol"
+      >&#8594;</a
+      ><a name="2305"
+      > </a
+      ><a name="2306" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2307"
+      > </a
+      ><a name="2308" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2301" class="Bound"
+      >i</a
+      ><a name="2309"
+      > </a
+      ><a name="2310" class="Symbol"
+      >&#8594;</a
+      ><a name="2311"
+      > </a
+      ><a name="2312" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2157" class="Function"
+      >A</a
+      ><a name="2313"
+      > </a
+      ><a name="2314" class="Symbol"
+      >(</a
+      ><a name="2315" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2320"
+      > </a
+      ><a name="2321" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2301" class="Bound"
+      >i</a
+      ><a name="2322" class="Symbol"
+      >)</a
+      ><a name="2323"
+      >
+  </a
+      ><a name="2326" class="Symbol"
+      >{-#</a
+      ><a name="2329"
+      > </a
+      ><a name="2330" class="Keyword"
+      >ATP</a
+      ><a name="2333"
+      > prove </a
+      ><a name="2340" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2293" class="Postulate"
+      >is</a
+      ><a name="2342"
+      > </a
+      ><a name="2343" class="Symbol"
+      >#-}</a
+      ><a name="2346"
+      >
+
+</a
+      ><a name="2348" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2348" class="Function"
+      >+-comm</a
+      ><a name="2354"
+      > </a
+      ><a name="2355" class="Symbol"
+      >:</a
+      ><a name="2356"
+      > </a
+      ><a name="2357" class="Symbol"
+      >&#8704;</a
+      ><a name="2358"
+      > </a
+      ><a name="2359" class="Symbol"
+      >{</a
+      ><a name="2360" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2360" class="Bound"
+      >m</a
+      ><a name="2361"
+      > </a
+      ><a name="2362" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2362" class="Bound"
+      >n</a
+      ><a name="2363" class="Symbol"
+      >}</a
+      ><a name="2364"
+      > </a
+      ><a name="2365" class="Symbol"
+      >&#8594;</a
+      ><a name="2366"
+      > </a
+      ><a name="2367" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2368"
+      > </a
+      ><a name="2369" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2360" class="Bound"
+      >m</a
+      ><a name="2370"
+      > </a
+      ><a name="2371" class="Symbol"
+      >&#8594;</a
+      ><a name="2372"
+      > </a
+      ><a name="2373" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="2374"
+      > </a
+      ><a name="2375" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2362" class="Bound"
+      >n</a
+      ><a name="2376"
+      > </a
+      ><a name="2377" class="Symbol"
+      >&#8594;</a
+      ><a name="2378"
+      > </a
+      ><a name="2379" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2360" class="Bound"
+      >m</a
+      ><a name="2380"
+      > </a
+      ><a name="2381" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2382"
+      > </a
+      ><a name="2383" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2362" class="Bound"
+      >n</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2362" class="Bound"
+      >n</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2360" class="Bound"
+      >m</a
+      ><a name="2392"
+      >
+</a
+      ><a name="2393" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2348" class="Function"
+      >+-comm</a
+      ><a name="2399"
+      > </a
+      ><a name="2400" class="Symbol"
+      >{</a
+      ><a name="2401" class="Argument"
+      >n</a
+      ><a name="2402"
+      > </a
+      ><a name="2403" class="Symbol"
+      >=</a
+      ><a name="2404"
+      > </a
+      ><a name="2405" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2405" class="Bound"
+      >n</a
+      ><a name="2406" class="Symbol"
+      >}</a
+      ><a name="2407"
+      > </a
+      ><a name="2408" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2408" class="Bound"
+      >Nm</a
+      ><a name="2410"
+      > </a
+      ><a name="2411" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2411" class="Bound"
+      >Nn</a
+      ><a name="2413"
+      > </a
+      ><a name="2414" class="Symbol"
+      >=</a
+      ><a name="2415"
+      > </a
+      ><a name="2416" href="FOTC.Data.Nat.Type.html#776" class="Function"
+      >N-ind</a
+      ><a name="2421"
+      > </a
+      ><a name="2422" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2423"
+      > </a
+      ><a name="2424" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2517" class="Postulate"
+      >A0</a
+      ><a name="2426"
+      > </a
+      ><a name="2427" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2581" class="Postulate"
+      >is</a
+      ><a name="2429"
+      > </a
+      ><a name="2430" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2408" class="Bound"
+      >Nm</a
+      ><a name="2432"
+      >
+  </a
+      ><a name="2435" class="Keyword"
+      >where</a
+      ><a name="2440"
+      >
+  </a
+      ><a name="2443" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2444"
+      > </a
+      ><a name="2445" class="Symbol"
+      >:</a
+      ><a name="2446"
+      > </a
+      ><a name="2447" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2448"
+      > </a
+      ><a name="2449" class="Symbol"
+      >&#8594;</a
+      ><a name="2450"
+      > </a
+      ><a name="2451" class="PrimitiveType"
+      >Set</a
+      ><a name="2454"
+      >
+  </a
+      ><a name="2457" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2458"
+      > </a
+      ><a name="2459" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2459" class="Bound"
+      >i</a
+      ><a name="2460"
+      > </a
+      ><a name="2461" class="Symbol"
+      >=</a
+      ><a name="2462"
+      > </a
+      ><a name="2463" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2459" class="Bound"
+      >i</a
+      ><a name="2464"
+      > </a
+      ><a name="2465" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2466"
+      > </a
+      ><a name="2467" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2405" class="Bound"
+      >n</a
+      ><a name="2468"
+      > </a
+      ><a name="2469" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2470"
+      > </a
+      ><a name="2471" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2405" class="Bound"
+      >n</a
+      ><a name="2472"
+      > </a
+      ><a name="2473" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="2474"
+      > </a
+      ><a name="2475" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2459" class="Bound"
+      >i</a
+      ><a name="2476"
+      >
+  </a
+      ><a name="2479" class="Symbol"
+      >{-#</a
+      ><a name="2482"
+      > </a
+      ><a name="2483" class="Keyword"
+      >ATP</a
+      ><a name="2486"
+      > definition </a
+      ><a name="2498" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2499"
+      > </a
+      ><a name="2500" class="Symbol"
+      >#-}</a
+      ><a name="2503"
+      >
+
+  </a
+      ><a name="2507" class="Keyword"
+      >postulate</a
+      ><a name="2516"
+      > </a
+      ><a name="2517" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2517" class="Postulate"
+      >A0</a
+      ><a name="2519"
+      > </a
+      ><a name="2520" class="Symbol"
+      >:</a
+      ><a name="2521"
+      > </a
+      ><a name="2522" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2523"
+      > </a
+      ><a name="2524" href="FOTC.Base.html#1289" class="Postulate"
+      >zero</a
+      ><a name="2528"
+      >
+  </a
+      ><a name="2531" class="Symbol"
+      >{-#</a
+      ><a name="2534"
+      > </a
+      ><a name="2535" class="Keyword"
+      >ATP</a
+      ><a name="2538"
+      > prove </a
+      ><a name="2545" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2517" class="Postulate"
+      >A0</a
+      ><a name="2547"
+      > </a
+      ><a name="2548" href="FOTC.Data.Nat.PropertiesByInductionATP.html#831" class="Function"
+      >+-rightIdentity</a
+      ><a name="2563"
+      > </a
+      ><a name="2564" class="Symbol"
+      >#-}</a
+      ><a name="2567"
+      >
+
+  </a
+      ><a name="2571" class="Keyword"
+      >postulate</a
+      ><a name="2580"
+      > </a
+      ><a name="2581" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2581" class="Postulate"
+      >is</a
+      ><a name="2583"
+      > </a
+      ><a name="2584" class="Symbol"
+      >:</a
+      ><a name="2585"
+      > </a
+      ><a name="2586" class="Symbol"
+      >&#8704;</a
+      ><a name="2587"
+      > </a
+      ><a name="2588" class="Symbol"
+      >{</a
+      ><a name="2589" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2589" class="Bound"
+      >i</a
+      ><a name="2590" class="Symbol"
+      >}</a
+      ><a name="2591"
+      > </a
+      ><a name="2592" class="Symbol"
+      >&#8594;</a
+      ><a name="2593"
+      > </a
+      ><a name="2594" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2595"
+      > </a
+      ><a name="2596" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2589" class="Bound"
+      >i</a
+      ><a name="2597"
+      > </a
+      ><a name="2598" class="Symbol"
+      >&#8594;</a
+      ><a name="2599"
+      > </a
+      ><a name="2600" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2443" class="Function"
+      >A</a
+      ><a name="2601"
+      > </a
+      ><a name="2602" class="Symbol"
+      >(</a
+      ><a name="2603" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="2608"
+      > </a
+      ><a name="2609" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2589" class="Bound"
+      >i</a
+      ><a name="2610" class="Symbol"
+      >)</a
+      ><a name="2611"
+      >
+  </a
+      ><a name="2614" class="Symbol"
+      >{-#</a
+      ><a name="2617"
+      > </a
+      ><a name="2618" class="Keyword"
+      >ATP</a
+      ><a name="2621"
+      > prove </a
+      ><a name="2628" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2581" class="Postulate"
+      >is</a
+      ><a name="2630"
+      > </a
+      ><a name="2631" href="FOTC.Data.Nat.PropertiesByInductionATP.html#2049" class="Function"
+      >x+Sy&#8801;S[x+y]</a
+      ><a name="2642"
+      > </a
+      ><a name="2643" class="Symbol"
+      >#-}</a
+      ><a name="2646"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

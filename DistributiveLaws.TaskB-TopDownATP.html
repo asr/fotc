@@ -1,0 +1,2746 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.TaskB-TopDownATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws on a binary operation: Task B</a
+      ><a name="130"
+      >
+</a
+      ><a name="131" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="209"
+      >
+
+</a
+      ><a name="211" class="Symbol"
+      >{-#</a
+      ><a name="214"
+      > </a
+      ><a name="215" class="Keyword"
+      >OPTIONS</a
+      ><a name="222"
+      > --exact-split              </a
+      ><a name="250" class="Symbol"
+      >#-}</a
+      ><a name="253"
+      >
+</a
+      ><a name="254" class="Symbol"
+      >{-#</a
+      ><a name="257"
+      > </a
+      ><a name="258" class="Keyword"
+      >OPTIONS</a
+      ><a name="265"
+      > --no-sized-types           </a
+      ><a name="293" class="Symbol"
+      >#-}</a
+      ><a name="296"
+      >
+</a
+      ><a name="297" class="Symbol"
+      >{-#</a
+      ><a name="300"
+      > </a
+      ><a name="301" class="Keyword"
+      >OPTIONS</a
+      ><a name="308"
+      > --no-universe-polymorphism </a
+      ><a name="336" class="Symbol"
+      >#-}</a
+      ><a name="339"
+      >
+</a
+      ><a name="340" class="Symbol"
+      >{-#</a
+      ><a name="343"
+      > </a
+      ><a name="344" class="Keyword"
+      >OPTIONS</a
+      ><a name="351"
+      > --without-K                </a
+      ><a name="379" class="Symbol"
+      >#-}</a
+      ><a name="382"
+      >
+
+</a
+      ><a name="384" class="Keyword"
+      >module</a
+      ><a name="390"
+      > </a
+      ><a name="391" href="DistributiveLaws.TaskB-TopDownATP.html#1" class="Module"
+      >DistributiveLaws.TaskB-TopDownATP</a
+      ><a name="424"
+      > </a
+      ><a name="425" class="Keyword"
+      >where</a
+      ><a name="430"
+      >
+
+</a
+      ><a name="432" class="Keyword"
+      >open</a
+      ><a name="436"
+      > </a
+      ><a name="437" class="Keyword"
+      >import</a
+      ><a name="443"
+      > </a
+      ><a name="444" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="465"
+      >
+
+</a
+      ><a name="467" class="Keyword"
+      >open</a
+      ><a name="471"
+      > </a
+      ><a name="472" class="Keyword"
+      >import</a
+      ><a name="478"
+      > </a
+      ><a name="479" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      >Common.FOL.Relation.Binary.EqReasoning</a
+      ><a name="517"
+      >
+
+</a
+      ><a name="519" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="597"
+      >
+</a
+      ><a name="598" class="Comment"
+      >-- We found the longest chains of equalities from</a
+      ><a name="647"
+      >
+</a
+      ><a name="648" class="Comment"
+      >-- DistributiveLaws.TaskB-I which are prove by the ATPs, following a</a
+      ><a name="716"
+      >
+</a
+      ><a name="717" class="Comment"
+      >-- top-down approach.</a
+      ><a name="738"
+      >
+
+</a
+      ><a name="740" href="DistributiveLaws.TaskB-TopDownATP.html#740" class="Function"
+      >prop&#8322;</a
+      ><a name="745"
+      > </a
+      ><a name="746" class="Symbol"
+      >:</a
+      ><a name="747"
+      > </a
+      ><a name="748" class="Symbol"
+      >&#8704;</a
+      ><a name="749"
+      > </a
+      ><a name="750" href="DistributiveLaws.TaskB-TopDownATP.html#750" class="Bound"
+      >u</a
+      ><a name="751"
+      > </a
+      ><a name="752" href="DistributiveLaws.TaskB-TopDownATP.html#752" class="Bound"
+      >x</a
+      ><a name="753"
+      > </a
+      ><a name="754" href="DistributiveLaws.TaskB-TopDownATP.html#754" class="Bound"
+      >y</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="DistributiveLaws.TaskB-TopDownATP.html#756" class="Bound"
+      >z</a
+      ><a name="757"
+      > </a
+      ><a name="758" class="Symbol"
+      >&#8594;</a
+      ><a name="759"
+      > </a
+      ><a name="760" class="Symbol"
+      >(</a
+      ><a name="761" href="DistributiveLaws.TaskB-TopDownATP.html#752" class="Bound"
+      >x</a
+      ><a name="762"
+      > </a
+      ><a name="763" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="764"
+      > </a
+      ><a name="765" href="DistributiveLaws.TaskB-TopDownATP.html#754" class="Bound"
+      >y</a
+      ><a name="766"
+      > </a
+      ><a name="767" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="768"
+      > </a
+      ><a name="769" class="Symbol"
+      >(</a
+      ><a name="770" href="DistributiveLaws.TaskB-TopDownATP.html#756" class="Bound"
+      >z</a
+      ><a name="771"
+      > </a
+      ><a name="772" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="773"
+      > </a
+      ><a name="774" href="DistributiveLaws.TaskB-TopDownATP.html#750" class="Bound"
+      >u</a
+      ><a name="775" class="Symbol"
+      >))</a
+      ><a name="777"
+      > </a
+      ><a name="778" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="779"
+      >
+                    </a
+      ><a name="800" class="Symbol"
+      >((</a
+      ><a name="802"
+      > </a
+      ><a name="803" href="DistributiveLaws.TaskB-TopDownATP.html#752" class="Bound"
+      >x</a
+      ><a name="804"
+      > </a
+      ><a name="805" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="806"
+      > </a
+      ><a name="807" href="DistributiveLaws.TaskB-TopDownATP.html#754" class="Bound"
+      >y</a
+      ><a name="808"
+      > </a
+      ><a name="809" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="810"
+      > </a
+      ><a name="811" class="Symbol"
+      >(</a
+      ><a name="812"
+      > </a
+      ><a name="813" href="DistributiveLaws.TaskB-TopDownATP.html#756" class="Bound"
+      >z</a
+      ><a name="814"
+      > </a
+      ><a name="815" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="816"
+      > </a
+      ><a name="817" href="DistributiveLaws.TaskB-TopDownATP.html#750" class="Bound"
+      >u</a
+      ><a name="818" class="Symbol"
+      >))</a
+      ><a name="820"
+      > </a
+      ><a name="821" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="822"
+      > </a
+      ><a name="823" class="Symbol"
+      >(</a
+      ><a name="824" href="DistributiveLaws.TaskB-TopDownATP.html#752" class="Bound"
+      >x</a
+      ><a name="825"
+      > </a
+      ><a name="826" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="827"
+      > </a
+      ><a name="828" href="DistributiveLaws.TaskB-TopDownATP.html#756" class="Bound"
+      >z</a
+      ><a name="829"
+      > </a
+      ><a name="830" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="831"
+      > </a
+      ><a name="832" class="Symbol"
+      >(</a
+      ><a name="833" href="DistributiveLaws.TaskB-TopDownATP.html#754" class="Bound"
+      >y</a
+      ><a name="834"
+      > </a
+      ><a name="835" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="836"
+      > </a
+      ><a name="837" href="DistributiveLaws.TaskB-TopDownATP.html#750" class="Bound"
+      >u</a
+      ><a name="838" class="Symbol"
+      >)))</a
+      ><a name="841"
+      > </a
+      ><a name="842" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="843"
+      >
+                    </a
+      ><a name="864" href="DistributiveLaws.TaskB-TopDownATP.html#752" class="Bound"
+      >x</a
+      ><a name="865"
+      > </a
+      ><a name="866" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="DistributiveLaws.TaskB-TopDownATP.html#756" class="Bound"
+      >z</a
+      ><a name="869"
+      > </a
+      ><a name="870" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="871"
+      > </a
+      ><a name="872" class="Symbol"
+      >(</a
+      ><a name="873" href="DistributiveLaws.TaskB-TopDownATP.html#754" class="Bound"
+      >y</a
+      ><a name="874"
+      > </a
+      ><a name="875" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="DistributiveLaws.TaskB-TopDownATP.html#750" class="Bound"
+      >u</a
+      ><a name="878" class="Symbol"
+      >)</a
+      ><a name="879"
+      >
+</a
+      ><a name="880" href="DistributiveLaws.TaskB-TopDownATP.html#740" class="Function"
+      >prop&#8322;</a
+      ><a name="885"
+      > </a
+      ><a name="886" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="887"
+      > </a
+      ><a name="888" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="889"
+      > </a
+      ><a name="890" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="891"
+      > </a
+      ><a name="892" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="893"
+      > </a
+      ><a name="894" class="Symbol"
+      >=</a
+      ><a name="895"
+      >
+
+</a
+      ><a name="897" class="Comment"
+      >-- The numbering of the proof step justifications are associated with</a
+      ><a name="966"
+      >
+</a
+      ><a name="967" class="Comment"
+      >-- the numbers used in DistributiveLaws.TaskB-I.</a
+      ><a name="1015"
+      >
+
+   </a
+      ><a name="1020" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" class="Symbol"
+      >(</a
+      ><a name="1029" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="1034"
+      > </a
+      ><a name="1035" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1036"
+      > </a
+      ><a name="1037" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="1042" class="Symbol"
+      >)</a
+      ><a name="1043"
+      >                                         </a
+      ><a name="1084" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" href="DistributiveLaws.TaskB-TopDownATP.html#2472" class="Postulate"
+      >j&#8321;&#8331;&#8325;</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1093"
+      >
+   </a
+      ><a name="1097" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" class="Symbol"
+      >(</a
+      ><a name="1106" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1110"
+      > </a
+      ><a name="1111" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="1116"
+      > </a
+      ><a name="1117" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1118"
+      > </a
+      ><a name="1119" class="Symbol"
+      >(</a
+      ><a name="1120" href="DistributiveLaws.TaskB-TopDownATP.html#2025" class="Function"
+      >y&#183;zu</a
+      ><a name="1124"
+      > </a
+      ><a name="1125" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1126"
+      > </a
+      ><a name="1127" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="1132" class="Symbol"
+      >))</a
+      ><a name="1134"
+      >                           </a
+      ><a name="1161" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1163"
+      > </a
+      ><a name="1164" href="DistributiveLaws.TaskB-TopDownATP.html#2600" class="Postulate"
+      >j&#8325;&#8331;&#8329;</a
+      ><a name="1168"
+      > </a
+      ><a name="1169" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1170"
+      >
+   </a
+      ><a name="1174" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="1179"
+      > </a
+      ><a name="1180" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1181"
+      > </a
+      ><a name="1182" class="Symbol"
+      >(</a
+      ><a name="1183" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1187"
+      > </a
+      ><a name="1188" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1191"
+      > </a
+      ><a name="1192" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1193"
+      > </a
+      ><a name="1194" class="Symbol"
+      >(</a
+      ><a name="1195" href="DistributiveLaws.TaskB-TopDownATP.html#1922" class="Function"
+      >yxz</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="DistributiveLaws.TaskB-TopDownATP.html#1770" class="Function"
+      >yu</a
+      ><a name="1203" class="Symbol"
+      >))</a
+      ><a name="1205"
+      >                                 </a
+      ><a name="1238" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1240"
+      > </a
+      ><a name="1241" href="DistributiveLaws.TaskB-TopDownATP.html#2736" class="Postulate"
+      >j&#8329;&#8331;&#8321;&#8324;</a
+      ><a name="1246"
+      > </a
+      ><a name="1247" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1248"
+      >
+   </a
+      ><a name="1252" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1254"
+      > </a
+      ><a name="1255" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1256"
+      > </a
+      ><a name="1257" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1260"
+      > </a
+      ><a name="1261" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1262"
+      > </a
+      ><a name="1263" class="Symbol"
+      >(</a
+      ><a name="1264" href="DistributiveLaws.TaskB-TopDownATP.html#1783" class="Function"
+      >yz</a
+      ><a name="1266"
+      > </a
+      ><a name="1267" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1268"
+      > </a
+      ><a name="1269" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1272" class="Symbol"
+      >)</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" class="Symbol"
+      >(</a
+      ><a name="1277" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1279"
+      > </a
+      ><a name="1280" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1281"
+      > </a
+      ><a name="1282" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1285"
+      > </a
+      ><a name="1286" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1287"
+      > </a
+      ><a name="1288" class="Symbol"
+      >(</a
+      ><a name="1289" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="1293"
+      > </a
+      ><a name="1294" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1295"
+      > </a
+      ><a name="1296" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="1300" class="Symbol"
+      >))</a
+      ><a name="1302"
+      >              </a
+      ><a name="1316" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1318"
+      > </a
+      ><a name="1319" href="DistributiveLaws.TaskB-TopDownATP.html#2892" class="Postulate"
+      >j&#8321;&#8324;&#8331;&#8322;&#8320;</a
+      ><a name="1325"
+      > </a
+      ><a name="1326" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1327"
+      >
+   </a
+      ><a name="1331" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1333"
+      > </a
+      ><a name="1334" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1335"
+      > </a
+      ><a name="1336" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1339"
+      > </a
+      ><a name="1340" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1341"
+      > </a
+      ><a name="1342" class="Symbol"
+      >(</a
+      ><a name="1343" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="1347"
+      > </a
+      ><a name="1348" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1349"
+      > </a
+      ><a name="1350" class="Symbol"
+      >(</a
+      ><a name="1351" href="DistributiveLaws.TaskB-TopDownATP.html#2004" class="Function"
+      >y&#183;yu</a
+      ><a name="1355"
+      > </a
+      ><a name="1356" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1357"
+      > </a
+      ><a name="1358" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="1362" class="Symbol"
+      >)</a
+      ><a name="1363"
+      > </a
+      ><a name="1364" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1365"
+      > </a
+      ><a name="1366" class="Symbol"
+      >(</a
+      ><a name="1367" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1368"
+      > </a
+      ><a name="1369" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1370"
+      > </a
+      ><a name="1371" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" class="Symbol"
+      >(</a
+      ><a name="1380" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="1384"
+      > </a
+      ><a name="1385" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1386"
+      > </a
+      ><a name="1387" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="1391" class="Symbol"
+      >)))</a
+      ><a name="1394"
+      > </a
+      ><a name="1395" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1397"
+      > </a
+      ><a name="1398" href="DistributiveLaws.TaskB-TopDownATP.html#3075" class="Postulate"
+      >j&#8322;&#8320;&#8331;&#8322;&#8323;</a
+      ><a name="1404"
+      > </a
+      ><a name="1405" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1406"
+      >
+   </a
+      ><a name="1410" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1412"
+      > </a
+      ><a name="1413" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1418"
+      > </a
+      ><a name="1419" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" class="Symbol"
+      >(</a
+      ><a name="1422" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="1431"
+      > </a
+      ><a name="1432" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1433"
+      > </a
+      ><a name="1434" class="Symbol"
+      >(</a
+      ><a name="1435" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1436"
+      > </a
+      ><a name="1437" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1438"
+      > </a
+      ><a name="1439" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1446"
+      > </a
+      ><a name="1447" class="Symbol"
+      >(</a
+      ><a name="1448" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="1452"
+      > </a
+      ><a name="1453" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1454"
+      > </a
+      ><a name="1455" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="1459" class="Symbol"
+      >)))</a
+      ><a name="1462"
+      >            </a
+      ><a name="1474" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1476"
+      > </a
+      ><a name="1477" href="DistributiveLaws.TaskB-TopDownATP.html#3256" class="Postulate"
+      >j&#8322;&#8323;&#8331;&#8322;&#8325;</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1485"
+      >
+   </a
+      ><a name="1489" class="Symbol"
+      >(</a
+      ><a name="1490" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1492"
+      > </a
+      ><a name="1493" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1494"
+      > </a
+      ><a name="1495" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1498" class="Symbol"
+      >)</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" class="Symbol"
+      >(</a
+      ><a name="1503" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1504"
+      > </a
+      ><a name="1505" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="1512"
+      > </a
+      ><a name="1513" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" class="Symbol"
+      >(</a
+      ><a name="1516" href="DistributiveLaws.TaskB-TopDownATP.html#2114" class="Function"
+      >z&#183;xu</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1522"
+      > </a
+      ><a name="1523" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="1527"
+      > </a
+      ><a name="1528" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="1534" class="Symbol"
+      >))</a
+      ><a name="1536"
+      >                 </a
+      ><a name="1553" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1555"
+      > </a
+      ><a name="1556" href="DistributiveLaws.TaskB-TopDownATP.html#3429" class="Postulate"
+      >j&#8322;&#8325;&#8331;&#8323;&#8320;</a
+      ><a name="1562"
+      > </a
+      ><a name="1563" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1564"
+      >
+   </a
+      ><a name="1568" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1572"
+      > </a
+      ><a name="1573" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1576"
+      > </a
+      ><a name="1577" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1578"
+      > </a
+      ><a name="1579" class="Symbol"
+      >(</a
+      ><a name="1580" href="DistributiveLaws.TaskB-TopDownATP.html#2046" class="Function"
+      >y&#183;zy</a
+      ><a name="1584"
+      > </a
+      ><a name="1585" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1586"
+      > </a
+      ><a name="1587" href="DistributiveLaws.TaskB-TopDownATP.html#1904" class="Function"
+      >xzu</a
+      ><a name="1590" class="Symbol"
+      >)</a
+      ><a name="1591"
+      >                                         </a
+      ><a name="1632" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#8801;&#10216;</a
+      ><a name="1634"
+      > </a
+      ><a name="1635" href="DistributiveLaws.TaskB-TopDownATP.html#3573" class="Postulate"
+      >j&#8323;&#8320;&#8331;&#8323;&#8325;</a
+      ><a name="1641"
+      > </a
+      ><a name="1642" href="Common.Relation.Binary.PreorderReasoning.html#829" class="Function Operator"
+      >&#10217;</a
+      ><a name="1643"
+      >
+   </a
+      ><a name="1647" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="1652"
+      >                                                           </a
+      ><a name="1711" href="Common.Relation.Binary.PreorderReasoning.html#904" class="Function Operator"
+      >&#8718;</a
+      ><a name="1712"
+      >
+  </a
+      ><a name="1715" class="Keyword"
+      >where</a
+      ><a name="1720"
+      >
+  </a
+      ><a name="1723" class="Comment"
+      >-- Two variables abbreviations</a
+      ><a name="1753"
+      >
+
+  </a
+      ><a name="1757" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1759"
+      > </a
+      ><a name="1760" class="Symbol"
+      >=</a
+      ><a name="1761"
+      > </a
+      ><a name="1762" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="1763"
+      > </a
+      ><a name="1764" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1765"
+      > </a
+      ><a name="1766" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1767"
+      >
+  </a
+      ><a name="1770" href="DistributiveLaws.TaskB-TopDownATP.html#1770" class="Function"
+      >yu</a
+      ><a name="1772"
+      > </a
+      ><a name="1773" class="Symbol"
+      >=</a
+      ><a name="1774"
+      > </a
+      ><a name="1775" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1776"
+      > </a
+      ><a name="1777" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1778"
+      > </a
+      ><a name="1779" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="1780"
+      >
+  </a
+      ><a name="1783" href="DistributiveLaws.TaskB-TopDownATP.html#1783" class="Function"
+      >yz</a
+      ><a name="1785"
+      > </a
+      ><a name="1786" class="Symbol"
+      >=</a
+      ><a name="1787"
+      > </a
+      ><a name="1788" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1789"
+      > </a
+      ><a name="1790" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1791"
+      > </a
+      ><a name="1792" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1793"
+      >
+  </a
+      ><a name="1796" class="Symbol"
+      >{-#</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" class="Keyword"
+      >ATP</a
+      ><a name="1803"
+      > definitions </a
+      ><a name="1816" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="1818"
+      > </a
+      ><a name="1819" href="DistributiveLaws.TaskB-TopDownATP.html#1770" class="Function"
+      >yu</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" href="DistributiveLaws.TaskB-TopDownATP.html#1783" class="Function"
+      >yz</a
+      ><a name="1824"
+      > </a
+      ><a name="1825" class="Symbol"
+      >#-}</a
+      ><a name="1828"
+      >
+
+  </a
+      ><a name="1832" class="Comment"
+      >-- Three variables abbreviations</a
+      ><a name="1864"
+      >
+
+  </a
+      ><a name="1868" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1871"
+      > </a
+      ><a name="1872" class="Symbol"
+      >=</a
+      ><a name="1873"
+      > </a
+      ><a name="1874" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="1875"
+      > </a
+      ><a name="1876" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1877"
+      > </a
+      ><a name="1878" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1879"
+      > </a
+      ><a name="1880" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1881"
+      > </a
+      ><a name="1882" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="1883"
+      >
+  </a
+      ><a name="1886" href="DistributiveLaws.TaskB-TopDownATP.html#1886" class="Function"
+      >xyz</a
+      ><a name="1889"
+      > </a
+      ><a name="1890" class="Symbol"
+      >=</a
+      ><a name="1891"
+      > </a
+      ><a name="1892" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="1893"
+      > </a
+      ><a name="1894" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1895"
+      > </a
+      ><a name="1896" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1897"
+      > </a
+      ><a name="1898" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1899"
+      > </a
+      ><a name="1900" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1901"
+      >
+  </a
+      ><a name="1904" href="DistributiveLaws.TaskB-TopDownATP.html#1904" class="Function"
+      >xzu</a
+      ><a name="1907"
+      > </a
+      ><a name="1908" class="Symbol"
+      >=</a
+      ><a name="1909"
+      > </a
+      ><a name="1910" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="1911"
+      > </a
+      ><a name="1912" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1913"
+      > </a
+      ><a name="1914" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1915"
+      > </a
+      ><a name="1916" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1917"
+      > </a
+      ><a name="1918" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="1919"
+      >
+  </a
+      ><a name="1922" href="DistributiveLaws.TaskB-TopDownATP.html#1922" class="Function"
+      >yxz</a
+      ><a name="1925"
+      > </a
+      ><a name="1926" class="Symbol"
+      >=</a
+      ><a name="1927"
+      > </a
+      ><a name="1928" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1929"
+      > </a
+      ><a name="1930" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1931"
+      > </a
+      ><a name="1932" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="1933"
+      > </a
+      ><a name="1934" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1935"
+      > </a
+      ><a name="1936" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="1937"
+      >
+  </a
+      ><a name="1940" class="Symbol"
+      >{-#</a
+      ><a name="1943"
+      > </a
+      ><a name="1944" class="Keyword"
+      >ATP</a
+      ><a name="1947"
+      > definitions </a
+      ><a name="1960" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="1963"
+      > </a
+      ><a name="1964" href="DistributiveLaws.TaskB-TopDownATP.html#1886" class="Function"
+      >xyz</a
+      ><a name="1967"
+      > </a
+      ><a name="1968" href="DistributiveLaws.TaskB-TopDownATP.html#1904" class="Function"
+      >xzu</a
+      ><a name="1971"
+      > </a
+      ><a name="1972" href="DistributiveLaws.TaskB-TopDownATP.html#1922" class="Function"
+      >yxz</a
+      ><a name="1975"
+      > </a
+      ><a name="1976" class="Symbol"
+      >#-}</a
+      ><a name="1979"
+      >
+
+  </a
+      ><a name="1983" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="1987"
+      > </a
+      ><a name="1988" class="Symbol"
+      >=</a
+      ><a name="1989"
+      > </a
+      ><a name="1990" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="1991"
+      > </a
+      ><a name="1992" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1993"
+      > </a
+      ><a name="1994" class="Symbol"
+      >(</a
+      ><a name="1995" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="1996"
+      > </a
+      ><a name="1997" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="1998"
+      > </a
+      ><a name="1999" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2000" class="Symbol"
+      >)</a
+      ><a name="2001"
+      >
+  </a
+      ><a name="2004" href="DistributiveLaws.TaskB-TopDownATP.html#2004" class="Function"
+      >y&#183;yu</a
+      ><a name="2008"
+      > </a
+      ><a name="2009" class="Symbol"
+      >=</a
+      ><a name="2010"
+      > </a
+      ><a name="2011" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2012"
+      > </a
+      ><a name="2013" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2014"
+      > </a
+      ><a name="2015" class="Symbol"
+      >(</a
+      ><a name="2016" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2017"
+      > </a
+      ><a name="2018" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2019"
+      > </a
+      ><a name="2020" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2021" class="Symbol"
+      >)</a
+      ><a name="2022"
+      >
+  </a
+      ><a name="2025" href="DistributiveLaws.TaskB-TopDownATP.html#2025" class="Function"
+      >y&#183;zu</a
+      ><a name="2029"
+      > </a
+      ><a name="2030" class="Symbol"
+      >=</a
+      ><a name="2031"
+      > </a
+      ><a name="2032" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2033"
+      > </a
+      ><a name="2034" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2035"
+      > </a
+      ><a name="2036" class="Symbol"
+      >(</a
+      ><a name="2037" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2038"
+      > </a
+      ><a name="2039" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2040"
+      > </a
+      ><a name="2041" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2042" class="Symbol"
+      >)</a
+      ><a name="2043"
+      >
+  </a
+      ><a name="2046" href="DistributiveLaws.TaskB-TopDownATP.html#2046" class="Function"
+      >y&#183;zy</a
+      ><a name="2050"
+      > </a
+      ><a name="2051" class="Symbol"
+      >=</a
+      ><a name="2052"
+      > </a
+      ><a name="2053" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2054"
+      > </a
+      ><a name="2055" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2056"
+      > </a
+      ><a name="2057" class="Symbol"
+      >(</a
+      ><a name="2058" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2061"
+      > </a
+      ><a name="2062" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2063" class="Symbol"
+      >)</a
+      ><a name="2064"
+      >
+  </a
+      ><a name="2067" class="Symbol"
+      >{-#</a
+      ><a name="2070"
+      > </a
+      ><a name="2071" class="Keyword"
+      >ATP</a
+      ><a name="2074"
+      > definitions </a
+      ><a name="2087" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" href="DistributiveLaws.TaskB-TopDownATP.html#2004" class="Function"
+      >y&#183;yu</a
+      ><a name="2096"
+      > </a
+      ><a name="2097" href="DistributiveLaws.TaskB-TopDownATP.html#2025" class="Function"
+      >y&#183;zu</a
+      ><a name="2101"
+      > </a
+      ><a name="2102" href="DistributiveLaws.TaskB-TopDownATP.html#2046" class="Function"
+      >y&#183;zy</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" class="Symbol"
+      >#-}</a
+      ><a name="2110"
+      >
+
+  </a
+      ><a name="2114" href="DistributiveLaws.TaskB-TopDownATP.html#2114" class="Function"
+      >z&#183;xu</a
+      ><a name="2118"
+      > </a
+      ><a name="2119" class="Symbol"
+      >=</a
+      ><a name="2120"
+      > </a
+      ><a name="2121" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2122"
+      > </a
+      ><a name="2123" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2124"
+      > </a
+      ><a name="2125" class="Symbol"
+      >(</a
+      ><a name="2126" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="2127"
+      > </a
+      ><a name="2128" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2129"
+      > </a
+      ><a name="2130" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2131" class="Symbol"
+      >)</a
+      ><a name="2132"
+      >
+  </a
+      ><a name="2135" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="2139"
+      > </a
+      ><a name="2140" class="Symbol"
+      >=</a
+      ><a name="2141"
+      > </a
+      ><a name="2142" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2145"
+      > </a
+      ><a name="2146" class="Symbol"
+      >(</a
+      ><a name="2147" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2148"
+      > </a
+      ><a name="2149" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2150"
+      > </a
+      ><a name="2151" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2152" class="Symbol"
+      >)</a
+      ><a name="2153"
+      >
+  </a
+      ><a name="2156" class="Symbol"
+      >{-#</a
+      ><a name="2159"
+      > </a
+      ><a name="2160" class="Keyword"
+      >ATP</a
+      ><a name="2163"
+      > definitions </a
+      ><a name="2176" href="DistributiveLaws.TaskB-TopDownATP.html#2114" class="Function"
+      >z&#183;xu</a
+      ><a name="2180"
+      > </a
+      ><a name="2181" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="2185"
+      > </a
+      ><a name="2186" class="Symbol"
+      >#-}</a
+      ><a name="2189"
+      >
+
+  </a
+      ><a name="2193" class="Comment"
+      >-- Four variables abbreviations</a
+      ><a name="2224"
+      >
+
+  </a
+      ><a name="2228" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="2233"
+      > </a
+      ><a name="2234" class="Symbol"
+      >=</a
+      ><a name="2235"
+      > </a
+      ><a name="2236" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="2237"
+      > </a
+      ><a name="2238" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2239"
+      > </a
+      ><a name="2240" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2241"
+      > </a
+      ><a name="2242" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2243"
+      > </a
+      ><a name="2244" class="Symbol"
+      >(</a
+      ><a name="2245" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2246"
+      > </a
+      ><a name="2247" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2248"
+      > </a
+      ><a name="2249" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2250" class="Symbol"
+      >)</a
+      ><a name="2251"
+      >
+  </a
+      ><a name="2254" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="2259"
+      > </a
+      ><a name="2260" class="Symbol"
+      >=</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="2263"
+      > </a
+      ><a name="2264" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2265"
+      > </a
+      ><a name="2266" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2267"
+      > </a
+      ><a name="2268" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2269"
+      > </a
+      ><a name="2270" class="Symbol"
+      >(</a
+      ><a name="2271" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2272"
+      > </a
+      ><a name="2273" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2274"
+      > </a
+      ><a name="2275" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2276" class="Symbol"
+      >)</a
+      ><a name="2277"
+      >
+  </a
+      ><a name="2280" class="Symbol"
+      >{-#</a
+      ><a name="2283"
+      > </a
+      ><a name="2284" class="Keyword"
+      >ATP</a
+      ><a name="2287"
+      > definitions </a
+      ><a name="2300" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="2305"
+      > </a
+      ><a name="2306" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="2311"
+      > </a
+      ><a name="2312" class="Symbol"
+      >#-}</a
+      ><a name="2315"
+      >
+
+  </a
+      ><a name="2319" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2324"
+      > </a
+      ><a name="2325" class="Symbol"
+      >=</a
+      ><a name="2326"
+      > </a
+      ><a name="2327" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="2328"
+      > </a
+      ><a name="2329" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2330"
+      > </a
+      ><a name="2331" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2332"
+      > </a
+      ><a name="2333" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2334"
+      > </a
+      ><a name="2335" class="Symbol"
+      >(</a
+      ><a name="2336" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2337"
+      > </a
+      ><a name="2338" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2339"
+      > </a
+      ><a name="2340" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2341" class="Symbol"
+      >)</a
+      ><a name="2342"
+      >
+  </a
+      ><a name="2345" class="Symbol"
+      >{-#</a
+      ><a name="2348"
+      > </a
+      ><a name="2349" class="Keyword"
+      >ATP</a
+      ><a name="2352"
+      > definition </a
+      ><a name="2364" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2369"
+      > </a
+      ><a name="2370" class="Symbol"
+      >#-}</a
+      ><a name="2373"
+      >
+
+  </a
+      ><a name="2377" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="2382"
+      > </a
+      ><a name="2383" class="Symbol"
+      >=</a
+      ><a name="2384"
+      > </a
+      ><a name="2385" href="DistributiveLaws.TaskB-TopDownATP.html#888" class="Bound"
+      >x</a
+      ><a name="2386"
+      > </a
+      ><a name="2387" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2388"
+      > </a
+      ><a name="2389" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="2390"
+      > </a
+      ><a name="2391" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2392"
+      > </a
+      ><a name="2393" class="Symbol"
+      >(</a
+      ><a name="2394" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="2395"
+      > </a
+      ><a name="2396" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2397"
+      > </a
+      ><a name="2398" href="DistributiveLaws.TaskB-TopDownATP.html#886" class="Bound"
+      >u</a
+      ><a name="2399" class="Symbol"
+      >)</a
+      ><a name="2400"
+      >
+  </a
+      ><a name="2403" class="Symbol"
+      >{-#</a
+      ><a name="2406"
+      > </a
+      ><a name="2407" class="Keyword"
+      >ATP</a
+      ><a name="2410"
+      > definition </a
+      ><a name="2422" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="2427"
+      > </a
+      ><a name="2428" class="Symbol"
+      >#-}</a
+      ><a name="2431"
+      >
+
+  </a
+      ><a name="2435" class="Comment"
+      >-- Steps justifications</a
+      ><a name="2458"
+      >
+
+  </a
+      ><a name="2462" class="Keyword"
+      >postulate</a
+      ><a name="2471"
+      > </a
+      ><a name="2472" href="DistributiveLaws.TaskB-TopDownATP.html#2472" class="Postulate"
+      >j&#8321;&#8331;&#8325;</a
+      ><a name="2476"
+      > </a
+      ><a name="2477" class="Symbol"
+      >:</a
+      ><a name="2478"
+      > </a
+      ><a name="2479" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2484"
+      > </a
+      ><a name="2485" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2486"
+      > </a
+      ><a name="2487" class="Symbol"
+      >(</a
+      ><a name="2488" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2493"
+      > </a
+      ><a name="2494" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2495"
+      > </a
+      ><a name="2496" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="2501" class="Symbol"
+      >)</a
+      ><a name="2502"
+      > </a
+      ><a name="2503" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2504"
+      >
+                   </a
+      ><a name="2524" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2529"
+      > </a
+      ><a name="2530" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2531"
+      > </a
+      ><a name="2532" class="Symbol"
+      >(</a
+      ><a name="2533" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2535"
+      > </a
+      ><a name="2536" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2537"
+      > </a
+      ><a name="2538" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="2543"
+      > </a
+      ><a name="2544" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2545"
+      > </a
+      ><a name="2546" class="Symbol"
+      >(</a
+      ><a name="2547" href="DistributiveLaws.TaskB-TopDownATP.html#2025" class="Function"
+      >y&#183;zu</a
+      ><a name="2551"
+      > </a
+      ><a name="2552" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2553"
+      > </a
+      ><a name="2554" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="2559" class="Symbol"
+      >))</a
+      ><a name="2561"
+      >
+  </a
+      ><a name="2564" class="Symbol"
+      >{-#</a
+      ><a name="2567"
+      > </a
+      ><a name="2568" class="Keyword"
+      >ATP</a
+      ><a name="2571"
+      > prove </a
+      ><a name="2578" href="DistributiveLaws.TaskB-TopDownATP.html#2472" class="Postulate"
+      >j&#8321;&#8331;&#8325;</a
+      ><a name="2582"
+      > </a
+      ><a name="2583" class="Symbol"
+      >#-}</a
+      ><a name="2586"
+      >
+
+  </a
+      ><a name="2590" class="Keyword"
+      >postulate</a
+      ><a name="2599"
+      > </a
+      ><a name="2600" href="DistributiveLaws.TaskB-TopDownATP.html#2600" class="Postulate"
+      >j&#8325;&#8331;&#8329;</a
+      ><a name="2604"
+      > </a
+      ><a name="2605" class="Symbol"
+      >:</a
+      ><a name="2606"
+      > </a
+      ><a name="2607" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2612"
+      > </a
+      ><a name="2613" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2614"
+      > </a
+      ><a name="2615" class="Symbol"
+      >(</a
+      ><a name="2616" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2618"
+      > </a
+      ><a name="2619" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2620"
+      > </a
+      ><a name="2621" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="2626"
+      > </a
+      ><a name="2627" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2628"
+      > </a
+      ><a name="2629" class="Symbol"
+      >(</a
+      ><a name="2630" href="DistributiveLaws.TaskB-TopDownATP.html#2025" class="Function"
+      >y&#183;zu</a
+      ><a name="2634"
+      > </a
+      ><a name="2635" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2636"
+      > </a
+      ><a name="2637" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="2642" class="Symbol"
+      >))</a
+      ><a name="2644"
+      > </a
+      ><a name="2645" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2646"
+      >
+                   </a
+      ><a name="2666" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2671"
+      > </a
+      ><a name="2672" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2673"
+      > </a
+      ><a name="2674" class="Symbol"
+      >(</a
+      ><a name="2675" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2677"
+      > </a
+      ><a name="2678" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2679"
+      > </a
+      ><a name="2680" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2683"
+      > </a
+      ><a name="2684" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2685"
+      > </a
+      ><a name="2686" class="Symbol"
+      >(</a
+      ><a name="2687" href="DistributiveLaws.TaskB-TopDownATP.html#1922" class="Function"
+      >yxz</a
+      ><a name="2690"
+      > </a
+      ><a name="2691" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2692"
+      > </a
+      ><a name="2693" href="DistributiveLaws.TaskB-TopDownATP.html#1770" class="Function"
+      >yu</a
+      ><a name="2695" class="Symbol"
+      >))</a
+      ><a name="2697"
+      >
+  </a
+      ><a name="2700" class="Symbol"
+      >{-#</a
+      ><a name="2703"
+      > </a
+      ><a name="2704" class="Keyword"
+      >ATP</a
+      ><a name="2707"
+      > prove </a
+      ><a name="2714" href="DistributiveLaws.TaskB-TopDownATP.html#2600" class="Postulate"
+      >j&#8325;&#8331;&#8329;</a
+      ><a name="2718"
+      > </a
+      ><a name="2719" class="Symbol"
+      >#-}</a
+      ><a name="2722"
+      >
+
+  </a
+      ><a name="2726" class="Keyword"
+      >postulate</a
+      ><a name="2735"
+      > </a
+      ><a name="2736" href="DistributiveLaws.TaskB-TopDownATP.html#2736" class="Postulate"
+      >j&#8329;&#8331;&#8321;&#8324;</a
+      ><a name="2741"
+      > </a
+      ><a name="2742" class="Symbol"
+      >:</a
+      ><a name="2743"
+      > </a
+      ><a name="2744" href="DistributiveLaws.TaskB-TopDownATP.html#2319" class="Function"
+      >xy&#183;zu</a
+      ><a name="2749"
+      > </a
+      ><a name="2750" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2751"
+      > </a
+      ><a name="2752" class="Symbol"
+      >(</a
+      ><a name="2753" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2755"
+      > </a
+      ><a name="2756" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2757"
+      > </a
+      ><a name="2758" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2761"
+      > </a
+      ><a name="2762" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2763"
+      > </a
+      ><a name="2764" class="Symbol"
+      >(</a
+      ><a name="2765" href="DistributiveLaws.TaskB-TopDownATP.html#1922" class="Function"
+      >yxz</a
+      ><a name="2768"
+      > </a
+      ><a name="2769" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2770"
+      > </a
+      ><a name="2771" href="DistributiveLaws.TaskB-TopDownATP.html#1770" class="Function"
+      >yu</a
+      ><a name="2773" class="Symbol"
+      >))</a
+      ><a name="2775"
+      > </a
+      ><a name="2776" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2777"
+      >
+                    </a
+      ><a name="2798" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2800"
+      > </a
+      ><a name="2801" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2802"
+      > </a
+      ><a name="2803" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2808"
+      > </a
+      ><a name="2809" class="Symbol"
+      >(</a
+      ><a name="2810" href="DistributiveLaws.TaskB-TopDownATP.html#1783" class="Function"
+      >yz</a
+      ><a name="2812"
+      > </a
+      ><a name="2813" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2814"
+      > </a
+      ><a name="2815" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2818" class="Symbol"
+      >)</a
+      ><a name="2819"
+      > </a
+      ><a name="2820" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2821"
+      > </a
+      ><a name="2822" class="Symbol"
+      >(</a
+      ><a name="2823" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2825"
+      > </a
+      ><a name="2826" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2827"
+      > </a
+      ><a name="2828" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2831"
+      > </a
+      ><a name="2832" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2833"
+      > </a
+      ><a name="2834" class="Symbol"
+      >(</a
+      ><a name="2835" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="2839"
+      > </a
+      ><a name="2840" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2841"
+      > </a
+      ><a name="2842" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="2846" class="Symbol"
+      >))</a
+      ><a name="2848"
+      >
+  </a
+      ><a name="2851" class="Symbol"
+      >{-#</a
+      ><a name="2854"
+      > </a
+      ><a name="2855" class="Keyword"
+      >ATP</a
+      ><a name="2858"
+      > prove </a
+      ><a name="2865" href="DistributiveLaws.TaskB-TopDownATP.html#2736" class="Postulate"
+      >j&#8329;&#8331;&#8321;&#8324;</a
+      ><a name="2870"
+      > </a
+      ><a name="2871" class="Symbol"
+      >#-}</a
+      ><a name="2874"
+      >
+
+  </a
+      ><a name="2878" class="Keyword"
+      >postulate</a
+      ><a name="2887"
+      >
+    </a
+      ><a name="2892" href="DistributiveLaws.TaskB-TopDownATP.html#2892" class="Postulate"
+      >j&#8321;&#8324;&#8331;&#8322;&#8320;</a
+      ><a name="2898"
+      > </a
+      ><a name="2899" class="Symbol"
+      >:</a
+      ><a name="2900"
+      > </a
+      ><a name="2901" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2903"
+      > </a
+      ><a name="2904" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2905"
+      > </a
+      ><a name="2906" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2909"
+      > </a
+      ><a name="2910" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2911"
+      > </a
+      ><a name="2912" class="Symbol"
+      >(</a
+      ><a name="2913" href="DistributiveLaws.TaskB-TopDownATP.html#1783" class="Function"
+      >yz</a
+      ><a name="2915"
+      > </a
+      ><a name="2916" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2917"
+      > </a
+      ><a name="2918" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2921" class="Symbol"
+      >)</a
+      ><a name="2922"
+      > </a
+      ><a name="2923" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2924"
+      > </a
+      ><a name="2925" class="Symbol"
+      >(</a
+      ><a name="2926" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2928"
+      > </a
+      ><a name="2929" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2930"
+      > </a
+      ><a name="2931" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2934"
+      > </a
+      ><a name="2935" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2936"
+      > </a
+      ><a name="2937" class="Symbol"
+      >(</a
+      ><a name="2938" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="2942"
+      > </a
+      ><a name="2943" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2944"
+      > </a
+      ><a name="2945" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="2949" class="Symbol"
+      >))</a
+      ><a name="2951"
+      > </a
+      ><a name="2952" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="2953"
+      >
+             </a
+      ><a name="2967" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="2969"
+      > </a
+      ><a name="2970" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2971"
+      > </a
+      ><a name="2972" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="2975"
+      > </a
+      ><a name="2976" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2977"
+      > </a
+      ><a name="2978" class="Symbol"
+      >(</a
+      ><a name="2979" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="2983"
+      > </a
+      ><a name="2984" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2985"
+      > </a
+      ><a name="2986" class="Symbol"
+      >(</a
+      ><a name="2987" href="DistributiveLaws.TaskB-TopDownATP.html#2004" class="Function"
+      >y&#183;yu</a
+      ><a name="2991"
+      > </a
+      ><a name="2992" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="2993"
+      > </a
+      ><a name="2994" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="2998" class="Symbol"
+      >)</a
+      ><a name="2999"
+      > </a
+      ><a name="3000" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3001"
+      > </a
+      ><a name="3002" class="Symbol"
+      >(</a
+      ><a name="3003" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="3004"
+      > </a
+      ><a name="3005" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3006"
+      > </a
+      ><a name="3007" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="3012"
+      > </a
+      ><a name="3013" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3014"
+      > </a
+      ><a name="3015" class="Symbol"
+      >(</a
+      ><a name="3016" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3020"
+      > </a
+      ><a name="3021" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3022"
+      > </a
+      ><a name="3023" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3027" class="Symbol"
+      >)))</a
+      ><a name="3030"
+      >
+  </a
+      ><a name="3033" class="Symbol"
+      >{-#</a
+      ><a name="3036"
+      > </a
+      ><a name="3037" class="Keyword"
+      >ATP</a
+      ><a name="3040"
+      > prove </a
+      ><a name="3047" href="DistributiveLaws.TaskB-TopDownATP.html#2892" class="Postulate"
+      >j&#8321;&#8324;&#8331;&#8322;&#8320;</a
+      ><a name="3053"
+      > </a
+      ><a name="3054" class="Symbol"
+      >#-}</a
+      ><a name="3057"
+      >
+
+  </a
+      ><a name="3061" class="Keyword"
+      >postulate</a
+      ><a name="3070"
+      >
+    </a
+      ><a name="3075" href="DistributiveLaws.TaskB-TopDownATP.html#3075" class="Postulate"
+      >j&#8322;&#8320;&#8331;&#8322;&#8323;</a
+      ><a name="3081"
+      > </a
+      ><a name="3082" class="Symbol"
+      >:</a
+      ><a name="3083"
+      > </a
+      ><a name="3084" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3086"
+      > </a
+      ><a name="3087" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3088"
+      > </a
+      ><a name="3089" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3092"
+      > </a
+      ><a name="3093" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3094"
+      > </a
+      ><a name="3095" class="Symbol"
+      >(</a
+      ><a name="3096" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3100"
+      > </a
+      ><a name="3101" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3102"
+      > </a
+      ><a name="3103" class="Symbol"
+      >(</a
+      ><a name="3104" href="DistributiveLaws.TaskB-TopDownATP.html#2004" class="Function"
+      >y&#183;yu</a
+      ><a name="3108"
+      > </a
+      ><a name="3109" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3110"
+      > </a
+      ><a name="3111" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3115" class="Symbol"
+      >)</a
+      ><a name="3116"
+      > </a
+      ><a name="3117" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3118"
+      > </a
+      ><a name="3119" class="Symbol"
+      >(</a
+      ><a name="3120" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="3121"
+      > </a
+      ><a name="3122" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3123"
+      > </a
+      ><a name="3124" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="3129"
+      > </a
+      ><a name="3130" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3131"
+      > </a
+      ><a name="3132" class="Symbol"
+      >(</a
+      ><a name="3133" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3137"
+      > </a
+      ><a name="3138" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3139"
+      > </a
+      ><a name="3140" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3144" class="Symbol"
+      >)))</a
+      ><a name="3147"
+      > </a
+      ><a name="3148" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3149"
+      >
+             </a
+      ><a name="3163" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3165"
+      > </a
+      ><a name="3166" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3167"
+      > </a
+      ><a name="3168" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3171"
+      > </a
+      ><a name="3172" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3173"
+      > </a
+      ><a name="3174" class="Symbol"
+      >(</a
+      ><a name="3175" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="3176"
+      > </a
+      ><a name="3177" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3178"
+      > </a
+      ><a name="3179" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="3184"
+      > </a
+      ><a name="3185" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3186"
+      > </a
+      ><a name="3187" class="Symbol"
+      >(</a
+      ><a name="3188" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="3189"
+      > </a
+      ><a name="3190" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3191"
+      > </a
+      ><a name="3192" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="3197"
+      > </a
+      ><a name="3198" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3199"
+      > </a
+      ><a name="3200" class="Symbol"
+      >(</a
+      ><a name="3201" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3205"
+      > </a
+      ><a name="3206" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3207"
+      > </a
+      ><a name="3208" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3212" class="Symbol"
+      >)))</a
+      ><a name="3215"
+      >
+  </a
+      ><a name="3218" class="Symbol"
+      >{-#</a
+      ><a name="3221"
+      > </a
+      ><a name="3222" class="Keyword"
+      >ATP</a
+      ><a name="3225"
+      > prove </a
+      ><a name="3232" href="DistributiveLaws.TaskB-TopDownATP.html#3075" class="Postulate"
+      >j&#8322;&#8320;&#8331;&#8322;&#8323;</a
+      ><a name="3238"
+      > </a
+      ><a name="3239" class="Symbol"
+      >#-}</a
+      ><a name="3242"
+      >
+
+  </a
+      ><a name="3246" class="Keyword"
+      >postulate</a
+      ><a name="3255"
+      > </a
+      ><a name="3256" href="DistributiveLaws.TaskB-TopDownATP.html#3256" class="Postulate"
+      >j&#8322;&#8323;&#8331;&#8322;&#8325;</a
+      ><a name="3262"
+      > </a
+      ><a name="3263" class="Symbol"
+      >:</a
+      ><a name="3264"
+      > </a
+      ><a name="3265" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3267"
+      > </a
+      ><a name="3268" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3269"
+      > </a
+      ><a name="3270" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3273"
+      > </a
+      ><a name="3274" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3275"
+      > </a
+      ><a name="3276" class="Symbol"
+      >(</a
+      ><a name="3277" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="3278"
+      > </a
+      ><a name="3279" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3280"
+      > </a
+      ><a name="3281" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="3286"
+      > </a
+      ><a name="3287" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3288"
+      > </a
+      ><a name="3289" class="Symbol"
+      >(</a
+      ><a name="3290" href="DistributiveLaws.TaskB-TopDownATP.html#892" class="Bound"
+      >z</a
+      ><a name="3291"
+      > </a
+      ><a name="3292" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3293"
+      > </a
+      ><a name="3294" href="DistributiveLaws.TaskB-TopDownATP.html#2228" class="Function"
+      >xu&#183;yu</a
+      ><a name="3299"
+      > </a
+      ><a name="3300" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3301"
+      > </a
+      ><a name="3302" class="Symbol"
+      >(</a
+      ><a name="3303" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3307"
+      > </a
+      ><a name="3308" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3309"
+      > </a
+      ><a name="3310" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3314" class="Symbol"
+      >)))</a
+      ><a name="3317"
+      > </a
+      ><a name="3318" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3319"
+      >
+                     </a
+      ><a name="3341" class="Symbol"
+      >(</a
+      ><a name="3342" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3344"
+      > </a
+      ><a name="3345" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3346"
+      > </a
+      ><a name="3347" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3350" class="Symbol"
+      >)</a
+      ><a name="3351"
+      > </a
+      ><a name="3352" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3353"
+      > </a
+      ><a name="3354" class="Symbol"
+      >(</a
+      ><a name="3355" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="3356"
+      > </a
+      ><a name="3357" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3358"
+      > </a
+      ><a name="3359" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="3364"
+      > </a
+      ><a name="3365" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3366"
+      > </a
+      ><a name="3367" class="Symbol"
+      >(</a
+      ><a name="3368" href="DistributiveLaws.TaskB-TopDownATP.html#2114" class="Function"
+      >z&#183;xu</a
+      ><a name="3372"
+      > </a
+      ><a name="3373" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3374"
+      > </a
+      ><a name="3375" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3379"
+      > </a
+      ><a name="3380" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3381"
+      > </a
+      ><a name="3382" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3386" class="Symbol"
+      >))</a
+      ><a name="3388"
+      >
+  </a
+      ><a name="3391" class="Symbol"
+      >{-#</a
+      ><a name="3394"
+      > </a
+      ><a name="3395" class="Keyword"
+      >ATP</a
+      ><a name="3398"
+      > prove </a
+      ><a name="3405" href="DistributiveLaws.TaskB-TopDownATP.html#3256" class="Postulate"
+      >j&#8322;&#8323;&#8331;&#8322;&#8325;</a
+      ><a name="3411"
+      > </a
+      ><a name="3412" class="Symbol"
+      >#-}</a
+      ><a name="3415"
+      >
+
+  </a
+      ><a name="3419" class="Keyword"
+      >postulate</a
+      ><a name="3428"
+      > </a
+      ><a name="3429" href="DistributiveLaws.TaskB-TopDownATP.html#3429" class="Postulate"
+      >j&#8322;&#8325;&#8331;&#8323;&#8320;</a
+      ><a name="3435"
+      > </a
+      ><a name="3436" class="Symbol"
+      >:</a
+      ><a name="3437"
+      > </a
+      ><a name="3438" class="Symbol"
+      >(</a
+      ><a name="3439" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3441"
+      > </a
+      ><a name="3442" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3443"
+      > </a
+      ><a name="3444" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3447" class="Symbol"
+      >)</a
+      ><a name="3448"
+      > </a
+      ><a name="3449" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3450"
+      > </a
+      ><a name="3451" class="Symbol"
+      >(</a
+      ><a name="3452" href="DistributiveLaws.TaskB-TopDownATP.html#890" class="Bound"
+      >y</a
+      ><a name="3453"
+      > </a
+      ><a name="3454" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3455"
+      > </a
+      ><a name="3456" href="DistributiveLaws.TaskB-TopDownATP.html#2254" class="Function"
+      >xu&#183;zu</a
+      ><a name="3461"
+      > </a
+      ><a name="3462" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3463"
+      > </a
+      ><a name="3464" class="Symbol"
+      >(</a
+      ><a name="3465" href="DistributiveLaws.TaskB-TopDownATP.html#2114" class="Function"
+      >z&#183;xu</a
+      ><a name="3469"
+      > </a
+      ><a name="3470" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3471"
+      > </a
+      ><a name="3472" href="DistributiveLaws.TaskB-TopDownATP.html#1983" class="Function"
+      >y&#183;xu</a
+      ><a name="3476"
+      > </a
+      ><a name="3477" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3478"
+      > </a
+      ><a name="3479" href="DistributiveLaws.TaskB-TopDownATP.html#2135" class="Function"
+      >z&#183;yu</a
+      ><a name="3483" class="Symbol"
+      >))</a
+      ><a name="3485"
+      > </a
+      ><a name="3486" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3487"
+      >
+                     </a
+      ><a name="3509" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3511"
+      > </a
+      ><a name="3512" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3513"
+      > </a
+      ><a name="3514" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3517"
+      > </a
+      ><a name="3518" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3519"
+      > </a
+      ><a name="3520" class="Symbol"
+      >(</a
+      ><a name="3521" href="DistributiveLaws.TaskB-TopDownATP.html#2046" class="Function"
+      >y&#183;zy</a
+      ><a name="3525"
+      > </a
+      ><a name="3526" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3527"
+      > </a
+      ><a name="3528" href="DistributiveLaws.TaskB-TopDownATP.html#1904" class="Function"
+      >xzu</a
+      ><a name="3531" class="Symbol"
+      >)</a
+      ><a name="3532"
+      >
+  </a
+      ><a name="3535" class="Symbol"
+      >{-#</a
+      ><a name="3538"
+      > </a
+      ><a name="3539" class="Keyword"
+      >ATP</a
+      ><a name="3542"
+      > prove </a
+      ><a name="3549" href="DistributiveLaws.TaskB-TopDownATP.html#3429" class="Postulate"
+      >j&#8322;&#8325;&#8331;&#8323;&#8320;</a
+      ><a name="3555"
+      > </a
+      ><a name="3556" class="Symbol"
+      >#-}</a
+      ><a name="3559"
+      >
+
+  </a
+      ><a name="3563" class="Keyword"
+      >postulate</a
+      ><a name="3572"
+      > </a
+      ><a name="3573" href="DistributiveLaws.TaskB-TopDownATP.html#3573" class="Postulate"
+      >j&#8323;&#8320;&#8331;&#8323;&#8325;</a
+      ><a name="3579"
+      > </a
+      ><a name="3580" class="Symbol"
+      >:</a
+      ><a name="3581"
+      > </a
+      ><a name="3582" href="DistributiveLaws.TaskB-TopDownATP.html#1757" class="Function"
+      >xz</a
+      ><a name="3584"
+      > </a
+      ><a name="3585" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3586"
+      > </a
+      ><a name="3587" href="DistributiveLaws.TaskB-TopDownATP.html#1868" class="Function"
+      >xyu</a
+      ><a name="3590"
+      > </a
+      ><a name="3591" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3592"
+      > </a
+      ><a name="3593" class="Symbol"
+      >(</a
+      ><a name="3594" href="DistributiveLaws.TaskB-TopDownATP.html#2046" class="Function"
+      >y&#183;zy</a
+      ><a name="3598"
+      > </a
+      ><a name="3599" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="3600"
+      > </a
+      ><a name="3601" href="DistributiveLaws.TaskB-TopDownATP.html#1904" class="Function"
+      >xzu</a
+      ><a name="3604" class="Symbol"
+      >)</a
+      ><a name="3605"
+      > </a
+      ><a name="3606" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="3607"
+      > </a
+      ><a name="3608" href="DistributiveLaws.TaskB-TopDownATP.html#2377" class="Function"
+      >xz&#183;yu</a
+      ><a name="3613"
+      >
+  </a
+      ><a name="3616" class="Symbol"
+      >{-#</a
+      ><a name="3619"
+      > </a
+      ><a name="3620" class="Keyword"
+      >ATP</a
+      ><a name="3623"
+      > prove </a
+      ><a name="3630" href="DistributiveLaws.TaskB-TopDownATP.html#3573" class="Postulate"
+      >j&#8323;&#8320;&#8331;&#8323;&#8325;</a
+      ><a name="3636"
+      > </a
+      ><a name="3637" class="Symbol"
+      >#-}</a
+      ><a name="3640"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

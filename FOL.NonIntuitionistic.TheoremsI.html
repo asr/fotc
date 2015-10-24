@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOL.NonIntuitionistic.TheoremsI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Non-intuitionistic logic theorems</a
+      ><a name="116"
+      >
+</a
+      ><a name="117" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="195"
+      >
+
+</a
+      ><a name="197" class="Symbol"
+      >{-#</a
+      ><a name="200"
+      > </a
+      ><a name="201" class="Keyword"
+      >OPTIONS</a
+      ><a name="208"
+      > --exact-split              </a
+      ><a name="236" class="Symbol"
+      >#-}</a
+      ><a name="239"
+      >
+</a
+      ><a name="240" class="Symbol"
+      >{-#</a
+      ><a name="243"
+      > </a
+      ><a name="244" class="Keyword"
+      >OPTIONS</a
+      ><a name="251"
+      > --no-sized-types           </a
+      ><a name="279" class="Symbol"
+      >#-}</a
+      ><a name="282"
+      >
+</a
+      ><a name="283" class="Symbol"
+      >{-#</a
+      ><a name="286"
+      > </a
+      ><a name="287" class="Keyword"
+      >OPTIONS</a
+      ><a name="294"
+      > --no-universe-polymorphism </a
+      ><a name="322" class="Symbol"
+      >#-}</a
+      ><a name="325"
+      >
+</a
+      ><a name="326" class="Symbol"
+      >{-#</a
+      ><a name="329"
+      > </a
+      ><a name="330" class="Keyword"
+      >OPTIONS</a
+      ><a name="337"
+      > --without-K                </a
+      ><a name="365" class="Symbol"
+      >#-}</a
+      ><a name="368"
+      >
+
+</a
+      ><a name="370" class="Keyword"
+      >module</a
+      ><a name="376"
+      > </a
+      ><a name="377" href="FOL.NonIntuitionistic.TheoremsI.html#1" class="Module"
+      >FOL.NonIntuitionistic.TheoremsI</a
+      ><a name="408"
+      > </a
+      ><a name="409" class="Keyword"
+      >where</a
+      ><a name="414"
+      >
+
+</a
+      ><a name="416" class="Comment"
+      >-- The theorems below are valid with an empty domain.</a
+      ><a name="469"
+      >
+</a
+      ><a name="470" class="Keyword"
+      >open</a
+      ><a name="474"
+      > </a
+      ><a name="475" class="Keyword"
+      >import</a
+      ><a name="481"
+      > </a
+      ><a name="482" href="FOL.Base.html#1" class="Module"
+      >FOL.Base</a
+      ><a name="490"
+      > </a
+      ><a name="491" class="Keyword"
+      >hiding</a
+      ><a name="497"
+      > </a
+      ><a name="498" class="Symbol"
+      >(</a
+      ><a name="499"
+      > D&#8802;&#8709; </a
+      ><a name="504" class="Symbol"
+      >)</a
+      ><a name="505"
+      >
+
+</a
+      ><a name="507" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="585"
+      >
+</a
+      ><a name="586" class="Comment"
+      >-- The principle of indirect proof (proof by contradiction).</a
+      ><a name="646"
+      >
+</a
+      ><a name="647" href="FOL.NonIntuitionistic.TheoremsI.html#647" class="Function"
+      >&#172;-elim</a
+      ><a name="653"
+      > </a
+      ><a name="654" class="Symbol"
+      >:</a
+      ><a name="655"
+      > </a
+      ><a name="656" class="Symbol"
+      >&#8704;</a
+      ><a name="657"
+      > </a
+      ><a name="658" class="Symbol"
+      >{</a
+      ><a name="659" href="FOL.NonIntuitionistic.TheoremsI.html#659" class="Bound"
+      >A</a
+      ><a name="660" class="Symbol"
+      >}</a
+      ><a name="661"
+      > </a
+      ><a name="662" class="Symbol"
+      >&#8594;</a
+      ><a name="663"
+      > </a
+      ><a name="664" class="Symbol"
+      >(</a
+      ><a name="665" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="FOL.NonIntuitionistic.TheoremsI.html#659" class="Bound"
+      >A</a
+      ><a name="668"
+      > </a
+      ><a name="669" class="Symbol"
+      >&#8594;</a
+      ><a name="670"
+      > </a
+      ><a name="671" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="672" class="Symbol"
+      >)</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="Symbol"
+      >&#8594;</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="FOL.NonIntuitionistic.TheoremsI.html#659" class="Bound"
+      >A</a
+      ><a name="677"
+      >
+</a
+      ><a name="678" href="FOL.NonIntuitionistic.TheoremsI.html#647" class="Function"
+      >&#172;-elim</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="FOL.NonIntuitionistic.TheoremsI.html#685" class="Bound"
+      >h</a
+      ><a name="686"
+      > </a
+      ><a name="687" class="Symbol"
+      >=</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="693"
+      > </a
+      ><a name="694" class="Symbol"
+      >(&#955;</a
+      ><a name="696"
+      > </a
+      ><a name="697" href="FOL.NonIntuitionistic.TheoremsI.html#697" class="Bound"
+      >a</a
+      ><a name="698"
+      > </a
+      ><a name="699" class="Symbol"
+      >&#8594;</a
+      ><a name="700"
+      > </a
+      ><a name="701" href="FOL.NonIntuitionistic.TheoremsI.html#697" class="Bound"
+      >a</a
+      ><a name="702" class="Symbol"
+      >)</a
+      ><a name="703"
+      > </a
+      ><a name="704" class="Symbol"
+      >(&#955;</a
+      ><a name="706"
+      > </a
+      ><a name="707" href="FOL.NonIntuitionistic.TheoremsI.html#707" class="Bound"
+      >&#172;a</a
+      ><a name="709"
+      > </a
+      ><a name="710" class="Symbol"
+      >&#8594;</a
+      ><a name="711"
+      > </a
+      ><a name="712" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="718"
+      > </a
+      ><a name="719" class="Symbol"
+      >(</a
+      ><a name="720" href="FOL.NonIntuitionistic.TheoremsI.html#685" class="Bound"
+      >h</a
+      ><a name="721"
+      > </a
+      ><a name="722" href="FOL.NonIntuitionistic.TheoremsI.html#707" class="Bound"
+      >&#172;a</a
+      ><a name="724" class="Symbol"
+      >))</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOL.Base.html#1757" class="Postulate"
+      >pem</a
+      ><a name="730"
+      >
+
+</a
+      ><a name="732" class="Comment"
+      >-- Double negation elimination.</a
+      ><a name="763"
+      >
+</a
+      ><a name="764" href="FOL.NonIntuitionistic.TheoremsI.html#764" class="Function"
+      >&#172;&#172;-elim</a
+      ><a name="771"
+      > </a
+      ><a name="772" class="Symbol"
+      >:</a
+      ><a name="773"
+      > </a
+      ><a name="774" class="Symbol"
+      >&#8704;</a
+      ><a name="775"
+      > </a
+      ><a name="776" class="Symbol"
+      >{</a
+      ><a name="777" href="FOL.NonIntuitionistic.TheoremsI.html#777" class="Bound"
+      >A</a
+      ><a name="778" class="Symbol"
+      >}</a
+      ><a name="779"
+      > </a
+      ><a name="780" class="Symbol"
+      >&#8594;</a
+      ><a name="781"
+      > </a
+      ><a name="782" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="783"
+      > </a
+      ><a name="784" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="785"
+      > </a
+      ><a name="786" href="FOL.NonIntuitionistic.TheoremsI.html#777" class="Bound"
+      >A</a
+      ><a name="787"
+      > </a
+      ><a name="788" class="Symbol"
+      >&#8594;</a
+      ><a name="789"
+      > </a
+      ><a name="790" href="FOL.NonIntuitionistic.TheoremsI.html#777" class="Bound"
+      >A</a
+      ><a name="791"
+      >
+</a
+      ><a name="792" href="FOL.NonIntuitionistic.TheoremsI.html#764" class="Function"
+      >&#172;&#172;-elim</a
+      ><a name="799"
+      > </a
+      ><a name="800" class="Symbol"
+      >{</a
+      ><a name="801" href="FOL.NonIntuitionistic.TheoremsI.html#801" class="Bound"
+      >A</a
+      ><a name="802" class="Symbol"
+      >}</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="FOL.NonIntuitionistic.TheoremsI.html#804" class="Bound"
+      >h</a
+      ><a name="805"
+      > </a
+      ><a name="806" class="Symbol"
+      >=</a
+      ><a name="807"
+      > </a
+      ><a name="808" href="FOL.NonIntuitionistic.TheoremsI.html#647" class="Function"
+      >&#172;-elim</a
+      ><a name="814"
+      > </a
+      ><a name="815" href="FOL.NonIntuitionistic.TheoremsI.html#804" class="Bound"
+      >h</a
+      ><a name="816"
+      >
+
+</a
+      ><a name="818" class="Comment"
+      >-- The reductio ab absurdum rule. (Some authors uses this name for the</a
+      ><a name="888"
+      >
+</a
+      ><a name="889" class="Comment"
+      >-- principle of indirect proof).</a
+      ><a name="921"
+      >
+</a
+      ><a name="922" href="FOL.NonIntuitionistic.TheoremsI.html#922" class="Function"
+      >raa</a
+      ><a name="925"
+      > </a
+      ><a name="926" class="Symbol"
+      >:</a
+      ><a name="927"
+      > </a
+      ><a name="928" class="Symbol"
+      >&#8704;</a
+      ><a name="929"
+      > </a
+      ><a name="930" class="Symbol"
+      >{</a
+      ><a name="931" href="FOL.NonIntuitionistic.TheoremsI.html#931" class="Bound"
+      >A</a
+      ><a name="932" class="Symbol"
+      >}</a
+      ><a name="933"
+      > </a
+      ><a name="934" class="Symbol"
+      >&#8594;</a
+      ><a name="935"
+      > </a
+      ><a name="936" class="Symbol"
+      >(</a
+      ><a name="937" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="938"
+      > </a
+      ><a name="939" href="FOL.NonIntuitionistic.TheoremsI.html#931" class="Bound"
+      >A</a
+      ><a name="940"
+      > </a
+      ><a name="941" class="Symbol"
+      >&#8594;</a
+      ><a name="942"
+      > </a
+      ><a name="943" href="FOL.NonIntuitionistic.TheoremsI.html#931" class="Bound"
+      >A</a
+      ><a name="944" class="Symbol"
+      >)</a
+      ><a name="945"
+      > </a
+      ><a name="946" class="Symbol"
+      >&#8594;</a
+      ><a name="947"
+      > </a
+      ><a name="948" href="FOL.NonIntuitionistic.TheoremsI.html#931" class="Bound"
+      >A</a
+      ><a name="949"
+      >
+</a
+      ><a name="950" href="FOL.NonIntuitionistic.TheoremsI.html#922" class="Function"
+      >raa</a
+      ><a name="953"
+      > </a
+      ><a name="954" href="FOL.NonIntuitionistic.TheoremsI.html#954" class="Bound"
+      >h</a
+      ><a name="955"
+      > </a
+      ><a name="956" class="Symbol"
+      >=</a
+      ><a name="957"
+      > </a
+      ><a name="958" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="962"
+      > </a
+      ><a name="963" class="Symbol"
+      >(&#955;</a
+      ><a name="965"
+      > </a
+      ><a name="966" href="FOL.NonIntuitionistic.TheoremsI.html#966" class="Bound"
+      >a</a
+      ><a name="967"
+      > </a
+      ><a name="968" class="Symbol"
+      >&#8594;</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="FOL.NonIntuitionistic.TheoremsI.html#966" class="Bound"
+      >a</a
+      ><a name="971" class="Symbol"
+      >)</a
+      ><a name="972"
+      > </a
+      ><a name="973" href="FOL.NonIntuitionistic.TheoremsI.html#954" class="Bound"
+      >h</a
+      ><a name="974"
+      > </a
+      ><a name="975" href="FOL.Base.html#1757" class="Postulate"
+      >pem</a
+      ><a name="978"
+      >
+
+</a
+      ><a name="980" class="Comment"
+      >-- &#8707; in terms of &#8704; and &#172;.</a
+      ><a name="1005"
+      >
+</a
+      ><a name="1006" href="FOL.NonIntuitionistic.TheoremsI.html#1006" class="Function"
+      >&#172;&#8707;&#172;&#8594;&#8704;</a
+      ><a name="1011"
+      > </a
+      ><a name="1012" class="Symbol"
+      >:</a
+      ><a name="1013"
+      > </a
+      ><a name="1014" class="Symbol"
+      >{</a
+      ><a name="1015" href="FOL.NonIntuitionistic.TheoremsI.html#1015" class="Bound"
+      >A</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" class="Symbol"
+      >:</a
+      ><a name="1018"
+      > </a
+      ><a name="1019" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1020"
+      > </a
+      ><a name="1021" class="Symbol"
+      >&#8594;</a
+      ><a name="1022"
+      > </a
+      ><a name="1023" class="PrimitiveType"
+      >Set</a
+      ><a name="1026" class="Symbol"
+      >}</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" class="Symbol"
+      >&#8594;</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" class="Symbol"
+      >(</a
+      ><a name="1033" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1035"
+      > </a
+      ><a name="1036" href="FOL.NonIntuitionistic.TheoremsI.html#1036" class="Bound"
+      >x</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1039"
+      > </a
+      ><a name="1040" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="FOL.NonIntuitionistic.TheoremsI.html#1015" class="Bound"
+      >A</a
+      ><a name="1043"
+      > </a
+      ><a name="1044" href="FOL.NonIntuitionistic.TheoremsI.html#1036" class="Bound"
+      >x</a
+      ><a name="1045" class="Symbol"
+      >)</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" class="Symbol"
+      >&#8594;</a
+      ><a name="1048"
+      > </a
+      ><a name="1049" class="Symbol"
+      >&#8704;</a
+      ><a name="1050"
+      > </a
+      ><a name="1051" class="Symbol"
+      >{</a
+      ><a name="1052" href="FOL.NonIntuitionistic.TheoremsI.html#1052" class="Bound"
+      >x</a
+      ><a name="1053" class="Symbol"
+      >}</a
+      ><a name="1054"
+      > </a
+      ><a name="1055" class="Symbol"
+      >&#8594;</a
+      ><a name="1056"
+      > </a
+      ><a name="1057" href="FOL.NonIntuitionistic.TheoremsI.html#1015" class="Bound"
+      >A</a
+      ><a name="1058"
+      > </a
+      ><a name="1059" href="FOL.NonIntuitionistic.TheoremsI.html#1052" class="Bound"
+      >x</a
+      ><a name="1060"
+      >
+</a
+      ><a name="1061" href="FOL.NonIntuitionistic.TheoremsI.html#1006" class="Function"
+      >&#172;&#8707;&#172;&#8594;&#8704;</a
+      ><a name="1066"
+      > </a
+      ><a name="1067" href="FOL.NonIntuitionistic.TheoremsI.html#1067" class="Bound"
+      >h</a
+      ><a name="1068"
+      > </a
+      ><a name="1069" class="Symbol"
+      >{</a
+      ><a name="1070" href="FOL.NonIntuitionistic.TheoremsI.html#1070" class="Bound"
+      >x</a
+      ><a name="1071" class="Symbol"
+      >}</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" class="Symbol"
+      >=</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="FOL.NonIntuitionistic.TheoremsI.html#647" class="Function"
+      >&#172;-elim</a
+      ><a name="1081"
+      > </a
+      ><a name="1082" class="Symbol"
+      >(&#955;</a
+      ><a name="1084"
+      > </a
+      ><a name="1085" href="FOL.NonIntuitionistic.TheoremsI.html#1085" class="Bound"
+      >ah</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" class="Symbol"
+      >&#8594;</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="FOL.NonIntuitionistic.TheoremsI.html#1067" class="Bound"
+      >h</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" class="Symbol"
+      >(</a
+      ><a name="1093" href="FOL.NonIntuitionistic.TheoremsI.html#1070" class="Bound"
+      >x</a
+      ><a name="1094"
+      > </a
+      ><a name="1095" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1096"
+      > </a
+      ><a name="1097" href="FOL.NonIntuitionistic.TheoremsI.html#1085" class="Bound"
+      >ah</a
+      ><a name="1099" class="Symbol"
+      >))</a
+      ><a name="1101"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

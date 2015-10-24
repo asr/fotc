@@ -1,0 +1,1453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Common.FOL.FOL</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- First-order logic (without equality)</a
+      ><a name="119"
+      >
+</a
+      ><a name="120" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="198"
+      >
+
+</a
+      ><a name="200" class="Symbol"
+      >{-#</a
+      ><a name="203"
+      > </a
+      ><a name="204" class="Keyword"
+      >OPTIONS</a
+      ><a name="211"
+      > --exact-split              </a
+      ><a name="239" class="Symbol"
+      >#-}</a
+      ><a name="242"
+      >
+</a
+      ><a name="243" class="Symbol"
+      >{-#</a
+      ><a name="246"
+      > </a
+      ><a name="247" class="Keyword"
+      >OPTIONS</a
+      ><a name="254"
+      > --no-sized-types           </a
+      ><a name="282" class="Symbol"
+      >#-}</a
+      ><a name="285"
+      >
+</a
+      ><a name="286" class="Symbol"
+      >{-#</a
+      ><a name="289"
+      > </a
+      ><a name="290" class="Keyword"
+      >OPTIONS</a
+      ><a name="297"
+      > --no-universe-polymorphism </a
+      ><a name="325" class="Symbol"
+      >#-}</a
+      ><a name="328"
+      >
+</a
+      ><a name="329" class="Symbol"
+      >{-#</a
+      ><a name="332"
+      > </a
+      ><a name="333" class="Keyword"
+      >OPTIONS</a
+      ><a name="340"
+      > --without-K                </a
+      ><a name="368" class="Symbol"
+      >#-}</a
+      ><a name="371"
+      >
+
+</a
+      ><a name="373" class="Comment"
+      >-- This module is re-exported by the &quot;base&quot; modules whose theories are</a
+      ><a name="443"
+      >
+</a
+      ><a name="444" class="Comment"
+      >-- defined on first-order logic (without equality).</a
+      ><a name="495"
+      >
+
+</a
+      ><a name="497" class="Comment"
+      >-- The logical connectives are hard-coded in our translation, i.e. the</a
+      ><a name="567"
+      >
+</a
+      ><a name="568" class="Comment"
+      >-- symbols &#8869;, &#8868;, &#172;, &#8743;, &#8744;, &#8594; and &#8596; must be used.</a
+      ><a name="615"
+      >
+</a
+      ><a name="616" class="Comment"
+      >--</a
+      ><a name="618"
+      >
+</a
+      ><a name="619" class="Comment"
+      >-- N.B. For the implication we use the Agda function type.</a
+      ><a name="677"
+      >
+</a
+      ><a name="678" class="Comment"
+      >--</a
+      ><a name="680"
+      >
+</a
+      ><a name="681" class="Comment"
+      >-- N.B For the universal quantifier we use the Agda (dependent)</a
+      ><a name="744"
+      >
+</a
+      ><a name="745" class="Comment"
+      >-- function type.</a
+      ><a name="762"
+      >
+
+</a
+      ><a name="764" class="Keyword"
+      >module</a
+      ><a name="770"
+      > </a
+      ><a name="771" href="Common.FOL.FOL.html#1" class="Module"
+      >Common.FOL.FOL</a
+      ><a name="785"
+      > </a
+      ><a name="786" class="Keyword"
+      >where</a
+      ><a name="791"
+      >
+
+</a
+      ><a name="793" class="Keyword"
+      >infixr</a
+      ><a name="799"
+      > </a
+      ><a name="800" class="Number"
+      >4</a
+      ><a name="801"
+      > _,_
+</a
+      ><a name="806" class="Keyword"
+      >infix</a
+      ><a name="811"
+      >  </a
+      ><a name="813" class="Number"
+      >3</a
+      ><a name="814"
+      > &#172;_
+</a
+      ><a name="818" class="Keyword"
+      >infixr</a
+      ><a name="824"
+      > </a
+      ><a name="825" class="Number"
+      >2</a
+      ><a name="826"
+      > _&#8743;_
+</a
+      ><a name="831" class="Keyword"
+      >infix</a
+      ><a name="836"
+      >  </a
+      ><a name="838" class="Number"
+      >2</a
+      ><a name="839"
+      > &#8707;
+</a
+      ><a name="842" class="Keyword"
+      >infixr</a
+      ><a name="848"
+      > </a
+      ><a name="849" class="Number"
+      >1</a
+      ><a name="850"
+      > _&#8744;_
+</a
+      ><a name="855" class="Keyword"
+      >infixr</a
+      ><a name="861"
+      > </a
+      ><a name="862" class="Number"
+      >0</a
+      ><a name="863"
+      > _&#8596;_
+
+</a
+      ><a name="869" class="Comment"
+      >----------------------------------------------------------------------------</a
+      ><a name="945"
+      >
+</a
+      ><a name="946" class="Comment"
+      >-- The universe of discourse/universal domain.</a
+      ><a name="992"
+      >
+</a
+      ><a name="993" class="Keyword"
+      >postulate</a
+      ><a name="1002"
+      > </a
+      ><a name="1003" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1004"
+      > </a
+      ><a name="1005" class="Symbol"
+      >:</a
+      ><a name="1006"
+      > </a
+      ><a name="1007" class="PrimitiveType"
+      >Set</a
+      ><a name="1010"
+      >
+
+</a
+      ><a name="1012" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1090"
+      >
+</a
+      ><a name="1091" class="Comment"
+      >-- The conjunction data type.</a
+      ><a name="1120"
+      >
+
+</a
+      ><a name="1122" class="Comment"
+      >-- It is not necessary to add the data constructor _,_ as an</a
+      ><a name="1182"
+      >
+</a
+      ><a name="1183" class="Comment"
+      >-- axiom because the ATPs implement it.</a
+      ><a name="1222"
+      >
+</a
+      ><a name="1223" class="Keyword"
+      >data</a
+      ><a name="1227"
+      > </a
+      ><a name="1228" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >_&#8743;_</a
+      ><a name="1231"
+      > </a
+      ><a name="1232" class="Symbol"
+      >(</a
+      ><a name="1233" href="Common.FOL.FOL.html#1233" class="Bound"
+      >A</a
+      ><a name="1234"
+      > </a
+      ><a name="1235" href="Common.FOL.FOL.html#1235" class="Bound"
+      >B</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >:</a
+      ><a name="1238"
+      > </a
+      ><a name="1239" class="PrimitiveType"
+      >Set</a
+      ><a name="1242" class="Symbol"
+      >)</a
+      ><a name="1243"
+      > </a
+      ><a name="1244" class="Symbol"
+      >:</a
+      ><a name="1245"
+      > </a
+      ><a name="1246" class="PrimitiveType"
+      >Set</a
+      ><a name="1249"
+      > </a
+      ><a name="1250" class="Keyword"
+      >where</a
+      ><a name="1255"
+      >
+  </a
+      ><a name="1258" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >_,_</a
+      ><a name="1261"
+      > </a
+      ><a name="1262" class="Symbol"
+      >:</a
+      ><a name="1263"
+      > </a
+      ><a name="1264" href="Common.FOL.FOL.html#1233" class="Bound"
+      >A</a
+      ><a name="1265"
+      > </a
+      ><a name="1266" class="Symbol"
+      >&#8594;</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" href="Common.FOL.FOL.html#1235" class="Bound"
+      >B</a
+      ><a name="1269"
+      > </a
+      ><a name="1270" class="Symbol"
+      >&#8594;</a
+      ><a name="1271"
+      > </a
+      ><a name="1272" href="Common.FOL.FOL.html#1233" class="Bound"
+      >A</a
+      ><a name="1273"
+      > </a
+      ><a name="1274" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1275"
+      > </a
+      ><a name="1276" href="Common.FOL.FOL.html#1235" class="Bound"
+      >B</a
+      ><a name="1277"
+      >
+
+</a
+      ><a name="1279" class="Comment"
+      >-- It is not strictly necessary define the projections &#8743;-proj&#8321; and</a
+      ><a name="1345"
+      >
+</a
+      ><a name="1346" class="Comment"
+      >-- &#8743;-proj&#8322; because the ATPs implement them. For the same reason, it is</a
+      ><a name="1416"
+      >
+</a
+      ><a name="1417" class="Comment"
+      >-- not necessary to add them as (general/local) hints.</a
+      ><a name="1471"
+      >
+</a
+      ><a name="1472" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="1479"
+      > </a
+      ><a name="1480" class="Symbol"
+      >:</a
+      ><a name="1481"
+      > </a
+      ><a name="1482" class="Symbol"
+      >&#8704;</a
+      ><a name="1483"
+      > </a
+      ><a name="1484" class="Symbol"
+      >{</a
+      ><a name="1485" href="Common.FOL.FOL.html#1485" class="Bound"
+      >A</a
+      ><a name="1486"
+      > </a
+      ><a name="1487" href="Common.FOL.FOL.html#1487" class="Bound"
+      >B</a
+      ><a name="1488" class="Symbol"
+      >}</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" class="Symbol"
+      >&#8594;</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" href="Common.FOL.FOL.html#1485" class="Bound"
+      >A</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1495"
+      > </a
+      ><a name="1496" href="Common.FOL.FOL.html#1487" class="Bound"
+      >B</a
+      ><a name="1497"
+      > </a
+      ><a name="1498" class="Symbol"
+      >&#8594;</a
+      ><a name="1499"
+      > </a
+      ><a name="1500" href="Common.FOL.FOL.html#1485" class="Bound"
+      >A</a
+      ><a name="1501"
+      >
+</a
+      ><a name="1502" href="Common.FOL.FOL.html#1472" class="Function"
+      >&#8743;-proj&#8321;</a
+      ><a name="1509"
+      > </a
+      ><a name="1510" class="Symbol"
+      >(</a
+      ><a name="1511" href="Common.FOL.FOL.html#1511" class="Bound"
+      >a</a
+      ><a name="1512"
+      > </a
+      ><a name="1513" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1514"
+      > </a
+      ><a name="1515" class="Symbol"
+      >_)</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" class="Symbol"
+      >=</a
+      ><a name="1519"
+      > </a
+      ><a name="1520" href="Common.FOL.FOL.html#1511" class="Bound"
+      >a</a
+      ><a name="1521"
+      >
+
+</a
+      ><a name="1523" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="1530"
+      > </a
+      ><a name="1531" class="Symbol"
+      >:</a
+      ><a name="1532"
+      > </a
+      ><a name="1533" class="Symbol"
+      >&#8704;</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" class="Symbol"
+      >{</a
+      ><a name="1536" href="Common.FOL.FOL.html#1536" class="Bound"
+      >A</a
+      ><a name="1537"
+      > </a
+      ><a name="1538" href="Common.FOL.FOL.html#1538" class="Bound"
+      >B</a
+      ><a name="1539" class="Symbol"
+      >}</a
+      ><a name="1540"
+      > </a
+      ><a name="1541" class="Symbol"
+      >&#8594;</a
+      ><a name="1542"
+      > </a
+      ><a name="1543" href="Common.FOL.FOL.html#1536" class="Bound"
+      >A</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1546"
+      > </a
+      ><a name="1547" href="Common.FOL.FOL.html#1538" class="Bound"
+      >B</a
+      ><a name="1548"
+      > </a
+      ><a name="1549" class="Symbol"
+      >&#8594;</a
+      ><a name="1550"
+      > </a
+      ><a name="1551" href="Common.FOL.FOL.html#1538" class="Bound"
+      >B</a
+      ><a name="1552"
+      >
+</a
+      ><a name="1553" href="Common.FOL.FOL.html#1523" class="Function"
+      >&#8743;-proj&#8322;</a
+      ><a name="1560"
+      > </a
+      ><a name="1561" class="Symbol"
+      >(_</a
+      ><a name="1563"
+      > </a
+      ><a name="1564" href="Common.FOL.FOL.html#1258" class="InductiveConstructor Operator"
+      >,</a
+      ><a name="1565"
+      > </a
+      ><a name="1566" href="Common.FOL.FOL.html#1566" class="Bound"
+      >b</a
+      ><a name="1567" class="Symbol"
+      >)</a
+      ><a name="1568"
+      > </a
+      ><a name="1569" class="Symbol"
+      >=</a
+      ><a name="1570"
+      > </a
+      ><a name="1571" href="Common.FOL.FOL.html#1566" class="Bound"
+      >b</a
+      ><a name="1572"
+      >
+
+</a
+      ><a name="1574" class="Comment"
+      >-----------------------------------------------------------------------------</a
+      ><a name="1651"
+      >
+</a
+      ><a name="1652" class="Comment"
+      >-- The disjunction data type.</a
+      ><a name="1681"
+      >
+
+</a
+      ><a name="1683" class="Comment"
+      >-- It is not necessary to add the data constructors inj&#8321; and inj&#8322; as</a
+      ><a name="1751"
+      >
+</a
+      ><a name="1752" class="Comment"
+      >-- axioms because the ATPs implement them.</a
+      ><a name="1794"
+      >
+</a
+      ><a name="1795" class="Keyword"
+      >data</a
+      ><a name="1799"
+      > </a
+      ><a name="1800" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >_&#8744;_</a
+      ><a name="1803"
+      > </a
+      ><a name="1804" class="Symbol"
+      >(</a
+      ><a name="1805" href="Common.FOL.FOL.html#1805" class="Bound"
+      >A</a
+      ><a name="1806"
+      > </a
+      ><a name="1807" href="Common.FOL.FOL.html#1807" class="Bound"
+      >B</a
+      ><a name="1808"
+      > </a
+      ><a name="1809" class="Symbol"
+      >:</a
+      ><a name="1810"
+      > </a
+      ><a name="1811" class="PrimitiveType"
+      >Set</a
+      ><a name="1814" class="Symbol"
+      >)</a
+      ><a name="1815"
+      > </a
+      ><a name="1816" class="Symbol"
+      >:</a
+      ><a name="1817"
+      > </a
+      ><a name="1818" class="PrimitiveType"
+      >Set</a
+      ><a name="1821"
+      > </a
+      ><a name="1822" class="Keyword"
+      >where</a
+      ><a name="1827"
+      >
+  </a
+      ><a name="1830" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="1834"
+      > </a
+      ><a name="1835" class="Symbol"
+      >:</a
+      ><a name="1836"
+      > </a
+      ><a name="1837" href="Common.FOL.FOL.html#1805" class="Bound"
+      >A</a
+      ><a name="1838"
+      > </a
+      ><a name="1839" class="Symbol"
+      >&#8594;</a
+      ><a name="1840"
+      > </a
+      ><a name="1841" href="Common.FOL.FOL.html#1805" class="Bound"
+      >A</a
+      ><a name="1842"
+      > </a
+      ><a name="1843" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1844"
+      > </a
+      ><a name="1845" href="Common.FOL.FOL.html#1807" class="Bound"
+      >B</a
+      ><a name="1846"
+      >
+  </a
+      ><a name="1849" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="1853"
+      > </a
+      ><a name="1854" class="Symbol"
+      >:</a
+      ><a name="1855"
+      > </a
+      ><a name="1856" href="Common.FOL.FOL.html#1807" class="Bound"
+      >B</a
+      ><a name="1857"
+      > </a
+      ><a name="1858" class="Symbol"
+      >&#8594;</a
+      ><a name="1859"
+      > </a
+      ><a name="1860" href="Common.FOL.FOL.html#1805" class="Bound"
+      >A</a
+      ><a name="1861"
+      > </a
+      ><a name="1862" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1863"
+      > </a
+      ><a name="1864" href="Common.FOL.FOL.html#1807" class="Bound"
+      >B</a
+      ><a name="1865"
+      >
+
+</a
+      ><a name="1867" class="Comment"
+      >-- It is not strictly necessary define the eliminator `case` because</a
+      ><a name="1935"
+      >
+</a
+      ><a name="1936" class="Comment"
+      >-- the ATPs implement it. For the same reason, it is not necessary to</a
+      ><a name="2005"
+      >
+</a
+      ><a name="2006" class="Comment"
+      >-- add it as a (general/local) hint.</a
+      ><a name="2042"
+      >
+</a
+      ><a name="2043" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="2047"
+      > </a
+      ><a name="2048" class="Symbol"
+      >:</a
+      ><a name="2049"
+      > </a
+      ><a name="2050" class="Symbol"
+      >&#8704;</a
+      ><a name="2051"
+      > </a
+      ><a name="2052" class="Symbol"
+      >{</a
+      ><a name="2053" href="Common.FOL.FOL.html#2053" class="Bound"
+      >A</a
+      ><a name="2054"
+      > </a
+      ><a name="2055" href="Common.FOL.FOL.html#2055" class="Bound"
+      >B</a
+      ><a name="2056" class="Symbol"
+      >}</a
+      ><a name="2057"
+      > </a
+      ><a name="2058" class="Symbol"
+      >&#8594;</a
+      ><a name="2059"
+      > </a
+      ><a name="2060" class="Symbol"
+      >{</a
+      ><a name="2061" href="Common.FOL.FOL.html#2061" class="Bound"
+      >C</a
+      ><a name="2062"
+      > </a
+      ><a name="2063" class="Symbol"
+      >:</a
+      ><a name="2064"
+      > </a
+      ><a name="2065" class="PrimitiveType"
+      >Set</a
+      ><a name="2068" class="Symbol"
+      >}</a
+      ><a name="2069"
+      > </a
+      ><a name="2070" class="Symbol"
+      >&#8594;</a
+      ><a name="2071"
+      > </a
+      ><a name="2072" class="Symbol"
+      >(</a
+      ><a name="2073" href="Common.FOL.FOL.html#2053" class="Bound"
+      >A</a
+      ><a name="2074"
+      > </a
+      ><a name="2075" class="Symbol"
+      >&#8594;</a
+      ><a name="2076"
+      > </a
+      ><a name="2077" href="Common.FOL.FOL.html#2061" class="Bound"
+      >C</a
+      ><a name="2078" class="Symbol"
+      >)</a
+      ><a name="2079"
+      > </a
+      ><a name="2080" class="Symbol"
+      >&#8594;</a
+      ><a name="2081"
+      > </a
+      ><a name="2082" class="Symbol"
+      >(</a
+      ><a name="2083" href="Common.FOL.FOL.html#2055" class="Bound"
+      >B</a
+      ><a name="2084"
+      > </a
+      ><a name="2085" class="Symbol"
+      >&#8594;</a
+      ><a name="2086"
+      > </a
+      ><a name="2087" href="Common.FOL.FOL.html#2061" class="Bound"
+      >C</a
+      ><a name="2088" class="Symbol"
+      >)</a
+      ><a name="2089"
+      > </a
+      ><a name="2090" class="Symbol"
+      >&#8594;</a
+      ><a name="2091"
+      > </a
+      ><a name="2092" href="Common.FOL.FOL.html#2053" class="Bound"
+      >A</a
+      ><a name="2093"
+      > </a
+      ><a name="2094" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="2095"
+      > </a
+      ><a name="2096" href="Common.FOL.FOL.html#2055" class="Bound"
+      >B</a
+      ><a name="2097"
+      > </a
+      ><a name="2098" class="Symbol"
+      >&#8594;</a
+      ><a name="2099"
+      > </a
+      ><a name="2100" href="Common.FOL.FOL.html#2061" class="Bound"
+      >C</a
+      ><a name="2101"
+      >
+</a
+      ><a name="2102" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="2106"
+      > </a
+      ><a name="2107" href="Common.FOL.FOL.html#2107" class="Bound"
+      >f</a
+      ><a name="2108"
+      > </a
+      ><a name="2109" href="Common.FOL.FOL.html#2109" class="Bound"
+      >g</a
+      ><a name="2110"
+      > </a
+      ><a name="2111" class="Symbol"
+      >(</a
+      ><a name="2112" href="Common.FOL.FOL.html#1830" class="InductiveConstructor"
+      >inj&#8321;</a
+      ><a name="2116"
+      > </a
+      ><a name="2117" href="Common.FOL.FOL.html#2117" class="Bound"
+      >a</a
+      ><a name="2118" class="Symbol"
+      >)</a
+      ><a name="2119"
+      > </a
+      ><a name="2120" class="Symbol"
+      >=</a
+      ><a name="2121"
+      > </a
+      ><a name="2122" href="Common.FOL.FOL.html#2107" class="Bound"
+      >f</a
+      ><a name="2123"
+      > </a
+      ><a name="2124" href="Common.FOL.FOL.html#2117" class="Bound"
+      >a</a
+      ><a name="2125"
+      >
+</a
+      ><a name="2126" href="Common.FOL.FOL.html#2043" class="Function"
+      >case</a
+      ><a name="2130"
+      > </a
+      ><a name="2131" href="Common.FOL.FOL.html#2131" class="Bound"
+      >f</a
+      ><a name="2132"
+      > </a
+      ><a name="2133" href="Common.FOL.FOL.html#2133" class="Bound"
+      >g</a
+      ><a name="2134"
+      > </a
+      ><a name="2135" class="Symbol"
+      >(</a
+      ><a name="2136" href="Common.FOL.FOL.html#1849" class="InductiveConstructor"
+      >inj&#8322;</a
+      ><a name="2140"
+      > </a
+      ><a name="2141" href="Common.FOL.FOL.html#2141" class="Bound"
+      >b</a
+      ><a name="2142" class="Symbol"
+      >)</a
+      ><a name="2143"
+      > </a
+      ><a name="2144" class="Symbol"
+      >=</a
+      ><a name="2145"
+      > </a
+      ><a name="2146" href="Common.FOL.FOL.html#2133" class="Bound"
+      >g</a
+      ><a name="2147"
+      > </a
+      ><a name="2148" href="Common.FOL.FOL.html#2141" class="Bound"
+      >b</a
+      ><a name="2149"
+      >
+
+</a
+      ><a name="2151" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2229"
+      >
+</a
+      ><a name="2230" class="Comment"
+      >-- The empty type.</a
+      ><a name="2248"
+      >
+</a
+      ><a name="2249" class="Keyword"
+      >data</a
+      ><a name="2253"
+      > </a
+      ><a name="2254" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2255"
+      > </a
+      ><a name="2256" class="Symbol"
+      >:</a
+      ><a name="2257"
+      > </a
+      ><a name="2258" class="PrimitiveType"
+      >Set</a
+      ><a name="2261"
+      > </a
+      ><a name="2262" class="Keyword"
+      >where</a
+      ><a name="2267"
+      >
+
+</a
+      ><a name="2269" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2275"
+      > </a
+      ><a name="2276" class="Symbol"
+      >:</a
+      ><a name="2277"
+      > </a
+      ><a name="2278" class="Symbol"
+      >{</a
+      ><a name="2279" href="Common.FOL.FOL.html#2279" class="Bound"
+      >A</a
+      ><a name="2280"
+      > </a
+      ><a name="2281" class="Symbol"
+      >:</a
+      ><a name="2282"
+      > </a
+      ><a name="2283" class="PrimitiveType"
+      >Set</a
+      ><a name="2286" class="Symbol"
+      >}</a
+      ><a name="2287"
+      > </a
+      ><a name="2288" class="Symbol"
+      >&#8594;</a
+      ><a name="2289"
+      > </a
+      ><a name="2290" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2291"
+      > </a
+      ><a name="2292" class="Symbol"
+      >&#8594;</a
+      ><a name="2293"
+      > </a
+      ><a name="2294" href="Common.FOL.FOL.html#2279" class="Bound"
+      >A</a
+      ><a name="2295"
+      >
+</a
+      ><a name="2296" href="Common.FOL.FOL.html#2269" class="Function"
+      >&#8869;-elim</a
+      ><a name="2302"
+      > </a
+      ><a name="2303" class="Symbol"
+      >()</a
+      ><a name="2305"
+      >
+
+</a
+      ><a name="2307" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2385"
+      >
+</a
+      ><a name="2386" class="Comment"
+      >-- The unit type.</a
+      ><a name="2403"
+      >
+</a
+      ><a name="2404" class="Comment"
+      >-- N.B. The name of this type is &quot;\top&quot;, not T.</a
+      ><a name="2451"
+      >
+</a
+      ><a name="2452" class="Keyword"
+      >data</a
+      ><a name="2456"
+      > </a
+      ><a name="2457" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="2458"
+      > </a
+      ><a name="2459" class="Symbol"
+      >:</a
+      ><a name="2460"
+      > </a
+      ><a name="2461" class="PrimitiveType"
+      >Set</a
+      ><a name="2464"
+      > </a
+      ><a name="2465" class="Keyword"
+      >where</a
+      ><a name="2470"
+      >
+  </a
+      ><a name="2473" href="Common.FOL.FOL.html#2473" class="InductiveConstructor"
+      >tt</a
+      ><a name="2475"
+      > </a
+      ><a name="2476" class="Symbol"
+      >:</a
+      ><a name="2477"
+      > </a
+      ><a name="2478" href="Common.FOL.FOL.html#2457" class="Datatype"
+      >&#8868;</a
+      ><a name="2479"
+      >
+
+</a
+      ><a name="2481" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2559"
+      >
+</a
+      ><a name="2560" class="Comment"
+      >-- Negation.</a
+      ><a name="2572"
+      >
+</a
+      ><a name="2573" class="Comment"
+      >-- The underscore allows to write for example '&#172; &#172; A' instead of '&#172; (&#172; A)'.</a
+      ><a name="2648"
+      >
+</a
+      ><a name="2649" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;_</a
+      ><a name="2651"
+      > </a
+      ><a name="2652" class="Symbol"
+      >:</a
+      ><a name="2653"
+      > </a
+      ><a name="2654" class="PrimitiveType"
+      >Set</a
+      ><a name="2657"
+      > </a
+      ><a name="2658" class="Symbol"
+      >&#8594;</a
+      ><a name="2659"
+      > </a
+      ><a name="2660" class="PrimitiveType"
+      >Set</a
+      ><a name="2663"
+      >
+</a
+      ><a name="2664" href="Common.FOL.FOL.html#2649" class="Function Operator"
+      >&#172;</a
+      ><a name="2665"
+      > </a
+      ><a name="2666" href="Common.FOL.FOL.html#2666" class="Bound"
+      >A</a
+      ><a name="2667"
+      > </a
+      ><a name="2668" class="Symbol"
+      >=</a
+      ><a name="2669"
+      > </a
+      ><a name="2670" href="Common.FOL.FOL.html#2666" class="Bound"
+      >A</a
+      ><a name="2671"
+      > </a
+      ><a name="2672" class="Symbol"
+      >&#8594;</a
+      ><a name="2673"
+      > </a
+      ><a name="2674" href="Common.FOL.FOL.html#2254" class="Datatype"
+      >&#8869;</a
+      ><a name="2675"
+      >
+
+</a
+      ><a name="2677" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2755"
+      >
+</a
+      ><a name="2756" class="Comment"
+      >-- Biconditional.</a
+      ><a name="2773"
+      >
+</a
+      ><a name="2774" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >_&#8596;_</a
+      ><a name="2777"
+      > </a
+      ><a name="2778" class="Symbol"
+      >:</a
+      ><a name="2779"
+      > </a
+      ><a name="2780" class="PrimitiveType"
+      >Set</a
+      ><a name="2783"
+      > </a
+      ><a name="2784" class="Symbol"
+      >&#8594;</a
+      ><a name="2785"
+      > </a
+      ><a name="2786" class="PrimitiveType"
+      >Set</a
+      ><a name="2789"
+      > </a
+      ><a name="2790" class="Symbol"
+      >&#8594;</a
+      ><a name="2791"
+      > </a
+      ><a name="2792" class="PrimitiveType"
+      >Set</a
+      ><a name="2795"
+      >
+</a
+      ><a name="2796" href="Common.FOL.FOL.html#2796" class="Bound"
+      >A</a
+      ><a name="2797"
+      > </a
+      ><a name="2798" href="Common.FOL.FOL.html#2774" class="Function Operator"
+      >&#8596;</a
+      ><a name="2799"
+      > </a
+      ><a name="2800" href="Common.FOL.FOL.html#2800" class="Bound"
+      >B</a
+      ><a name="2801"
+      > </a
+      ><a name="2802" class="Symbol"
+      >=</a
+      ><a name="2803"
+      > </a
+      ><a name="2804" class="Symbol"
+      >(</a
+      ><a name="2805" href="Common.FOL.FOL.html#2796" class="Bound"
+      >A</a
+      ><a name="2806"
+      > </a
+      ><a name="2807" class="Symbol"
+      >&#8594;</a
+      ><a name="2808"
+      > </a
+      ><a name="2809" href="Common.FOL.FOL.html#2800" class="Bound"
+      >B</a
+      ><a name="2810" class="Symbol"
+      >)</a
+      ><a name="2811"
+      > </a
+      ><a name="2812" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="2813"
+      > </a
+      ><a name="2814" class="Symbol"
+      >(</a
+      ><a name="2815" href="Common.FOL.FOL.html#2800" class="Bound"
+      >B</a
+      ><a name="2816"
+      > </a
+      ><a name="2817" class="Symbol"
+      >&#8594;</a
+      ><a name="2818"
+      > </a
+      ><a name="2819" href="Common.FOL.FOL.html#2796" class="Bound"
+      >A</a
+      ><a name="2820" class="Symbol"
+      >)</a
+      ><a name="2821"
+      >
+
+</a
+      ><a name="2823" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="2901"
+      >
+</a
+      ><a name="2902" class="Comment"
+      >-- The existential quantifier type on D.</a
+      ><a name="2942"
+      >
+</a
+      ><a name="2943" class="Keyword"
+      >data</a
+      ><a name="2947"
+      > </a
+      ><a name="2948" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="2949"
+      > </a
+      ><a name="2950" class="Symbol"
+      >(</a
+      ><a name="2951" href="Common.FOL.FOL.html#2951" class="Bound"
+      >A</a
+      ><a name="2952"
+      > </a
+      ><a name="2953" class="Symbol"
+      >:</a
+      ><a name="2954"
+      > </a
+      ><a name="2955" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2956"
+      > </a
+      ><a name="2957" class="Symbol"
+      >&#8594;</a
+      ><a name="2958"
+      > </a
+      ><a name="2959" class="PrimitiveType"
+      >Set</a
+      ><a name="2962" class="Symbol"
+      >)</a
+      ><a name="2963"
+      > </a
+      ><a name="2964" class="Symbol"
+      >:</a
+      ><a name="2965"
+      > </a
+      ><a name="2966" class="PrimitiveType"
+      >Set</a
+      ><a name="2969"
+      > </a
+      ><a name="2970" class="Keyword"
+      >where</a
+      ><a name="2975"
+      >
+  </a
+      ><a name="2978" href="Common.FOL.FOL.html#2978" class="InductiveConstructor Operator"
+      >_,_</a
+      ><a name="2981"
+      > </a
+      ><a name="2982" class="Symbol"
+      >:</a
+      ><a name="2983"
+      > </a
+      ><a name="2984" class="Symbol"
+      >(</a
+      ><a name="2985" href="Common.FOL.FOL.html#2985" class="Bound"
+      >t</a
+      ><a name="2986"
+      > </a
+      ><a name="2987" class="Symbol"
+      >:</a
+      ><a name="2988"
+      > </a
+      ><a name="2989" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="2990" class="Symbol"
+      >)</a
+      ><a name="2991"
+      > </a
+      ><a name="2992" class="Symbol"
+      >&#8594;</a
+      ><a name="2993"
+      > </a
+      ><a name="2994" href="Common.FOL.FOL.html#2951" class="Bound"
+      >A</a
+      ><a name="2995"
+      > </a
+      ><a name="2996" href="Common.FOL.FOL.html#2985" class="Bound"
+      >t</a
+      ><a name="2997"
+      > </a
+      ><a name="2998" class="Symbol"
+      >&#8594;</a
+      ><a name="2999"
+      > </a
+      ><a name="3000" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;</a
+      ><a name="3001"
+      > </a
+      ><a name="3002" href="Common.FOL.FOL.html#2951" class="Bound"
+      >A</a
+      ><a name="3003"
+      >
+
+</a
+      ><a name="3005" class="Comment"
+      >-- Sugar syntax for the existential quantifier.</a
+      ><a name="3052"
+      >
+</a
+      ><a name="3053" class="Keyword"
+      >syntax</a
+      ><a name="3059"
+      > &#8707; </a
+      ><a name="3062" class="Symbol"
+      >(&#955;</a
+      ><a name="3064"
+      > x </a
+      ><a name="3067" class="Symbol"
+      >&#8594;</a
+      ><a name="3068"
+      > e</a
+      ><a name="3070" class="Symbol"
+      >)</a
+      ><a name="3071"
+      > </a
+      ><a name="3072" class="Symbol"
+      >=</a
+      ><a name="3073"
+      > &#8707;[ x ] e
+
+</a
+      ><a name="3084" class="Comment"
+      >-- 2012-03-05: We avoid to use the existential elimination or the</a
+      ><a name="3149"
+      >
+</a
+      ><a name="3150" class="Comment"
+      >-- existential projections because we use pattern matching (and the</a
+      ><a name="3217"
+      >
+</a
+      ><a name="3218" class="Comment"
+      >-- Agda's with constructor).</a
+      ><a name="3246"
+      >
+
+</a
+      ><a name="3248" class="Comment"
+      >-- The existential elimination.</a
+      ><a name="3279"
+      >
+</a
+      ><a name="3280" class="Comment"
+      >--</a
+      ><a name="3282"
+      >
+</a
+      ><a name="3283" class="Comment"
+      >-- NB. We do not use the usual type theory elimination with two</a
+      ><a name="3346"
+      >
+</a
+      ><a name="3347" class="Comment"
+      >-- projections because we are working in first-order logic where we do</a
+      ><a name="3417"
+      >
+</a
+      ><a name="3418" class="Comment"
+      >-- not need extract a witness from an existence proof.</a
+      ><a name="3472"
+      >
+</a
+      ><a name="3473" class="Comment"
+      >-- &#8707;-elim : {A : D &#8594; Set}{B : Set} &#8594; &#8707; A &#8594; (&#8704; {x} &#8594; A x &#8594; B) &#8594; B</a
+      ><a name="3537"
+      >
+</a
+      ><a name="3538" class="Comment"
+      >-- &#8707;-elim (_ , Ax) h = h Ax</a
+      ><a name="3565"
+      >
+
+</a
+      ><a name="3567" class="Comment"
+      >-- The existential proyections.</a
+      ><a name="3598"
+      >
+</a
+      ><a name="3599" class="Comment"
+      >-- &#8707;-proj&#8321; : &#8704; {A} &#8594; &#8707; A &#8594; D</a
+      ><a name="3627"
+      >
+</a
+      ><a name="3628" class="Comment"
+      >-- &#8707;-proj&#8321; (x , _) = x</a
+      ><a name="3650"
+      >
+
+</a
+      ><a name="3652" class="Comment"
+      >-- &#8707;-proj&#8322; : &#8704; {A} &#8594; (h : &#8707; A) &#8594; A (&#8707;-proj&#8321; h)</a
+      ><a name="3698"
+      >
+</a
+      ><a name="3699" class="Comment"
+      >-- &#8707;-proj&#8322; (_ , Ax) = Ax</a
+      ><a name="3723"
+      >
+
+</a
+      ><a name="3725" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="3803"
+      >
+</a
+      ><a name="3804" class="Comment"
+      >-- Properties</a
+      ><a name="3817"
+      >
+
+</a
+      ><a name="3819" href="Common.FOL.FOL.html#3819" class="Function"
+      >&#8594;-trans</a
+      ><a name="3826"
+      > </a
+      ><a name="3827" class="Symbol"
+      >:</a
+      ><a name="3828"
+      > </a
+      ><a name="3829" class="Symbol"
+      >{</a
+      ><a name="3830" href="Common.FOL.FOL.html#3830" class="Bound"
+      >A</a
+      ><a name="3831"
+      > </a
+      ><a name="3832" href="Common.FOL.FOL.html#3832" class="Bound"
+      >B</a
+      ><a name="3833"
+      > </a
+      ><a name="3834" href="Common.FOL.FOL.html#3834" class="Bound"
+      >C</a
+      ><a name="3835"
+      > </a
+      ><a name="3836" class="Symbol"
+      >:</a
+      ><a name="3837"
+      > </a
+      ><a name="3838" class="PrimitiveType"
+      >Set</a
+      ><a name="3841" class="Symbol"
+      >}</a
+      ><a name="3842"
+      > </a
+      ><a name="3843" class="Symbol"
+      >&#8594;</a
+      ><a name="3844"
+      > </a
+      ><a name="3845" class="Symbol"
+      >(</a
+      ><a name="3846" href="Common.FOL.FOL.html#3830" class="Bound"
+      >A</a
+      ><a name="3847"
+      > </a
+      ><a name="3848" class="Symbol"
+      >&#8594;</a
+      ><a name="3849"
+      > </a
+      ><a name="3850" href="Common.FOL.FOL.html#3832" class="Bound"
+      >B</a
+      ><a name="3851" class="Symbol"
+      >)</a
+      ><a name="3852"
+      > </a
+      ><a name="3853" class="Symbol"
+      >&#8594;</a
+      ><a name="3854"
+      > </a
+      ><a name="3855" class="Symbol"
+      >(</a
+      ><a name="3856" href="Common.FOL.FOL.html#3832" class="Bound"
+      >B</a
+      ><a name="3857"
+      > </a
+      ><a name="3858" class="Symbol"
+      >&#8594;</a
+      ><a name="3859"
+      > </a
+      ><a name="3860" href="Common.FOL.FOL.html#3834" class="Bound"
+      >C</a
+      ><a name="3861" class="Symbol"
+      >)</a
+      ><a name="3862"
+      > </a
+      ><a name="3863" class="Symbol"
+      >&#8594;</a
+      ><a name="3864"
+      > </a
+      ><a name="3865" href="Common.FOL.FOL.html#3830" class="Bound"
+      >A</a
+      ><a name="3866"
+      > </a
+      ><a name="3867" class="Symbol"
+      >&#8594;</a
+      ><a name="3868"
+      > </a
+      ><a name="3869" href="Common.FOL.FOL.html#3834" class="Bound"
+      >C</a
+      ><a name="3870"
+      >
+</a
+      ><a name="3871" href="Common.FOL.FOL.html#3819" class="Function"
+      >&#8594;-trans</a
+      ><a name="3878"
+      > </a
+      ><a name="3879" href="Common.FOL.FOL.html#3879" class="Bound"
+      >f</a
+      ><a name="3880"
+      > </a
+      ><a name="3881" href="Common.FOL.FOL.html#3881" class="Bound"
+      >g</a
+      ><a name="3882"
+      > </a
+      ><a name="3883" href="Common.FOL.FOL.html#3883" class="Bound"
+      >a</a
+      ><a name="3884"
+      > </a
+      ><a name="3885" class="Symbol"
+      >=</a
+      ><a name="3886"
+      > </a
+      ><a name="3887" href="Common.FOL.FOL.html#3881" class="Bound"
+      >g</a
+      ><a name="3888"
+      > </a
+      ><a name="3889" class="Symbol"
+      >(</a
+      ><a name="3890" href="Common.FOL.FOL.html#3879" class="Bound"
+      >f</a
+      ><a name="3891"
+      > </a
+      ><a name="3892" href="Common.FOL.FOL.html#3883" class="Bound"
+      >a</a
+      ><a name="3893" class="Symbol"
+      >)</a
+      ><a name="3894"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

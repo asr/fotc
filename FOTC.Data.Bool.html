@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Bool</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The Booleans</a
+      ><a name="95"
+      >
+</a
+      ><a name="96" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="174"
+      >
+
+</a
+      ><a name="176" class="Symbol"
+      >{-#</a
+      ><a name="179"
+      > </a
+      ><a name="180" class="Keyword"
+      >OPTIONS</a
+      ><a name="187"
+      > --exact-split              </a
+      ><a name="215" class="Symbol"
+      >#-}</a
+      ><a name="218"
+      >
+</a
+      ><a name="219" class="Symbol"
+      >{-#</a
+      ><a name="222"
+      > </a
+      ><a name="223" class="Keyword"
+      >OPTIONS</a
+      ><a name="230"
+      > --no-sized-types           </a
+      ><a name="258" class="Symbol"
+      >#-}</a
+      ><a name="261"
+      >
+</a
+      ><a name="262" class="Symbol"
+      >{-#</a
+      ><a name="265"
+      > </a
+      ><a name="266" class="Keyword"
+      >OPTIONS</a
+      ><a name="273"
+      > --no-universe-polymorphism </a
+      ><a name="301" class="Symbol"
+      >#-}</a
+      ><a name="304"
+      >
+</a
+      ><a name="305" class="Symbol"
+      >{-#</a
+      ><a name="308"
+      > </a
+      ><a name="309" class="Keyword"
+      >OPTIONS</a
+      ><a name="316"
+      > --without-K                </a
+      ><a name="344" class="Symbol"
+      >#-}</a
+      ><a name="347"
+      >
+
+</a
+      ><a name="349" class="Keyword"
+      >module</a
+      ><a name="355"
+      > </a
+      ><a name="356" href="FOTC.Data.Bool.html#1" class="Module"
+      >FOTC.Data.Bool</a
+      ><a name="370"
+      > </a
+      ><a name="371" class="Keyword"
+      >where</a
+      ><a name="376"
+      >
+
+</a
+      ><a name="378" class="Keyword"
+      >open</a
+      ><a name="382"
+      > </a
+      ><a name="383" class="Keyword"
+      >import</a
+      ><a name="389"
+      > </a
+      ><a name="390" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="399"
+      >
+</a
+      ><a name="400" class="Keyword"
+      >open</a
+      ><a name="404"
+      > </a
+      ><a name="405" class="Keyword"
+      >import</a
+      ><a name="411"
+      > </a
+      ><a name="412" href="FOTC.Data.Bool.Type.html#1" class="Module"
+      >FOTC.Data.Bool.Type</a
+      ><a name="431"
+      > </a
+      ><a name="432" class="Keyword"
+      >public</a
+      ><a name="438"
+      >
+
+</a
+      ><a name="440" class="Keyword"
+      >infixr</a
+      ><a name="446"
+      > </a
+      ><a name="447" class="Number"
+      >6</a
+      ><a name="448"
+      > _&amp;&amp;_
+
+</a
+      ><a name="455" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="533"
+      >
+</a
+      ><a name="534" class="Comment"
+      >-- Basic functions</a
+      ><a name="552"
+      >
+
+</a
+      ><a name="554" class="Comment"
+      >-- The conjunction.</a
+      ><a name="573"
+      >
+</a
+      ><a name="574" href="FOTC.Data.Bool.html#574" class="Function Operator"
+      >_&amp;&amp;_</a
+      ><a name="578"
+      >  </a
+      ><a name="580" class="Symbol"
+      >:</a
+      ><a name="581"
+      > </a
+      ><a name="582" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="583"
+      > </a
+      ><a name="584" class="Symbol"
+      >&#8594;</a
+      ><a name="585"
+      > </a
+      ><a name="586" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="587"
+      > </a
+      ><a name="588" class="Symbol"
+      >&#8594;</a
+      ><a name="589"
+      > </a
+      ><a name="590" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="591"
+      >
+</a
+      ><a name="592" href="FOTC.Data.Bool.html#592" class="Bound"
+      >a</a
+      ><a name="593"
+      > </a
+      ><a name="594" href="FOTC.Data.Bool.html#574" class="Function Operator"
+      >&amp;&amp;</a
+      ><a name="596"
+      > </a
+      ><a name="597" href="FOTC.Data.Bool.html#597" class="Bound"
+      >b</a
+      ><a name="598"
+      > </a
+      ><a name="599" class="Symbol"
+      >=</a
+      ><a name="600"
+      > </a
+      ><a name="601" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="603"
+      > </a
+      ><a name="604" href="FOTC.Data.Bool.html#592" class="Bound"
+      >a</a
+      ><a name="605"
+      > </a
+      ><a name="606" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="610"
+      > </a
+      ><a name="611" href="FOTC.Data.Bool.html#597" class="Bound"
+      >b</a
+      ><a name="612"
+      > </a
+      ><a name="613" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="617"
+      > </a
+      ><a name="618" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="623"
+      >
+</a
+      ><a name="624" class="Symbol"
+      >{-#</a
+      ><a name="627"
+      > </a
+      ><a name="628" class="Keyword"
+      >ATP</a
+      ><a name="631"
+      > definition </a
+      ><a name="643" href="FOTC.Data.Bool.html#574" class="Function Operator"
+      >_&amp;&amp;_</a
+      ><a name="647"
+      > </a
+      ><a name="648" class="Symbol"
+      >#-}</a
+      ><a name="651"
+      >
+
+</a
+      ><a name="653" class="Comment"
+      >-- The negation.</a
+      ><a name="669"
+      >
+</a
+      ><a name="670" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="673"
+      > </a
+      ><a name="674" class="Symbol"
+      >:</a
+      ><a name="675"
+      > </a
+      ><a name="676" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="677"
+      > </a
+      ><a name="678" class="Symbol"
+      >&#8594;</a
+      ><a name="679"
+      > </a
+      ><a name="680" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="681"
+      >
+</a
+      ><a name="682" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="685"
+      > </a
+      ><a name="686" href="FOTC.Data.Bool.html#686" class="Bound"
+      >b</a
+      ><a name="687"
+      > </a
+      ><a name="688" class="Symbol"
+      >=</a
+      ><a name="689"
+      > </a
+      ><a name="690" href="FOTC.Base.html#1741" class="Function Operator"
+      >if</a
+      ><a name="692"
+      > </a
+      ><a name="693" href="FOTC.Data.Bool.html#686" class="Bound"
+      >b</a
+      ><a name="694"
+      > </a
+      ><a name="695" href="FOTC.Base.html#1741" class="Function Operator"
+      >then</a
+      ><a name="699"
+      > </a
+      ><a name="700" href="FOTC.Base.html#1230" class="Postulate"
+      >false</a
+      ><a name="705"
+      > </a
+      ><a name="706" href="FOTC.Base.html#1741" class="Function Operator"
+      >else</a
+      ><a name="710"
+      > </a
+      ><a name="711" href="FOTC.Base.html#1225" class="Postulate"
+      >true</a
+      ><a name="715"
+      >
+</a
+      ><a name="716" class="Symbol"
+      >{-#</a
+      ><a name="719"
+      > </a
+      ><a name="720" class="Keyword"
+      >ATP</a
+      ><a name="723"
+      > definition </a
+      ><a name="735" href="FOTC.Data.Bool.html#670" class="Function"
+      >not</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >#-}</a
+      ><a name="742"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Colist.Type</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The FOTC co-inductive lists type</a
+      ><a name="115"
+      >
+</a
+      ><a name="116" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="194"
+      >
+
+</a
+      ><a name="196" class="Symbol"
+      >{-#</a
+      ><a name="199"
+      > </a
+      ><a name="200" class="Keyword"
+      >OPTIONS</a
+      ><a name="207"
+      > --exact-split              </a
+      ><a name="235" class="Symbol"
+      >#-}</a
+      ><a name="238"
+      >
+</a
+      ><a name="239" class="Symbol"
+      >{-#</a
+      ><a name="242"
+      > </a
+      ><a name="243" class="Keyword"
+      >OPTIONS</a
+      ><a name="250"
+      > --no-sized-types           </a
+      ><a name="278" class="Symbol"
+      >#-}</a
+      ><a name="281"
+      >
+</a
+      ><a name="282" class="Symbol"
+      >{-#</a
+      ><a name="285"
+      > </a
+      ><a name="286" class="Keyword"
+      >OPTIONS</a
+      ><a name="293"
+      > --no-universe-polymorphism </a
+      ><a name="321" class="Symbol"
+      >#-}</a
+      ><a name="324"
+      >
+</a
+      ><a name="325" class="Symbol"
+      >{-#</a
+      ><a name="328"
+      > </a
+      ><a name="329" class="Keyword"
+      >OPTIONS</a
+      ><a name="336"
+      > --without-K                </a
+      ><a name="364" class="Symbol"
+      >#-}</a
+      ><a name="367"
+      >
+
+</a
+      ><a name="369" class="Comment"
+      >-- N.B. This module is re-exported by FOTC.Data.Colist.</a
+      ><a name="424"
+      >
+
+</a
+      ><a name="426" class="Keyword"
+      >module</a
+      ><a name="432"
+      > </a
+      ><a name="433" href="FOTC.Data.Colist.Type.html#1" class="Module"
+      >FOTC.Data.Colist.Type</a
+      ><a name="454"
+      > </a
+      ><a name="455" class="Keyword"
+      >where</a
+      ><a name="460"
+      >
+
+</a
+      ><a name="462" class="Keyword"
+      >open</a
+      ><a name="466"
+      > </a
+      ><a name="467" class="Keyword"
+      >import</a
+      ><a name="473"
+      > </a
+      ><a name="474" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="483"
+      >
+</a
+      ><a name="484" class="Keyword"
+      >open</a
+      ><a name="488"
+      > </a
+      ><a name="489" class="Keyword"
+      >import</a
+      ><a name="495"
+      > </a
+      ><a name="496" href="FOTC.Base.List.html#1" class="Module"
+      >FOTC.Base.List</a
+      ><a name="510"
+      >
+
+</a
+      ><a name="512" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="590"
+      >
+</a
+      ><a name="591" class="Comment"
+      >-- The FOTC co-lists type (co-inductive predicate for total list).</a
+      ><a name="657"
+      >
+
+</a
+      ><a name="659" class="Comment"
+      >-- Functional for the Colist predicate.</a
+      ><a name="698"
+      >
+</a
+      ><a name="699" class="Comment"
+      >-- ColistF : (D &#8594; Set) &#8594; D &#8594; Set</a
+      ><a name="731"
+      >
+</a
+      ><a name="732" class="Comment"
+      >-- ColistF A xs = xs &#8801; [] &#8744; &#8707;[ x' ] &#8707;[ xs' ] xs &#8801; x' &#8759; xs' &#8743; A xs'</a
+      ><a name="798"
+      >
+
+</a
+      ><a name="800" class="Comment"
+      >-- Colist is the greatest fixed-point of ColistF (by Colist-out and</a
+      ><a name="867"
+      >
+</a
+      ><a name="868" class="Comment"
+      >-- Colist-coind).</a
+      ><a name="885"
+      >
+
+</a
+      ><a name="887" class="Keyword"
+      >postulate</a
+      ><a name="896"
+      >
+  </a
+      ><a name="899" href="FOTC.Data.Colist.Type.html#899" class="Postulate"
+      >Colist</a
+      ><a name="905"
+      > </a
+      ><a name="906" class="Symbol"
+      >:</a
+      ><a name="907"
+      > </a
+      ><a name="908" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="909"
+      > </a
+      ><a name="910" class="Symbol"
+      >&#8594;</a
+      ><a name="911"
+      > </a
+      ><a name="912" class="PrimitiveType"
+      >Set</a
+      ><a name="915"
+      >
+
+</a
+      ><a name="917" class="Keyword"
+      >postulate</a
+      ><a name="926"
+      >
+</a
+      ><a name="927" class="Comment"
+      >-- Colist is a post-fixed point of ColistF, i.e.</a
+      ><a name="975"
+      >
+</a
+      ><a name="976" class="Comment"
+      >--</a
+      ><a name="978"
+      >
+</a
+      ><a name="979" class="Comment"
+      >-- Colist &#8804; ColistF Colist.</a
+      ><a name="1006"
+      >
+  </a
+      ><a name="1009" href="FOTC.Data.Colist.Type.html#1009" class="Postulate"
+      >Colist-out</a
+      ><a name="1019"
+      > </a
+      ><a name="1020" class="Symbol"
+      >:</a
+      ><a name="1021"
+      > </a
+      ><a name="1022" class="Symbol"
+      >&#8704;</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" class="Symbol"
+      >{</a
+      ><a name="1025" href="FOTC.Data.Colist.Type.html#1025" class="Bound"
+      >xs</a
+      ><a name="1027" class="Symbol"
+      >}</a
+      ><a name="1028"
+      > </a
+      ><a name="1029" class="Symbol"
+      >&#8594;</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" href="FOTC.Data.Colist.Type.html#899" class="Postulate"
+      >Colist</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOTC.Data.Colist.Type.html#1025" class="Bound"
+      >xs</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" class="Symbol"
+      >&#8594;</a
+      ><a name="1042"
+      >
+               </a
+      ><a name="1058" href="FOTC.Data.Colist.Type.html#1025" class="Bound"
+      >xs</a
+      ><a name="1060"
+      > </a
+      ><a name="1061" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1062"
+      > </a
+      ><a name="1063" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1065"
+      > </a
+      ><a name="1066" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1067"
+      > </a
+      ><a name="1068" class="Symbol"
+      >(</a
+      ><a name="1069" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1071"
+      > </a
+      ><a name="1072" href="FOTC.Data.Colist.Type.html#1072" class="Bound"
+      >x'</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" href="FOTC.Data.Colist.Type.html#1080" class="Bound"
+      >xs'</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1085"
+      > </a
+      ><a name="1086" href="FOTC.Data.Colist.Type.html#1025" class="Bound"
+      >xs</a
+      ><a name="1088"
+      > </a
+      ><a name="1089" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1090"
+      > </a
+      ><a name="1091" href="FOTC.Data.Colist.Type.html#1072" class="Bound"
+      >x'</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" href="FOTC.Data.Colist.Type.html#1080" class="Bound"
+      >xs'</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1101"
+      > </a
+      ><a name="1102" href="FOTC.Data.Colist.Type.html#899" class="Postulate"
+      >Colist</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" href="FOTC.Data.Colist.Type.html#1080" class="Bound"
+      >xs'</a
+      ><a name="1112" class="Symbol"
+      >)</a
+      ><a name="1113"
+      >
+</a
+      ><a name="1114" class="Symbol"
+      >{-#</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Keyword"
+      >ATP</a
+      ><a name="1121"
+      > axiom </a
+      ><a name="1128" href="FOTC.Data.Colist.Type.html#1009" class="Postulate"
+      >Colist-out</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" class="Symbol"
+      >#-}</a
+      ><a name="1142"
+      >
+
+</a
+      ><a name="1144" class="Comment"
+      >-- Colist is the greatest post-fixed point of ColistF, i.e.</a
+      ><a name="1203"
+      >
+</a
+      ><a name="1204" class="Comment"
+      >--</a
+      ><a name="1206"
+      >
+</a
+      ><a name="1207" class="Comment"
+      >-- &#8704; A. A &#8804; ColistF A &#8658; A &#8804; Colist.</a
+      ><a name="1242"
+      >
+</a
+      ><a name="1243" class="Comment"
+      >--</a
+      ><a name="1245"
+      >
+</a
+      ><a name="1246" class="Comment"
+      >-- N.B. This is an axiom schema. Because in the automatic proofs we</a
+      ><a name="1313"
+      >
+</a
+      ><a name="1314" class="Comment"
+      >-- *must* use an instance, we do not add this postulate as an ATP</a
+      ><a name="1379"
+      >
+</a
+      ><a name="1380" class="Comment"
+      >-- axiom.</a
+      ><a name="1389"
+      >
+</a
+      ><a name="1390" class="Keyword"
+      >postulate</a
+      ><a name="1399"
+      >
+  </a
+      ><a name="1402" href="FOTC.Data.Colist.Type.html#1402" class="Postulate"
+      >Colist-coind</a
+      ><a name="1414"
+      > </a
+      ><a name="1415" class="Symbol"
+      >:</a
+      ><a name="1416"
+      >
+    </a
+      ><a name="1421" class="Symbol"
+      >(</a
+      ><a name="1422" href="FOTC.Data.Colist.Type.html#1422" class="Bound"
+      >A</a
+      ><a name="1423"
+      > </a
+      ><a name="1424" class="Symbol"
+      >:</a
+      ><a name="1425"
+      > </a
+      ><a name="1426" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="1427"
+      > </a
+      ><a name="1428" class="Symbol"
+      >&#8594;</a
+      ><a name="1429"
+      > </a
+      ><a name="1430" class="PrimitiveType"
+      >Set</a
+      ><a name="1433" class="Symbol"
+      >)</a
+      ><a name="1434"
+      > </a
+      ><a name="1435" class="Symbol"
+      >&#8594;</a
+      ><a name="1436"
+      >
+    </a
+      ><a name="1441" class="Comment"
+      >-- A is post-fixed point of ColistF.</a
+      ><a name="1477"
+      >
+    </a
+      ><a name="1482" class="Symbol"
+      >(&#8704;</a
+      ><a name="1484"
+      > </a
+      ><a name="1485" class="Symbol"
+      >{</a
+      ><a name="1486" href="FOTC.Data.Colist.Type.html#1486" class="Bound"
+      >xs</a
+      ><a name="1488" class="Symbol"
+      >}</a
+      ><a name="1489"
+      > </a
+      ><a name="1490" class="Symbol"
+      >&#8594;</a
+      ><a name="1491"
+      > </a
+      ><a name="1492" href="FOTC.Data.Colist.Type.html#1422" class="Bound"
+      >A</a
+      ><a name="1493"
+      > </a
+      ><a name="1494" href="FOTC.Data.Colist.Type.html#1486" class="Bound"
+      >xs</a
+      ><a name="1496"
+      > </a
+      ><a name="1497" class="Symbol"
+      >&#8594;</a
+      ><a name="1498"
+      > </a
+      ><a name="1499" href="FOTC.Data.Colist.Type.html#1486" class="Bound"
+      >xs</a
+      ><a name="1501"
+      > </a
+      ><a name="1502" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1503"
+      > </a
+      ><a name="1504" href="FOTC.Base.List.html#561" class="Postulate"
+      >[]</a
+      ><a name="1506"
+      > </a
+      ><a name="1507" href="Common.FOL.FOL.html#1800" class="Datatype Operator"
+      >&#8744;</a
+      ><a name="1508"
+      > </a
+      ><a name="1509" class="Symbol"
+      >(</a
+      ><a name="1510" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1512"
+      > </a
+      ><a name="1513" href="FOTC.Data.Colist.Type.html#1513" class="Bound"
+      >x'</a
+      ><a name="1515"
+      > </a
+      ><a name="1516" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1517"
+      > </a
+      ><a name="1518" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >&#8707;[</a
+      ><a name="1520"
+      > </a
+      ><a name="1521" href="FOTC.Data.Colist.Type.html#1521" class="Bound"
+      >xs'</a
+      ><a name="1524"
+      > </a
+      ><a name="1525" href="Common.FOL.FOL.html#2948" class="Datatype"
+      >]</a
+      ><a name="1526"
+      > </a
+      ><a name="1527" href="FOTC.Data.Colist.Type.html#1486" class="Bound"
+      >xs</a
+      ><a name="1529"
+      > </a
+      ><a name="1530" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1531"
+      > </a
+      ><a name="1532" href="FOTC.Data.Colist.Type.html#1513" class="Bound"
+      >x'</a
+      ><a name="1534"
+      > </a
+      ><a name="1535" href="FOTC.Base.List.html#639" class="Function Operator"
+      >&#8759;</a
+      ><a name="1536"
+      > </a
+      ><a name="1537" href="FOTC.Data.Colist.Type.html#1521" class="Bound"
+      >xs'</a
+      ><a name="1540"
+      > </a
+      ><a name="1541" href="Common.FOL.FOL.html#1228" class="Datatype Operator"
+      >&#8743;</a
+      ><a name="1542"
+      > </a
+      ><a name="1543" href="FOTC.Data.Colist.Type.html#1422" class="Bound"
+      >A</a
+      ><a name="1544"
+      > </a
+      ><a name="1545" href="FOTC.Data.Colist.Type.html#1521" class="Bound"
+      >xs'</a
+      ><a name="1548" class="Symbol"
+      >))</a
+      ><a name="1550"
+      > </a
+      ><a name="1551" class="Symbol"
+      >&#8594;</a
+      ><a name="1552"
+      >
+    </a
+      ><a name="1557" class="Comment"
+      >-- Colist is greater than A.</a
+      ><a name="1585"
+      >
+    </a
+      ><a name="1590" class="Symbol"
+      >&#8704;</a
+      ><a name="1591"
+      > </a
+      ><a name="1592" class="Symbol"
+      >{</a
+      ><a name="1593" href="FOTC.Data.Colist.Type.html#1593" class="Bound"
+      >xs</a
+      ><a name="1595" class="Symbol"
+      >}</a
+      ><a name="1596"
+      > </a
+      ><a name="1597" class="Symbol"
+      >&#8594;</a
+      ><a name="1598"
+      > </a
+      ><a name="1599" href="FOTC.Data.Colist.Type.html#1422" class="Bound"
+      >A</a
+      ><a name="1600"
+      > </a
+      ><a name="1601" href="FOTC.Data.Colist.Type.html#1593" class="Bound"
+      >xs</a
+      ><a name="1603"
+      > </a
+      ><a name="1604" class="Symbol"
+      >&#8594;</a
+      ><a name="1605"
+      > </a
+      ><a name="1606" href="FOTC.Data.Colist.Type.html#899" class="Postulate"
+      >Colist</a
+      ><a name="1612"
+      > </a
+      ><a name="1613" href="FOTC.Data.Colist.Type.html#1593" class="Bound"
+      >xs</a
+      ><a name="1615"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.List.PropertiesI</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Properties related with lists of natural numbers</a
+      ><a name="131"
+      >
+</a
+      ><a name="132" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="210"
+      >
+
+</a
+      ><a name="212" class="Symbol"
+      >{-#</a
+      ><a name="215"
+      > </a
+      ><a name="216" class="Keyword"
+      >OPTIONS</a
+      ><a name="223"
+      > --exact-split              </a
+      ><a name="251" class="Symbol"
+      >#-}</a
+      ><a name="254"
+      >
+</a
+      ><a name="255" class="Symbol"
+      >{-#</a
+      ><a name="258"
+      > </a
+      ><a name="259" class="Keyword"
+      >OPTIONS</a
+      ><a name="266"
+      > --no-sized-types           </a
+      ><a name="294" class="Symbol"
+      >#-}</a
+      ><a name="297"
+      >
+</a
+      ><a name="298" class="Symbol"
+      >{-#</a
+      ><a name="301"
+      > </a
+      ><a name="302" class="Keyword"
+      >OPTIONS</a
+      ><a name="309"
+      > --no-universe-polymorphism </a
+      ><a name="337" class="Symbol"
+      >#-}</a
+      ><a name="340"
+      >
+</a
+      ><a name="341" class="Symbol"
+      >{-#</a
+      ><a name="344"
+      > </a
+      ><a name="345" class="Keyword"
+      >OPTIONS</a
+      ><a name="352"
+      > --without-K                </a
+      ><a name="380" class="Symbol"
+      >#-}</a
+      ><a name="383"
+      >
+
+</a
+      ><a name="385" class="Keyword"
+      >module</a
+      ><a name="391"
+      > </a
+      ><a name="392" href="FOTC.Data.Nat.List.PropertiesI.html#1" class="Module"
+      >FOTC.Data.Nat.List.PropertiesI</a
+      ><a name="422"
+      > </a
+      ><a name="423" class="Keyword"
+      >where</a
+      ><a name="428"
+      >
+
+</a
+      ><a name="430" class="Keyword"
+      >open</a
+      ><a name="434"
+      > </a
+      ><a name="435" class="Keyword"
+      >import</a
+      ><a name="441"
+      > </a
+      ><a name="442" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="451"
+      >
+</a
+      ><a name="452" class="Keyword"
+      >open</a
+      ><a name="456"
+      > </a
+      ><a name="457" class="Keyword"
+      >import</a
+      ><a name="463"
+      > </a
+      ><a name="464" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="477"
+      >
+</a
+      ><a name="478" class="Keyword"
+      >open</a
+      ><a name="482"
+      > </a
+      ><a name="483" class="Keyword"
+      >import</a
+      ><a name="489"
+      > </a
+      ><a name="490" href="FOTC.Data.Nat.List.html#1" class="Module"
+      >FOTC.Data.Nat.List</a
+      ><a name="508"
+      >
+</a
+      ><a name="509" class="Keyword"
+      >open</a
+      ><a name="513"
+      > </a
+      ><a name="514" class="Keyword"
+      >import</a
+      ><a name="520"
+      > </a
+      ><a name="521" href="FOTC.Data.List.html#1" class="Module"
+      >FOTC.Data.List</a
+      ><a name="535"
+      >
+
+</a
+      ><a name="537" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="615"
+      >
+</a
+      ><a name="616" class="Comment"
+      >-- See the ATP version.</a
+      ><a name="639"
+      >
+</a
+      ><a name="640" class="Keyword"
+      >postulate</a
+      ><a name="649"
+      > </a
+      ><a name="650" href="FOTC.Data.Nat.List.PropertiesI.html#650" class="Postulate"
+      >++-ListN</a
+      ><a name="658"
+      > </a
+      ><a name="659" class="Symbol"
+      >:</a
+      ><a name="660"
+      > </a
+      ><a name="661" class="Symbol"
+      >&#8704;</a
+      ><a name="662"
+      > </a
+      ><a name="663" class="Symbol"
+      >{</a
+      ><a name="664" href="FOTC.Data.Nat.List.PropertiesI.html#664" class="Bound"
+      >ms</a
+      ><a name="666"
+      > </a
+      ><a name="667" href="FOTC.Data.Nat.List.PropertiesI.html#667" class="Bound"
+      >ns</a
+      ><a name="669" class="Symbol"
+      >}</a
+      ><a name="670"
+      > </a
+      ><a name="671" class="Symbol"
+      >&#8594;</a
+      ><a name="672"
+      > </a
+      ><a name="673" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="678"
+      > </a
+      ><a name="679" href="FOTC.Data.Nat.List.PropertiesI.html#664" class="Bound"
+      >ms</a
+      ><a name="681"
+      > </a
+      ><a name="682" class="Symbol"
+      >&#8594;</a
+      ><a name="683"
+      > </a
+      ><a name="684" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="689"
+      > </a
+      ><a name="690" href="FOTC.Data.Nat.List.PropertiesI.html#667" class="Bound"
+      >ns</a
+      ><a name="692"
+      > </a
+      ><a name="693" class="Symbol"
+      >&#8594;</a
+      ><a name="694"
+      > </a
+      ><a name="695" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="700"
+      > </a
+      ><a name="701" class="Symbol"
+      >(</a
+      ><a name="702" href="FOTC.Data.Nat.List.PropertiesI.html#664" class="Bound"
+      >ms</a
+      ><a name="704"
+      > </a
+      ><a name="705" href="FOTC.Data.List.html#760" class="Postulate Operator"
+      >++</a
+      ><a name="707"
+      > </a
+      ><a name="708" href="FOTC.Data.Nat.List.PropertiesI.html#667" class="Bound"
+      >ns</a
+      ><a name="710" class="Symbol"
+      >)</a
+      ><a name="711"
+      >
+
+</a
+      ><a name="713" href="FOTC.Data.Nat.List.PropertiesI.html#713" class="Function"
+      >map-ListN</a
+      ><a name="722"
+      > </a
+      ><a name="723" class="Symbol"
+      >:</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Symbol"
+      >&#8704;</a
+      ><a name="726"
+      > </a
+      ><a name="727" href="FOTC.Data.Nat.List.PropertiesI.html#727" class="Bound"
+      >f</a
+      ><a name="728"
+      > </a
+      ><a name="729" class="Symbol"
+      >{</a
+      ><a name="730" href="FOTC.Data.Nat.List.PropertiesI.html#730" class="Bound"
+      >ns</a
+      ><a name="732" class="Symbol"
+      >}</a
+      ><a name="733"
+      > </a
+      ><a name="734" class="Symbol"
+      >&#8594;</a
+      ><a name="735"
+      > </a
+      ><a name="736" class="Symbol"
+      >(&#8704;</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >{</a
+      ><a name="740" href="FOTC.Data.Nat.List.PropertiesI.html#740" class="Bound"
+      >n</a
+      ><a name="741" class="Symbol"
+      >}</a
+      ><a name="742"
+      > </a
+      ><a name="743" class="Symbol"
+      >&#8594;</a
+      ><a name="744"
+      > </a
+      ><a name="745" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="746"
+      > </a
+      ><a name="747" href="FOTC.Data.Nat.List.PropertiesI.html#740" class="Bound"
+      >n</a
+      ><a name="748"
+      > </a
+      ><a name="749" class="Symbol"
+      >&#8594;</a
+      ><a name="750"
+      > </a
+      ><a name="751" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="752"
+      > </a
+      ><a name="753" class="Symbol"
+      >(</a
+      ><a name="754" href="FOTC.Data.Nat.List.PropertiesI.html#727" class="Bound"
+      >f</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="FOTC.Base.html#1166" class="Postulate Operator"
+      >&#183;</a
+      ><a name="757"
+      > </a
+      ><a name="758" href="FOTC.Data.Nat.List.PropertiesI.html#740" class="Bound"
+      >n</a
+      ><a name="759" class="Symbol"
+      >))</a
+      ><a name="761"
+      > </a
+      ><a name="762" class="Symbol"
+      >&#8594;</a
+      ><a name="763"
+      > </a
+      ><a name="764" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="769"
+      > </a
+      ><a name="770" href="FOTC.Data.Nat.List.PropertiesI.html#730" class="Bound"
+      >ns</a
+      ><a name="772"
+      > </a
+      ><a name="773" class="Symbol"
+      >&#8594;</a
+      ><a name="774"
+      > </a
+      ><a name="775" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="780"
+      > </a
+      ><a name="781" class="Symbol"
+      >(</a
+      ><a name="782" href="FOTC.Data.List.html#942" class="Postulate"
+      >map</a
+      ><a name="785"
+      > </a
+      ><a name="786" href="FOTC.Data.Nat.List.PropertiesI.html#727" class="Bound"
+      >f</a
+      ><a name="787"
+      > </a
+      ><a name="788" href="FOTC.Data.Nat.List.PropertiesI.html#730" class="Bound"
+      >ns</a
+      ><a name="790" class="Symbol"
+      >)</a
+      ><a name="791"
+      >
+</a
+      ><a name="792" href="FOTC.Data.Nat.List.PropertiesI.html#713" class="Function"
+      >map-ListN</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="FOTC.Data.Nat.List.PropertiesI.html#802" class="Bound"
+      >f</a
+      ><a name="803"
+      > </a
+      ><a name="804" href="FOTC.Data.Nat.List.PropertiesI.html#804" class="Bound"
+      >h</a
+      ><a name="805"
+      > </a
+      ><a name="806" href="FOTC.Data.Nat.List.Type.html#701" class="InductiveConstructor"
+      >lnnil</a
+      ><a name="811"
+      >                    </a
+      ><a name="831" class="Symbol"
+      >=</a
+      ><a name="832"
+      > </a
+      ><a name="833" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="838"
+      > </a
+      ><a name="839" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="844"
+      > </a
+      ><a name="845" class="Symbol"
+      >(</a
+      ><a name="846" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="849"
+      > </a
+      ><a name="850" class="Symbol"
+      >(</a
+      ><a name="851" href="FOTC.Data.List.html#963" class="Postulate"
+      >map-[]</a
+      ><a name="857"
+      > </a
+      ><a name="858" href="FOTC.Data.Nat.List.PropertiesI.html#802" class="Bound"
+      >f</a
+      ><a name="859" class="Symbol"
+      >))</a
+      ><a name="861"
+      > </a
+      ><a name="862" href="FOTC.Data.Nat.List.Type.html#701" class="InductiveConstructor"
+      >lnnil</a
+      ><a name="867"
+      >
+</a
+      ><a name="868" href="FOTC.Data.Nat.List.PropertiesI.html#713" class="Function"
+      >map-ListN</a
+      ><a name="877"
+      > </a
+      ><a name="878" href="FOTC.Data.Nat.List.PropertiesI.html#878" class="Bound"
+      >f</a
+      ><a name="879"
+      > </a
+      ><a name="880" href="FOTC.Data.Nat.List.PropertiesI.html#880" class="Bound"
+      >h</a
+      ><a name="881"
+      > </a
+      ><a name="882" class="Symbol"
+      >(</a
+      ><a name="883" href="FOTC.Data.Nat.List.Type.html#721" class="InductiveConstructor"
+      >lncons</a
+      ><a name="889"
+      > </a
+      ><a name="890" class="Symbol"
+      >{</a
+      ><a name="891" href="FOTC.Data.Nat.List.PropertiesI.html#891" class="Bound"
+      >n</a
+      ><a name="892" class="Symbol"
+      >}</a
+      ><a name="893"
+      > </a
+      ><a name="894" class="Symbol"
+      >{</a
+      ><a name="895" href="FOTC.Data.Nat.List.PropertiesI.html#895" class="Bound"
+      >ns</a
+      ><a name="897" class="Symbol"
+      >}</a
+      ><a name="898"
+      > </a
+      ><a name="899" href="FOTC.Data.Nat.List.PropertiesI.html#899" class="Bound"
+      >Nn</a
+      ><a name="901"
+      > </a
+      ><a name="902" href="FOTC.Data.Nat.List.PropertiesI.html#902" class="Bound"
+      >Lns</a
+      ><a name="905" class="Symbol"
+      >)</a
+      ><a name="906"
+      > </a
+      ><a name="907" class="Symbol"
+      >=</a
+      ><a name="908"
+      >
+  </a
+      ><a name="911" href="Common.FOL.Relation.Binary.PropositionalEquality.html#732" class="Function"
+      >subst</a
+      ><a name="916"
+      > </a
+      ><a name="917" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="922"
+      > </a
+      ><a name="923" class="Symbol"
+      >(</a
+      ><a name="924" href="Common.FOL.Relation.Binary.PropositionalEquality.html#830" class="Function"
+      >sym</a
+      ><a name="927"
+      > </a
+      ><a name="928" class="Symbol"
+      >(</a
+      ><a name="929" href="FOTC.Data.List.html#1005" class="Postulate"
+      >map-&#8759;</a
+      ><a name="934"
+      > </a
+      ><a name="935" href="FOTC.Data.Nat.List.PropertiesI.html#878" class="Bound"
+      >f</a
+      ><a name="936"
+      > </a
+      ><a name="937" href="FOTC.Data.Nat.List.PropertiesI.html#891" class="Bound"
+      >n</a
+      ><a name="938"
+      > </a
+      ><a name="939" href="FOTC.Data.Nat.List.PropertiesI.html#895" class="Bound"
+      >ns</a
+      ><a name="941" class="Symbol"
+      >))</a
+      ><a name="943"
+      > </a
+      ><a name="944" class="Symbol"
+      >(</a
+      ><a name="945" href="FOTC.Data.Nat.List.Type.html#721" class="InductiveConstructor"
+      >lncons</a
+      ><a name="951"
+      > </a
+      ><a name="952" class="Symbol"
+      >(</a
+      ><a name="953" href="FOTC.Data.Nat.List.PropertiesI.html#880" class="Bound"
+      >h</a
+      ><a name="954"
+      > </a
+      ><a name="955" href="FOTC.Data.Nat.List.PropertiesI.html#899" class="Bound"
+      >Nn</a
+      ><a name="957" class="Symbol"
+      >)</a
+      ><a name="958"
+      > </a
+      ><a name="959" class="Symbol"
+      >(</a
+      ><a name="960" href="FOTC.Data.Nat.List.PropertiesI.html#713" class="Function"
+      >map-ListN</a
+      ><a name="969"
+      > </a
+      ><a name="970" href="FOTC.Data.Nat.List.PropertiesI.html#878" class="Bound"
+      >f</a
+      ><a name="971"
+      > </a
+      ><a name="972" href="FOTC.Data.Nat.List.PropertiesI.html#880" class="Bound"
+      >h</a
+      ><a name="973"
+      > </a
+      ><a name="974" href="FOTC.Data.Nat.List.PropertiesI.html#902" class="Bound"
+      >Lns</a
+      ><a name="977" class="Symbol"
+      >))</a
+      ><a name="979"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

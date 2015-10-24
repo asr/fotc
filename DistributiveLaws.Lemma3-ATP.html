@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >DistributiveLaws.Lemma3-ATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Distributive laws on a binary operation: Lemma 3</a
+      ><a name="131"
+      >
+</a
+      ><a name="132" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="210"
+      >
+
+</a
+      ><a name="212" class="Symbol"
+      >{-#</a
+      ><a name="215"
+      > </a
+      ><a name="216" class="Keyword"
+      >OPTIONS</a
+      ><a name="223"
+      > --exact-split              </a
+      ><a name="251" class="Symbol"
+      >#-}</a
+      ><a name="254"
+      >
+</a
+      ><a name="255" class="Symbol"
+      >{-#</a
+      ><a name="258"
+      > </a
+      ><a name="259" class="Keyword"
+      >OPTIONS</a
+      ><a name="266"
+      > --no-sized-types           </a
+      ><a name="294" class="Symbol"
+      >#-}</a
+      ><a name="297"
+      >
+</a
+      ><a name="298" class="Symbol"
+      >{-#</a
+      ><a name="301"
+      > </a
+      ><a name="302" class="Keyword"
+      >OPTIONS</a
+      ><a name="309"
+      > --no-universe-polymorphism </a
+      ><a name="337" class="Symbol"
+      >#-}</a
+      ><a name="340"
+      >
+</a
+      ><a name="341" class="Symbol"
+      >{-#</a
+      ><a name="344"
+      > </a
+      ><a name="345" class="Keyword"
+      >OPTIONS</a
+      ><a name="352"
+      > --without-K                </a
+      ><a name="380" class="Symbol"
+      >#-}</a
+      ><a name="383"
+      >
+
+</a
+      ><a name="385" class="Keyword"
+      >module</a
+      ><a name="391"
+      > </a
+      ><a name="392" href="DistributiveLaws.Lemma3-ATP.html#1" class="Module"
+      >DistributiveLaws.Lemma3-ATP</a
+      ><a name="419"
+      > </a
+      ><a name="420" class="Keyword"
+      >where</a
+      ><a name="425"
+      >
+
+</a
+      ><a name="427" class="Keyword"
+      >open</a
+      ><a name="431"
+      > </a
+      ><a name="432" class="Keyword"
+      >import</a
+      ><a name="438"
+      > </a
+      ><a name="439" href="DistributiveLaws.Base.html#1" class="Module"
+      >DistributiveLaws.Base</a
+      ><a name="460"
+      >
+
+</a
+      ><a name="462" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="540"
+      >
+
+</a
+      ><a name="542" class="Keyword"
+      >postulate</a
+      ><a name="551"
+      > </a
+      ><a name="552" href="DistributiveLaws.Lemma3-ATP.html#552" class="Postulate"
+      >lemma&#8323;</a
+      ><a name="558"
+      > </a
+      ><a name="559" class="Symbol"
+      >:</a
+      ><a name="560"
+      > </a
+      ><a name="561" class="Symbol"
+      >&#8704;</a
+      ><a name="562"
+      > </a
+      ><a name="563" href="DistributiveLaws.Lemma3-ATP.html#563" class="Bound"
+      >x</a
+      ><a name="564"
+      > </a
+      ><a name="565" href="DistributiveLaws.Lemma3-ATP.html#565" class="Bound"
+      >y</a
+      ><a name="566"
+      > </a
+      ><a name="567" href="DistributiveLaws.Lemma3-ATP.html#567" class="Bound"
+      >z</a
+      ><a name="568"
+      > </a
+      ><a name="569" class="Symbol"
+      >&#8594;</a
+      ><a name="570"
+      > </a
+      ><a name="571" class="Symbol"
+      >(</a
+      ><a name="572" href="DistributiveLaws.Lemma3-ATP.html#563" class="Bound"
+      >x</a
+      ><a name="573"
+      > </a
+      ><a name="574" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="575"
+      > </a
+      ><a name="576" href="DistributiveLaws.Lemma3-ATP.html#565" class="Bound"
+      >y</a
+      ><a name="577" class="Symbol"
+      >)</a
+      ><a name="578"
+      > </a
+      ><a name="579" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="580"
+      > </a
+      ><a name="581" class="Symbol"
+      >(</a
+      ><a name="582" href="DistributiveLaws.Lemma3-ATP.html#567" class="Bound"
+      >z</a
+      ><a name="583"
+      > </a
+      ><a name="584" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="585"
+      > </a
+      ><a name="586" href="DistributiveLaws.Lemma3-ATP.html#567" class="Bound"
+      >z</a
+      ><a name="587" class="Symbol"
+      >)</a
+      ><a name="588"
+      > </a
+      ><a name="589" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="590"
+      > </a
+      ><a name="591" class="Symbol"
+      >(</a
+      ><a name="592" href="DistributiveLaws.Lemma3-ATP.html#563" class="Bound"
+      >x</a
+      ><a name="593"
+      > </a
+      ><a name="594" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="595"
+      > </a
+      ><a name="596" href="DistributiveLaws.Lemma3-ATP.html#565" class="Bound"
+      >y</a
+      ><a name="597" class="Symbol"
+      >)</a
+      ><a name="598"
+      > </a
+      ><a name="599" href="DistributiveLaws.Base.html#728" class="Postulate Operator"
+      >&#183;</a
+      ><a name="600"
+      > </a
+      ><a name="601" href="DistributiveLaws.Lemma3-ATP.html#567" class="Bound"
+      >z</a
+      ><a name="602"
+      >
+</a
+      ><a name="603" class="Symbol"
+      >{-#</a
+      ><a name="606"
+      > </a
+      ><a name="607" class="Keyword"
+      >ATP</a
+      ><a name="610"
+      > prove </a
+      ><a name="617" href="DistributiveLaws.Lemma3-ATP.html#552" class="Postulate"
+      >lemma&#8323;</a
+      ><a name="623"
+      > </a
+      ><a name="624" class="Symbol"
+      >#-}</a
+      ><a name="627"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.Collatz.Collatz</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The Collatz function: A function without a termination proof</a
+      ><a name="143"
+      >
+</a
+      ><a name="144" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="222"
+      >
+
+</a
+      ><a name="224" class="Symbol"
+      >{-#</a
+      ><a name="227"
+      > </a
+      ><a name="228" class="Keyword"
+      >OPTIONS</a
+      ><a name="235"
+      > --exact-split              </a
+      ><a name="263" class="Symbol"
+      >#-}</a
+      ><a name="266"
+      >
+</a
+      ><a name="267" class="Symbol"
+      >{-#</a
+      ><a name="270"
+      > </a
+      ><a name="271" class="Keyword"
+      >OPTIONS</a
+      ><a name="278"
+      > --no-sized-types           </a
+      ><a name="306" class="Symbol"
+      >#-}</a
+      ><a name="309"
+      >
+</a
+      ><a name="310" class="Symbol"
+      >{-#</a
+      ><a name="313"
+      > </a
+      ><a name="314" class="Keyword"
+      >OPTIONS</a
+      ><a name="321"
+      > --no-universe-polymorphism </a
+      ><a name="349" class="Symbol"
+      >#-}</a
+      ><a name="352"
+      >
+</a
+      ><a name="353" class="Symbol"
+      >{-#</a
+      ><a name="356"
+      > </a
+      ><a name="357" class="Keyword"
+      >OPTIONS</a
+      ><a name="364"
+      > --without-K                </a
+      ><a name="392" class="Symbol"
+      >#-}</a
+      ><a name="395"
+      >
+
+</a
+      ><a name="397" class="Keyword"
+      >module</a
+      ><a name="403"
+      > </a
+      ><a name="404" href="FOTC.Program.Collatz.Collatz.html#1" class="Module"
+      >FOTC.Program.Collatz.Collatz</a
+      ><a name="432"
+      > </a
+      ><a name="433" class="Keyword"
+      >where</a
+      ><a name="438"
+      >
+
+</a
+      ><a name="440" class="Keyword"
+      >open</a
+      ><a name="444"
+      > </a
+      ><a name="445" class="Keyword"
+      >import</a
+      ><a name="451"
+      > </a
+      ><a name="452" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="461"
+      >
+</a
+      ><a name="462" class="Keyword"
+      >open</a
+      ><a name="466"
+      > </a
+      ><a name="467" class="Keyword"
+      >import</a
+      ><a name="473"
+      > </a
+      ><a name="474" href="FOTC.Data.Nat.html#1" class="Module"
+      >FOTC.Data.Nat</a
+      ><a name="487"
+      >
+</a
+      ><a name="488" class="Keyword"
+      >open</a
+      ><a name="492"
+      > </a
+      ><a name="493" class="Keyword"
+      >import</a
+      ><a name="499"
+      > </a
+      ><a name="500" href="FOTC.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers</a
+      ><a name="526"
+      >
+</a
+      ><a name="527" class="Keyword"
+      >open</a
+      ><a name="531"
+      > </a
+      ><a name="532" class="Keyword"
+      >import</a
+      ><a name="538"
+      > </a
+      ><a name="539" href="FOTC.Program.Collatz.Data.Nat.html#1" class="Module"
+      >FOTC.Program.Collatz.Data.Nat</a
+      ><a name="568"
+      >
+
+</a
+      ><a name="570" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="648"
+      >
+</a
+      ><a name="649" class="Comment"
+      >-- The Collatz function.</a
+      ><a name="673"
+      >
+</a
+      ><a name="674" class="Keyword"
+      >postulate</a
+      ><a name="683"
+      >
+  </a
+      ><a name="686" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="693"
+      >         </a
+      ><a name="702" class="Symbol"
+      >:</a
+      ><a name="703"
+      > </a
+      ><a name="704" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="705"
+      > </a
+      ><a name="706" class="Symbol"
+      >&#8594;</a
+      ><a name="707"
+      > </a
+      ><a name="708" href="Common.FOL.FOL.html#1003" class="Postulate"
+      >D</a
+      ><a name="709"
+      >
+  </a
+      ><a name="712" href="FOTC.Program.Collatz.Collatz.html#712" class="Postulate"
+      >collatz-0</a
+      ><a name="721"
+      >       </a
+      ><a name="728" class="Symbol"
+      >:</a
+      ><a name="729"
+      > </a
+      ><a name="730" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="737"
+      > </a
+      ><a name="738" href="FOTC.Data.Nat.UnaryNumbers.html#504" class="Function"
+      >0'</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="742"
+      > </a
+      ><a name="743" href="FOTC.Data.Nat.UnaryNumbers.html#515" class="Function"
+      >1'</a
+      ><a name="745"
+      >
+  </a
+      ><a name="748" href="FOTC.Program.Collatz.Collatz.html#748" class="Postulate"
+      >collatz-1</a
+      ><a name="757"
+      >       </a
+      ><a name="764" class="Symbol"
+      >:</a
+      ><a name="765"
+      > </a
+      ><a name="766" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="773"
+      > </a
+      ><a name="774" href="FOTC.Data.Nat.UnaryNumbers.html#515" class="Function"
+      >1'</a
+      ><a name="776"
+      > </a
+      ><a name="777" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="778"
+      > </a
+      ><a name="779" href="FOTC.Data.Nat.UnaryNumbers.html#515" class="Function"
+      >1'</a
+      ><a name="781"
+      >
+  </a
+      ><a name="784" href="FOTC.Program.Collatz.Collatz.html#784" class="Postulate"
+      >collatz-even</a
+      ><a name="796"
+      >    </a
+      ><a name="800" class="Symbol"
+      >:</a
+      ><a name="801"
+      > </a
+      ><a name="802" class="Symbol"
+      >&#8704;</a
+      ><a name="803"
+      > </a
+      ><a name="804" class="Symbol"
+      >{</a
+      ><a name="805" href="FOTC.Program.Collatz.Collatz.html#805" class="Bound"
+      >n</a
+      ><a name="806" class="Symbol"
+      >}</a
+      ><a name="807"
+      > </a
+      ><a name="808" class="Symbol"
+      >&#8594;</a
+      ><a name="809"
+      > </a
+      ><a name="810" href="FOTC.Program.Collatz.Data.Nat.html#1307" class="Function"
+      >Even</a
+      ><a name="814"
+      > </a
+      ><a name="815" class="Symbol"
+      >(</a
+      ><a name="816" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="821"
+      > </a
+      ><a name="822" class="Symbol"
+      >(</a
+      ><a name="823" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="828"
+      > </a
+      ><a name="829" href="FOTC.Program.Collatz.Collatz.html#805" class="Bound"
+      >n</a
+      ><a name="830" class="Symbol"
+      >))</a
+      ><a name="832"
+      > </a
+      ><a name="833" class="Symbol"
+      >&#8594;</a
+      ><a name="834"
+      >
+                    </a
+      ><a name="855" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="862"
+      > </a
+      ><a name="863" class="Symbol"
+      >(</a
+      ><a name="864" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="869"
+      > </a
+      ><a name="870" class="Symbol"
+      >(</a
+      ><a name="871" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="876"
+      > </a
+      ><a name="877" href="FOTC.Program.Collatz.Collatz.html#805" class="Bound"
+      >n</a
+      ><a name="878" class="Symbol"
+      >))</a
+      ><a name="880"
+      > </a
+      ><a name="881" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="882"
+      >
+                      </a
+      ><a name="905" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="912"
+      > </a
+      ><a name="913" class="Symbol"
+      >(</a
+      ><a name="914" href="FOTC.Program.Collatz.Data.Nat.html#753" class="Postulate"
+      >div</a
+      ><a name="917"
+      > </a
+      ><a name="918" class="Symbol"
+      >(</a
+      ><a name="919" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="924"
+      > </a
+      ><a name="925" class="Symbol"
+      >(</a
+      ><a name="926" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="931"
+      > </a
+      ><a name="932" href="FOTC.Program.Collatz.Collatz.html#805" class="Bound"
+      >n</a
+      ><a name="933" class="Symbol"
+      >))</a
+      ><a name="935"
+      > </a
+      ><a name="936" href="FOTC.Data.Nat.UnaryNumbers.html#530" class="Function"
+      >2'</a
+      ><a name="938" class="Symbol"
+      >)</a
+      ><a name="939"
+      >
+  </a
+      ><a name="942" href="FOTC.Program.Collatz.Collatz.html#942" class="Postulate"
+      >collatz-noteven</a
+      ><a name="957"
+      > </a
+      ><a name="958" class="Symbol"
+      >:</a
+      ><a name="959"
+      > </a
+      ><a name="960" class="Symbol"
+      >&#8704;</a
+      ><a name="961"
+      > </a
+      ><a name="962" class="Symbol"
+      >{</a
+      ><a name="963" href="FOTC.Program.Collatz.Collatz.html#963" class="Bound"
+      >n</a
+      ><a name="964" class="Symbol"
+      >}</a
+      ><a name="965"
+      > </a
+      ><a name="966" class="Symbol"
+      >&#8594;</a
+      ><a name="967"
+      > </a
+      ><a name="968" href="FOTC.Program.Collatz.Data.Nat.html#1374" class="Function"
+      >NotEven</a
+      ><a name="975"
+      > </a
+      ><a name="976" class="Symbol"
+      >(</a
+      ><a name="977" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="982"
+      > </a
+      ><a name="983" class="Symbol"
+      >(</a
+      ><a name="984" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="989"
+      > </a
+      ><a name="990" href="FOTC.Program.Collatz.Collatz.html#963" class="Bound"
+      >n</a
+      ><a name="991" class="Symbol"
+      >))</a
+      ><a name="993"
+      > </a
+      ><a name="994" class="Symbol"
+      >&#8594;</a
+      ><a name="995"
+      >
+                    </a
+      ><a name="1016" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="1023"
+      > </a
+      ><a name="1024" class="Symbol"
+      >(</a
+      ><a name="1025" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1030"
+      > </a
+      ><a name="1031" class="Symbol"
+      >(</a
+      ><a name="1032" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1037"
+      > </a
+      ><a name="1038" href="FOTC.Program.Collatz.Collatz.html#963" class="Bound"
+      >n</a
+      ><a name="1039" class="Symbol"
+      >))</a
+      ><a name="1041"
+      > </a
+      ><a name="1042" href="Common.FOL.Relation.Binary.PropositionalEquality.html#667" class="Datatype Operator"
+      >&#8801;</a
+      ><a name="1043"
+      >
+                      </a
+      ><a name="1066" href="FOTC.Program.Collatz.Collatz.html#686" class="Postulate"
+      >collatz</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" class="Symbol"
+      >(</a
+      ><a name="1075" href="FOTC.Data.Nat.UnaryNumbers.html#545" class="Function"
+      >3'</a
+      ><a name="1077"
+      > </a
+      ><a name="1078" href="FOTC.Data.Nat.html#868" class="Postulate Operator"
+      >*</a
+      ><a name="1079"
+      > </a
+      ><a name="1080" class="Symbol"
+      >(</a
+      ><a name="1081" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1086"
+      > </a
+      ><a name="1087" class="Symbol"
+      >(</a
+      ><a name="1088" href="FOTC.Base.html#1856" class="Function"
+      >succ&#8321;</a
+      ><a name="1093"
+      > </a
+      ><a name="1094" href="FOTC.Program.Collatz.Collatz.html#963" class="Bound"
+      >n</a
+      ><a name="1095" class="Symbol"
+      >))</a
+      ><a name="1097"
+      > </a
+      ><a name="1098" href="FOTC.Data.Nat.html#594" class="Postulate Operator"
+      >+</a
+      ><a name="1099"
+      > </a
+      ><a name="1100" href="FOTC.Data.Nat.UnaryNumbers.html#515" class="Function"
+      >1'</a
+      ><a name="1102" class="Symbol"
+      >)</a
+      ><a name="1103"
+      >
+</a
+      ><a name="1104" class="Symbol"
+      >{-#</a
+      ><a name="1107"
+      > </a
+      ><a name="1108" class="Keyword"
+      >ATP</a
+      ><a name="1111"
+      > axioms </a
+      ><a name="1119" href="FOTC.Program.Collatz.Collatz.html#712" class="Postulate"
+      >collatz-0</a
+      ><a name="1128"
+      > </a
+      ><a name="1129" href="FOTC.Program.Collatz.Collatz.html#748" class="Postulate"
+      >collatz-1</a
+      ><a name="1138"
+      > </a
+      ><a name="1139" href="FOTC.Program.Collatz.Collatz.html#784" class="Postulate"
+      >collatz-even</a
+      ><a name="1151"
+      > </a
+      ><a name="1152" href="FOTC.Program.Collatz.Collatz.html#942" class="Postulate"
+      >collatz-noteven</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >#-}</a
+      ><a name="1171"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

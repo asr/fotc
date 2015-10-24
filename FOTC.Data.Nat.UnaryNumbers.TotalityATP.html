@@ -1,0 +1,925 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Data.Nat.UnaryNumbers.TotalityATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- The unary numbers are FOTC total natural numbers</a
+      ><a name="131"
+      >
+</a
+      ><a name="132" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="210"
+      >
+
+</a
+      ><a name="212" class="Symbol"
+      >{-#</a
+      ><a name="215"
+      > </a
+      ><a name="216" class="Keyword"
+      >OPTIONS</a
+      ><a name="223"
+      > --exact-split              </a
+      ><a name="251" class="Symbol"
+      >#-}</a
+      ><a name="254"
+      >
+</a
+      ><a name="255" class="Symbol"
+      >{-#</a
+      ><a name="258"
+      > </a
+      ><a name="259" class="Keyword"
+      >OPTIONS</a
+      ><a name="266"
+      > --no-sized-types           </a
+      ><a name="294" class="Symbol"
+      >#-}</a
+      ><a name="297"
+      >
+</a
+      ><a name="298" class="Symbol"
+      >{-#</a
+      ><a name="301"
+      > </a
+      ><a name="302" class="Keyword"
+      >OPTIONS</a
+      ><a name="309"
+      > --no-universe-polymorphism </a
+      ><a name="337" class="Symbol"
+      >#-}</a
+      ><a name="340"
+      >
+</a
+      ><a name="341" class="Symbol"
+      >{-#</a
+      ><a name="344"
+      > </a
+      ><a name="345" class="Keyword"
+      >OPTIONS</a
+      ><a name="352"
+      > --without-K                </a
+      ><a name="380" class="Symbol"
+      >#-}</a
+      ><a name="383"
+      >
+
+</a
+      ><a name="385" class="Keyword"
+      >module</a
+      ><a name="391"
+      > </a
+      ><a name="392" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers.TotalityATP</a
+      ><a name="430"
+      > </a
+      ><a name="431" class="Keyword"
+      >where</a
+      ><a name="436"
+      >
+
+</a
+      ><a name="438" class="Keyword"
+      >open</a
+      ><a name="442"
+      > </a
+      ><a name="443" class="Keyword"
+      >import</a
+      ><a name="449"
+      > </a
+      ><a name="450" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="459"
+      >
+</a
+      ><a name="460" class="Keyword"
+      >open</a
+      ><a name="464"
+      > </a
+      ><a name="465" class="Keyword"
+      >import</a
+      ><a name="471"
+      > </a
+      ><a name="472" href="FOTC.Data.Nat.Type.html#1" class="Module"
+      >FOTC.Data.Nat.Type</a
+      ><a name="490"
+      >
+</a
+      ><a name="491" class="Keyword"
+      >open</a
+      ><a name="495"
+      > </a
+      ><a name="496" class="Keyword"
+      >import</a
+      ><a name="502"
+      > </a
+      ><a name="503" href="FOTC.Data.Nat.UnaryNumbers.html#1" class="Module"
+      >FOTC.Data.Nat.UnaryNumbers</a
+      ><a name="529"
+      >
+
+</a
+      ><a name="531" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="609"
+      >
+
+</a
+      ><a name="611" class="Keyword"
+      >postulate</a
+      ><a name="620"
+      >
+  </a
+      ><a name="623" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#623" class="Postulate"
+      >0-N</a
+      ><a name="626"
+      > </a
+      ><a name="627" class="Symbol"
+      >:</a
+      ><a name="628"
+      > </a
+      ><a name="629" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="630"
+      > </a
+      ><a name="631" href="FOTC.Data.Nat.UnaryNumbers.html#504" class="Function"
+      >0'</a
+      ><a name="633"
+      >
+  </a
+      ><a name="636" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#636" class="Postulate"
+      >1-N</a
+      ><a name="639"
+      > </a
+      ><a name="640" class="Symbol"
+      >:</a
+      ><a name="641"
+      > </a
+      ><a name="642" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="643"
+      > </a
+      ><a name="644" href="FOTC.Data.Nat.UnaryNumbers.html#515" class="Function"
+      >1'</a
+      ><a name="646"
+      >
+  </a
+      ><a name="649" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#649" class="Postulate"
+      >2-N</a
+      ><a name="652"
+      > </a
+      ><a name="653" class="Symbol"
+      >:</a
+      ><a name="654"
+      > </a
+      ><a name="655" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="656"
+      > </a
+      ><a name="657" href="FOTC.Data.Nat.UnaryNumbers.html#530" class="Function"
+      >2'</a
+      ><a name="659"
+      >
+  </a
+      ><a name="662" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#662" class="Postulate"
+      >3-N</a
+      ><a name="665"
+      > </a
+      ><a name="666" class="Symbol"
+      >:</a
+      ><a name="667"
+      > </a
+      ><a name="668" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="669"
+      > </a
+      ><a name="670" href="FOTC.Data.Nat.UnaryNumbers.html#545" class="Function"
+      >3'</a
+      ><a name="672"
+      >
+  </a
+      ><a name="675" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#675" class="Postulate"
+      >4-N</a
+      ><a name="678"
+      > </a
+      ><a name="679" class="Symbol"
+      >:</a
+      ><a name="680"
+      > </a
+      ><a name="681" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="682"
+      > </a
+      ><a name="683" href="FOTC.Data.Nat.UnaryNumbers.html#560" class="Function"
+      >4'</a
+      ><a name="685"
+      >
+  </a
+      ><a name="688" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#688" class="Postulate"
+      >5-N</a
+      ><a name="691"
+      > </a
+      ><a name="692" class="Symbol"
+      >:</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="695"
+      > </a
+      ><a name="696" href="FOTC.Data.Nat.UnaryNumbers.html#575" class="Function"
+      >5'</a
+      ><a name="698"
+      >
+</a
+      ><a name="699" class="Symbol"
+      >{-#</a
+      ><a name="702"
+      > </a
+      ><a name="703" class="Keyword"
+      >ATP</a
+      ><a name="706"
+      > prove </a
+      ><a name="713" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#623" class="Postulate"
+      >0-N</a
+      ><a name="716"
+      > </a
+      ><a name="717" class="Symbol"
+      >#-}</a
+      ><a name="720"
+      >
+</a
+      ><a name="721" class="Symbol"
+      >{-#</a
+      ><a name="724"
+      > </a
+      ><a name="725" class="Keyword"
+      >ATP</a
+      ><a name="728"
+      > prove </a
+      ><a name="735" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#636" class="Postulate"
+      >1-N</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >#-}</a
+      ><a name="742"
+      >
+</a
+      ><a name="743" class="Symbol"
+      >{-#</a
+      ><a name="746"
+      > </a
+      ><a name="747" class="Keyword"
+      >ATP</a
+      ><a name="750"
+      > prove </a
+      ><a name="757" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#649" class="Postulate"
+      >2-N</a
+      ><a name="760"
+      > </a
+      ><a name="761" class="Symbol"
+      >#-}</a
+      ><a name="764"
+      >
+</a
+      ><a name="765" class="Symbol"
+      >{-#</a
+      ><a name="768"
+      > </a
+      ><a name="769" class="Keyword"
+      >ATP</a
+      ><a name="772"
+      > prove </a
+      ><a name="779" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#662" class="Postulate"
+      >3-N</a
+      ><a name="782"
+      > </a
+      ><a name="783" class="Symbol"
+      >#-}</a
+      ><a name="786"
+      >
+</a
+      ><a name="787" class="Symbol"
+      >{-#</a
+      ><a name="790"
+      > </a
+      ><a name="791" class="Keyword"
+      >ATP</a
+      ><a name="794"
+      > prove </a
+      ><a name="801" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#675" class="Postulate"
+      >4-N</a
+      ><a name="804"
+      > </a
+      ><a name="805" class="Symbol"
+      >#-}</a
+      ><a name="808"
+      >
+</a
+      ><a name="809" class="Symbol"
+      >{-#</a
+      ><a name="812"
+      > </a
+      ><a name="813" class="Keyword"
+      >ATP</a
+      ><a name="816"
+      > prove </a
+      ><a name="823" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#688" class="Postulate"
+      >5-N</a
+      ><a name="826"
+      > </a
+      ><a name="827" class="Symbol"
+      >#-}</a
+      ><a name="830"
+      >
+
+</a
+      ><a name="832" class="Keyword"
+      >postulate</a
+      ><a name="841"
+      >
+  </a
+      ><a name="844" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#844" class="Postulate"
+      >10-N</a
+      ><a name="848"
+      > </a
+      ><a name="849" class="Symbol"
+      >:</a
+      ><a name="850"
+      > </a
+      ><a name="851" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="852"
+      > </a
+      ><a name="853" href="FOTC.Data.Nat.UnaryNumbers.html#706" class="Function"
+      >10'</a
+      ><a name="856"
+      >
+  </a
+      ><a name="859" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#859" class="Postulate"
+      >11-N</a
+      ><a name="863"
+      > </a
+      ><a name="864" class="Symbol"
+      >:</a
+      ><a name="865"
+      > </a
+      ><a name="866" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="867"
+      > </a
+      ><a name="868" href="FOTC.Data.Nat.UnaryNumbers.html#721" class="Function"
+      >11'</a
+      ><a name="871"
+      >
+</a
+      ><a name="872" class="Symbol"
+      >{-#</a
+      ><a name="875"
+      > </a
+      ><a name="876" class="Keyword"
+      >ATP</a
+      ><a name="879"
+      > prove </a
+      ><a name="886" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#844" class="Postulate"
+      >10-N</a
+      ><a name="890"
+      > </a
+      ><a name="891" class="Symbol"
+      >#-}</a
+      ><a name="894"
+      >
+</a
+      ><a name="895" class="Symbol"
+      >{-#</a
+      ><a name="898"
+      > </a
+      ><a name="899" class="Keyword"
+      >ATP</a
+      ><a name="902"
+      > prove </a
+      ><a name="909" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#859" class="Postulate"
+      >11-N</a
+      ><a name="913"
+      > </a
+      ><a name="914" class="Symbol"
+      >#-}</a
+      ><a name="917"
+      >
+
+</a
+      ><a name="919" class="Keyword"
+      >postulate</a
+      ><a name="928"
+      > </a
+      ><a name="929" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#929" class="Postulate"
+      >89-N</a
+      ><a name="933"
+      > </a
+      ><a name="934" class="Symbol"
+      >:</a
+      ><a name="935"
+      > </a
+      ><a name="936" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="937"
+      > </a
+      ><a name="938" href="FOTC.Data.Nat.UnaryNumbers.html#2424" class="Function"
+      >89'</a
+      ><a name="941"
+      >
+</a
+      ><a name="942" class="Symbol"
+      >{-#</a
+      ><a name="945"
+      > </a
+      ><a name="946" class="Keyword"
+      >ATP</a
+      ><a name="949"
+      > prove </a
+      ><a name="956" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#929" class="Postulate"
+      >89-N</a
+      ><a name="960"
+      > </a
+      ><a name="961" class="Symbol"
+      >#-}</a
+      ><a name="964"
+      >
+
+</a
+      ><a name="966" class="Keyword"
+      >postulate</a
+      ><a name="975"
+      >
+  </a
+      ><a name="978" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#978" class="Postulate"
+      >90-N</a
+      ><a name="982"
+      > </a
+      ><a name="983" class="Symbol"
+      >:</a
+      ><a name="984"
+      > </a
+      ><a name="985" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="986"
+      > </a
+      ><a name="987" href="FOTC.Data.Nat.UnaryNumbers.html#2505" class="Function"
+      >90'</a
+      ><a name="990"
+      >
+  </a
+      ><a name="993" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#993" class="Postulate"
+      >91-N</a
+      ><a name="997"
+      > </a
+      ><a name="998" class="Symbol"
+      >:</a
+      ><a name="999"
+      > </a
+      ><a name="1000" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1001"
+      > </a
+      ><a name="1002" href="FOTC.Data.Nat.UnaryNumbers.html#2521" class="Function"
+      >91'</a
+      ><a name="1005"
+      >
+  </a
+      ><a name="1008" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1008" class="Postulate"
+      >92-N</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" class="Symbol"
+      >:</a
+      ><a name="1014"
+      > </a
+      ><a name="1015" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1016"
+      > </a
+      ><a name="1017" href="FOTC.Data.Nat.UnaryNumbers.html#2537" class="Function"
+      >92'</a
+      ><a name="1020"
+      >
+  </a
+      ><a name="1023" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1023" class="Postulate"
+      >93-N</a
+      ><a name="1027"
+      > </a
+      ><a name="1028" class="Symbol"
+      >:</a
+      ><a name="1029"
+      > </a
+      ><a name="1030" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1031"
+      > </a
+      ><a name="1032" href="FOTC.Data.Nat.UnaryNumbers.html#2553" class="Function"
+      >93'</a
+      ><a name="1035"
+      >
+  </a
+      ><a name="1038" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1038" class="Postulate"
+      >94-N</a
+      ><a name="1042"
+      > </a
+      ><a name="1043" class="Symbol"
+      >:</a
+      ><a name="1044"
+      > </a
+      ><a name="1045" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1046"
+      > </a
+      ><a name="1047" href="FOTC.Data.Nat.UnaryNumbers.html#2569" class="Function"
+      >94'</a
+      ><a name="1050"
+      >
+  </a
+      ><a name="1053" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1053" class="Postulate"
+      >95-N</a
+      ><a name="1057"
+      > </a
+      ><a name="1058" class="Symbol"
+      >:</a
+      ><a name="1059"
+      > </a
+      ><a name="1060" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1061"
+      > </a
+      ><a name="1062" href="FOTC.Data.Nat.UnaryNumbers.html#2585" class="Function"
+      >95'</a
+      ><a name="1065"
+      >
+  </a
+      ><a name="1068" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1068" class="Postulate"
+      >96-N</a
+      ><a name="1072"
+      > </a
+      ><a name="1073" class="Symbol"
+      >:</a
+      ><a name="1074"
+      > </a
+      ><a name="1075" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1076"
+      > </a
+      ><a name="1077" href="FOTC.Data.Nat.UnaryNumbers.html#2601" class="Function"
+      >96'</a
+      ><a name="1080"
+      >
+  </a
+      ><a name="1083" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1083" class="Postulate"
+      >97-N</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" class="Symbol"
+      >:</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1091"
+      > </a
+      ><a name="1092" href="FOTC.Data.Nat.UnaryNumbers.html#2617" class="Function"
+      >97'</a
+      ><a name="1095"
+      >
+  </a
+      ><a name="1098" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1098" class="Postulate"
+      >98-N</a
+      ><a name="1102"
+      > </a
+      ><a name="1103" class="Symbol"
+      >:</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1106"
+      > </a
+      ><a name="1107" href="FOTC.Data.Nat.UnaryNumbers.html#2633" class="Function"
+      >98'</a
+      ><a name="1110"
+      >
+  </a
+      ><a name="1113" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1113" class="Postulate"
+      >99-N</a
+      ><a name="1117"
+      > </a
+      ><a name="1118" class="Symbol"
+      >:</a
+      ><a name="1119"
+      > </a
+      ><a name="1120" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1121"
+      > </a
+      ><a name="1122" href="FOTC.Data.Nat.UnaryNumbers.html#2649" class="Function"
+      >99'</a
+      ><a name="1125"
+      >
+</a
+      ><a name="1126" class="Symbol"
+      >{-#</a
+      ><a name="1129"
+      > </a
+      ><a name="1130" class="Keyword"
+      >ATP</a
+      ><a name="1133"
+      > prove </a
+      ><a name="1140" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#978" class="Postulate"
+      >90-N</a
+      ><a name="1144"
+      > </a
+      ><a name="1145" class="Symbol"
+      >#-}</a
+      ><a name="1148"
+      >
+</a
+      ><a name="1149" class="Symbol"
+      >{-#</a
+      ><a name="1152"
+      > </a
+      ><a name="1153" class="Keyword"
+      >ATP</a
+      ><a name="1156"
+      > prove </a
+      ><a name="1163" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#993" class="Postulate"
+      >91-N</a
+      ><a name="1167"
+      > </a
+      ><a name="1168" class="Symbol"
+      >#-}</a
+      ><a name="1171"
+      >
+</a
+      ><a name="1172" class="Symbol"
+      >{-#</a
+      ><a name="1175"
+      > </a
+      ><a name="1176" class="Keyword"
+      >ATP</a
+      ><a name="1179"
+      > prove </a
+      ><a name="1186" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1008" class="Postulate"
+      >92-N</a
+      ><a name="1190"
+      > </a
+      ><a name="1191" class="Symbol"
+      >#-}</a
+      ><a name="1194"
+      >
+</a
+      ><a name="1195" class="Symbol"
+      >{-#</a
+      ><a name="1198"
+      > </a
+      ><a name="1199" class="Keyword"
+      >ATP</a
+      ><a name="1202"
+      > prove </a
+      ><a name="1209" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1023" class="Postulate"
+      >93-N</a
+      ><a name="1213"
+      > </a
+      ><a name="1214" class="Symbol"
+      >#-}</a
+      ><a name="1217"
+      >
+</a
+      ><a name="1218" class="Symbol"
+      >{-#</a
+      ><a name="1221"
+      > </a
+      ><a name="1222" class="Keyword"
+      >ATP</a
+      ><a name="1225"
+      > prove </a
+      ><a name="1232" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1038" class="Postulate"
+      >94-N</a
+      ><a name="1236"
+      > </a
+      ><a name="1237" class="Symbol"
+      >#-}</a
+      ><a name="1240"
+      >
+</a
+      ><a name="1241" class="Symbol"
+      >{-#</a
+      ><a name="1244"
+      > </a
+      ><a name="1245" class="Keyword"
+      >ATP</a
+      ><a name="1248"
+      > prove </a
+      ><a name="1255" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1053" class="Postulate"
+      >95-N</a
+      ><a name="1259"
+      > </a
+      ><a name="1260" class="Symbol"
+      >#-}</a
+      ><a name="1263"
+      >
+</a
+      ><a name="1264" class="Symbol"
+      >{-#</a
+      ><a name="1267"
+      > </a
+      ><a name="1268" class="Keyword"
+      >ATP</a
+      ><a name="1271"
+      > prove </a
+      ><a name="1278" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1068" class="Postulate"
+      >96-N</a
+      ><a name="1282"
+      > </a
+      ><a name="1283" class="Symbol"
+      >#-}</a
+      ><a name="1286"
+      >
+</a
+      ><a name="1287" class="Symbol"
+      >{-#</a
+      ><a name="1290"
+      > </a
+      ><a name="1291" class="Keyword"
+      >ATP</a
+      ><a name="1294"
+      > prove </a
+      ><a name="1301" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1083" class="Postulate"
+      >97-N</a
+      ><a name="1305"
+      > </a
+      ><a name="1306" class="Symbol"
+      >#-}</a
+      ><a name="1309"
+      >
+</a
+      ><a name="1310" class="Symbol"
+      >{-#</a
+      ><a name="1313"
+      > </a
+      ><a name="1314" class="Keyword"
+      >ATP</a
+      ><a name="1317"
+      > prove </a
+      ><a name="1324" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1098" class="Postulate"
+      >98-N</a
+      ><a name="1328"
+      > </a
+      ><a name="1329" class="Symbol"
+      >#-}</a
+      ><a name="1332"
+      >
+</a
+      ><a name="1333" class="Symbol"
+      >{-#</a
+      ><a name="1336"
+      > </a
+      ><a name="1337" class="Keyword"
+      >ATP</a
+      ><a name="1340"
+      > prove </a
+      ><a name="1347" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1113" class="Postulate"
+      >99-N</a
+      ><a name="1351"
+      > </a
+      ><a name="1352" class="Symbol"
+      >#-}</a
+      ><a name="1355"
+      >
+
+</a
+      ><a name="1357" class="Keyword"
+      >postulate</a
+      ><a name="1366"
+      >
+  </a
+      ><a name="1369" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1369" class="Postulate"
+      >100-N</a
+      ><a name="1374"
+      > </a
+      ><a name="1375" class="Symbol"
+      >:</a
+      ><a name="1376"
+      > </a
+      ><a name="1377" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1378"
+      > </a
+      ><a name="1379" href="FOTC.Data.Nat.UnaryNumbers.html#2730" class="Function"
+      >100'</a
+      ><a name="1383"
+      >
+  </a
+      ><a name="1386" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="1391"
+      > </a
+      ><a name="1392" class="Symbol"
+      >:</a
+      ><a name="1393"
+      > </a
+      ><a name="1394" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1395"
+      > </a
+      ><a name="1396" href="FOTC.Data.Nat.UnaryNumbers.html#2747" class="Function"
+      >101'</a
+      ><a name="1400"
+      >
+</a
+      ><a name="1401" class="Symbol"
+      >{-#</a
+      ><a name="1404"
+      > </a
+      ><a name="1405" class="Keyword"
+      >ATP</a
+      ><a name="1408"
+      > prove </a
+      ><a name="1415" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1369" class="Postulate"
+      >100-N</a
+      ><a name="1420"
+      > </a
+      ><a name="1421" class="Symbol"
+      >#-}</a
+      ><a name="1424"
+      >
+</a
+      ><a name="1425" class="Symbol"
+      >{-#</a
+      ><a name="1428"
+      > </a
+      ><a name="1429" class="Keyword"
+      >ATP</a
+      ><a name="1432"
+      > prove </a
+      ><a name="1439" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1386" class="Postulate"
+      >101-N</a
+      ><a name="1444"
+      > </a
+      ><a name="1445" class="Symbol"
+      >#-}</a
+      ><a name="1448"
+      >
+
+</a
+      ><a name="1450" class="Keyword"
+      >postulate</a
+      ><a name="1459"
+      > </a
+      ><a name="1460" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1460" class="Postulate"
+      >111-N</a
+      ><a name="1465"
+      > </a
+      ><a name="1466" class="Symbol"
+      >:</a
+      ><a name="1467"
+      > </a
+      ><a name="1468" href="FOTC.Data.Nat.Type.html#649" class="Datatype"
+      >N</a
+      ><a name="1469"
+      > </a
+      ><a name="1470" href="FOTC.Data.Nat.UnaryNumbers.html#3002" class="Function"
+      >111'</a
+      ><a name="1474"
+      >
+</a
+      ><a name="1475" class="Symbol"
+      >{-#</a
+      ><a name="1478"
+      > </a
+      ><a name="1479" class="Keyword"
+      >ATP</a
+      ><a name="1482"
+      > prove </a
+      ><a name="1489" href="FOTC.Data.Nat.UnaryNumbers.TotalityATP.html#1460" class="Postulate"
+      >111-N</a
+      ><a name="1494"
+      > </a
+      ><a name="1495" class="Symbol"
+      >#-}</a
+      ><a name="1498"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

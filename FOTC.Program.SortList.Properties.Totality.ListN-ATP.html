@@ -1,0 +1,542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >FOTC.Program.SortList.Properties.Totality.ListN-ATP</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Totality properties respect to ListN</a
+      ><a name="119"
+      >
+</a
+      ><a name="120" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="198"
+      >
+
+</a
+      ><a name="200" class="Symbol"
+      >{-#</a
+      ><a name="203"
+      > </a
+      ><a name="204" class="Keyword"
+      >OPTIONS</a
+      ><a name="211"
+      > --exact-split              </a
+      ><a name="239" class="Symbol"
+      >#-}</a
+      ><a name="242"
+      >
+</a
+      ><a name="243" class="Symbol"
+      >{-#</a
+      ><a name="246"
+      > </a
+      ><a name="247" class="Keyword"
+      >OPTIONS</a
+      ><a name="254"
+      > --no-sized-types           </a
+      ><a name="282" class="Symbol"
+      >#-}</a
+      ><a name="285"
+      >
+</a
+      ><a name="286" class="Symbol"
+      >{-#</a
+      ><a name="289"
+      > </a
+      ><a name="290" class="Keyword"
+      >OPTIONS</a
+      ><a name="297"
+      > --no-universe-polymorphism </a
+      ><a name="325" class="Symbol"
+      >#-}</a
+      ><a name="328"
+      >
+</a
+      ><a name="329" class="Symbol"
+      >{-#</a
+      ><a name="332"
+      > </a
+      ><a name="333" class="Keyword"
+      >OPTIONS</a
+      ><a name="340"
+      > --without-K                </a
+      ><a name="368" class="Symbol"
+      >#-}</a
+      ><a name="371"
+      >
+
+</a
+      ><a name="373" class="Keyword"
+      >module</a
+      ><a name="379"
+      > </a
+      ><a name="380" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1" class="Module"
+      >FOTC.Program.SortList.Properties.Totality.ListN-ATP</a
+      ><a name="431"
+      > </a
+      ><a name="432" class="Keyword"
+      >where</a
+      ><a name="437"
+      >
+
+</a
+      ><a name="439" class="Keyword"
+      >open</a
+      ><a name="443"
+      > </a
+      ><a name="444" class="Keyword"
+      >import</a
+      ><a name="450"
+      > </a
+      ><a name="451" href="FOTC.Base.html#1" class="Module"
+      >FOTC.Base</a
+      ><a name="460"
+      >
+</a
+      ><a name="461" class="Keyword"
+      >open</a
+      ><a name="465"
+      > </a
+      ><a name="466" class="Keyword"
+      >import</a
+      ><a name="472"
+      > </a
+      ><a name="473" href="FOTC.Data.Nat.List.Type.html#1" class="Module"
+      >FOTC.Data.Nat.List.Type</a
+      ><a name="496"
+      >
+</a
+      ><a name="497" class="Keyword"
+      >open</a
+      ><a name="501"
+      > </a
+      ><a name="502" class="Keyword"
+      >import</a
+      ><a name="508"
+      > </a
+      ><a name="509" href="FOTC.Data.Nat.List.PropertiesATP.html#1" class="Module"
+      >FOTC.Data.Nat.List.PropertiesATP</a
+      ><a name="541"
+      >
+</a
+      ><a name="542" class="Keyword"
+      >open</a
+      ><a name="546"
+      > </a
+      ><a name="547" class="Keyword"
+      >import</a
+      ><a name="553"
+      > </a
+      ><a name="554" href="FOTC.Program.SortList.SortList.html#1" class="Module"
+      >FOTC.Program.SortList.SortList</a
+      ><a name="584"
+      >
+
+</a
+      ><a name="586" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="664"
+      >
+</a
+      ><a name="665" class="Comment"
+      >-- The function flatten generates a ListN.</a
+      ><a name="707"
+      >
+</a
+      ><a name="708" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="721"
+      > </a
+      ><a name="722" class="Symbol"
+      >:</a
+      ><a name="723"
+      > </a
+      ><a name="724" class="Symbol"
+      >&#8704;</a
+      ><a name="725"
+      > </a
+      ><a name="726" class="Symbol"
+      >{</a
+      ><a name="727" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#727" class="Bound"
+      >t</a
+      ><a name="728" class="Symbol"
+      >}</a
+      ><a name="729"
+      > </a
+      ><a name="730" class="Symbol"
+      >&#8594;</a
+      ><a name="731"
+      > </a
+      ><a name="732" href="FOTC.Program.SortList.SortList.html#894" class="Datatype"
+      >Tree</a
+      ><a name="736"
+      > </a
+      ><a name="737" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#727" class="Bound"
+      >t</a
+      ><a name="738"
+      > </a
+      ><a name="739" class="Symbol"
+      >&#8594;</a
+      ><a name="740"
+      > </a
+      ><a name="741" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="746"
+      > </a
+      ><a name="747" class="Symbol"
+      >(</a
+      ><a name="748" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="755"
+      > </a
+      ><a name="756" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#727" class="Bound"
+      >t</a
+      ><a name="757" class="Symbol"
+      >)</a
+      ><a name="758"
+      >
+</a
+      ><a name="759" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="772"
+      > </a
+      ><a name="773" href="FOTC.Program.SortList.SortList.html#917" class="InductiveConstructor"
+      >tnil</a
+      ><a name="777"
+      > </a
+      ><a name="778" class="Symbol"
+      >=</a
+      ><a name="779"
+      > </a
+      ><a name="780" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#802" class="Postulate"
+      >prf</a
+      ><a name="783"
+      >
+  </a
+      ><a name="786" class="Keyword"
+      >where</a
+      ><a name="791"
+      > </a
+      ><a name="792" class="Keyword"
+      >postulate</a
+      ><a name="801"
+      > </a
+      ><a name="802" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#802" class="Postulate"
+      >prf</a
+      ><a name="805"
+      > </a
+      ><a name="806" class="Symbol"
+      >:</a
+      ><a name="807"
+      > </a
+      ><a name="808" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="813"
+      > </a
+      ><a name="814" class="Symbol"
+      >(</a
+      ><a name="815" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="822"
+      > </a
+      ><a name="823" href="FOTC.Program.SortList.SortList.html#823" class="Postulate"
+      >nil</a
+      ><a name="826" class="Symbol"
+      >)</a
+      ><a name="827"
+      >
+        </a
+      ><a name="836" class="Symbol"
+      >{-#</a
+      ><a name="839"
+      > </a
+      ><a name="840" class="Keyword"
+      >ATP</a
+      ><a name="843"
+      > prove </a
+      ><a name="850" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#802" class="Postulate"
+      >prf</a
+      ><a name="853"
+      > </a
+      ><a name="854" class="Symbol"
+      >#-}</a
+      ><a name="857"
+      >
+</a
+      ><a name="858" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="871"
+      > </a
+      ><a name="872" class="Symbol"
+      >(</a
+      ><a name="873" href="FOTC.Program.SortList.SortList.html#936" class="InductiveConstructor"
+      >ttip</a
+      ><a name="877"
+      > </a
+      ><a name="878" class="Symbol"
+      >{</a
+      ><a name="879" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#879" class="Bound"
+      >i</a
+      ><a name="880" class="Symbol"
+      >}</a
+      ><a name="881"
+      > </a
+      ><a name="882" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#882" class="Bound"
+      >Ni</a
+      ><a name="884" class="Symbol"
+      >)</a
+      ><a name="885"
+      > </a
+      ><a name="886" class="Symbol"
+      >=</a
+      ><a name="887"
+      > </a
+      ><a name="888" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#910" class="Postulate"
+      >prf</a
+      ><a name="891"
+      >
+  </a
+      ><a name="894" class="Keyword"
+      >where</a
+      ><a name="899"
+      > </a
+      ><a name="900" class="Keyword"
+      >postulate</a
+      ><a name="909"
+      > </a
+      ><a name="910" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#910" class="Postulate"
+      >prf</a
+      ><a name="913"
+      > </a
+      ><a name="914" class="Symbol"
+      >:</a
+      ><a name="915"
+      > </a
+      ><a name="916" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="921"
+      > </a
+      ><a name="922" class="Symbol"
+      >(</a
+      ><a name="923" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="930"
+      > </a
+      ><a name="931" class="Symbol"
+      >(</a
+      ><a name="932" href="FOTC.Program.SortList.SortList.html#834" class="Postulate"
+      >tip</a
+      ><a name="935"
+      > </a
+      ><a name="936" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#879" class="Bound"
+      >i</a
+      ><a name="937" class="Symbol"
+      >))</a
+      ><a name="939"
+      >
+        </a
+      ><a name="948" class="Symbol"
+      >{-#</a
+      ><a name="951"
+      > </a
+      ><a name="952" class="Keyword"
+      >ATP</a
+      ><a name="955"
+      > prove </a
+      ><a name="962" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#910" class="Postulate"
+      >prf</a
+      ><a name="965"
+      > </a
+      ><a name="966" class="Symbol"
+      >#-}</a
+      ><a name="969"
+      >
+
+</a
+      ><a name="971" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="984"
+      > </a
+      ><a name="985" class="Symbol"
+      >(</a
+      ><a name="986" href="FOTC.Program.SortList.SortList.html#973" class="InductiveConstructor"
+      >tnode</a
+      ><a name="991"
+      > </a
+      ><a name="992" class="Symbol"
+      >{</a
+      ><a name="993" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#993" class="Bound"
+      >t&#8321;</a
+      ><a name="995" class="Symbol"
+      >}</a
+      ><a name="996"
+      > </a
+      ><a name="997" class="Symbol"
+      >{</a
+      ><a name="998" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#998" class="Bound"
+      >i</a
+      ><a name="999" class="Symbol"
+      >}</a
+      ><a name="1000"
+      > </a
+      ><a name="1001" class="Symbol"
+      >{</a
+      ><a name="1002" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1002" class="Bound"
+      >t&#8322;</a
+      ><a name="1004" class="Symbol"
+      >}</a
+      ><a name="1005"
+      > </a
+      ><a name="1006" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1006" class="Bound"
+      >Tt&#8321;</a
+      ><a name="1009"
+      > </a
+      ><a name="1010" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1010" class="Bound"
+      >Ni</a
+      ><a name="1012"
+      > </a
+      ><a name="1013" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1013" class="Bound"
+      >Tt&#8322;</a
+      ><a name="1016" class="Symbol"
+      >)</a
+      ><a name="1017"
+      > </a
+      ><a name="1018" class="Symbol"
+      >=</a
+      ><a name="1019"
+      >
+  </a
+      ><a name="1022" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1084" class="Postulate"
+      >prf</a
+      ><a name="1025"
+      > </a
+      ><a name="1026" class="Symbol"
+      >(</a
+      ><a name="1027" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="1040"
+      > </a
+      ><a name="1041" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1006" class="Bound"
+      >Tt&#8321;</a
+      ><a name="1044" class="Symbol"
+      >)</a
+      ><a name="1045"
+      > </a
+      ><a name="1046" class="Symbol"
+      >(</a
+      ><a name="1047" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#708" class="Function"
+      >flatten-ListN</a
+      ><a name="1060"
+      > </a
+      ><a name="1061" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1013" class="Bound"
+      >Tt&#8322;</a
+      ><a name="1064" class="Symbol"
+      >)</a
+      ><a name="1065"
+      >
+  </a
+      ><a name="1068" class="Keyword"
+      >where</a
+      ><a name="1073"
+      > </a
+      ><a name="1074" class="Keyword"
+      >postulate</a
+      ><a name="1083"
+      > </a
+      ><a name="1084" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1084" class="Postulate"
+      >prf</a
+      ><a name="1087"
+      > </a
+      ><a name="1088" class="Symbol"
+      >:</a
+      ><a name="1089"
+      > </a
+      ><a name="1090" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="1095"
+      > </a
+      ><a name="1096" class="Symbol"
+      >(</a
+      ><a name="1097" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="1104"
+      > </a
+      ><a name="1105" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#993" class="Bound"
+      >t&#8321;</a
+      ><a name="1107" class="Symbol"
+      >)</a
+      ><a name="1108"
+      > </a
+      ><a name="1109" class="Symbol"
+      >&#8594;</a
+      ><a name="1110"
+      >
+                        </a
+      ><a name="1135" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="1140"
+      > </a
+      ><a name="1141" class="Symbol"
+      >(</a
+      ><a name="1142" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="1149"
+      > </a
+      ><a name="1150" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1002" class="Bound"
+      >t&#8322;</a
+      ><a name="1152" class="Symbol"
+      >)</a
+      ><a name="1153"
+      > </a
+      ><a name="1154" class="Symbol"
+      >&#8594;</a
+      ><a name="1155"
+      >
+                        </a
+      ><a name="1180" href="FOTC.Data.Nat.List.Type.html#677" class="Datatype"
+      >ListN</a
+      ><a name="1185"
+      > </a
+      ><a name="1186" class="Symbol"
+      >(</a
+      ><a name="1187" href="FOTC.Program.SortList.SortList.html#5352" class="Postulate"
+      >flatten</a
+      ><a name="1194"
+      > </a
+      ><a name="1195" class="Symbol"
+      >(</a
+      ><a name="1196" href="FOTC.Program.SortList.SortList.html#849" class="Postulate"
+      >node</a
+      ><a name="1200"
+      > </a
+      ><a name="1201" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#993" class="Bound"
+      >t&#8321;</a
+      ><a name="1203"
+      > </a
+      ><a name="1204" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#998" class="Bound"
+      >i</a
+      ><a name="1205"
+      > </a
+      ><a name="1206" href="FOTC.Program.SortList.Properties.Totality.ListN-ATP.html#1002" class="Bound"
+      >t&#8322;</a
+      ><a name="1208" class="Symbol"
+      >))</a
+      ><a name="1210"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>

@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >PA.Inductive.Relation.Binary.EqReasoning</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="79"
+      >
+</a
+      ><a name="80" class="Comment"
+      >-- Equality reasoning on inductive PA</a
+      ><a name="117"
+      >
+</a
+      ><a name="118" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="196"
+      >
+
+</a
+      ><a name="198" class="Symbol"
+      >{-#</a
+      ><a name="201"
+      > </a
+      ><a name="202" class="Keyword"
+      >OPTIONS</a
+      ><a name="209"
+      > --exact-split              </a
+      ><a name="237" class="Symbol"
+      >#-}</a
+      ><a name="240"
+      >
+</a
+      ><a name="241" class="Symbol"
+      >{-#</a
+      ><a name="244"
+      > </a
+      ><a name="245" class="Keyword"
+      >OPTIONS</a
+      ><a name="252"
+      > --no-sized-types           </a
+      ><a name="280" class="Symbol"
+      >#-}</a
+      ><a name="283"
+      >
+</a
+      ><a name="284" class="Symbol"
+      >{-#</a
+      ><a name="287"
+      > </a
+      ><a name="288" class="Keyword"
+      >OPTIONS</a
+      ><a name="295"
+      > --no-universe-polymorphism </a
+      ><a name="323" class="Symbol"
+      >#-}</a
+      ><a name="326"
+      >
+</a
+      ><a name="327" class="Symbol"
+      >{-#</a
+      ><a name="330"
+      > </a
+      ><a name="331" class="Keyword"
+      >OPTIONS</a
+      ><a name="338"
+      > --without-K                </a
+      ><a name="366" class="Symbol"
+      >#-}</a
+      ><a name="369"
+      >
+
+</a
+      ><a name="371" class="Comment"
+      >-- This module only re-export the preorder reasoning instanced on</a
+      ><a name="436"
+      >
+</a
+      ><a name="437" class="Comment"
+      >-- the inductive PA propositional equality.</a
+      ><a name="480"
+      >
+
+</a
+      ><a name="482" class="Keyword"
+      >module</a
+      ><a name="488"
+      > </a
+      ><a name="489" href="PA.Inductive.Relation.Binary.EqReasoning.html#1" class="Module"
+      >PA.Inductive.Relation.Binary.EqReasoning</a
+      ><a name="529"
+      > </a
+      ><a name="530" class="Keyword"
+      >where</a
+      ><a name="535"
+      >
+
+</a
+      ><a name="537" class="Keyword"
+      >open</a
+      ><a name="541"
+      > </a
+      ><a name="542" class="Keyword"
+      >import</a
+      ><a name="548"
+      > </a
+      ><a name="549" href="PA.Inductive.Base.html#1" class="Module"
+      >PA.Inductive.Base</a
+      ><a name="566"
+      >
+
+</a
+      ><a name="568" class="Keyword"
+      >import</a
+      ><a name="574"
+      > </a
+      ><a name="575" href="Common.Relation.Binary.PreorderReasoning.html#1" class="Module"
+      >Common.Relation.Binary.PreorderReasoning</a
+      ><a name="615"
+      >
+</a
+      ><a name="616" class="Keyword"
+      >open</a
+      ><a name="620"
+      > </a
+      ><a name="621" class="Keyword"
+      >module</a
+      ><a name="627"
+      > </a
+      ><a name="628" href="PA.Inductive.Relation.Binary.EqReasoning.html#628" class="Module"
+      >&#8801;-Reasoning</a
+      ><a name="639"
+      > </a
+      ><a name="640" class="Symbol"
+      >=</a
+      ><a name="641"
+      >
+  </a
+      ><a name="644" href="Common.Relation.Binary.PreorderReasoning.html#1" class="Module"
+      >Common.Relation.Binary.PreorderReasoning</a
+      ><a name="684"
+      > </a
+      ><a name="685" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#731" class="Datatype Operator"
+      >_&#8801;_</a
+      ><a name="688"
+      > </a
+      ><a name="689" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#761" class="InductiveConstructor"
+      >refl</a
+      ><a name="693"
+      > </a
+      ><a name="694" href="PA.Inductive.Relation.Binary.PropositionalEquality.html#924" class="Function"
+      >trans</a
+      ><a name="699"
+      > </a
+      ><a name="700" class="Keyword"
+      >public</a
+      ><a name="706"
+      >
+    </a
+      ><a name="711" class="Keyword"
+      >renaming</a
+      ><a name="719"
+      > </a
+      ><a name="720" class="Symbol"
+      >(</a
+      ><a name="721"
+      > _&#8764;&#10216;_&#10217;_ </a
+      ><a name="729" class="Symbol"
+      >to</a
+      ><a name="731"
+      > _&#8801;&#10216;_&#10217;_ </a
+      ><a name="739" class="Symbol"
+      >)</a
+      ><a name="740"
+      >
+</a
+      ></pre
+    ></body
+  ></html
+>
