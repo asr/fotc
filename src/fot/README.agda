@@ -7,8 +7,10 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 
--- Code accompanying the paper Combining Interactive and Automatic
--- Reasoning in First Order Theories of Functional Programs by Ana
+-- Code accompanying the PhD thesis "Reasoning about Functional
+-- Programs by Combining Interactive and Automatic Proofs" by Andrés
+-- Sicard-Ramírez and the paper "Combining Interactive and Automatic
+-- Reasoning in First Order Theories of Functional Programs" by Ana
 -- Bove, Peter Dybjer and Andrés Sicard-Ramírez (FoSSaCS 2012).
 
 -- The code presented here does not match the paper exactly.
@@ -23,9 +25,8 @@ module README where
 -- out by first-order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
--- Paper, prerequisites, tested versions of the ATPS and use
-
--- See https://github.com/asr/fotc/.
+-- Thesis, paper, prerequisites, tested versions of the ATPS and use
+-- see https://github.com/asr/fotc/.
 
 ------------------------------------------------------------------------------
 -- Conventions
