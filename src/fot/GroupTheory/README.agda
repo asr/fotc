@@ -9,6 +9,9 @@
 
 module GroupTheory.README where
 
+------------------------------------------------------------------------------
+-- Description
+
 -- Theory of groups using Agda postulates for the group axioms.
 
 ------------------------------------------------------------------------------

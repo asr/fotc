@@ -9,6 +9,9 @@
 
 module DistributiveLaws.README where
 
+------------------------------------------------------------------------------
+-- Description
+
 -- Let _·_ be a left-associative binary operation which satifies the
 -- left and right distributive axioms:
 --

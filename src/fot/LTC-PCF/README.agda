@@ -7,13 +7,16 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 
-module LTC-PCF.README where
-
 -- Code accompanying the paper "Embedding a Logical Theory of
 -- Constructions in Agda" by Ana Bove, Peter Dybjer and Andrés
 -- Sicard-Ramírez (PLPV'09).
 
 -- The code presented here does not match the paper exactly.
+
+module LTC-PCF.README where
+
+------------------------------------------------------------------------------
+-- Description
 
 -- Formalization of (a version of) Azcel's Logical Theory of
 -- Constructions for PCF.
