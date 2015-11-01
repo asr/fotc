@@ -89,324 +89,309 @@
       >
 </a
       ><a name="496" class="Comment"
-      >-- Sicard-Ram&#237;rez and the paper &quot;Combining Interactive and Automatic</a
-      ><a name="564"
-      >
-</a
-      ><a name="565" class="Comment"
-      >-- Reasoning in First Order Theories of Functional Programs&quot; by Ana</a
-      ><a name="632"
-      >
-</a
-      ><a name="633" class="Comment"
-      >-- Bove, Peter Dybjer and Andr&#233;s Sicard-Ram&#237;rez (FoSSaCS 2012).</a
-      ><a name="696"
+      >-- Sicard-Ram&#237;rez.</a
+      ><a name="514"
       >
 
 </a
-      ><a name="698" class="Comment"
-      >-- The code presented here does not match the paper exactly.</a
-      ><a name="758"
+      ><a name="516" class="Comment"
+      >-- The code presented here does not match the thesis exactly.</a
+      ><a name="577"
       >
 
 </a
-      ><a name="760" class="Keyword"
+      ><a name="579" class="Keyword"
       >module</a
-      ><a name="766"
+      ><a name="585"
       > </a
-      ><a name="767" href="README.html#1" class="Module"
+      ><a name="586" href="README.html#1" class="Module"
       >README</a
-      ><a name="773"
+      ><a name="592"
       > </a
-      ><a name="774" class="Keyword"
+      ><a name="593" class="Keyword"
       >where</a
-      ><a name="779"
+      ><a name="598"
       >
 
 </a
-      ><a name="781" class="Comment"
+      ><a name="600" class="Comment"
       >------------------------------------------------------------------------------</a
-      ><a name="859"
+      ><a name="678"
       >
 </a
-      ><a name="860" class="Comment"
+      ><a name="679" class="Comment"
       >-- Description</a
-      ><a name="874"
+      ><a name="693"
       >
 
 </a
-      ><a name="876" class="Comment"
+      ><a name="695" class="Comment"
       >-- Examples of the formalization of first-order theories showing the</a
-      ><a name="944"
+      ><a name="763"
       >
 </a
-      ><a name="945" class="Comment"
+      ><a name="764" class="Comment"
       >-- combination of interactive proofs with automatics proofs carried</a
-      ><a name="1012"
+      ><a name="831"
       >
 </a
-      ><a name="1013" class="Comment"
+      ><a name="832" class="Comment"
       >-- out by first-order automatic theorem provers (ATPs).</a
-      ><a name="1068"
+      ><a name="887"
       >
 
 </a
-      ><a name="1070" class="Comment"
+      ><a name="889" class="Comment"
       >------------------------------------------------------------------------------</a
-      ><a name="1148"
+      ><a name="967"
       >
 </a
-      ><a name="1149" class="Comment"
-      >-- Thesis, paper, prerequisites, tested versions of the ATPS and use</a
-      ><a name="1217"
+      ><a name="968" class="Comment"
+      >-- For the thesis, prerequisites, tested versions of the ATPs and use,</a
+      ><a name="1038"
       >
 </a
-      ><a name="1218" class="Comment"
+      ><a name="1039" class="Comment"
       >-- see https://github.com/asr/fotc/.</a
-      ><a name="1254"
+      ><a name="1075"
       >
 
 </a
-      ><a name="1256" class="Comment"
+      ><a name="1077" class="Comment"
       >------------------------------------------------------------------------------</a
-      ><a name="1334"
+      ><a name="1155"
       >
 </a
-      ><a name="1335" class="Comment"
+      ><a name="1156" class="Comment"
       >-- Conventions</a
-      ><a name="1349"
+      ><a name="1170"
       >
 
 </a
-      ><a name="1351" class="Comment"
-      >-- In the modules with the formalization of the first-order theories,</a
-      ><a name="1420"
+      ><a name="1172" class="Comment"
+      >-- If the module's name ends in 'I' the module contains interactive</a
+      ><a name="1239"
       >
 </a
-      ><a name="1421" class="Comment"
-      >-- if the module's name ends in 'I' the module contains interactive</a
-      ><a name="1488"
-      >
-</a
-      ><a name="1489" class="Comment"
+      ><a name="1240" class="Comment"
       >-- proofs, if it ends in 'ATP' the module contains combined proofs,</a
-      ><a name="1556"
+      ><a name="1307"
       >
 </a
-      ><a name="1557" class="Comment"
+      ><a name="1308" class="Comment"
       >-- otherwise the module contains definitions and/or interactive proofs</a
-      ><a name="1627"
+      ><a name="1378"
       >
 </a
-      ><a name="1628" class="Comment"
+      ><a name="1379" class="Comment"
       >-- that are used by the interactive and combined proofs.</a
+      ><a name="1435"
+      >
+
+</a
+      ><a name="1437" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1515"
+      >
+</a
+      ><a name="1516" class="Comment"
+      >-- First-order theories</a
+      ><a name="1539"
+      >
+</a
+      ><a name="1540" class="Comment"
+      >------------------------------------------------------------------------------</a
+      ><a name="1618"
+      >
+
+</a
+      ><a name="1620" class="Comment"
+      >-- &#8226; First-order logic with equality</a
+      ><a name="1656"
+      >
+
+</a
+      ><a name="1658" class="Comment"
+      >-- First-order logic (FOL)</a
       ><a name="1684"
       >
-
 </a
-      ><a name="1686" class="Comment"
-      >------------------------------------------------------------------------------</a
-      ><a name="1764"
-      >
-</a
-      ><a name="1765" class="Comment"
-      >-- First-order theories</a
-      ><a name="1788"
-      >
-</a
-      ><a name="1789" class="Comment"
-      >------------------------------------------------------------------------------</a
-      ><a name="1867"
-      >
-
-</a
-      ><a name="1869" class="Comment"
-      >-- &#8226; First-order logic with equality</a
-      ><a name="1905"
-      >
-
-</a
-      ><a name="1907" class="Comment"
-      >-- First-order logic (FOL)</a
-      ><a name="1933"
-      >
-</a
-      ><a name="1934" class="Keyword"
+      ><a name="1685" class="Keyword"
       >open</a
-      ><a name="1938"
+      ><a name="1689"
       > </a
-      ><a name="1939" class="Keyword"
+      ><a name="1690" class="Keyword"
       >import</a
-      ><a name="1945"
+      ><a name="1696"
       > </a
-      ><a name="1946" href="FOL.README.html#1" class="Module"
+      ><a name="1697" href="FOL.README.html#1" class="Module"
       >FOL.README</a
-      ><a name="1956"
+      ><a name="1707"
       >
 
 </a
-      ><a name="1958" class="Comment"
+      ><a name="1709" class="Comment"
       >-- Propositional equality</a
-      ><a name="1983"
+      ><a name="1734"
       >
 </a
-      ><a name="1984" class="Keyword"
+      ><a name="1735" class="Keyword"
       >open</a
-      ><a name="1988"
+      ><a name="1739"
       > </a
-      ><a name="1989" class="Keyword"
+      ><a name="1740" class="Keyword"
       >import</a
-      ><a name="1995"
+      ><a name="1746"
       > </a
-      ><a name="1996" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1" class="Module"
+      ><a name="1747" href="Common.FOL.Relation.Binary.PropositionalEquality.html#1" class="Module"
       >Common.FOL.Relation.Binary.PropositionalEquality</a
-      ><a name="2044"
+      ><a name="1795"
       >
 
 </a
-      ><a name="2046" class="Comment"
+      ><a name="1797" class="Comment"
       >-- Equality reasoning</a
-      ><a name="2067"
+      ><a name="1818"
       >
 </a
-      ><a name="2068" class="Keyword"
+      ><a name="1819" class="Keyword"
       >open</a
-      ><a name="2072"
+      ><a name="1823"
       > </a
-      ><a name="2073" class="Keyword"
+      ><a name="1824" class="Keyword"
       >import</a
-      ><a name="2079"
+      ><a name="1830"
       > </a
-      ><a name="2080" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
+      ><a name="1831" href="Common.FOL.Relation.Binary.EqReasoning.html#1" class="Module"
       >Common.FOL.Relation.Binary.EqReasoning</a
-      ><a name="2118"
+      ><a name="1869"
       >
 
 </a
-      ><a name="2120" class="Comment"
+      ><a name="1871" class="Comment"
       >-- &#8226; Group theory</a
-      ><a name="2137"
+      ><a name="1888"
       >
 
 </a
-      ><a name="2139" class="Keyword"
+      ><a name="1890" class="Keyword"
       >open</a
-      ><a name="2143"
+      ><a name="1894"
       > </a
-      ><a name="2144" class="Keyword"
+      ><a name="1895" class="Keyword"
       >import</a
-      ><a name="2150"
+      ><a name="1901"
       > </a
-      ><a name="2151" href="GroupTheory.README.html#1" class="Module"
+      ><a name="1902" href="GroupTheory.README.html#1" class="Module"
       >GroupTheory.README</a
-      ><a name="2169"
+      ><a name="1920"
       >
 
 </a
-      ><a name="2171" class="Comment"
+      ><a name="1922" class="Comment"
       >-- &#8226; Distributive laws on a binary operation (Stanovsk&#253; example)</a
-      ><a name="2235"
+      ><a name="1986"
       >
 
 </a
-      ><a name="2237" class="Keyword"
+      ><a name="1988" class="Keyword"
       >open</a
-      ><a name="2241"
+      ><a name="1992"
       > </a
-      ><a name="2242" class="Keyword"
+      ><a name="1993" class="Keyword"
       >import</a
-      ><a name="2248"
+      ><a name="1999"
       > </a
-      ><a name="2249" href="DistributiveLaws.README.html#1" class="Module"
+      ><a name="2000" href="DistributiveLaws.README.html#1" class="Module"
       >DistributiveLaws.README</a
-      ><a name="2272"
+      ><a name="2023"
       >
 
 </a
-      ><a name="2274" class="Comment"
+      ><a name="2025" class="Comment"
       >-- &#8226; First-order Peano arithmetic (PA)</a
-      ><a name="2312"
+      ><a name="2063"
       >
 
 </a
-      ><a name="2314" class="Keyword"
+      ><a name="2065" class="Keyword"
       >open</a
-      ><a name="2318"
+      ><a name="2069"
       > </a
-      ><a name="2319" class="Keyword"
+      ><a name="2070" class="Keyword"
       >import</a
-      ><a name="2325"
+      ><a name="2076"
       > </a
-      ><a name="2326" href="PA.README.html#1" class="Module"
+      ><a name="2077" href="PA.README.html#1" class="Module"
       >PA.README</a
-      ><a name="2335"
+      ><a name="2086"
       >
 
 </a
-      ><a name="2337" class="Comment"
+      ><a name="2088" class="Comment"
       >-- &#8226; First-Order Theory of Combinators (FOTC)</a
-      ><a name="2382"
+      ><a name="2133"
       >
 
 </a
-      ><a name="2384" class="Keyword"
+      ><a name="2135" class="Keyword"
       >open</a
-      ><a name="2388"
+      ><a name="2139"
       > </a
-      ><a name="2389" class="Keyword"
+      ><a name="2140" class="Keyword"
       >import</a
-      ><a name="2395"
+      ><a name="2146"
       > </a
-      ><a name="2396" href="FOTC.README.html#1" class="Module"
+      ><a name="2147" href="FOTC.README.html#1" class="Module"
       >FOTC.README</a
-      ><a name="2407"
+      ><a name="2158"
       >
 
 </a
-      ><a name="2409" class="Comment"
+      ><a name="2160" class="Comment"
       >-- &#8226; Logical Theory of Constructions for PCF (LTC-PCF)</a
-      ><a name="2463"
+      ><a name="2214"
       >
 
 </a
-      ><a name="2465" class="Keyword"
+      ><a name="2216" class="Keyword"
       >open</a
-      ><a name="2469"
+      ><a name="2220"
       > </a
-      ><a name="2470" class="Keyword"
+      ><a name="2221" class="Keyword"
       >import</a
-      ><a name="2476"
+      ><a name="2227"
       > </a
-      ><a name="2477" href="LTC-PCF.README.html#1" class="Module"
+      ><a name="2228" href="LTC-PCF.README.html#1" class="Module"
       >LTC-PCF.README</a
-      ><a name="2491"
+      ><a name="2242"
       >
 
 </a
-      ><a name="2493" class="Comment"
+      ><a name="2244" class="Comment"
       >------------------------------------------------------------------------------</a
-      ><a name="2571"
+      ><a name="2322"
       >
 </a
-      ><a name="2572" class="Comment"
+      ><a name="2323" class="Comment"
       >-- Agsy examples</a
-      ><a name="2588"
+      ><a name="2339"
       >
 </a
-      ><a name="2589" class="Comment"
+      ><a name="2340" class="Comment"
       >------------------------------------------------------------------------------</a
-      ><a name="2667"
+      ><a name="2418"
       >
 
 </a
-      ><a name="2669" class="Comment"
+      ><a name="2420" class="Comment"
       >-- We cannot import the Agsy examples because some modules contain</a
-      ><a name="2735"
+      ><a name="2486"
       >
 </a
-      ><a name="2736" class="Comment"
+      ><a name="2487" class="Comment"
       >-- unsolved metas, therefore see examples/Agsy/README.txt</a
-      ><a name="2793"
+      ><a name="2544"
       >
 </a
       ></pre
