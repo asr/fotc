@@ -9,6 +9,9 @@
 
 module PA.README where
 
+------------------------------------------------------------------------------
+-- Description
+
 -- Two formalizations of first-order Peano arithmetic using axioms and
 -- inductive definitions.
 

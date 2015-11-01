@@ -9,6 +9,9 @@
 
 module FOL.README where
 
+------------------------------------------------------------------------------
+-- Description
+
 -- Formalization of first-order logic using Agda's inductive notions.
 
 ------------------------------------------------------------------------------

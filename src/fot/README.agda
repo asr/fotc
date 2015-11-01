@@ -9,11 +9,9 @@
 
 -- Code accompanying the PhD thesis "Reasoning about Functional
 -- Programs by Combining Interactive and Automatic Proofs" by Andrés
--- Sicard-Ramírez and the paper "Combining Interactive and Automatic
--- Reasoning in First Order Theories of Functional Programs" by Ana
--- Bove, Peter Dybjer and Andrés Sicard-Ramírez (FoSSaCS 2012).
+-- Sicard-Ramírez.
 
--- The code presented here does not match the paper exactly.
+-- The code presented here does not match the thesis exactly.
 
 module README where
 
@@ -25,14 +23,13 @@ module README where
 -- out by first-order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
--- Thesis, paper, prerequisites, tested versions of the ATPS and use
+-- For the thesis, prerequisites, tested versions of the ATPs and use,
 -- see https://github.com/asr/fotc/.
 
 ------------------------------------------------------------------------------
 -- Conventions
 
--- In the modules with the formalization of the first-order theories,
--- if the module's name ends in 'I' the module contains interactive
+-- If the module's name ends in 'I' the module contains interactive
 -- proofs, if it ends in 'ATP' the module contains combined proofs,
 -- otherwise the module contains definitions and/or interactive proofs
 -- that are used by the interactive and combined proofs.

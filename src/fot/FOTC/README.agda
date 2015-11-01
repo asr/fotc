@@ -7,10 +7,33 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 
+-- Code accompanying the paper "Combining Interactive and Automatic
+-- Reasoning in First Order Theories of Functional Programs" by Ana
+-- Bove, Peter Dybjer and Andrés Sicard-Ramírez (FoSSaCS 2012).
+
+-- The code presented here does not match the paper exactly.
+
 module FOTC.README where
 
--- Formalization of (a version of) Azcel's First-Order Theory of
--- Combinators.
+------------------------------------------------------------------------------
+-- Description
+
+-- Verification of functional programs using a version of Azcel's
+-- First-Order Theory of Combinators and showing the combination of
+-- interactive proofs with automatics proofs carried out by
+-- first-order automatic theorem provers (ATPs).
+
+------------------------------------------------------------------------------
+-- For the paper, prerequisites, tested versions of the ATPs and use,
+-- see https://github.com/asr/fotc/.
+
+------------------------------------------------------------------------------
+-- Conventions
+
+-- If the module's name ends in 'I' the module contains interactive
+-- proofs, if it ends in 'ATP' the module contains combined proofs,
+-- otherwise the module contains definitions and/or interactive proofs
+-- that are used by the interactive and combined proofs.
 
 ------------------------------------------------------------------------------
 -- Base axioms
