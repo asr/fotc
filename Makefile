@@ -392,6 +392,12 @@ peano_changed : $(peano_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# HTML
+
+update_htmls :
+	$(AGDA) --html --html-dir=. $(fot_path)/README.agda
+
+##############################################################################
 # Git : pre-commit test
 
 git_pre_commit :
