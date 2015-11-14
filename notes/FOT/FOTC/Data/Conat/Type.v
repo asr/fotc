@@ -44,7 +44,7 @@ CoFixpoint Conat_coind (A : D → Prop)
 match h n An with
   | or_introl prf => match eq_sym prf with eq_refl => cozero end
   | or_intror prf =>
-    match prf with ex_intro n' Pn' =>
+    match prf with ex_intro _ n' Pn' =>
       match Pn' with conj prf' An' =>
         match eq_sym prf' with eq_refl =>
           cosucc (Conat_coind A h An')
