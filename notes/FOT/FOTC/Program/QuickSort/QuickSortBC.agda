@@ -77,10 +77,6 @@ wf-⟪′ = InvImg.well-founded <-well-founded
 
 -- The quicksort algorithm is total.
 
--- 25 June 2014. Requires the TERMINATING flag when
--- using--without-K. See Agda issue 1214.
-
-{-# TERMINATING #-}
 filter-length : {A : Set}(P : A → Bool) → ∀ xs →
                 length (filter P xs) ≤′ length xs
 filter-length P []       = ≤′-refl
