@@ -35,9 +35,11 @@ thm₁ : ∀ {n} → N n → 5' ≤ n → n ^ 5' ≤ 5' ^ n
 thm₁ nzero h = prf
   where postulate prf : zero ^ 5' ≤ 5' ^ zero
         {-# ATP prove prf #-}
-thm₁ (nsucc {n} Nn) h = prf (thm₁ Nn)
+thm₁ (nsucc {n} Nn) h = prf (thm₁ Nn) h
   where
-  postulate prf : (5' ≤ n → n ^ 5' ≤ 5' ^ n) → (succ₁ n) ^ 5' ≤ 5' ^ (succ₁ n)
+  postulate prf : (5' ≤ n → n ^ 5' ≤ 5' ^ n) →
+                  5' ≤ succ₁ n →
+                  succ₁ n ^ 5' ≤ 5' ^ succ₁ n
   -- 06 January 2016: The ATPs could not prove the theorem (240 sec).
   -- {-# ATP prove prf 5-N #-}
 
