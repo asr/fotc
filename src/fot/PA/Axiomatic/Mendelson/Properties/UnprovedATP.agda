@@ -26,5 +26,7 @@ open import PA.Axiomatic.Mendelson.PropertiesATP
 
   -- 25 November 2013: Vampire 0.6 (revision 903) proves the theorem
   -- using the --mode casc option and a time out of 300 sec.
+
+  -- 06 January 2016: The ATPs could not prove the theorem (240 sec).
   postulate is : ∀ i → A i → A (succ i)
   {-# ATP prove is +-leftCong #-}
