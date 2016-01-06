@@ -25,6 +25,9 @@ postulate
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
 {-# ATP axioms ^-0 ^-S #-}
 
+postulate 0^0≡1 : 0' ^ 0' ≡ 1'
+{-# ATP prove 0^0≡1 #-}
+
 thm₁ : ∀ {n} → N n → 5' ≤ n → n ^ 5' ≤ 5' ^ n
 thm₁ nzero h = prf
   where postulate prf : zero ^ 5' ≤ 5' ^ zero
