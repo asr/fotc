@@ -34,7 +34,6 @@ APIA = apia --check
 # APIA = apia --atp=e
 # APIA = apia --atp=equinox
 # APIA = apia --atp=ileancop
-# See notes/atps/README-summary-proofs.txt for using only metis
 # APIA = apia --atp=metis
 # APIA = apia --atp=spass
 # APIA = apia --atp=vampire
