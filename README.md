@@ -108,6 +108,6 @@ version of Agda and/or
 [Apia](https://github.com/asr/apia/blob/master/README.md)
 corresponding to the date of the last commit.
 
-Coq files: [Coq](https://coq.inria.fr/) 8.5rc1.
+Coq files: [Coq](https://coq.inria.fr/) 8.5.
 
 Haskell files: [GHC](https://www.haskell.org/ghc/) 7.10.3
