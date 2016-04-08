@@ -1,5 +1,5 @@
+{-# OPTIONS --allow-unsolved-metas     #-}
 {-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-coverage-check        #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
@@ -126,6 +126,7 @@ length-++ (x ∷ xs) ys = succCong (length-++ xs ys)
 
 -- Coverage and termination checkers
 head : {A : Set} → List A → A
+head []       = ?
 head (x ∷ xs) = x
 
 ack : ℕ → ℕ → ℕ
