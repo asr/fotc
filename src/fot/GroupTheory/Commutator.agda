@@ -21,7 +21,7 @@ open import GroupTheory.Base
 -- [a,b] = a⁻¹b⁻¹ab (Kurosh 1960, p. 99).
 --
 -- We use Kurosh's definition, because this is the definition used by
--- the TPTP 6.3.0 problem GRP/GRP024-5.p. Actually the problem uses
+-- the TPTP 6.4.0 problem GRP/GRP024-5.p. Actually the problem uses
 -- the definition
 --
 -- [a,b] = a⁻¹(b⁻¹(ab)).

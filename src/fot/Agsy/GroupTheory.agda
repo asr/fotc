@@ -109,6 +109,6 @@ inverseDistribution : ∀ x y → (x · y) ⁻¹ ≡ y ⁻¹ · x ⁻¹
 inverseDistribution x y = {!-t 20 -m!}  -- Agsy fails
 
 -- If the square of every element is the identity, the system is
--- commutative. From: TPTP 6.3.0. File: Problems/GRP/GRP001-2.p
+-- commutative. From: TPTP 6.4.0. File: Problems/GRP/GRP001-2.p
 x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 x²≡ε→comm hyp {b} {c} {d} bc≡d = {!-t 20 -m!}  -- Agsy fails
