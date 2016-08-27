@@ -29,8 +29,7 @@ prove_notes_dir = /tmp/prove_notes
 AGDA = agda -v 0
 # AGDA_FOT = ${AGDA} -i$(fot_path)
 
-# The defaults ATPs are E, Equinox and Vampire.
-APIA = apia --check
+APIA = apia --check --atp=e --atp=equinox --atp=vampire
 # APIA = apia --atp=e
 # APIA = apia --atp=equinox
 # APIA = apia --atp=ileancop
