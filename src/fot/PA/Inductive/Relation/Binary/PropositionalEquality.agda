@@ -25,7 +25,7 @@ data _≡_ (x : ℕ) : ℕ → Set where
 -- Inequality.
 _≢_ : ℕ → ℕ → Set
 x ≢ y = ¬ x ≡ y
-{-# ATP definitions _≢_ #-}
+{-# ATP definition _≢_ #-}
 
 -- Identity properties
 

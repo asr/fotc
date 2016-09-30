@@ -18,4 +18,4 @@ infix 4 _≢_
 -- Inequality.
 _≢_ : D → D → Set
 x ≢ y = ¬ x ≡ y
-{-# ATP definitions _≢_ #-}
+{-# ATP definition _≢_ #-}
