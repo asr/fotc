@@ -84,7 +84,7 @@ the following commands:
 
 ````bash
 $ cd fotc/src/fot
-$ agda LTC-PCF/Program/GCD/Partial/ProofSpecification.agda
+$ agda LTC-PCF/Program/GCD/Partial/CorrectnessProof.agda
 ````
 
 More examples

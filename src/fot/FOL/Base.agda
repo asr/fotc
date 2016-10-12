@@ -18,7 +18,7 @@ infixr 0 _⇔_
 open import Common.FOL.FOL public
 
 ------------------------------------------------------------------------------
--- We added extra symbols for the implication, the bicondicional and
+-- We added extra symbols for the implication, the biconditional and
 -- the universal quantification (see module Common.FOL.FOL).
 
 -- The implication data type.
