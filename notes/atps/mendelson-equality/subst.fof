@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Substitution of Mendelson's equality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The conjecture *could not be* proved by the following ATPs:
+
+% E 1.9.1-001
+% $ eprover --auto --cpu-limit=240 --memory-limit=Auto --tstp-format file_name
+
+% Equinox 5.0alpha (2010-06-29)
+% $ equinox file_name
+
+% IleanCoP V1.3beta1
+% $ ileancop file_name
+
+% Metis 2.3 (release 20161108)
+% $ metis --time-limit 240 file_name
+
+% Vampire 0.6 (revision 903)
+% $ vampire_lin64 -t 240 --input_file file_name
+
+% Z3 version 4.5.0 - 64 bit
+% $ tptp4X -fsmt2 file_name.fof > file_name.smt2
+% $ z3 file_name.smt2
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Mendelson's axioms (p. 154).
+
+% Mendelson, Elliott (2015). Introduction to Mathematical Logic. CRC
+% Press, 6th edition.
+
+fof(s1, axiom, (! [M,N,P] : (eq(M,N) => (eq(M,P) => eq(N,P))))).
+fof(s2, axiom, (! [M,N] : (eq(M,N) => eq(succ(M),succ(N))))).
+fof(s3, axiom, (! [N] : (not(eq(zero,succ(N)))))).
+fof(s4, axiom, (! [M,N] : (eq(succ(M),succ(N)) => eq(M,N)))).
+fof(s5, axiom, (! [N] : eq(add(zero,N),N))).
+fof(s6, axiom, (! [M,N] : (eq(add(M,succ(N)),succ(add(M,N)))))).
+fof(s7, axiom, (! [N] : eq(mult(N,zero),zero))).
+fof(s8, axiom, (! [M,N] : (eq(mult(M,succ(N)),add(mult(M,N),M))))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%   a = b,   P a
+% ----------------- substitution
+%        P b
+fof(a1, axiom, eq(a,b)).
+fof(a2, axiom, p(a)).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fof(subst, conjecture, p(b)).
