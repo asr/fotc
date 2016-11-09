@@ -16,6 +16,9 @@ open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
 
 ------------------------------------------------------------------------------
 
+succCong : ∀ {m n} → m ≈ n → succ m ≈ succ n
+succCong = S₂
+
 +-leftIdentity : ∀ n → zero + n ≈ n
 +-leftIdentity = S₅
 
@@ -50,8 +53,26 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
             succ (succ (i + n)) ≈⟨ S₂ (≈-sym (S₆ i n)) ⟩
             succ (succ i + n)   ∎
 
-+-leftCong : ∀ {m n o} → m ≈ n → m + o ≈ n + o
-+-leftCong {m} {n} {o} h = S₉ A A0 is o
++-rightCong : ∀ {m n p} → n ≈ p → m + n ≈ m + p
++-rightCong {m} {n} {p} h = S₉ A A0 is m
+  where
+  A : ℕ → Set
+  A i = i + n ≈ i + p
+
+  A0 : A zero
+  A0 = zero + n ≈⟨ S₅ n ⟩
+       n        ≈⟨ h ⟩
+       p        ≈⟨ ≈-sym (S₅ p) ⟩
+       zero + p ∎
+
+  is : ∀ i → A i → A (succ i)
+  is i ih = succ i + n   ≈⟨ S₆ i n ⟩
+            succ (i + n) ≈⟨ S₂ ih ⟩
+            succ (i + p) ≈⟨ ≈-sym (S₆ i p) ⟩
+            succ i + p   ∎
+
++-leftCong : ∀ {m n p} → m ≈ n → m + p ≈ n + p
++-leftCong {m} {n} {p} h = S₉ A A0 is p
   where
   A : ℕ → Set
   A i = m + i ≈ n + i
@@ -102,3 +123,81 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
             succ (i + n) ≈⟨ S₂ ih ⟩
             succ (n + i) ≈⟨ ≈-sym (x+Sy≈S[x+y] n i) ⟩
             n + succ i   ∎
+
+*-leftZero : ∀ n → zero * n ≈ zero
+*-leftZero = S₇
+
+*-rightZero : ∀ n → n * zero ≈ zero
+*-rightZero n = S₉ A A0 is n
+  where
+  A : ℕ → Set
+  A i = i * zero ≈ zero
+
+  A0 : A zero
+  A0 = *-leftZero zero
+
+  is : ∀ i → A i → A (succ i)
+  is i ih = succ i * zero   ≈⟨ S₈ i zero ⟩
+            zero + i * zero ≈⟨ +-leftIdentity (i * zero) ⟩
+            i * zero        ≈⟨ ih ⟩
+            zero            ∎
+
+x*Sy≈x+[x*y] : ∀ m n → m * succ n ≈ m + m * n
+x*Sy≈x+[x*y] m n = S₉ A A0 is m
+  where
+  A : ℕ → Set
+  A i = i * succ n ≈ i + i * n
+
+  A0 : A zero
+  A0 = zero * succ n   ≈⟨ *-leftZero (succ n) ⟩
+       zero            ≈⟨ ≈-sym (S₅ zero) ⟩
+       zero + zero     ≈⟨ +-rightCong (≈-sym (*-leftZero n)) ⟩
+       zero + zero * n ∎
+
+  is : ∀ i → A i → A (succ i)
+  is i ih =
+    succ i * succ n        ≈⟨ S₈ i (succ n) ⟩
+    succ n + (i * succ n)  ≈⟨ +-rightCong ih ⟩
+    succ n + (i + i * n)   ≈⟨ S₆ n (i + i * n) ⟩
+    succ (n + (i + i * n)) ≈⟨ succCong (≈-sym (+-asocc n i (i * n))) ⟩
+    succ (n + i + (i * n)) ≈⟨ succCong (+-leftCong (+-comm n i)) ⟩
+    succ (i + n + (i * n)) ≈⟨ succCong (+-asocc i n (i * n)) ⟩
+    succ (i + (n + i * n)) ≈⟨ succCong (+-rightCong (≈-sym (S₈ i n))) ⟩
+    succ (i + succ i * n)  ≈⟨ ≈-sym (S₆ i (succ i * n)) ⟩
+    succ i + succ i * n    ∎
+
+*-rightCong : ∀ {m n p} → n ≈ p → m * n ≈ m * p
+*-rightCong {m} {n} {p} h = S₉ A A0 is m
+  where
+  A : ℕ → Set
+  A i = i * n ≈ i * p
+
+  A0 : A zero
+  A0 = zero * n ≈⟨ *-leftZero n ⟩
+       zero     ≈⟨ ≈-sym (*-leftZero p) ⟩
+       zero * p ∎
+
+  is : ∀ i → A i → A (succ i)
+  is i ih = succ i * n ≈⟨ S₈ i n ⟩
+            n + i * n  ≈⟨ +-rightCong ih ⟩
+            n + i * p  ≈⟨ +-leftCong h ⟩
+            p + i * p  ≈⟨ ≈-sym (S₈ i p) ⟩
+            succ i * p ∎
+
+*-leftCong : ∀ {m n p} → m ≈ n → m * p ≈ n * p
+*-leftCong {m} {n} {p} h = S₉ A A0 is p
+  where
+  A : ℕ → Set
+  A i = m * i ≈ n * i
+
+  A0 : A zero
+  A0 = m * zero ≈⟨ *-rightZero m ⟩
+       zero     ≈⟨ ≈-sym (*-rightZero n) ⟩
+       n * zero ∎
+
+  is : ∀ i → A i → A (succ i)
+  is i ih = m * succ i ≈⟨ x*Sy≈x+[x*y] m i ⟩
+            m + m * i  ≈⟨ +-leftCong h ⟩
+            n + m * i  ≈⟨ +-rightCong ih ⟩
+            n + n * i  ≈⟨ ≈-sym (x*Sy≈x+[x*y] n i) ⟩
+            n * succ i ∎
