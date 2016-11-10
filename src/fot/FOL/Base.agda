@@ -14,8 +14,8 @@ infixr 1 _⇒_
 infixr 0 _⇔_
 
 ------------------------------------------------------------------------------
--- First-order logic (without equality).
-open import Common.FOL.FOL public
+-- First-order logic with equality.
+open import Common.FOL.FOL-Eq public
 
 ------------------------------------------------------------------------------
 -- We added extra symbols for the implication, the biconditional and
