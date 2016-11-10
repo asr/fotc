@@ -13,8 +13,6 @@ open import FOL.Base
 
 ------------------------------------------------------------------------------
 
-postulate _≡_ : D → D → Set
-
 module NonSchemas where
 
   postulate
