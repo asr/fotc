@@ -15,9 +15,6 @@
 
 % Mendelson's axioms (p. 154).
 
-% Mendelson, Elliott (2015). Introduction to Mathematical Logic. CRC
-% Press, 6th edition.
-
 fof(s1, axiom, (! [M,N,O] : (eq(M,N) => (eq(M,O) => eq(N,O))))).
 fof(s2, axiom, (! [M,N] : (eq(M,N) => eq(succ(M),succ(N))))).
 fof(s5, axiom, (! [N] : eq(add(zero,N),N))).
@@ -25,3 +22,9 @@ fof(s5, axiom, (! [N] : eq(add(zero,N),N))).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fof(refl, conjecture, (! [M] : eq(M,M))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+
+% Mendelson, Elliott (2015). Introduction to Mathematical Logic. CRC
+% Press, 6th edition.

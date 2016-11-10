@@ -28,7 +28,7 @@ open import PA.Axiomatic.Mendelson.Base
 
 -- Using Mendelson's axioms we cannot prove
 
---    a ≈ b,   A(x)
+--    a ≈ b    A(x)
 --  ----------------- substitution
 --         A(x)
 
