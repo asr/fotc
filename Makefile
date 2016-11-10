@@ -271,6 +271,7 @@ prove_notes_path = -i$(fot_path) \
 %.prove_notes :
 	$(AGDA) $(prove_notes_path) $*.agda
 	case $*.agda in \
+          "${notes_path}/FOT/FOL/MendelsonSubstATP.agda" | \
           "${notes_path}/FOT/FOL/SchemataATP.agda" | \
           "${notes_path}/FOT/FOL/SchemataInstances/TestATP.agda" | \
           "${notes_path}/FOT/FOTC/Data/Bool/AndTotality.agda" | \
