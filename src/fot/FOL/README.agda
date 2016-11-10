@@ -36,7 +36,3 @@ open import FOL.NonEmptyDomain.TheoremsI
 -- Non-intuitionistic logic theorems
 open import FOL.NonIntuitionistic.TheoremsATP
 open import FOL.NonIntuitionistic.TheoremsI
-
--- Equality theorems
-open import FOL.Equality.TheoremsATP
-open import FOL.Equality.TheoremsI

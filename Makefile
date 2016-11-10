@@ -139,12 +139,6 @@ type_check_fot : $(type_check_fot_files)
                         --schematic-propositional-symbols  \
                         $*.agda \
           ;; \
-          "${fot_path}/FOL/Equality/TheoremsATP.agda") \
-            $(APIA_FOT) --only-files \
-                        --output-dir=$(snapshot_dir) \
-                        --schematic-propositional-functions \
-                        $*.agda \
-          ;; \
           *) \
             $(APIA_FOT) --only-files --output-dir=$(snapshot_dir) $*.agda \
             ;; \
@@ -161,13 +155,6 @@ type_check_fot : $(type_check_fot_files)
 	                --snapshot-dir=$(snapshot_dir) \
                         --schematic-propositional-functions \
                         --schematic-propositional-symbols  \
-                        $*.agda \
-          ;; \
-          "${fot_path}/FOL/Equality/TheoremsATP.agda") \
-            $(APIA_FOT) -v 0 \
-                        --snapshot-test \
-	                --snapshot-dir=$(snapshot_dir) \
-                        --schematic-propositional-functions \
                         $*.agda \
           ;; \
           *) \
@@ -202,13 +189,6 @@ compare_snapshot_fot : $(compare_snapshot_fot_files)
                         --schematic-propositional-symbols  \
                         $*.agda \
           ;; \
-          "${fot_path}/FOL/Equality/TheoremsATP.agda") \
-            $(APIA_FOT) --only-files \
-                        --output-dir=$(prove_fot_dir) \
-                        --schematic-propositional-functions \
-                        --schematic-propositional-symbols  \
-                        $*.agda \
-          ;; \
           *) \
 	    $(APIA_FOT) --only-files --output-dir=$(prove_fot_dir) $*.agda \
             ;; \
@@ -225,13 +205,6 @@ only_fot : $(only_fot_files)
 	case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
           "${fot_path}/FOL/SchemataATP.agda") \
-            $(APIA_FOT) --output-dir=$(prove_fot_dir) \
-	                --time=240 \
-                        --schematic-propositional-functions \
-                        --schematic-propositional-symbols  \
-                        $*.agda \
-          ;; \
-          "${fot_path}/FOL/Equality/TheoremsATP.agda") \
             $(APIA_FOT) --output-dir=$(prove_fot_dir) \
 	                --time=240 \
                         --schematic-propositional-functions \
