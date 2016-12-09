@@ -79,12 +79,23 @@ data ⊤ : Set where
 
 ------------------------------------------------------------------------------
 -- Negation.
+
 -- The underscore allows to write for example '¬ ¬ A' instead of '¬ (¬ A)'.
+
+-- We do not add a definition because: i) the definition of negation
+-- is not a FOL-definition and ii) the translation of the neagation is
+-- hard-coded in Apia.
+
 ¬_ : Set → Set
 ¬ A = A → ⊥
 
 ------------------------------------------------------------------------------
 -- Biconditional.
+
+-- We do not add a definition because: i) the definition of the
+-- biconditional is not a FOL-definition, ii) the translation of the
+-- biconditional is hard-coded in Apia.
+
 _↔_ : Set → Set → Set
 A ↔ B = (A → B) ∧ (B → A)
 
