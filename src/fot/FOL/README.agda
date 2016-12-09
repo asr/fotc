@@ -19,8 +19,8 @@ module FOL.README where
 open import FOL.Base
 
 -- Propositional logic theorems
-open import FOL.Propositional.TheoremsATP
-open import FOL.Propositional.TheoremsI
+open import FOL.PropositionalLogic.TheoremsATP
+open import FOL.PropositionalLogic.TheoremsI
 
 -- First-order logic theorems
 open import FOL.TheoremsATP

@@ -10,7 +10,7 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module FOL.Propositional.TheoremsATP where
+module FOL.PropositionalLogic.TheoremsATP where
 
 open import FOL.Base
 

@@ -7,7 +7,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 
-module FOL.Propositional.TheoremsI where
+module FOL.PropositionalLogic.TheoremsI where
 
 -- The theorems below are valid on intuitionistic logic and with an
 -- empty domain.
