@@ -10,6 +10,9 @@
 module FOL.Everything where
 
 open import FOL.Base
+open import FOL.ExclusiveDisjunction.Base
+open import FOL.ExclusiveDisjunction.TheoremsATP
+open import FOL.ExclusiveDisjunction.TheoremsI
 open import FOL.NonEmptyDomain.TheoremsATP
 open import FOL.NonEmptyDomain.TheoremsI
 open import FOL.NonIntuitionistic.TheoremsATP

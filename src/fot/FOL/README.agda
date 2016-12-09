@@ -19,6 +19,8 @@ module FOL.README where
 open import FOL.Base
 
 -- Propositional logic theorems
+open import FOL.ExclusiveDisjunction.TheoremsATP
+open import FOL.ExclusiveDisjunction.TheoremsI
 open import FOL.PropositionalLogic.TheoremsATP
 open import FOL.PropositionalLogic.TheoremsI
 
