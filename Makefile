@@ -358,7 +358,7 @@ atp_changed :
 # Test used when there is a new version of Coq.
 
 %.coq_type_check :
-	coqc $*.v
+	coqc -w all $*.v
 
 coq_changed : coq_clean $(coq_type_check_files)
 	@echo "$@ succeeded!"
