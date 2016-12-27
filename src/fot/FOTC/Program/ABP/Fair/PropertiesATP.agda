@@ -20,16 +20,19 @@ open import FOTC.Program.ABP.Terms
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
+
+-- See Issue https://github.com/asr/apia/issues/81 .
+Fair-inA : D → Set
+Fair-inA os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
+{-# ATP definition Fair-inA #-}
+
 Fair-in : ∀ {os} → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
           Fair os
-Fair-in h = Fair-coind A h' h
+Fair-in h = Fair-coind Fair-inA h' h
   where
-  A : D → Set
-  A os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
-  {-# ATP definition A #-}
-
   postulate
-    h' : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
+    h' : ∀ {os} → Fair-inA os →
+         ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair-inA os'
   {-# ATP prove h' #-}
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os

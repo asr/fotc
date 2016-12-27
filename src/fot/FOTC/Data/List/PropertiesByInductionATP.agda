@@ -17,30 +17,32 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Totality properties
 
-lengthList-N : ∀ {xs} → List xs → N (length xs)
-lengthList-N = List-ind A A[] h
-  where
-  A : D → Set
-  A ds = N (length ds)
-  {-# ATP definition A #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+lengthList-NA : D → Set
+lengthList-NA ds = N (length ds)
+{-# ATP definition lengthList-NA #-}
 
-  postulate A[] : A []
+lengthList-N : ∀ {xs} → List xs → N (length xs)
+lengthList-N = List-ind lengthList-NA A[] h
+  where
+  postulate A[] : lengthList-NA []
   {-# ATP prove A[] #-}
 
-  postulate h : ∀ a {as} → A as → A (a ∷ as)
+  postulate h : ∀ a {as} → lengthList-NA as → lengthList-NA (a ∷ as)
   {-# ATP prove h #-}
 
 ------------------------------------------------------------------------------
 
-++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
-++-assoc Lxs ys zs = List-ind A A[] h Lxs
-  where
-  A : D → Set
-  A as = (as ++ ys) ++ zs ≡ as ++ ys ++ zs
-  {-# ATP definition A #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+++-assocA : D → D → D → Set
+++-assocA ys zs as = (as ++ ys) ++ zs ≡ as ++ ys ++ zs
+{-# ATP definition ++-assocA #-}
 
-  postulate A[] : A []
+++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
+++-assoc Lxs ys zs = List-ind (++-assocA ys zs) A[] h Lxs
+  where
+  postulate A[] : ++-assocA ys zs []
   {-# ATP prove A[] #-}
 
-  postulate h : ∀ a {as} → A as → A (a ∷ as)
+  postulate h : ∀ a {as} → ++-assocA ys zs as → ++-assocA ys zs (a ∷ as)
   {-# ATP prove h #-}

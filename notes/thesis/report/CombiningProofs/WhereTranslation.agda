@@ -8,17 +8,18 @@ module CombiningProofs.WhereTranslation where
 open import FOTC.Base
 open import FOTC.Data.Nat
 
-+-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity Nn = N-ind A A0 is Nn
-  where
-  A : D → Set
-  A i = i + zero ≡ i
-  {-# ATP definition A #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
++-rightIdentityA : D → Set
++-rightIdentityA i = i + zero ≡ i
+{-# ATP definition +-rightIdentityA #-}
 
-  postulate A0 : A zero
++-rightIdentity : ∀ {n} → N n → n + zero ≡ n
++-rightIdentity Nn = N-ind +-rightIdentityA A0 is Nn
+  where
+  postulate A0 : +-rightIdentityA zero
   {-# ATP prove A0 #-}
 
-  postulate is : ∀ {i} → A i → A (succ₁ i)
+  postulate is : ∀ {i} → +-rightIdentityA i → +-rightIdentityA (succ₁ i)
   {-# ATP prove is #-}
 
 A' : ∀ {n} → (Nn : N n) → D → Set

@@ -116,17 +116,18 @@ module M3 where
 
 module M4 where
 
-  +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
-  +-comm {n = n} Nm Nn = N-ind A A0 is Nm
-    where
-    A : D → Set
-    A i = i + n ≡ n + i
-    {-# ATP definition A #-}
+  -- See Issue https://github.com/asr/apia/issues/81 .
+  +-commA : D → D → Set
+  +-commA n i = i + n ≡ n + i
+  {-# ATP definition +-commA #-}
 
-    postulate A0 : A zero
+  +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
+  +-comm {n = n} Nm Nn = N-ind (+-commA n) A0 is Nm
+    where
+    postulate A0 : +-commA n zero
     {-# ATP prove A0 +-rightIdentity #-}
 
-    postulate is : ∀ {i} → A i → A (succ₁ i)
+    postulate is : ∀ {i} → +-commA n i → +-commA n (succ₁ i)
     {-# ATP prove is x+Sy≡S[x+y] #-}
 
 ------------------------------------------------------------------------------

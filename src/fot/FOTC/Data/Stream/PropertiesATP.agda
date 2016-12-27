@@ -22,56 +22,65 @@ open import FOTC.Data.Stream
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
+
+-- See Issue https://github.com/asr/apia/issues/81 .
+Stream-inA : D → Set
+Stream-inA xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+{-# ATP definition Stream-inA #-}
+
 Stream-in : ∀ {xs} →
             ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
             Stream xs
-Stream-in h = Stream-coind A h' h
+Stream-in h = Stream-coind Stream-inA h' h
   where
-  A : D → Set
-  A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
-  {-# ATP definition A #-}
-
-  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  postulate h' : ∀ {xs} → Stream-inA xs →
+                 ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream-inA xs'
   {-# ATP prove h' #-}
 
-zeros-Stream : Stream zeros
-zeros-Stream = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ zeros
-  {-# ATP definition A #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+zeros-StreamA : D → Set
+zeros-StreamA xs = xs ≡ zeros
+{-# ATP definition zeros-StreamA #-}
 
-  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+zeros-Stream : Stream zeros
+zeros-Stream = Stream-coind zeros-StreamA h refl
+  where
+  postulate h : ∀ {xs} → zeros-StreamA xs →
+                ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ zeros-StreamA xs'
   {-# ATP prove h #-}
 
-ones-Stream : Stream ones
-ones-Stream = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ ones
-  {-# ATP definition A #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+ones-StreamA : D → Set
+ones-StreamA xs = xs ≡ ones
+{-# ATP definition ones-StreamA #-}
 
-  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+ones-Stream : Stream ones
+ones-Stream = Stream-coind ones-StreamA h refl
+  where
+  postulate h : ∀ {xs} → ones-StreamA xs →
+                ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ ones-StreamA xs'
   {-# ATP prove h #-}
 
 postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove ∷-Stream #-}
 
 -- Adapted from (Sander 1992, p. 59).
-streamLength : ∀ {xs} → Stream xs → length xs ≈ ∞
-streamLength {xs} Sxs = ≈-coind R h₁ h₂
-  where
-  R : D → D → Set
-  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
-  {-# ATP definition R #-}
 
+-- See Issue https://github.com/asr/apia/issues/81 .
+streamLengthR : D → D → Set
+streamLengthR m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
+{-# ATP definition streamLengthR #-}
+
+streamLength : ∀ {xs} → Stream xs → length xs ≈ ∞
+streamLength {xs} Sxs = ≈-coind streamLengthR h₁ h₂
+  where
   postulate
-    h₁ : ∀ {m n} → R m n →
+    h₁ : ∀ {m n} → streamLengthR m n →
          m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ streamLengthR m' n')
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : R (length xs) ∞
+  postulate h₂ : streamLengthR (length xs) ∞
   {-# ATP prove h₂ #-}
 
 ------------------------------------------------------------------------------

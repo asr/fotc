@@ -19,65 +19,70 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see
 -- FOTC.Relation.Binary.Bisimulation).
+
+-- See Issue https://github.com/asr/apia/issues/81 .
+≈-inB : D → D → Set
+≈-inB xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
+{-# ATP definition ≈-inB #-}
+
 ≈-in : ∀ {xs ys} →
        ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
          xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
        xs ≈ ys
-≈-in h = ≈-coind B h' h
+≈-in h = ≈-coind ≈-inB h' h
   where
-  B : D → D → Set
-  B xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
-  {-# ATP definition B #-}
-
   postulate
-    h' : ∀ {xs} {ys} → B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+    h' : ∀ {xs} {ys} → ≈-inB xs ys →
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ ≈-inB xs' ys'
   {-# ATP prove h' #-}
 
-≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind B h₁ h₂
-  where
-  B : D → D → Set
-  B xs ys = xs ≡ ys ∧ Stream xs
-  {-# ATP definition B #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+≈-reflB : D → D → Set
+≈-reflB xs ys = xs ≡ ys ∧ Stream xs
+{-# ATP definition ≈-reflB #-}
 
+≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
+≈-refl {xs} Sxs = ≈-coind ≈-reflB h₁ h₂
+  where
   postulate
-    h₁ : ∀ {xs ys} → B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+    h₁ : ∀ {xs ys} → ≈-reflB xs ys →
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ ≈-reflB xs' ys'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : B xs xs
+  postulate h₂ : ≈-reflB xs xs
   {-# ATP prove h₂ #-}
+
+-- See Issue https://github.com/asr/apia/issues/81 .
+≈-symB : D → D → Set
+≈-symB xs ys = ys ≈ xs
+{-# ATP definition ≈-symB #-}
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind B h₁ h₂
+≈-sym {xs} {ys} xs≈ys = ≈-coind ≈-symB h₁ h₂
   where
-  B : D → D → Set
-  B xs ys = ys ≈ xs
-  {-# ATP definition B #-}
-
   postulate
-    h₁ : ∀ {ys} {xs} → B ys xs →
-         ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
+    h₁ : ∀ {ys} {xs} → ≈-symB ys xs →
+         ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ ≈-symB ys' xs'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : B ys xs
+  postulate h₂ : ≈-symB ys xs
   {-# ATP prove h₂ #-}
 
-≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
-  where
-  B : D → D → Set
-  B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
-  {-# ATP definition B #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+≈-transB : D → D → Set
+≈-transB xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
+{-# ATP definition ≈-transB #-}
 
+≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind ≈-transB h₁ h₂
+  where
   postulate
-    h₁ : ∀ {as} {cs} → B as cs →
-         ∃[ a' ] ∃[ as' ] ∃[ cs' ] as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ B as' cs'
+    h₁ : ∀ {as} {cs} → ≈-transB as cs →
+         ∃[ a' ] ∃[ as' ] ∃[ cs' ] as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ ≈-transB as' cs'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : B xs zs
+  postulate h₂ : ≈-transB xs zs
   {-# ATP prove h₂ #-}
 
 postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys

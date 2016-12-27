@@ -18,38 +18,41 @@ open import FOTC.Data.Conat.Equality.Type
 -- relation _≈N_ is also a pre-fixed point of the functional ≈-F, i.e.
 --
 -- ≈-F _≈_ ≤ _≈_ (see FOTC.Data.Conat.Equality.Type).
+
+-- See Issue https://github.com/asr/apia/issues/81 .
+≈-inR : D → D → Set
+≈-inR m n = m ≡ zero ∧ n ≡ zero
+            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n')
+{-# ATP definition ≈-inR #-}
+
 ≈-in :
   ∀ {m n} →
   m ≡ zero ∧ n ≡ zero
     ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n') →
   m ≈ n
-≈-in h = ≈-coind R h' h
+≈-in h = ≈-coind ≈-inR h' h
   where
-  R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n')
-  {-# ATP definition R #-}
-
   postulate
-    h' : ∀ {m n} → R m n →
+    h' : ∀ {m n} → ≈-inR m n →
          m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ ≈-inR m' n')
   {-# ATP prove h' #-}
 
-≈-refl : ∀ {n} → Conat n → n ≈ n
-≈-refl {n} Cn = ≈-coind R h₁ h₂
-  where
-  R : D → D → Set
-  R a b = Conat a ∧ Conat b ∧ a ≡ b
-  {-# ATP definition R #-}
+-- See Issue https://github.com/asr/apia/issues/81 .
+≈-reflR : D → D → Set
+≈-reflR a b = Conat a ∧ Conat b ∧ a ≡ b
+{-# ATP definition ≈-reflR #-}
 
+≈-refl : ∀ {n} → Conat n → n ≈ n
+≈-refl {n} Cn = ≈-coind ≈-reflR h₁ h₂
+  where
   postulate
-    h₁ : ∀ {a b} → R a b →
+    h₁ : ∀ {a b} → ≈-reflR a b →
          a ≡ zero ∧ b ≡ zero
-           ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
+           ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ ≈-reflR a' b')
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : R n n
+  postulate h₂ : ≈-reflR n n
   {-# ATP prove h₂ #-}
 
   postulate ≡→≈ : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈ n

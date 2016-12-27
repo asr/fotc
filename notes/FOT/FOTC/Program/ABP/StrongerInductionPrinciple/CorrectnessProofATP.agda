@@ -39,18 +39,21 @@ postulate
 {-# ATP prove helper #-}
 
 -- Main theorem.
+
+-- See Issue https://github.com/asr/apia/issues/81 .
+abpCorrectB : D → D → Set
+abpCorrectB xs ys = xs ≡ xs
+{-# ATP definition abpCorrectB #-}
+
+
 abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
              is ≈ abpTransfer b os₁ os₂ is
-abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-stronger-coind B h refl
+abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-stronger-coind abpCorrectB h refl
   where
-  B : D → D → Set
-  B xs ys = xs ≡ xs
-  {-# ATP definition B #-}
-
   postulate
-    h : B is (abpTransfer b os₁ os₂ is) →
+    h : abpCorrectB is (abpTransfer b os₁ os₂ is) →
         ∃[ i' ] ∃[ is' ] ∃[ js' ]
-          is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ B is' js'
+          is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ abpCorrectB is' js'
   {-# ATP prove h helper lemma #-}
 
 ------------------------------------------------------------------------------
