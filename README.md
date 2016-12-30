@@ -102,8 +102,8 @@ The files in this repository have been tested with:
 
 Agda files: Development versions of the
 [extended](https://github.com/asr/eagda/blob/master/README.md) version
-of Agda, [Apia](https://github.com/asr/apia/blob/master/README.md) the
-and Agda
+of Agda, [Apia](https://github.com/asr/apia/blob/master/README.md) and
+the Agda
 [standard library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary).
 
 Coq files: [Coq](https://coq.inria.fr/) 8.6.
