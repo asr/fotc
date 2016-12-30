@@ -94,6 +94,10 @@ coq_type_check_files = \
   $(patsubst %.v, %.coq_type_check, \
     $(shell find -name '*.v' | sort))
 
+ghc_files = \
+  $(patsubst %.hs, %.ghc, \
+    $(shell find -name '*.hs' | sort))
+
 peano_files = \
   $(patsubst %.hs, %.peano, \
     $(shell find -name '*.hs' | xargs grep -l 'import Data.\Peano' | sort))
@@ -375,19 +379,25 @@ fot_changed :
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test used when there is a new version of GHC.
+
+%.ghc :
+	@rm -f $*.hi
+	@rm -f $*.o
+	ghc -Wall -Werror $*.hs
+
+ghc_changed : $(ghc_files)
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Test used when there is a modification to the Peano library.
 
-GCD = $(notes_path)/FOT/FOTC/Program/GCD/GCD
-MCR = src/utils/McCarthy91/MCR/MCR
-
 %.peano :
-	rm -f $*.hi
-	rm -f $*.o
+	@rm -f $*.hi
+	@rm -f $*.o
 	ghc -Wall -Werror $*.hs
 
 peano_changed : $(peano_files)
-	rm -f $(GCD)
-	rm -f $(MCR)
 	@echo "$@ succeeded!"
 
 ##############################################################################

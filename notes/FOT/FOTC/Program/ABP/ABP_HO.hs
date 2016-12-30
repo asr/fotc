@@ -4,6 +4,8 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
+{-# OPTIONS -fno-warn-orphans #-}
+
 -- Tested with QuickCheck 2.8, random 1.1 and streams 3.2.1.
 
 ------------------------------------------------------------------------------

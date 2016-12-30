@@ -1,5 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+module Examples where
+
 -- This unguarded function is accepted by Telford and Turner (1998),
 evens ∷ [Int]
 evens = 2 : map (+2) evens

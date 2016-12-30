@@ -1,5 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+module FixMap where
+
 import Prelude hiding ( map )
 
 fix ∷ (a → a) → a

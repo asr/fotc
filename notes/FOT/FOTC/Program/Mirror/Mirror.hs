@@ -1,5 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+module Mirror where
+
 ------------------------------------------------------------------------------
 -- Using mutually recursive data types
 data Tree a = Tree a (Forest a)
@@ -64,5 +66,5 @@ tRose = Rose 1 [ Rose 2 [ Rose 6 []
 mirrorRose ∷ Rose a → Rose a
 mirrorRose (Rose a ts) = Rose a (reverse (map mirrorRose ts))
 
-testRose :: Bool
+testRose ∷ Bool
 testRose = tRose == mirrorRose (mirrorRose tRose)

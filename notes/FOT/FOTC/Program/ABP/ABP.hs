@@ -1,6 +1,8 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax       #-}
 
+{-# OPTIONS -fno-warn-orphans #-}
+
 -- The alternating bit protocol following Dybjer and Herbert (1989).
 
 -- Tested with QuickCheck 2.8, random 1.1 and streams 3.2.1.

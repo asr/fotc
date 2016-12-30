@@ -1,5 +1,7 @@
 {-# Language UnicodeSyntax #-}
 
+module StrictApplication where
+
 import Prelude hiding ( ($!) )
 
 loop ∷ Int

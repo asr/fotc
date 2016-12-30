@@ -9,7 +9,7 @@
 
 -- Tested with streams 3.2.1.
 
-module Main where
+module SimpleNetwork where
 
 import Data.Stream.Infinite ( Stream )
 
@@ -32,8 +32,8 @@ type Ty a = (Stream a → Stream a → Stream a) → (Stream a → Stream a) →
             Stream a → Stream a
 
 trans', hys ∷ Ty a
-trans' f1 f2 is = f2 (hys f1 f2 is)
-hys    f1 f2 is = f1 (trans' f1 f2 is) is
+trans' g1 g2 is = g2 (hys g1 g2 is)
+hys    g1 g2 is = g1 (trans' g1 g2 is) is
 
 ------------------------------------------------------------------------------
 -- References

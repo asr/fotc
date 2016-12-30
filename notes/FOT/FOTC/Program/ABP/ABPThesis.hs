@@ -3,7 +3,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax       #-}
 
-module Main where
+module ABPThesis where
 
 import Data.Stream.Infinite ( Stream((:>)) )
 
