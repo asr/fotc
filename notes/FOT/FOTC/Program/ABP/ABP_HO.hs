@@ -6,7 +6,7 @@
 
 {-# OPTIONS -fno-warn-orphans #-}
 
--- Tested with QuickCheck 2.8, random 1.1 and streams 3.2.1.
+-- Tested with QuickCheck 2.8, random 1.1 and streams 3.3.
 
 ------------------------------------------------------------------------------
 module Main where
@@ -20,6 +20,12 @@ import System.Random ( newStdGen, random, randoms )
 
 import Test.QuickCheck
   ( Arbitrary(arbitrary), quickCheck )
+
+------------------------------------------------------------------------------
+-- Auxiliary functions
+
+fromList :: [a] -> Stream a
+fromList xs = foldr (:>) undefined xs
 
 ------------------------------------------------------------------------------
 type Bit = Bool
@@ -135,11 +141,11 @@ main = do
   [g1, g2, g3, g4] ← replicateM 4 newStdGen
 
   let is ∷ Stream Int
-      is = S.fromList $ randoms g1
+      is = fromList $ randoms g1
 
       os1, os2 ∷ Stream Bit
-      os1 = S.fromList $ randoms g2
-      os2 = S.fromList $ randoms g3
+      os1 = fromList $ randoms g2
+      os2 = fromList $ randoms g3
 
       startBit ∷ Bit
       startBit = fst $ random g4

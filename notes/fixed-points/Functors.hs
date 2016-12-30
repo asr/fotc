@@ -12,13 +12,13 @@ import Prelude hiding ( pred )
 -- The least fixed-point of the (unary) type constructor f.
 data Mu f = Functor f ⇒ In (f (Mu f))
 
-unIn ∷ Functor f ⇒ Mu f → f (Mu f)
+unIn ∷ Mu f → f (Mu f)
 unIn (In x) = x
 
 -- The greatest fixed-point of the (unary) type constructor f.
 data Nu f = Functor f ⇒ Wrap (f (Nu f))
 
-out ∷ Functor f ⇒ Nu f → f (Nu f)
+out ∷ Nu f → f (Nu f)
 out (Wrap x) = x
 
 ------------------------------------------------------------------------------

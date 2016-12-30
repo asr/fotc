@@ -1,17 +1,9 @@
-{-# LANGUAGE CPP           #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-#if __GLASGOW_HASKELL__ >= 710
 import Numeric.Natural
-#else
-import Data.Peano
-#endif
-
 import Test.QuickCheck
 
-#if __GLASGOW_HASKELL__ >= 710
 type Nat = Natural
-#endif
 
 gcd' ∷ Nat → Nat → Nat
 gcd' m n =

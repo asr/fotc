@@ -100,14 +100,12 @@ Tested with
 -----------
 The files in this repository have been tested with:
 
-Agda files: Development versions of
-[Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php), the Agda
-[standard library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary),
-the [extended](https://github.com/asr/eagda/blob/master/README.md)
-version of Agda and/or
-[Apia](https://github.com/asr/apia/blob/master/README.md)
-corresponding to the date of the last commit.
+Agda files: Development versions of the
+[extended](https://github.com/asr/eagda/blob/master/README.md) version
+of Agda, [Apia](https://github.com/asr/apia/blob/master/README.md) the
+and Agda
+[standard library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary).
 
 Coq files: [Coq](https://coq.inria.fr/) 8.6.
 
-Haskell files: [GHC](https://www.haskell.org/ghc/) 7.10.3
+Haskell files: [GHC](https://www.haskell.org/ghc/) 8.0.1
