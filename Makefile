@@ -14,14 +14,14 @@ notes_path = notes
 # Output directory for snapshot.
 snapshot_dir = snapshot-fot
 
-# Output directory for prove_fot.
-prove_fot_dir = /tmp/prove_fot
+# Output directory for prove-fot.
+prove_fot_dir = /tmp/prove-fot
 
-# Output directory for consistency_fot.
-consistency_fot_dir = /tmp/consistency_fot
+# Output directory for consistency-fot.
+consistency_fot_dir = /tmp/consistency-fot
 
-# Output directory for prove_notes.
-prove_notes_dir = /tmp/prove_notes
+# Output directory for prove-notes.
+prove_notes_dir = /tmp/prove-notes
 
 ##############################################################################
 # Variables
@@ -55,43 +55,43 @@ my_pathsubst = \
 # FOT
 
 type_check_fot_files = \
-  $(patsubst %.agda, %.type_check_fot, \
+  $(patsubst %.agda, %.type-check-fot, \
     $(shell find $(fot_path) -name 'Everything.agda' | sort))
 
 type_check_agsy_fot_files = \
-  $(patsubst %.agda, %.type_check_agsy_fot, \
+  $(patsubst %.agda, %.type-check-agsy-fot, \
     $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
 
 create_snapshot_fot_files = \
-  $(call my_pathsubst,create_snapshot_fot,$(fot_path))
+  $(call my_pathsubst,create-snapshot-fot,$(fot_path))
 
 compare_snapshot_fot_files = \
-  $(call my_pathsubst,compare_snapshot_fot,$(fot_path))
+  $(call my_pathsubst,compare-snapshot-fot,$(fot_path))
 
-only_fot_files = $(call my_pathsubst,only_fot,$(fot_path))
+only_fot_files = $(call my_pathsubst,only-fot,$(fot_path))
 
-prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
+prove_fot_files = $(call my_pathsubst,prove-fot,$(fot_path))
 
 consistency_fot_files = \
-  $(patsubst %.agda, %.consistency_fot, \
+  $(patsubst %.agda, %.consistency-fot, \
     $(shell find $(fot_path) -path '*/Consistency/*' -name '*.agda' | sort))
 
 # Notes
 
 type_check_notes_files = \
-  $(patsubst %.agda, %.type_check_notes, \
+  $(patsubst %.agda, %.type-check-notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
 stdlib_changed_files = \
-  $(patsubst %.agda, %.stdlib_changed, \
+  $(patsubst %.agda, %.stdlib-changed, \
     $(shell find $(notes_path) -name '*SL.agda' | sort))
 
-prove_notes_files = $(call my_pathsubst,prove_notes,$(notes_path))
+prove_notes_files = $(call my_pathsubst,prove-notes,$(notes_path))
 
 # Others
 
 coq_type_check_files = \
-  $(patsubst %.v, %.coq_type_check, \
+  $(patsubst %.v, %.coq-type-check, \
     $(shell find -name '*.v' | sort))
 
 ghc_files = \
@@ -110,29 +110,29 @@ benchmark_files = \
 ##############################################################################
 # FOT: Type-checking
 
-%.type_check_fot :
+%.type-check-fot :
 	$(AGDA) $*.agda
 
-%.type_check_agsy_fot :
+%.type-check-agsy-fot :
 	$(AGDA) -i$(agda_stdlib_path)/src/ $*.agda
 
-type_check_agsy_fot : $(type_check_agsy_fot_files)
+type-check-agsy-fot : $(type_check_agsy_fot_files)
 	@echo "$@ succeeded!"
 
-type_check_fot : $(type_check_fot_files)
-	make type_check_agsy_fot
+type-check-fot : $(type_check_fot_files)
+	make type-check-agsy-fot
 	$(AGDA) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # FOT: Generated conjectures
 
-# In FOT we use the create_snapshot_fot rule.
+# In FOT we use the create-snapshot-fot rule.
 
 ##############################################################################
 # FOT: Snapshot
 
-%.create_snapshot_fot :
+%.create-snapshot-fot :
 	$(AGDA) $*.agda
 	@case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
@@ -148,7 +148,7 @@ type_check_fot : $(type_check_fot_files)
             ;; \
         esac
 
-%.compare_snapshot_fot :
+%.compare-snapshot-fot :
 	@echo "Comparing $*.agda"
 	@$(AGDA) $*.agda
 	@case $*.agda in \
@@ -169,20 +169,20 @@ type_check_fot : $(type_check_fot_files)
             ;; \
         esac
 
-create_snapshot_fot_aux : $(create_snapshot_fot_files)
+create-snapshot-fot-aux : $(create_snapshot_fot_files)
 
-create_snapshot_fot :
+create-snapshot-fot :
 	rm -r -f $(snapshot_dir)
-	make create_snapshot_fot_aux
+	make create-snapshot-fot-aux
 	@echo "$@ succeeded!"
 
-compare_snapshot_fot : $(compare_snapshot_fot_files)
+compare-snapshot-fot : $(compare_snapshot_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # FOT: Only files
 
-%.only_fot :
+%.only-fot :
 	$(AGDA) $*.agda
 	case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
@@ -198,13 +198,13 @@ compare_snapshot_fot : $(compare_snapshot_fot_files)
             ;; \
         esac
 
-only_fot : $(only_fot_files)
+only-fot : $(only_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # FOT: Prove theorems
 
-%.prove_fot :
+%.prove-fot :
 	$(AGDA) $*.agda
 	case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
@@ -220,20 +220,20 @@ only_fot : $(only_fot_files)
             ;; \
         esac
 
-prove_fot : $(prove_fot_files)
+prove-fot : $(prove_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # FOT: Consistency
 
-%.consistency_fot :
+%.consistency-fot :
 	$(AGDA) $*.agda
 	if ( $(APIA_FOT) --output-dir=$(consistency_fot_dir) \
 	                 --time=10 $*.agda ); then \
            exit 1;\
         fi
 
-consistency_fot : $(consistency_fot_files)
+consistency-fot : $(consistency_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -256,10 +256,10 @@ type_check_notes_path = \
   -i$(notes_path)/thesis/report \
   -i$(notes_path)/type-classes
 
-%.type_check_notes :
+%.type-check-notes :
 	$(AGDA) $(type_check_notes_path) $*.agda
 
-type_check_notes : $(type_check_notes_files)
+type-check-notes : $(type_check_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -272,7 +272,7 @@ prove_notes_path = -i$(fot_path) \
                    -i$(notes_path)/thesis/report \
                    -i$(notes_path)/README
 
-%.prove_notes :
+%.prove-notes :
 	$(AGDA) $(prove_notes_path) $*.agda
 	case $*.agda in \
           "${notes_path}/FOT/FOL/MendelsonSubstATP.agda" | \
@@ -302,21 +302,21 @@ prove_notes_path = -i$(fot_path) \
             ;; \
         esac
 
-prove_notes : $(prove_notes_files)
+prove-notes : $(prove_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test used when there is a modification to Agda
 
-agda_changed : clean
+agda-changed : clean
 	if [ ! -d $(snapshot_dir) ]; then \
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
-	make type_check_fot
-	make compare_snapshot_fot
-	make type_check_notes
-	make prove_notes
+	make type-check-fot
+	make compare-snapshot-fot
+	make type-check-notes
+	make prove-notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -328,54 +328,54 @@ stdlib_changed_path = \
   -i$(notes_path) \
   -i$(notes_path)/k-axiom
 
-%.stdlib_changed :
+%.stdlib-changed :
 	$(AGDA) $(stdlib_changed_path) $*.agda
 
-stdlib_changed_aux : $(stdlib_changed_files)
+stdlib-changed-aux : $(stdlib_changed_files)
 
-stdlib_changed :
-	make type_check_agsy_fot
-	make stdlib_changed_aux
+stdlib-changed :
+	make type-check-agsy-fot
+	make stdlib-changed-aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test used when there is a modification to Apia
 
-apia_changed :
+apia-changed :
 	if [ ! -d $(snapshot_dir) ]; then \
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
-	make compare_snapshot_fot
-	make prove_notes
+	make compare-snapshot-fot
+	make prove-notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test used when there is a new ATP or a new version of an ATP
 
-atp_changed :
-	@make prove_notes
-	@make prove_fot
+atp-changed :
+	@make prove-notes
+	@make prove-fot
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test used when there is a new version of Coq.
 
-%.coq_type_check :
+%.coq-type-check :
 	coqc -w all $*.v
 
-coq_changed : coq_clean $(coq_type_check_files)
+coq-changed : coq-clean $(coq_type_check_files)
 	@echo "$@ succeeded!"
 
-coq_clean :
+coq-clean :
 	rm -f *.glob *.vo
 
 ##############################################################################
 # Test used when there is a modification to FOT.
 
-fot_changed :
-	make type_check_fot
-	make type_check_notes
+fot-changed :
+	make type-check-fot
+	make type-check-notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -386,7 +386,7 @@ fot_changed :
 	@rm -f $*.o
 	ghc -Wall -Werror $*.hs
 
-ghc_changed : $(ghc_files)
+ghc-changed : $(ghc_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -397,16 +397,16 @@ ghc_changed : $(ghc_files)
 	@rm -f $*.o
 	ghc -Wall -Werror $*.hs
 
-peano_changed : $(peano_files)
+peano-changed : $(peano_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Git : pre-commit test
 
-git_pre_commit :
+git-pre-commit :
 	fix-whitespace --check
-	make type_check_fot
-	make type_check_notes
+	make type-check-fot
+	make type-check-notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -423,12 +423,12 @@ benchmark_tag = \
 	$(APIA_FOT) -v 0 $*.agda \
                 +RTS -s/tmp/benchmark/$(subst /,.,$*)
 
-benchmark_aux : $(benchmark_files)
+benchmark-aux : $(benchmark_files)
 
 .PHONY : benchmark
 benchmark :
 	mkdir --parents /tmp/benchmark
-	make benchmark_aux
+	make benchmark-aux
 	mkdir --parents $(apia_path)/benchmark/$(benchmark_tag)
 	mv /tmp/benchmark/* $(apia_path)/benchmark/$(benchmark_tag)/
 	@echo "$@ succeeded!"
@@ -443,16 +443,16 @@ hlint :
 ##############################################################################
 # ATP stuff
 
-add_ATP_stuff :
+add-ATP-stuff :
 	src/utils/sed/add-ATP-stuff.bash
 
-remove_ATP_stuff :
+remove-ATP-stuff :
 	src/utils/sed/remove-ATP-stuff.bash
 
 ##############################################################################
 # Others
 
-dependency_graph :
+dependency-graph :
 	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph.gv \
 	            $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
