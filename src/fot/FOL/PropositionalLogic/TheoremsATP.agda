@@ -178,5 +178,5 @@ postulate
 -- The principle of the excluded middle implies the double negation
 -- elimination
 postulate
-  pem→¬¬-elim : ∀ {P} → (P ∨ ¬ P) → ¬ ¬ P → P
+  pem→¬¬-elim : (P ∨ ¬ P) → ¬ ¬ P → P
 {-# ATP prove pem→¬¬-elim #-}
