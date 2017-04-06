@@ -58,3 +58,9 @@ DM {P} {Q} = l→r , r→l
 
   r→l : ¬ P ∧ ¬ Q → ¬ (P ∨ Q)
   r→l (¬p , ¬q) p∨q = case ¬p ¬q p∨q
+
+-- The principle of the excluded middle implies the double negation
+-- elimination
+pem→¬¬-elim : ∀ {P} → (P ∨ ¬ P) → ¬ ¬ P → P
+pem→¬¬-elim (inj₁ p)  _ = p
+pem→¬¬-elim (inj₂ ¬p) h = ⊥-elim (h ¬p)

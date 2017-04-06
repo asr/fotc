@@ -173,3 +173,10 @@ postulate
 {-# ATP prove ni₄ #-}
 {-# ATP prove ni₅ #-}
 {-# ATP prove ni₆ #-}
+
+------------------------------------------------------------------------------
+-- The principle of the excluded middle implies the double negation
+-- elimination
+postulate
+  pem→¬¬-elim : ∀ {P} → (P ∨ ¬ P) → ¬ ¬ P → P
+{-# ATP prove pem→¬¬-elim #-}
