@@ -31,11 +31,3 @@ p⊻q→¬p→q (inj₂ q , _) _  = q
 p⊻q→¬q→p : {P Q : Set} → P ⊻ Q → ¬ Q → P
 p⊻q→¬q→p (inj₁ p , _) ¬q = p
 p⊻q→¬q→p (inj₂ q , _) ¬q = ⊥-elim (¬q q)
-
-{-# NON_TERMINATING #-}
-mutual
-  ¬[p⊻q]→¬p : {P Q : Set} → ¬ (P ⊻ Q) → ¬ P
-  ¬[p⊻q]→¬p h₁ = λ p → h₁ (inj₁ p , λ h₂ → ⊥-elim (¬[p⊻q]→¬q h₁ (∧-proj₂ h₂)))
-
-  ¬[p⊻q]→¬q : {P Q : Set} → ¬ (P ⊻ Q) → ¬ Q
-  ¬[p⊻q]→¬q h₁ = λ q → h₁ (inj₂ q , λ h₂ → ⊥-elim (¬[p⊻q]→¬p h₁ (∧-proj₁ h₂)))

@@ -38,12 +38,6 @@ postulate
   p⊻q→¬q→p : ((P ∨ Q) ∧ ¬ (P ∧ Q)) → ¬ Q → P
 {-# ATP prove p⊻q→¬q→p #-}
 
--- TODO (2016-12-09): The ATPs could not prove this theorem
 postulate
-  ¬[p⊻q]→¬p : ¬ ((P ∨ Q) ∧ ¬ (P ∧ Q)) → ¬ P
--- {-# ATP prove ¬[p⊻q]→¬p #-}
-
--- TODO (2016-12-09): The ATPs could not prove this theorem
-postulate
-  ¬[p⊻q]→¬q : ¬ ((P ∨ Q) ∧ ¬ (P ∧ Q)) → ¬ Q
--- {-# ATP prove ¬[p⊻q]→¬q #-}
+  ¬[p⊻q] : ¬ ((P ∨ Q) ∧ ¬ (P ∧ Q)) → ((P ∧ Q) ∨ (¬ P ∧ ¬ Q))
+{-# ATP prove ¬[p⊻q] #-}
