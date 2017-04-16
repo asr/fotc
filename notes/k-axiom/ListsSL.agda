@@ -11,11 +11,12 @@ module ListsSL where
 
 open import Data.List
 open import Data.Nat
+open import Data.Nat.Properties
 open import Data.Product
 open import Relation.Binary.PropositionalEquality
 
 open import Relation.Binary
-module NDTO = DecTotalOrder decTotalOrder
+module NDTO = DecTotalOrder ≤-decTotalOrder
 
 ------------------------------------------------------------------------------
 

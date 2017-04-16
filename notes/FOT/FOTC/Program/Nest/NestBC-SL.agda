@@ -23,7 +23,7 @@ open import Induction.Nat
 
 open import Relation.Binary
 
-module NDTO = DecTotalOrder decTotalOrder
+module NDTO = DecTotalOrder ≤-decTotalOrder
 
 ------------------------------------------------------------------------------
 -- The original non-terminating function.
