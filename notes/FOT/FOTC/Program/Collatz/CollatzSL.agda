@@ -21,12 +21,6 @@ open import Relation.Nullary
 
 ------------------------------------------------------------------------------
 
-infixr 11 _^_
-
-_^_ : ℕ → ℕ → ℕ
-n ^ zero   = 1
-m ^ succ n = m * (m ^ n)
-
 isEven : ℕ → Bool
 isEven 0               = true
 isEven 1               = false

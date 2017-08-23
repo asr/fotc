@@ -57,12 +57,12 @@ nestD-≤′ .(succ n) (nestDomS {n} h₁ h₂) =
 
 -- The nest function is total.
 allNestDom : ∀ n → NestDom n
-allNestDom = build <-rec-builder P ih
+allNestDom = build <′-rec-builder P ih
   where
   P : ℕ → Set
   P = NestDom
 
-  ih : ∀ y → <-Rec P y → P y
+  ih : ∀ y → <′-Rec P y → P y
   ih zero     rec = nestDom0
   ih (succ y) rec = nestDomS nd-y (rec (nestD y nd-y) (s≤′s (nestD-≤′ y nd-y)))
     where

@@ -68,7 +68,7 @@ _⟪′_ : {A : Set} → List A → List A → Set
 xs ⟪′ ys = length xs <′ length ys
 
 wf-⟪′ : Well-founded _⟪′_
-wf-⟪′ = InvImg.well-founded <-well-founded
+wf-⟪′ = InvImg.well-founded <′-well-founded
 
 -- The well-founded induction principle on _⟪′_.
 -- postulate wfi-⟪′ : (P : List ℕ → Set) →

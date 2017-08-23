@@ -34,7 +34,7 @@ LTL xs ys = length xs <′ length ys
 -- The relation LTL is well-founded (using the image inverse
 -- combinator).
 wfLTL : Well-founded LTL
-wfLTL = II.well-founded <-well-founded
+wfLTL = II.well-founded <′-well-founded
 
 -- Well-founded relation on lists based on their structure.
 LTC : List A → List A → Set
