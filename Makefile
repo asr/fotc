@@ -149,7 +149,7 @@ type-check-fot : $(type_check_fot_files)
         esac
 
 %.compare-snapshot-fot :
-	@echo "Comparing $*.agda"
+	@echo "Comparing $*.agda..."
 	@$(AGDA) $*.agda
 	@case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
