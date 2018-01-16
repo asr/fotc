@@ -1,2 +1,3 @@
 name: fotc
-include: src/fot
+depend: standard-library
+include: src/fot/ notes/
