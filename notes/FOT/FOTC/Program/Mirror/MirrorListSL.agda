@@ -11,14 +11,14 @@ module FOT.FOTC.Program.Mirror.MirrorListSL where
 
 open import Algebra
 open import Function
-open import Data.List as List hiding ( reverse )
+open import Data.List hiding ( reverse )
 open import Data.List.Properties
 open import Data.Product hiding ( map )
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
 
-module LM {A : Set} = Monoid (List.monoid A)
+module LM {A : Set} = Monoid (++-monoid A)
 
 ------------------------------------------------------------------------------
 -- Auxiliary functions
