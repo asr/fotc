@@ -6,7 +6,7 @@ SHELL := /bin/bash
 fot_path = src/fot
 
 # Agda standard library path.
-agda_stdlib_path = /home/asr/src/agda-stdlib/agda-stdlib-master
+agda_stdlib_path = /home/asr/src/agda-stdlib/agda-stdlib-experimental
 
 # Notes path.
 notes_path = notes
