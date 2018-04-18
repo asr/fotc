@@ -4,13 +4,13 @@
 
 module Min where
 
-import Data.Peano
+import Data.Peano ( PeanoNat(S) )
 import Prelude hiding ( min )
 
 -- Note (25 December 2013): The @otherwise@ guard is required for
 -- avoiding a non-exhaustive pattern matching warning. See
 -- https://ghc.haskell.org/trac/ghc/ticket/29.
-min ∷ (Nat → Nat) → Nat
+min ∷ (PeanoNat → PeanoNat) → PeanoNat
 min f | f 0 == 0  = 0
       | f 0 /= 0  = S (min (\n → f (S n)))
       | otherwise = error "min impossible"

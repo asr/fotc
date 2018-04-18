@@ -11,9 +11,9 @@ module Rec where
 --
 -- fix : (D → D) → D.
 
-import Data.Peano
+import Data.Peano ( PeanoNat(S,Z) )
 
-type T = Nat → Nat → (Nat → Nat → Nat) → Nat
+type T = PeanoNat → PeanoNat → (PeanoNat → PeanoNat → PeanoNat) → PeanoNat
 
 rec0 ∷ T
 rec0 Z     a _ = a
@@ -26,7 +26,7 @@ fix1 ∷ (T → T) → T
 fix1 f = f (fix1 f)
 
 -- Doesn't work!
-fix2 ∷ (Nat → Nat) → Nat
+fix2 ∷ (PeanoNat → PeanoNat) → PeanoNat
 fix2 f = f (fix2 f)
 
 rech ∷ T → T

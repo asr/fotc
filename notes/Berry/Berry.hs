@@ -9,7 +9,7 @@
 
 module Berry where
 
-import Data.Peano
+import Data.Peano ( PeanoNat(S,Z) )
 
 loop ∷ a
 loop = loop
@@ -23,7 +23,7 @@ loop = loop
 --            (S (S _)) (S _) _
 --            ...
 
-f ∷ Nat → Nat → Nat → Nat
+f ∷ PeanoNat → PeanoNat → PeanoNat → PeanoNat
 f Z     (S Z) _     = S Z
 f (S Z) _     Z     = S (S Z)
 f _     Z     (S Z) = S (S (S Z))
