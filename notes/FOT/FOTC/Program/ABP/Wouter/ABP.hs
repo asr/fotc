@@ -3,7 +3,7 @@
 
 -- The alternating bit protocol following Dybjer and Herbert (1989).
 
--- Tested with QuickCheck 2.8, random 1.1 and Stream 0.4.7.2.
+-- Tested with QuickCheck 2.10.1 random 1.1 and Stream 0.4.7.2.
 
 ------------------------------------------------------------------------------
 module Main where

@@ -1,7 +1,10 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
-import Numeric.Natural
+-- Tested with QuickCheck 2.10.1 and quickcheck-instances 0.3.18.
+
+import Numeric.Natural ( Natural )
 import Test.QuickCheck
+import Test.QuickCheck.Instances.Natural ()
 
 type Nat = Natural
 
