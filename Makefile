@@ -206,13 +206,13 @@ only-fot : $(only_fot_files)
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
           "${fot_path}/FOL/SchemataATP.agda") \
             $(APIA_FOT) --output-dir=$(prove_fot_dir) \
-	                --time=240 \
+	                --time=300 \
                         --schematic-propositional-functions \
                         --schematic-propositional-symbols  \
                         $*.agda \
           ;; \
           *) \
-            $(APIA_FOT) --output-dir=$(prove_fot_dir) --time=240 $*.agda \
+            $(APIA_FOT) --output-dir=$(prove_fot_dir) --time=300 $*.agda \
             ;; \
         esac
 
@@ -273,7 +273,7 @@ prove_notes_path = -i$(notes_path)/hip \
           "${notes_path}/thesis/report/CombiningProofs/ForallExistSchema.agda") \
             $(APIA_FOT) $(prove_notes_path) \
                         --output-dir=$(prove_notes_dir) \
-	                --time=240 \
+	                --time=300 \
                         --schematic-propositional-functions \
                         $*.agda \
           ;; \
@@ -281,14 +281,14 @@ prove_notes_path = -i$(notes_path)/hip \
           "${notes_path}/thesis/report/CombiningProofs/CommDisjunctionSchema.agda") \
             $(APIA_FOT) $(prove_notes_path) \
                         --output-dir=$(prove_notes_dir) \
-	                --time=240 \
+	                --time=300 \
                         --schematic-propositional-symbols \
                         $*.agda \
           ;; \
           *) \
             $(APIA) $(prove_notes_path) \
                     --output-dir=$(prove_notes_dir) \
-	            --time=240 \
+	            --time=300 \
                     $*.agda \
             ;; \
         esac

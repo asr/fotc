@@ -1,0 +1,24 @@
+When there is a new release of an ATP, we should follow the following
+procedure:
+
+(See apia/notes/atps/run-atps.txt for running the ATPs)
+
+* Test fotc/notes/atps/mendelson-equality.
+
+* In fotc/src/fot, to test all the proved conjectures if the ATP is a
+  default one.
+
+* In fotc/notes, to test all the proved conjectures if the ATP is a
+  default one.
+
+* In fotc/src/fot, to test the ATPs failures and to update the date:
+
+    find -name 'UnprovedATP.agda'
+
+* In fotc/notes, to test the ATPs failures and to update the date:
+
+    find -name '*.agda' | xargs grep 'The ATPs could not'
+
+* Search for comments using the old version, i.e. something like
+
+    find -name '*' | xargs grep -I 'old version' | sort

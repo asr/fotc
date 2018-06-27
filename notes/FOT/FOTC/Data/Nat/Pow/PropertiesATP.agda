@@ -40,7 +40,7 @@ thm₁ (nsucc {n} Nn) h = prf (thm₁ Nn) h
   postulate prf : (5' ≤ n → n ^ 5' ≤ 5' ^ n) →
                   5' ≤ succ₁ n →
                   succ₁ n ^ 5' ≤ 5' ^ succ₁ n
-  -- 06 January 2016: The ATPs could not prove the theorem (240 sec).
+  -- 2018-06-27: The ATPs could not prove the theorem (300 sec).
   -- {-# ATP prove prf 5-N #-}
 
 thm₂ : ∀ {n} → N n →
@@ -56,5 +56,5 @@ thm₂ (nsucc {n} Nn) = prf (thm₂ Nn)
                   2' ^ (n + 1') ∸ 1' →
                   ((2' ^ succ₁ n) ∸ 1') + 1' + ((2' ^ succ₁ n) ∸ 1') ≡
                   2' ^ (succ₁ n + 1') ∸ 1'
-  -- 06 January 2016: The ATPs could not prove the theorem (240 sec).
+  -- 2018-06-27: The ATPs could not prove the theorem (300 sec).
   -- {-# ATP prove prf #-}

@@ -30,7 +30,10 @@ postulate leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
 postulate rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                                  OrdTree (node t₁ i t₂) → OrdTree t₂
-{-# ATP prove rightSubTree-OrdTree &&-Bool &&-list₂-t le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool #-}
+-- 2018-06-27: The ATPs could not prove the theorem (300 sec), but
+-- Vampire 4.2.2, via `online-atps`, could prove it.
+--
+-- {-# ATP prove rightSubTree-OrdTree &&-Bool &&-list₂-t le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool #-}
 
 ------------------------------------------------------------------------------
 -- Helper functions

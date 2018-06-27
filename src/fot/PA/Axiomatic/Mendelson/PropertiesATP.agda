@@ -71,3 +71,16 @@ x+Sy≈S[x+y] m n = S₉ (x+Sy≈S[x+y]A n) A0 is m
 
   postulate is : ∀ i → +-commA n i → +-commA n (succ i)
   {-# ATP prove is x+Sy≈S[x+y] #-}
+
++-asocc : ∀ m n o → m + n + o ≈ m + (n + o)
++-asocc m n o = S₉ A A0 is m
+  where
+  A : ℕ → Set
+  A i = i + n + o ≈ i + (n + o)
+  {-# ATP definition A #-}
+
+  postulate A0 : A zero
+  {-# ATP prove A0 +-leftCong #-}
+
+  postulate is : ∀ i → A i → A (succ i)
+  {-# ATP prove is +-leftCong #-}
