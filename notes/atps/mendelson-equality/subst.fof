@@ -23,11 +23,32 @@ fof(s8, axiom, (! [M,N] : (eq(mult(M,succ(N)),add(mult(M,N),M))))).
 
 % where A(x) is an arbitrary propositional function.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The ATPs could not prove the theorem (300 sec).
+
+% E 2.0
+% $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format subst.fof
+% ...
+% eprover: CPU time limit exceeded, terminating
+
+% Equinox, version 5.0alpha, 2010-06-29
+% $ equinox --time 300 subst.fof
+% +++ RESULT: Timeout
+
+% Metis 2.4 (release 20180301)
+% $ metis --time-limit 300 subst.fof
+% SZS status Unknown for subst.fof
+
+% SPASS V 3.7
+% $ SPASS -TPTP=1 -TimeLimit=300 subst.fof
+% SPASS beiseite: Ran out of time. SPASS was killed.
+
+% Vampire 0.6 (revision 903)
+% $ vampire_lin64 -t 300 --mode casc --input_file subst.fof
+% % Proof not found in time 300.100 s
+
 fof(a1, axiom, eq(a,b)).
 fof(a2, axiom, p(a)).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 fof(subst, conjecture, p(b)).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

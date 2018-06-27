@@ -5,19 +5,19 @@ procedure:
 
 * Test fotc/notes/atps/mendelson-equality.
 
+* Test fotc/notes/tptp/stanovsky.
+
 * In fotc/src/fot, to test all the proved conjectures if the ATP is a
   default one.
 
 * In fotc/notes, to test all the proved conjectures if the ATP is a
   default one.
 
-* In fotc/src/fot, to test the ATPs failures and to update the date:
+* To test the ATPs failures and to update the date:
 
-    find -name 'UnprovedATP.agda'
+  **  find -name 'UnprovedATP.agda'
 
-* In fotc/notes, to test the ATPs failures and to update the date:
-
-    find -name '*.agda' | xargs grep 'The ATPs could not'
+  **  find -name '*.agda' | xargs grep 'The ATPs could not'
 
 * Search for comments using the old version, i.e. something like
 
