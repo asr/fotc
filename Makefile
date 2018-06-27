@@ -5,9 +5,6 @@ SHELL := /bin/bash
 
 fot_path = src/fot
 
-# Agda standard library path.
-agda_stdlib_path = /home/asr/src/agda-stdlib/agda-stdlib-experimental
-
 # Notes path.
 notes_path = notes
 
@@ -27,7 +24,6 @@ prove_notes_dir = /tmp/prove-notes
 # Variables
 
 AGDA = agda -v 0
-# AGDA_FOT = ${AGDA} -i$(fot_path)
 
 APIA = apia --check --atp=e --atp=equinox --atp=vampire
 # APIA = apia --atp=e
@@ -114,7 +110,7 @@ benchmark_files = \
 	$(AGDA) $*.agda
 
 %.type-check-agsy-fot :
-	$(AGDA) -i$(agda_stdlib_path)/src/ $*.agda
+	$(AGDA) $*.agda
 
 type-check-agsy-fot : $(type_check_agsy_fot_files)
 	@echo "$@ succeeded!"
@@ -240,9 +236,6 @@ consistency-fot : $(consistency_fot_files)
 # Notes: Type-checking
 
 type_check_notes_path = \
-  -i$(fot_path) \
-  -i$(agda_stdlib_path)/src/ \
-  -i$(notes_path) \
   -i$(notes_path)/discrimination-rules \
   -i$(notes_path)/fixed-points \
   -i$(notes_path)/hip \
@@ -265,9 +258,7 @@ type-check-notes : $(type_check_notes_files)
 ##############################################################################
 # Notes: Prove theorems
 
-prove_notes_path = -i$(fot_path) \
-                   -i$(notes_path) \
-                   -i$(notes_path)/hip \
+prove_notes_path = -i$(notes_path)/hip \
                    -i$(notes_path)/papers/fossacs-2012 \
                    -i$(notes_path)/thesis/report \
                    -i$(notes_path)/README
@@ -322,11 +313,7 @@ agda-changed : clean
 ##############################################################################
 # Test used when there is a modification to the Agda standard library
 
-stdlib_changed_path = \
-  -i$(fot_path) \
-  -i$(agda_stdlib_path)/src/ \
-  -i$(notes_path) \
-  -i$(notes_path)/k-axiom
+stdlib_changed_path = -i$(notes_path)/k-axiom
 
 %.stdlib-changed :
 	$(AGDA) $(stdlib_changed_path) $*.agda
