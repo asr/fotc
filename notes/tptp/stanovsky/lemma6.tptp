@@ -9,7 +9,7 @@ fof(lemma6, conjecture,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % $ eprover --version
-% E 1.9
+% E 2.0
 
 % $ eprover --auto --memory-limit=Auto --output-level=0 --tstp-format lemma6.tptp
 % ...

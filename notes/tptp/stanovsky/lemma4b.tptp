@@ -7,7 +7,7 @@ fof(lemma_4b, conjecture,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % $ eprover --version
-% E 1.9
+% E 2.0
 
 % $ eprover --auto --memory-limit=Auto --output-level=0 --tstp-format lemma4b.tptp
 % ...

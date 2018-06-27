@@ -9,9 +9,9 @@ fof(taskB, conjecture,
     mult(mult(X,Z), mult(Y,U))).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The ATPs couldn't prove the theorem using a time out of 5 min.
+% The ATPs could not prove the theorem using a time out of 300 sec.
 
-% Eprover E 1.9
+% E 2.0
 % $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format taskB.tptp
 % ...
 % eprover: CPU time limit exceeded, terminating
@@ -20,7 +20,7 @@ fof(taskB, conjecture,
 % $ equinox --time 300 taskB.tptp
 % +++ RESULT: Timeout
 
-% metis 2.3 (release 20120927)
+% Metis 2.3 (release 20120927)
 % $ metis --time-limit 300 taskB.tptp
 % SZS status Unknown for taskB.tptp
 
