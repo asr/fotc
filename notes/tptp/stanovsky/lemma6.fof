@@ -1,15 +1,17 @@
-include('axioms.tptp').
+include('axioms.fof').
 
-% Lemma 3 Stanovský (2008).
+% Lemma 6 Stanovský (2008).
 
-fof(lemma3, conjecture,
- ! [X,Y,Z] : mult(mult(X,Y),mult(Z,Z)) = mult(mult(X,Y),Z)).
+fof(lemma6, conjecture,
+ ! [U,X,Y,Z] :
+   mult(mult(mult(X,Y),mult(Z,U)),mult(mult(X,Y),mult(Z,U))) =
+   mult(mult(X,Y),mult(Z,U))).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % $ eprover --version
 % E 2.0
 
-% $ eprover --auto --memory-limit=Auto --output-level=0 --tstp-format lemma3.tptp
+% $ eprover --auto --memory-limit=Auto --output-level=0 --tstp-format lemma6.fof
 % ...
 % # Proof found!
 

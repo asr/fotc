@@ -1,4 +1,4 @@
-include('axioms.tptp').
+include('axioms.fof').
 
 % Task B Stanovský (2008).
 
@@ -12,24 +12,24 @@ fof(taskB, conjecture,
 % The ATPs could not prove the theorem (300 sec).
 
 % E 2.0
-% $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format taskB.tptp
+% $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format taskB.fof
 % ...
 % eprover: CPU time limit exceeded, terminating
 
 % Equinox, version 5.0alpha, 2010-06-29
-% $ equinox --time 300 taskB.tptp
+% $ equinox --time 300 taskB.fof
 % +++ RESULT: Timeout
 
 % Metis 2.4 (release 20180301)
-% $ metis --time-limit 300 taskB.tptp
-% SZS status Unknown for taskB.tptp
+% $ metis --time-limit 300 taskB.fof
+% SZS status Unknown for taskB.fof
 
 % SPASS V 3.7
-% $ SPASS -TPTP=1 -TimeLimit=300 taskB.tptp
+% $ SPASS -TPTP=1 -TimeLimit=300 taskB.fof
 % SPASS beiseite: Ran out of time. SPASS was killed.
 
 % Vampire 0.6 (revision 903)
-% $ vampire_lin64 -t 300 --mode casc --input_file taskB.tptp
+% $ vampire_lin64 -t 300 --mode casc --input_file taskB.fof
 % % Proof not found in time 300.100 s
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
