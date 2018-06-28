@@ -20,6 +20,7 @@ open import Induction.Nat
 open import Induction.WellFounded
 
 open import Relation.Binary
+open import Relation.Binary.PropositionalEquality
 open import Relation.Nullary
 open import Relation.Nullary.Decidable
 
@@ -135,7 +136,14 @@ l₂ = 1 ∷ 2 ∷ 3 ∷ 4 ∷ 5 ∷ []
 l₃ = 5 ∷ 4 ∷ 3 ∷ 2 ∷ 1 ∷ []
 l₄ = 4 ∷ 1 ∷ 3 ∷ 5 ∷ 2 ∷ []
 
-t₁ = qs l₁
-t₂ = qs l₂
-t₃ = qs l₃
-t₄ = qs l₄
+t₁ : qs l₁ ≡ l₁
+t₁ = refl
+
+t₂ : qs l₂ ≡ l₂
+t₂ = refl
+
+t₃ : qs l₃ ≡ l₂
+t₃ = refl
+
+t₄ : qs l₄ ≡ l₂
+t₄ = refl
