@@ -11,7 +11,7 @@ fof(taskB, conjecture,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The ATPs could not prove the theorem (300 sec).
 
-% E 2.0
+% E 2.1
 % $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format taskB.fof
 % ...
 % eprover: CPU time limit exceeded, terminating

@@ -73,7 +73,7 @@ Sx◁Sy→x◁y (nsucc {m} Nm) (nsucc {n} Nn) SSm◁SSn = prf
   -- 2018-06-27: The ATPs could not prove the theorem (300 sec), but
   -- Vampire 4.2.2, via `online-atps`, could prove it.
   --
-  -- {-# ATP prove prf x∸y<x∸z→Sx∸y<Sx∸z S∸S #-}
+  {-# ATP prove prf x∸y<x∸z→Sx∸y<Sx∸z S∸S #-}
 
 x◁Sy→x◁y : ∀ {m n} → N m → N n → m ◁ succ₁ n → m ◁ n
 x◁Sy→x◁y {n = n} nzero Nn 0◁Sn = ⊥-elim (0◁x→⊥ (nsucc Nn) 0◁Sn)

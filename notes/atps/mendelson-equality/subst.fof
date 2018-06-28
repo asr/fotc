@@ -26,7 +26,8 @@ fof(s8, axiom, (! [M,N] : (eq(mult(M,succ(N)),add(mult(M,N),M))))).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The ATPs could not prove the theorem (300 sec).
 
-% E 2.0
+% TODO (2018-06-28): E generates a parser error.
+% E 2.1
 % $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format subst.fof
 % ...
 % eprover: CPU time limit exceeded, terminating
