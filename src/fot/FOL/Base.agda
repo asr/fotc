@@ -44,7 +44,7 @@ dapp t (dfun f) = f t
 
 ------------------------------------------------------------------------------
 -- In first-order logic it is assumed that the universe of discourse
--- is nonempty.
+-- is non-empty.
 postulate D≢∅ : D
 
 ------------------------------------------------------------------------------
