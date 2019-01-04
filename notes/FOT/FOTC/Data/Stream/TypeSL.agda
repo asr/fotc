@@ -9,8 +9,8 @@
 
 module FOT.FOTC.Data.Stream.TypeSL where
 
+open import Codata.Musical.Notation
 open import Data.Product renaming ( _×_ to _∧_ )
-open import Coinduction
 open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------

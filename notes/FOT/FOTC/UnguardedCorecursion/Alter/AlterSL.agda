@@ -9,12 +9,15 @@
 
 module FOT.FOTC.UnguardedCorecursion.Alter.AlterSL where
 
+open import Codata.Musical.Notation
+open import Codata.Musical.Stream
 open import Data.Bool.Base
-open import Data.Stream
-open import Coinduction
 
 ------------------------------------------------------------------------------
 
+-- TODO (2019-01-04): Agda doesn't accept this definition which was
+-- accepted by a previous version.
+{-# TERMINATING #-}
 alter : Stream Bool
 alter = true ∷ ♯ (false ∷ ♯ alter)
 

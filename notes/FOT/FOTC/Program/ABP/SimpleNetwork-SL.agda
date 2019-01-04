@@ -11,8 +11,8 @@
 
 module FOT.FOTC.Program.ABP.SimpleNetwork-SL where
 
+open import Codata.Musical.Stream
 open import Data.Bool.Base
-open import Data.Stream
 
 ------------------------------------------------------------------------------
 

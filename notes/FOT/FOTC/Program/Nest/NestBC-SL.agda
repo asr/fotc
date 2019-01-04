@@ -23,8 +23,6 @@ open import Induction.Nat
 
 open import Relation.Binary
 
-module NDTO = DecTotalOrder ≤-decTotalOrder
-
 ------------------------------------------------------------------------------
 -- The original non-terminating function.
 
@@ -33,8 +31,8 @@ nestI : ℕ → ℕ
 nestI 0        = 0
 nestI (succ n) = nestI (nestI n)
 
-≤′-trans : Transitive _≤′_
-≤′-trans i≤′j j≤′k = ≤⇒≤′ (NDTO.trans (≤′⇒≤ i≤′j) (≤′⇒≤ j≤′k))
+-- ≤′-trans : Transitive _≤′_
+-- ≤′-trans i≤′j j≤′k = ≤⇒≤′ (NDTO.trans (≤′⇒≤ i≤′j) (≤′⇒≤ j≤′k))
 
 mutual
   -- The domain predicate of the nest function.
@@ -57,7 +55,7 @@ nestD-≤′ .(succ n) (nestDomS {n} h₁ h₂) =
 
 -- The nest function is total.
 allNestDom : ∀ n → NestDom n
-allNestDom = build <′-rec-builder P ih
+allNestDom = build <′-recBuilder P ih
   where
   P : ℕ → Set
   P = NestDom

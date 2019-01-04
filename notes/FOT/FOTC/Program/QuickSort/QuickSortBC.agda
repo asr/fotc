@@ -29,11 +29,6 @@ module InvImg =
 
 ------------------------------------------------------------------------------
 
-_≤′?_ : Relation.Binary.Decidable _≤′_
-m ≤′? n with m ≤? n
-... | yes p = yes (≤⇒≤′ p)
-... | no ¬p = no (λ m≤′n → ¬p (≤′⇒≤ m≤′n))
-
 -- Non-terminating quicksort.
 
 {-# TERMINATING #-}
@@ -68,8 +63,8 @@ QSDom-ind P P[] ih (qsDom-∷ h₁ h₂) =
 _⟪′_ : {A : Set} → List A → List A → Set
 xs ⟪′ ys = length xs <′ length ys
 
-wf-⟪′ : Well-founded _⟪′_
-wf-⟪′ = InvImg.well-founded <′-well-founded
+wf-⟪′ : WellFounded _⟪′_
+wf-⟪′ = InvImg.well-founded <′-wellFounded
 
 -- The well-founded induction principle on _⟪′_.
 -- postulate wfi-⟪′ : (P : List ℕ → Set) →

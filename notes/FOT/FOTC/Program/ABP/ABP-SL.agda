@@ -9,10 +9,10 @@
 
 module FOT.FOTC.Program.ABP.ABP-SL where
 
-open import Coinduction
+open import Codata.Musical.Notation
+open import Codata.Musical.Stream
 open import Data.Bool
 open import Data.Product
-open import Data.Stream
 open import Relation.Nullary
 
 ------------------------------------------------------------------------------
@@ -27,6 +27,10 @@ data Err (A : Set) : Set where
 
 -- The mutual sender functions.
 
+-- TODO (2019-01-04): Agda doesn't accept this definition which was
+-- accepted by a previous version.
+{-# TERMINATING #-}
+
 sendA  : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bool)
 awaitA : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bit)
 
@@ -39,6 +43,9 @@ awaitA b (i ∷ is) (error ∷ ds) = (i , b) ∷ ♯ (awaitA b (i ∷ is) (♭ d
 
 -- The receiver functions.
 
+-- TODO (2019-01-04): Agda doesn't accept this definition which was
+-- accepted by a previous version.
+{-# TERMINATING #-}
 ackA : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream Bit
 ackA b (ok (_ , b') ∷ bs) with b ≟ b'
 ... | yes p = b ∷ ♯ (ackA (not b) (♭ bs))
@@ -58,6 +65,10 @@ outA b (ok (i , b') ∷ bs) with b ≟ b'
 outA b (error ∷ bs) = outA b (♭ bs)
 
 -- Model the fair unreliable tranmission channel.
+
+-- TODO (2019-01-04): Agda doesn't accept this definition which was
+-- accepted by a previous version.
+{-# TERMINATING #-}
 corruptA : {A : Set} → Stream Bit → Stream A → Stream (Err A)
 corruptA (true ∷ os)  (_ ∷ xs) = error ∷ ♯ (corruptA (♭ os) (♭ xs))
 corruptA (false ∷ os) (x ∷ xs) = ok x ∷ ♯ (corruptA (♭ os) (♭ xs))

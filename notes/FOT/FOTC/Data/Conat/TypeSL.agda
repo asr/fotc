@@ -10,7 +10,7 @@
 
 module FOT.FOTC.Data.Conat.TypeSL where
 
-open import Coinduction
+open import Codata.Musical.Notation
 open import FOTC.Base
 
 ------------------------------------------------------------------------------
@@ -29,6 +29,9 @@ Conat-in : ∀ {n} →
 Conat-in (inj₁ n≡0)              = subst Conat (sym n≡0) cozero
 Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
 
+-- TODO (2019-01-04): Agda doesn't accept this definition which was
+-- accepted by a previous version.
+{-# TERMINATING #-}
 Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n

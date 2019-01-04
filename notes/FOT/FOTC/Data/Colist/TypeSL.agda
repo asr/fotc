@@ -10,7 +10,7 @@
 
 module FOT.FOTC.Data.Colist.TypeSL where
 
-open import Coinduction
+open import Codata.Musical.Notation
 
 open import FOTC.Base
 open import FOTC.Base.List
