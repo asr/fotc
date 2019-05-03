@@ -1,7 +1,7 @@
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 module FOT.FOTC.Program.Mirror.StructurallySmaller.StructurallySmallerSL where
 

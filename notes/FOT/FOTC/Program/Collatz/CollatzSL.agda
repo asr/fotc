@@ -2,11 +2,10 @@
 -- Reasoning about a function without a termination proof
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas     #-}
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --exact-split          #-}
+{-# OPTIONS --no-sized-types       #-}
+{-# OPTIONS --without-K            #-}
 
 module FOT.FOTC.Program.Collatz.CollatzSL where
 

@@ -3,10 +3,9 @@
 -- method
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 -- From: Bove, A. and Capretta, V. (2001). Nested General Recursion
 -- and Partiality in Type Theory. In: Theorem Proving in Higher Order

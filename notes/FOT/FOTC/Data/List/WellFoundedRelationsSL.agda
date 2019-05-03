@@ -2,10 +2,9 @@
 -- Well-founded relation on lists
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 module FOT.FOTC.Data.List.WellFoundedRelationsSL {A : Set} where
 

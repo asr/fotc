@@ -2,11 +2,10 @@
 -- Example using distributive laws on a binary operation via Agsy
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas     #-}
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --exact-split          #-}
+{-# OPTIONS --no-sized-types       #-}
+{-# OPTIONS --without-K            #-}
 
 -- Tested with the development version of the Agda standard library on
 -- 02 February 2012.

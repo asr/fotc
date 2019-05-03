@@ -1,7 +1,6 @@
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split   #-}
+{-# OPTIONS --no-sized-type #-}
+{-# OPTIONS --without-K     #-}
 
 -- Tested with the development version of the Agda standard library on
 -- 27 May 2011.

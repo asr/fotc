@@ -2,10 +2,9 @@
 -- Definition of FOTC streams using the Agda co-inductive combinators
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 module FOT.FOTC.Data.Stream.TypeSL where
 

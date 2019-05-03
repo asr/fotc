@@ -2,10 +2,9 @@
 -- Proving that two group theory formalisations are equivalents
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 -- We prove that group theory axioms based on the signature (G, ·, ε,)
 -- (see for example [p. 39, 1]), i.e.
@@ -74,7 +73,7 @@ leftInverse₂₋₁ h a = (a ⁻¹) , (h a)
 leftInverse₁₋₂ : leftInverse₁ → Σ (G → G) (λ f → ∀ a → f a · a ≡ ε)
 leftInverse₁₋₂ h = f , prf
   where
-  f : G → G  --  The inverse function.
+  f : G → G  -- The inverse function.
   f a = proj₁ (h a)
 
   prf : ∀ a → f a · a ≡ ε

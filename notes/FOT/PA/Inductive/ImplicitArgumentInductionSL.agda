@@ -2,11 +2,10 @@
 -- Testing an implicit argument for natural numbers induction
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas     #-}
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --exact-split          #-}
+{-# OPTIONS --no-sized-types       #-}
+{-# OPTIONS --without-K            #-}
 
 module FOT.PA.Inductive.ImplicitArgumentInductionSL where
 

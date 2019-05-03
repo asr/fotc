@@ -2,10 +2,8 @@
 -- The ABP using the Agda standard library
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split #-}
+{-# OPTIONS --without-K   #-}
 
 module FOT.FOTC.Program.ABP.ABP-SL where
 

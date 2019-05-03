@@ -2,11 +2,10 @@
 -- Definition of FOTC Conat using Agda's co-inductive combinators
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas     #-}
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --exact-split          #-}
+{-# OPTIONS --no-sized-types       #-}
+{-# OPTIONS --without-K            #-}
 
 module FOT.FOTC.Data.Conat.TypeSL where
 

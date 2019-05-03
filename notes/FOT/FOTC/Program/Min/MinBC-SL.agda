@@ -2,10 +2,9 @@
 -- Example of a partial function using the Bove-Capretta method
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. vol 2152 LNCS. 2001.

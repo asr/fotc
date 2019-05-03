@@ -2,10 +2,8 @@
 -- A simple network using the Agda standard library
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split              #-}
-{-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K                #-}
+{-# OPTIONS --exact-split #-}
+{-# OPTIONS --without-K   #-}
 
 -- From (Sander, 1992, pp. 68-69).
 
