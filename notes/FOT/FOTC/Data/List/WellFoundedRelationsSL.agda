@@ -32,8 +32,8 @@ LTL xs ys = length xs <′ length ys
 
 -- The relation LTL is well-founded (using the image inverse
 -- combinator).
-wfLTL : Well-founded LTL
-wfLTL = II.well-founded <′-well-founded
+wfLTL : WellFounded LTL
+wfLTL = II.well-founded <′-wellFounded
 
 -- Well-founded relation on lists based on their structure.
 LTC : List A → List A → Set
@@ -45,5 +45,5 @@ LTC→LTL (x , refl) = ≤′-refl
 open module S = Induction.WellFounded.Subrelation {_<₁_ = LTC} LTC→LTL
 
 -- The relation LTC is well-founded (using the subrelation combinator).
-wfLTC : Well-founded LTC
+wfLTC : WellFounded LTC
 wfLTC = S.well-founded wfLTL
