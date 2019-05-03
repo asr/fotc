@@ -1,3 +1,4 @@
 name: fotc
 depend: standard-library
-include: src/fot/ notes/
+include: src/fot/ notes/ notes/discrimination-rules notes/fixed-points notes/hip notes/k-axiom notes/papers/fossacs-2012 notes/papers/paper-2011/ notes/README notes/setoids notes/strict-evaluation notes/strictly-positive-inductive-types notes/thesis/report notes/type-classes
+

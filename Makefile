@@ -239,20 +239,6 @@ consistency-fot : $(consistency_fot_files)
 ##############################################################################
 # Notes: Type-checking
 
-type_check_notes_path = \
-  -i$(notes_path)/discrimination-rules \
-  -i$(notes_path)/fixed-points \
-  -i$(notes_path)/hip \
-  -i$(notes_path)/k-axiom \
-  -i$(notes_path)/papers/fossacs-2012 \
-  -i$(notes_path)/papers/paper-2011/ \
-  -i$(notes_path)/README \
-  -i$(notes_path)/setoids \
-  -i$(notes_path)/strict-evaluation \
-  -i$(notes_path)/strictly-positive-inductive-types \
-  -i$(notes_path)/thesis/report \
-  -i$(notes_path)/type-classes
-
 %.type-check-agsy-notes :
 	$(AGDA) $*.agda
 
@@ -261,7 +247,7 @@ type-check-agsy-notes : $(type_check_agsy_notes_files)
 	@echo "$@ succeeded!"
 
 %.type-check-notes :
-	$(AGDA) $(type_check_notes_path) $*.agda
+	$(AGDA) $*.agda
 
 type-check-notes : $(type_check_notes_files)
 	@echo "$@ succeeded!"
@@ -324,14 +310,8 @@ agda-changed : clean
 ##############################################################################
 # Test used when there is a modification to the Agda standard library
 
-stdlib_changed_path = \
-  -i$(notes_path)/discrimination-rules \
-  -i$(notes_path)/k-axiom \
-  -i$(notes_path)/strict-evaluation \
-  -i$(notes_path)/type-classes
-
 %.stdlib-changed :
-	$(AGDA) $(stdlib_changed_path) $*.agda
+	$(AGDA) $*.agda
 
 stdlib-changed-aux : $(stdlib_changed_files)
 
