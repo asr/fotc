@@ -5,7 +5,7 @@
 -- From: On the Bright Side of Type Classes: Instances Arguments in
 -- Agda (ICFP'11).
 
-module InstanceArguments where
+module InstanceArgumentsSL where
 
 open import Data.Bool.Base
 open import Data.Nat hiding ( equal ) renaming ( suc to succ )

@@ -6,7 +6,7 @@
 {-# OPTIONS --no-sized-types #-}
 {-# OPTIONS --without-K      #-}
 
-module FOT.FOTC.Program.GCD.GCD-NT where
+module FOT.FOTC.Program.GCD.GCD-NT-SL where
 
 open import Data.Nat
 open import Relation.Nullary

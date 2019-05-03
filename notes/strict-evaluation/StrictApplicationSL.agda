@@ -2,7 +2,7 @@
 {-# OPTIONS --no-sized-types #-}
 {-# OPTIONS --without-K      #-}
 
-module StrictApplication where
+module StrictApplicationSL where
 
 open import Data.Nat
 

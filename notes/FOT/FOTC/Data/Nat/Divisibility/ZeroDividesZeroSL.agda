@@ -6,7 +6,7 @@
 {-# OPTIONS --no-sized-types #-}
 {-# OPTIONS --without-K      #-}
 
-module FOT.FOTC.Data.Nat.Divisibility.ZeroDividesZero where
+module FOT.FOTC.Data.Nat.Divisibility.ZeroDividesZeroSL where
 
 open import Data.Nat.Divisibility
 open import Relation.Binary.PropositionalEquality

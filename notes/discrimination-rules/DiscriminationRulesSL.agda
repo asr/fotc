@@ -2,7 +2,7 @@
 {-# OPTIONS --no-sized-types #-}
 {-# OPTIONS --without-K      #-}
 
-module DiscriminationRules where
+module DiscriminationRulesSL where
 
 open import Data.Bool.Base
 open import Data.List

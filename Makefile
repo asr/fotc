@@ -74,6 +74,10 @@ consistency_fot_files = \
 
 # Notes
 
+type_check_agsy_notes_files = \
+  $(patsubst %.agda, %.type-check-agsy-notes, \
+    $(shell find $(notes_path)/FOT/Agsy/ -name '*.agda' | sort))
+
 type_check_notes_files = \
   $(patsubst %.agda, %.type-check-notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
@@ -249,6 +253,13 @@ type_check_notes_path = \
   -i$(notes_path)/thesis/report \
   -i$(notes_path)/type-classes
 
+%.type-check-agsy-notes :
+	$(AGDA) $*.agda
+
+# Only used for testing changes in the standard library.
+type-check-agsy-notes : $(type_check_agsy_notes_files)
+	@echo "$@ succeeded!"
+
 %.type-check-notes :
 	$(AGDA) $(type_check_notes_path) $*.agda
 
@@ -313,7 +324,11 @@ agda-changed : clean
 ##############################################################################
 # Test used when there is a modification to the Agda standard library
 
-stdlib_changed_path = -i$(notes_path)/k-axiom
+stdlib_changed_path = \
+  -i$(notes_path)/discrimination-rules \
+  -i$(notes_path)/k-axiom \
+  -i$(notes_path)/strict-evaluation \
+  -i$(notes_path)/type-classes
 
 %.stdlib-changed :
 	$(AGDA) $(stdlib_changed_path) $*.agda
@@ -322,6 +337,7 @@ stdlib-changed-aux : $(stdlib_changed_files)
 
 stdlib-changed :
 	make type-check-agsy-fot
+	make type-check-agsy-notes
 	make stdlib-changed-aux
 	@echo "$@ succeeded!"
 

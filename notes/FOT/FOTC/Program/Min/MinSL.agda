@@ -8,7 +8,7 @@
 
 -- From (Bove, A. and Capretta, V. (2001)).
 
-module FOT.FOTC.Program.Min.Min where
+module FOT.FOTC.Program.Min.MinSL where
 
 open import Data.Nat renaming ( suc to succ )
 open import Relation.Binary.PropositionalEquality

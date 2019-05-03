@@ -6,7 +6,7 @@
 {-# OPTIONS --no-sized-types #-}
 {-# OPTIONS --without-K      #-}
 
-module FOT.FOTC.Program.QuickSort.QuickSortBC where
+module FOT.FOTC.Program.QuickSort.QuickSortBC-SL where
 
 open import Data.List.Base
 open import Data.Nat.Base

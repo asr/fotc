@@ -4,7 +4,7 @@
 
 -- Type classes following Kettelhoit's approach.
 
-module Kettelhoit where
+module KettelhoitSL where
 
 open import Data.Bool.Base
 open import Data.Nat hiding ( equal ) renaming ( suc to succ )
