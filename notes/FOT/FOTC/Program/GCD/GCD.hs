@@ -1,6 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
--- Tested with QuickCheck 2.10.1 and quickcheck-instances 0.3.19.
+-- Tested with QuickCheck 2.13.1 and quickcheck-instances 0.3.21.
 
 import Numeric.Natural ( Natural )
 import Test.QuickCheck

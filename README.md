@@ -108,4 +108,4 @@ the Agda
 
 Coq files: [Coq](https://coq.inria.fr/) 8.8.2
 
-Haskell files: [GHC](https://www.haskell.org/ghc/) 8.4.3
+Haskell files: [GHC](https://www.haskell.org/ghc/) 8.6.5

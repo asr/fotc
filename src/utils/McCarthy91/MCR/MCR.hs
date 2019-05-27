@@ -2,7 +2,7 @@
 
 -- We test some properties of the relation MCR with QuickCheck.
 
--- Tested with QuickCheck 2.10.1
+-- Tested with QuickCheck 2.13.1.
 
 module Main ( main ) where
 

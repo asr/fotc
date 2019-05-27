@@ -6,7 +6,7 @@
 
 {-# OPTIONS -fno-warn-orphans #-}
 
--- Tested with QuickCheck 2.10.1, random 1.1 and streams 3.3.
+-- Tested with QuickCheck 2.13.1, random 1.1 and streams 3.3.
 
 ------------------------------------------------------------------------------
 module Main where
