@@ -106,6 +106,6 @@ of Agda, [Apia](https://github.com/asr/apia/blob/master/README.md) and
 the Agda
 [standard library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary).
 
-Coq files: [Coq](https://coq.inria.fr/) 8.8.2
+Coq files: [Coq](https://coq.inria.fr/) 8.9.1
 
 Haskell files: [GHC](https://www.haskell.org/ghc/) 8.6.5
