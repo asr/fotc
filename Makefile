@@ -3,10 +3,14 @@ SHELL := /bin/bash
 ##############################################################################
 # Paths
 
-fot_path = src/fot
+fot_path             := src/fot
+fot_path_combined    := $(fot_path)/Combined
+fot_path_interactive := $(fot_path)/Interactive
 
 # Notes path.
-notes_path = notes
+notes_path             := notes
+notes_path_combined    := $(notes_path)/combined
+notes_path_interactive := $(notes_path)/interactive
 
 # Output directory for snapshot.
 snapshot_dir = snapshot-fot
@@ -50,13 +54,17 @@ my_pathsubst = \
 
 # FOT
 
-type_check_fot_files = \
-  $(patsubst %.agda, %.type-check-fot, \
-    $(shell find $(fot_path) -name 'Everything.agda' | sort))
+type_check_fot_files_combined = \
+  $(patsubst %.agda, %.type-check-fot-combined, \
+    $(shell find $(fot_path_combined) -name 'Everything.agda' | sort))
+
+type_check_fot_files_interactive = \
+  $(patsubst %.agda, %.type-check-fot-interactive, \
+    $(shell find $(fot_path_interactive) -name 'Everything.agda' | sort))
 
 type_check_agsy_fot_files = \
   $(patsubst %.agda, %.type-check-agsy-fot, \
-    $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
+    $(shell find $(fot_path_interactive)/Agsy/ -name '*.agda' | sort))
 
 create_snapshot_fot_files = \
   $(call my_pathsubst,create-snapshot-fot,$(fot_path))
@@ -76,11 +84,15 @@ consistency_fot_files = \
 
 type_check_agsy_notes_files = \
   $(patsubst %.agda, %.type-check-agsy-notes, \
-    $(shell find $(notes_path)/FOT/Agsy/ -name '*.agda' | sort))
+    $(shell find $(notes_path_interactive)/InteractiveFOT/Agsy/ -name '*.agda' | sort))
 
-type_check_notes_files = \
-  $(patsubst %.agda, %.type-check-notes, \
-    $(shell find $(notes_path) -name '*.agda' | sort))
+type_check_notes_files_interactive = \
+  $(patsubst %.agda, %.type-check-notes-interactive, \
+    $(shell find $(notes_path_interactive) -name '*.agda' | sort))
+
+type_check_notes_files_combined = \
+  $(patsubst %.agda, %.type-check-notes-combined, \
+    $(shell find $(notes_path_combined) -name '*.agda' | sort))
 
 stdlib_changed_files = \
   $(patsubst %.agda, %.stdlib-changed, \
@@ -108,10 +120,7 @@ benchmark_files = \
   $(fot_path)/FOTC/Program/SortList/ProofSpecificationATP.benchmark
 
 ##############################################################################
-# FOT: Type-checking
-
-%.type-check-fot :
-	$(AGDA) $*.agda
+# FOT: Type-checking (Interactive)
 
 %.type-check-agsy-fot :
 	$(AGDA) $*.agda
@@ -119,9 +128,22 @@ benchmark_files = \
 type-check-agsy-fot : $(type_check_agsy_fot_files)
 	@echo "$@ succeeded!"
 
-type-check-fot : $(type_check_fot_files)
+%.type-check-fot-interactive :
+	$(AGDA) $*.agda
+
+type-check-fot-interactive : $(type_check_fot_files_interactive)
+	$(AGDA) $(fot_path_interactive)/README.agda
 	make type-check-agsy-fot
-	$(AGDA) $(fot_path)/README.agda
+	@echo "$@ succeeded!"
+
+##############################################################################
+# FOT: Type-checking (Combined)
+
+%.type-check-fot-combined :
+	$(AGDA) $*.agda
+
+type-check-fot-combined : $(type_check_fot_files_combined)
+	$(AGDA) $(fot_path_combined)/README.agda
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -237,7 +259,7 @@ consistency-fot : $(consistency_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Notes: Type-checking
+# Notes: Type-checking (Interactive)
 
 %.type-check-agsy-notes :
 	$(AGDA) $*.agda
@@ -246,10 +268,19 @@ consistency-fot : $(consistency_fot_files)
 type-check-agsy-notes : $(type_check_agsy_notes_files)
 	@echo "$@ succeeded!"
 
-%.type-check-notes :
+%.type-check-notes-interactive :
 	$(AGDA) $*.agda
 
-type-check-notes : $(type_check_notes_files)
+type-check-notes-interactive : $(type_check_notes_files_interactive)
+	@echo "$@ succeeded!"
+
+##############################################################################
+# Notes: Type-checking (Combined)
+
+%.type-check-notes-combined :
+	$(AGDA) $*.agda
+
+type-check-notes-combined : $(type_check_notes_files_combined)
 	@echo "$@ succeeded!"
 
 ##############################################################################
