@@ -100,12 +100,17 @@ Tested with
 -----------
 The files in this repository have been tested with:
 
-Agda files: Development versions of the
-[extended](https://github.com/asr/eagda/blob/master/README.md) version
-of Agda, [Apia](https://github.com/asr/apia/blob/master/README.md) and
-the Agda
-[standard library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary).
+* Combined Agda files: Development versions of the
+  [extended](https://github.com/asr/eagda/blob/master/README.md)
+  version of Agda and
+  [Apia](https://github.com/asr/apia/blob/master/README.md)
 
-Coq files: [Coq](https://coq.inria.fr/) 8.9.1
+* Interactive Agda files:
+  [Agda](https://agda.readthedocs.io/en/latest/index.html) 2.6.0.1 and
+  [Agda standard
+  library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary)
+  1.0.1
 
-Haskell files: [GHC](https://www.haskell.org/ghc/) 8.6.5
+* Coq files: [Coq](https://coq.inria.fr/) 8.9.1
+
+* Haskell files: [GHC](https://www.haskell.org/ghc/) 8.6.5
