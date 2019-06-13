@@ -8,10 +8,7 @@
 {-# OPTIONS --without-K                #-}
 
 -- Mendelson's axioms for first-order Peano arithmetic [Mendelson,
--- 1977, p. 155].
-
--- Elliott Mendelson. Introduction to mathematical logic. Chapman &
--- Hall, 4th edition, 1997, p. 155.
+-- 2015, p. 154].
 
 -- NB. These axioms formalize the propositional equality.
 
@@ -67,3 +64,10 @@ postulate
 
 -- S₉ is an axiom schema, therefore we do not translate it to TPTP.
 postulate S₉ : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+
+------------------------------------------------------------------------------
+-- References
+
+-- Mendelson, Elliott (2015). Introduction to Mathematical Logic. 6th ed.
+-- CRC Press.
+

@@ -20,8 +20,8 @@ postulate
 postulate ∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
 {-# ATP prove ∀→∃ #-}
 
--- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
--- (Mendelson 1997, proposition 2.18 (b), p. 70).
+-- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A [van
+-- Dalen, 2013, Theorem 3.5.2.iv, p 69].
 postulate ∃-erase-add₁ : (∃[ _ ] A) ↔ A
 {-# ATP prove ∃-erase-add₁ #-}
 
@@ -36,5 +36,5 @@ postulate ∃-erase-add₂ : (∃[ x ] (A ∨ A¹ x)) ↔ A ∨ (∃[ x ] A¹ x)
 ------------------------------------------------------------------------------
 -- References
 --
--- Mendelson, Elliott (1997). Introduction to Mathematical Logic. 4th
--- ed. Chapman & Hall.
+-- van Dalen, Dirk (2013). Logic and Structure. 5th ed. Springer.
+

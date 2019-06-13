@@ -26,7 +26,7 @@ postulate
   _+_ _*_ : ℕ → ℕ → ℕ
 
 -- Proper axioms
--- From (Machover 1996, p. 263) and (Hájek and Pudlák 1998, p. 28):
+-- From [Machover 1996, p. 263] and [Hájek and Pudlák 1998, p. 28]:
 --
 -- PA₁. 0 ≠ n'
 -- PA₂. m' = n' → m = n
