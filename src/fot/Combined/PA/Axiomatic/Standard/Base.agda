@@ -17,7 +17,7 @@ infixl 6 _+_
 open import Common.FOL.FOL-Eq public renaming ( D to ℕ )
 
 -- Common definitions.
-open import Combined.Common.Definitions
+open import Combined.Common.Definitions public
 
 -- Non-logical constants
 postulate

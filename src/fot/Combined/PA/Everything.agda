@@ -29,3 +29,5 @@ open import Combined.PA.Inductive.Relation.Binary.PropositionalEquality
 
 open import Combined.PA.Inductive2Mendelson
 open import Combined.PA.Inductive2Standard
+open import Combined.PA.Mendelson2Standard
+open import Combined.PA.Standard2Mendelson

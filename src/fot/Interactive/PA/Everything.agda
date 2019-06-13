@@ -27,3 +27,5 @@ open import Interactive.PA.Inductive.Relation.Binary.PropositionalEquality
 
 open import Interactive.PA.Inductive2Mendelson
 open import Interactive.PA.Inductive2Standard
+open import Interactive.PA.Mendelson2Standard
+open import Interactive.PA.Standard2Mendelson
