@@ -69,4 +69,4 @@ Sx≡x→⊥ zero ()
 Sx≡x→⊥ (succ n) h = ⊥-elim (Sx≡x→⊥ n (succInjective h))
 
 2^[x+1]≢1 : ∀ n → 2 ^ (succ n) ≢ 1
-2^[x+1]≢1 n h = Sx≡x→⊥ 1 (i*j≡1⇒i≡1 2 (2 ^ n) h)
+2^[x+1]≢1 n h = Sx≡x→⊥ 1 (m*n≡1⇒m≡1 2 (2 ^ n) h)

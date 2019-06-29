@@ -27,7 +27,7 @@ prove_notes_dir = /tmp/prove-notes
 ##############################################################################
 # Variables
 
-AGDA = agda -v 0
+AGDA = agda -v 0 --warning=error
 
 APIA = apia --check --atp=e --atp=equinox --atp=vampire
 # APIA = apia --atp=e
