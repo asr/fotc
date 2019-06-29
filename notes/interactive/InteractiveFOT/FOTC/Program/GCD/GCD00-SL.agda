@@ -16,9 +16,13 @@ open GCD hiding ( refl )
 
 ------------------------------------------------------------------------------
 
-gcd00 : proj₁ (gcd 0 0) ≡ 0
+gcd00 : gcd 0 0 ≡ 0
 gcd00 = refl
 
 -- A different proof.
-gcd00' : GCD 0 0 0
-gcd00' = base
+gcd00₂ : proj₁ (mkGCD 0 0) ≡ 0
+gcd00₂ = refl
+
+-- Other different proof.
+gcd00₃ : GCD 0 0 0
+gcd00₃ = base

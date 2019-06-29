@@ -109,7 +109,7 @@ The files in this repository have been tested with:
   [Agda](https://agda.readthedocs.io/en/latest/index.html) 2.6.0.1 and
   [Agda standard
   library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary)
-  1.0.1
+  1.1
 
 * Coq files: [Coq](https://coq.inria.fr/) 8.9.1
 
