@@ -15,10 +15,10 @@
 module InteractiveFOT.FOTC.Program.Nest.NestBC-SL where
 
 open import Data.Nat renaming ( suc to succ )
+open import Data.Nat.Induction
 open import Data.Nat.Properties
 
 open import Induction
-open import Induction.Nat
 
 open import Relation.Binary
 

@@ -11,8 +11,8 @@ module InteractiveFOT.FOTC.Data.List.WellFoundedRelationsSL {A : Set} where
 open import Data.Product
 open import Data.List hiding ( length )
 open import Data.Nat
+open import Data.Nat.Induction
 
-open import Induction.Nat
 open import Induction.WellFounded
 
 open import Relation.Binary.PropositionalEquality

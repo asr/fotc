@@ -10,10 +10,10 @@ module InteractiveFOT.FOTC.Program.QuickSort.QuickSortBC-SL where
 
 open import Data.List.Base
 open import Data.Nat.Base
+open import Data.Nat.Induction
 open import Data.Nat.Properties
 
 open import Induction
-open import Induction.Nat
 open import Induction.WellFounded
 
 open import Level
@@ -24,7 +24,7 @@ open import Relation.Binary.PropositionalEquality
 open import Relation.Nullary
 
 module InvImg =
-  Induction.WellFounded.Inverse-image {A = List ℕ} {ℕ} {_<′_} length
+  Induction.WellFounded.Inverse-image {B = ℕ} {A = List ℕ} {_<_ = _<′_} length
 
 ------------------------------------------------------------------------------
 
