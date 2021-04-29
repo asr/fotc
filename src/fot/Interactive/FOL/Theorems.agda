@@ -14,11 +14,12 @@ module Interactive.FOL.Theorems where
 open import Interactive.FOL.Base hiding ( D≢∅ ; pem )
 
 ------------------------------------------------------------------------------
--- We postulate some formulae and propositional functions.
-postulate
+-- Variables
+variable
   A     : Set
   A¹ B¹ : D → Set
   A²    : D → D → Set
+------------------------------------------------------------------------------
 
 -- The introduction and elimination rules for the quantifiers are theorems.
 {-

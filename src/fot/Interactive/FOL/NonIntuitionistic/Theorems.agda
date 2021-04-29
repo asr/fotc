@@ -13,19 +13,17 @@ module Interactive.FOL.NonIntuitionistic.Theorems where
 open import Interactive.FOL.Base hiding ( D≢∅ )
 
 ------------------------------------------------------------------------------
--- The principle of indirect proof (proof by contradiction).
-¬-elim : ∀ {A} → (¬ A → ⊥) → A
-¬-elim h = case (λ a → a) (λ ¬a → ⊥-elim (h ¬a)) pem
+-- Variables
 
--- Double negation elimination.
-¬¬-elim : ∀ {A} → ¬ ¬ A → A
-¬¬-elim {A} h = ¬-elim h
+variable
+  A  : Set
+  A¹ : D → Set
 
--- The reductio ab absurdum rule. (Some authors uses this name for the
--- principle of indirect proof).
-raa : ∀ {A} → (¬ A → A) → A
-raa h = case (λ a → a) h pem
+------------------------------------------------------------------------------
+-- Reductio ab absurdum rule (proof by contradiction).
+raa : (¬ A → ⊥) → A
+raa h = case (λ a → a) (λ ¬a → ⊥-elim (h ¬a)) pem
 
--- ∃ in terms of ∀ and ¬.
-¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
-¬∃¬→∀ h {x} = ¬-elim (λ ah → h (x , ah))
+-- ¬∃¬ in terms of ∀.
+¬∃¬→∀ : ¬ (∃[ x ] ¬ A¹ x) → ∀ {x} → A¹ x
+¬∃¬→∀ h {x} = raa (λ ah → h (x , ah))

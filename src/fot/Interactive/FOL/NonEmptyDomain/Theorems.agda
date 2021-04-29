@@ -13,10 +13,13 @@ module Interactive.FOL.NonEmptyDomain.Theorems where
 open import Interactive.FOL.Base hiding ( pem )
 
 ------------------------------------------------------------------------------
--- We postulate some formulae and propositional functions.
-postulate
+-- Variables
+
+variable
   A  : Set
   A¹ : D → Set
+
+------------------------------------------------------------------------------
 
 ∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
 ∀→∃ h = D≢∅ , h
