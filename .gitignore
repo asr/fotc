@@ -11,11 +11,11 @@ apia.tix
 dist
 hpc/
 model
-notes/FOT/FOTC/Program/ABP/ABP
-notes/FOT/FOTC/Program/ABP/ABP_HO
-notes/FOT/FOTC/Program/ABP/ABP_IO
-notes/FOT/FOTC/Program/ABP/Wouter/ABP
-notes/FOT/FOTC/Program/GCD/GCD
+notes/interactive/InteractiveFOT/FOTC/Program/ABP/ABP
+notes/interactive/InteractiveFOT/FOTC/Program/ABP/ABP_HO
+notes/interactive/InteractiveFOT/FOTC/Program/ABP/ABP_IO
+notes/interactive/InteractiveFOT/FOTC/Program/ABP/Wouter/ABP
+notes/interactive/InteractiveFOT/FOTC/Program/GCD/GCD
 snapshot/
 snapshot-fot/
 src/utils/McCarthy91/MCR/MCR
