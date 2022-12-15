@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --exact-split #-}
+{-# OPTIONS --guardedness #-}
 {-# OPTIONS --without-K   #-}
 
 -- From (Sander, 1992, pp. 68-69).

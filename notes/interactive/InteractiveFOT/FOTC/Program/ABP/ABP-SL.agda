@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --exact-split #-}
+{-# OPTIONS --guardedness #-}
 {-# OPTIONS --without-K   #-}
 
 module InteractiveFOT.FOTC.Program.ABP.ABP-SL where

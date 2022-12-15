@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --exact-split #-}
+{-# OPTIONS --guardedness #-}
 {-# OPTIONS --without-K   #-}
 
 module InteractiveFOT.FOTC.UnguardedCorecursion.Alter.AlterSL where

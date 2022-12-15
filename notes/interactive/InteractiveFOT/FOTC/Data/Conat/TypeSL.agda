@@ -4,6 +4,7 @@
 
 {-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --exact-split          #-}
+{-# OPTIONS --guardedness          #-}
 {-# OPTIONS --no-sized-types       #-}
 {-# OPTIONS --without-K            #-}
 
