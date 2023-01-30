@@ -105,11 +105,10 @@ The files in this repository have been tested with:
   version of Agda and
   [Apia](https://github.com/asr/apia/blob/master/README.md)
 
-* Interactive Agda files:
-  [Agda](https://agda.readthedocs.io/en/latest/index.html) 2.6.1.2 and
-  [Agda standard
+* Interactive Agda files: Agda
+  [2.6.3](https://agda.readthedocs.io/en/v2.6.3/) and [Agda standard
   library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary)
-  1.6.
+  1.7.2 RC1.
 
 * Coq files: [Coq](https://coq.inria.fr/) 8.9.1
 
