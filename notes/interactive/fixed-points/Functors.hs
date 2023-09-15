@@ -1,6 +1,5 @@
 {-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE FlexibleInstances         #-}  -- Implies TypeSynonymInstances.
-{-# LANGUAGE UnicodeSyntax             #-}
 
 module Functor where
 
@@ -10,15 +9,15 @@ import Prelude hiding ( pred )
 
 ------------------------------------------------------------------------------
 -- The least fixed-point of the (unary) type constructor f.
-data Mu f = Functor f ⇒ In (f (Mu f))
+data Mu f = Functor f => In (f (Mu f))
 
-unIn ∷ Mu f → f (Mu f)
+unIn :: Mu f -> f (Mu f)
 unIn (In x) = x
 
 -- The greatest fixed-point of the (unary) type constructor f.
-data Nu f = Functor f ⇒ Wrap (f (Nu f))
+data Nu f = Functor f => Wrap (f (Nu f))
 
-out ∷ Nu f → f (Nu f)
+out :: Nu f -> f (Nu f)
 out (Wrap x) = x
 
 ------------------------------------------------------------------------------
@@ -58,27 +57,27 @@ type Empty = Mu IdF
 
 -- NB. It seems we can create an term of type Empty using
 -- non-structural recursion.
-empty ∷ Empty
+empty :: Empty
 empty = In (MkIdF empty)
 
 -- The natural numbers type is a least fixed-point.
 type Nat = Mu NatF
 
 -- The data constructors for the natural numbers.
-zero ∷ Nat
+zero :: Nat
 zero = In Z
 
-succ ∷ Nat → Nat
+succ :: Nat -> Nat
 succ n = In (S n)
 
 -- The list type is a least fixed-point.
 type List a = Mu (ListF a)
 
 -- The data constructors for List.
-nil ∷ List a
+nil :: List a
 nil = In Nil
 
-cons ∷ a → List a → List a
+cons :: a -> List a -> List a
 cons x xs = In (Cons x xs)
 
 ------------------------------------------------------------------------------
@@ -87,11 +86,11 @@ cons x xs = In (Cons x xs)
 -- The unit type is a greatest fixed-point.
 type Unit = Nu IdF
 
-unit ∷ Unit
+unit :: Unit
 unit = Wrap (MkIdF unit)  -- Non-structural recursion.
 
 -- The unit type destructor.
-idUnit ∷ Unit → Unit
+idUnit :: Unit -> Unit
 idUnit u = u
 
 -- The conat type is a greatest fixed-point.
@@ -107,65 +106,65 @@ instance Show Conat where
   show (Wrap Z)     = "zero"
   show (Wrap (S m)) = "s(" ++ show m ++ ")"
 
-zeroC ∷ Conat
+zeroC :: Conat
 zeroC = Wrap Z
 
-succC ∷ Conat → Conat
+succC :: Conat -> Conat
 succC n = Wrap (S n)
 
-inftyC ∷ Conat
+inftyC :: Conat
 inftyC = succC inftyC
 
 data ConatPlusOne = One | MkConat Conat
                     deriving Show
 
 -- The pred function is the conat destructor.
-pred ∷ Conat → ConatPlusOne
+pred :: Conat -> ConatPlusOne
 pred cn = case out cn of
-            Z   → One
-            S x → MkConat x
+            Z   -> One
+            S x -> MkConat x
 
 -- The colist type is a greatest fixed-point.
 type Colist a = Nu (ListF a)
 
 -- The colist data constructors.
-nilCL ∷ Colist a
+nilCL :: Colist a
 nilCL = Wrap Nil
 
-consCL ∷ a → Colist a → Colist a
+consCL :: a -> Colist a -> Colist a
 consCL x xs = Wrap (Cons x xs)
 
 -- The colist destructors.
-nullCL ∷ Colist a → Bool
+nullCL :: Colist a -> Bool
 nullCL xs = case out xs of
-              Nil      → True
-              Cons _ _ → False
+              Nil      -> True
+              Cons _ _ -> False
 
-headCL ∷ Colist a → a
+headCL :: Colist a -> a
 headCL xs = case out xs of
-              Nil     → error "Impossible"
-              Cons x _ → x
+              Nil     -> error "Impossible"
+              Cons x _ -> x
 
-tailCL ∷ Colist a → Colist a
+tailCL :: Colist a -> Colist a
 tailCL xs = case out xs of
-              Nil       → error "Impossible"
-              Cons _ xs' → xs'
+              Nil       -> error "Impossible"
+              Cons _ xs' -> xs'
 
 -- The stream type is a greatest fixed-point.
 type Stream a = Nu (FS a)
 
 -- The stream data constructor.
-consS ∷ a → Stream a → Stream a
+consS :: a -> Stream a -> Stream a
 consS x xs = Wrap (St x xs)
 
 -- The stream destructors.
-headS ∷ Stream a → a
+headS :: Stream a -> a
 headS xs = case out xs of
-             St x _ → x
+             St x _ -> x
 
-tailS ∷ Stream a → Stream a
+tailS :: Stream a -> Stream a
 tailS xs = case out xs of
-             St _ xs' → xs'
+             St _ xs' -> xs'
 
 ------------------------------------------------------------------------------
 -- References

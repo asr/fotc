@@ -1,12 +1,14 @@
 .*.aux
 .fol.*
 .hpc/
+.stack-work/
 *.agdai
 *.glob
 *.hi
 *.o
 *.thy~
 *.vo
+TAGS
 apia.tix
 dist
 hpc/
@@ -20,4 +22,5 @@ snapshot/
 snapshot-fot/
 src/utils/McCarthy91/MCR/MCR
 src/utils/many-axioms/ManyAxioms
-TAGS
+stack.yaml
+stack.yaml.lock

@@ -1,49 +1,48 @@
-{-# LANGUAGE UnicodeSyntax #-}
 
-header ∷ IO ()
+header :: IO ()
 header =
   putStrLn $
     "-- This file was automatically generated.\n\n"
     ++ "module ManyAxioms where\n\n"
     ++ "postulate\n"
     ++ "  D : Set\n"
-    ++ "  _≡_ : D → D → Set\n"
+    ++ "  _≡_ : D -> D -> Set\n"
 
-variable ∷ Int → IO ()
+variable :: Int -> IO ()
 variable n = do
-  let ai ∷ String
+  let ai :: String
       ai = 'a' : show n
   putStrLn $ "postulate " ++ ai ++ " : D"
 
-axiom ∷ Int → IO ()
+axiom :: Int -> IO ()
 axiom n = do
-  let ai ∷ String
+  let ai :: String
       ai = 'a' : show n
 
-      aj ∷ String
+      aj :: String
       aj = 'a' : show (n + 1)
 
-      ax ∷ String
+      ax :: String
       ax = "ax" ++ show n
 
   putStrLn $ "postulate " ++ ax ++ " : " ++ ai ++ " ≡ " ++ aj
   putStrLn $ "{-# ATP axiom " ++ ax ++ " #-}\n"
 
-footer ∷ Int → IO ()
+footer :: Int -> IO ()
 footer n = do
-  let ai ∷ String
+  let ai :: String
       ai = 'a' : show (n - 1)
 
-      aj ∷ String
+      aj :: String
       aj = 'a' : show n
 
   putStrLn $ "postulate foo : " ++ ai ++ " ≡ " ++ aj
   putStrLn "{-# ATP prove foo #-}"
 
-totalVar ∷ Int
+totalVar :: Int
 totalVar = 1000
 
-main ∷ IO ()
+main :: IO ()
 main = do
   header
   mapM_ variable [1..totalVar]

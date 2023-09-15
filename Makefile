@@ -398,7 +398,7 @@ fot-changed :
 %.ghc :
 	@rm -f $*.hi
 	@rm -f $*.o
-	ghc -Wall -Werror $*.hs
+	stack ghc -- -Wall -Werror $*.hs
 
 ghc-changed : $(ghc_files)
 	@echo "$@ succeeded!"

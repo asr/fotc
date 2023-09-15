@@ -1,18 +1,17 @@
-{-# LANGUAGE UnicodeSyntax #-}
 
 -- From Bove, A. and Capretta, V. (2001).
 
 module Min where
 
-import Data.Peano ( PeanoNat(S) )
+import Data.Peano ( Nat(S) )
 import Prelude hiding ( min )
 
 -- Note (25 December 2013): The @otherwise@ guard is required for
 -- avoiding a non-exhaustive pattern matching warning. See
 -- https://ghc.haskell.org/trac/ghc/ticket/29.
-min ∷ (PeanoNat → PeanoNat) → PeanoNat
+min :: (Nat -> Nat) -> Nat
 min f | f 0 == 0  = 0
-      | f 0 /= 0  = S (min (\n → f (S n)))
+      | f 0 /= 0  = S (min (\n -> f (S n)))
       | otherwise = error "min impossible"
 
 ------------------------------------------------------------------------------

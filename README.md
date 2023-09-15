@@ -112,4 +112,4 @@ The files in this repository have been tested with:
 
 * Coq files: [Coq](https://coq.inria.fr/) 8.9.1
 
-* Haskell files: [GHC](https://www.haskell.org/ghc/) 8.6.5
+* Haskell files: [GHC](https://www.haskell.org/ghc/) 9.6.2

@@ -1,7 +1,5 @@
 {-# OPTIONS_GHC -fno-warn-incomplete-patterns #-}
 
-{-# LANGUAGE UnicodeSyntax #-}
-
 -- From: Herbert P. Sander. A logic of functional programs with an
 -- application to concurrency. PhD thesis, Chalmers University of
 -- Technology and University of Gothenburg, Department of Computer
@@ -9,9 +7,9 @@
 
 module Berry where
 
-import Data.Peano ( PeanoNat(S,Z) )
+import Data.Peano ( Nat(S,Z) )
 
-loop ∷ a
+loop :: a
 loop = loop
 
 -- Warning: Pattern match(es) are non-exhaustive
@@ -23,7 +21,7 @@ loop = loop
 --            (S (S _)) (S _) _
 --            ...
 
-f ∷ PeanoNat → PeanoNat → PeanoNat → PeanoNat
+f :: Nat -> Nat -> Nat -> Nat
 f Z     (S Z) _     = S Z
 f (S Z) _     Z     = S (S Z)
 f _     Z     (S Z) = S (S (S Z))

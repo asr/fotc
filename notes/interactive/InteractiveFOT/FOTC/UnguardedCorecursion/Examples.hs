@@ -1,23 +1,22 @@
-{-# LANGUAGE UnicodeSyntax #-}
 
 module Examples where
 
 -- This unguarded function is accepted by Telford and Turner (1998),
-evens ∷ [Int]
+evens :: [Int]
 evens = 2 : map (+2) evens
 
 -- but this unguarded function is correctly rejected
-bh ∷ [Int]
+bh :: [Int]
 bh = 1 : tail bh
 
 -- Other examples
-alter ∷ [Bool]
+alter :: [Bool]
 alter = True : map not alter
 
-alter' ∷ [Bool]
+alter' :: [Bool]
 alter' = True : False : alter'
 
-test ∷ Bool
+test :: Bool
 test = take 10 alter == take 10 alter'
 
 ------------------------------------------------------------------------------
