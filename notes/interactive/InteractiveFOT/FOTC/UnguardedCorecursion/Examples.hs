@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-x-partial #-}
 
 module Examples where
 
@@ -6,6 +7,9 @@ evens :: [Int]
 evens = 2 : map (+2) evens
 
 -- but this unguarded function is correctly rejected
+--
+-- (in GHC 9.8.1, the use of `tail` generates an `-Wx-partial`
+-- warning).
 bh :: [Int]
 bh = 1 : tail bh
 

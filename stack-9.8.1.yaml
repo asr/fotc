@@ -1,10 +1,13 @@
 resolver: nightly-2023-10-09
-compiler: ghc-9.6.3
+compiler: ghc-9.8.1
 compiler-check: match-exact
 
 packages:
   - /home/asr/src/Stream-0.4.7.2/
   - /home/asr/src/QuickCheck-2.14.3/
   - /home/asr/src/my-peano
-  - /home/asr/src/quickcheck-instances-0.3.29.1/
+  - /home/asr/src/quickcheck-instances-0.3.30/
   - /home/asr/src/streams-3.3.2/
+
+extra-deps:
+  - th-abstraction-0.6.0.0
