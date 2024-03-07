@@ -106,7 +106,7 @@ The files in this repository have been tested with:
   [Apia](https://github.com/asr/apia/blob/master/README.md)
 
 * Interactive Agda files: Agda
-  [2.6.4](https://agda.readthedocs.io/en/v2.6.4/) and [Agda standard
+  [2.6.4.3](https://agda.readthedocs.io/en/v2.6.4.3/) and [Agda standard
   library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary)
   1.7.3.
 
