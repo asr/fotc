@@ -12,7 +12,7 @@ module InteractiveFOT.FOTC.Program.Mirror.MirrorListSL where
 open import Algebra
 open import Function
 open import Data.List hiding ( reverse )
-open import Data.List.Properties
+open import Data.List.Properties hiding ( reverse-++ )
 open import Data.Product hiding ( map )
 
 open import Relation.Binary.PropositionalEquality
@@ -74,7 +74,7 @@ helper (t ∷ ts) =
   begin
     reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ []))
      ≡⟨ cong reverse
-             (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
+             (map-++ mirror (reverse (map mirror ts)) (mirror t ∷ []))
      ⟩
     reverse (map mirror (reverse (map mirror ts)) ++
             (map mirror (mirror t ∷ [])))

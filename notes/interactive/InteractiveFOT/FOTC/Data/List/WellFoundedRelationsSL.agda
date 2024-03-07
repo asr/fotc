@@ -46,4 +46,4 @@ open module S = Induction.WellFounded.Subrelation {_<₁_ = LTC} LTC→LTL
 
 -- The relation LTC is well-founded (using the subrelation combinator).
 wfLTC : WellFounded LTC
-wfLTC = S.well-founded wfLTL
+wfLTC = S.wellFounded wfLTL

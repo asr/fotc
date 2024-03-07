@@ -107,10 +107,10 @@ allQSDom = build (AllWF.wfRec-builder _) P ih
     f₂ = filter c₂ zs
 
     prf₁ : QSDom (filter (λ y → y ≤′? z) zs)
-    prf₁ = h f₁ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₁ zs))))
+    prf₁ = h {f₁} (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₁ zs))))
 
     prf₂ : QSDom (filter (λ y → z ≤′? y) zs)
-    prf₂ = h f₂ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₂ zs))))
+    prf₂ = h {f₂} (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₂ zs))))
 
 -- Quicksort algorithm by structural recursion on the domain predicate.
 qsDom : ∀ xs → QSDom xs → List ℕ

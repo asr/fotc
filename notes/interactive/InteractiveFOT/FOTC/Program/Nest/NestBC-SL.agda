@@ -61,10 +61,10 @@ allNestDom = build <′-recBuilder P ih
 
   ih : ∀ y → <′-Rec P y → P y
   ih zero     rec = nestDom0
-  ih (succ y) rec = nestDomS nd-y (rec (nestD y nd-y) (s≤′s (nestD-≤′ y nd-y)))
+  ih (succ y) rec = nestDomS nd-y (rec {nestD y nd-y} (s≤′s (nestD-≤′ y nd-y)))
     where
-    helper : ∀ x → x <′ y → P x
-    helper x Sx≤′y = rec x (≤′-step Sx≤′y)
+    helper : ∀ {x} → x <′ y → P x
+    helper {x} Sx≤′y = rec {x} (≤′-step Sx≤′y)
 
     nd-y : NestDom y
     nd-y = ih y helper

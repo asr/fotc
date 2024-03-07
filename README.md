@@ -108,7 +108,7 @@ The files in this repository have been tested with:
 * Interactive Agda files: Agda
   [2.6.4.3](https://agda.readthedocs.io/en/v2.6.4.3/) and [Agda standard
   library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary)
-  1.7.3.
+  2.0.
 
 * Coq files: [Coq](https://coq.inria.fr/) 8.9.1
 
