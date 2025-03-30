@@ -1,5 +1,6 @@
 .*.aux
 .fol.*
+.ghc.environment.x86_64-linux-*
 .hpc/
 .stack-work/
 *.agdai
@@ -11,6 +12,7 @@
 TAGS
 apia.tix
 dist
+dist-newstyle
 hpc/
 model
 notes/interactive/InteractiveFOT/FOTC/Program/ABP/ABP

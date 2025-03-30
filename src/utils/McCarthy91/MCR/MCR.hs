@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 
 -- We test some properties of the relation MCR with QuickCheck.
 
@@ -7,6 +8,12 @@ import Test.QuickCheck
 
 -- Local imports
 import Data.Peano ( Nat(S) )
+
+------------------------------------------------------------------------------
+
+-- TODO (2025-03-30). The instance is not imported.
+instance Arbitrary Nat where
+  arbitrary = arbitrarySizedNatural
 
 ------------------------------------------------------------------------------
 -- The MCR relation.

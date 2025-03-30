@@ -13,6 +13,7 @@ import Control.Monad ( liftM2, replicateM )
 import Data.Stream.Infinite ( Stream((:>)) )
 import qualified Data.Stream.Infinite as S
 
+-- From random library,
 import System.Random ( newStdGen, random, randoms )
 
 import Test.QuickCheck

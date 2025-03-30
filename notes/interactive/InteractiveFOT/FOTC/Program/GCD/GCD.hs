@@ -1,7 +1,13 @@
 
+{-# OPTIONS_GHC -fno-warn-orphans #-}
+
 import Numeric.Natural ( Natural )
 import Test.QuickCheck
-import Test.QuickCheck.Instances.Natural ()
+
+-- From quickcheck-instances 0.3.32.
+instance Arbitrary Natural where
+  arbitrary = arbitrarySizedNatural
+  shrink    = shrinkIntegral
 
 type Nat = Natural
 
