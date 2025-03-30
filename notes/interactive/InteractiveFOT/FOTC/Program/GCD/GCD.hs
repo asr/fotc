@@ -11,14 +11,25 @@ instance Arbitrary Natural where
 
 type Nat = Natural
 
-gcd' :: Nat -> Nat -> Nat
-gcd' m n =
+gcd1 :: Nat -> Nat -> Nat
+gcd1 m n =
   if n == 0
   then m
-  else if m == 0 then n else if m > n then gcd' (m - n) n else gcd' m (n - m)
+  else if m == 0 then n else if m > n then gcd1 (m - n) n else gcd1 m (n - m)
 
-prop :: Nat -> Nat -> Bool
-prop m n = gcd' m n == gcd m n
+gcd2 :: Nat -> Nat -> Nat
+gcd2 0 n = n
+gcd2 m 0 = m
+gcd2 m n = if m > n then gcd2 (m - n) n else gcd2 m (n - m)
+
+
+prop1 :: Nat -> Nat -> Bool
+prop1 m n = gcd1 m n == gcd m n
+
+prop2 :: Nat -> Nat -> Bool
+prop2 m n = gcd2 m n == gcd m n
 
 main :: IO ()
-main = quickCheck prop
+main = do
+  quickCheck prop1
+  quickCheck prop2
