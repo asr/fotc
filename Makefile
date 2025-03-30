@@ -403,7 +403,7 @@ fot-changed :
 ghc-libraries :
 	cabal install QuickCheck-2.15.0.1 --package-env . --lib
 	cabal install Stream-0.4.7.2 --package-env . --lib
-	cabal install quickcheck-instances-0.3.31 --package-env . --lib
+	# cabal install quickcheck-instances-0.3.32 --package-env . --lib
 	cabal install random-1.2.1.3 --package-env . --lib
 	cabal install streams-3.3.2 --package-env . --lib
 	cabal install all --package-env . --lib
