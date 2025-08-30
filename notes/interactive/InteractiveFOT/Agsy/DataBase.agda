@@ -1,9 +1,6 @@
-{-# OPTIONS --exact-split   #-}
-{-# OPTIONS --no-sized-type #-}
-{-# OPTIONS --without-K     #-}
-
--- Tested with the development version of the Agda standard library on
--- 27 May 2011.
+{-# OPTIONS --exact-split    #-}
+{-# OPTIONS --no-sized-types #-}
+{-# OPTIONS --without-K      #-}
 
 -- Nils' idea about databases in the Agda mailing list.
 -- http://thread.gmane.org/gmane.comp.lang.agda/2911/focus=2917
