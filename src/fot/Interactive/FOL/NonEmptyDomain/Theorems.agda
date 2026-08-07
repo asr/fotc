@@ -21,11 +21,12 @@ variable
 
 ------------------------------------------------------------------------------
 
-∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
+∀→∃ : {P : D → Set} → (∀ {x} → P x) → ∃ P
 ∀→∃ h = D≢∅ , h
 
--- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A [van
--- Dalen, 2013, Theorem 3.5.2.iv, p 69].
+-- Quantification over a variable that does not occur can be erased or
+-- added. Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A.
+-- [van Dalen, 2013, Theorem 3.5.2.iv, p. 69].
 ∃-erase-add₁ : (∃[ _ ] A) ↔ A
 ∃-erase-add₁ = l→r , r→l
   where
@@ -36,7 +37,8 @@ variable
   r→l A = D≢∅ , A
 
 -- Quantification over a variable that does not occur can be erased or
--- added.
+-- added. Let A be a formula. If x is not free in A then ⊢ (∀x)A ↔ A.
+-- [van Dalen, 2013, Theorem 3.5.2.iii, p. 69].
 ∀-erase-add : ((x : D) → A) ↔ A
 ∀-erase-add = l→r , r→l
   where
