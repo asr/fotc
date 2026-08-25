@@ -201,3 +201,15 @@ x*Sy≈x+[x*y] m n = S₉ A A0 is m
             n + m * i  ≈⟨ +-rightCong ih ⟩
             n + n * i  ≈⟨ ≈-sym (x*Sy≈x+[x*y] n i) ⟩
             n * succ i ∎
+
+------------------------------------------------------------------------------
+-- Axioms added to Peano Arithmetic when replacing intuitionistic
+-- logic by Nelson logic N3.
+--
+-- From p. 21 of "Nelson (1949). Constructible Falsity."
+
+n3-14b : ∀ {m n} → m ≉ n → succ m ≉ succ n
+n3-14b m≉n Sm≈Sn = m≉n (S₄ Sm≈Sn)
+
+n3-17b : ∀ {m n} → m ≉ n → n ≉ m
+n3-17b m≉n n≈m = m≉n (≈-sym n≈m)

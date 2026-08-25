@@ -65,3 +65,15 @@ x+Sy≡S[x+y] (succ m) n = succCong (x+Sy≡S[x+y] m n)
 +-comm (succ m) n = succ (m + n) ≡⟨ succCong (+-comm m n) ⟩
                     succ (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
                     n + succ m   ∎
+
+------------------------------------------------------------------------------
+-- Axioms added to Peano Arithmetic when replacing intuitionistic
+-- logic by Nelson logic N3.
+--
+-- From p. 21 of "Nelson (1949). Constructible Falsity."
+
+n3-14b : ∀ {m n} → m ≢ n → succ m ≢ succ n
+n3-14b m≢n Sm≡Sn = m≢n (P₃ Sm≡Sn)
+
+n3-17b : ∀ {m n} → m ≢ n → n ≢ m
+n3-17b m≢n n≡m = m≢n (sym n≡m)

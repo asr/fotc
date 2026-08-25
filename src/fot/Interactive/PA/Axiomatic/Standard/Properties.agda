@@ -95,3 +95,15 @@ x+Sy≡S[x+y] m n = ℕ-ind A A0 is m
             succ (i + n) ≡⟨ succCong ih ⟩
             succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
             n + succ i   ∎
+
+------------------------------------------------------------------------------
+-- Axioms added to Peano Arithmetic when replacing intuitionistic
+-- logic by Nelson logic N3.
+--
+-- From p. 21 of "Nelson (1949). Constructible Falsity."
+
+n3-14b : ∀ {m n} → m ≢ n → succ m ≢ succ n
+n3-14b m≢n Sm≡Sn = m≢n (PA₂ Sm≡Sn)
+
+n3-17b : ∀ {m n} → m ≢ n → n ≢ m
+n3-17b m≢n n≡m = m≢n (sym n≡m)
